@@ -153,18 +153,7 @@ export = class extends Generator
                     },
                     {
                         name: 'Error-Messages',
-                        value: 'errors',
-                        disabled: (answers: Generator.Answers) =>
-                        {
-                            if ((answers['components'] as string[]).indexOf('acpOptions') < 0)
-                            {
-                                return 'Please enable Control Panel-options in order to use error-messages!';
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
+                        value: 'errors'
                     },
                     {
                         type: 'separator',
