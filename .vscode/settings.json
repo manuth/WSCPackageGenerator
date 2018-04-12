@@ -6,6 +6,19 @@
         "**/**.js": {
             "when": "$(basename).tsx"
         },
-        "**/*.js.map": true
+        "**/*.js.map": {
+            "when": "$(basename)"
+        }
+    },
+    "search.exclude": {
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/**.js": {
+            "when": "$(basename).tsx"
+        },
+        "**/*.js.map": {
+            "when": "$(basename)"
+        }
     }
 }
