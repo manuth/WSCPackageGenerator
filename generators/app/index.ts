@@ -7,6 +7,11 @@ import yosay = require('yosay');
 export = class extends Generator
 {
     /**
+     * The options provided by the user.
+     */
+    private settings: { [key: string]: any };
+
+    /**
      * Initializes a new instance of the `Generator` class.
      * 
      * @param args
@@ -286,16 +291,18 @@ export = class extends Generator
 
         return this.prompt(prompts).then(answers =>
         {
-            // To access props later use this.props.someAnswer;
+            this.settings = answers;
         });
     }
 
     writing()
     {
+        this.destinationRoot(this.settings['destination']);
+        this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.settings);
+        this.fs.copyTpl(this.templatePath('meta.json'), this.destinationPath('meta.json'), this.settings);
     }
 
     install()
     {
-        this.installDependencies({ npm: true, bower: false });
     }
 };
