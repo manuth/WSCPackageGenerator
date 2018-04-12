@@ -310,7 +310,6 @@ export = class extends Generator
     {
         this.destinationRoot(this.settings['destination']);
         this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.settings);
-        this.fs.copyTpl(this.templatePath('meta.json'), this.destinationPath('meta.json'), this.settings);
         this.fs.copy(this.templatePath('lib'), this.destinationPath('lib'));
         this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
     }
