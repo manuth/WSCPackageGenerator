@@ -5,20 +5,17 @@
     "tasks": [
         {
             "label": "Compile",
-            "type": "shell",
-            "command": "npm",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "args": [
-                "run", "compile", "--loglevel", "silent"
-            ],
-            "isBackground": true,
-            "problemMatcher": "$tsc-watch",
+            "type": "npm",
+            "script": "watch",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": "$tsc-watch",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "isBackground": true
         }
     ]
 }
