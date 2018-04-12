@@ -3,6 +3,7 @@ import * as Path from 'path';
 import * as Generator from 'yeoman-generator';
 import chalk from 'chalk';
 import yosay = require('yosay');
+import Node from './templates/lib/Node';
 
 export = class extends Generator
 {
@@ -136,7 +137,7 @@ export = class extends Generator
                     },
                     {
                         name: 'Control Panel-Options and Categories',
-                        value: 'acp'
+                        value: 'acpOptions'
                     },
                     {
                         name: 'Event-Listeners',
@@ -152,7 +153,18 @@ export = class extends Generator
                     },
                     {
                         name: 'Error-Messages',
-                        value: 'errors'
+                        value: 'errors',
+                        disabled: (answers: Generator.Answers) =>
+                        {
+                            if ((answers['components'] as string[]).indexOf('acpOptions') < 0)
+                            {
+                                return 'Please enable Control Panel-options in order to use error-messages!';
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
                     },
                     {
                         type: 'separator',
@@ -186,14 +198,13 @@ export = class extends Generator
             },
             {
                 type: 'input',
-                name: 'sourcePath',
-                message: 'Where do you want to store the files?',
-                default: 'files',
+                name: 'filesConfig',
+                message: 'Where do you want to store your file-settings?',
+                default: 'files.ts',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('files') >= 0;
-                },
-                validate: this.enforceDifferentFolder
+                }
             },
             {
                 type: 'input',
@@ -202,7 +213,7 @@ export = class extends Generator
                 default: 'acp.ts',
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('acp') >= 0;
+                    return (answers['components'] as string[]).indexOf('acpOptions') >= 0;
                 }
             },
             {
@@ -300,9 +311,12 @@ export = class extends Generator
         this.destinationRoot(this.settings['destination']);
         this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.settings);
         this.fs.copyTpl(this.templatePath('meta.json'), this.destinationPath('meta.json'), this.settings);
+        this.fs.copy(this.templatePath('lib'), this.destinationPath('lib'));
+        this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
     }
 
     install()
     {
+        this.installDependencies({ bower: false, npm: true })
     }
 };
