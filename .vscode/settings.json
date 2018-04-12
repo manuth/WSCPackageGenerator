@@ -20,5 +20,6 @@
         "**/*.js.map": {
             "when": "$(basename)"
         }
-    }
+    },
+    "npm.exclude": "**/templates/**"
 }
