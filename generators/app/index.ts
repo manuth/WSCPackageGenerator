@@ -2,7 +2,7 @@
 import * as Path from 'path';
 import * as Generator from 'yeoman-generator';
 import chalk from 'chalk';
-const yosay = require('yosay');
+import yosay = require('yosay');
 
 export = class extends Generator
 {
