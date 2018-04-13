@@ -99,28 +99,29 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "identifier",
-                message: "Please type an identifier for your package:",
-                default: (answers: Generator.Answers) =>
-                {
-                    return "com.example." + (answers["name"] as string).toLowerCase();
-                },
-                validate: this.forceInput
-            },
-            {
-                type: "input",
                 name: "description",
                 message: "Please enter a description:"
             },
             {
                 type: "input",
                 name: "author",
-                message: "Please enter your name."
+                message: "Please enter your name.",
+                default: this.user.git.name
             },
             {
                 type: "input",
                 name: "authorURL",
                 message: "Please enter your homepage."
+            },
+            {
+                type: "input",
+                name: "identifier",
+                message: "Please type an identifier for your package:",
+                default: (answers: Generator.Answers) =>
+                {
+                    return (answers['authorURL'] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".") + "." + (answers["name"] as string).toLowerCase();
+                },
+                validate: this.forceInput
             },
             {
                 type: "checkbox",
@@ -289,8 +290,10 @@ export = class extends Generator
     writing()
     {
         this.destinationRoot(this.settings["destination"]);
-        this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
+        this.fs.copy(this.templatePath("templates"), this.destinationPath("templates"));
         this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
+        this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
+        this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copy(this.templatePath("tsconfig.json"), this.destinationPath("tsconfig.json"));
     }
 
