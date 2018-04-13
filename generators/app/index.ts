@@ -197,12 +197,6 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "componentsPath",
-                message: "Where do you want to store your components?",
-                default: "components"
-            },
-            {
-                type: "input",
                 name: "filesConfig",
                 message: "Where do you want to store your file-mappings?",
                 default: "FileMappings",
@@ -292,12 +286,23 @@ export = class extends Generator
 
     writing()
     {
+        let componentsPath = (value): string =>
+        {
+            return this.destinationPath("components", value);
+        }
+
         this.destinationRoot(this.settings["destination"]);
-        this.fs.copy(this.templatePath("templates"), this.destinationPath("templates"));
         this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
         this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copy(this.templatePath("tsconfig.json"), this.destinationPath("tsconfig.json"));
+        this.fs.copyTpl(this.templatePath("Files.ts"), componentsPath("Files.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("Options.ts"), componentsPath("Options.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("EventListeners.ts"), componentsPath("EventListeners.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("Translations.ts"), componentsPath("Translations.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("Templates.ts"), componentsPath("Templates.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("ACPTemplates.ts"), componentsPath("ACPTemplates.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("TemplateListeners.ts"), componentsPath("TemplateListeners.ts"), this.settings);
     }
 
     install()
