@@ -192,11 +192,7 @@ export = class extends Generator
                 type: "input",
                 name: "componentsPath",
                 message: "Where do you want to store your components?",
-                default: "components",
-                when: (answers: Generator.Answers) =>
-                {
-                    return (answers["components"] as string[]).length > 0;
-                }
+                default: "components"
             },
             {
                 type: "input",
