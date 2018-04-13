@@ -119,7 +119,14 @@ export = class extends Generator
                 message: "Please type an identifier for your package:",
                 default: (answers: Generator.Answers) =>
                 {
-                    return (answers['authorURL'] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".") + "." + (answers["name"] as string).toLowerCase();
+                    let reversedURI = (answers['authorURL'] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
+
+                    if (reversedURI.length === 0)
+                    {
+                        reversedURI = "com.example";
+                    }
+
+                    return reversedURI + "." + (answers["name"] as string).toLowerCase();
                 },
                 validate: this.forceInput
             },
