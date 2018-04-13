@@ -21,5 +21,8 @@
             "when": "$(basename)"
         }
     },
-    "npm.exclude": "**/templates/**"
+    "npm.exclude": "**/templates/**",
+    "files.associations": {
+        "**/templates/*": "ejs"
+    }
 }
