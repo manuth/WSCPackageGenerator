@@ -11,7 +11,7 @@ export default class FileMapping
     /**
      * The application to provide the files for.
      */
-    private application: string = '';
+    private application: string = "";
 
     /**
      * Initializes a new instance of the `FileMapping` class.

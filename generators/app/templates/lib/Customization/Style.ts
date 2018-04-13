@@ -1,4 +1,4 @@
-import * as FileSystem from 'fs';
+import * as FileSystem from "fs";
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
 import Package from '../Package';

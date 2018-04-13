@@ -10,7 +10,7 @@ export default class EventListener extends Listener
     /**
      * The name of the class that invokes the event to subscribe to.
      */
-    private className: string = '';
+    private className: string = "";
 
     /**
      * A value indicating whether classes that inherit `className` should be subscribed, too.

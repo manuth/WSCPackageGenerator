@@ -10,7 +10,7 @@ export default class OptionItem
     /**
      * The name of the item.
      */
-    private name: string = '';
+    private name: string = "";
 
     /**
      * The value of the item.
@@ -79,7 +79,7 @@ export default class OptionItem
      */
     public get FullName(): string
     {
-        return [ this.Option.FullName, this.Name ].join('.');
+        return [ this.Option.FullName, this.Name ].join(".");
     }
 
     /**

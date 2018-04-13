@@ -1,5 +1,5 @@
-import * as FileSystem from 'fs';
-import * as Path from 'path';
+import * as FileSystem from "fs";
+import * as Path from "path";
 import Component from "./Component";
 import SettingsNode from "./SettingsNode";
 import Option from "./Option";
@@ -22,7 +22,7 @@ export default class Package extends Component
     /**
      * The identifier of the package.
      */
-    private identifier: string = '';
+    private identifier: string = "";
 
     /**
      * The file-mappings of the files provided by this package.
@@ -119,9 +119,9 @@ export default class Package extends Component
             
             for (let styleFolder of styleFolders)
             {
-                let metaFile = Path.join(styleFolder, 'style');
+                let metaFile = Path.join(styleFolder, "style");
 
-                if (FileSystem.existsSync(metaFile + '.js'))
+                if (FileSystem.existsSync(metaFile + ".js"))
                 {
                     this.styles.push(require(metaFile));
                 }

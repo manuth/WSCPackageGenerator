@@ -1,7 +1,7 @@
-import WSCNode from './NodeContainer';
-import NodeCollection from './Collections/NodeCollection';
-import Option from './Option';
-import Localizable from './Globalization/Localizable';
+import WSCNode from "./NodeContainer";
+import NodeCollection from "./Collections/NodeCollection";
+import Option from "./Option";
+import Localizable from "./Globalization/Localizable";
 
 /**
  * Represents a node that contains options and categories.
