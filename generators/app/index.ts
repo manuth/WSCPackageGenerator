@@ -201,7 +201,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'filesConfig',
                 message: 'Where do you want to store your file-mappings?',
-                default: 'FileMappings.ts',
+                default: 'FileMappings',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('files') >= 0;
@@ -211,7 +211,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'optionsFile',
                 message: 'Where do you want to store the ACP-options and categories?',
-                default: 'Options.ts',
+                default: 'Options',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('acpOptions') >= 0;
@@ -221,7 +221,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'eventListenersFile',
                 message: 'Where do you want to store your event-listeners?',
-                default: 'EventListeners.ts',
+                default: 'EventListeners',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('eventListener') >= 0;
@@ -231,7 +231,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'translationsFile',
                 message: 'Where do you want to store your translations?',
-                default: 'Translations.ts',
+                default: 'Translations',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('translations') >= 0;
@@ -241,7 +241,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'templateConfig',
                 message: 'Where do you want to store templates?',
-                default: 'Templates.ts',
+                default: 'Templates',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('template') >= 0;
@@ -249,9 +249,9 @@ export = class extends Generator
             },
             {
                 type: 'input',
-                name: 'acpTemplatePath',
+                name: 'acpTemplateConfig',
                 message: 'Where do you want to store ACP-templates?',
-                default: 'ACPTemplates.ts',
+                default: 'ACPTemplates',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('acpTemplate') >= 0;
@@ -262,7 +262,7 @@ export = class extends Generator
                 type: 'input',
                 name: 'templateListenerFile',
                 message: 'Where do you want to store template-listeners?',
-                default: 'TemplateListeners.ts',
+                default: 'TemplateListeners',
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('templateListener') >= 0;
@@ -271,7 +271,7 @@ export = class extends Generator
             {
                 type: 'input',
                 name: 'emojiFile',
-                default: 'Emojis.ts',
+                default: 'Emojis',
                 message: 'Where do you want to store emojis?',
                 when: (answers: Generator.Answers) =>
                 {
