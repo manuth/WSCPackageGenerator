@@ -6,7 +6,7 @@ export class Person
     /**
      * The name of the person.
      */
-    private name: string = "";
+    private name: string = '';
 
     /**
      * The homepage of the person.

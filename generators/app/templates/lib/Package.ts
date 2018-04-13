@@ -1,18 +1,9 @@
-import * as FileSystem from "fs";
-import * as Path from "path";
 import Component from "./Component";
-import SettingsNode from "./SettingsNode";
+import Instruction from "./Instruction";
+import UpdateInstruction from "./UpdateInstruction";
+import InstructionCollection from "./Collections/InstructionCollection";
 import Option from "./Option";
-import TranslationNode from "./Globalization/TranslationNode";
-import Translation from "./Globalization/Translation";
-import ErrorMessageNode from "./Globalization/ErrorMessageNode";
-import ErrorMessage from "./Globalization/ErrorMessage";
-import Style from "./Customization/Style";
-import StyleCollection from "./Collections/StyleCollection";
-import FileMapping from "./FileMapping";
-import TemplateListener from "./Customization/TemplateListener";
-import Emoji from "./Customization/Emoji";
-import PackageConfig from "./PackageConfig";
+import SettingsNode from "./SettingsNode";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -22,62 +13,22 @@ export default class Package extends Component
     /**
      * The identifier of the package.
      */
-    private identifier: string = "";
+    private identifier: string = '';
 
     /**
-     * The file-mappings of the files provided by this package.
+     * The instruction that is used for installing the packge.
      */
-    private fileMappings: FileMapping[] = [];
+    private installInstruction = new Instruction({ Package: this });
 
     /**
-     * The event-listeners provided by this package.
+     * A set of instructions for updating the package.
      */
-    private eventListeners: EventListener[] = [];
-
-    /**
-     * The node that contains the settings provided by this package.
-     */
-    private settingsNode: SettingsNode = new SettingsNode();
-
-    /**
-     * The node that contains the translations provided by this package.
-     */
-    private translationNode: TranslationNode = new TranslationNode();
-
-    /**
-     * The node that contains error-messages provided by this package.
-     */
-    private errorMessageNode: ErrorMessageNode = new ErrorMessageNode();
-
-    /**
-     * The styles provided by this package.
-     */
-    private styles: Style[] = new StyleCollection(this);
-
-    /**
-     * The root of the template-files provided by this package.
-     */
-    private templateRoot: string = null;
-
-    /**
-     * The root of the template-files for the acp provided by this package.
-     */
-    private acpTemplateRoot: string = null;
-
-    /**
-     * The template-listeners provided by this package.
-     */
-    private templateListeners: TemplateListener[] = [];
-
-    /**
-     * The emojis provided by this package.
-     */
-    private emojis: Emoji[] = [];
+    private updateInstructions: UpdateInstruction[] = new InstructionCollection(this);
 
     /**
      * Initializes a new instance of the `Package` class.
      */
-    public constructor(options: Partial<PackageConfig> = { })
+    public constructor(options: Partial<Package> = { })
     {
         super(options);
 
@@ -86,66 +37,14 @@ export default class Package extends Component
             this.identifier = options.Identifier;
         }
 
-        if (options.Files)
+        if (options.InstallInstruction)
         {
-            this.fileMappings.push(...require(options.Files));
+            this.installInstruction = options.InstallInstruction;
         }
 
-        if (options.EventListeners)
+        if (options.UpdateInstructions)
         {
-            this.eventListeners.push(...require(options.EventListeners));
-        }
-
-        if (options.Options)
-        {
-            this.settingsNode = require(options.Options);
-        }
-
-        if (options.Translations)
-        {
-            this.translationNode = require(options.Translations);
-        }
-
-        if (options.Errors)
-        {
-            this.errorMessageNode = require(options.Errors);
-        }
-
-        if (options.StylesRoot)
-        {
-            let styleFolders = FileSystem.readdirSync(Path.join(__dirname, options.StylesRoot)).map(
-                entry => Path.join(__dirname, options.StylesRoot, entry)).filter(
-                    entry => FileSystem.lstatSync(entry).isDirectory());
-            
-            for (let styleFolder of styleFolders)
-            {
-                let metaFile = Path.join(styleFolder, "style");
-
-                if (FileSystem.existsSync(metaFile + ".js"))
-                {
-                    this.styles.push(require(metaFile));
-                }
-            }
-        }
-
-        if (options.TemplatesRoot)
-        {
-            this.templateRoot = options.TemplatesRoot;
-        }
-
-        if (options.ACPTemplatesRoot)
-        {
-            this.acpTemplateRoot = options.ACPTemplatesRoot;
-        }
-
-        if (options.TemplateListeners)
-        {
-            this.templateListeners.push(...require(options.TemplateListeners));
-        }
-
-        if (options.Emojis)
-        {
-            this.emojis.push(...require(options.Emojis));
+            this.updateInstructions.push(...options.UpdateInstructions);
         }
     }
 
@@ -163,40 +62,32 @@ export default class Package extends Component
     }
 
     /**
-     * Gets the file-mappings of the files provided by this package.
+     * Gets or sets the instruction that is used for installing the packge.
      */
-    public get FileMappings(): FileMapping[]
+    public get InstallInstruction(): Instruction
     {
-        return this.fileMappings;
+        return this.installInstruction;
+    }
+
+    public set InstallInstruction(value: Instruction)
+    {
+        this.installInstruction = value;
     }
 
     /**
-     * Gets the event-listeners provided by this package.
+     * Gets a set of instructions for updating the package.
      */
-    public get EventListeners(): EventListener[]
+    public get UpdateInstructions(): UpdateInstruction[]
     {
-        return this.eventListeners;
-    }
-
-    /**
-     * Gets the node that contains the settings provided by this package.
-     */
-    public get SettingsNode(): SettingsNode
-    {
-        return this.settingsNode;
-    }
-
-    public set SettingsNode(value: SettingsNode)
-    {
-        this.settingsNode = value;
+        return this.updateInstructions;
     }
 
     /**
      * Gets the options provided by this package.
      */
-    public get Options(): Option[]
+    public get Options(): { [id: string]: Option }
     {
-        return [];
+        return this.installInstruction.Options;
     }
 
     /**
@@ -204,93 +95,6 @@ export default class Package extends Component
      */
     public get Categories(): SettingsNode[]
     {
-        return [];
-    }
-
-    /**
-     * Gets the node that contains the translations provided by this package.
-     */
-    public get TranslationNode(): TranslationNode
-    {
-        return this.translationNode;
-    }
-
-    public set TranslationNode(value: TranslationNode)
-    {
-        this.translationNode = value;
-    }
-
-    /**
-     * Gets the translations provided by this packages.
-     */
-    public get Translations(): Translation[]
-    {
-        return [];
-    }
-
-    /**
-     * Gets the node that contains error-messages provided by this package.
-     */
-    public get ErrorMessageNode(): ErrorMessageNode
-    {
-        return this.errorMessageNode;
-    }
-
-    /**
-     * Gets the error-messages provided by this package.
-     */
-    public get ErrorMessages(): ErrorMessage[]
-    {
-        return [];
-    }
-
-    /**
-     * Gets the styles provided by this package.
-     */
-    public get Styles(): Style[]
-    {
-        return this.styles;
-    }
-
-    /**
-     * Gets or sets the root of the template-files provided by this package.
-     */
-    public get TemplateRoot(): string
-    {
-        return this.templateRoot;
-    }
-
-    public set TemplateRoot(value: string)
-    {
-        this.templateRoot = value;
-    }
-
-    /**
-     * Gets or sets the root of the template-files for the acp provided by this package.
-     */
-    public get ACPTemplateRoot(): string
-    {
-        return this.acpTemplateRoot;
-    }
-
-    public set ACPTemplateRoot(value: string)
-    {
-        this.acpTemplateRoot = value;
-    }
-
-    /**
-     * Gets or sets the template-listeners provided by this package.
-     */
-    public get TemplateListeners(): TemplateListener[]
-    {
-        return this.templateListeners;
-    }
-
-    /**
-     * Gets the emojis provided by this package.
-     */
-    public get Emojis(): Emoji[]
-    {
-        return this.emojis;
+        return this.installInstruction.Categories;
     }
 }

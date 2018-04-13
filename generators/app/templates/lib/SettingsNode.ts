@@ -1,7 +1,7 @@
-import WSCNode from "./NodeContainer";
-import NodeCollection from "./Collections/NodeCollection";
-import Option from "./Option";
-import Localizable from "./Globalization/Localizable";
+import WSCNode from './NodeContainer';
+import NodeCollection from './Collections/NodeCollection';
+import Option from './Option';
+import Localizable from './Globalization/Localizable';
 
 /**
  * Represents a node that contains options and categories.
@@ -86,5 +86,45 @@ export default class SettingsNode extends WSCNode
     public get Options(): Option[]
     {
         return this.options;
+    }
+
+    /**
+     * Gets all options in this node and all its sub-nodes.
+     */
+    public GetOptions(): { [id: string]: Option }
+    {
+        let result: { [id: string]: Option } = { };
+        
+        for (let option of this.Options)
+        {
+            result[option.ID] = option;
+        }
+
+        for (let node of this.Nodes)
+        {
+            Object.assign(result, node.GetOptions());
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets all categories in this node and all its sub-nodes.
+     */
+    public GetCategories(): SettingsNode[]
+    {
+        let result: SettingsNode[] = [];
+
+        if (/^wcf\.acp\.option\..*/.test(this.FullName))
+        {
+            result.push(this);
+        }
+
+        for (let node of this.Nodes)
+        {
+            result.push(...node.GetCategories());
+        }
+
+        return result;
     }
 }

@@ -1,12 +1,12 @@
 import NodeContainer from "../NodeContainer";
 import NodeCollection from "../Collections/NodeCollection";
-import Translation from "./Translation";
+import Localizable from "./Localizable";
 
 /**
  * Represents a node that contains localized variables.
  */
 export default class TranslationNode extends NodeContainer
-{
+{   
     /**
      * The nodes contained by this node.
      */
@@ -15,7 +15,7 @@ export default class TranslationNode extends NodeContainer
     /**
      * The translations contained by this node.
      */
-    private translations: Translation[] = new NodeCollection(this);
+    private translations: Localizable = new Localizable();
 
     /**
      * Initializes a new instance of the `TranslationNode` class.
@@ -31,7 +31,7 @@ export default class TranslationNode extends NodeContainer
 
         if (options.Translations)
         {
-            this.translations.push(...options.Translations);
+            Object.assign(this.translations, options.Translations);
         }
     }
 
@@ -46,7 +46,7 @@ export default class TranslationNode extends NodeContainer
     /**
      * Gets the translations contained by this node.
      */
-    public get Translations(): Translation[]
+    public get Translations(): Localizable
     {
         return this.translations;
     }

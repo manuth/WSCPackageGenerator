@@ -10,12 +10,12 @@ export default class Emoji
     /**
      * The name of the emoji.
      */
-    private name: string = "";
+    private name: string = '';
 
     /**
      * The filename relative to the root of WoltLab Suite Core of the emoji.
      */
-    private fileName: string = "";
+    private fileName: string = '';
 
     /**
      * The filename relative to the root of WoltLab Suite Core of the high-resolution emoji.

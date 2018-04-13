@@ -11,6 +11,11 @@ import SettingsNode from "./SettingsNode";
 export default class Option extends Node
 {
     /**
+     * The id of the option.
+     */
+    private id: string = null;
+
+    /**
      * The displayname of the option.
      */
     private displayName: Localizable = new Localizable();
@@ -52,6 +57,11 @@ export default class Option extends Node
     {
         super(options);
 
+        if (options.ID)
+        {
+            this.id = options.ID;
+        }
+
         if (options.DisplayName)
         {
             Object.assign(this.displayName, options.DisplayName);
@@ -84,19 +94,24 @@ export default class Option extends Node
     }
 
     /**
+     * Gets or sets the id of the option.
+     */
+    public get ID(): string
+    {
+        return this.id;
+    }
+
+    public set ID(value: string)
+    {
+        this.id = value;
+    }
+
+    /**
      * Gets the displayname of the option.
      */
     public get DisplayName(): Localizable
     {
         return this.displayName;
-    }
-
-    /**
-     * Gets the full name of the node.
-     */
-    public get FullName(): string
-    {
-        return super.FullName;
     }
     
     /**

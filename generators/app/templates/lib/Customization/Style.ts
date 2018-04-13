@@ -1,7 +1,7 @@
-import * as FileSystem from "fs";
+import * as FileSystem from 'fs';
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
-import Package from '../Package';
+import Instruction from '../Instruction';
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -9,9 +9,9 @@ import Package from '../Package';
 export default class Style extends Component
 {
     /**
-     * The package this style belongs to.
+     * The instruction this style belongs to.
      */
-    private package: Package;
+    private instruction: Instruction;
 
     /**
      * The filename of the thumbnail of the style.
@@ -73,16 +73,16 @@ export default class Style extends Component
     }
 
     /**
-     * Gets or sets the package this style belongs to.
+     * Gets or sets the instruction this style belongs to.
      */
-    public get Package(): Package
+    public get Instruction(): Instruction
     {
-        return this.package;
+        return this.instruction;
     }
 
-    public set Package(value: Package)
+    public set Instruction(value: Instruction)
     {
-        this.package = value;
+        this.instruction = value;
     }
 
     /**

@@ -1,14 +1,16 @@
 import Component from "./Component";
+import Package from "./Package";
+import FileMapping from "./FileMapping";
 
 /**
  * Represents a package-configuration.
  */
-export default class PackageConfig extends Component
+export default class InstructionConfig
 {
     /**
-     * The identifier of the package.
+     * The package this instruction belongs to.
      */
-    private identifier: string = "";
+    private package: Package = null;
 
     /**
      * The config-file of the file-mappings.
@@ -41,14 +43,14 @@ export default class PackageConfig extends Component
     private stylesRoot: string = null;
 
     /**
-     * The folder that contains the templates.
+     * The config-file of the template-mappings.
      */
-    private templatesRoot: string = null;
+    private templateMappings: string = null;
 
     /**
-     * The folder that contains the acp-templates.
+     * The config-file of the acp template-mappings.
      */
-    private acpTemplatesRoot: string = null;
+    private acpTemplateMappings: string = null;
 
     /**
      * The config-file of the template-listeners.
@@ -61,16 +63,16 @@ export default class PackageConfig extends Component
     private emojis: string = null;
 
     /**
-     * Gets or sets the identifier of the package.
+     * Gets or sets the package this instruction belongs to.
      */
-    public get Identifier(): string
+    public get Package(): Package
     {
-        return this.identifier;
+        return this.package;
     }
 
-    public set Identifier(value: string)
+    public set Package(value: Package)
     {
-        this.identifier = value;
+        this.package = value;
     }
 
     /**
@@ -152,29 +154,29 @@ export default class PackageConfig extends Component
     }
 
     /**
-     * Gets or sets the folder that contains the templates.
+     * Gets or sets the config-file of the template-mappings.
      */
-    public get TemplatesRoot(): string
+    public get TemplateMappings(): string
     {
-        return this.templatesRoot;
+        return this.templateMappings;
     }
 
-    public set TemplatesRoot(value: string)
+    public set TemplateMappings(value: string)
     {
-        this.templatesRoot = value;
+        this.templateMappings = value;
     }
 
     /**
-     * Gets or sets the folder that contains the acp-templates.
+     * Gets or sets the config-file of the acp template-mappings.
      */
-    public get ACPTemplatesRoot(): string
+    public get ACPTemplateMappings(): string
     {
-        return this.acpTemplatesRoot;
+        return this.acpTemplateMappings;
     }
 
-    public set ACPTemplatesRoot(value: string)
+    public set ACPTemplateMappings(value: string)
     {
-        this.acpTemplatesRoot = value;
+        this.acpTemplateMappings = value;
     }
 
     /**
@@ -185,7 +187,7 @@ export default class PackageConfig extends Component
         return this.templateListeners;
     }
 
-    public set TemplatesListeners(value: string)
+    public set TemplateListeners(value: string)
     {
         this.templateListeners = value;
     }

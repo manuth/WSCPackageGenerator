@@ -3,32 +3,32 @@ enum OptionType
     /**
      * Indicates a checkbox.
      */
-    CheckBox = "boolean",
+    CheckBox = 'boolean',
 
     /**
      * Indicates a text-box.
      */
-    TextBox = "text",
+    TextBox = 'text',
 
     /**
      * Indicates a combo-box.
      */
-    ComboBox = "select",
+    ComboBox = 'select',
 
     /**
      * Indicates a secure text-box.
      */
-    PasswordTextBox = "password",
+    PasswordTextBox = 'password',
 
     /**
      * Indicates a set of radio-buttons.
      */
-    RadioButton = "radioButton",
+    RadioButton = 'radioButton',
 
     /**
      * Indicates a multiselect-list.
      */
-    CheckBoxList = "multiSelect"
+    CheckBoxList = 'multiSelect'
 }
 
 export default OptionType;
