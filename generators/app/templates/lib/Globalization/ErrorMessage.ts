@@ -13,12 +13,4 @@ export default class ErrorMessage extends Translation
     {
         super(options);
     }
-
-    /**
-     * Gets the full name of the node.
-     */
-    public get FullName(): string
-    {
-        return 'wcf.acp.option.error.' + super.FullName;
-    }
 }

@@ -63,14 +63,6 @@ export default class SettingsNode extends WSCNode
     {
         return this.displayName;
     }
-
-    /**
-     * Gets the full name of the node.
-     */
-    public get FullName(): string
-    {
-        return 'wcf.acp.option.' + super.FullName;
-    }
     
     /**
      * Gets the description of the node.

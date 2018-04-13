@@ -96,7 +96,7 @@ export default class Option extends Node
      */
     public get FullName(): string
     {
-        return 'wcf.acp.option.' + super.FullName;
+        return super.FullName;
     }
     
     /**
