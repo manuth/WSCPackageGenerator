@@ -14,7 +14,7 @@
             ],
             "console": "externalTerminal",
             "preLaunchTask": "Compile",
-            "cwd": "${workspaceFolder}/.."
+            "cwd": "${workspaceFolder}/../../Privat"
         }
     ]
 }
