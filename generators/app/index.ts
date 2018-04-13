@@ -1,9 +1,9 @@
 'use strict';
-import * as Path from 'path';
-import * as Generator from 'yeoman-generator';
-import chalk from 'chalk';
-import yosay = require('yosay');
-import Node from './templates/lib/Node';
+import * as Path from "path";
+import * as Generator from "yeoman-generator";
+import chalk from "chalk";
+import yosay = require("yosay");
+import Node from "./templates/lib/Node";
 
 export = class extends Generator
 {
@@ -37,13 +37,13 @@ export = class extends Generator
      */
     private enforceDifferentFolder = (value: string, answers?: Generator.Answers): boolean | string =>
     {
-        if (answers['destination'] !== Path.resolve(answers['destination'], value))
+        if (answers["destination"] !== Path.resolve(answers["destination"], value))
         {
             return true;
         }
         else
         {
-            return 'Files must be stored in a separate folder!';
+            return "Files must be stored in a separate folder!";
         }
     }
 
@@ -64,7 +64,7 @@ export = class extends Generator
         }
         else
         {
-            return 'Please enter a valid input!';
+            return "Please enter a valid input!";
         }
     }
 
@@ -74,208 +74,208 @@ export = class extends Generator
     prompting()
     {
         // Have Yeoman greet the user.
-        this.log(yosay(`Welcome to the ${chalk.whiteBright('WoltLab Suite Core Package')} generator!`));
+        this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
         let prompts: Generator.Questions = [
             {
-                type: 'input',
-                name: 'destination',
-                message: 'What directory do you want to create the package to?',
-                default: './',
+                type: "input",
+                name: "destination",
+                message: "What directory do you want to create the package to?",
+                default: "./",
                 filter: (value: string, answers?: Generator.Answers) =>
                 {
                     return Path.resolve(process.cwd(), value);
                 }
             },
             {
-                type: 'input',
-                name: 'name',
-                message: 'What\'s the name of your package?',
+                type: "input",
+                name: "name",
+                message: "What\'s the name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
-                    return Path.basename(answers['destination']);
+                    return Path.basename(answers["destination"]);
                 },
                 validate: this.forceInput
             },
             {
-                type: 'input',
-                name: 'identifier',
-                message: 'Please type an identifier for your package:',
+                type: "input",
+                name: "identifier",
+                message: "Please type an identifier for your package:",
                 default: (answers: Generator.Answers) =>
                 {
-                    return 'com.example.' + (answers['name'] as string).toLowerCase();
+                    return "com.example." + (answers["name"] as string).toLowerCase();
                 },
                 validate: this.forceInput
             },
             {
-                type: 'input',
-                name: 'description',
-                message: 'Please enter a description:'
+                type: "input",
+                name: "description",
+                message: "Please enter a description:"
             },
             {
-                type: 'input',
-                name: 'author',
-                message: 'Please enter your name.'
+                type: "input",
+                name: "author",
+                message: "Please enter your name."
             },
             {
-                type: 'input',
-                name: 'authorURL',
-                message: 'Please enter your homepage.'
+                type: "input",
+                name: "authorURL",
+                message: "Please enter your homepage."
             },
             {
-                type: 'checkbox',
-                name: 'components',
-                message: 'What components do you want to provide?',
+                type: "checkbox",
+                name: "components",
+                message: "What components do you want to provide?",
                 choices: [
                     {
-                        type: 'separator',
-                        line: 'General'
+                        type: "separator",
+                        line: "General"
                     },
                     {
-                        name: 'Files (for example PHP-scripts or pictures)',
-                        value: 'files'
+                        name: "Files (for example PHP-scripts or pictures)",
+                        value: "files"
                     },
                     {
-                        name: 'Control Panel-Options and Categories',
-                        value: 'acpOptions'
+                        name: "Control Panel-Options and Categories",
+                        value: "acpOptions"
                     },
                     {
-                        name: 'Event-Listeners',
-                        value: 'eventListener'
+                        name: "Event-Listeners",
+                        value: "eventListener"
                     },
                     {
-                        name: 'Translations',
-                        value: 'translations'
+                        name: "Translations",
+                        value: "translations"
                     },
                     {
-                        type: 'separator',
-                        line: 'Customization'
+                        type: "separator",
+                        line: "Customization"
                     },
                     {
-                        name: 'Styles',
-                        value: 'style'
+                        name: "Styles",
+                        value: "style"
                     },
                     {
-                        name: 'Templates',
-                        value: 'template'
+                        name: "Templates",
+                        value: "template"
                     },
                     {
-                        name: 'ACP-Templates',
-                        value: 'acpTemplate'
+                        name: "ACP-Templates",
+                        value: "acpTemplate"
                     },
                     {
-                        name: 'Template-Listeners',
-                        value: 'templateListener'
+                        name: "Template-Listeners",
+                        value: "templateListener"
                     },
                     {
-                        type: 'separator',
-                        line: 'Other'
+                        type: "separator",
+                        line: "Other"
                     },
                     {
-                        name: 'Emojis',
-                        value: 'emoji'
+                        name: "Emojis",
+                        value: "emoji"
                     }
                 ]
             },
             {
-                type: 'input',
-                name: 'stylePath',
-                message: 'Where do you want to store styles?',
-                default: 'styles',
+                type: "input",
+                name: "stylePath",
+                message: "Where do you want to store styles?",
+                default: "styles",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('style') >= 0;
+                    return (answers["components"] as string[]).indexOf("style") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'componentsPath',
-                message: 'Where do you want to store your components?',
-                default: 'components',
+                type: "input",
+                name: "componentsPath",
+                message: "Where do you want to store your components?",
+                default: "components",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).length > 0;
+                    return (answers["components"] as string[]).length > 0;
                 }
             },
             {
-                type: 'input',
-                name: 'filesConfig',
-                message: 'Where do you want to store your file-mappings?',
-                default: 'FileMappings',
+                type: "input",
+                name: "filesConfig",
+                message: "Where do you want to store your file-mappings?",
+                default: "FileMappings",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('files') >= 0;
+                    return (answers["components"] as string[]).indexOf("files") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'optionsFile',
-                message: 'Where do you want to store the ACP-options and categories?',
-                default: 'Options',
+                type: "input",
+                name: "optionsFile",
+                message: "Where do you want to store the ACP-options and categories?",
+                default: "Options",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('acpOptions') >= 0;
+                    return (answers["components"] as string[]).indexOf("acpOptions") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'eventListenersFile',
-                message: 'Where do you want to store your event-listeners?',
-                default: 'EventListeners',
+                type: "input",
+                name: "eventListenersFile",
+                message: "Where do you want to store your event-listeners?",
+                default: "EventListeners",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('eventListener') >= 0;
+                    return (answers["components"] as string[]).indexOf("eventListener") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'translationsFile',
-                message: 'Where do you want to store your translations?',
-                default: 'Translations',
+                type: "input",
+                name: "translationsFile",
+                message: "Where do you want to store your translations?",
+                default: "Translations",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('translations') >= 0;
+                    return (answers["components"] as string[]).indexOf("translations") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'templateConfig',
-                message: 'Where do you want to store templates?',
-                default: 'Templates',
+                type: "input",
+                name: "templateConfig",
+                message: "Where do you want to store templates?",
+                default: "Templates",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('template') >= 0;
+                    return (answers["components"] as string[]).indexOf("template") >= 0;
                 }
             },
             {
-                type: 'input',
-                name: 'acpTemplateConfig',
-                message: 'Where do you want to store ACP-templates?',
-                default: 'ACPTemplates',
+                type: "input",
+                name: "acpTemplateConfig",
+                message: "Where do you want to store ACP-templates?",
+                default: "ACPTemplates",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('acpTemplate') >= 0;
+                    return (answers["components"] as string[]).indexOf("acpTemplate") >= 0;
                 },
                 validate: this.enforceDifferentFolder
             },
             {
-                type: 'input',
-                name: 'templateListenerFile',
-                message: 'Where do you want to store template-listeners?',
-                default: 'TemplateListeners',
+                type: "input",
+                name: "templateListenerFile",
+                message: "Where do you want to store template-listeners?",
+                default: "TemplateListeners",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('templateListener') >= 0;
+                    return (answers["components"] as string[]).indexOf("templateListener") >= 0;
                 },
             },
             {
-                type: 'input',
-                name: 'emojiFile',
-                default: 'Emojis',
-                message: 'Where do you want to store emojis?',
+                type: "input",
+                name: "emojiFile",
+                default: "Emojis",
+                message: "Where do you want to store emojis?",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers['components'] as string[]).indexOf('emoji') >= 0;
+                    return (answers["components"] as string[]).indexOf("emoji") >= 0;
                 }
             }
         ];
@@ -288,10 +288,10 @@ export = class extends Generator
 
     writing()
     {
-        this.destinationRoot(this.settings['destination']);
-        this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.settings);
-        this.fs.copy(this.templatePath('lib'), this.destinationPath('lib'));
-        this.fs.copy(this.templatePath('tsconfig.json'), this.destinationPath('tsconfig.json'));
+        this.destinationRoot(this.settings["destination"]);
+        this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
+        this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
+        this.fs.copy(this.templatePath("tsconfig.json"), this.destinationPath("tsconfig.json"));
     }
 
     install()
