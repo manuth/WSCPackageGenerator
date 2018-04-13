@@ -18,6 +18,11 @@ export default class EventListener extends Listener
     private inherit: boolean = false;
 
     /**
+     * The name of the class that handles the subscribed event.
+     */
+    private eventHandlerClassName: string = "";
+
+    /**
      * Initializes a new instance of the `EventListener` class.
      */
     public constructor(options: Partial<EventListener> = { })
@@ -59,5 +64,18 @@ export default class EventListener extends Listener
     public set Inherit(value: boolean)
     {
         this.inherit = value;
+    }
+
+    /**
+     * Gets or sets the name of the class that handles the subscribed event.
+     */
+    public get EventHandlerClassName(): string
+    {
+        return this.eventHandlerClassName;
+    }
+
+    public set EventHandlerClassName(value: string)
+    {
+        this.eventHandlerClassName = value;
     }
 }
