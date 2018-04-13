@@ -144,16 +144,8 @@ export = class extends Generator
                         value: 'eventListener'
                     },
                     {
-                        type: 'separator',
-                        line: 'Globalization'
-                    },
-                    {
                         name: 'Translations',
                         value: 'translations'
-                    },
-                    {
-                        name: 'Error-Messages',
-                        value: 'errors'
                     },
                     {
                         type: 'separator',
@@ -223,16 +215,6 @@ export = class extends Generator
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers['components'] as string[]).indexOf('translations') >= 0;
-                }
-            },
-            {
-                type: 'input',
-                name: 'errorMessageFile',
-                message: 'Where do you want to store error-messages?',
-                default: 'errorMessage.ts',
-                when: (answers: Generator.Answers) =>
-                {
-                    return (answers['components'] as string[]).indexOf('errors') >= 0;
                 }
             },
             {
