@@ -18,11 +18,13 @@
     "yeoman-generator"
   ],
   "devDependencies": {
+    "@types/mem-fs-editor": "^4.0.0",
     "@types/mocha": "^5.0.0",
     "@types/node": "^9.6.4",
     "@types/yeoman-generator": "^2.0.3",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
+    "mem-fs-editor": "^4.0.0",
     "mocha": "^5.0.5",
     "typescript": "^2.8.1",
     "yeoman-assert": "^3.1.0",
@@ -33,8 +35,8 @@
     "npm": ">= 4.0.0"
   },
   "dependencies": {
-    "yeoman-generator": "^2.0.1",
     "chalk": "^2.1.0",
+    "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },
   "scripts": {
