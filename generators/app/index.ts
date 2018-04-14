@@ -305,6 +305,9 @@ export = class extends Generator
         });
     }
 
+    /**
+     * Writes the templates
+     */
     writing()
     {
         let componentsPath = (value: string): string =>
