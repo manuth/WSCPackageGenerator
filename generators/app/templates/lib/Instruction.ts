@@ -202,7 +202,14 @@ export default class Instruction
      */
     public get Translations(): TranslationNode[]
     {
-        return [];
+        let result: TranslationNode[] = [];
+
+        for (let node of this.TranslationNodes)
+        {
+            result.push(...node.GetTranslations());
+        }
+
+        return result;
     }
 
     /**

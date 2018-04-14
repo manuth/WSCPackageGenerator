@@ -50,4 +50,27 @@ export default class TranslationNode extends NodeContainer
     {
         return this.translations;
     }
+
+    /**
+     * Gets the translations contained by this node and all its subnodes.
+     */
+    public GetTranslations(): TranslationNode[]
+    {
+        let result: TranslationNode[] = [];
+
+        for (let node of this.Nodes)
+        {
+            if (Object.keys(node.Translations).length > 0)
+            {
+                result.push(node);
+            }
+        }
+
+        if (Object.keys(this.Translations).length > 0)
+        {
+            result.push(this);
+        }
+
+        return result;
+    }
 }

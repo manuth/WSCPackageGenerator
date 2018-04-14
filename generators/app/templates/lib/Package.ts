@@ -4,6 +4,7 @@ import UpdateInstruction from "./UpdateInstruction";
 import InstructionCollection from "./Collections/InstructionCollection";
 import Option from "./Option";
 import SettingsNode from "./SettingsNode";
+import TranslationNode from "./Globalization/TranslationNode";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -96,5 +97,13 @@ export default class Package extends Component
     public get Categories(): SettingsNode[]
     {
         return this.installInstruction.Categories;
+    }
+
+    /**
+     * Gets the translations provided by this package.
+     */
+    public get Translations(): TranslationNode[]
+    {
+        return this.InstallInstruction.Translations;
     }
 }
