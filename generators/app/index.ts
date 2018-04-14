@@ -48,6 +48,27 @@ export = class extends Generator
     }
 
     /**
+     * Validates whether a file stored in a different folder is provided.
+     * 
+     * @param {string} value
+     * The value that is to be validated.
+     * 
+     * @param {Generator.Answers} answers
+     * The answers provided by the user.
+     */
+    private enforceSameFolder = (value: string, answers?: Generator.Answers): boolean | string =>
+    {
+        if (Path.dirname(value) === ".")
+        {
+            return true;
+        }
+        else
+        {
+            return "Subfolders are not allowed!";
+        }
+    }
+
+    /**
      * Validates whether the a value is provided.
      * 
      * @param {string} value
@@ -187,7 +208,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "stylePath",
+                name: "componentPaths.style",
                 message: "Where do you want to store styles?",
                 default: "styles",
                 when: (answers: Generator.Answers) =>
@@ -197,7 +218,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "filesConfig",
+                name: "componentPaths.files",
                 message: "Where do you want to store your file-mappings?",
                 default: "FileMappings",
                 when: (answers: Generator.Answers) =>
@@ -207,7 +228,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "optionsFile",
+                name: "componentPaths.acpOptions",
                 message: "Where do you want to store the ACP-options and categories?",
                 default: "Options",
                 when: (answers: Generator.Answers) =>
@@ -217,7 +238,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "eventListenersFile",
+                name: "componentPaths.eventListener",
                 message: "Where do you want to store your event-listeners?",
                 default: "EventListeners",
                 when: (answers: Generator.Answers) =>
@@ -227,7 +248,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "translationsFile",
+                name: "componentPaths.translations",
                 message: "Where do you want to store your translations?",
                 default: "Translations",
                 when: (answers: Generator.Answers) =>
@@ -237,7 +258,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "templateConfig",
+                name: "componentPaths.template",
                 message: "Where do you want to store templates?",
                 default: "Templates",
                 when: (answers: Generator.Answers) =>
@@ -247,7 +268,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "acpTemplateConfig",
+                name: "componentPaths.acpTemplate",
                 message: "Where do you want to store ACP-templates?",
                 default: "ACPTemplates",
                 when: (answers: Generator.Answers) =>
@@ -258,7 +279,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "templateListenerFile",
+                name: "componentPaths.templateListener",
                 message: "Where do you want to store template-listeners?",
                 default: "TemplateListeners",
                 when: (answers: Generator.Answers) =>
@@ -268,7 +289,7 @@ export = class extends Generator
             },
             {
                 type: "input",
-                name: "emojiFile",
+                name: "componentPaths.emoji",
                 default: "Emojis",
                 message: "Where do you want to store emojis?",
                 when: (answers: Generator.Answers) =>
@@ -286,9 +307,20 @@ export = class extends Generator
 
     writing()
     {
-        let componentsPath = (value): string =>
+        let componentsPath = (value: string): string =>
         {
             return this.destinationPath("components", value);
+        }
+
+        let componentTemplates: { [key: string]: string } = {
+            files: "Files.ts",
+            acpOptions: "Options.ts",
+            eventListener: "EventListeners.ts",
+            translations: "Translations.ts",
+            template: "Templates.ts",
+            acpTemplate: "ACPTemplates.ts",
+            templateListener: "TemplateListeners.ts",
+            emoji: "Emojis.ts"
         }
 
         this.destinationRoot(this.settings["destination"]);
@@ -296,13 +328,11 @@ export = class extends Generator
         this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copy(this.templatePath("tsconfig.json"), this.destinationPath("tsconfig.json"));
-        this.fs.copyTpl(this.templatePath("Files.ts"), componentsPath("Files.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("Options.ts"), componentsPath("Options.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("EventListeners.ts"), componentsPath("EventListeners.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("Translations.ts"), componentsPath("Translations.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("Templates.ts"), componentsPath("Templates.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("ACPTemplates.ts"), componentsPath("ACPTemplates.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("TemplateListeners.ts"), componentsPath("TemplateListeners.ts"), this.settings);
+
+        for (let component of this.settings["components"])
+        {
+            this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component]));
+        }
     }
 
     install()

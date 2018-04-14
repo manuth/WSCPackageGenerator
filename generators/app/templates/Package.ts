@@ -4,7 +4,7 @@ import Instruction from "./lib/Instruction";
 
 function getComponentsPath(value: string): string
 {
-    return Path.join(__dirname, "<%= componentsPath %>", value);
+    return Path.join(__dirname, "components", value);
 }
 
 let pkg: Package = new Package({
@@ -24,9 +24,9 @@ let pkg: Package = new Package({
 
         for (let component of components)
         {
-            let value = "";
             let optionName = "";
             let item = "";
+            
             let formatter = (value) =>
             {
                 return value;
@@ -36,39 +36,30 @@ let pkg: Package = new Package({
             {
                 case "files":
                     optionName = "Files";
-                    value = filesConfig;
                     break;
                 case "acpOptions":
                     optionName = "Options";
-                    value = optionsFile;
                     break;
                 case "eventListener":
                     optionName = "EventListeners";
-                    value = eventListenersFile;
                     break;
                 case "translations":
                     optionName = "Translations";
-                    value = translationsFile;
                     break;
                 case "style":
                     optionName = "StylesRoot";
-                    value = stylePath;
                     break;
                 case "template":
                     optionName = "TemplateMappings";
-                    value = templateConfig;
                     break;
                 case "acpTemplate":
                     optionName = "ACPTemplateMappings";
-                    value = acpTemplateConfig;
                     break;
                 case "templateListener":
                     optionName = "TemplateListeners";
-                    value = templateListenerFile;
                     break;
                 case "emoji":
                     optionName = "Emojis";
-                    value = emojiFile;
                     break;
             }
 
@@ -88,7 +79,7 @@ let pkg: Package = new Package({
                     break;
             }
 
-            items.push(optionName + ": " + formatter(value));
+            items.push(optionName + ": " + formatter(componentPaths[component]));
         }
     %>
         <%- items.join(`,
