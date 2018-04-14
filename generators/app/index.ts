@@ -340,10 +340,16 @@ export = class extends Generator
             switch (component)
             {
                 case "style":
-                    this.fs.copy(this.templatePath("styles", componentTemplates[component]), this.destinationPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])));
+                    this.fs.copyTpl(
+                        this.templatePath("styles", componentTemplates[component]),
+                        this.destinationPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])),
+                        this.settings);
                     break;
                 default:
-                    this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component] + ".ts"));
+                    this.fs.copyTpl(
+                        this.templatePath(componentTemplates[component]),
+                        componentsPath(this.settings["componentPaths"][component] + ".ts"),
+                        this.settings);
                     break;
             }
         }
