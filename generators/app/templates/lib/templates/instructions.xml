@@ -1,0 +1,24 @@
+<% for (let fileMapping of InstructionCollection.FileMappings) { %>
+            <instruction type="file"<%
+    %><% if (fileMapping.Application) { %> application="<%= fileMapping.Application %>"<% } %>><%
+        %><%= fileMapping.SourceRoot %>.tar</instruction><% } %><%
+    %><% if (InstructionCollection.EventListeners.length > 0) { %>
+            <instruction type="eventListener">components/eventListeners.xml</instruction><% } %><%
+    %><% if (InstructionCollection.SettingsNode.Nodes.length > 0) { %>
+            <instruction type="option">components/options.xml</instruction><% } %><%
+    %><% if (InstructionCollection.Translations.length > 0) { %>
+            <instruction type="language">components/languages/*.xml</instruction><% } %><%
+    %><% for (let style of InstructionCollection.Styles) { %>
+            <instruction type="style">styles/<%= style.Name %>.tar</instruction><% } %><%
+    %><% for (let templateMapping of InstructionCollection.TemplateMappings) { %>
+            <instruction type="template"<%
+    %><% if (templateMapping.Application) { %> application="<%= templateMapping.Application %>"<% } %>><%
+        %><%= templateMapping.SourceRoot %>.tar</instruction><% } %><%
+    %><% for (let templateMapping of InstructionCollection.ACPTemplateMappings) { %>
+            <instruction type="acpTemplate"<%
+    %><% if (templateMapping.Application) { %> application="<%= templateMapping.Application %>"<% } %>><%
+        %><%= templateMapping.SourceRoot %>.tar</instruction><% } %><%
+    %><% if (InstructionCollection.TemplateListeners.length > 0) { %>
+            <instruction type="templateListener">components/templateListeners.xml</instruction><% } %><%
+    %><% if (InstructionCollection.Emojis.length > 0) { %>
+            <insturction type="smiley">components/emojis.xml</instruction><% } %>
