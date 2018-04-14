@@ -16,8 +16,9 @@
         "npm": ">= 4.0.0"
     },
     "scripts": {
+        "watch": "tsc -watch -p ./",
         "compile": "tsc -p ./",
-        "build": "node scripts/build.js"
+        "build": "node lib/Program.js"
     },
     "license": "Apache-2.0"
 }
