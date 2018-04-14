@@ -1,28 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<package name="<%= Identifier %>" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/package.xsd">
-    <packageinformation><% for (const locale in DisplayName) { %>
-        <packagename<% if (locale !== 'en') { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- DisplayName[locale] %>]]>
-        </packagename><% } %><% for (const locale in Description) { %>
-        <packagedescription<% if (locale !== 'en') { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- Description[locale] %>]]>
-        </packagedescription><%}%>
-        <version><%= Version %></version>
-        <date><%= (Date.getFullYear() + '-' + (Date.getMonth() + 1).toString().padStart(2, '0') + '-' + Date.getDate().toString().padStart(2, '0')) %></date>
+<package name="<%= Package.Identifier %>" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/package.xsd">
+    <packageinformation><%
+    %><% for (const locale in Package.DisplayName) { %>
+        <packagename<%
+        %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
+            <![CDATA[<%- Package.DisplayName[locale] %>]]>
+        </packagename><% } %><%
+    %><% for (const locale in Package.Description) { %>
+        <packagedescription<%
+    %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
+            <![CDATA[<%- Package.Description[locale] %>]]>
+        </packagedescription><% } %>
+        <version><%= Package.Version %></version>
+        <date>
+            <%= (
+                Package.Date.getFullYear() + "-" +
+                (Package.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+                Package.Date.getDate().toString().padStart(2, "0"))
+            %></date>
     </packageinformation>
     <authorinformtion>
-        <author><%= Author.Name %></author>
-        <authorurl><%= Author.URI %></authorurl>
+        <author><%= Package.Author.Name %></author>
+        <authorurl><%= Package.Author.URI %></authorurl>
     </authorinformtion>
     <requiredpackages>
         <requiredpackage minversion="3.0.0">com.woltlab.wcf</requiredpackage>
     </requiredpackages><%
-    %><% if (InstallInstruction) { %>
+    %><% if (Package.InstallInstruction) { %>
         <instructions type="install"><%
-            %><%- include("instructions.xml", { InstructionCollection: InstallInstruction }); %>
+            %><%- include(
+                "instructions.xml",
+                {
+                    InstructionCollection: Package.InstallInstruction,
+                    StylesPath: StylesPath,
+                    ComponentsPath: ComponentsPath
+                }); %>
         </instructions><% } %><%
-    %><% for (let instructionCollection in UpdateInstructions) { %>
+    %><% for (let instructionCollection of Package.UpdateInstructions) { %>
         <instructions type="update" fromversion="<%= instructionCollection.FromVersion %>"><%
-            %><%- include("instructions.xml", { InstructionCollection: instructionCollection }); %>
+            %><%- include(
+                "instructions.xml",
+                {
+                    InstructionCollection: instructionCollection,
+                    StylesPath: StylesPath,
+                    ComponentsPath: ComponentsPath
+                }); %>
         </instructions><% } %>
 </package>

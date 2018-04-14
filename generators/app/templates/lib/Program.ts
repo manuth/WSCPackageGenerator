@@ -25,7 +25,7 @@ class Program
     /**
      * The style-path.
      */
-    private static stylePath: string = "styles";
+    private static stylesPath: string = "styles";
     
     /**
      * The main entry-point of the script.
@@ -34,7 +34,7 @@ class Program
      */
     public static Main(args: string[])
     {
-        MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), WSCPackage);
+        MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
         MemFileSystem.commit(
             [],
             () =>
