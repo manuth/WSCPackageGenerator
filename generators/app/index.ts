@@ -317,6 +317,7 @@ export = class extends Generator
             acpOptions: "Options.ts",
             eventListener: "EventListeners.ts",
             translations: "Translations.ts",
+            style: Path.join("styles", "styles-getting-started.md"),
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
             templateListener: "TemplateListeners.ts",
