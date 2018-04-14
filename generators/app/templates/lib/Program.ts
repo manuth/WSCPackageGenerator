@@ -46,6 +46,11 @@ class Program
             await this.Compress(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot + ".tar"));
         }
 
+        if (WSCPackage.InstallInstruction.EventListeners.length > 0)
+        {
+            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage })
+        }
+
         MemFileSystem.commit(
             [],
             () =>
