@@ -223,7 +223,7 @@ export default class Instruction
     /**
      * Gets the file-mappings of the templates provided by this instruction.
      */
-    public get TemplateRoot(): FileMapping[]
+    public get TemplateMappings(): FileMapping[]
     {
         return this.templateMappings;
     }
