@@ -335,7 +335,7 @@ export = class extends Generator
 
         for (let component of this.settings["components"])
         {
-            this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component]));
+            this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component] + ".ts"));
         }
     }
 
