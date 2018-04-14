@@ -10,7 +10,12 @@ export default abstract class Component
     /**
      * The name of the component.
      */
-    private name: Localizable = new Localizable();
+    private name: string = null;
+
+    /**
+     * The human-readable name of the component.
+     */
+    private displayName: Localizable = new Localizable();
 
     /**
      * The release-date of the component.
@@ -44,7 +49,12 @@ export default abstract class Component
     {
         if (options.Name)
         {
-            Object.assign(this.name, options.Name);
+            this.name = options.Name;
+        }
+
+        if (options.DisplayName)
+        {
+            Object.assign(this.DisplayName, options.DisplayName);
         }
 
         if (options.Description)
@@ -66,9 +76,17 @@ export default abstract class Component
     /**
      * Gets the name of the component.
      */
-    public get Name(): Localizable
+    public get Name(): string
     {
         return this.name;
+    }
+
+    /**
+     * Gets the human-readable name of the component.
+     */
+    public get DisplayName(): Localizable
+    {
+        return this.displayName;
     }
 
     /**

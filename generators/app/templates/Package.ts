@@ -9,8 +9,9 @@ function getComponentsPath(value: string): string
 
 let pkg: Package = new Package({
     Identifier: "<%= identifier %>",
-    Name: {
-        en: "<%= name %>"
+    Name: "<%= name %>",
+    DisplayName: {
+        en: "<%= displayName %>"
     },
     Date: new Date("<% let date = new Date(); %><%=
         date.getFullYear() + "/" +

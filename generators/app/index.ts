@@ -120,6 +120,16 @@ export = class extends Generator
             },
             {
                 type: "input",
+                name: "displayName",
+                message: "What\'s the display-name of your package?",
+                default: (answers: Generator.Answers) =>
+                {
+                    return answers["name"];
+                },
+                validate: this.forceInput
+            },
+            {
+                type: "input",
                 name: "description",
                 message: "Please enter a description:"
             },
