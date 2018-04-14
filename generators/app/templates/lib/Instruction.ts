@@ -31,7 +31,7 @@ export default class Instruction
     /**
      * The node that contains the settings provided by this instruction.
      */
-    private settingsNode: SettingsNode = new SettingsNode();
+    private settingsNode: SettingsNode = null;
 
     /**
      * The nodes that contains the translations provided by this instruction.
@@ -178,7 +178,14 @@ export default class Instruction
      */
     public get Options(): { [id: string]: Option }
     {
-        return this.settingsNode.GetOptions();
+        if (this.settingsNode)
+        {
+            return this.settingsNode.GetOptions();
+        }
+        else
+        {
+            return { };
+        }
     }
 
     /**
@@ -186,7 +193,14 @@ export default class Instruction
      */
     public get Categories(): SettingsNode[]
     {
-        return this.settingsNode.GetCategories();
+        if (this.settingsNode)
+        {
+            return this.settingsNode.GetCategories();
+        }
+        else
+        {
+            return [];
+        }
     }
 
     /**

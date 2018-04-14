@@ -4,7 +4,7 @@
         %><%= fileMapping.SourceRoot %>.tar</instruction><% } %><%
     %><% if (InstructionCollection.EventListeners.length > 0) { %>
             <instruction type="eventListener"><%= ComponentsPath %>/eventListeners.xml</instruction><% } %><%
-    %><% if (InstructionCollection.SettingsNode.Nodes.length > 0) { %>
+    %><% if (InstructionCollection.Categories.length > 0) { %>
             <instruction type="option"><%= ComponentsPath %>/options.xml</instruction><% } %><%
     %><% if (InstructionCollection.Translations.length > 0) { %>
             <instruction type="language"><%= ComponentsPath %>/languages/*.xml</instruction><% } %><%
