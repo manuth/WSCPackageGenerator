@@ -71,4 +71,12 @@ export default class Node
     {
         this.parent = value;
     }
+
+    /**
+     * Returns a string that represents the current object.
+     */
+    public toString(): string
+    {
+        return this.Name;
+    }
 }
