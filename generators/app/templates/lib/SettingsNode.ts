@@ -114,11 +114,7 @@ export default class SettingsNode extends WSCNode
     public GetCategories(): SettingsNode[]
     {
         let result: SettingsNode[] = [];
-
-        if (/^wcf\.acp\.option\..*/.test(this.FullName))
-        {
-            result.push(this);
-        }
+        result.push(this);
 
         for (let node of this.Nodes)
         {
