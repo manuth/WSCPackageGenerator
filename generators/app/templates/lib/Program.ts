@@ -39,16 +39,26 @@ class Program
      */
     public static async Main(args: string[])
     {
+        let path = Path;
         MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
 
         for (let fileMapping of WSCPackage.InstallInstruction.FileMappings)
         {
-            await this.Compress(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot + ".tar"));
+            let filesGenerator = memFsEditor.create(memFs.create());
+            filesGenerator.copyTpl(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot), WSCPackage);
+            filesGenerator.commit([], () => { });
+
+            await this.Compress(this.PackagePath(fileMapping.SourceRoot), this.PackagePath(fileMapping.SourceRoot + ".tar"));
         }
 
         if (WSCPackage.InstallInstruction.EventListeners.length > 0)
         {
             MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage })
+        }
+
+        if (WSCPackage.Categories.length > 0)
+        {
+            MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath("options.xml"), { Package: WSCPackage });
         }
 
         MemFileSystem.commit(
@@ -144,7 +154,7 @@ class Program
      */
     private static ComponentsPath(...path: string[]): string
     {
-        return Path.join(this.TempPath(this.componentsPath), ...path);
+        return Path.join(this.PackagePath(this.componentsPath), ...path);
     }
 }
 
