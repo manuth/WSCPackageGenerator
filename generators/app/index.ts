@@ -328,6 +328,7 @@ export = class extends Generator
         }
 
         this.destinationRoot(this.settings["destination"]);
+        this.fs.copy(this.templatePath("vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
         this.fs.copyTpl(this.templatePath("package.json"), this.destinationPath("package.json"), this.settings);
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
@@ -338,7 +339,7 @@ export = class extends Generator
             switch (component)
             {
                 case "style":
-                    this.fs.copy(this.templatePath("styles", componentTemplates[component]), componentsPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])));
+                    this.fs.copy(this.templatePath("styles", componentTemplates[component]), this.destinationPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])));
                     break;
                 default:
                     this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component] + ".ts"));
