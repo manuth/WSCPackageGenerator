@@ -320,7 +320,7 @@ export = class extends Generator
             acpOptions: "Options.ts",
             eventListener: "EventListeners.ts",
             translations: "Translations.ts",
-            style: Path.join("styles", "styles-getting-started.md"),
+            style: "wsc-style-getting-started.md",
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
             templateListener: "TemplateListeners.ts",
@@ -335,7 +335,15 @@ export = class extends Generator
 
         for (let component of this.settings["components"])
         {
-            this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component] + ".ts"));
+            switch (component)
+            {
+                case "style":
+                    this.fs.copy(this.templatePath("styles", componentTemplates[component]), componentsPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])));
+                    break;
+                default:
+                    this.fs.copy(this.templatePath(componentTemplates[component]), componentsPath(this.settings["componentPaths"][component] + ".ts"));
+                    break;
+            }
         }
     }
 
