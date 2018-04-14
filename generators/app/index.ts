@@ -330,6 +330,7 @@ export = class extends Generator
         this.destinationRoot(this.settings["destination"]);
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
+        this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
         this.fs.copyTpl(this.templatePath("_package.json"), this.destinationPath("package.json"), this.settings);
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
