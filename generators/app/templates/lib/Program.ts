@@ -26,19 +26,54 @@ class Program
      * The style-path.
      */
     private static stylesPath: string = "styles";
+
+    /**
+     * The components-path.
+     */
+    private static componentsPath: string = "components";
     
     /**
      * The main entry-point of the script.
      * 
      * @param args The arguments passed to the script.
      */
-    public static Main(args: string[])
+    public static async Main(args: string[])
     {
         MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
+
+        for (let fileMapping of WSCPackage.InstallInstruction.FileMappings)
+        {
+            await this.Compress(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot + ".tar"));
+        }
+
         MemFileSystem.commit(
             [],
             () =>
             { });
+    }
+
+    /**
+     * Compresses a folder and saves the result to a specified file.
+     * 
+     * @param source
+     * The folder that is to be compressed.
+     * 
+     * @param destination
+     * The filename to save the compressed file to.
+     */
+    private static async Compress(source: string, destination: string)
+    {
+        await ChildProcess.execFile(
+            "7z",
+            [
+                "a",
+                "-up0q0",
+                Path.resolve(destination),
+                "*"
+            ],
+            {
+                cwd: source
+            });
     }
 
     /**
@@ -86,15 +121,25 @@ class Program
     }
 
     /**
-     * 
-     * Joins the paths and returns the path inside the style-folder.
+     * Joins the paths and returns the path inside the styles-folder.
      * 
      * @param path
-     * The path inside the style-folder.
+     * The path inside the styles-folder.
      */
-    private static StylePath(...path: string[]): string
+    private static StylesPath(...path: string[]): string
     {
-        return Path.join(this.TempPath(this.stylePath), ...path);
+        return Path.join(this.TempPath(this.stylesPath), ...path);
+    }
+
+    /**
+     * Joins the paths and returns the path inside the styles-folder.
+     * 
+     * @param path
+     * The path inside the styles-folder.
+     */
+    private static ComponentsPath(...path: string[]): string
+    {
+        return Path.join(this.TempPath(this.componentsPath), ...path);
     }
 }
 
