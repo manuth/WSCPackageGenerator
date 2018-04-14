@@ -27,7 +27,7 @@
     "typescript": "^2.8.1",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.0",
-    "yo": "^2.0.1"
+    "yo": "^2.0.2"
   },
   "engines": {
     "npm": ">= 4.0.0"
