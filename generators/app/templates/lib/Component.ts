@@ -1,6 +1,7 @@
 import Localizable from "./GLobalization/Localizable";
 import { Person } from "./Person";
 import Package from "./Package";
+import { isUndefined } from "util";
 
 /**
  * Represents a component for WoltLab Suite Core.
@@ -47,27 +48,27 @@ export default abstract class Component
      */
     protected constructor(options: Partial<Component> = { })
     {
-        if (options.Name)
+        if (!isUndefined(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (options.DisplayName)
+        if (!isUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
 
-        if (options.Description)
+        if (!isUndefined(options.Description))
         {
             Object.assign(this.description, options.Description);
         }
 
-        if (options.Version)
+        if (!isUndefined(options.Version))
         {
             this.version = options.Version;
         }
 
-        if (options.Author)
+        if (!isUndefined(options.Author))
         {
             this.author = options.Author;
         }

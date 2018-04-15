@@ -1,4 +1,5 @@
 import NodeContainer from "./NodeContainer";
+import { isUndefined } from "util";
 
 /**
  * Represents a child of a node.
@@ -20,12 +21,12 @@ export default class Node
      */
     public constructor(options: Partial<Node> = { })
     {
-        if (options.Name)
+        if (!isUndefined(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (options.Parent)
+        if (!isUndefined(options.Parent))
         {
             this.parent = options.Parent;
         }

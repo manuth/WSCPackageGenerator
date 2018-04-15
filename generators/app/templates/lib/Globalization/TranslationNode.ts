@@ -1,6 +1,7 @@
 import NodeContainer from "../NodeContainer";
 import NodeCollection from "../Collections/NodeCollection";
 import Localizable from "./Localizable";
+import { isUndefined } from "util";
 
 /**
  * Represents a node that contains localized variables.
@@ -24,12 +25,12 @@ export default class TranslationNode extends NodeContainer
     {
         super({ Name: options.Name, Parent: options.Parent });
 
-        if (options.Nodes)
+        if (!isUndefined(options.Nodes))
         {
             this.translationNodes.push(...options.Nodes);
         }
 
-        if (options.Translations)
+        if (!isUndefined(options.Translations))
         {
             Object.assign(this.translations, options.Translations);
         }

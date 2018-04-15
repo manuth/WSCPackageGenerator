@@ -1,6 +1,7 @@
 import Option from "./Option";
 import Localizable from "./Globalization/Localizable";
 import Node from "./Node";
+import { isUndefined } from "util";
 
 /**
  * Represents an item of an option.
@@ -32,22 +33,22 @@ export default class OptionItem
      */
     public constructor(options: Partial<OptionItem> = { })
     {
-        if (options.Name)
+        if (!isUndefined(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (options.Value)
+        if (!isUndefined(options.Value))
         {
             this.value = options.Value;
         }
 
-        if (options.Option)
+        if (!isUndefined(options.Option))
         {
             this.option = options.Option;
         }
 
-        if (options.DisplayName)
+        if (!isUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }

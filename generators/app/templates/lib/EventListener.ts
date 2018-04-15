@@ -1,4 +1,5 @@
 import Listener from "./Listener";
+import { isUndefined } from "util";
 
 /**
  * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.
@@ -29,12 +30,12 @@ export default class EventListener extends Listener
     {
         super(options);
 
-        if (options.ClassName)
+        if (!isUndefined(options.ClassName))
         {
             this.className = options.ClassName;
         }
 
-        if (options.Inherit)
+        if (!isUndefined(options.Inherit))
         {
             this.inherit = options.Inherit;
         }

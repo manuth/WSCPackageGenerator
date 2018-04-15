@@ -2,6 +2,7 @@ import WSCNode from './NodeContainer';
 import NodeCollection from './Collections/NodeCollection';
 import Option from './Option';
 import Localizable from './Globalization/Localizable';
+import { isUndefined } from 'util';
 
 /**
  * Represents a node that contains options and categories.
@@ -35,22 +36,22 @@ export default class SettingsNode extends WSCNode
     {
         super({ Name: options.Name, Parent: options.Parent });
 
-        if (options.DisplayName)
+        if (!isUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
 
-        if (options.Description)
+        if (!isUndefined(options.Description))
         {
             Object.assign(this.Description, options.Description);
         }
 
-        if (options.Nodes)
+        if (!isUndefined(options.Nodes))
         {
             this.settingsNodes.push(...options.Nodes);
         }
 
-        if (options.Options)
+        if (!isUndefined(options.Options))
         {
             this.options.push(...options.Options);
         }

@@ -10,6 +10,7 @@ import TemplateListener from "./Customization/TemplateListener";
 import Emoji from "./Customization/Emoji";
 import Option from "./Option";
 import InstructionConfig from './InstructionConfig';
+import { isUndefined } from 'util';
 
 export default class Instruction
 {
@@ -68,32 +69,32 @@ export default class Instruction
      */
     public constructor(options: Partial<InstructionConfig> = { })
     {
-        if (options.Package)
+        if (!isUndefined(options.Package))
         {
             this.package = options.Package;
         }
 
-        if (options.Files)
+        if (!isUndefined(options.Files))
         {
             this.fileMappings.push(...require(options.Files));
         }
 
-        if (options.EventListeners)
+        if (!isUndefined(options.EventListeners))
         {
             this.eventListeners.push(...require(options.EventListeners));
         }
 
-        if (options.Options)
+        if (!isUndefined(options.Options))
         {
             this.settingsNode = require(options.Options);
         }
 
-        if (options.Translations)
+        if (!isUndefined(options.Translations))
         {
             this.translationNodes.push(...require(options.Translations));
         }
 
-        if (options.StylesRoot)
+        if (!isUndefined(options.StylesRoot))
         {
             if (FileSystem.existsSync(options.StylesRoot))
             {
@@ -113,22 +114,22 @@ export default class Instruction
             }
         }
 
-        if (options.TemplateMappings)
+        if (!isUndefined(options.TemplateMappings))
         {
             this.templateMappings.push(...require(options.TemplateMappings));
         }
 
-        if (options.ACPTemplateMappings)
+        if (!isUndefined(options.ACPTemplateMappings))
         {
             this.acpTemplateMappings.push(...require(options.ACPTemplateMappings));
         }
 
-        if (options.TemplateListeners)
+        if (!isUndefined(options.TemplateListeners))
         {
             this.templateListeners.push(...require(options.TemplateListeners));
         }
 
-        if (options.Emojis)
+        if (!isUndefined(options.Emojis))
         {
             this.emojis.push(...require(options.Emojis));
         }

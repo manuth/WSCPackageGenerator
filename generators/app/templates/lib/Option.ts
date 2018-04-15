@@ -4,6 +4,7 @@ import OptionItem from "./OptionItem";
 import OptionItemCollection from "./Collections/OptionItemCollection";
 import Localizable from "./GLobalization/Localizable";
 import SettingsNode from "./SettingsNode";
+import { isUndefined } from "util";
 
 /**
  * Represents an option that can be shown in the ACP.
@@ -57,37 +58,37 @@ export default class Option extends Node
     {
         super(options);
 
-        if (options.ID)
+        if (!isUndefined(options.ID))
         {
             this.id = options.ID;
         }
 
-        if (options.DisplayName)
+        if (!isUndefined(options.DisplayName))
         {
             Object.assign(this.displayName, options.DisplayName);
         }
 
-        if (options.Description)
+        if (!isUndefined(options.Description))
         {
             Object.assign(this.description, options.Description);
         }
 
-        if (options.Default)
+        if (!isUndefined(options.Default))
         {
             this.default = options.Default;
         }
 
-        if (options.Type)
+        if (!isUndefined(options.Type))
         {
             this.type = options.Type;
         }
 
-        if (options.Items)
+        if (!isUndefined(options.Items))
         {
             this.items.push(...options.Items);
         }
 
-        if (options.EnableOptions)
+        if (!isUndefined(options.EnableOptions))
         {
             this.enableOptions.push(...options.EnableOptions);
         }
