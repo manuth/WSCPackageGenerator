@@ -46,7 +46,13 @@ class Program
         {
             let filesGenerator = memFsEditor.create(memFs.create());
             filesGenerator.copyTpl(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot), WSCPackage);
-            filesGenerator.commit([], () => { });
+
+            await new Promise((resolve) =>
+            {
+                filesGenerator.commit([], () => {
+                    resolve();
+                })
+            });
 
             await this.Compress(this.PackagePath(fileMapping.SourceRoot), this.PackagePath(fileMapping.SourceRoot + ".tar"));
         }
@@ -90,10 +96,13 @@ class Program
             MemFileSystem.copyTpl(this.TemplatePath("style", "variables.xml"), this.StylesPath(style.Name, "variables.xml"), { Style: style });
         }
 
-        MemFileSystem.commit(
-            [],
-            () =>
-            { });
+        await new Promise((resolve) =>
+        {
+            MemFileSystem.commit([], () =>
+            {
+                resolve();
+            })
+        });
     }
 
     /**
