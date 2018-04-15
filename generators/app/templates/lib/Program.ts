@@ -108,6 +108,35 @@ class Program
             await this.Compress(this.StylesPath(style.Name, "images"), this.StylesPath(style.Name, "images.tar"));
         }
 
+        for (let templateMapping of WSCPackage.InstallInstruction.TemplateMappings)
+        {
+            let filesGenerator = memFsEditor.create(memFs.create());
+            filesGenerator.copyTpl(templateMapping.SourceRoot, this.PackagePath(templateMapping.SourceRoot), WSCPackage);
+
+            await new Promise((resolve) =>
+            {
+                filesGenerator.commit([], () => {
+                    resolve();
+                })
+            });
+
+            await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
+        }
+
+        for (let templateMapping of WSCPackage.InstallInstruction.ACPTemplateMappings)
+        {
+            let filesGenerator = memFsEditor.create(memFs.create());
+            filesGenerator.copyTpl(templateMapping.SourceRoot, this.PackagePath(templateMapping.SourceRoot), WSCPackage);
+
+            await new Promise((resolve) =>
+            {
+                filesGenerator.commit([], () => {
+                    resolve();
+                })
+            });
+
+            await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
+        }
         await new Promise((resolve) =>
         {
             MemFileSystem.commit([], () =>
