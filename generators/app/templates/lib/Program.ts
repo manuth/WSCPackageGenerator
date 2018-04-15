@@ -87,6 +87,7 @@ class Program
         for (let style of WSCPackage.InstallInstruction.Styles)
         {
             MemFileSystem.copyTpl(this.TemplatePath("style", "style.xml"), this.StylesPath(style.Name, "style.xml"), { Style: style, Package: WSCPackage });
+            MemFileSystem.copyTpl(this.TemplatePath("style", "variables.xml"), this.StylesPath(style.Name, "variables.xml"), { Style: style });
         }
 
         MemFileSystem.commit(
