@@ -9,14 +9,19 @@ import { isNullOrUndefined } from "util";
 export default class Emoji
 {
     /**
+     * The title of the emoji.
+     */
+    private title: string = "";
+
+    /**
      * The name of the emoji.
      */
-    private name: string = '';
+    private name: string = "";
 
     /**
      * The filename relative to the root of WoltLab Suite Core of the emoji.
      */
-    private fileName: string = '';
+    private fileName: string = "";
 
     /**
      * The filename relative to the root of WoltLab Suite Core of the high-resolution emoji.
@@ -38,6 +43,11 @@ export default class Emoji
      */
     public constructor(options: Partial<Emoji> = { })
     {
+        if (!isNullOrUndefined(options.Title))
+        {
+            this.title = options.Title;
+        }
+
         if (!isNullOrUndefined(options.Name))
         {
             this.name = options.Name;
@@ -62,6 +72,19 @@ export default class Emoji
         {
             this.showOrder = options.ShowOrder;
         }
+    }
+
+    /**
+     * Gets the title of the emoji.
+     */
+    public get Title(): string
+    {
+        return this.title;
+    }
+
+    public set Title(value: string)
+    {
+        this.title = value;
     }
 
     /**
