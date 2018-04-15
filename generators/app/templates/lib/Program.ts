@@ -94,6 +94,18 @@ class Program
         {
             MemFileSystem.copyTpl(this.TemplatePath("style", "style.xml"), this.StylesPath(style.Name, "style.xml"), { Style: style, Package: WSCPackage });
             MemFileSystem.copyTpl(this.TemplatePath("style", "variables.xml"), this.StylesPath(style.Name, "variables.xml"), { Style: style });
+            
+            let styleGenerator = memFsEditor.create(memFs.create());
+            styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(style.Name, "images"), WSCPackage);
+            await new Promise((resolve) =>
+            {
+                styleGenerator.commit([], () =>
+                {
+                    resolve();
+                })
+            });
+
+            await this.Compress(this.StylesPath(style.Name, "images"), this.StylesPath(style.Name, "images.tar"));
         }
 
         await new Promise((resolve) =>
