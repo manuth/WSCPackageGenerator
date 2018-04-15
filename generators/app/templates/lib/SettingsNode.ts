@@ -1,4 +1,4 @@
-import WSCNode from './NodeContainer';
+import NodeContainer from './NodeContainer';
 import NodeCollection from './Collections/NodeCollection';
 import Option from './Option';
 import Localizable from './Globalization/Localizable';
@@ -7,7 +7,7 @@ import { isUndefined } from 'util';
 /**
  * Represents a node that contains options and categories.
  */
-export default class SettingsNode extends WSCNode
+export default class SettingsNode extends NodeContainer
 {
     /**
      * The displayname of the node.
