@@ -18,12 +18,14 @@
     "yeoman-generator"
   ],
   "devDependencies": {
+    "@types/fs-extra": "^5.0.2",
     "@types/mem-fs-editor": "^4.0.0",
     "@types/mocha": "^5.0.0",
     "@types/node": "^9.6.4",
     "@types/yeoman-generator": "^2.0.3",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
+    "fs-extra": "^5.0.0",
     "mem-fs": "^1.1.3",
     "mem-fs-editor": "^4.0.0",
     "mocha": "^5.0.5",
