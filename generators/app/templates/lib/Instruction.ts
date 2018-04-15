@@ -229,12 +229,16 @@ export default class Instruction
             {
                 let sameNodes = result.filter((value: TranslationNode) =>
                 {
-                    value.Name === settingsTranslationNode.Name
+                    return value.Name === settingsTranslationNode.Name
                 });
 
                 if (sameNodes.length > 0)
                 {
                     sameNodes[0].Nodes.push(...settingsTranslationNode.Nodes);
+                }
+                else
+                {
+                    result.push(settingsTranslationNode);
                 }
             }
         }

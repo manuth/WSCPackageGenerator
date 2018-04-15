@@ -172,7 +172,7 @@ export default class Option extends Node
     public get TranslationNodes(): TranslationNode[]
     {
         let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
-        let rootNodes: TranslationNode[];
+        let rootNodes: TranslationNode[] = [];
 
         if (Object.keys(this.DisplayName))
         {
@@ -208,6 +208,11 @@ export default class Option extends Node
                     translationNode.Nodes.push(...childNode.Nodes);
                 }
             }
+        }
+
+        if (translationNode.GetTranslations().length > 0)
+        {
+            rootNodes.splice(0, 0, translationNode);
         }
 
         return rootNodes;
