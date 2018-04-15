@@ -30,7 +30,7 @@ export default class TemplateListener extends Listener
 
         if (!isNullOrUndefined(options.Code))
         {
-            this.code = options.TemplateName;
+            this.code = options.Code;
         }
     }
 
