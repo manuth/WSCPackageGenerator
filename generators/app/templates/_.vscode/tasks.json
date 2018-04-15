@@ -11,6 +11,25 @@
             "isBackground": true,
             "presentation": {
                 "reveal": "never"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Build",
+            "type": "process",
+            "command": "npm",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "args": [
+                "run",
+                "build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         }
     ]
