@@ -63,6 +63,9 @@ export default class Instruction
      */
     private emojis: Emoji[] = [];
 
+    /**
+     * Initializes a new instance of the `Instruction` class.
+     */
     public constructor(options: Partial<InstructionConfig> = { })
     {
         if (options.Package)
