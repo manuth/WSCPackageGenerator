@@ -108,7 +108,9 @@ export default class Instruction
 
                     if (FileSystem.existsSync(metaFile + '.js'))
                     {
-                        this.styles.push(require(metaFile));
+                        let style = (require(metaFile) as Style);
+                        style.Name = Path.basename(styleFolder);
+                        this.styles.push();
                     }
                 }
             }
