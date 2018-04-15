@@ -1,5 +1,5 @@
 import * as ChildProcess from "child_process";
-import * as FileSystem from "fs";
+import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as memFsEditor from "mem-fs-editor";
 import * as memFs from "mem-fs";
@@ -55,6 +55,7 @@ class Program
             });
 
             await this.Compress(this.PackagePath(fileMapping.SourceRoot), this.PackagePath(fileMapping.SourceRoot + ".tar"));
+            FileSystem.removeSync(this.PackagePath(fileMapping.SourceRoot));
         }
 
         if (WSCPackage.Categories.length > 0)
@@ -106,6 +107,8 @@ class Program
             });
 
             await this.Compress(this.StylesPath(style.Name, "images"), this.StylesPath(style.Name, "images.tar"));
+            FileSystem.removeSync(this.StylesPath(style.Name, "images"));
+            await this.Compress(this.StylesPath(style.Name), this.PackagePath(this.stylesPath, style.Name + ".tar"));
         }
 
         for (let templateMapping of WSCPackage.InstallInstruction.TemplateMappings)
@@ -121,6 +124,7 @@ class Program
             });
 
             await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
+            FileSystem.removeSync(this.PackagePath(templateMapping.SourceRoot));
         }
 
         for (let templateMapping of WSCPackage.InstallInstruction.ACPTemplateMappings)
@@ -136,6 +140,7 @@ class Program
             });
 
             await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
+            FileSystem.removeSync(this.PackagePath(templateMapping.SourceRoot));
         }
 
         if (WSCPackage.InstallInstruction.TemplateListeners.length > 0)
@@ -155,6 +160,8 @@ class Program
                 resolve();
             })
         });
+
+        this.Compress(this.PackagePath(), this.DestinationPath(WSCPackage.Name + ".tar"));
     }
 
     /**
@@ -166,9 +173,9 @@ class Program
      * @param destination
      * The filename to save the compressed file to.
      */
-    private static async Compress(source: string, destination: string)
+    private static Compress(source: string, destination: string)
     {
-        await ChildProcess.execFile(
+        ChildProcess.execFileSync(
             "7z",
             [
                 "a",
