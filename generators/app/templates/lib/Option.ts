@@ -5,6 +5,7 @@ import OptionItemCollection from "./Collections/OptionItemCollection";
 import Localizable from "./GLobalization/Localizable";
 import SettingsNode from "./SettingsNode";
 import { isUndefined } from "util";
+import TranslationNode from "./Globalization/TranslationNode";
 
 /**
  * Represents an option that can be shown in the ACP.
@@ -163,5 +164,44 @@ export default class Option extends Node
     public get EnableOptions(): string[]
     {
         return this.enableOptions;
+    }
+
+    /**
+     * Gets the translations of the option.
+     */
+    public get Translations(): TranslationNode[]
+    {
+        let result: TranslationNode[];
+
+        if (Object.keys(this.DisplayName).length > 0)
+        {
+            let displayNameNode = this.GetTranslationNode();
+            Object.assign(displayNameNode.Translations, this.DisplayName);
+            result.push(displayNameNode);
+        }
+
+        if (Object.keys(this.Description).length > 0)
+        {
+            result.push(
+                new TranslationNode({
+                    Name: "description",
+                    Translations: this.Default,
+                    Parent: this.GetTranslationNode() }));        
+        }
+
+        for (let item of this.Items)
+        {
+            result.push(...item.Translations);
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the translation-node that belongs to this option.
+     */
+    public GetTranslationNode(): TranslationNode
+    {
+        return new TranslationNode({ Name: this.Name, Parent: (this.Parent as SettingsNode).GetTranslationNode() });
     }
 }

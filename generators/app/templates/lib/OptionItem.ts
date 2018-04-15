@@ -2,6 +2,7 @@ import Option from "./Option";
 import Localizable from "./Globalization/Localizable";
 import Node from "./Node";
 import { isUndefined } from "util";
+import TranslationNode from "./Globalization/TranslationNode";
 
 /**
  * Represents an item of an option.
@@ -107,5 +108,24 @@ export default class OptionItem
     public set Option(value: Option)
     {
         this.option = value;
+    }
+
+    /**
+     * Gets the translations of this item.
+     */
+    public get Translations(): TranslationNode[]
+    {
+        if (Object.keys(this.DisplayName).length > 0)
+        {
+            return [ new TranslationNode({
+                Name: this.Name,
+                Translations: this.DisplayName,
+                Parent: this.Option.GetTranslationNode()
+            }) ];
+        }
+        else
+        {
+            return [ ];
+        }
     }
 }

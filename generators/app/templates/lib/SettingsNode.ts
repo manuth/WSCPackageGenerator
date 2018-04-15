@@ -3,6 +3,7 @@ import NodeCollection from './Collections/NodeCollection';
 import Option from './Option';
 import Localizable from './Globalization/Localizable';
 import { isUndefined } from 'util';
+import TranslationNode from './Globalization/TranslationNode';
 
 /**
  * Represents a node that contains options and categories.
@@ -90,6 +91,42 @@ export default class SettingsNode extends NodeContainer
     }
 
     /**
+     * Gets the translations of the settings-node.
+     */
+    public get Translations(): TranslationNode[]
+    {
+        let result: TranslationNode[] = [];
+
+        if (Object.keys(this.DisplayName).length > 0)
+        {
+            let displayNameNode = this.GetTranslationNode();
+            Object.assign(displayNameNode.Translations, this.DisplayName);
+            result.push(displayNameNode);
+        }
+
+        if (Object.keys(this.Description).length > 0)
+        {
+            result.push(
+                new TranslationNode({
+                    Name: "description",
+                    Translations: this.Description,
+                    Parent: this.GetTranslationNode() }));
+        }
+
+        for (let option of this.Options)
+        {
+            result.push(...option.Translations);
+        }
+
+        for (let node of this.Nodes)
+        {
+            result.push(...node.Translations);
+        }
+
+        return result;
+    }
+
+    /**
      * Gets all options in this node and all its sub-nodes.
      */
     public GetOptions(): { [id: string]: Option }
@@ -121,6 +158,39 @@ export default class SettingsNode extends NodeContainer
         {
             result.push(...node.GetCategories());
         }
+
+        return result;
+    }
+
+    /**
+     * Gets the translation-node that belongs to this settings-node.
+     */
+    public GetTranslationNode(): TranslationNode
+    {
+        let result: TranslationNode = new TranslationNode({ Name: this.Name });
+        let translationNode = result;
+
+        for (let node = (this.Parent as TranslationNode); node !== null; node = (node.Parent as TranslationNode))
+        {
+            translationNode = new TranslationNode({ Name: node.Name, Nodes: [ translationNode ] });
+        }
+
+        translationNode = new TranslationNode({
+            Name: "wfc",
+            Nodes: [
+                new TranslationNode({
+                    Name: "acp",
+                    Nodes: [
+                        new TranslationNode({
+                            Name: "option",
+                            Nodes: [
+                                translationNode
+                            ]
+                        })
+                    ]
+                })
+            ]
+        });
 
         return result;
     }

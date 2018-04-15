@@ -227,6 +227,11 @@ export default class Instruction
             result.push(...node.GetTranslations());
         }
 
+        if (this.SettingsNode)
+        {
+            result.push(...this.settingsNode.Translations);
+        }
+
         return result;
     }
 
