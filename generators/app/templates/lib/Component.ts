@@ -82,6 +82,11 @@ export default abstract class Component
         return this.name;
     }
 
+    public set Name(value: string)
+    {
+        this.name = value;
+    }
+
     /**
      * Gets the human-readable name of the component.
      */
