@@ -3,4 +3,7 @@
     <variable name="individualScss">
         <![CDATA[<%- Style.CustomScss %>]]>
     </variable>
+    <variable name="overrideScss">
+        <![CDATA[<%- Style.OverrideScss %>]]>
+    </variable>
 </variables>
