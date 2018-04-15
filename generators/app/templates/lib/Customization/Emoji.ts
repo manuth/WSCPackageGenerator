@@ -1,5 +1,5 @@
 import { ENGINE_METHOD_CIPHERS } from "constants";
-import { isUndefined } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an emoji.
@@ -38,27 +38,27 @@ export default class Emoji
      */
     public constructor(options: Partial<Emoji> = { })
     {
-        if (!isUndefined(options.Name))
+        if (!isNullOrUndefined(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (!isUndefined(options.FileName))
+        if (!isNullOrUndefined(options.FileName))
         {
             this.fileName = options.FileName;
         }
 
-        if (!isUndefined(options.HighResFileName))
+        if (!isNullOrUndefined(options.HighResFileName))
         {
             this.highResFileName = options.HighResFileName;
         }
 
-        if (!isUndefined(options.Aliases))
+        if (!isNullOrUndefined(options.Aliases))
         {
             this.aliases.push(...options.Aliases);
         }
 
-        if (!isUndefined(options.ShowOrder))
+        if (!isNullOrUndefined(options.ShowOrder))
         {
             this.showOrder = options.ShowOrder;
         }

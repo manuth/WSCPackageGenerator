@@ -1,6 +1,6 @@
 import NodeCollection from "./Collections/NodeCollection";
 import Node from "./Node";
-import { isUndefined } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node.
@@ -19,7 +19,7 @@ export default abstract class NodeContainer extends Node
     {
         super(options);
 
-        if (!isUndefined(options.Nodes))
+        if (!isNullOrUndefined(options.Nodes))
         {
             this.nodes.push(...options.Nodes);
         }

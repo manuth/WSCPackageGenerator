@@ -5,7 +5,7 @@ import InstructionCollection from "./Collections/InstructionCollection";
 import Option from "./Option";
 import SettingsNode from "./SettingsNode";
 import TranslationNode from "./Globalization/TranslationNode";
-import { isUndefined } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -34,17 +34,17 @@ export default class Package extends Component
     {
         super(options);
 
-        if (!isUndefined(options.Identifier))
+        if (!isNullOrUndefined(options.Identifier))
         {
             this.identifier = options.Identifier;
         }
 
-        if (!isUndefined(options.InstallInstruction))
+        if (!isNullOrUndefined(options.InstallInstruction))
         {
             this.installInstruction = options.InstallInstruction;
         }
 
-        if (!isUndefined(options.UpdateInstructions))
+        if (!isNullOrUndefined(options.UpdateInstructions))
         {
             this.updateInstructions.push(...options.UpdateInstructions);
         }

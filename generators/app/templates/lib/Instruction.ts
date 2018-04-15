@@ -10,7 +10,7 @@ import TemplateListener from "./Customization/TemplateListener";
 import Emoji from "./Customization/Emoji";
 import Option from "./Option";
 import InstructionConfig from './InstructionConfig';
-import { isUndefined } from 'util';
+import { isNullOrUndefined } from 'util';
 
 export default class Instruction
 {
@@ -69,32 +69,32 @@ export default class Instruction
      */
     public constructor(options: Partial<InstructionConfig> = { })
     {
-        if (!isUndefined(options.Package))
+        if (!isNullOrUndefined(options.Package))
         {
             this.package = options.Package;
         }
 
-        if (!isUndefined(options.Files))
+        if (!isNullOrUndefined(options.Files))
         {
             this.fileMappings.push(...require(options.Files));
         }
 
-        if (!isUndefined(options.EventListeners))
+        if (!isNullOrUndefined(options.EventListeners))
         {
             this.eventListeners.push(...require(options.EventListeners));
         }
 
-        if (!isUndefined(options.Options))
+        if (!isNullOrUndefined(options.Options))
         {
             this.settingsNode = require(options.Options);
         }
 
-        if (!isUndefined(options.Translations))
+        if (!isNullOrUndefined(options.Translations))
         {
             this.translationNodes.push(...require(options.Translations));
         }
 
-        if (!isUndefined(options.StylesRoot))
+        if (!isNullOrUndefined(options.StylesRoot))
         {
             if (FileSystem.existsSync(options.StylesRoot))
             {
@@ -119,22 +119,22 @@ export default class Instruction
             }
         }
 
-        if (!isUndefined(options.TemplateMappings))
+        if (!isNullOrUndefined(options.TemplateMappings))
         {
             this.templateMappings.push(...require(options.TemplateMappings));
         }
 
-        if (!isUndefined(options.ACPTemplateMappings))
+        if (!isNullOrUndefined(options.ACPTemplateMappings))
         {
             this.acpTemplateMappings.push(...require(options.ACPTemplateMappings));
         }
 
-        if (!isUndefined(options.TemplateListeners))
+        if (!isNullOrUndefined(options.TemplateListeners))
         {
             this.templateListeners.push(...require(options.TemplateListeners));
         }
 
-        if (!isUndefined(options.Emojis))
+        if (!isNullOrUndefined(options.Emojis))
         {
             this.emojis.push(...require(options.Emojis));
         }

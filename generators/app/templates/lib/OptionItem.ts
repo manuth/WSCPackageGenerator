@@ -1,7 +1,7 @@
 import Option from "./Option";
 import Localizable from "./Globalization/Localizable";
 import Node from "./Node";
-import { isUndefined } from "util";
+import { isNullOrUndefined } from "util";
 import TranslationNode from "./Globalization/TranslationNode";
 
 /**
@@ -34,22 +34,22 @@ export default class OptionItem
      */
     public constructor(options: Partial<OptionItem> = { })
     {
-        if (!isUndefined(options.Name))
+        if (!isNullOrUndefined(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (!isUndefined(options.Value))
+        if (!isNullOrUndefined(options.Value))
         {
             this.value = options.Value;
         }
 
-        if (!isUndefined(options.Option))
+        if (!isNullOrUndefined(options.Option))
         {
             this.option = options.Option;
         }
 
-        if (!isUndefined(options.DisplayName))
+        if (!isNullOrUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
