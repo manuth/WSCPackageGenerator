@@ -111,16 +111,20 @@ export default class OptionItem
     }
 
     /**
-     * Gets the translations of this item.
+     * Gets the translation-nodes of this item.
      */
-    public get Translations(): TranslationNode[]
+    public get TranslationNodes(): TranslationNode[]
     {
         if (Object.keys(this.DisplayName).length > 0)
         {
             return [ new TranslationNode({
-                Name: this.Name,
-                Translations: this.DisplayName,
-                Parent: this.Option.GetTranslationNode()
+                Name: "wcf.acp.option",
+                Nodes: [
+                    new TranslationNode({
+                        Name: this.FullName,
+                        Translations: this.DisplayName
+                    })
+                ]
             }) ];
         }
         else

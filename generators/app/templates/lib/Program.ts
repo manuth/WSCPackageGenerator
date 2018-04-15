@@ -58,7 +58,27 @@ class Program
 
         if (WSCPackage.InstallInstruction.EventListeners.length > 0)
         {
-            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage })
+            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage });
+        }
+
+        {
+            let locales: string[] = [];
+
+            for (let translation of WSCPackage.Translations)
+            {
+                for (let locale in translation.Translations)
+                {
+                    if (locales.indexOf(locale) < 0)
+                    {
+                        locales.push(locale);
+                    }
+                }
+            }
+
+            for (let locale of locales)
+            {
+                MemFileSystem.copyTpl(this.TemplatePath("language.xml"), this.ComponentsPath("languages", locale + ".xml"), { Package: WSCPackage });
+            }
         }
 
         MemFileSystem.commit(

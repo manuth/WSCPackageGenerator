@@ -55,7 +55,7 @@ export default class Option extends Node
     /**
      * Initializes a new instance of the `Option` class.
      */
-    public constructor(options: Partial<Option> = { })
+    public constructor(options: Partial<Option> = {})
     {
         super(options);
 
@@ -115,7 +115,7 @@ export default class Option extends Node
     {
         return this.displayName;
     }
-    
+
     /**
      * Gets the description of the option.
      */
@@ -167,41 +167,49 @@ export default class Option extends Node
     }
 
     /**
-     * Gets the translations of the option.
+     * Gets the translation-nodes of the option.
      */
-    public get Translations(): TranslationNode[]
+    public get TranslationNodes(): TranslationNode[]
     {
-        let result: TranslationNode[];
+        let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
+        let rootNodes: TranslationNode[];
 
-        if (Object.keys(this.DisplayName).length > 0)
+        if (Object.keys(this.DisplayName))
         {
-            let displayNameNode = this.GetTranslationNode();
-            Object.assign(displayNameNode.Translations, this.DisplayName);
-            result.push(displayNameNode);
+            translationNode.Nodes.push(
+                new TranslationNode({
+                    Name: this.Name,
+                    Translations: this.DisplayName
+                }));
         }
 
-        if (Object.keys(this.Description).length > 0)
+        if (Object.keys(this.Description))
         {
-            result.push(
+            translationNode.Nodes.push(
                 new TranslationNode({
-                    Name: "description",
-                    Translations: this.Default,
-                    Parent: this.GetTranslationNode() }));        
+                    Name: this.Name,
+                    Nodes: [
+                        new TranslationNode(
+                            {
+                                Name: "description",
+                                Translations: this.Description
+                            }
+                        )
+                    ]
+                }))
         }
 
         for (let item of this.Items)
         {
-            result.push(...item.Translations);
+            for (let childNode of item.TranslationNodes)
+            {
+                if (translationNode.Name === childNode.Name)
+                {
+                    translationNode.Nodes.push(...childNode.Nodes);
+                }
+            }
         }
 
-        return result;
-    }
-
-    /**
-     * Gets the translation-node that belongs to this option.
-     */
-    public GetTranslationNode(): TranslationNode
-    {
-        return new TranslationNode({ Name: this.Name, Parent: (this.Parent as SettingsNode).GetTranslationNode() });
+        return rootNodes;
     }
 }

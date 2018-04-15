@@ -221,15 +221,22 @@ export default class Instruction
     public get Translations(): TranslationNode[]
     {
         let result: TranslationNode[] = [];
-
-        for (let node of this.TranslationNodes)
-        {
-            result.push(...node.GetTranslations());
-        }
+        result.push(...this.TranslationNodes);
 
         if (this.SettingsNode)
         {
-            result.push(...this.settingsNode.Translations);
+            for (let settingsTranslationNode of this.SettingsNode.TranslationNodes)
+            {
+                let sameNodes = result.filter((value: TranslationNode) =>
+                {
+                    value.Name === settingsTranslationNode.Name
+                });
+
+                if (sameNodes.length > 0)
+                {
+                    sameNodes[0].Nodes.push(...settingsTranslationNode.Nodes);
+                }
+            }
         }
 
         return result;

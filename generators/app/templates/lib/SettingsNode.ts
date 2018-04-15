@@ -91,39 +91,63 @@ export default class SettingsNode extends NodeContainer
     }
 
     /**
-     * Gets the translations of the settings-node.
+     * Gets the translation-nodes of the settings-node.
      */
-    public get Translations(): TranslationNode[]
+    public get TranslationNodes(): TranslationNode[]
     {
-        let result: TranslationNode[] = [];
-
+        let rootNodes: TranslationNode[] = [];
+        let childNodes: TranslationNode[] = [];
+        let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
+    
         if (Object.keys(this.DisplayName).length > 0)
         {
-            let displayNameNode = this.GetTranslationNode();
-            Object.assign(displayNameNode.Translations, this.DisplayName);
-            result.push(displayNameNode);
+            translationNode.Nodes.push(new TranslationNode({
+                Name: this.FullName,
+                Translations: this.DisplayName
+            }));
         }
 
         if (Object.keys(this.Description).length > 0)
         {
-            result.push(
-                new TranslationNode({
-                    Name: "description",
-                    Translations: this.Description,
-                    Parent: this.GetTranslationNode() }));
+            translationNode.Nodes.push(new TranslationNode({
+                Name: this.FullName,
+                Nodes: [
+                    new TranslationNode({
+                        Name: "description",
+                        Translations: this.Description
+                    })
+                ]
+            }));
+        }
+
+        for (let settingsNode of this.Nodes)
+        {
+            childNodes.push(...settingsNode.TranslationNodes);
         }
 
         for (let option of this.Options)
         {
-            result.push(...option.Translations);
+            childNodes.push(...option.TranslationNodes);
         }
 
-        for (let node of this.Nodes)
+        for (let childNode of childNodes)
         {
-            result.push(...node.Translations);
+            if (childNode.Name === translationNode.Name)
+            {
+                translationNode.Nodes.push(...childNode.Nodes);
+            }
+            else if (childNode.GetTranslations().length > 0)
+            {
+                rootNodes.push(childNode);
+            }
         }
 
-        return result;
+        if (translationNode.GetTranslations().length > 0)
+        {
+            rootNodes.splice(0, 0, translationNode);
+        }
+
+        return rootNodes;
     }
 
     /**
@@ -158,39 +182,6 @@ export default class SettingsNode extends NodeContainer
         {
             result.push(...node.GetCategories());
         }
-
-        return result;
-    }
-
-    /**
-     * Gets the translation-node that belongs to this settings-node.
-     */
-    public GetTranslationNode(): TranslationNode
-    {
-        let result: TranslationNode = new TranslationNode({ Name: this.Name });
-        let translationNode = result;
-
-        for (let node = (this.Parent as TranslationNode); node !== null; node = (node.Parent as TranslationNode))
-        {
-            translationNode = new TranslationNode({ Name: node.Name, Nodes: [ translationNode ] });
-        }
-
-        translationNode = new TranslationNode({
-            Name: "wfc",
-            Nodes: [
-                new TranslationNode({
-                    Name: "acp",
-                    Nodes: [
-                        new TranslationNode({
-                            Name: "option",
-                            Nodes: [
-                                translationNode
-                            ]
-                        })
-                    ]
-                })
-            ]
-        });
 
         return result;
     }
