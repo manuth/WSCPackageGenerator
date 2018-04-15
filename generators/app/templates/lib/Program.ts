@@ -137,6 +137,12 @@ class Program
 
             await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
         }
+
+        if (WSCPackage.InstallInstruction.TemplateListeners.length > 0)
+        {
+            MemFileSystem.copyTpl(this.TemplatePath("templateListeners.xml"), this.ComponentsPath("templateListeners.xml"), { Package: WSCPackage });
+        }
+
         await new Promise((resolve) =>
         {
             MemFileSystem.commit([], () =>
