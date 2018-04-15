@@ -112,6 +112,7 @@ export default class Instruction
                         process.chdir(styleFolder);
                         let style = (require(metaFile) as Style);
                         style.Name = Path.basename(styleFolder);
+                        style.SourceRoot = styleFolder;
                         this.styles.push(style);
                         process.chdir(currentDir);
                     }

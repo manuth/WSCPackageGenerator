@@ -15,6 +15,11 @@ export default class Style extends Component
     private instruction: Instruction;
 
     /**
+     * The source-root of the style.
+     */
+    private sourceRoot: string = '';
+
+    /**
      * The filename of the thumbnail of the style.
      */
     private thumbnail: string = null;
@@ -74,6 +79,19 @@ export default class Style extends Component
     public set Instruction(value: Instruction)
     {
         this.instruction = value;
+    }
+
+    /**
+     * Gets or sets the source-root of the style.
+     */
+    public get SourceRoot(): string
+    {
+        return this.sourceRoot;
+    }
+
+    public set SourceRoot(value: string)
+    {
+        this.sourceRoot = value;
     }
 
     /**
