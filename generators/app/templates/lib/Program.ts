@@ -143,6 +143,11 @@ class Program
             MemFileSystem.copyTpl(this.TemplatePath("templateListeners.xml"), this.ComponentsPath("templateListeners.xml"), { Package: WSCPackage });
         }
 
+        if (WSCPackage.InstallInstruction.Emojis.length > 0)
+        {
+            MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath("emojis.xml"), { Package: WSCPackage });
+        }
+
         await new Promise((resolve) =>
         {
             MemFileSystem.commit([], () =>
