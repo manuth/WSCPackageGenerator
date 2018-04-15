@@ -16,11 +16,6 @@ export default class StyleConfig extends Component
     private imagesRoot: string;
 
     /**
-     * The filename of the file that contains variables provided by the style.
-     */
-    private variableFile: string;
-
-    /**
      * The filename of the file that contains the custom scss-code.
      */
     private customScssFile: string;
@@ -55,20 +50,7 @@ export default class StyleConfig extends Component
     {
         this.imagesRoot = value;
     }
-
-    /**
-     * Gets or sets the filename of the file that contains variables provided by the style.
-     */
-    public get VariableFile(): string
-    {
-        return this.variableFile;
-    }
-
-    public set VariableFile(value: string)
-    {
-        this.variableFile = value;
-    }
-
+    
     /**
      * Gets or sets the filename of the file that contains the custom scss-code.
      */

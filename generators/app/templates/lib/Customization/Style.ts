@@ -23,11 +23,6 @@ export default class Style extends Component
      * The root of the images provided by this style.
      */
     private imagesRoot: string = null;
-    
-    /**
-     * The variables provided by this style.
-     */
-    private variables: { [name: string]: string } = { };
 
     /**
      * The scss-code provided by this style.
@@ -55,11 +50,6 @@ export default class Style extends Component
         if (!isUndefined(options.ImagesRoot))
         {
             this.imagesRoot = options.ImagesRoot;
-        }
-
-        if (!isUndefined(options.VariableFile))
-        {
-            this.variables = require(options.VariableFile) as { [name: string]: string };
         }
 
         if (!isUndefined(options.CustomScssFile))
@@ -110,14 +100,6 @@ export default class Style extends Component
     public set ImagesRoot(value: string)
     {
         this.imagesRoot = value;
-    }
-
-    /**
-     * Gets the variables provided by this style.
-     */
-    public get Variables(): { [name: string]: string }
-    {
-        return this.variables;
     }
 
     /**
