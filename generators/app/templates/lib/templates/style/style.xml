@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<style xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/style.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.woltlab.com">
+    <general><%
+    %><% for (let locale in Style.DisplayName) { %>
+        <stylename<%
+        %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
+            <![CDATA[<%- Style.DisplayName[locale] %>]]>
+        </stylename><% } %>
+        <packageName>
+            <%= Package.Identifier %>
+        </packageName><%
+    %><% for (let locale in Style.Description) { %>
+        <description<%
+        %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
+            <![CDATA[<%- Style.Description[locale] %>]]>
+        </description><% } %>
+        <date>
+            <%= (
+                Style.Date.getFullYear() + "-" +
+                (Style.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+                Style.Date.getDate().toString().padStart(2, "0"))
+            %>
+        </date>
+        <version>
+            <%= Style.Version %>
+        </version><%
+    %><% if (Style.Thumbnail) { %>
+        <image>
+            <![CDATA[<%- Style.Thumbnail%>]]>
+        </image><%
+    %><% } %><%
+    %><% if (Style.License) { %>
+        <license>
+            <![CDATA[<%- Style.License %>]]>
+        </license><%
+    %><% } %>
+    </general>
+    <author>
+        <authorname>
+            <![CDATA[<%- Style.Author.Name %>]]>
+        </authorname><%
+    %><% if (Style.Author.URI) { %>
+        <authorurl>
+            <![CDATA[<%- Style.Author.URI %>]]>
+        </authorurl><%
+    %><% } %>
+    </author>
+    <files>
+        <variables>
+            variables.xml
+        </variables><%
+    %><% if (Style.ImagesRoot) { %>
+        <images path="images/<%= Style.Name %>">
+            images.tar
+        </images><%
+    %><% } %>
+    </files>
+</style>
