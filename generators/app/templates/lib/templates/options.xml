@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/option.xsd">
+    <import><%
+%><% if (Package.Categories.length > 0) { %>
+        <categories><%
+    %><% for (let category of Package.Categories) { %><%
+        %><% if (category.Parent === null) { %>
+            <category name="<%= category.FullName %>" /><%
+        %><% } else { %>
+            <category name="<%= category.FullName %>">
+                <parent><%= category.Parent.FullName %></parent>
+            </category><%
+        %><% } %><%
+    %><% } %>
+        </categories><%
+%><% } %><%
+%><% if (Object.keys(Package.Options).length > 0) { %>
+        <options><%
+    %><% for (let name in Package.Options) { %><%
+            let option = Package.Options[name];
+        %>
+            <option name="<%= option.Name %>">
+                <categoryname><%= option.Parent.FullName %></categoryname>
+                <optiontype><%= option.Type %></optiontype><%
+        %><% if (option.Default !== undefined) { %>
+                <defaultvalue><%= option.Default %></defaultvalue><%
+        %><% } %><%
+        %><% if (option.Items.length > 0) { %>
+                <selectoptions>
+                    <![CDATA[<%
+            %><% for (let item in option.Items) { %>
+                    <%= item.FullName %><% } %>]]>
+        <% } %>
+            </option><% } %>
+        </options><% } %>
+    </import>
+</data>

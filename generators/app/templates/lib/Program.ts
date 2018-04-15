@@ -51,14 +51,14 @@ class Program
             await this.Compress(this.PackagePath(fileMapping.SourceRoot), this.PackagePath(fileMapping.SourceRoot + ".tar"));
         }
 
-        if (WSCPackage.InstallInstruction.EventListeners.length > 0)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage })
-        }
-
         if (WSCPackage.Categories.length > 0)
         {
             MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath("options.xml"), { Package: WSCPackage });
+        }
+
+        if (WSCPackage.InstallInstruction.EventListeners.length > 0)
+        {
+            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage })
         }
 
         MemFileSystem.commit(
