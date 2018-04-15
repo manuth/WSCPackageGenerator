@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <package name="<%= Package.Identifier %>" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/package.xsd">
     <packageinformation><%
-    %><% for (const locale in Package.DisplayName) { %>
+    %><% for (let locale in Package.DisplayName) { %>
         <packagename<%
         %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
             <![CDATA[<%- Package.DisplayName[locale] %>]]>
         </packagename><% } %><%
-    %><% for (const locale in Package.Description) { %>
+    %><% for (let locale in Package.Description) { %>
         <packagedescription<%
     %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
             <![CDATA[<%- Package.Description[locale] %>]]>
@@ -17,7 +17,8 @@
                 Package.Date.getFullYear() + "-" +
                 (Package.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
                 Package.Date.getDate().toString().padStart(2, "0"))
-            %></date>
+            %>
+        </date>
     </packageinformation>
     <authorinformtion>
         <author><%= Package.Author.Name %></author>
