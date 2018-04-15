@@ -64,20 +64,23 @@ class Program
         {
             let locales: string[] = [];
 
-            for (let translation of WSCPackage.Translations)
+            for (let translationNode of WSCPackage.Translations)
             {
-                for (let locale in translation.Translations)
+                for (let translation of translationNode.GetTranslations())
                 {
-                    if (locales.indexOf(locale) < 0)
+                    for (let locale in translation.Translations)
                     {
-                        locales.push(locale);
+                        if (locales.indexOf(locale) < 0)
+                        {
+                            locales.push(locale);
+                        }
                     }
                 }
             }
 
             for (let locale of locales)
             {
-                MemFileSystem.copyTpl(this.TemplatePath("language.xml"), this.ComponentsPath("languages", locale + ".xml"), { Package: WSCPackage });
+                MemFileSystem.copyTpl(this.TemplatePath("language.xml"), this.ComponentsPath("languages", locale + ".xml"), { Package: WSCPackage, Locale: locale });
             }
         }
 
