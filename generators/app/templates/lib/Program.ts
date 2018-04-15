@@ -6,6 +6,7 @@ import * as memFs from "mem-fs";
 
 const MemFileSystem = memFsEditor.create(memFs.create());
 import * as WSCPackage from "../Package";
+import TranslationNode from "./Globalization/TranslationNode";
 
 /**
  * Represents the main entry-point of the script.
@@ -39,7 +40,6 @@ class Program
      */
     public static async Main(args: string[])
     {
-        let path = Path;
         MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
 
         for (let fileMapping of WSCPackage.InstallInstruction.FileMappings)
