@@ -3,7 +3,6 @@ import * as Path from "path";
 import * as Generator from "yeoman-generator";
 import chalk from "chalk";
 import yosay = require("yosay");
-import Node from "./templates/lib/Nodes/Node";
 
 export = class extends Generator
 {
@@ -339,7 +338,7 @@ export = class extends Generator
 
         this.destinationRoot(this.settings["destination"]);
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
-        this.fs.copy(this.templatePath("lib/**/*.ts"), this.destinationPath("lib"));
+        this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
         this.fs.copy(this.templatePath("lib/templates"), this.destinationPath("lib/templates"));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
         this.fs.copyTpl(this.templatePath("_package.json"), this.destinationPath("package.json"), this.settings);
