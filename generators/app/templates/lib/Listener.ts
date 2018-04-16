@@ -1,5 +1,5 @@
 import WSCEnvironment from "./WSCEnvironment";
-import Option from "../ControlPanel/Option";
+import Option from "./ControlPanel/Option";
 import { isNullOrUndefined } from "util";
 
 /**
