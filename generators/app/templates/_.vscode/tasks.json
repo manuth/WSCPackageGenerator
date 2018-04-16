@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile",
+            "label": "Watch",
             "type": "npm",
             "script": "watch",
             "problemMatcher": "$tsc-watch",
@@ -17,8 +17,21 @@
             }
         },
         {
+            "label": "Compile",
+            "type": "npm",
+            "script": "compile",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "presentation": {
+                "reveal": "never"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
             "label": "Build",
-            "type": "process",
+            "type": "shell",
             "command": "npm",
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -30,7 +43,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "dependsOn": "Compile"
         }
     ]
 }
