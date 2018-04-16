@@ -1,0 +1,7 @@
+.vscode/
+generators/*/*.js.map
+generators/*/*.ts
+test/
+tests/
+.travis.yml
+tsconfig.json

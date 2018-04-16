@@ -8,9 +8,6 @@
     "email": "m@nuth.ch",
     "url": "https://github.com/manuth"
   },
-  "files": [
-    "generators"
-  ],
   "main": "generators/index.js",
   "keywords": [
     "Woltlab Suite Core",
