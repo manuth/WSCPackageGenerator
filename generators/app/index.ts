@@ -358,7 +358,7 @@ export = class extends Generator
                     break;
                 default:
                     this.fs.copyTpl(
-                        this.templatePath(componentTemplates[component]),
+                        this.templatePath("components", componentTemplates[component]),
                         componentsPath(this.settings["componentPaths"][component] + ".ts"),
                         this.settings);
                     break;
