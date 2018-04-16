@@ -1,7 +1,7 @@
-import Instruction from "./Instruction";
+import ComponentCollection from "./ComponentCollection";
 import InstructionConfig from "./InstructionConfig";
 
-export default class UpdateInstruction extends Instruction
+export default class UpdateComponentCollection extends ComponentCollection
 {
     /**
      * The version this update can be applied to.

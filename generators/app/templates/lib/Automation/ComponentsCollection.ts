@@ -1,10 +1,10 @@
-import Instruction from "./Instruction";
+import ComponentCollection from "./ComponentCollection";
 import Package from "../Package";
 
 /**
  * Represents a set of instructions.
  */
-export default class InstructionCollection<T extends Instruction> extends Array<T>
+export default class ComponentsCollection<T extends ComponentCollection> extends Array<T>
 {
     /**
      * The package this collection belongs to.

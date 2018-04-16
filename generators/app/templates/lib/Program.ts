@@ -6,7 +6,6 @@ import * as memFs from "mem-fs";
 
 const MemFileSystem = memFsEditor.create(memFs.create());
 import * as WSCPackage from "../Package";
-import TranslationNode from "./Globalization/TranslationNode";
 
 /**
  * Represents the main entry-point of the script.

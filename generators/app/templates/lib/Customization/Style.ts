@@ -1,7 +1,7 @@
 import * as FileSystem from 'fs';
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
-import Instruction from '../Automation/Instruction';
+import ComponentCollection from '../Automation/ComponentCollection';
 import { isNullOrUndefined } from 'util';
 
 /**
@@ -12,7 +12,7 @@ export default class Style extends Component
     /**
      * The instruction this style belongs to.
      */
-    private instruction: Instruction;
+    private instruction: ComponentCollection;
 
     /**
      * The source-root of the style.
@@ -71,12 +71,12 @@ export default class Style extends Component
     /**
      * Gets or sets the instruction this style belongs to.
      */
-    public get Instruction(): Instruction
+    public get Instruction(): ComponentCollection
     {
         return this.instruction;
     }
 
-    public set Instruction(value: Instruction)
+    public set Instruction(value: ComponentCollection)
     {
         this.instruction = value;
     }

@@ -1,5 +1,5 @@
 import Style from "../Customization/Style";
-import Instruction from "../Automation/Instruction";
+import ComponentCollection from "../Automation/ComponentCollection";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -10,7 +10,7 @@ export default class StyleCollection<T extends Style> extends Array<T>
     /**
      * The package this collection belongs to.
      */
-    private instruction: Instruction;
+    private instruction: ComponentCollection;
 
     /**
      * Initializes a new instance of the `StyleCollection` class.
@@ -18,7 +18,7 @@ export default class StyleCollection<T extends Style> extends Array<T>
      * @param instruction
      * The instruction this collection belongs to.
      */
-    public constructor(instruction: Instruction)
+    public constructor(instruction: ComponentCollection)
     {
         super();
         this.instruction = instruction;

@@ -1,7 +1,7 @@
 import Component from "./Component";
-import Instruction from "./Automation/Instruction";
-import UpdateInstruction from "./Automation/UpdateInstruction";
-import InstructionCollection from "./Automation/InstructionCollection";
+import ComponentCollection from "./Automation/ComponentCollection";
+import UpdateComponentCollection from "./Automation/UpdateComponentCollection";
+import ComponentsCollection from "./Automation/ComponentsCollection";
 import Option from "./ControlPanel/Option";
 import SettingsNode from "./ControlPanel/SettingsNode";
 import TranslationNode from "./Globalization/TranslationNode";
@@ -20,12 +20,12 @@ export default class Package extends Component
     /**
      * The instruction that is used for installing the packge.
      */
-    private installInstruction = new Instruction({ Package: this });
+    private installInstruction = new ComponentCollection({ Package: this });
 
     /**
      * A set of instructions for updating the package.
      */
-    private updateInstructions: UpdateInstruction[] = new InstructionCollection(this);
+    private updateInstructions: UpdateComponentCollection[] = new ComponentsCollection(this);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -66,12 +66,12 @@ export default class Package extends Component
     /**
      * Gets or sets the instruction that is used for installing the packge.
      */
-    public get InstallInstruction(): Instruction
+    public get InstallInstruction(): ComponentCollection
     {
         return this.installInstruction;
     }
 
-    public set InstallInstruction(value: Instruction)
+    public set InstallInstruction(value: ComponentCollection)
     {
         this.installInstruction = value;
     }
@@ -79,7 +79,7 @@ export default class Package extends Component
     /**
      * Gets a set of instructions for updating the package.
      */
-    public get UpdateInstructions(): UpdateInstruction[]
+    public get UpdateInstructions(): UpdateComponentCollection[]
     {
         return this.updateInstructions;
     }
