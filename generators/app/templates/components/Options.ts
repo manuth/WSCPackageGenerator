@@ -1,6 +1,6 @@
-import SettingsNode from "../lib/SettingsNode";
-import Option from "../lib/Option";
-import OptionType from "../lib/OptionType";
+import SettingsNode from "../lib/ControlPanel/SettingsNode";
+import Option from "../lib/ControlPanel/Option";
+import OptionType from "../lib/ControlPanel/OptionType";
 
 let options: SettingsNode;
 

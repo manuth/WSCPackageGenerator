@@ -1,11 +1,11 @@
-import Node from "./Node";
+import Node from "../Nodes/Node";
 import OptionType from "./OptionType";
 import OptionItem from "./OptionItem";
-import OptionItemCollection from "./Collections/OptionItemCollection";
-import Localizable from "./GLobalization/Localizable";
+import OptionItemCollection from "./OptionItemCollection";
+import Localizable from "../GLobalization/Localizable";
 import SettingsNode from "./SettingsNode";
 import { isNullOrUndefined } from "util";
-import TranslationNode from "./Globalization/TranslationNode";
+import TranslationNode from "../Globalization/TranslationNode";
 
 /**
  * Represents an option that can be shown in the ACP.

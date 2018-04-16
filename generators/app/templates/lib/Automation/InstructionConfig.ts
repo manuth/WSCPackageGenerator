@@ -1,6 +1,6 @@
-import Component from "./Component";
-import Package from "./Package";
-import FileMapping from "./FileMapping";
+import Component from "../Component";
+import Package from "../Package";
+import FileMapping from "../FileMapping";
 
 /**
  * Represents a package-configuration.

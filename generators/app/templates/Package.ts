@@ -1,6 +1,6 @@
 import * as Path from "path";
 import Package from "./lib/Package";
-import Instruction from "./lib/Instruction";
+import Instruction from "./lib/Automation/Instruction";
 
 function getComponentsPath(value: string): string
 {

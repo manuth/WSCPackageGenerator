@@ -1,7 +1,7 @@
-import NodeContainer from "../NodeContainer";
-import Node from "../Node";
-import OptionItem from "../OptionItem";
-import Option from "../Option";
+import NodeContainer from "../Nodes/NodeContainer";
+import Node from "../Nodes/Node";
+import OptionItem from "./OptionItem";
+import Option from "./Option";
 
 /**
  * Represents a set of option-items.

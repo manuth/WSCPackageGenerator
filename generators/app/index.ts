@@ -3,7 +3,7 @@ import * as Path from "path";
 import * as Generator from "yeoman-generator";
 import chalk from "chalk";
 import yosay = require("yosay");
-import Node from "./templates/lib/Node";
+import Node from "./templates/lib/Nodes/Node";
 
 export = class extends Generator
 {

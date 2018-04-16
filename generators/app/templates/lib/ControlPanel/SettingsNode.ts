@@ -1,9 +1,9 @@
-import NodeContainer from './NodeContainer';
-import NodeCollection from './Collections/NodeCollection';
+import NodeContainer from '../Nodes/NodeContainer';
+import NodeCollection from '../Nodes/NodeCollection';
 import Option from './Option';
-import Localizable from './Globalization/Localizable';
+import Localizable from '../Globalization/Localizable';
 import { isNullOrUndefined } from 'util';
-import TranslationNode from './Globalization/TranslationNode';
+import TranslationNode from '../Globalization/TranslationNode';
 
 /**
  * Represents a node that contains options and categories.

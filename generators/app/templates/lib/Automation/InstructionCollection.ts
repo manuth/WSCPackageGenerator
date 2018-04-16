@@ -1,4 +1,4 @@
-import Instruction from "../Instruction";
+import Instruction from "./Instruction";
 import Package from "../Package";
 
 /**

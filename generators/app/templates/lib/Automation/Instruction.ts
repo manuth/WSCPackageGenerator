@@ -1,14 +1,14 @@
 import * as FileSystem from 'fs';
 import * as Path from 'path';
-import Package from "./Package";
-import FileMapping from "./FileMapping";
-import SettingsNode from "./SettingsNode";
-import TranslationNode from "./Globalization/TranslationNode";
-import Style from "./Customization/Style";
-import StyleCollection from "./Collections/StyleCollection";
-import TemplateListener from "./Customization/TemplateListener";
-import Emoji from "./Customization/Emoji";
-import Option from "./Option";
+import Package from "../Package";
+import FileMapping from "../FileMapping";
+import SettingsNode from "../ControlPanel/SettingsNode";
+import TranslationNode from "../Globalization/TranslationNode";
+import Style from "../Customization/Style";
+import StyleCollection from "../Customization/StyleCollection";
+import TemplateListener from "../Customization/TemplateListener";
+import Emoji from "../Customization/Emoji";
+import Option from "../ControlPanel/Option";
 import InstructionConfig from './InstructionConfig';
 import { isNullOrUndefined } from 'util';
 

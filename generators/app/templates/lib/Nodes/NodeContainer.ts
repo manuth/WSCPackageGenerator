@@ -1,4 +1,4 @@
-import NodeCollection from "./Collections/NodeCollection";
+import NodeCollection from "./NodeCollection";
 import Node from "./Node";
 import { isNullOrUndefined } from "util";
 

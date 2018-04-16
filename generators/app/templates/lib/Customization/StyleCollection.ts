@@ -1,5 +1,5 @@
 import Style from "../Customization/Style";
-import Instruction from "../Instruction";
+import Instruction from "../Automation/Instruction";
 import { isNullOrUndefined } from "util";
 
 /**

@@ -1,7 +1,7 @@
 import * as FileSystem from 'fs';
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
-import Instruction from '../Instruction';
+import Instruction from '../Automation/Instruction';
 import { isNullOrUndefined } from 'util';
 
 /**

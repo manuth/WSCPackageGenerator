@@ -1,5 +1,5 @@
-import NodeContainer from "../NodeContainer";
-import NodeCollection from "../Collections/NodeCollection";
+import NodeContainer from "../Nodes/NodeContainer";
+import NodeCollection from "../Nodes/NodeCollection";
 import Localizable from "./Localizable";
 import { isNullOrUndefined } from "util";
 

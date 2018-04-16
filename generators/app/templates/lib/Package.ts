@@ -1,9 +1,9 @@
 import Component from "./Component";
-import Instruction from "./Instruction";
-import UpdateInstruction from "./UpdateInstruction";
-import InstructionCollection from "./Collections/InstructionCollection";
-import Option from "./Option";
-import SettingsNode from "./SettingsNode";
+import Instruction from "./Automation/Instruction";
+import UpdateInstruction from "./Automation/UpdateInstruction";
+import InstructionCollection from "./Automation/InstructionCollection";
+import Option from "./ControlPanel/Option";
+import SettingsNode from "./ControlPanel/SettingsNode";
 import TranslationNode from "./Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 

@@ -1,8 +1,8 @@
 import Option from "./Option";
-import Localizable from "./Globalization/Localizable";
-import Node from "./Node";
+import Localizable from "../Globalization/Localizable";
+import Node from "../Nodes/Node";
 import { isNullOrUndefined } from "util";
-import TranslationNode from "./Globalization/TranslationNode";
+import TranslationNode from "../Globalization/TranslationNode";
 
 /**
  * Represents an item of an option.
