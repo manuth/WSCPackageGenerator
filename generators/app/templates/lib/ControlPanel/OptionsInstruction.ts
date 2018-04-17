@@ -1,3 +1,4 @@
+import * as Path from "path";
 import Instruction from "../Automation/Instruction";
 import SettingsNode from "./SettingsNode";
 import Option from "./Option";
@@ -21,6 +22,11 @@ export default class OptionsInstruction extends FileInstruction
     private settingsNode: SettingsNode;
 
     /**
+     * The directory to save the language-files to.
+     */
+    private translationsDirectory: string;
+
+    /**
      * Initializes a new instance of the `OptionsInstruction` class.
      */
     public constructor(options: Partial<OptionsInstruction> = { })
@@ -36,10 +42,19 @@ export default class OptionsInstruction extends FileInstruction
         {
             this.names.push(...options.Names);
         }
-
+        
         if (!isNullOrUndefined(options.SettingsNode))
         {
             this.settingsNode = options.SettingsNode;
+        }
+
+        if (!isNullOrUndefined(options.TranslationsDirectory))
+        {
+            this.translationsDirectory = options.TranslationsDirectory;
+        }
+        else
+        {
+            this.translationsDirectory = Path.basename(this.FileName, Path.extname(this.FileName));
         }
     }
 
@@ -54,6 +69,19 @@ export default class OptionsInstruction extends FileInstruction
     public set SettingsNode(value: SettingsNode)
     {
         this.settingsNode = value;
+    }
+
+    /**
+     * Gets or sets the directory to save the language-files to.
+     */
+    public get TranslationsDirectory(): string
+    {
+        return this.translationsDirectory;
+    }
+
+    public set TranslationsDirectory(value: string)
+    {
+        this.translationsDirectory = value;
     }
 
     /**

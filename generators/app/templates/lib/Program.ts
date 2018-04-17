@@ -11,8 +11,8 @@ import StyleInstruction from "./Customization/StyleInstruction";
 import TemplatesInstruction from "./Customization/TemplatesInstruction";
 import TemplateListenersInstruction from "./Customization/TemplateListenersInstruction";
 import EmojisInstruction from "./Customization/EmojisInstruction";
-
 const MemFileSystem = memFsEditor.create(memFs.create());
+
 import * as WSCPackage from "../Package";
 
 /**
@@ -91,7 +91,7 @@ class Program
                     {
                         MemFileSystem.copyTpl(
                             this.TemplatePath("language.xml"),
-                            this.ComponentsPath(Path.basename(instruction.FileName), locale + ".xml"),
+                            this.ComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
                             { Package: WSCPackage, Instruction: instruction })
                     }
                 }
