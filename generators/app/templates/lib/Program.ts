@@ -68,7 +68,7 @@ class Program
             }
             else if (instruction instanceof OptionsInstruction)
             {
-                MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, instruction: instruction });
+                //MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, instruction: instruction });
 
                 {
                     let locales: string[] = [];
@@ -87,18 +87,14 @@ class Program
                         }
                     }
 
-                    for (let locale of locales)
-                    {
-                        MemFileSystem.copyTpl(
-                            this.TemplatePath("language.xml"),
-                            this.ComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
-                            { Package: WSCPackage, Instruction: instruction })
-                    }
+                    // for (let locale of locales)
+                    // {
+                    //     MemFileSystem.copyTpl(
+                    //         this.TemplatePath("language.xml"),
+                    //         this.ComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
+                    //         { Package: WSCPackage, Instruction: instruction })
+                    // }
                 }
-            }
-            else if (instruction instanceof EventListenersInstruction)
-            {
-                MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage });
             }
             else if (instruction instanceof TranslationsInstruction)
             {
@@ -118,52 +114,56 @@ class Program
                     }
                 }
 
-                for (let locale of locales)
-                {
-                    MemFileSystem.copyTpl(
-                        this.TemplatePath("language.xml"),
-                        this.ComponentsPath(instruction.FileName, locale + ".xml"),
-                        { Package: WSCPackage, Locale: locale });
-                }
+                // for (let locale of locales)
+                // {
+                //     MemFileSystem.copyTpl(
+                //         this.TemplatePath("language.xml"),
+                //         this.ComponentsPath(instruction.FileName, locale + ".xml"),
+                //         { Package: WSCPackage, Locale: locale });
+                // }
+            }
+            else if (instruction instanceof EventListenersInstruction)
+            {
+                //MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage });
             }
             else if (instruction instanceof StyleInstruction)
             {
                 let style = instruction.Style;
 
-                MemFileSystem.copyTpl(
-                    this.TemplatePath("style", "style.xml"),
-                    this.StylesPath(instruction.FileName, "style.xml"),
-                    { Package: WSCPackage, Instruction: instruction });
-                MemFileSystem.copyTpl(
-                    this.TemplatePath("style", "variables.xml"),
-                    this.StylesPath(instruction.FileName, "variables.xml"),
-                    { Package: WSCPackage, Instruction: instruction });
+                // MemFileSystem.copyTpl(
+                //     this.TemplatePath("style", "style.xml"),
+                //     this.StylesPath(instruction.FileName, "style.xml"),
+                //     { Package: WSCPackage, Instruction: instruction });
+                // MemFileSystem.copyTpl(
+                //     this.TemplatePath("style", "variables.xml"),
+                //     this.StylesPath(instruction.FileName, "variables.xml"),
+                //     { Package: WSCPackage, Instruction: instruction });
                 
-                let styleGenerator = memFsEditor.create(memFs.create());
-                styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.FileName, "images"), WSCPackage);
+                // let styleGenerator = memFsEditor.create(memFs.create());
+                // styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.FileName, "images"), WSCPackage);
 
-                await new Promise((resolve) =>
-                {
-                    styleGenerator.commit([], () =>
-                    {
-                        resolve();
-                    })
-                });
+                // await new Promise((resolve) =>
+                // {
+                //     styleGenerator.commit([], () =>
+                //     {
+                //         resolve();
+                //     })
+                // });
 
-                this.Compress(this.StylesPath(instruction.FileName, "images"), this.StylesPath(instruction.FileName, "images.tar"));
-                await FileSystem.remove(this.StylesPath(instruction.FileName, "images"));
-                this.Compress(this.StylesPath(instruction.FileName), this.PackagePath(this.stylesPath, instruction.FileName + ".tar"));
+                // this.Compress(this.StylesPath(instruction.FileName, "images"), this.StylesPath(instruction.FileName, "images.tar"));
+                // await FileSystem.remove(this.StylesPath(instruction.FileName, "images"));
+                // this.Compress(this.StylesPath(instruction.FileName), this.PackagePath(this.stylesPath, instruction.FileName + ".tar"));
             }
             else if (instruction instanceof TemplateListenersInstruction)
             {
-                MemFileSystem.copyTpl(
-                    this.TemplatePath("templateListeners.xml"),
-                    this.ComponentsPath(instruction.FileName),
-                    { Package: WSCPackage, Instruction: instruction });
+                // MemFileSystem.copyTpl(
+                //     this.TemplatePath("templateListeners.xml"),
+                //     this.ComponentsPath(instruction.FileName),
+                //     { Package: WSCPackage, Instruction: instruction });
             }
             else if (instruction instanceof EmojisInstruction)
             {
-                MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
+                //MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
             }
         }
 

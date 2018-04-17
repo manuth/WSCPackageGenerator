@@ -29,16 +29,19 @@
     <requiredpackages>
         <requiredpackage minversion="3.0.0">com.woltlab.wcf</requiredpackage>
     </requiredpackages><%
-    %><% if (Package.InstallInstruction) { %>
-        <instructions type="install"><%
-            %><%- include(
-                "instructions.xml",
-                {
-                    InstructionCollection: Package.InstallInstruction,
-                    StylesPath: StylesPath,
-                    ComponentsPath: ComponentsPath
-                }); %>
-        </instructions><% } %><%
+    %><% if (Package.InstallInstructions) { %>
+    <instructions type="install"><%
+        %><%-
+                include(
+                    "instructions.xml",
+                    {
+                        InstructionCollection: Package.InstallInstructions,
+                        StylesPath: StylesPath,
+                        ComponentsPath: ComponentsPath
+                    });
+        %>
+    </instructions><%
+    %><% } %><%
     %><% for (let instructionCollection of Package.UpdateInstructions) { %>
         <instructions type="update" fromversion="<%= instructionCollection.FromVersion %>"><%
             %><%- include(

@@ -1,24 +1,45 @@
-<% for (let fileMapping of InstructionCollection.FileMappings) { %>
-            <instruction type="file"<%
-    %><% if (fileMapping.Application) { %> application="<%= fileMapping.Application %>"<% } %>><%
-        %><%= fileMapping.SourceRoot %>.tar</instruction><% } %><%
-    %><% if (InstructionCollection.EventListeners.length > 0) { %>
-            <instruction type="eventListener"><%= ComponentsPath %>/eventListeners.xml</instruction><% } %><%
-    %><% if (InstructionCollection.Categories.length > 0) { %>
-            <instruction type="option"><%= ComponentsPath %>/options.xml</instruction><% } %><%
-    %><% if (InstructionCollection.Translations.length > 0) { %>
-            <instruction type="language"><%= ComponentsPath %>/languages/*.xml</instruction><% } %><%
-    %><% for (let style of InstructionCollection.Styles) { %>
-            <instruction type="style"><%= StylesPath %>/<%= style.Name %>.tar</instruction><% } %><%
-    %><% for (let templateMapping of InstructionCollection.TemplateMappings) { %>
-            <instruction type="template"<%
-    %><% if (templateMapping.Application) { %> application="<%= templateMapping.Application %>"<% } %>><%
-        %><%= templateMapping.SourceRoot %>.tar</instruction><% } %><%
-    %><% for (let templateMapping of InstructionCollection.ACPTemplateMappings) { %>
-            <instruction type="acpTemplate"<%
-    %><% if (templateMapping.Application) { %> application="<%= templateMapping.Application %>"<% } %>><%
-        %><%= templateMapping.SourceRoot %>.tar</instruction><% } %><%
-    %><% if (InstructionCollection.TemplateListeners.length > 0) { %>
-            <instruction type="templateListener"><%= ComponentsPath %>/templateListeners.xml</instruction><% } %><%
-    %><% if (InstructionCollection.Emojis.length > 0) { %>
-            <insturction type="smiley"><%= ComponentsPath %>/emojis.xml</instruction><% } %>
+<% for (let instruction of InstructionCollection) { %><%
+    %><%switch (instruction.constructor.name) { case "FilesInstruction": %>
+        <instruction type="file"<%
+            %><% if (instruction.Application) { %><%
+                %> application="<%= instruction.Application %>"<%
+            %><% } %>><%
+            %><%= instruction.FileName %></instruction><%
+        %><% break; %><%
+        %><% case "OptionsInstruction": %>
+        <instruction type="option"><%= ComponentsPath %>/<%= instruction.FileName %></instruction>
+        <instruction type="language"><%= ComponentsPath %>/<%= instruction.TranslationsDirectory %>/*.xml</instruction><%
+        %><% break; %><%
+        %><% case "EventListenersInstruction": %>
+        <instruction type="eventListener"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
+        %><% case "TranslationsInstruction": %>
+        <instruction type="language"><%= ComponentsPath %>/<%= instruction.FileName %>/*.xml</instruction><%
+        %><% break; %><%
+        %><% case "StyleInstruction": %>
+        <instruction type="style"><%= StylesPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
+        %><% case "TemplatesInstruction": %>
+        <instruction type="template"<%
+            %><% if (instruction.Application) { %><%
+                %> application="<%= instruction.Application %>"<%
+            %><% } %>><%
+                %><%= instruction.FileName %><%
+            %></instruction><%
+        %><% break; %><%
+        %><% case "ACPTemplatesInstruction": %>
+        <instruction type="acpTemplate"<%
+            %><% if (instruction.Application) { %><%
+                %> application="<%= instruction.Application %>"<%
+            %><% } %>><%
+                %><%= instruction.FileName %><%
+            %></instruction><%
+        %><% break; %><%
+        %><% case "TemplateListenersInstruction": %>
+        <instruction type="templateListener"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
+        %><% case "EmojisInstruction": %>
+        <instruction type="smiley"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
+    %><% } %><%
+%><% } %>
