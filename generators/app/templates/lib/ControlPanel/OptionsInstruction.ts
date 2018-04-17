@@ -33,7 +33,7 @@ export default class OptionsInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.FileName = "options.xml";
         }

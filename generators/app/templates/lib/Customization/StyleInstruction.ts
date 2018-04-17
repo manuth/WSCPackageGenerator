@@ -20,14 +20,14 @@ export default class StyleInstruction extends FileSystemInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(this.FileName))
-        {
-            this.FileName = this.style.Name + ".tar";
-        }
-
         if (!isNullOrUndefined(options.Style))
         {
             this.style = options.Style;
+        }
+
+        if (isNullOrUndefined(options.FileName))
+        {
+            this.FileName = this.style.Name + ".tar";
         }
     }
 

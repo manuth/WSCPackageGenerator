@@ -24,7 +24,7 @@ export default class FileSystemInstruction extends FileInstruction
             this.sourceRoot = options.SourceRoot;
         }
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.FileName = options.SourceRoot + ".tar";
         }

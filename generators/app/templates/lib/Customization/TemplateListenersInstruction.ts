@@ -30,7 +30,7 @@ export default class TemplateListenersInstruction extends FileInstruction
             this.names.push(...options.Names);
         }
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.FileName = "templateListeners.xml";
         }
