@@ -1,10 +1,9 @@
 import Component from "./Component";
-import ComponentCollection from "./Automation/ComponentCollection";
-import UpdateComponentCollection from "./Automation/UpdateComponentCollection";
-import ComponentsCollection from "./Automation/ComponentsCollection";
-import Option from "./ControlPanel/Option";
-import SettingsNode from "./ControlPanel/SettingsNode";
 import TranslationNode from "./Globalization/TranslationNode";
+import InstructionCollection from "./Automation/InstructionCollection";
+import UpdatesCollection from "./Automation/UpdatesCollection";
+import Instruction from "./Automation/Instruction";
+import UpdateInstructionCollection from "./Automation/UpdateInstructionCollection";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -18,14 +17,14 @@ export default class Package extends Component
     private identifier: string = '';
 
     /**
-     * The instruction that is used for installing the packge.
+     * The instructions which is used for installing the packge.
      */
-    private installInstruction = new ComponentCollection({ Package: this });
+    private installInstructions: Instruction[] = new InstructionCollection(this);
 
     /**
      * A set of instructions for updating the package.
      */
-    private updateInstructions: UpdateComponentCollection[] = new ComponentsCollection(this);
+    private updateInstructions: UpdateInstructionCollection[] = new UpdatesCollection(this);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -39,14 +38,22 @@ export default class Package extends Component
             this.identifier = options.Identifier;
         }
 
-        if (!isNullOrUndefined(options.InstallInstruction))
+        if (!isNullOrUndefined(options.InstallInstructions))
         {
-            this.installInstruction = options.InstallInstruction;
+            this.installInstructions.push(...options.InstallInstructions);
         }
 
         if (!isNullOrUndefined(options.UpdateInstructions))
         {
-            this.updateInstructions.push(...options.UpdateInstructions);
+            for (let updateInstruction of options.UpdateInstructions)
+            {
+                let updateInstructionCollection = new UpdateInstructionCollection(this, updateInstruction.FromVersion);
+
+                for (let instruction of updateInstruction)
+                {
+                    updateInstructionCollection.push(instruction);
+                }
+            }
         }
     }
 
@@ -64,47 +71,18 @@ export default class Package extends Component
     }
 
     /**
-     * Gets or sets the instruction that is used for installing the packge.
+     * Gets or sets the instructions which is used for installing the packge.
      */
-    public get InstallInstruction(): ComponentCollection
+    public get InstallInstructions(): Instruction[]
     {
-        return this.installInstruction;
-    }
-
-    public set InstallInstruction(value: ComponentCollection)
-    {
-        this.installInstruction = value;
+        return this.installInstructions;
     }
 
     /**
      * Gets a set of instructions for updating the package.
      */
-    public get UpdateInstructions(): UpdateComponentCollection[]
+    public get UpdateInstructions(): UpdateInstructionCollection[]
     {
         return this.updateInstructions;
-    }
-
-    /**
-     * Gets the options provided by this package.
-     */
-    public get Options(): { [id: string]: Option }
-    {
-        return this.installInstruction.Options;
-    }
-
-    /**
-     * Gets the categories provided by this package.
-     */
-    public get Categories(): SettingsNode[]
-    {
-        return this.installInstruction.Categories;
-    }
-
-    /**
-     * Gets the translations provided by this package.
-     */
-    public get Translations(): TranslationNode[]
-    {
-        return this.InstallInstruction.Translations;
     }
 }

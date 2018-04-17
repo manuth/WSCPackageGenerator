@@ -10,11 +10,17 @@ export default class UpdateInstructionCollection extends InstructionCollection
 
     /**
      * Initializes a new instance of the `UpdateInstructionCollection`.
+     * 
+     * @param pkg
+     * The package this collection belongs to.
+     * 
+     * @param fromVersion
+     * The version this update can be applied to.
      */
-    public constructor(options: Partial<UpdateInstructionCollection>)
+    public constructor(pkg: Package, fromVersion: string)
     {
-        super(options.Package);
-        this.fromVersion = options.FromVersion;
+        super(pkg);
+        this.fromVersion = fromVersion;
     }
 
     /**
