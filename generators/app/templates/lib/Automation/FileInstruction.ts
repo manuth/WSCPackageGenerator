@@ -7,7 +7,7 @@ import { isNullOrUndefined } from "util";
 export default class FileInstruction extends Instruction
 {
     /**
-     * The filename of the file that belongs to the instruction.
+     * The filename of the ouput of the instruction.
      */
     private fileName: string;
 
@@ -25,7 +25,7 @@ export default class FileInstruction extends Instruction
     }
 
     /**
-     * Gets or sets the filename of the file that belongs to the instruction.
+     * Gets or sets the filename of the ouput of the instruction.
      */
     public get FileName(): string
     {
