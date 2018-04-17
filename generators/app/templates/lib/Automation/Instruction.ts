@@ -1,4 +1,5 @@
 import Package from "../Package";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction for installing a package.
@@ -15,6 +16,10 @@ export default abstract class Instruction
      */
     public constructor(options: Partial<Instruction> = { })
     {
+        if (!isNullOrUndefined(options.Package))
+        {
+            this.package = options.Package;
+        }
     }
 
     /**
