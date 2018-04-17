@@ -11,6 +11,11 @@ import { isNullOrUndefined, isNull } from "util";
 export default class OptionsInstruction extends FileInstruction
 {
     /**
+     * A set of names of options to delete.
+     */
+    private names: string[] = [];
+
+    /**
      * The categories and options provided by the instruction.
      */
     private settingsNode: SettingsNode;
@@ -25,6 +30,11 @@ export default class OptionsInstruction extends FileInstruction
         if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "options.xml";
+        }
+
+        if (!isNullOrUndefined(options.Names))
+        {
+            this.names.push(...options.Names);
         }
 
         if (!isNullOrUndefined(options.SettingsNode))
@@ -68,5 +78,13 @@ export default class OptionsInstruction extends FileInstruction
     public get TranslationNodes(): TranslationNode[]
     {
         return this.SettingsNode.TranslationNodes;
+    }
+
+    /**
+     * Gets a set of names of options to delete.
+     */
+    public get Names(): string[]
+    {
+        return this.names;
     }
 }

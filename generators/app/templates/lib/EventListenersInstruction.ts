@@ -8,6 +8,11 @@ import { isNullOrUndefined } from "util";
 export default class EventListenersInstruction extends Instruction
 {
     /**
+     * A set of names of event-listeners to delete.
+     */
+    private names: string[] = [];
+
+    /**
      * The event-listeners provided by the instruction.
      */
     private eventListeners: EventListener[] = [];
@@ -18,6 +23,11 @@ export default class EventListenersInstruction extends Instruction
     public constructor(options: Partial<EventListenersInstruction> = { })
     {
         super(options);
+
+        if (!isNullOrUndefined(options.Names))
+        {
+            this.names.push(...options.Names);
+        }
 
         if (!isNullOrUndefined(options.EventListeners))
         {
@@ -31,5 +41,13 @@ export default class EventListenersInstruction extends Instruction
     public get EventListeners(): EventListener[]
     {
         return this.eventListeners;
+    }
+
+    /**
+     * Gets a set of names of event-listeners to delete.
+     */
+    public get Names(): string[]
+    {
+        return this.names;
     }
 }

@@ -9,6 +9,11 @@ import { isNullOrUndefined } from "util";
 export default class TemplateListenersInstruction extends FileInstruction
 {
     /**
+     * A set of names of template-listeners to delete.
+     */
+    private names: string[] = [];
+
+    /**
      * The template-listeners provided by the instruction.
      */
     private templateListeners: TemplateListener[] = [];
@@ -19,6 +24,11 @@ export default class TemplateListenersInstruction extends FileInstruction
     public constructor(options: Partial<TemplateListenersInstruction> = { })
     {
         super(options);
+
+        if (!isNullOrUndefined(options.Names))
+        {
+            this.names.push(...options.Names);
+        }
 
         if (isNullOrUndefined(this.FileName))
         {
@@ -37,5 +47,13 @@ export default class TemplateListenersInstruction extends FileInstruction
     public get TemplateListeners(): TemplateListener[]
     {
         return this.templateListeners;
+    }
+
+    /**
+     * Gets a set of names of template-listeners to delete.
+     */
+    public get Names(): string[]
+    {
+        return this.names;
     }
 }
