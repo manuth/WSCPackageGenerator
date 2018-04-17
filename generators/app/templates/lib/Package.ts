@@ -38,6 +38,22 @@ export default class Package extends Component
             this.identifier = options.Identifier;
         }
 
+        if (isNullOrUndefined(options.Date))
+        {
+            this.Date = new Date();
+        }
+
+        if (isNullOrUndefined(options.Author))
+        {
+            this.Author.Name = require("../package.json").author.name;
+            this.Author.URL = require("../package.json").author.url;
+        }
+
+        if (isNullOrUndefined(options.License))
+        {
+            this.License = require("../package.json").license;
+        }
+
         if (!isNullOrUndefined(options.InstallInstructions))
         {
             this.installInstructions.push(...options.InstallInstructions);
