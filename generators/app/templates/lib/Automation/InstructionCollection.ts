@@ -17,9 +17,6 @@ import TemplateListener from "../Customization/TemplateListener";
 import TemplateListenersInstruction from "../Customization/TemplateListenersInstruction";
 import Emoji from "../Customization/Emoji";
 import EmojisInstruction from "../Customization/EmojisInstruction";
-import OptionsDeletionInstruction from "../ControlPanel/OptionsDeletionInstruction";
-import EventListenersDeletionInstruction from "../EventListenersDeletionInstruction";
-import TemplateListenersDeletionInstruction from "../Customization/TemplateListenersDeletionInstruction";
 
 /**
  * Rerpesents a set of instructions.
@@ -102,7 +99,7 @@ export default class InstructionCollection extends Array<Instruction>
 
         for (let instruction of this)
         {
-            if (instruction instanceof OptionsDeletionInstruction)
+            if (instruction instanceof OptionsInstruction)
             {
                 result.push(...instruction.Names);
             }
@@ -156,7 +153,7 @@ export default class InstructionCollection extends Array<Instruction>
 
         for (let instruction of this)
         {
-            if (instruction instanceof EventListenersDeletionInstruction)
+            if (instruction instanceof EventListenersInstruction)
             {
                 result.push(...instruction.Names);
             }
@@ -264,7 +261,7 @@ export default class InstructionCollection extends Array<Instruction>
 
         for (let instruction of this)
         {
-            if (instruction instanceof TemplateListenersDeletionInstruction)
+            if (instruction instanceof TemplateListenersInstruction)
             {
                 result.push(...instruction.Names);
             }
