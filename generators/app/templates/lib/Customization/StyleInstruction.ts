@@ -24,6 +24,11 @@ export default class StyleInstruction extends FileSystemInstruction
         {
             this.FileName = this.style.Name + ".tar";
         }
+
+        if (!isNullOrUndefined(options.Style))
+        {
+            this.style = options.Style;
+        }
     }
 
     /**
@@ -38,29 +43,32 @@ export default class StyleInstruction extends FileSystemInstruction
     {
         super.Package = value;
 
-        if (isNullOrUndefined(this.style.Date))
+        if (!isNullOrUndefined(this.style))
         {
-            this.style.Date = value.Date;
-        }
+            if (isNullOrUndefined(this.style.Date))
+            {
+                this.style.Date = value.Date;
+            }
 
-        if (isNullOrUndefined(this.style.Version))
-        {
-            this.style.Version = value.Version;
-        }
-        
-        if (isNullOrUndefined(this.style.Author.Name))
-        {
-            this.style.Author.Name = value.Author.Name;
-        }
+            if (isNullOrUndefined(this.style.Version))
+            {
+                this.style.Version = value.Version;
+            }
+            
+            if (isNullOrUndefined(this.style.Author.Name))
+            {
+                this.style.Author.Name = value.Author.Name;
+            }
 
-        if (isNullOrUndefined(this.style.Author.URL))
-        {
-            this.style.Author.URL = value.Author.URL;
-        }
+            if (isNullOrUndefined(this.style.Author.URL))
+            {
+                this.style.Author.URL = value.Author.URL;
+            }
 
-        if (isNullOrUndefined(this.style.License))
-        {
-            this.style.License = value.License;
+            if (isNullOrUndefined(this.style.License))
+            {
+                this.style.License = value.License;
+            }
         }
     }
 }
