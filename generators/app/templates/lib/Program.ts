@@ -3,6 +3,14 @@ import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as memFsEditor from "mem-fs-editor";
 import * as memFs from "mem-fs";
+import FilesInstruction from "./FilesInstruction";
+import OptionsInstruction from "./ControlPanel/OptionsInstruction";
+import EventListenersInstruction from "./EventListenersInstruction";
+import TranslationsInstruction from "./Globalization/TranslationsInstruction";
+import StyleInstruction from "./Customization/StyleInstruction";
+import TemplatesInstruction from "./Customization/TemplatesInstruction";
+import TemplateListenersInstruction from "./Customization/TemplateListenersInstruction";
+import EmojisInstruction from "./Customization/EmojisInstruction";
 
 const MemFileSystem = memFsEditor.create(memFs.create());
 import * as WSCPackage from "../Package";
@@ -41,115 +49,122 @@ class Program
     {
         MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
 
-        for (let fileMapping of WSCPackage.InstallInstruction.FileMappings)
+        for (let instruction of WSCPackage.InstallInstructions)
         {
-            let filesGenerator = memFsEditor.create(memFs.create());
-            filesGenerator.copyTpl(fileMapping.SourceRoot, this.PackagePath(fileMapping.SourceRoot), WSCPackage);
-
-            await new Promise((resolve) =>
+            if (instruction instanceof FilesInstruction)
             {
-                filesGenerator.commit([], () => {
-                    resolve();
-                })
-            });
+                let filesGenerator = memFsEditor.create(memFs.create());
+                filesGenerator.copyTpl(instruction.SourceRoot, this.PackagePath(instruction.SourceRoot), WSCPackage);
 
-            await this.Compress(this.PackagePath(fileMapping.SourceRoot), this.PackagePath(fileMapping.SourceRoot + ".tar"));
-            FileSystem.removeSync(this.PackagePath(fileMapping.SourceRoot));
-        }
-
-        if (WSCPackage.Categories.length > 0)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath("options.xml"), { Package: WSCPackage });
-        }
-
-        if (WSCPackage.InstallInstruction.EventListeners.length > 0)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath("eventListeners.xml"), { Package: WSCPackage });
-        }
-
-        {
-            let locales: string[] = [];
-
-            for (let translationNode of WSCPackage.Translations)
-            {
-                for (let translation of translationNode.GetTranslations())
+                await new Promise((resolve) =>
                 {
-                    for (let locale in translation.Translations)
+                    filesGenerator.commit([], () => {
+                        resolve();
+                    })
+                });
+
+                this.Compress(this.PackagePath(instruction.SourceRoot), this.PackagePath(instruction.SourceRoot + ".tar"));
+                await FileSystem.remove(this.PackagePath(instruction.SourceRoot));
+            }
+            else if (instruction instanceof OptionsInstruction)
+            {
+                MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, instruction: instruction });
+
+                {
+                    let locales: string[] = [];
+
+                    for (let translationNode of instruction.TranslationNodes)
                     {
-                        if (locales.indexOf(locale) < 0)
+                        for (let translation of translationNode.GetTranslations())
                         {
-                            locales.push(locale);
+                            for (let locale in translation.Translations)
+                            {
+                                if (!locales.includes(locale))
+                                {
+                                    locales.push(locale);
+                                }
+                            }
                         }
+                    }
+
+                    for (let locale of locales)
+                    {
+                        MemFileSystem.copyTpl(
+                            this.TemplatePath("language.xml"),
+                            this.ComponentsPath(Path.basename(instruction.FileName), locale + ".xml"),
+                            { Package: WSCPackage, Instruction: instruction })
                     }
                 }
             }
-
-            for (let locale of locales)
+            else if (instruction instanceof EventListenersInstruction)
             {
-                MemFileSystem.copyTpl(this.TemplatePath("language.xml"), this.ComponentsPath("languages", locale + ".xml"), { Package: WSCPackage, Locale: locale });
+                MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage });
             }
-        }
-
-        for (let style of WSCPackage.InstallInstruction.Styles)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("style", "style.xml"), this.StylesPath(style.Name, "style.xml"), { Style: style, Package: WSCPackage });
-            MemFileSystem.copyTpl(this.TemplatePath("style", "variables.xml"), this.StylesPath(style.Name, "variables.xml"), { Style: style });
-            
-            let styleGenerator = memFsEditor.create(memFs.create());
-            styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(style.Name, "images"), WSCPackage);
-            await new Promise((resolve) =>
+            else if (instruction instanceof TranslationsInstruction)
             {
-                styleGenerator.commit([], () =>
+                let locales: string[] = [];
+
+                for (let translationNode of instruction.TranslationNodes)
                 {
-                    resolve();
-                })
-            });
+                    for (let translation of translationNode.GetTranslations())
+                    {
+                        for (let locale in translation.Translations)
+                        {
+                            if (!locales.includes(locale))
+                            {
+                                locales.push(locale);
+                            }
+                        }
+                    }
+                }
 
-            await this.Compress(this.StylesPath(style.Name, "images"), this.StylesPath(style.Name, "images.tar"));
-            FileSystem.removeSync(this.StylesPath(style.Name, "images"));
-            await this.Compress(this.StylesPath(style.Name), this.PackagePath(this.stylesPath, style.Name + ".tar"));
-        }
-
-        for (let templateMapping of WSCPackage.InstallInstruction.TemplateMappings)
-        {
-            let filesGenerator = memFsEditor.create(memFs.create());
-            filesGenerator.copyTpl(templateMapping.SourceRoot, this.PackagePath(templateMapping.SourceRoot), WSCPackage);
-
-            await new Promise((resolve) =>
+                for (let locale of locales)
+                {
+                    MemFileSystem.copyTpl(
+                        this.TemplatePath("language.xml"),
+                        this.ComponentsPath(instruction.FileName, locale + ".xml"),
+                        { Package: WSCPackage, Locale: locale });
+                }
+            }
+            else if (instruction instanceof StyleInstruction)
             {
-                filesGenerator.commit([], () => {
-                    resolve();
-                })
-            });
+                let style = instruction.Style;
 
-            await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
-            FileSystem.removeSync(this.PackagePath(templateMapping.SourceRoot));
-        }
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("style", "style.xml"),
+                    this.StylesPath(instruction.FileName, "style.xml"),
+                    { Package: WSCPackage, Instruction: instruction });
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("style", "variables.xml"),
+                    this.StylesPath(instruction.FileName, "variables.xml"),
+                    { Package: WSCPackage, Instruction: instruction });
+                
+                let styleGenerator = memFsEditor.create(memFs.create());
+                styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.FileName, "images"), WSCPackage);
 
-        for (let templateMapping of WSCPackage.InstallInstruction.ACPTemplateMappings)
-        {
-            let filesGenerator = memFsEditor.create(memFs.create());
-            filesGenerator.copyTpl(templateMapping.SourceRoot, this.PackagePath(templateMapping.SourceRoot), WSCPackage);
+                await new Promise((resolve) =>
+                {
+                    styleGenerator.commit([], () =>
+                    {
+                        resolve();
+                    })
+                });
 
-            await new Promise((resolve) =>
+                this.Compress(this.StylesPath(instruction.FileName, "images"), this.StylesPath(instruction.FileName, "images.tar"));
+                await FileSystem.remove(this.StylesPath(instruction.FileName, "images"));
+                this.Compress(this.StylesPath(instruction.FileName), this.PackagePath(this.stylesPath, instruction.FileName + ".tar"));
+            }
+            else if (instruction instanceof TemplateListenersInstruction)
             {
-                filesGenerator.commit([], () => {
-                    resolve();
-                })
-            });
-
-            await this.Compress(this.PackagePath(templateMapping.SourceRoot), this.PackagePath(templateMapping.SourceRoot + ".tar"));
-            FileSystem.removeSync(this.PackagePath(templateMapping.SourceRoot));
-        }
-
-        if (WSCPackage.InstallInstruction.TemplateListeners.length > 0)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("templateListeners.xml"), this.ComponentsPath("templateListeners.xml"), { Package: WSCPackage });
-        }
-
-        if (WSCPackage.InstallInstruction.Emojis.length > 0)
-        {
-            MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath("emojis.xml"), { Package: WSCPackage });
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("templateListeners.xml"),
+                    this.ComponentsPath(instruction.FileName),
+                    { Package: WSCPackage, Instruction: instruction });
+            }
+            else if (instruction instanceof EmojisInstruction)
+            {
+                MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
+            }
         }
 
         await new Promise((resolve) =>
