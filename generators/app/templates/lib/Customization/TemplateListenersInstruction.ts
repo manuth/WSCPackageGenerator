@@ -1,11 +1,12 @@
 import Instruction from "../Automation/Instruction";
 import TemplateListener from "./TemplateListener";
+import FileInstruction from "../Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of template-listeners.
  */
-export default class TemplateListenersInstruction extends Instruction
+export default class TemplateListenersInstruction extends FileInstruction
 {
     /**
      * The template-listeners provided by the instruction.
@@ -18,6 +19,11 @@ export default class TemplateListenersInstruction extends Instruction
     public constructor(options: Partial<TemplateListenersInstruction> = { })
     {
         super(options);
+
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = "templateListeners.xml";
+        }
 
         if (!isNullOrUndefined(options.TemplateListeners))
         {

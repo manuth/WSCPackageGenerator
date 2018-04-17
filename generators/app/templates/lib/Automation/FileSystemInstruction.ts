@@ -1,10 +1,11 @@
 import Instruction from "./Instruction";
+import FileInstruction from "./FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to the file-system.
  */
-export default class FileSystemInstruction extends Instruction
+export default class FileSystemInstruction extends FileInstruction
 {
     /**
      * The root-path of the filesystem-entry that belongs to the instruction.
@@ -18,9 +19,14 @@ export default class FileSystemInstruction extends Instruction
     {
         super(options);
 
-        if (isNullOrUndefined(options.SourceRoot))
+        if (!isNullOrUndefined(options.SourceRoot))
         {
             this.sourceRoot = options.SourceRoot;
+        }
+
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = options.SourceRoot + ".tar";
         }
     }
 

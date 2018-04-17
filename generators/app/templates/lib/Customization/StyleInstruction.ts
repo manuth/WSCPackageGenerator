@@ -1,5 +1,6 @@
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import Style from "./Style";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a style.
@@ -17,6 +18,11 @@ export default class StyleInstruction extends FileSystemInstruction
     public constructor(options: Partial<StyleInstruction> = { })
     {
         super(options);
+
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = this.style.Name + ".tar";
+        }
     }
 
     /**

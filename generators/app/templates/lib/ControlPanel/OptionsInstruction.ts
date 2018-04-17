@@ -1,13 +1,14 @@
 import Instruction from "../Automation/Instruction";
 import SettingsNode from "./SettingsNode";
-import { isNullOrUndefined } from "util";
 import Option from "./Option";
 import TranslationNode from "../Globalization/TranslationNode";
+import FileInstruction from "../Automation/FileInstruction";
+import { isNullOrUndefined, isNull } from "util";
 
 /**
  * Represents an instruction that provides options for the control-panel.
  */
-export default class OptionsInstruction extends TranslationNode
+export default class OptionsInstruction extends FileInstruction
 {
     /**
      * The categories and options provided by the instruction.
@@ -20,6 +21,11 @@ export default class OptionsInstruction extends TranslationNode
     public constructor(options: Partial<OptionsInstruction> = { })
     {
         super(options);
+
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = "options.xml";
+        }
 
         if (!isNullOrUndefined(options.SettingsNode))
         {

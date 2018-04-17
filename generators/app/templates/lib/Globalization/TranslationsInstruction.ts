@@ -1,11 +1,12 @@
 import Instruction from "../Automation/Instruction";
 import TranslationNode from "./TranslationNode";
+import FileInstruction from "../Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides `Translation`s.
  */
-export default class TranslationsInstruction extends Instruction
+export default class TranslationsInstruction extends FileInstruction
 {
     /**
      * The nodes which contains the translations provided by this instruction.
@@ -18,6 +19,11 @@ export default class TranslationsInstruction extends Instruction
     public constructor(options: Partial<TranslationsInstruction> = { })
     {
         super(options);
+
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = "language";
+        }
 
         if (!isNullOrUndefined(options.TranslationNodes))
         {
