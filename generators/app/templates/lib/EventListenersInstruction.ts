@@ -1,11 +1,12 @@
 import Instruction from "./Automation/Instruction";
 import EventListener from "./EventListener";
+import FileInstruction from "./Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of event-listeners.
  */
-export default class EventListenersInstruction extends Instruction
+export default class EventListenersInstruction extends FileInstruction
 {
     /**
      * A set of names of event-listeners to delete.
