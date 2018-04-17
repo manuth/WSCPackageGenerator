@@ -25,6 +25,11 @@ export default class EventListenersInstruction extends FileInstruction
     {
         super(options);
 
+        if (isNullOrUndefined(this.FileName))
+        {
+            this.FileName = "eventListeners.xml";
+        }
+
         if (!isNullOrUndefined(options.Names))
         {
             this.names.push(...options.Names);
