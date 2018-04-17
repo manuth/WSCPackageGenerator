@@ -34,6 +34,6 @@ export default class FileInstruction extends Instruction
 
     public set FileName(value: string)
     {
-        this.fileName = value;
+        this.fileName = value.replace("\\", "/");
     }
 }
