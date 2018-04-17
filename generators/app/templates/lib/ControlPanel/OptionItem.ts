@@ -121,8 +121,13 @@ export default class OptionItem
                 Name: "wcf.acp.option",
                 Nodes: [
                     new TranslationNode({
-                        Name: this.FullName,
-                        Translations: this.DisplayName
+                        Name: this.Option.Name,
+                        Nodes: [
+                            new TranslationNode({
+                                Name: this.Name,
+                                Translations: this.DisplayName
+                            })
+                        ]
                     })
                 ]
             }) ];

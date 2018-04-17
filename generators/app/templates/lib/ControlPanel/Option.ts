@@ -116,6 +116,11 @@ export default class Option extends Node
         return this.displayName;
     }
 
+    public get FullName(): string
+    {
+        return "wcf.acp.option." + this.Name;
+    }
+
     /**
      * Gets the description of the option.
      */

@@ -65,6 +65,11 @@ export default class SettingsNode extends NodeContainer
     {
         return this.displayName;
     }
+
+    public get FullName(): string
+    {
+        return "wcf.acp.option.category." + this.Name;
+    }
     
     /**
      * Gets the description of the node.
@@ -102,7 +107,7 @@ export default class SettingsNode extends NodeContainer
         if (Object.keys(this.DisplayName).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: this.FullName,
+                Name: "category" + this.FullName,
                 Translations: this.DisplayName
             }));
         }
@@ -110,7 +115,7 @@ export default class SettingsNode extends NodeContainer
         if (Object.keys(this.Description).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: this.FullName,
+                Name: "category" + this.FullName,
                 Nodes: [
                     new TranslationNode({
                         Name: "description",
