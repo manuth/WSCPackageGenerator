@@ -37,9 +37,9 @@
         </options><%
 %><% } %>
     </import><%
-%><% if (Instruction.Names.length > 0) { %>
+%><% if (Instruction.ObjectsToDelete.length > 0) { %>
     <delete><%
-    %><% for (let name of Instruction.Names) { %>
+    %><% for (let name of Instruction.ObjectsToDelete) { %>
         <option name="<%= name %>" /><%
     %><% } %><%
 %><% } %>

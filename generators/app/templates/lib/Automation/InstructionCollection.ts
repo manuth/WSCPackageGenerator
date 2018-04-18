@@ -108,7 +108,7 @@ export default class InstructionCollection extends Array<Instruction>
         {
             if (instruction instanceof OptionsInstruction)
             {
-                result.push(...instruction.Names);
+                result.push(...instruction.ObjectsToDelete);
             }
         }
 
@@ -162,7 +162,7 @@ export default class InstructionCollection extends Array<Instruction>
         {
             if (instruction instanceof EventListenersInstruction)
             {
-                result.push(...instruction.Names);
+                result.push(...instruction.ObjectsToDelete);
             }
         }
 
@@ -270,7 +270,7 @@ export default class InstructionCollection extends Array<Instruction>
         {
             if (instruction instanceof TemplateListenersInstruction)
             {
-                result.push(...instruction.Names);
+                result.push(...instruction.ObjectsToDelete);
             }
         }
 

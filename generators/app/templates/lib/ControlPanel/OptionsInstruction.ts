@@ -33,14 +33,14 @@ export default class OptionsInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "options.xml";
         }
 
-        if (!isNullOrUndefined(options.Names))
+        if (!isNullOrUndefined(options.ObjectsToDelete))
         {
-            this.names.push(...options.Names);
+            this.names.push(...options.ObjectsToDelete);
         }
         
         if (!isNullOrUndefined(options.SettingsNode))
@@ -111,7 +111,7 @@ export default class OptionsInstruction extends FileInstruction
     /**
      * Gets a set of names of options to delete.
      */
-    public get Names(): string[]
+    public get ObjectsToDelete(): string[]
     {
         return this.names;
     }

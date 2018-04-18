@@ -30,9 +30,9 @@ export default class EventListenersInstruction extends FileInstruction
             this.FileName = "eventListeners.xml";
         }
 
-        if (!isNullOrUndefined(options.Names))
+        if (!isNullOrUndefined(options.ObjectsToDelete))
         {
-            this.names.push(...options.Names);
+            this.names.push(...options.ObjectsToDelete);
         }
 
         if (!isNullOrUndefined(options.EventListeners))
@@ -52,7 +52,7 @@ export default class EventListenersInstruction extends FileInstruction
     /**
      * Gets a set of names of event-listeners to delete.
      */
-    public get Names(): string[]
+    public get ObjectsToDelete(): string[]
     {
         return this.names;
     }

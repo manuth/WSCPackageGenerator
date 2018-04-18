@@ -25,12 +25,12 @@ export default class TemplateListenersInstruction extends FileInstruction
     {
         super(options);
 
-        if (!isNullOrUndefined(options.Names))
+        if (!isNullOrUndefined(options.ObjectsToDelete))
         {
-            this.names.push(...options.Names);
+            this.names.push(...options.ObjectsToDelete);
         }
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "templateListeners.xml";
         }
@@ -52,7 +52,7 @@ export default class TemplateListenersInstruction extends FileInstruction
     /**
      * Gets a set of names of template-listeners to delete.
      */
-    public get Names(): string[]
+    public get ObjectsToDelete(): string[]
     {
         return this.names;
     }
