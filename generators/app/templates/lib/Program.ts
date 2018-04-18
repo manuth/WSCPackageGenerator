@@ -47,6 +47,9 @@ class Program
      */
     public static async Main(args: string[])
     {
+        await FileSystem.emptyDir(this.destinationPath);
+        await FileSystem.emptyDir(this.tempPath);
+
         MemFileSystem.copyTpl(this.TemplatePath("package.xml"), this.PackagePath("package.xml"), { Package: WSCPackage, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
 
         for (let instruction of WSCPackage.InstallInstructions)
@@ -69,6 +72,7 @@ class Program
             else if (instruction instanceof OptionsInstruction)
             {
                 MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
+
                 {
                     let locales: string[] = [];
 
@@ -128,24 +132,33 @@ class Program
             else if (instruction instanceof StyleInstruction)
             {
                 let style = instruction.Style;
+                let styleGenerator = memFsEditor.create(memFs.create());
 
-                MemFileSystem.copyTpl(
+                styleGenerator.copyTpl(
                     this.TemplatePath("style", "style.xml"),
                     this.StylesPath(instruction.Style.Name, "style.xml"),
                     { Package: WSCPackage, Instruction: instruction });
-                MemFileSystem.copyTpl(
+                styleGenerator.copyTpl(
                     this.TemplatePath("style", "variables.xml"),
                     this.StylesPath(instruction.Style.Name, "variables.xml"),
                     { Package: WSCPackage, Instruction: instruction });
+                
+                await new Promise((resolve) =>
+                {
+                    styleGenerator.commit([], () =>
+                    {
+                        resolve();
+                    })
+                });
 
                 if (style.ImagesRoot)
                 {
-                    let styleGenerator = memFsEditor.create(memFs.create());
-                    styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.Style.Name, "images"), WSCPackage);
+                    let imagesGenerator = memFsEditor.create(memFs.create());
+                    imagesGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.Style.Name, "images"), WSCPackage);
     
                     await new Promise((resolve) =>
                     {
-                        styleGenerator.commit([], () =>
+                        imagesGenerator.commit([], () =>
                         {
                             resolve();
                         })
@@ -166,7 +179,7 @@ class Program
             }
             else if (instruction instanceof EmojisInstruction)
             {
-                //MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
+                MemFileSystem.copyTpl(this.TemplatePath("emojis.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
             }
         }
 
