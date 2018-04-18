@@ -49,6 +49,11 @@ export default class Package extends Component
             this.Author.URL = require("../package.json").author.url;
         }
 
+        if (isNullOrUndefined(options.Version))
+        {
+            this.Version = require("../package.json").version;
+        }
+
         if (isNullOrUndefined(options.License))
         {
             this.License = require("../package.json").license;
