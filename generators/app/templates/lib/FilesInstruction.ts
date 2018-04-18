@@ -9,9 +9,9 @@ import { isNullOrUndefined } from "util";
 export default class FilesInstruction extends FileSystemInstruction
 {
     /**
-     * The file-mappings of the files provided by the instruction.
+     * The application to provide the files to.
      */
-    private fileMappings: FileMapping[] = [];
+    private application: string = "";
 
     /**
      * Initializes a new instance of the `FilesInstruction` class.
@@ -20,17 +20,17 @@ export default class FilesInstruction extends FileSystemInstruction
     {
         super(options);
 
-        if (!isNullOrUndefined(options.FileMappings))
+        if (!isNullOrUndefined(options.Application))
         {
-            this.fileMappings.push(...options.FileMappings);
+            this.application = options.Application;
         }
     }
 
     /**
-     * Gets the file-mappings of the files provided by the instruction.
+     * Gets the application to provide the files to.
      */
-    public get FileMappings(): FileMapping[]
+    public get Application(): string
     {
-        return this.fileMappings;
+        return this.application;
     }
 }
