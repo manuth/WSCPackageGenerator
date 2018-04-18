@@ -1,59 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<style xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/style.xsd" <%
-%> xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.woltlab.com">
+<style xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <%
+%>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/style.xsd"><%
+%><% let style = Instruction.Style %>
     <general><%
-    %><% for (let locale in Style.DisplayName) { %>
+%><% for (let locale in style.DisplayName) { %>
         <stylename<%
-        %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- Style.DisplayName[locale] %>]]>
-        </stylename><% } %>
+    %><% if (locale !== "en") { %> language="<%= locale %>"<%
+    %><% } %>>
+            <![CDATA[<%- style.DisplayName[locale] %>]]>
+        </stylename><%
+%><% } %>
         <packageName>
-            <%= Package.Identifier %>
+            <%= Instruction.Package.Identifier %>
         </packageName><%
-    %><% for (let locale in Style.Description) { %>
+%><% for (let locale in style.Description) { %>
         <description<%
-        %><% if (locale !== "en") { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- Style.Description[locale] %>]]>
-        </description><% } %>
+    %><% if (locale !== "en") { %><%
+        %> language="<%= locale %>"<%
+    %><% } %>>
+            <!CDATA[<%- style.Description[locale] %>]]>
+        </description><%
+%><% } %>
         <date>
             <%= (
-                Style.Date.getFullYear() + "-" +
-                (Style.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
-                Style.Date.getDate().toString().padStart(2, "0"))
+                style.Date.getFullYear() + "-" +
+                (style.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+                style.Date.getDate().toString().padStart(2, "0"))
             %>
         </date>
         <version>
-            <%= Style.Version %>
+            <%= style.Version %>
         </version><%
-    %><% if (Style.Thumbnail) { %>
+%><% if (style.Thumbnail) { %>
         <image>
-            <![CDATA[<%- Style.Thumbnail%>]]>
+            <![CDATA[<%- style.Thumbnail %>]]>
         </image><%
-    %><% } %><%
-    %><% if (Style.License) { %>
+%><% } %><%
+%><% if (style.License) { %>
         <license>
-            <![CDATA[<%- Style.License %>]]>
+            <![CDATA[<%- style.License %>]]>
         </license><%
-    %><% } %>
+%><% } %>
     </general>
     <author>
         <authorname>
-            <![CDATA[<%- Style.Author.Name %>]]>
+            <![CDATA[<%- style.Author.Name %>]]>
         </authorname><%
-    %><% if (Style.Author.URI) { %>
+%><% if (style.Author.URL) { %>
         <authorurl>
-            <![CDATA[<%- Style.Author.URI %>]]>
+            <![CDATA[<%- style.Author.URL %>]]>
         </authorurl><%
-    %><% } %>
+%><% } %>
     </author>
     <files>
         <variables>
             variables.xml
         </variables><%
-    %><% if (Style.ImagesRoot) { %>
-        <images path="images/<%= Style.Name %>">
-            images.tar
-        </images><%
-    %><% } %>
+%><% if (style.ImagesRoot) { %>
+    <images path="images/<%= Style.Name %>">
+        images.tar
+    </images><%
+%><% } %>
     </files>
 </style>

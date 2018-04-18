@@ -129,10 +129,10 @@ class Program
             {
                 let style = instruction.Style;
 
-                // MemFileSystem.copyTpl(
-                //     this.TemplatePath("style", "style.xml"),
-                //     this.StylesPath(instruction.FileName, "style.xml"),
-                //     { Package: WSCPackage, Instruction: instruction });
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("style", "style.xml"),
+                    this.StylesPath(instruction.Style.Name, "style.xml"),
+                    { Package: WSCPackage, Instruction: instruction });
                 // MemFileSystem.copyTpl(
                 //     this.TemplatePath("style", "variables.xml"),
                 //     this.StylesPath(instruction.FileName, "variables.xml"),
