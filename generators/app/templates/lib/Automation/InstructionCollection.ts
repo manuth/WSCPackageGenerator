@@ -30,15 +30,21 @@ export default class InstructionCollection extends Array<Instruction>
     private package: Package;
 
     /**
+     * The directory inside the package to save the instruction-output to.
+     */
+    private destination: string;
+
+    /**
      * Initializes a new instance of the `InstructionCollection` class.
      * 
      * @param pkg
      * The package this collection belongs to.
      */
-    public constructor(pkg: Package)
+    public constructor(pkg: Package, destination = "")
     {
         super();
         this.package = pkg;
+        this.destination = destination;
     }
 
     /**

@@ -17,7 +17,7 @@ export default class UpdateInstructionCollection extends InstructionCollection
      * @param fromVersion
      * The version this update can be applied to.
      */
-    public constructor(pkg: Package, fromVersion: string)
+    public constructor(pkg: Package, fromVersion: string, destination = fromVersion)
     {
         super(pkg);
         this.fromVersion = fromVersion;
