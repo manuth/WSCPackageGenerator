@@ -123,7 +123,7 @@ class Program
             }
             else if (instruction instanceof EventListenersInstruction)
             {
-                //MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage });
+                MemFileSystem.copyTpl(this.TemplatePath("eventListeners.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
             }
             else if (instruction instanceof StyleInstruction)
             {
