@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<style xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/style.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.woltlab.com">
+<style xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/vortex/style.xsd" <%
+%> xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.woltlab.com">
     <general><%
     %><% for (let locale in Style.DisplayName) { %>
         <stylename<%
