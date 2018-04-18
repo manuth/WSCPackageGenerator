@@ -61,6 +61,19 @@ export default class InstructionCollection extends Array<Instruction>
     }
 
     /**
+     * Gets or sets the directory inside the package to save the instruction-output to.
+     */
+    public get Destination(): string
+    {
+        return this.destination;
+    }
+
+    public set Destination(value: string)
+    {
+        this.destination = value;
+    }
+
+    /**
      * Gets the mappings of the files provided by this collection.
      */
     public get FileMappings(): FileInstruction[]
