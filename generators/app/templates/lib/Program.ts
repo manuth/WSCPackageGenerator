@@ -137,21 +137,25 @@ class Program
                     this.TemplatePath("style", "variables.xml"),
                     this.StylesPath(instruction.Style.Name, "variables.xml"),
                     { Package: WSCPackage, Instruction: instruction });
-                
-                // let styleGenerator = memFsEditor.create(memFs.create());
-                // styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.FileName, "images"), WSCPackage);
 
-                // await new Promise((resolve) =>
-                // {
-                //     styleGenerator.commit([], () =>
-                //     {
-                //         resolve();
-                //     })
-                // });
+                if (style.ImagesRoot)
+                {
+                    let styleGenerator = memFsEditor.create(memFs.create());
+                    styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.Style.Name, "images"), WSCPackage);
+    
+                    await new Promise((resolve) =>
+                    {
+                        styleGenerator.commit([], () =>
+                        {
+                            resolve();
+                        })
+                    });
 
-                // this.Compress(this.StylesPath(instruction.FileName, "images"), this.StylesPath(instruction.FileName, "images.tar"));
-                // await FileSystem.remove(this.StylesPath(instruction.FileName, "images"));
-                // this.Compress(this.StylesPath(instruction.FileName), this.PackagePath(this.stylesPath, instruction.FileName + ".tar"));
+                    this.Compress(this.StylesPath(instruction.Style.Name, "images"), this.StylesPath(instruction.Style.Name, "images.tar"));
+                    await FileSystem.remove(this.StylesPath(instruction.Style.Name, "images"));
+                }
+
+                this.Compress(this.StylesPath(instruction.Style.Name), this.PackagePath(this.stylesPath, instruction.FileName));
             }
             else if (instruction instanceof TemplateListenersInstruction)
             {
