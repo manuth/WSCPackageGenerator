@@ -133,10 +133,10 @@ class Program
                     this.TemplatePath("style", "style.xml"),
                     this.StylesPath(instruction.Style.Name, "style.xml"),
                     { Package: WSCPackage, Instruction: instruction });
-                // MemFileSystem.copyTpl(
-                //     this.TemplatePath("style", "variables.xml"),
-                //     this.StylesPath(instruction.FileName, "variables.xml"),
-                //     { Package: WSCPackage, Instruction: instruction });
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("style", "variables.xml"),
+                    this.StylesPath(instruction.Style.Name, "variables.xml"),
+                    { Package: WSCPackage, Instruction: instruction });
                 
                 // let styleGenerator = memFsEditor.create(memFs.create());
                 // styleGenerator.copyTpl(Path.join(style.SourceRoot, style.ImagesRoot), this.StylesPath(instruction.FileName, "images"), WSCPackage);

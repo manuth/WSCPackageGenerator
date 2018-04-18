@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <variables xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <%
-%>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd">
+%>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd"><%
+%><% if (Instruction.Style.CustomScss) { %>
     <variable name="individualScss">
-        <![CDATA[<%- Style.CustomScss %>]]>
-    </variable>
+        <![CDATA[<%- Instruction.Style.CustomScss %>]]>
+    </variable><%
+%><% } %><%
+%><% if (Instruction.Style.OverrideScss) { %>
     <variable name="overrideScss">
-        <![CDATA[<%- Style.OverrideScss %>]]>
-    </variable>
+        <![CDATA[<%- Instruction.Style.OverrideScss %>]]>
+    </variable><%
+%><% } %>
 </variables>
