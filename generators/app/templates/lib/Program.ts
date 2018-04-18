@@ -66,7 +66,7 @@ class Program
                     })
                 });
 
-                this.Compress(this.PackagePath(instruction.SourceRoot), this.PackagePath(instruction.SourceRoot + ".tar"));
+                this.Compress(this.PackagePath(instruction.SourceRoot), this.PackagePath(instruction.FileName));
                 await FileSystem.remove(this.PackagePath(instruction.SourceRoot));
             }
             else if (instruction instanceof OptionsInstruction)
