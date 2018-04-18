@@ -59,17 +59,14 @@ export default class TranslationNode extends NodeContainer
     {
         let result: TranslationNode[] = [];
 
-        for (let node of this.Nodes)
-        {
-            if (Object.keys(node.Translations).length > 0)
-            {
-                result.push(node);
-            }
-        }
-
         if (Object.keys(this.Translations).length > 0)
         {
             result.push(this);
+        }
+
+        for (let node of this.Nodes)
+        {
+            result.push(...node.GetTranslations());
         }
 
         return result;
