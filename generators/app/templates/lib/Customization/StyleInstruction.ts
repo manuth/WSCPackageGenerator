@@ -39,6 +39,11 @@ export default class StyleInstruction extends FileSystemInstruction
         return this.style;
     }
 
+    public get Package(): Package
+    {
+        return super.Package;
+    }
+
     public set Package(value: Package)
     {
         super.Package = value;
