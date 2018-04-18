@@ -159,10 +159,10 @@ class Program
             }
             else if (instruction instanceof TemplateListenersInstruction)
             {
-                // MemFileSystem.copyTpl(
-                //     this.TemplatePath("templateListeners.xml"),
-                //     this.ComponentsPath(instruction.FileName),
-                //     { Package: WSCPackage, Instruction: instruction });
+                MemFileSystem.copyTpl(
+                    this.TemplatePath("templateListeners.xml"),
+                    this.ComponentsPath(instruction.FileName),
+                    { Package: WSCPackage, Instruction: instruction });
             }
             else if (instruction instanceof EmojisInstruction)
             {
