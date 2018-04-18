@@ -107,7 +107,7 @@ export default class SettingsNode extends NodeContainer
         if (Object.keys(this.DisplayName).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: "category" + this.FullName,
+                Name: "category." + this.Name,
                 Translations: this.DisplayName
             }));
         }
@@ -115,7 +115,7 @@ export default class SettingsNode extends NodeContainer
         if (Object.keys(this.Description).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: "category" + this.FullName,
+                Name: "category." + this.Name,
                 Nodes: [
                     new TranslationNode({
                         Name: "description",
