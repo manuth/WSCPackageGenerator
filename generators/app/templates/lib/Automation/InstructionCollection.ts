@@ -17,6 +17,7 @@ import TemplateListener from "../Customization/TemplateListener";
 import TemplateListenersInstruction from "../Customization/TemplateListenersInstruction";
 import Emoji from "../Customization/Emoji";
 import EmojisInstruction from "../Customization/EmojisInstruction";
+import FileInstruction from "./FileInstruction";
 
 /**
  * Rerpesents a set of instructions.
@@ -56,16 +57,16 @@ export default class InstructionCollection extends Array<Instruction>
     /**
      * Gets the mappings of the files provided by this collection.
      */
-    public get FileMappings(): FileMapping[]
+    public get FileMappings(): FileInstruction[]
     {
-        let result: FileMapping[] = [];
+        let result: FileInstruction[] = [];
 
         for (let instruction of this)
         {
             if ((instruction instanceof FilesInstruction) &&
                 (instruction.constructor === FilesInstruction))
             {
-                result.push(...instruction.FileMappings);
+                result.push(instruction);
             }
         }
 
@@ -201,15 +202,15 @@ export default class InstructionCollection extends Array<Instruction>
     /**
      * Gets the templates provided by this collection.
      */
-    public get Templates(): FileMapping[]
+    public get Templates(): FileInstruction[]
     {
-        let result: FileMapping[] = [];
+        let result: FileInstruction[] = [];
 
         for (let instruction of this)
         {
             if (instruction instanceof TemplatesInstruction)
             {
-                result.push(...instruction.FileMappings);
+                result.push(instruction);
             }
         }
         
@@ -219,15 +220,15 @@ export default class InstructionCollection extends Array<Instruction>
     /**
      * Gets the acp-templates provided by this collection.
      */
-    public get ACPTemplates(): FileMapping[]
+    public get ACPTemplates(): FileInstruction[]
     {
-        let result: FileMapping[] = [];
+        let result: FileInstruction[] = [];
 
         for (let instruction of this)
         {
             if (instruction instanceof ACPTemplatesInstruction)
             {
-                result.push(...instruction.FileMappings);
+                result.push(instruction);
             }
         }
         
