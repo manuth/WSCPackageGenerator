@@ -68,8 +68,7 @@ class Program
             }
             else if (instruction instanceof OptionsInstruction)
             {
-                //MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, instruction: instruction });
-
+                MemFileSystem.copyTpl(this.TemplatePath("options.xml"), this.ComponentsPath(instruction.FileName), { Package: WSCPackage, Instruction: instruction });
                 {
                     let locales: string[] = [];
 
@@ -87,13 +86,13 @@ class Program
                         }
                     }
 
-                    // for (let locale of locales)
-                    // {
-                    //     MemFileSystem.copyTpl(
-                    //         this.TemplatePath("language.xml"),
-                    //         this.ComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
-                    //         { Package: WSCPackage, Instruction: instruction })
-                    // }
+                    for (let locale of locales)
+                    {
+                        MemFileSystem.copyTpl(
+                            this.TemplatePath("language.xml"),
+                            this.ComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
+                            { Package: WSCPackage, Instruction: instruction, Locale: locale });
+                    }
                 }
             }
             else if (instruction instanceof TranslationsInstruction)
@@ -114,13 +113,13 @@ class Program
                     }
                 }
 
-                // for (let locale of locales)
-                // {
-                //     MemFileSystem.copyTpl(
-                //         this.TemplatePath("language.xml"),
-                //         this.ComponentsPath(instruction.FileName, locale + ".xml"),
-                //         { Package: WSCPackage, Locale: locale });
-                // }
+                for (let locale of locales)
+                {
+                    MemFileSystem.copyTpl(
+                        this.TemplatePath("language.xml"),
+                        this.ComponentsPath(instruction.FileName, locale + ".xml"),
+                        { Package: WSCPackage, Instruction: instruction, Locale: locale });
+                }
             }
             else if (instruction instanceof EventListenersInstruction)
             {
