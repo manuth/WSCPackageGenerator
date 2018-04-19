@@ -276,7 +276,7 @@ export = class extends Generator
                 type: "input",
                 name: "componentPaths.errors",
                 message: "Where do you want to store your error-messages?",
-                default: "Errors",
+                default: "ErrorMessages",
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers["components"] as string[]).includes("errors");
@@ -346,7 +346,7 @@ export = class extends Generator
             acpOptions: "Options.ts",
             eventListener: "EventListeners.ts",
             translations: "Translations.ts",
-            errors: "Errors.ts",
+            errors: "ErrorMessages.ts",
             style: "wsc-style-getting-started.md",
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
