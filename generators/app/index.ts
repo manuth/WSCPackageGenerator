@@ -363,6 +363,7 @@ class WSCPackageGenerator extends Generator
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
         this.fs.copyTpl(this.templatePath("_package.json"), this.destinationPath("package.json"), this.settings);
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("README.md"), this.destinationPath("README.md"), this.settings);
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
 
         for (let component of this.settings["components"])
