@@ -1,6 +1,10 @@
 import TranslationNode from "../lib/Globalization/TranslationNode";
+import TranslationsInstruction from "../lib/Globalization/TranslationsInstruction";
 
-let translations: TranslationNode[] = [
-];
+let translationsInstruction: TranslationsInstruction = new TranslationsInstruction({
+    TranslationNodes: [
+        
+    ]
+});
 
-export = translations;
+export = translationsInstruction;

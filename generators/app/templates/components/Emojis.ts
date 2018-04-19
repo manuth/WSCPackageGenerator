@@ -1,6 +1,10 @@
 import Emoji from "../lib/Customization/Emoji";
+import EmojisInstruction from "../lib/Customization/EmojisInstruction";
 
-let emojis: Emoji[] = [
-];
+let emojiInstruction: EmojisInstruction = new EmojisInstruction({
+    Emojis: [
+        
+    ]
+});
 
-export = emojis;
+export = emojiInstruction;

@@ -1,6 +1,7 @@
 import * as Path from "path";
 import Package from "./lib/Package";
-import Instruction from "./lib/Automation/Instruction";
+import StyleInstructionCollection from "./lib/Customization/StyleInstructionCollection";
+import UpdateInstructionCollection from "./lib/Automation/UpdateInstructionCollection";
 
 function getComponentsPath(value: string): string
 {
@@ -35,52 +36,21 @@ let pkg: Package = new Package({
 
             switch (component)
             {
-                case "files":
-                    optionName = "Files";
-                    break;
-                case "acpOptions":
-                    optionName = "Options";
-                    break;
-                case "eventListener":
-                    optionName = "EventListeners";
-                    break;
-                case "translations":
-                    optionName = "Translations";
-                    break;
-                case "style":
-                    optionName = "StylesRoot";
-                    break;
-                case "template":
-                    optionName = "TemplateMappings";
-                    break;
-                case "acpTemplate":
-                    optionName = "ACPTemplateMappings";
-                    break;
-                case "templateListener":
-                    optionName = "TemplateListeners";
-                    break;
-                case "emoji":
-                    optionName = "Emojis";
-                    break;
-            }
-
-            switch (component)
-            {
                 case "style":
                     formatter = (value) =>
                     {
-                        return "Path.join(__dirname, \"" + value + "\")";
+                        return "...new StyleInstructionCollection(__dirname, \"" + value + "\")";
                     }
                     break;
                 default:
                     formatter = (value) =>
                     {
-                        return "getComponentsPath(\"" + value + "\")";
+                        return "require(getComponentsPath(\"" + value + "\"))";
                     }
                     break;
             }
 
-            items.push(optionName + ": " + formatter(componentPaths[component]));
+            items.push(formatter(componentPaths[component]));
         }
     %>
         <%- items.join(`,

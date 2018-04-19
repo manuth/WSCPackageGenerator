@@ -1,6 +1,5 @@
-import FileMapping from "../lib/FileMapping";
+import ACPTemplatesInstruction from "../lib/Customization/ACPTemplatesInstruction";
 
-let templates: FileMapping[] = [
-];
+let acpTemplatesInstruction: ACPTemplatesInstruction = null;
 
-export = templates;
+export = acpTemplatesInstruction;

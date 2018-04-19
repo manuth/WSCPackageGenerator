@@ -1,6 +1,5 @@
-import FileMapping from "../lib/FileMapping";
+import FilesInstruction from "../lib/FilesInstruction";
 
-let fileMappings: FileMapping[] = [
-];
+let filesInstruction: FilesInstruction = null;
 
-export = fileMappings;
+export = filesInstruction;

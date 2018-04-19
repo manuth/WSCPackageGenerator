@@ -1,11 +1,11 @@
 import EventListener from "../lib/EventListener";
-import WSCEnvironment from "../lib/WSCEnvironment";<%
-if ("acpOptions" in components)
-{
-    %>import * as options from "./Options";<%
-}%>
+import EventListenersInstruction from "../lib/EventListenersInstruction";
+import WSCEnvironment from "../lib/WSCEnvironment";
 
-let eventListeners: EventListener[] = [
-];
+let eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({
+    EventListeners: [
 
-export = eventListeners;
+    ]
+});
+
+export = eventListenersInstruction;

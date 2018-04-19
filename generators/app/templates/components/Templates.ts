@@ -1,6 +1,5 @@
-import FileMapping from "../lib/FileMapping";
+import TemplatesInstruction from "../lib/Customization/TemplatesInstruction";
 
-let templates: FileMapping[] = [
-];
+let templatesInstruction: TemplatesInstruction = null;
 
-export = templates;
+export = templatesInstruction;
