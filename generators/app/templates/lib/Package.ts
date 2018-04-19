@@ -6,6 +6,7 @@ import Instruction from "./Automation/Instruction";
 import UpdateInstructionCollection from "./Automation/UpdateInstructionCollection";
 import { isNullOrUndefined } from "util";
 import IPackage from "./IPackage";
+import Option from "./ControlPanel/Option";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -82,5 +83,13 @@ export default class Package extends Component implements IPackage
     public get UpdateInstructions(): UpdateInstructionCollection[]
     {
         return this.updateInstructions;
+    }
+
+    /**
+     * Gets the options provided by this package.
+     */
+    public get Options(): { [id: string]: Option }
+    {
+        return this.InstallInstructions.Options;
     }
 }
