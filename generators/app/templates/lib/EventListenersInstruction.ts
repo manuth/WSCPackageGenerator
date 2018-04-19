@@ -1,7 +1,7 @@
 import Instruction from "./Automation/Instruction";
 import EventListener from "./EventListener";
 import FileInstruction from "./Automation/FileInstruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that provides a set of event-listeners.
@@ -25,17 +25,17 @@ export default class EventListenersInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNull(this.FileName))
         {
             this.FileName = "eventListeners.xml";
         }
 
-        if (!isNullOrUndefined(options.ObjectsToDelete))
+        if (!isNull(options.ObjectsToDelete))
         {
             this.names.push(...options.ObjectsToDelete);
         }
 
-        if (!isNullOrUndefined(options.EventListeners))
+        if (!isNull(options.EventListeners))
         {
             this.eventListeners.push(...options.EventListeners);
         }

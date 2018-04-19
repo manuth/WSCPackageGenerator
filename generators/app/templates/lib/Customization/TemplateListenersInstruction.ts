@@ -1,7 +1,7 @@
 import Instruction from "../Automation/Instruction";
 import TemplateListener from "./TemplateListener";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that provides a set of template-listeners.
@@ -25,17 +25,17 @@ export default class TemplateListenersInstruction extends FileInstruction
     {
         super(options);
 
-        if (!isNullOrUndefined(options.ObjectsToDelete))
+        if (!isNull(options.ObjectsToDelete))
         {
             this.names.push(...options.ObjectsToDelete);
         }
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNull(this.FileName))
         {
             this.FileName = "templateListeners.xml";
         }
 
-        if (!isNullOrUndefined(options.TemplateListeners))
+        if (!isNull(options.TemplateListeners))
         {
             this.templateListeners.push(...options.TemplateListeners);
         }

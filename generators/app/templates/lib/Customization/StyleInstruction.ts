@@ -1,6 +1,6 @@
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import Style from "./Style";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 import Package from "../Package";
 
 /**
@@ -20,12 +20,12 @@ export default class StyleInstruction extends FileSystemInstruction
     {
         super(options);
 
-        if (!isNullOrUndefined(options.Style))
+        if (!isNull(options.Style))
         {
             this.style = options.Style;
         }
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNull(options.FileName))
         {
             this.FileName = this.style.Name + ".tar";
         }
@@ -48,29 +48,29 @@ export default class StyleInstruction extends FileSystemInstruction
     {
         super.Package = value;
 
-        if (!isNullOrUndefined(this.style))
+        if (!isNull(this.style))
         {
-            if (isNullOrUndefined(this.style.Date))
+            if (isNull(this.style.Date))
             {
                 this.style.Date = value.Date;
             }
 
-            if (isNullOrUndefined(this.style.Version))
+            if (isNull(this.style.Version))
             {
                 this.style.Version = value.Version;
             }
             
-            if (isNullOrUndefined(this.style.Author.Name))
+            if (isNull(this.style.Author.Name))
             {
                 this.style.Author.Name = value.Author.Name;
             }
 
-            if (isNullOrUndefined(this.style.Author.URL))
+            if (isNull(this.style.Author.URL))
             {
                 this.style.Author.URL = value.Author.URL;
             }
 
-            if (isNullOrUndefined(this.style.License))
+            if (isNull(this.style.License))
             {
                 this.style.License = value.License;
             }

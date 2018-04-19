@@ -4,7 +4,7 @@ import OptionItem from "./OptionItem";
 import OptionItemCollection from "./OptionItemCollection";
 import Localizable from "../GLobalization/Localizable";
 import SettingsNode from "./SettingsNode";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 import TranslationNode from "../Globalization/TranslationNode";
 
 /**
@@ -59,37 +59,37 @@ export default class Option extends Node
     {
         super(options);
 
-        if (!isNullOrUndefined(options.ID))
+        if (!isNull(options.ID))
         {
             this.id = options.ID;
         }
 
-        if (!isNullOrUndefined(options.DisplayName))
+        if (!isNull(options.DisplayName))
         {
             Object.assign(this.displayName, options.DisplayName);
         }
 
-        if (!isNullOrUndefined(options.Description))
+        if (!isNull(options.Description))
         {
             Object.assign(this.description, options.Description);
         }
 
-        if (!isNullOrUndefined(options.Default))
+        if (!isNull(options.Default))
         {
             this.default = options.Default;
         }
 
-        if (!isNullOrUndefined(options.Type))
+        if (!isNull(options.Type))
         {
             this.type = options.Type;
         }
 
-        if (!isNullOrUndefined(options.Items))
+        if (!isNull(options.Items))
         {
             this.items.push(...options.Items);
         }
 
-        if (!isNullOrUndefined(options.EnableOptions))
+        if (!isNull(options.EnableOptions))
         {
             this.enableOptions.push(...options.EnableOptions);
         }

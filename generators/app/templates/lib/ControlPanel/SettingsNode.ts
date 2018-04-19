@@ -2,7 +2,7 @@ import NodeContainer from "../Nodes/NodeContainer";
 import NodeCollection from "../Nodes/NodeCollection";
 import Option from "./Option";
 import Localizable from "../Globalization/Localizable";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 import TranslationNode from "../Globalization/TranslationNode";
 
 /**
@@ -37,22 +37,22 @@ export default class SettingsNode extends NodeContainer
     {
         super({ Name: options.Name, Parent: options.Parent });
 
-        if (!isNullOrUndefined(options.DisplayName))
+        if (!isNull(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
 
-        if (!isNullOrUndefined(options.Description))
+        if (!isNull(options.Description))
         {
             Object.assign(this.Description, options.Description);
         }
 
-        if (!isNullOrUndefined(options.Nodes))
+        if (!isNull(options.Nodes))
         {
             this.settingsNodes.push(...options.Nodes);
         }
 
-        if (!isNullOrUndefined(options.Options))
+        if (!isNull(options.Options))
         {
             this.options.push(...options.Options);
         }

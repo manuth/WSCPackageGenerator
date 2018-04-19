@@ -1,6 +1,6 @@
 import Instruction from "./Instruction";
 import FileInstruction from "./FileInstruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that is bound to the file-system.
@@ -19,12 +19,12 @@ export default class FileSystemInstruction extends FileInstruction
     {
         super(options);
 
-        if (!isNullOrUndefined(options.SourceRoot))
+        if (!isNull(options.SourceRoot))
         {
             this.sourceRoot = options.SourceRoot;
         }
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNull(options.FileName))
         {
             this.FileName = options.SourceRoot + ".tar";
         }

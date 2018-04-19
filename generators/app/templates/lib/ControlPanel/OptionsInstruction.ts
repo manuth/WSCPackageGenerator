@@ -4,7 +4,7 @@ import SettingsNode from "./SettingsNode";
 import Option from "./Option";
 import TranslationNode from "../Globalization/TranslationNode";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNullOrUndefined, isNull } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that provides options for the control-panel.
@@ -33,22 +33,22 @@ export default class OptionsInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNull(this.FileName))
         {
             this.FileName = "options.xml";
         }
 
-        if (!isNullOrUndefined(options.ObjectsToDelete))
+        if (!isNull(options.ObjectsToDelete))
         {
             this.names.push(...options.ObjectsToDelete);
         }
         
-        if (!isNullOrUndefined(options.SettingsNode))
+        if (!isNull(options.SettingsNode))
         {
             this.settingsNode = options.SettingsNode;
         }
 
-        if (!isNullOrUndefined(options.TranslationsDirectory))
+        if (!isNull(options.TranslationsDirectory))
         {
             this.translationsDirectory = options.TranslationsDirectory;
         }

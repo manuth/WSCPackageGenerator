@@ -2,7 +2,7 @@ import * as FileSystem from "fs";
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
 import ComponentCollection from "../Automation/ComponentCollection";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -47,22 +47,22 @@ export default class Style extends Component
     {
         super(options);
     
-        if (!isNullOrUndefined(options.Thumbnail))
+        if (!isNull(options.Thumbnail))
         {
             this.thumbnail = options.Thumbnail;
         }
 
-        if (!isNullOrUndefined(options.ImagesRoot))
+        if (!isNull(options.ImagesRoot))
         {
             this.imagesRoot = options.ImagesRoot;
         }
 
-        if (!isNullOrUndefined(options.CustomScssFile))
+        if (!isNull(options.CustomScssFile))
         {
             this.customScss = FileSystem.readFileSync(options.CustomScssFile).toString();
         }
 
-        if (!isNullOrUndefined(options.OverrideScssFile))
+        if (!isNull(options.OverrideScssFile))
         {
             this.overrideScss = FileSystem.readFileSync(options.OverrideScssFile).toString();
         }

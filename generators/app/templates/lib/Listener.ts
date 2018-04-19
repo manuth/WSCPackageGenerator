@@ -1,6 +1,6 @@
 import WSCEnvironment from "./WSCEnvironment";
 import Option from "./ControlPanel/Option";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a component that listens to an event.
@@ -42,32 +42,32 @@ export default class Listener
      */
     public constructor(options: Partial<Listener> = { })
     {
-        if (!isNullOrUndefined(options.Name))
+        if (!isNull(options.Name))
         {
             this.name = options.Name;
         }
         
-        if (!isNullOrUndefined(options.EventName))
+        if (!isNull(options.EventName))
         {
             this.eventName = options.EventName;
         }
 
-        if (!isNullOrUndefined(options.Environment))
+        if (!isNull(options.Environment))
         {
             this.environment = options.Environment;
         }
 
-        if (!isNullOrUndefined(options.Options))
+        if (!isNull(options.Options))
         {
             this.options.push(...options.Options);
         }
 
-        if (!isNullOrUndefined(options.Permissions))
+        if (!isNull(options.Permissions))
         {
             this.permissions.push(...options.Permissions);
         }
 
-        if (!isNullOrUndefined(options.Order))
+        if (!isNull(options.Order))
         {
             this.order = options.Order;
         }

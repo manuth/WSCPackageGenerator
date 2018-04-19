@@ -4,7 +4,7 @@ import InstructionCollection from "./Automation/InstructionCollection";
 import UpdatesCollection from "./Automation/UpdatesCollection";
 import Instruction from "./Automation/Instruction";
 import UpdateInstructionCollection from "./Automation/UpdateInstructionCollection";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -33,38 +33,38 @@ export default class Package extends Component
     {
         super(options);
 
-        if (!isNullOrUndefined(options.Identifier))
+        if (!isNull(options.Identifier))
         {
             this.identifier = options.Identifier;
         }
 
-        if (isNullOrUndefined(options.Date))
+        if (isNull(options.Date))
         {
             this.Date = new Date();
         }
 
-        if (isNullOrUndefined(options.Author))
+        if (isNull(options.Author))
         {
             this.Author.Name = require("../package.json").author.name;
             this.Author.URL = require("../package.json").author.url;
         }
 
-        if (isNullOrUndefined(options.Version))
+        if (isNull(options.Version))
         {
             this.Version = require("../package.json").version;
         }
 
-        if (isNullOrUndefined(options.License))
+        if (isNull(options.License))
         {
             this.License = require("../package.json").license;
         }
 
-        if (!isNullOrUndefined(options.InstallInstructions))
+        if (!isNull(options.InstallInstructions))
         {
             this.installInstructions.push(...options.InstallInstructions);
         }
 
-        if (!isNullOrUndefined(options.UpdateInstructions))
+        if (!isNull(options.UpdateInstructions))
         {
             for (let updateInstruction of options.UpdateInstructions)
             {

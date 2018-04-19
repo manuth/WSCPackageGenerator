@@ -1,5 +1,5 @@
 import Instruction from "./Instruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that is bound to a file.
@@ -18,7 +18,7 @@ export default class FileInstruction extends Instruction
     {
         super(options);
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNull(options.FileName))
         {
             this.fileName = options.FileName;
         }

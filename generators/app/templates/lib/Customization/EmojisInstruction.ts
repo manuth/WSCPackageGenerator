@@ -1,7 +1,7 @@
 import Instruction from "../Automation/Instruction";
 import Emoji from "./Emoji";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that provides emojizz.
@@ -20,12 +20,12 @@ export default class EmojisInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(options.FileName))
+        if (isNull(options.FileName))
         {
             this.FileName = "emojis.xml";
         }
 
-        if (!isNullOrUndefined(options.Emojis))
+        if (!isNull(options.Emojis))
         {
             this.emojis.push(...options.Emojis);
         }

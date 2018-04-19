@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a person.
@@ -20,12 +20,12 @@ export class Person
      */
     public constructor(options: Partial<Person> = { })
     {
-        if (!isNullOrUndefined(options.Name))
+        if (!isNull(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (!isNullOrUndefined(options.URL))
+        if (!isNull(options.URL))
         {
             this.url = options.URL;
         }

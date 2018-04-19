@@ -1,5 +1,5 @@
 import Listener from "../Listener";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a listener that subscribes to an event inside a template.
@@ -23,12 +23,12 @@ export default class TemplateListener extends Listener
     {
         super(options);
 
-        if (!isNullOrUndefined(options.TemplateName))
+        if (!isNull(options.TemplateName))
         {
             this.templateName = options.TemplateName;
         }
 
-        if (!isNullOrUndefined(options.Code))
+        if (!isNull(options.Code))
         {
             this.code = options.Code;
         }

@@ -1,7 +1,7 @@
 import Instruction from "../Automation/Instruction";
 import TranslationNode from "./TranslationNode";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an instruction that provides `Translation`s.
@@ -20,12 +20,12 @@ export default class TranslationsInstruction extends FileInstruction
     {
         super(options);
 
-        if (isNullOrUndefined(this.FileName))
+        if (isNull(this.FileName))
         {
             this.FileName = "language";
         }
 
-        if (!isNullOrUndefined(options.TranslationNodes))
+        if (!isNull(options.TranslationNodes))
         {
             this.translationNodes.push(...options.TranslationNodes);
         }

@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a set of files to provide to WoltLab Suite Core.
@@ -20,12 +20,12 @@ export default class FileMapping
      */
     public constructor(options: Partial<FileMapping> = { })
     {
-        if (!isNullOrUndefined(options.SourceRoot))
+        if (!isNull(options.SourceRoot))
         {
             this.sourceRoot = options.SourceRoot;
         }
 
-        if (!isNullOrUndefined(options.Application))
+        if (!isNull(options.Application))
         {
             this.application = options.Application;
         }

@@ -2,7 +2,7 @@ import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as Temp from "tmp";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Provides the functionality to compile parts of the package.
@@ -60,7 +60,7 @@ export default abstract class Compiler<T>
      */
     public get TempPath(): string
     {
-        if (isNullOrUndefined(this.tempPath))
+        if (isNull(this.tempPath))
         {
             this.tempPath = Temp.dirSync();
         }

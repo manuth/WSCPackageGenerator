@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents an emoji.
@@ -42,32 +42,32 @@ export default class Emoji
      */
     public constructor(options: Partial<Emoji> = { })
     {
-        if (!isNullOrUndefined(options.Title))
+        if (!isNull(options.Title))
         {
             this.title = options.Title;
         }
 
-        if (!isNullOrUndefined(options.Name))
+        if (!isNull(options.Name))
         {
             this.name = options.Name;
         }
 
-        if (!isNullOrUndefined(options.FileName))
+        if (!isNull(options.FileName))
         {
             this.fileName = options.FileName;
         }
 
-        if (!isNullOrUndefined(options.HighResFileName))
+        if (!isNull(options.HighResFileName))
         {
             this.highResFileName = options.HighResFileName;
         }
 
-        if (!isNullOrUndefined(options.Aliases))
+        if (!isNull(options.Aliases))
         {
             this.aliases.push(...options.Aliases);
         }
 
-        if (!isNullOrUndefined(options.ShowOrder))
+        if (!isNull(options.ShowOrder))
         {
             this.showOrder = options.ShowOrder;
         }

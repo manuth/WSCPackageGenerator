@@ -1,6 +1,6 @@
 import Style from "../Customization/Style";
 import ComponentCollection from "../Automation/ComponentCollection";
-import { isNullOrUndefined } from "util";
+import { isNull } from "util";
 
 /**
  * Represents a set of style.
@@ -32,27 +32,27 @@ export default class StyleCollection<T extends Style> extends Array<T>
 
             if (this.instruction.Package)
             {
-                if (isNullOrUndefined(item.Date))
+                if (isNull(item.Date))
                 {
                     item.Date = this.instruction.Package.Date;
                 }
 
-                if (isNullOrUndefined(item.Version))
+                if (isNull(item.Version))
                 {
                     item.Version = this.instruction.Package.Version;
                 }
 
-                if (isNullOrUndefined(item.Author.Name))
+                if (isNull(item.Author.Name))
                 {
                     item.Author.Name = this.instruction.Package.Author.Name;
                 }
 
-                if (isNullOrUndefined(item.Author.URL))
+                if (isNull(item.Author.URL))
                 {
                     item.Author.URL = this.instruction.Package.Author.URL;
                 }
 
-                if (isNullOrUndefined(item.License))
+                if (isNull(item.License))
                 {
                     item.License = this.instruction.Package.License;
                 }
