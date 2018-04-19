@@ -1,24 +1,30 @@
-<% for (let instruction of InstructionCollection) { %><%
+<% let destination; %><%
+%><% if (InstructionCollection.Destination) { %><%
+    %><% destination = InstructionCollection.Destination.trim("/") + "/"; %><%
+%><% } else { %><%
+    %><% destination = ""; %><%
+%><% } %><%
+%><% for (let instruction of InstructionCollection) { %><%
     %><%switch (instruction.constructor.name) { case "FilesInstruction": %>
         <instruction<%
         %> type="file"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
-            %><%= instruction.FileName %></instruction><%
+            %><%= destination %><%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "OptionsInstruction": %>
-        <instruction type="option"><%= ComponentsPath %>/<%= instruction.FileName %></instruction>
-        <instruction type="language"><%= ComponentsPath %>/<%= instruction.TranslationsDirectory %>/*.xml</instruction><%
+        <instruction type="option"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction>
+        <instruction type="language"><%= destination %><%= ComponentsPath %>/<%= instruction.TranslationsDirectory %>/*.xml</instruction><%
         %><% break; %><%
         %><% case "EventListenersInstruction": %>
-        <instruction type="eventListener"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        <instruction type="eventListener"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "TranslationsInstruction": %>
-        <instruction type="language"><%= ComponentsPath %>/<%= instruction.FileName %>/*.xml</instruction><%
+        <instruction type="language"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %>/*.xml</instruction><%
         %><% break; %><%
         %><% case "StyleInstruction": %>
-        <instruction type="style"><%= StylesPath %>/<%= instruction.FileName %></instruction><%
+        <instruction type="style"><%= destination %><%= StylesPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "TemplatesInstruction": %>
         <instruction<%
@@ -26,7 +32,7 @@
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
-                %><%= instruction.FileName %><%
+                %><%= destination %><%= instruction.FileName %><%
             %></instruction><%
         %><% break; %><%
         %><% case "ACPTemplatesInstruction": %>
@@ -35,14 +41,14 @@
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
-                %><%= instruction.FileName %><%
+                %><%= destination %><%= instruction.FileName %><%
             %></instruction><%
         %><% break; %><%
         %><% case "TemplateListenersInstruction": %>
-        <instruction type="templateListener"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        <instruction type="templateListener"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "EmojisInstruction": %>
-        <instruction type="smiley"><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        <instruction type="smiley"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
     %><% } %><%
 %><% } %>
