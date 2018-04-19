@@ -16,6 +16,8 @@ import TemplateListener from "../Customization/TemplateListener";
 import TemplateListenersInstruction from "../Customization/TemplateListenersInstruction";
 import Emoji from "../Customization/Emoji";
 import EmojisInstruction from "../Customization/EmojisInstruction";
+import ErrorMessageNode from "../Globalization/ErrorMessageNode";
+import ErrorMessagesInstruction from "../Globalization/ErrorMessagesInstruction";
 import FileInstruction from "./FileInstruction";
 import IInstructionCollection from "./IInstructionCollection";
 
@@ -160,6 +162,24 @@ export default class InstructionCollection extends Array<Instruction> implements
             if (instruction instanceof TranslationsInstruction)
             {
                 result.push(...instruction.TranslationNodes);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets all error-messages provided by this collection.
+     */
+    public get ErrorMessages(): { [id: string]: ErrorMessageNode }
+    {
+        let result: { [id: string]: ErrorMessageNode } = { };
+
+        for (let instruction of this)
+        {
+            if (instruction instanceof ErrorMessagesInstruction)
+            {
+                Object.assign(result, instruction.Errors);
             }
         }
 

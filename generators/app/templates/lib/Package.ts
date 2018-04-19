@@ -7,6 +7,7 @@ import UpdateInstructionCollection from "./Automation/UpdateInstructionCollectio
 import { isNullOrUndefined } from "util";
 import IPackage from "./IPackage";
 import Option from "./ControlPanel/Option";
+import ErrorMessageNode from "./Globalization/ErrorMessageNode";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -91,5 +92,13 @@ export default class Package extends Component implements IPackage
     public get Options(): { [id: string]: Option }
     {
         return this.InstallInstructions.Options;
+    }
+
+    /**
+     * Gets the error-messages provided by this package
+     */
+    public get ErrorMessages(): { [id: string]: ErrorMessageNode }
+    {
+        return this.InstallInstructions.ErrorMessages;
     }
 }
