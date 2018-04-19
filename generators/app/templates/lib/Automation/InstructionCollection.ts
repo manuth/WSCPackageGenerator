@@ -17,11 +17,12 @@ import TemplateListenersInstruction from "../Customization/TemplateListenersInst
 import Emoji from "../Customization/Emoji";
 import EmojisInstruction from "../Customization/EmojisInstruction";
 import FileInstruction from "./FileInstruction";
+import IInstructionCollection from "./IInstructionCollection";
 
 /**
  * Rerpesents a set of instructions.
  */
-export default class InstructionCollection extends Array<Instruction>
+export default class InstructionCollection extends Array<Instruction> implements IInstructionCollection
 {
     /**
      * The package this collection belongs to.
@@ -59,9 +60,6 @@ export default class InstructionCollection extends Array<Instruction>
         this.package = value;
     }
 
-    /**
-     * Gets or sets the directory inside the package to save the instruction-output to.
-     */
     public get Destination(): string
     {
         return this.destination;
@@ -70,6 +68,11 @@ export default class InstructionCollection extends Array<Instruction>
     public set Destination(value: string)
     {
         this.destination = value;
+    }
+
+    public get Instructions(): Instruction[]
+    {
+        return this;
     }
 
     /**

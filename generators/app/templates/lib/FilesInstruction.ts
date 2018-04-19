@@ -1,11 +1,12 @@
+import IFilesInstruction from "./IFilesInstruction";
 import Instruction from "./Automation/Instruction";
 import FileSystemInstruction from "./Automation/FileSystemInstruction";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides a set of files.
  */
-export default class FilesInstruction extends FileSystemInstruction
+export default class FilesInstruction extends FileSystemInstruction implements IFilesInstruction
 {
     /**
      * The application to provide the files to.
@@ -15,19 +16,16 @@ export default class FilesInstruction extends FileSystemInstruction
     /**
      * Initializes a new instance of the `FilesInstruction` class.
      */
-    public constructor(options: Partial<FilesInstruction> = { })
+    public constructor(options: IFilesInstruction)
     {
         super(options);
 
-        if (!isNull(options.Application))
+        if (!isNullOrUndefined(options.Application))
         {
             this.application = options.Application;
         }
     }
 
-    /**
-     * Gets the application to provide the files to.
-     */
     public get Application(): string
     {
         return this.application;

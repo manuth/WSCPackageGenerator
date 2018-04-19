@@ -1,10 +1,11 @@
+import IFileInstruction from "./IFileInstruction";
 import Instruction from "./Instruction";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to a file.
  */
-export default class FileInstruction extends Instruction
+export default class FileInstruction extends Instruction implements IFileInstruction
 {
     /**
      * The filename of the ouput of the instruction.
@@ -14,19 +15,16 @@ export default class FileInstruction extends Instruction
     /**
      * Initializes a new instance of the `FileInstruction` class.
      */
-    public constructor(options: Partial<FileInstruction> = { })
+    public constructor(options: IFileInstruction)
     {
         super(options);
 
-        if (isNull(options.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.fileName = options.FileName;
         }
     }
 
-    /**
-     * Gets or sets the filename of the ouput of the instruction.
-     */
     public get FileName(): string
     {
         return this.fileName;

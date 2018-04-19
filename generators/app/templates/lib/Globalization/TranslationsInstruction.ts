@@ -1,12 +1,13 @@
 import Instruction from "../Automation/Instruction";
+import ITranslationsInstruction from "./ITranslationsInstruction";
 import TranslationNode from "./TranslationNode";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides `Translation`s.
  */
-export default class TranslationsInstruction extends FileInstruction
+export default class TranslationsInstruction extends FileInstruction implements ITranslationsInstruction
 {
     /**
      * The nodes which contains the translations provided by this instruction.
@@ -16,24 +17,18 @@ export default class TranslationsInstruction extends FileInstruction
     /**
      * Initializes a new instance of the `TranslationsInstruction` class.
      */
-    public constructor(options: Partial<TranslationsInstruction> = { })
+    public constructor(options: ITranslationsInstruction)
     {
         super(options);
 
-        if (isNull(this.FileName))
+        if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "language";
         }
 
-        if (!isNull(options.TranslationNodes))
-        {
-            this.translationNodes.push(...options.TranslationNodes);
-        }
+        this.translationNodes.push(...options.TranslationNodes);
     }
 
-    /**
-     * Gets the nodes which contains the translations provided by this instruction.
-     */
     public get TranslationNodes(): TranslationNode[]
     {
         return this.translationNodes;

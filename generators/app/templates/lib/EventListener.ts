@@ -1,12 +1,13 @@
 import Listener from "./Listener";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
+import IEventListener from "./IEventListener";
 
 /**
  * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.
  * 
- * Please note that you have to provide your PHP-files using `Package.FileMappings`.
+ * Please note that you have to provide your PHP-files using a `FilesInstruction`.
  */
-export default class EventListener extends Listener
+export default class EventListener extends Listener implements IEventListener
 {
     /**
      * The name of the class that invokes the event to subscribe to.
@@ -26,24 +27,21 @@ export default class EventListener extends Listener
     /**
      * Initializes a new instance of the `EventListener` class.
      */
-    public constructor(options: Partial<EventListener> = { })
+    public constructor(options: IEventListener)
     {
         super(options);
 
-        if (!isNull(options.ClassName))
+        if (!isNullOrUndefined(options.ClassName))
         {
             this.className = options.ClassName;
         }
 
-        if (!isNull(options.Inherit))
+        if (!isNullOrUndefined(options.Inherit))
         {
             this.inherit = options.Inherit;
         }
     }
 
-    /**
-     * Gets or sets the name of the class that invokes the event to subscribe to.
-     */
     public get ClassName(): string
     {
         return this.className;
@@ -54,9 +52,6 @@ export default class EventListener extends Listener
         this.className = value;
     }
 
-    /**
-     * Gets or sets a value indicating whether classes that inherit `className` should be subscribed, too.
-     */
     public get Inherit(): boolean
     {
         return this.inherit;
@@ -67,9 +62,6 @@ export default class EventListener extends Listener
         this.inherit = value;
     }
 
-    /**
-     * Gets or sets the name of the class that handles the subscribed event.
-     */
     public get EventHandlerClassName(): string
     {
         return this.eventHandlerClassName;

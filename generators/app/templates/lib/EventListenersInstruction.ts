@@ -1,12 +1,13 @@
+import IEventListenersInstruction from "./IEventListenersInstruction";
 import Instruction from "./Automation/Instruction";
 import EventListener from "./EventListener";
 import FileInstruction from "./Automation/FileInstruction";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of event-listeners.
  */
-export default class EventListenersInstruction extends FileInstruction
+export default class EventListenersInstruction extends FileInstruction implements IEventListenersInstruction
 {
     /**
      * A set of names of event-listeners to delete.
@@ -21,29 +22,26 @@ export default class EventListenersInstruction extends FileInstruction
     /**
      * Initializes a new instance of the `EventListenersInstruction` class.
      */
-    public constructor(options: Partial<EventListenersInstruction> = { })
+    public constructor(options: IEventListenersInstruction)
     {
         super(options);
 
-        if (isNull(this.FileName))
+        if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "eventListeners.xml";
         }
 
-        if (!isNull(options.ObjectsToDelete))
+        if (!isNullOrUndefined(options.ObjectsToDelete))
         {
             this.names.push(...options.ObjectsToDelete);
         }
 
-        if (!isNull(options.EventListeners))
+        if (!isNullOrUndefined(options.EventListeners))
         {
             this.eventListeners.push(...options.EventListeners);
         }
     }
 
-    /**
-     * Gets the event-listeners provided by the instruction.
-     */
     public get EventListeners(): EventListener[]
     {
         return this.eventListeners;

@@ -4,12 +4,13 @@ import InstructionCollection from "./Automation/InstructionCollection";
 import UpdatesCollection from "./Automation/UpdatesCollection";
 import Instruction from "./Automation/Instruction";
 import UpdateInstructionCollection from "./Automation/UpdateInstructionCollection";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
+import IPackage from "./IPackage";
 
 /**
  * Represents a package for WoltLab Suite Core.
  */
-export default class Package extends Component
+export default class Package extends Component implements IPackage
 {
     /**
      * The identifier of the package.
@@ -19,7 +20,7 @@ export default class Package extends Component
     /**
      * The instructions which is used for installing the packge.
      */
-    private installInstructions: Instruction[] = new InstructionCollection(this);
+    private installInstructions: InstructionCollection = new InstructionCollection(this);
 
     /**
      * A set of instructions for updating the package.
@@ -29,48 +30,33 @@ export default class Package extends Component
     /**
      * Initializes a new instance of the `Package` class.
      */
-    public constructor(options: Partial<Package> = { })
+    public constructor(options: IPackage)
     {
         super(options);
+        this.identifier = options.Identifier;
 
-        if (!isNull(options.Identifier))
-        {
-            this.identifier = options.Identifier;
-        }
-
-        if (isNull(options.Date))
+        if (isNullOrUndefined(options.Date))
         {
             this.Date = new Date();
         }
 
-        if (isNull(options.Author))
-        {
-            this.Author.Name = require("../package.json").author.name;
-            this.Author.URL = require("../package.json").author.url;
-        }
-
-        if (isNull(options.Version))
-        {
-            this.Version = require("../package.json").version;
-        }
-
-        if (isNull(options.License))
-        {
-            this.License = require("../package.json").license;
-        }
-
-        if (!isNull(options.InstallInstructions))
+        if (!isNullOrUndefined(options.InstallInstructions))
         {
             this.installInstructions.push(...options.InstallInstructions);
         }
 
-        if (!isNull(options.UpdateInstructions))
+        if (!isNullOrUndefined(options.UpdateInstructions))
         {
             for (let updateInstruction of options.UpdateInstructions)
             {
                 let updateInstructionCollection = new UpdateInstructionCollection(this, updateInstruction.FromVersion);
 
-                for (let instruction of updateInstruction)
+                if (!isNullOrUndefined(updateInstruction.Destination))
+                {
+                    updateInstructionCollection.Destination = updateInstruction.Destination;
+                }
+
+                for (let instruction of updateInstruction.Instructions)
                 {
                     updateInstructionCollection.push(instruction);
                 }
@@ -78,9 +64,6 @@ export default class Package extends Component
         }
     }
 
-    /**
-     * Gets or sets the identifier of the package.
-     */
     public get Identifier(): string
     {
         return this.identifier;
@@ -91,17 +74,11 @@ export default class Package extends Component
         this.identifier = value;
     }
 
-    /**
-     * Gets or sets the instructions which is used for installing the packge.
-     */
-    public get InstallInstructions(): Instruction[]
+    public get InstallInstructions(): InstructionCollection
     {
         return this.installInstructions;
     }
 
-    /**
-     * Gets a set of instructions for updating the package.
-     */
     public get UpdateInstructions(): UpdateInstructionCollection[]
     {
         return this.updateInstructions;

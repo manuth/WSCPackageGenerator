@@ -1,12 +1,13 @@
+import ITranslationNode from "./ITranslationNode";
+import Localizable from "./Localizable";
 import NodeContainer from "../Nodes/NodeContainer";
 import NodeCollection from "../Nodes/NodeCollection";
-import Localizable from "./Localizable";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains localized variables.
  */
-export default class TranslationNode extends NodeContainer
+export default class TranslationNode extends NodeContainer implements ITranslationNode
 {   
     /**
      * The nodes contained by this node.
@@ -21,32 +22,26 @@ export default class TranslationNode extends NodeContainer
     /**
      * Initializes a new instance of the `TranslationNode` class.
      */
-    public constructor(options: Partial<TranslationNode> = { })
+    public constructor(options: ITranslationNode)
     {
-        super({ Name: options.Name, Parent: options.Parent });
+        super(options);
 
-        if (!isNull(options.Nodes))
+        if (!isNullOrUndefined(options.Nodes))
         {
             this.translationNodes.push(...options.Nodes);
         }
 
-        if (!isNull(options.Translations))
+        if (!isNullOrUndefined(options.Translations))
         {
             Object.assign(this.translations, options.Translations);
         }
     }
 
-    /**
-     * Gets the nodes contained by this node.
-     */
     public get Nodes(): TranslationNode[]
     {
         return this.translationNodes;
     }
 
-    /**
-     * Gets the translations contained by this node.
-     */
     public get Translations(): Localizable
     {
         return this.translations;

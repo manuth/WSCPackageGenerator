@@ -1,9 +1,10 @@
-import { isNull } from "util";
+import IPerson from "./IPerson";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a person.
  */
-export class Person
+export default class Person implements IPerson
 {
     /**
      * The name of the person.
@@ -18,22 +19,16 @@ export class Person
     /**
      * Initializes a new instance of the `Person` class.
      */
-    public constructor(options: Partial<Person> = { })
+    public constructor(options: IPerson)
     {
-        if (!isNull(options.Name))
-        {
-            this.name = options.Name;
-        }
+        this.name = options.Name;
 
-        if (!isNull(options.URL))
+        if (!isNullOrUndefined(options.URL))
         {
             this.url = options.URL;
         }
     }
 
-    /**
-     * Gets or sets the name of the person.
-     */
     public get Name(): string
     {
         return this.name;
@@ -44,9 +39,6 @@ export class Person
         this.name = value;
     }
 
-    /**
-     * Gets or sets the url to the homepage of the person.
-     */
     public get URL(): string
     {
         return this.url;

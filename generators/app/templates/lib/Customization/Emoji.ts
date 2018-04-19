@@ -1,11 +1,12 @@
-import { isNull } from "util";
+import IEmoji from "./IEmoji";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an emoji.
  * 
  * Please keep in mind to provide the files using a `FilesInstruction`.
  */
-export default class Emoji
+export default class Emoji implements IEmoji
 {
     /**
      * The title of the emoji.
@@ -40,42 +41,28 @@ export default class Emoji
     /**
      * Initializes a new instance of the `Emoji` class.
      */
-    public constructor(options: Partial<Emoji> = { })
+    public constructor(options: IEmoji)
     {
-        if (!isNull(options.Title))
-        {
-            this.title = options.Title;
-        }
+        this.title = options.Title;
+        this.name = options.Name;
+        this.fileName = options.FileName;
 
-        if (!isNull(options.Name))
-        {
-            this.name = options.Name;
-        }
-
-        if (!isNull(options.FileName))
-        {
-            this.fileName = options.FileName;
-        }
-
-        if (!isNull(options.HighResFileName))
+        if (!isNullOrUndefined(options.HighResFileName))
         {
             this.highResFileName = options.HighResFileName;
         }
 
-        if (!isNull(options.Aliases))
+        if (!isNullOrUndefined(options.Aliases))
         {
             this.aliases.push(...options.Aliases);
         }
 
-        if (!isNull(options.ShowOrder))
+        if (!isNullOrUndefined(options.ShowOrder))
         {
             this.showOrder = options.ShowOrder;
         }
     }
 
-    /**
-     * Gets the title of the emoji.
-     */
     public get Title(): string
     {
         return this.title;
@@ -86,9 +73,6 @@ export default class Emoji
         this.title = value;
     }
 
-    /**
-     * Gets or sets the name of the emoji.
-     */
     public get Name(): string
     {
         return this.name;
@@ -99,9 +83,6 @@ export default class Emoji
         this.name = value;
     }
 
-    /**
-     * Gets or sets the filename relative to the root of WoltLab Suite Core of the emoji.
-     */
     public get FileName(): string
     {
         return this.fileName;
@@ -112,9 +93,6 @@ export default class Emoji
         this.fileName = value;
     }
 
-    /**
-     * Gets or sets the filename relative to the root of WoltLab Suite Core of the high-resolution emoji.
-     */
     public get HighResFileName(): string
     {
         return this.highResFileName;
@@ -125,17 +103,11 @@ export default class Emoji
         this.highResFileName = value;
     }
 
-    /**
-     * Gets the aliases of the emoji.
-     */
     public get Aliases(): string[]
     {
         return this.aliases;
     }
 
-    /**
-     * Gets or sets a value indicating at which position the emoji is displayed.
-     */
     public get ShowOrder(): number
     {
         return this.showOrder;

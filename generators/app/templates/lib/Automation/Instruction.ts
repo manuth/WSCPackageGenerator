@@ -1,10 +1,11 @@
 import Package from "../Package";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
+import IInstruction from "./IInstruction";
 
 /**
  * Represents an instruction for installing a package.
  */
-export default abstract class Instruction
+export default abstract class Instruction implements IInstruction
 {
     /**
      * The package this instruction belongs to.
@@ -14,12 +15,8 @@ export default abstract class Instruction
     /**
      * Initializes a new instance of the `Instruction` class.
      */
-    public constructor(options: Partial<Instruction> = { })
+    public constructor(options: Partial<IInstruction> = { })
     {
-        if (!isNull(options.Package))
-        {
-            this.package = options.Package;
-        }
     }
 
     /**

@@ -1,6 +1,7 @@
+import INodeContainer from "./INodeContainer";
 import NodeCollection from "./NodeCollection";
 import Node from "./Node";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node which contains child-nodes.
@@ -15,19 +16,16 @@ export default abstract class NodeContainer extends Node
     /**
      * Initializes a new instance of the `Node` class.
      */
-    public constructor(options: Partial<NodeContainer> = { })
+    public constructor(options: INodeContainer)
     {
         super(options);
 
-        if (!isNull(options.Nodes))
+        if (!isNullOrUndefined(options.Nodes))
         {
             this.nodes.push(...options.Nodes);
         }
     }
 
-    /**
-     * Gets the nodes contained by this node.
-     */
     public get Nodes(): NodeContainer[]
     {
         return this.nodes;

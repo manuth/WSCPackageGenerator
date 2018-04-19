@@ -1,10 +1,11 @@
 import InstructionCollection from "./InstructionCollection";
+import IUpdateInstructionCollection from "./IUpdateInstructionCollection";
 import Package from "../Package";
 
 /**
  * Represents a set of `Instruction`s for updating a package.
  */
-export default class UpdateInstructionCollection extends InstructionCollection
+export default class UpdateInstructionCollection extends InstructionCollection implements IUpdateInstructionCollection
 {
     /**
      * The version of the package this `UpdateInstructionCollection` can be executed on.
@@ -26,9 +27,6 @@ export default class UpdateInstructionCollection extends InstructionCollection
         this.fromVersion = fromVersion;
     }
 
-    /**
-     * Gets or sets the version of the package this `UpdateInstructionCollection` can be executed on.
-     */
     public get FromVersion(): string
     {
         return this.fromVersion;

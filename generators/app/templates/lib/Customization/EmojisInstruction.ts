@@ -1,12 +1,13 @@
 import Instruction from "../Automation/Instruction";
 import Emoji from "./Emoji";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNull } from "util";
+import IEmojisInstruction from "./IEmojisInstruction";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides emojis.
  */
-export default class EmojisInstruction extends FileInstruction
+export default class EmojisInstruction extends FileInstruction implements IEmojisInstruction
 {
     /**
      * The emojis provided by the instruction.
@@ -16,24 +17,21 @@ export default class EmojisInstruction extends FileInstruction
     /**
      * Initializes a new instance of the `EmojisInstruction` class.
      */
-    public constructor(options: Partial<EmojisInstruction> = { })
+    public constructor(options: IEmojisInstruction)
     {
         super(options);
 
-        if (isNull(options.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.FileName = "emojis.xml";
         }
 
-        if (!isNull(options.Emojis))
+        if (!isNullOrUndefined(options.Emojis))
         {
             this.emojis.push(...options.Emojis);
         }
     }
 
-    /**
-     * Gets the emojis provided by the instruction.
-     */
     public get Emojis(): Emoji[]
     {
         return this.emojis;

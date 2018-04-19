@@ -1,17 +1,18 @@
-import Instruction from "../Automation/Instruction";
-import TemplateListener from "./TemplateListener";
 import FileInstruction from "../Automation/FileInstruction";
-import { isNull } from "util";
+import Instruction from "../Automation/Instruction";
+import ITemplateListenersInstruction from "./ITemplateListenersInstruction";
+import TemplateListener from "./TemplateListener";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of template-listeners.
  */
-export default class TemplateListenersInstruction extends FileInstruction
+export default class TemplateListenersInstruction extends FileInstruction implements ITemplateListenersInstruction
 {
     /**
      * A set of names of template-listeners to delete.
      */
-    private names: string[] = [];
+    private objectsToDelete: string[] = [];
 
     /**
      * The template-listeners provided by the instruction.
@@ -21,29 +22,26 @@ export default class TemplateListenersInstruction extends FileInstruction
     /**
      * Initializes a new instance of the `TemplateListenersInstruction` class.
      */
-    public constructor(options: Partial<TemplateListenersInstruction> = { })
+    public constructor(options: ITemplateListenersInstruction)
     {
         super(options);
 
-        if (!isNull(options.ObjectsToDelete))
+        if (!isNullOrUndefined(options.ObjectsToDelete))
         {
-            this.names.push(...options.ObjectsToDelete);
+            this.objectsToDelete.push(...options.ObjectsToDelete);
         }
 
-        if (isNull(this.FileName))
+        if (isNullOrUndefined(this.FileName))
         {
             this.FileName = "templateListeners.xml";
         }
 
-        if (!isNull(options.TemplateListeners))
+        if (!isNullOrUndefined(options.TemplateListeners))
         {
             this.templateListeners.push(...options.TemplateListeners);
         }
     }
 
-    /**
-     * Gets the template-listeners provided by the instruction.
-     */
     public get TemplateListeners(): TemplateListener[]
     {
         return this.templateListeners;
@@ -54,6 +52,6 @@ export default class TemplateListenersInstruction extends FileInstruction
      */
     public get ObjectsToDelete(): string[]
     {
-        return this.names;
+        return this.objectsToDelete;
     }
 }

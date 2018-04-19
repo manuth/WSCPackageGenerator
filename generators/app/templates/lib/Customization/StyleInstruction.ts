@@ -1,12 +1,13 @@
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import Style from "./Style";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 import Package from "../Package";
+import IStyleInstruction from "./IStyleInstruction";
 
 /**
  * Represents an instruction that provides a style.
  */
-export default class StyleInstruction extends FileSystemInstruction
+export default class StyleInstruction extends FileSystemInstruction implements IStyleInstruction
 {
     /**
      * The style provided by the instruction.
@@ -16,27 +17,25 @@ export default class StyleInstruction extends FileSystemInstruction
     /**
      * Initializes a new instance of the `StyleInstruction` class.
      */
-    public constructor(options: Partial<StyleInstruction> = { })
+    public constructor(options: IStyleInstruction)
     {
         super(options);
+        this.style = options.Style;
 
-        if (!isNull(options.Style))
-        {
-            this.style = options.Style;
-        }
-
-        if (isNull(options.FileName))
+        if (isNullOrUndefined(options.FileName))
         {
             this.FileName = this.style.Name + ".tar";
         }
     }
 
-    /**
-     * Gets or sets the style provided by the instruction.
-     */
     public get Style(): Style
     {
         return this.style;
+    }
+
+    public set Style(value: Style)
+    {
+        this.style = value;
     }
 
     public get Package(): Package
@@ -48,29 +47,29 @@ export default class StyleInstruction extends FileSystemInstruction
     {
         super.Package = value;
 
-        if (!isNull(this.style))
+        if (!isNullOrUndefined(this.style))
         {
-            if (isNull(this.style.Date))
+            if (isNullOrUndefined(this.style.Date))
             {
                 this.style.Date = value.Date;
             }
 
-            if (isNull(this.style.Version))
+            if (isNullOrUndefined(this.style.Version))
             {
                 this.style.Version = value.Version;
             }
             
-            if (isNull(this.style.Author.Name))
+            if (isNullOrUndefined(this.style.Author.Name))
             {
                 this.style.Author.Name = value.Author.Name;
             }
 
-            if (isNull(this.style.Author.URL))
+            if (isNullOrUndefined(this.style.Author.URL))
             {
                 this.style.Author.URL = value.Author.URL;
             }
 
-            if (isNull(this.style.License))
+            if (isNullOrUndefined(this.style.License))
             {
                 this.style.License = value.License;
             }

@@ -1,14 +1,15 @@
+import ISettingsNode from "./ISettingsNode";
 import NodeContainer from "../Nodes/NodeContainer";
 import NodeCollection from "../Nodes/NodeCollection";
 import Option from "./Option";
 import Localizable from "../Globalization/Localizable";
-import { isNull } from "util";
 import TranslationNode from "../Globalization/TranslationNode";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains options and categories.
  */
-export default class SettingsNode extends NodeContainer
+export default class SettingsNode extends NodeContainer implements ISettingsNode
 {
     /**
      * The displayname of the node.
@@ -33,34 +34,31 @@ export default class SettingsNode extends NodeContainer
     /**
      * Initializes a new instance of the `SettingsNode` class.
      */
-    public constructor(options: Partial<SettingsNode> = { })
+    public constructor(options: ISettingsNode)
     {
-        super({ Name: options.Name, Parent: options.Parent });
+        super(options);
 
-        if (!isNull(options.DisplayName))
+        if (!isNullOrUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
 
-        if (!isNull(options.Description))
+        if (!isNullOrUndefined(options.Description))
         {
             Object.assign(this.Description, options.Description);
         }
 
-        if (!isNull(options.Nodes))
+        if (!isNullOrUndefined(options.Nodes))
         {
             this.settingsNodes.push(...options.Nodes);
         }
 
-        if (!isNull(options.Options))
+        if (!isNullOrUndefined(options.Options))
         {
             this.options.push(...options.Options);
         }
     }
 
-    /**
-     * Gets the displayname of the node.
-     */
     public get DisplayName(): Localizable
     {
         return this.displayName;
@@ -71,25 +69,16 @@ export default class SettingsNode extends NodeContainer
         return "wcf.acp.option.category." + this.Name;
     }
     
-    /**
-     * Gets the description of the node.
-     */
     public get Description(): Localizable
     {
         return this.description;
     }
     
-    /**
-     * Gets the nodes contained by this node.
-     */
     public get Nodes(): SettingsNode[]
     {
         return this.settingsNodes;
     }
 
-    /**
-     * Gets the options contained by this node.
-     */
     public get Options(): Option[]
     {
         return this.options;

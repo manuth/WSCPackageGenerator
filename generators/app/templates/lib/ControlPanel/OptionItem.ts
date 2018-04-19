@@ -1,18 +1,24 @@
-import Option from "./Option";
+import IOptionItem from "./IOptionItem";
 import Localizable from "../Globalization/Localizable";
 import Node from "../Nodes/Node";
-import { isNull } from "util";
+import Option from "./Option";
 import TranslationNode from "../Globalization/TranslationNode";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an item of an option.
  */
-export default class OptionItem
+export default class OptionItem implements IOptionItem
 {
     /**
      * The name of the item.
      */
     private name: string = "";
+
+    /**
+     * The displayname of the item.
+     */
+    private displayName: Localizable = new Localizable();
 
     /**
      * The value of the item.
@@ -25,39 +31,20 @@ export default class OptionItem
     private option: Option = null;
 
     /**
-     * The displayname of the item.
-     */
-    private displayName: Localizable = new Localizable();
-
-    /**
      * Initializes a new instance of the `OptionItem` class.
      */
-    public constructor(options: Partial<OptionItem> = { })
+    public constructor(options: IOptionItem)
     {
-        if (!isNull(options.Name))
-        {
-            this.name = options.Name;
-        }
+        this.name = options.Name;
 
-        if (!isNull(options.Value))
-        {
-            this.value = options.Value;
-        }
-
-        if (!isNull(options.Option))
-        {
-            this.option = options.Option;
-        }
-
-        if (!isNull(options.DisplayName))
+        if (!isNullOrUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
+
+        this.value = options.Value;
     }
 
-    /**
-     * Gets or sets the name of the item.
-     */
     public get Name(): string
     {
         return this.name;
@@ -68,9 +55,6 @@ export default class OptionItem
         this.name = value;
     }
 
-    /**
-     * Gets the displayname of the item.
-     */
     public get DisplayName(): Localizable
     {
         return this.displayName;
@@ -84,9 +68,6 @@ export default class OptionItem
         return [ this.Option.FullName, this.Name ].join(".");
     }
 
-    /**
-     * Gets or sets the value of the item.
-     */
     public get Value(): any
     {
         return this.value;

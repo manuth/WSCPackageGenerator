@@ -1,12 +1,13 @@
 import Localizable from "./GLobalization/Localizable";
-import { Person } from "./Person";
 import Package from "./Package";
-import { isNull } from "util";
+import Person from "./Person";
+import { isNullOrUndefined } from "util";
+import IComponent from "./IComponent";
 
 /**
  * Represents a component for WoltLab Suite Core.
  */
-export default abstract class Component
+export default abstract class Component implements IComponent
 {
     /**
      * The name of the component.
@@ -31,52 +32,54 @@ export default abstract class Component
     /**
      * The version of the component.
      */
-    private version: string = null;
+    private version: string = require("../package.json").version;
 
     /**
      * The author of the component.
      */
-    private author: Person = new Person();
+    private author: Person = new Person({
+        Name: require("../package.json").author.name,
+        URL:  require("../package.json").author.url 
+    });
 
     /**
      * The license of the component.
      */
-    private license: string = null;
+    private license: string = require("../package.json").license;
 
     /**
      * Initializes a new instance of the `Component` class.
      */
-    protected constructor(options: Partial<Component> = { })
+    protected constructor(options: IComponent)
     {
-        if (!isNull(options.Name))
-        {
-            this.name = options.Name;
-        }
+        this.name = options.Name;
 
-        if (!isNull(options.DisplayName))
+        if (!isNullOrUndefined(options.DisplayName))
         {
             Object.assign(this.DisplayName, options.DisplayName);
         }
 
-        if (!isNull(options.Description))
+        if (!isNullOrUndefined(options.Description))
         {
             Object.assign(this.description, options.Description);
         }
 
-        if (!isNull(options.Version))
+        if (!isNullOrUndefined(options.Version))
         {
             this.version = options.Version;
         }
 
-        if (!isNull(options.Author))
+        if (!isNullOrUndefined(options.Author))
         {
-            this.author = options.Author;
+            this.Author.Name = options.Author.Name;
+
+            if (!isNullOrUndefined(options.Author.URL))
+            {
+                this.Author.URL = options.Author.URL;
+            }
         }
     }
 
-    /**
-     * Gets the name of the component.
-     */
     public get Name(): string
     {
         return this.name;
@@ -87,17 +90,11 @@ export default abstract class Component
         this.name = value;
     }
 
-    /**
-     * Gets the human-readable name of the component.
-     */
     public get DisplayName(): Localizable
     {
         return this.displayName;
     }
 
-    /**
-     * Gets or sets the release-date of the component.
-     */
     public get Date(): Date
     {
         return this.date;
@@ -108,17 +105,11 @@ export default abstract class Component
         this.date = value;
     }
 
-    /**
-     * Gets the description of the component.
-     */
     public get Description(): Localizable
     {
         return this.description;
     }
 
-    /**
-     * Gets the version of the component.
-     */
     public get Version(): string
     {
         return this.version;
@@ -129,17 +120,11 @@ export default abstract class Component
         this.version = value;
     }
 
-    /**
-     * Gets the author of the component.
-     */
     public get Author(): Person
     {
         return this.author;
     }
 
-    /**
-     * Gets or sets the license of the component.
-     */
     public get License(): string
     {
         return this.license;

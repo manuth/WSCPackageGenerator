@@ -1,9 +1,9 @@
 import * as FileSystem from "fs";
 import Component from "../Component";
-import StyleConfig from "./StyleConfig";
-import StyleInstruction from "./StyleInstruction";
-import { isNull } from "util";
 import Instruction from "../Automation/Instruction";
+import IStyle from "./IStyle";
+import StyleInstruction from "./StyleInstruction";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -39,26 +39,26 @@ export default class Style extends Component
     /**
      * Initializes a new instance of the `Style` class.
      */
-    public constructor(options: Partial<StyleConfig> = { })
+    public constructor(options: IStyle)
     {
         super(options);
     
-        if (!isNull(options.Thumbnail))
+        if (!isNullOrUndefined(options.Thumbnail))
         {
             this.thumbnail = options.Thumbnail;
         }
 
-        if (!isNull(options.ImagesRoot))
+        if (!isNullOrUndefined(options.ImagesRoot))
         {
             this.imagesRoot = options.ImagesRoot;
         }
 
-        if (!isNull(options.CustomScssFile))
+        if (!isNullOrUndefined(options.CustomScssFile))
         {
             this.customScss = FileSystem.readFileSync(options.CustomScssFile).toString();
         }
 
-        if (!isNull(options.OverrideScssFile))
+        if (!isNullOrUndefined(options.OverrideScssFile))
         {
             this.overrideScss = FileSystem.readFileSync(options.OverrideScssFile).toString();
         }

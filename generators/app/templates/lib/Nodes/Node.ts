@@ -1,5 +1,6 @@
+import INode from "./INode";
 import NodeContainer from "./NodeContainer";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node.
@@ -19,22 +20,14 @@ export default class Node
     /**
      * Initializes a new instance of the `NodeChild` class.
      */
-    public constructor(options: Partial<Node> = { })
+    public constructor(options: INode)
     {
-        if (!isNull(options.Name))
+        if (!isNullOrUndefined(options.Name))
         {
             this.name = options.Name;
         }
-
-        if (!isNull(options.Parent))
-        {
-            this.parent = options.Parent;
-        }
     }
 
-    /**
-     * Gets or sets the name of the node.
-     */
     public get Name(): string
     {
         return this.name;

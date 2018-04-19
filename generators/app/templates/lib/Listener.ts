@@ -1,11 +1,12 @@
 import WSCEnvironment from "./WSCEnvironment";
 import Option from "./ControlPanel/Option";
-import { isNull } from "util";
+import { isNullOrUndefined } from "util";
+import IListener from "./IListener";
 
 /**
  * Represents a component that listens to an event.
  */
-export default class Listener
+export default class Listener implements IListener
 {
     /**
      * The name of the listener.
@@ -40,42 +41,32 @@ export default class Listener
     /**
      * Initializes a new instance of the `Listener` class.
      */
-    public constructor(options: Partial<Listener> = { })
+    public constructor(options: IListener)
     {
-        if (!isNull(options.Name))
-        {
-            this.name = options.Name;
-        }
-        
-        if (!isNull(options.EventName))
-        {
-            this.eventName = options.EventName;
-        }
+        this.name = options.Name;
+        this.eventName = options.EventName;
 
-        if (!isNull(options.Environment))
+        if (!isNullOrUndefined(options.Environment))
         {
             this.environment = options.Environment;
         }
 
-        if (!isNull(options.Options))
+        if (!isNullOrUndefined(options.Options))
         {
             this.options.push(...options.Options);
         }
 
-        if (!isNull(options.Permissions))
+        if (!isNullOrUndefined(options.Permissions))
         {
             this.permissions.push(...options.Permissions);
         }
 
-        if (!isNull(options.Order))
+        if (!isNullOrUndefined(options.Order))
         {
             this.order = options.Order;
         }
     }
 
-    /**
-     * Gets or sets the name of the listener.
-     */
     public get Name(): string
     {
         return this.name;
@@ -86,9 +77,6 @@ export default class Listener
         this.name = value;
     }
 
-    /**
-     * Gets or sets the name of the event to subscribe to.
-     */
     public get EventName(): string
     {
         return this.eventName;
@@ -99,9 +87,6 @@ export default class Listener
         this.eventName = value;
     }
 
-    /**
-     * Gets or sets the environment to add the subscription to.
-     */
     public get Environment(): WSCEnvironment
     {
         return this.environment;
@@ -112,9 +97,6 @@ export default class Listener
         this.environment = value;
     }
 
-    /**
-     * Gets or sets the options of which at least one must be enabled in order to execute the listener.
-     */
     public get Options(): Option[]
     {
         return this.options;
@@ -125,9 +107,6 @@ export default class Listener
         this.options = value;
     }
 
-    /**
-     * Gets or sets the permissions of which the active user must have at least one in order to execute the listener.
-     */
     public get Permissions(): string[]
     {
         return this.permissions;
@@ -138,9 +117,6 @@ export default class Listener
         this.permissions = value;
     }
 
-    /**
-     * Gets or sets a number indicating the execution order of the event-listener.
-     */
     public get Order(): number
     {
         return this.order;
