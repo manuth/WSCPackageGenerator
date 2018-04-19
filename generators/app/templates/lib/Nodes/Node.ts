@@ -2,7 +2,7 @@ import NodeContainer from "./NodeContainer";
 import { isNull } from "util";
 
 /**
- * Represents a child of a node.
+ * Represents a node.
  */
 export default class Node
 {

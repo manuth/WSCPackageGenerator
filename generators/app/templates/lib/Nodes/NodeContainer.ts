@@ -3,7 +3,7 @@ import Node from "./Node";
 import { isNull } from "util";
 
 /**
- * Represents a node.
+ * Represents a node which contains child-nodes.
  */
 export default abstract class NodeContainer extends Node
 {
