@@ -221,7 +221,7 @@ export = class extends Generator
                 default: "styles",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("style") >= 0;
+                    return (answers["components"] as string[]).includes("style");
                 }
             },
             {
@@ -231,7 +231,7 @@ export = class extends Generator
                 default: "FileMappings",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("files") >= 0;
+                    return (answers["components"] as string[]).includes("files");
                 }
             },
             {
@@ -241,7 +241,7 @@ export = class extends Generator
                 default: "Options",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("acpOptions") >= 0;
+                    return (answers["components"] as string[]).includes("acpOptions");
                 }
             },
             {
@@ -251,7 +251,7 @@ export = class extends Generator
                 default: "EventListeners",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("eventListener") >= 0;
+                    return (answers["components"] as string[]).includes("eventListener");
                 }
             },
             {
@@ -261,7 +261,7 @@ export = class extends Generator
                 default: "Translations",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("translations") >= 0;
+                    return (answers["components"] as string[]).includes("translations");
                 }
             },
             {
