@@ -95,7 +95,6 @@ class WSCPackageGenerator extends Generator
      */
     prompting()
     {
-        // Have Yeoman greet the user.
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
         let prompts: Generator.Questions = [
@@ -112,7 +111,7 @@ class WSCPackageGenerator extends Generator
             {
                 type: "input",
                 name: "name",
-                message: "What\"s the name of your package?",
+                message: "What's the name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
                     return Path.basename(answers["destination"]);
@@ -122,7 +121,7 @@ class WSCPackageGenerator extends Generator
             {
                 type: "input",
                 name: "displayName",
-                message: "What\"s the display-name of your package?",
+                message: "What's the display-name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
                     return answers["name"];
