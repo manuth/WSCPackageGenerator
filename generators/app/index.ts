@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 import * as Path from "path";
 import * as Generator from "yeoman-generator";
 import chalk from "chalk";
@@ -110,7 +110,7 @@ export = class extends Generator
             {
                 type: "input",
                 name: "name",
-                message: "What\'s the name of your package?",
+                message: "What\"s the name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
                     return Path.basename(answers["destination"]);
@@ -120,7 +120,7 @@ export = class extends Generator
             {
                 type: "input",
                 name: "displayName",
-                message: "What\'s the display-name of your package?",
+                message: "What\"s the display-name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
                     return answers["name"];
@@ -149,7 +149,7 @@ export = class extends Generator
                 message: "Please type an identifier for your package:",
                 default: (answers: Generator.Answers) =>
                 {
-                    let reversedURI = (answers['authorURL'] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
+                    let reversedURI = (answers["authorURL"] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
                     if (reversedURI.length === 0)
                     {

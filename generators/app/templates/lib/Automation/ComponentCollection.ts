@@ -1,5 +1,5 @@
-import * as FileSystem from 'fs';
-import * as Path from 'path';
+import * as FileSystem from "fs";
+import * as Path from "path";
 import Package from "../Package";
 import FileMapping from "../FileMapping";
 import SettingsNode from "../ControlPanel/SettingsNode";
@@ -9,8 +9,8 @@ import StyleCollection from "../Customization/StyleCollection";
 import TemplateListener from "../Customization/TemplateListener";
 import Emoji from "../Customization/Emoji";
 import Option from "../ControlPanel/Option";
-import InstructionConfig from './InstructionConfig';
-import { isNullOrUndefined } from 'util';
+import InstructionConfig from "./InstructionConfig";
+import { isNullOrUndefined } from "util";
 
 export default class ComponentCollection
 {
@@ -104,9 +104,9 @@ export default class ComponentCollection
                 
                 for (let styleFolder of styleFolders)
                 {
-                    let metaFile = Path.join(styleFolder, 'Style');
+                    let metaFile = Path.join(styleFolder, "Style");
 
-                    if (FileSystem.existsSync(metaFile + '.js'))
+                    if (FileSystem.existsSync(metaFile + ".js"))
                     {
                         let currentDir = process.cwd();
                         process.chdir(styleFolder);

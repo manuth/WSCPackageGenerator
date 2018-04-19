@@ -1,8 +1,8 @@
-import * as FileSystem from 'fs';
+import * as FileSystem from "fs";
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
-import ComponentCollection from '../Automation/ComponentCollection';
-import { isNullOrUndefined } from 'util';
+import ComponentCollection from "../Automation/ComponentCollection";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -17,7 +17,7 @@ export default class Style extends Component
     /**
      * The source-root of the style.
      */
-    private sourceRoot: string = '';
+    private sourceRoot: string = "";
 
     /**
      * The filename of the thumbnail of the style.

@@ -9,7 +9,7 @@ export default class Node
     /**
      * The name of the node.
      */
-    private name: string = '';
+    private name: string = "";
 
     /**
      * The parent of thie node.
@@ -52,7 +52,7 @@ export default class Node
     {
         if (this.Parent)
         {
-            return [ this.Parent.FullName, this.Name ].join('.');
+            return [ this.Parent.FullName, this.Name ].join(".");
         }
         else
         {

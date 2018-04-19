@@ -6,7 +6,7 @@ export default class UpdateComponentCollection extends ComponentCollection
     /**
      * The version this update can be applied to.
      */
-    private fromVersion: string = '';
+    private fromVersion: string = "";
 
     /**
      * Initializes a new instance of the `UpdateInstructions` class.

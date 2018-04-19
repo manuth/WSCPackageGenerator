@@ -9,12 +9,12 @@ export default class TemplateListener extends Listener
     /**
      * The name of the template to subscribe to.
      */
-    private templateName: string = '';
+    private templateName: string = "";
 
     /**
      * This **smarty**-code is copied into the subscribed template.
      */
-    private code: string = '';
+    private code: string = "";
 
     /**
      * Initializes a new instance of the `TemplateListener` class.

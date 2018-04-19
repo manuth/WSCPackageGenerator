@@ -14,7 +14,7 @@ export default class Package extends Component
     /**
      * The identifier of the package.
      */
-    private identifier: string = '';
+    private identifier: string = "";
 
     /**
      * The instructions which is used for installing the packge.

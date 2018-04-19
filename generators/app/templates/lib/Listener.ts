@@ -15,7 +15,7 @@ export default class Listener
     /**
      * The name of the event to subscribe to.
      */
-    private eventName: string = '';
+    private eventName: string = "";
     
     /**
      * The environment to add the subscription to.
