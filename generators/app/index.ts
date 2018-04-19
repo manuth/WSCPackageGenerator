@@ -385,6 +385,9 @@ class WSCPackageGenerator extends Generator
         }
     }
 
+    /**
+     * Installs the dependencies.
+     */
     install()
     {
         this.installDependencies({ bower: false, npm: true });
