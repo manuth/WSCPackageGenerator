@@ -39,7 +39,7 @@ let pkg: Package = new Package({
                 case "style":
                     formatter = (value) =>
                     {
-                        return "...new StyleInstructionCollection(__dirname, \"" + value + "\")";
+                        return "...new StyleInstructionCollection(\"" + value + "\")";
                     }
                     break;
                 default:
