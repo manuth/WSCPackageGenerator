@@ -24,7 +24,7 @@ export default class StyleInstructionCollection extends Array<StyleInstruction>
         
         for (let styleFolder of styleFolders)
         {
-            let metaFile = Path.join(styleFolder, "Style");
+            let metaFile = Path.resolve(Path.join(styleFolder, "Style"));
 
             if (FileSystem.existsSync(metaFile + ".js"))
             {
