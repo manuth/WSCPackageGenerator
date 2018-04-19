@@ -19,7 +19,7 @@ export default class FileInstruction extends Instruction implements IFileInstruc
     {
         super(options);
 
-        if (isNullOrUndefined(options.FileName))
+        if (!isNullOrUndefined(options.FileName))
         {
             this.fileName = options.FileName;
         }
