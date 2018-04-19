@@ -19,7 +19,7 @@ export default class UpdateInstructionCollection extends InstructionCollection
      */
     public constructor(pkg: Package, fromVersion: string, destination = fromVersion)
     {
-        super(pkg);
+        super(pkg, destination);
         this.fromVersion = fromVersion;
     }
 
