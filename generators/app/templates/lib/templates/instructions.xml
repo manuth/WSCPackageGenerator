@@ -1,6 +1,7 @@
 <% for (let instruction of InstructionCollection) { %><%
     %><%switch (instruction.constructor.name) { case "FilesInstruction": %>
-        <instruction type="file"<%
+        <instruction<%
+        %> type="file"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
@@ -20,7 +21,8 @@
         <instruction type="style"><%= StylesPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "TemplatesInstruction": %>
-        <instruction type="template"<%
+        <instruction<%
+        %> type="template"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
@@ -28,7 +30,8 @@
             %></instruction><%
         %><% break; %><%
         %><% case "ACPTemplatesInstruction": %>
-        <instruction type="acpTemplate"<%
+        <instruction<%
+        %> type="acpTemplate"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
