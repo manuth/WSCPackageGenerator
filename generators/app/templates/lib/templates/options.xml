@@ -32,9 +32,10 @@
         %><% } %><%
         %><% if (option.EnableOptions.length > 0) { %>
             <enableoptions><%= option.EnableOptions.join(",") %></enableoptions><%
-        %><% } %><%
+        %><% } %>
+        </option><%
     %><% } %>
-        </options><%
+    </options><%
 %><% } %>
     </import><%
 %><% if (Instruction.ObjectsToDelete.length > 0) { %>
