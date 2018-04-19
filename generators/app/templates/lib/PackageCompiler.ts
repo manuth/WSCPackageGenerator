@@ -76,7 +76,7 @@ export default class PackageCompiler extends Compiler<Package>
         
         if (this.Item.InstallInstructions.length > 0)
         {
-            new InstructionCollectionCompiler(
+            await new InstructionCollectionCompiler(
                 this.Item.InstallInstructions as InstructionCollection,
                 this.SourcePath,
                 this.stylesPath,
@@ -85,7 +85,7 @@ export default class PackageCompiler extends Compiler<Package>
 
         for (let instructionCollection of this.Item.UpdateInstructions)
         {
-            new InstructionCollectionCompiler(
+            await new InstructionCollectionCompiler(
                 instructionCollection,
                 this.SourcePath,
                 this.stylesPath,
