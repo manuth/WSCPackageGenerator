@@ -1,5 +1,4 @@
 import Instruction from "./Automation/Instruction";
-import FileMapping from "./FileMapping";
 import FileSystemInstruction from "./Automation/FileSystemInstruction";
 import { isNull } from "util";
 

@@ -1,8 +1,9 @@
 import * as FileSystem from "fs";
 import Component from "../Component";
 import StyleConfig from "./StyleConfig";
-import ComponentCollection from "../Automation/ComponentCollection";
+import StyleInstruction from "./StyleInstruction";
 import { isNull } from "util";
+import Instruction from "../Automation/Instruction";
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -12,12 +13,7 @@ export default class Style extends Component
     /**
      * The instruction this style belongs to.
      */
-    private instruction: ComponentCollection = null;
-
-    /**
-     * The source-root of the style.
-     */
-    private sourceRoot: string = "";
+    private instruction: StyleInstruction = null;
 
     /**
      * The filename of the thumbnail of the style.
@@ -71,27 +67,14 @@ export default class Style extends Component
     /**
      * Gets or sets the instruction this style belongs to.
      */
-    public get Instruction(): ComponentCollection
+    public get Instruction(): StyleInstruction
     {
         return this.instruction;
     }
 
-    public set Instruction(value: ComponentCollection)
+    public set Instruction(value: StyleInstruction)
     {
         this.instruction = value;
-    }
-
-    /**
-     * Gets or sets the source-root of the style.
-     */
-    public get SourceRoot(): string
-    {
-        return this.sourceRoot;
-    }
-
-    public set SourceRoot(value: string)
-    {
-        this.sourceRoot = value;
     }
 
     /**

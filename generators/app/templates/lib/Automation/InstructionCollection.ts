@@ -1,6 +1,5 @@
 import Instruction from "./Instruction";
 import Package from "../Package";
-import FileMapping from "../FileMapping";
 import FilesInstruction from "../FilesInstruction";
 import Option from "../ControlPanel/Option";
 import OptionsInstruction from "../ControlPanel/OptionsInstruction";
