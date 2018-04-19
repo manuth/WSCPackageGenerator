@@ -6,7 +6,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a node which contains child-nodes.
  */
-export default abstract class NodeContainer extends Node
+export default abstract class NodeContainer extends Node implements INodeContainer
 {
     /**
      * The nodes contained by this node.
