@@ -1,4 +1,3 @@
-"use strict";
 import * as Path from "path";
 import * as Generator from "yeoman-generator";
 import chalk from "chalk";
