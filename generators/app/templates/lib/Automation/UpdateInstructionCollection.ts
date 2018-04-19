@@ -1,6 +1,9 @@
 import InstructionCollection from "./InstructionCollection";
 import Package from "../Package";
 
+/**
+ * Represents a set of `Instruction`s for updating a package.
+ */
 export default class UpdateInstructionCollection extends InstructionCollection
 {
     /**

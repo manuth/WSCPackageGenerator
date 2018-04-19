@@ -3,7 +3,7 @@ import { isNull } from "util";
 /**
  * Represents an emoji.
  * 
- * Please keep in mind to provide the files using `Package.FileMappings`.
+ * Please keep in mind to provide the files using a `FilesInstruction`.
  */
 export default class Emoji
 {

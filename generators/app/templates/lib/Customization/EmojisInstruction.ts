@@ -4,7 +4,7 @@ import FileInstruction from "../Automation/FileInstruction";
 import { isNull } from "util";
 
 /**
- * Represents an instruction that provides emojizz.
+ * Represents an instruction that provides emojis.
  */
 export default class EmojisInstruction extends FileInstruction
 {

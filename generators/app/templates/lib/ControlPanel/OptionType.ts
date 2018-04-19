@@ -1,3 +1,6 @@
+/**
+ * Specifies an option-type for the Admin Control-Panel.
+ */
 enum OptionType
 {
     /**
