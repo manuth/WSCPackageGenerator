@@ -113,24 +113,6 @@ export default class InstructionCollection extends Array<Instruction> implements
     }
 
     /**
-     * Gets the names of the options to delete provided by this collection.
-     */
-    public get OptionsToDelete(): string[]
-    {
-        let result: string[] = [];
-
-        for (let instruction of this)
-        {
-            if (instruction instanceof OptionsInstruction)
-            {
-                result.push(...instruction.ObjectsToDelete);
-            }
-        }
-
-        return result;
-    }
-
-    /**
      * Gets the categories provided by this collection.
      */
     public get Categories(): SettingsNode[]
@@ -160,24 +142,6 @@ export default class InstructionCollection extends Array<Instruction> implements
             if (instruction instanceof EventListenersInstruction)
             {
                 result.push(...instruction.EventListeners);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Gets the names of the event-listeners to delete provided by this collection.
-     */
-    public get EventListenersToDelete(): string[]
-    {
-        let result: string[] = [];
-
-        for (let instruction of this)
-        {
-            if (instruction instanceof EventListenersInstruction)
-            {
-                result.push(...instruction.ObjectsToDelete);
             }
         }
 
@@ -268,24 +232,6 @@ export default class InstructionCollection extends Array<Instruction> implements
             if (instruction instanceof TemplateListenersInstruction)
             {
                 result.push(...instruction.TemplateListeners);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Gets the names of the template-listeners to delete provided by this collection.
-     */
-    public get TemplateListenersToDelete(): string[]
-    {
-        let result: string[] = [];
-
-        for (let instruction of this)
-        {
-            if (instruction instanceof TemplateListenersInstruction)
-            {
-                result.push(...instruction.ObjectsToDelete);
             }
         }
 
