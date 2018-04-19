@@ -184,7 +184,7 @@ class WSCStyleGenerator extends Generator
         this.config.save();
 
         this.log();
-        this.log("Your package \"" + this.settings["name"] + "\" has been created!");
+        this.log("Your style \"" + this.settings["name"] + "\" has been created!");
         this.log();
         this.log(
             "Please keep in mind to add your styles-folder to the package" +
