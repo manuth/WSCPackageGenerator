@@ -12,7 +12,7 @@ export default class Style extends Component
     /**
      * The instruction this style belongs to.
      */
-    private instruction: ComponentCollection;
+    private instruction: ComponentCollection = null;
 
     /**
      * The source-root of the style.

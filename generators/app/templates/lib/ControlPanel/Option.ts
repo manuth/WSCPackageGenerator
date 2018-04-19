@@ -30,12 +30,12 @@ export default class Option extends Node
     /**
      * The default value of the option.
      */
-    private default: any;
+    private default: any = null;
 
     /**
      * The type of the option.
      */
-    private type: OptionType;
+    private type: OptionType = OptionType.TextBox;
 
     /**
      * The items of the option.

@@ -14,7 +14,7 @@ export default class Node
     /**
      * The parent of thie node.
      */
-    private parent?: Node = null;
+    private parent: Node = null;
 
     /**
      * Initializes a new instance of the `NodeChild` class.

@@ -19,7 +19,7 @@ export default class OptionsInstruction extends FileInstruction
     /**
      * The categories and options provided by the instruction.
      */
-    private settingsNode: SettingsNode;
+    private settingsNode: SettingsNode = null;
 
     /**
      * The directory to save the language-files to.

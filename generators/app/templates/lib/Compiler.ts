@@ -22,7 +22,7 @@ export default abstract class Compiler<T>
     /**
      * The path to save temporary files to.
      */
-    private tempPath: Temp.SynchrounousResult;
+    private tempPath: Temp.SynchrounousResult = null;
 
     /**
      * Initializes a new instance of the `Compiler` class.
