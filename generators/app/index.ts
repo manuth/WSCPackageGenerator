@@ -398,6 +398,16 @@ class WSCPackageGenerator extends Generator
         }
 
         this.config.save();
+
+        this.log();
+        this.log("Your package \"" + this.settings["name"] + "\" has been created!");
+        this.log();
+        this.log("To start editing with Visual Studio Code, use following commands:");
+        this.log();
+        this.log("    cd \"" + this.settings["destination"] + "\"");
+        this.log("    code .");
+        this.log();
+        this.log("Open wsc-package-quickstart.md inside the new package for further instructions on how to build it.");
     }
 };
 
