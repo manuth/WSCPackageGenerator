@@ -3,7 +3,10 @@ import * as Generator from "yeoman-generator";
 import chalk from "chalk";
 import yosay = require("yosay");
 
-export = class extends Generator
+/**
+ * Provides the functionality to generate a WSC-Package.
+ */
+class WSCPackageGenerator extends Generator
 {
     /**
      * The options provided by the user.
@@ -395,3 +398,5 @@ export = class extends Generator
         this.config.save();
     }
 };
+
+export = WSCPackageGenerator;
