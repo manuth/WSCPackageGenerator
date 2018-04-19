@@ -181,8 +181,16 @@ export = class extends Generator
                         value: "eventListener"
                     },
                     {
+                        type: "separator",
+                        line: "Globalization"
+                    },
+                    {
                         name: "Translations",
                         value: "translations"
+                    },
+                    {
+                        name: "Error-Messages",
+                        value: "errors"
                     },
                     {
                         type: "separator",
@@ -266,6 +274,16 @@ export = class extends Generator
             },
             {
                 type: "input",
+                name: "componentPaths.errors",
+                message: "Where do you want to store your error-messages?",
+                default: "Errors",
+                when: (answers: Generator.Answers) =>
+                {
+                    return (answers["components"] as string[]).includes("errors");
+                }
+            },
+            {
+                type: "input",
                 name: "componentPaths.template",
                 message: "Where do you want to store templates?",
                 default: "Templates",
@@ -328,6 +346,7 @@ export = class extends Generator
             acpOptions: "Options.ts",
             eventListener: "EventListeners.ts",
             translations: "Translations.ts",
+            errors: "Errors.ts",
             style: "wsc-style-getting-started.md",
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
