@@ -20,6 +20,7 @@ export default class InstructionCollectionCollection<T extends InstructionCollec
     public constructor(pkg: Package)
     {
         super();
+        this.package = pkg;
     }
 
     /**
