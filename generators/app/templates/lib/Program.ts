@@ -50,7 +50,7 @@ class Program
      */
     public static async Main(args: string[])
     {
-        new PackageCompiler(WSCPackage, this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath);
+        new PackageCompiler(WSCPackage, this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath).Execute();
     }
 }
 
