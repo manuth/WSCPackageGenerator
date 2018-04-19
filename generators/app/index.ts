@@ -366,6 +366,13 @@ export = class extends Generator
 
     install()
     {
-        this.installDependencies({ bower: false, npm: true })
+        this.installDependencies({ bower: false, npm: true });
+
+        if (this.settings["components"].includes("style"))
+        {
+            this.config.set("stylesPath", this.settings["componentPaths"]["style"]);
+        }
+
+        this.config.save();
     }
 };
