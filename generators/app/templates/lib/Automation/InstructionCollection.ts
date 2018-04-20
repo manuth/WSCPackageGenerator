@@ -280,7 +280,10 @@ export default class InstructionCollection extends Array<Instruction> implements
     {
         for (let item of items)
         {
+            if (!isNullOrUndefined(item))
+            {
             item.Package = this.Package;
+        }
         }
 
         return super.push(...items);
