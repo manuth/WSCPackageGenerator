@@ -26,10 +26,28 @@
     %><% if (Package.Author.URL) { %>
         <authorurl><%= Package.Author.URL %></authorurl><%
     %><% } %>
-    </authorinformtion>
-    <requiredpackages>
-        <requiredpackage minversion="3.0.0">com.woltlab.wcf</requiredpackage>
+    </authorinformtion><%
+    %><% if (Package.RequiredPackages.length > 0) { %>
+    <requiredpackages<% %>><%
+        %><% for (let requiredPackage of Package.RequiredPackages) { %>
+        <requiredpackage minversion="<%= requiredPackage.MinVersion %>"><%= requiredPackage.Identifier %></requiredpackage><%
+        %><% } %>
     </requiredpackages><%
+    %><% } %><%
+    %><% if (Package.OptionalPackages.length > 0) { %>
+    <optionalpackages<% %>><%
+        %><% for (let optionalPackage of Package.OptionalPackages) { %>
+        <optionalpackage file="<%= optionalPackage.FileName %>"><%= optionalPackage.Identifier %></optionalpackage><%
+        %><% } %>
+    </optionalpackages><%
+    %><% } %><%
+    %><% if (Package.ConflictingPackages.length > 0) { %>
+    <excludedpackages<% %>><%
+        %><% for (let conflictingPackage of Package.ConflictingPackages) { %>
+        <excludedpackage version="<%= conflictingPackage.MinVersion %>"><%= conflictingPackage.Identifier %></excludedpackage><%
+        %><% } %>
+    </excludedpackages><%
+    %><% } %><%
     %><% if (Package.InstallInstructions) { %>
     <instructions type="install"><%
         %><%-

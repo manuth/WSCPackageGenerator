@@ -10,6 +10,9 @@ import Option from "./ControlPanel/Option";
 import ErrorMessageNode from "./Globalization/ErrorMessageNode";
 import FilesInstruction from "./FilesInstruction";
 import FileSystemInstruction from "./Automation/FileSystemInstruction";
+import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
+import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
+import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -35,6 +38,21 @@ export default class Package extends Component implements IPackage
      * Additional files which are copied to the package.
      */
     private additionalFiles: FileSystemInstruction[] = new InstructionCollection(this);
+
+    /**
+     * The packages which are required for installing this package.
+     */
+    private requiredPackages: RequiredPackageDescriptor[] = [];
+
+    /**
+     * Optional packages provided by this package.
+     */
+    private optionalPackages: OptionalPackageDescriptor[] = [];
+
+    /**
+     * The packages which are conflicting with this package.
+     */
+    private conflictingPackages: ConflictingPackageDescriptor[] = [];
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -78,6 +96,21 @@ export default class Package extends Component implements IPackage
         {
             this.additionalFiles.push(...options.AdditionalFiles);
         }
+
+        if (!isNullOrUndefined(options.RequiredPackages))
+        {
+            this.requiredPackages.push(...options.RequiredPackages);
+        }
+
+        if (!isNullOrUndefined(options.OptionalPackages))
+        {
+            this.optionalPackages.push(...options.OptionalPackages);
+        }
+
+        if (!isNullOrUndefined(options.ConflictingPackages))
+        {
+            this.conflictingPackages.push(...options.ConflictingPackages);
+        }
     }
 
     public get Identifier(): string
@@ -103,6 +136,21 @@ export default class Package extends Component implements IPackage
     public get AdditionalFiles(): FileSystemInstruction[]
     {
         return this.additionalFiles;
+    }
+
+    public get RequiredPackages(): RequiredPackageDescriptor[]
+    {
+        return this.requiredPackages;
+    }
+
+    public get OptionalPackages(): OptionalPackageDescriptor[]
+    {
+        return this.optionalPackages;
+    }
+
+    public get ConflictingPackages(): ConflictingPackageDescriptor[]
+    {
+        return this.conflictingPackages;
     }
 
     /**

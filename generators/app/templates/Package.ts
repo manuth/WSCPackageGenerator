@@ -56,6 +56,12 @@ let pkg: Package = new Package({
     %>
         <%- items.join(`,
         `) %>
+    ],
+    RequiredPackages: [
+        new RequiredPackageDescriptor({
+            Identifier: "com.woltlab.wcf",
+            MinVersion: "3.0.0"
+        })
     ]
 });
 
