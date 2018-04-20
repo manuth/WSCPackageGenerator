@@ -19,22 +19,21 @@
             environments = [ "user" ];
         }%><%
     %><% for (let environment of environments) { %>
-        <eventlistener<%
-        %> name="<%= eventListener.Name %><%
+        <eventlistener<% %> name="<%= eventListener.Name %><%
         %><% if (environments.length > 1) { %><%
             %><%= (environment === "user" ? "FrontEnd" : "BackEnd" ) %><%
         %><% } %>">
-            <eventclassname><%= eventListener.ClassName %></eventclassname>
-            <inherit><%= (eventListener.Inherit ? 1 : 0) %></inherit>
-            <eventname><%= eventListener.EventName %></eventname>
-            <listenerclassname><%= eventListener.EventHandlerClassName %></listenerclassname>
-            <environment><%= environment %></environment>
+            <eventclassname<% %>><%= eventListener.ClassName %></eventclassname>
+            <inherit<% %>><%= (eventListener.Inherit ? 1 : 0) %></inherit>
+            <eventname<% %>><%= eventListener.EventName %></eventname>
+            <listenerclassname<% %>><%= eventListener.EventHandlerClassName %></listenerclassname>
+            <environment<% %>><%= environment %></environment>
         </eventlistener><%
     %><% } %><%
 %><% } %>
     </import><%
 %><% if (Instruction.ObjectsToDelete.length > 0) { %>
-    <delete><%
+    <delete<% %>><%
     %><% for (let name of Instruction.ObjectsToDelete) { %>
         <eventlistener name="<%= name %>" /><%
     %><% } %>

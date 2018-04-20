@@ -20,8 +20,7 @@
         }
     %><%
     %><% for (let environment of environments) { %>
-        <templateListener<%
-        %> name="<%= templateListener.Name %><%
+        <templateListener<% %> name="<%= templateListener.Name %><%
         %><% if (environments.length > 1) { %><%
             %><%= (environment === "user" ? "FrontEnd" : "BackEnd") %><%
         %><% } %>">
@@ -36,7 +35,7 @@
 %><% } %>
     </import><%
 %><% if (Instruction.ObjectsToDelete.length > 0) { %>
-    <delete><%
+    <delete<% %>><%
     %><% for (let name of Instruction.ObjectsToDelete) { %>
         <templatelistener name="<%= name %>" /><%
     %><% } %>

@@ -27,8 +27,7 @@
         <instruction type="style"><%= destination %><%= StylesPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "TemplatesInstruction": %>
-        <instruction<%
-        %> type="template"<%
+        <instruction<% %> type="template"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
@@ -36,8 +35,7 @@
             %></instruction><%
         %><% break; %><%
         %><% case "ACPTemplatesInstruction": %>
-        <instruction<%
-        %> type="acpTemplate"<%
+        <instruction<% %> type="acpTemplate"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
@@ -45,7 +43,7 @@
             %></instruction><%
         %><% break; %><%
         %><% case "TemplateListenersInstruction": %>
-        <instruction type="templateListener"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        <instruction<% %> type="templateListener"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "EmojisInstruction": %>
         <instruction type="smiley"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%

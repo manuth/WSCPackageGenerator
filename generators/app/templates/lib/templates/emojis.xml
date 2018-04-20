@@ -3,14 +3,14 @@
 %>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/smiley.xsd">
     <import><%
 %><% for (let emoji of Instruction.Emojis) { %>
-        <smiley name="<%= emoji.Name %>">
-            <title><%= emoji.Title %></title>
-            <path><%= emoji.FileName %></path><%
+        <smiley<% %> name="<%= emoji.Name %>">
+            <title<% %>><%= emoji.Title %></title>
+            <path<% %>><%= emoji.FileName %></path><%
     %><% if (emoji.HighResFileName) { %>
-            <path2x><%= emoji.HighResFileName %><%
+            <path2x<% %>><%= emoji.HighResFileName %><%
     %><% } %><%
     %><% if (emoji.Aliases.length > 0) { %>
-            <aliases><![CDATA[<%
+            <aliases<% %>><![CDATA[<%
         %><%- emoji.Aliases.join("\n") %>]]><%
     %><% } %>
         </smiley><%

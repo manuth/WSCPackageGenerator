@@ -3,7 +3,7 @@
 %>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/option.xsd">
     <import><%
 %><% if (Instruction.Categories.length > 0) { %>
-        <categories><%
+        <categories<% %>><%
     %><% for (let category of Instruction.Categories) { %><%
         %><% if (category.Parent === null) { %>
             <category name="<%= category.FullName %>" /><%
@@ -16,22 +16,22 @@
         </categories><%
 %><% } %><%
 %><% if (Object.keys(Instruction.Options).length > 0) { %>
-        <options><%
+        <options<% %>><%
     %><% for (let name in Instruction.Options) { %><%
         let option = Instruction.Options[name]; %>
-        <option name="<%= option.Name %>">
+        <option<% %> name="<%= option.Name %>">
             <categoryname><%= option.Parent.FullName %></categoryname>
             <optiontype><%= option.Type %></optiontype><%
         %><% if (option.Default !== undefined) { %>
             <defaultvalue><%= option.Default %></defaultvalue><%
         %><% } %><%
         %><% if (option.Items.length > 0) { %>
-            <selectoptions>
+            <selectoptions<% %>>
                 <![CDATA[<%= option.Items.map((item) => { return item.Value.toString() + ":" + item.FullName }).join("\n") %>]]>
             </selectoptions><%
         %><% } %><%
         %><% if (option.EnableOptions.length > 0) { %>
-            <enableoptions><%= option.EnableOptions.join(",") %></enableoptions><%
+            <enableoptions<% %>><%= option.EnableOptions.join(",") %></enableoptions><%
         %><% } %>
         </option><%
     %><% } %>
@@ -39,7 +39,7 @@
 %><% } %>
     </import><%
 %><% if (Instruction.ObjectsToDelete.length > 0) { %>
-    <delete><%
+    <delete<% %>><%
     %><% for (let name of Instruction.ObjectsToDelete) { %>
         <option name="<%= name %>" /><%
     %><% } %><%
