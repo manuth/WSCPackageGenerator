@@ -21,7 +21,8 @@ let pkg: Package = new Package({
     Description: {
         en: "<%= description %>"
     },
-    InstallInstruction: new Instruction({<%
+    InstallInstructions: [
+        <%
         let items = [];
 
         for (let component of components)
@@ -55,7 +56,7 @@ let pkg: Package = new Package({
     %>
         <%- items.join(`,
         `) %>
-    })
+    ]
 });
 
 export = pkg;
