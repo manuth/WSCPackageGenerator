@@ -6,4 +6,4 @@ import SettingsNode from "../lib/ControlPanel/SettingsNode";
 
 let optionsInstruction: OptionsInstruction = null;
 
-export = optionsInstruction;
+//export = optionsInstruction;

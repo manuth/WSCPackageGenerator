@@ -2,4 +2,4 @@ import ACPTemplatesInstruction from "../lib/Customization/ACPTemplatesInstructio
 
 let acpTemplatesInstruction: ACPTemplatesInstruction = null;
 
-export = acpTemplatesInstruction;
+//export = acpTemplatesInstruction;
