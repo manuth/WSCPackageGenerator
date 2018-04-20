@@ -391,14 +391,21 @@ class WSCPackageGenerator extends Generator
      */
     install()
     {
-        this.installDependencies({ bower: false, npm: true });
-
         if (this.settings["components"].includes("style"))
         {
             this.config.set("stylesPath", this.settings["componentPaths"]["style"]);
         }
 
         this.config.save();
+
+        this.installDependencies({ bower: false, npm: true });
+    }
+
+    /**
+     * Show some helpful messages after finishing the installation-process.
+     */
+    end()
+    {
 
         this.log();
         this.log("Your package \"" + this.settings["name"] + "\" has been created!");
