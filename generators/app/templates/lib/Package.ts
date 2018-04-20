@@ -8,6 +8,8 @@ import { isNullOrUndefined } from "util";
 import IPackage from "./IPackage";
 import Option from "./ControlPanel/Option";
 import ErrorMessageNode from "./Globalization/ErrorMessageNode";
+import FilesInstruction from "./FilesInstruction";
+import FileSystemInstruction from "./Automation/FileSystemInstruction";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -22,12 +24,17 @@ export default class Package extends Component implements IPackage
     /**
      * The instructions which is used for installing the packge.
      */
-    private installInstructions: InstructionCollection = new InstructionCollection(this);
+    private installInstructions: InstructionCollection<Instruction> = new InstructionCollection(this);
 
     /**
      * A set of instructions for updating the package.
      */
-    private updateInstructions: UpdateInstructionCollection[] = new UpdatesCollection(this);
+    private updateInstructions: UpdateInstructionCollection<Instruction>[] = new UpdatesCollection(this);
+
+    /**
+     * Additional files which are copied to the package.
+     */
+    private additionalFiles: FileSystemInstruction[] = new InstructionCollection(this);
 
     /**
      * Initializes a new instance of the `Package` class.
@@ -62,7 +69,14 @@ export default class Package extends Component implements IPackage
                 {
                     updateInstructionCollection.push(instruction);
                 }
+                
+                this.updateInstructions.push(updateInstructionCollection);
             }
+        }
+
+        if (!isNullOrUndefined(options.AdditionalFiles))
+        {
+            this.additionalFiles.push(...options.AdditionalFiles);
         }
     }
 
@@ -76,14 +90,19 @@ export default class Package extends Component implements IPackage
         this.identifier = value;
     }
 
-    public get InstallInstructions(): InstructionCollection
+    public get InstallInstructions(): InstructionCollection<Instruction>
     {
         return this.installInstructions;
     }
 
-    public get UpdateInstructions(): UpdateInstructionCollection[]
+    public get UpdateInstructions(): UpdateInstructionCollection<Instruction>[]
     {
         return this.updateInstructions;
+    }
+
+    public get AdditionalFiles(): FileSystemInstruction[]
+    {
+        return this.additionalFiles;
     }
 
     /**

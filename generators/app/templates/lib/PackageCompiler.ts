@@ -3,6 +3,7 @@ import * as FileSystem from "fs-extra";
 import * as memFsEditor from "mem-fs-editor";
 import * as memFs from "mem-fs";
 import Compiler from "./Compiler";
+import FilesInstruction from "./FilesInstruction";
 import InstructionCollection from "./Automation/InstructionCollection";
 import InstructionCollectionCompiler from "./InstructionCollectionCompiler";
 import Package from "./Package";
@@ -77,7 +78,7 @@ export default class PackageCompiler extends Compiler<Package>
         if (this.Item.InstallInstructions.length > 0)
         {
             await new InstructionCollectionCompiler(
-                this.Item.InstallInstructions as InstructionCollection,
+                this.Item.InstallInstructions,
                 this.SourcePath,
                 this.stylesPath,
                 this.componentsPath).Execute();
@@ -90,6 +91,19 @@ export default class PackageCompiler extends Compiler<Package>
                 this.SourcePath,
                 this.stylesPath,
                 this.componentsPath).Execute();
+        }
+
+        for (let additionalFiles of this.Item.AdditionalFiles)
+        {
+            if (additionalFiles instanceof FilesInstruction)
+            {
+                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeTempPath(additionalFiles.SourceRoot), this.Item);
+                this.Compress(this.MakeTempPath(additionalFiles.SourceRoot), this.MakeSourcePath(additionalFiles.FileName));
+            }
+            else
+            {
+                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
+            }
         }
 
         await new Promise((resolve) =>

@@ -21,10 +21,10 @@ export default class FileSystemInstruction extends FileInstruction implements IF
     {
         super(options);
         this.sourceRoot = options.SourceRoot;
-
+        
         if (isNullOrUndefined(options.FileName))
         {
-            this.FileName = options.SourceRoot + ".tar";
+            this.FileName = options.SourceRoot;
         }
     }
 

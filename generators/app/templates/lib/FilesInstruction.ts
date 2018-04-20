@@ -19,6 +19,11 @@ export default class FilesInstruction extends FileSystemInstruction implements I
     public constructor(options: IFilesInstruction)
     {
         super(options);
+        
+        if (isNullOrUndefined(options.FileName))
+        {
+            this.FileName = options.SourceRoot + ".tar";
+        }
 
         if (!isNullOrUndefined(options.Application))
         {

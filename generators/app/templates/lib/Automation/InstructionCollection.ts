@@ -19,12 +19,14 @@ import EmojisInstruction from "../Customization/EmojisInstruction";
 import ErrorMessageNode from "../Globalization/ErrorMessageNode";
 import ErrorMessagesInstruction from "../Globalization/ErrorMessagesInstruction";
 import FileInstruction from "./FileInstruction";
+import IInstruction from "./IInstruction";
 import IInstructionCollection from "./IInstructionCollection";
+import { isNullOrUndefined } from "util";
 
 /**
  * Rerpesents a set of instructions.
  */
-export default class InstructionCollection extends Array<Instruction> implements IInstructionCollection
+export default class InstructionCollection<T extends Instruction> extends Array<T> implements IInstructionCollection<T>
 {
     /**
      * The package this collection belongs to.
@@ -72,7 +74,7 @@ export default class InstructionCollection extends Array<Instruction> implements
         this.destination = value;
     }
 
-    public get Instructions(): Instruction[]
+    public get Instructions(): T[]
     {
         return this;
     }
@@ -276,14 +278,14 @@ export default class InstructionCollection extends Array<Instruction> implements
         return result;
     }
 
-    public push(...items: Instruction[]): number
+    public push(...items: T[]): number
     {
         for (let item of items)
         {
             if (!isNullOrUndefined(item))
             {
-            item.Package = this.Package;
-        }
+                item.Package = this.Package;
+            }
         }
 
         return super.push(...items);

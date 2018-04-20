@@ -1,11 +1,12 @@
 import InstructionCollectionCollection from "./InstructionCollectionCollection";
 import UpdateInstructionCollection from "./UpdateInstructionCollection";
 import Package from "../Package";
+import Instruction from "./Instruction";
 
 /**
  * Represents a set of update-routines.
  */
-export default class UpdatesCollection extends InstructionCollectionCollection<UpdateInstructionCollection>
+export default class UpdatesCollection extends InstructionCollectionCollection<UpdateInstructionCollection<Instruction>>
 {
     /**
      * Initializes a new instance of the `UpdatesCollection` class.

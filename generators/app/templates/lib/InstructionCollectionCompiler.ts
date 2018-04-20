@@ -11,12 +11,13 @@ import EventListenersInstruction from "./EventListenersInstruction";
 import StyleInstruction from "./Customization/StyleInstruction";
 import TemplateListenersInstruction from "./Customization/TemplateListenersInstruction";
 import EmojisInstruction from "./Customization/EmojisInstruction";
+import Instruction from "./Automation/Instruction";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**
  * Provides the functionality to compile an `InstructionCollection`.
  */
-export default class InstructionCollectionCompiler extends Compiler<InstructionCollection>
+export default class InstructionCollectionCompiler extends Compiler<InstructionCollection<Instruction>>
 {
     /**
      * The path to save compiled styles to.
@@ -43,7 +44,7 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
      * @param componentsPath
      * The path to save compiled components to.
      */
-    public constructor(instructionCollection: InstructionCollection, destinationPath: string = "obj", stylesPath: string = "styles", componentsPath: string = "components")
+    public constructor(instructionCollection: InstructionCollection<Instruction>, destinationPath: string = "obj", stylesPath: string = "styles", componentsPath: string = "components")
     {
         super(instructionCollection, destinationPath);
         this.stylesPath = stylesPath;

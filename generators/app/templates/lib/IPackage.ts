@@ -1,3 +1,4 @@
+import FileSystemInstruction from "./Automation/FileSystemInstruction";
 import IComponent from "./IComponent";
 import Instruction from "./Automation/Instruction";
 import IUpdateInstructionCollection from "./Automation/IUpdateInstructionCollection";
@@ -20,5 +21,10 @@ export default interface IPackage extends IComponent
     /**
      * Gets a set of instructions for updating the package.
      */
-    UpdateInstructions?: IUpdateInstructionCollection[];
+    UpdateInstructions?: IUpdateInstructionCollection<Instruction>[];
+
+    /**
+     * Gets additional files which are copied to the package.
+     */
+    AdditionalFiles?: FileSystemInstruction[];
 }
