@@ -1,4 +1,5 @@
 import * as Path from "path";
+import * as FileSystem from "fs-extra";
 import * as Generator from "yeoman-generator";
 import chalk from "chalk";
 import yosay = require("yosay");
@@ -349,7 +350,6 @@ class WSCPackageGenerator extends Generator
             eventListener: "EventListeners.ts",
             translations: "Translations.ts",
             errors: "ErrorMessages.ts",
-            style: "wsc-style-getting-started.md",
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
             templateListener: "TemplateListeners.ts",
@@ -365,16 +365,14 @@ class WSCPackageGenerator extends Generator
         this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copyTpl(this.templatePath("README.md"), this.destinationPath("README.md"), this.settings);
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
+        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"), { });
 
         for (let component of this.settings["components"])
         {
             switch (component)
             {
                 case "style":
-                    this.fs.copyTpl(
-                        this.templatePath("styles", componentTemplates[component]),
-                        this.destinationPath(Path.join(this.settings["componentPaths"][component], componentTemplates[component])),
-                        this.settings);
+                    FileSystem.mkdirpSync(this.destinationPath(this.settings["componentPaths"][component]));
                     break;
                 default:
                     this.fs.copyTpl(
@@ -390,14 +388,14 @@ class WSCPackageGenerator extends Generator
      * Installs the dependencies.
      */
     install()
-    {
+    {   
         if (this.settings["components"].includes("style"))
         {
             this.config.set("stylesPath", this.settings["componentPaths"]["style"]);
         }
 
         this.config.save();
-
+        
         this.installDependencies({ bower: false, npm: true });
     }
 

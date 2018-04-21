@@ -24,5 +24,6 @@
     "npm.exclude": "**/templates/**",
     "files.associations": {
         "**/templates/*": "ejs"
-    }
+    },
+    "markdown.extension.toc.levels": "1..2"
 }
