@@ -39,6 +39,16 @@ export default class Option extends Node implements IOption
     private type: OptionType = OptionType.TextBox;
 
     /**
+     * A value indicating whether localization is supported.
+     */
+    private supportsLocalization: boolean = false;
+
+    /**
+     * A value indicating whether this option is localized.
+     */
+    private requiresLocalization: boolean = false;
+
+    /**
      * The items of the option.
      */
     private items: OptionItem[] = new OptionItemCollection(this);
@@ -79,6 +89,16 @@ export default class Option extends Node implements IOption
         if (!isNullOrUndefined(options.Type))
         {
             this.type = options.Type;
+        }
+
+        if (!isNullOrUndefined(options.SupportsLocalization))
+        {
+            this.supportsLocalization = options.SupportsLocalization;
+        }
+
+        if (!isNullOrUndefined(options.RequiresLocalization))
+        {
+            this.requiresLocalization = options.RequiresLocalization;
         }
 
         if (!isNullOrUndefined(options.Items))
@@ -130,6 +150,26 @@ export default class Option extends Node implements IOption
     public set Type(value: OptionType)
     {
         this.type = value;
+    }
+
+    public get SupportsLocalization(): boolean
+    {
+        return this.supportsLocalization;
+    }
+
+    public set SupportsLocalization(value: boolean)
+    {
+        this.supportsLocalization = value;
+    }
+
+    public get RequiresLocalization(): boolean
+    {
+        return this.requiresLocalization;
+    }
+
+    public set RequiresLocalization(value: boolean)
+    {
+        this.requiresLocalization = value;
     }
 
     public get Items(): OptionItem[]

@@ -34,6 +34,16 @@ export default interface IOption extends INode
     Type?: OptionType;
 
     /**
+     * Gets or sets a value indicating whether localization is supported.
+     */
+    SupportsLocalization?: boolean;
+
+    /**
+     * Gets or sets a value indicating whether this option is localized.
+     */
+    RequiresLocalization?: boolean;
+
+    /**
      * Gets the items of the option.
      */
     Items?: OptionItem[];
