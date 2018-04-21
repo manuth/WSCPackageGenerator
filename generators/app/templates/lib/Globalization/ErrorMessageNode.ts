@@ -36,15 +36,15 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
     /**
      * Gets the name of the error.
      */
-    public get GetFullErrorName(): string
+    public get FullErrorName(): string
     {
         if (this.Parent)
         {
-            return super.FullName;
+            return this.FullName;
         }
         else
         {
-            return "wcf.acp.option.error." + super.FullName;
+            return "wcf.acp.option.error." + this.FullName;
         }
     }
 
@@ -114,6 +114,6 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
      */
     public toString(): string
     {
-        return this.FullName;
+        return this.FullErrorName;
     }
 }
