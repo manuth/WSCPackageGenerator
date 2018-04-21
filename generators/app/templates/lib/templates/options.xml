@@ -22,7 +22,7 @@
         <option<% %> name="<%= option.Name %>">
             <categoryname><%= option.Parent.FullName %></categoryname>
             <optiontype><%= option.Type %></optiontype><%
-        %><% if (option.Default !== undefined) { %>
+        %><% if (option.Default !== null) { %>
             <defaultvalue><%= option.Default %></defaultvalue><%
         %><% } %><%
         %><% if (option.Items.length > 0) { %>
