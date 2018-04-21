@@ -64,7 +64,7 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
         return this.displayName;
     }
 
-    public get FullName(): string
+    public get FullCategoryName(): string
     {
         return "wcf.acp.option.category." + this.Name;
     }
