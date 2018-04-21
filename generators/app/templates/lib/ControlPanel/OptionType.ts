@@ -9,19 +9,35 @@ enum OptionType
     CheckBox = "boolean",
 
     /**
+     * Indicates a list of checkboxes.
+     */
+    CheckBoxes = "checkboxes",
+
+    /**
      * Indicates a text-box.
      */
     TextBox = "text",
 
+
     /**
-     * Indicates a combo-box.
+     * Indicates a big text-box.
      */
-    ComboBox = "select",
+    TextArea = "textarea",
+    
+    /**
+     * Indicates a big text-box which is localizable.
+     */
+    LocalizableTextArea = "textareaI18n",
 
     /**
      * Indicates a secure text-box.
      */
     PasswordTextBox = "password",
+
+    /**
+     * Indicates a combo-box.
+     */
+    ComboBox = "select",
 
     /**
      * Indicates a set of radio-buttons.
@@ -31,7 +47,7 @@ enum OptionType
     /**
      * Indicates a multiselect-list.
      */
-    CheckBoxList = "multiSelect"
+    MultiSelect = "multiSelect"
 }
 
 export default OptionType;
