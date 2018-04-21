@@ -10,7 +10,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents an instruction that provides options for the control-panel.
  */
-export default class OptionsInstruction extends FileInstruction
+export default class OptionsInstruction extends FileInstruction implements IOptionsInstruction
 {
     /**
      * A set of names of options to delete.
@@ -20,7 +20,7 @@ export default class OptionsInstruction extends FileInstruction
     /**
      * The categories and options provided by the instruction.
      */
-    private settingsNode: SettingsNode = null;
+    private settingsNodes: SettingsNode[] = [];
 
     /**
      * The directory to save the language-files to.
@@ -44,9 +44,9 @@ export default class OptionsInstruction extends FileInstruction
             this.objectsToDelete.push(...options.ObjectsToDelete);
         }
         
-        if (!isNullOrUndefined(options.SettingsNode))
+        if (!isNullOrUndefined(options.SettingsNodes))
         {
-            this.settingsNode = options.SettingsNode;
+            this.settingsNodes.push(...options.SettingsNodes);
         }
 
         if (!isNullOrUndefined(options.TranslationsDirectory))
@@ -59,14 +59,9 @@ export default class OptionsInstruction extends FileInstruction
         }
     }
 
-    public get SettingsNode(): SettingsNode
+    public get SettingsNodes(): SettingsNode[]
     {
-        return this.settingsNode;
-    }
-
-    public set SettingsNode(value: SettingsNode)
-    {
-        this.settingsNode = value;
+        return this.settingsNodes;
     }
 
     public get TranslationsDirectory(): string
@@ -84,7 +79,14 @@ export default class OptionsInstruction extends FileInstruction
      */
     public get Options(): { [id: string]: Option }
     {
-        return this.settingsNode.GetOptions();
+        let result: { [id: string]: Option } = { };
+
+        for (let settingsNode of (this.settingsNodes))
+        {
+            Object.assign(result, settingsNode.GetOptions());
+        }
+
+        return result;
     }
 
     /**
@@ -92,7 +94,14 @@ export default class OptionsInstruction extends FileInstruction
      */
     public get Categories(): SettingsNode[]
     {
-        return this.settingsNode.GetCategories();
+        let result: SettingsNode[] = [];
+
+        for (let settingsNode of this.SettingsNodes)
+        {
+            result.push(...settingsNode.GetCategories());
+        }
+
+        return result;
     }
 
     /**
@@ -100,7 +109,24 @@ export default class OptionsInstruction extends FileInstruction
      */
     public get TranslationNodes(): TranslationNode[]
     {
-        return this.SettingsNode.TranslationNodes;
+        let result: TranslationNode[] = [];
+
+        for (let settingsNode of this.SettingsNodes)
+        {
+            for (let translationNode of settingsNode.TranslationNodes)
+            {
+                let i = result.findIndex((node: TranslationNode) => {
+                    return node.FullName === translationNode.FullName
+                });
+
+                if (i >= 0)
+                {
+                    result[i].Nodes.push(...translationNode.Nodes);
+                }
+            }
+        }
+
+        return result;
     }
 
     public get ObjectsToDelete(): string[]

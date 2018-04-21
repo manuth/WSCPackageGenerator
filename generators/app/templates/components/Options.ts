@@ -4,6 +4,9 @@ import OptionsInstruction from "../lib/ControlPanel/OptionsInstruction";
 import OptionType from "../lib/ControlPanel/OptionType";
 import SettingsNode from "../lib/ControlPanel/SettingsNode";
 
-let optionsInstruction: OptionsInstruction = null;
+let optionsInstruction: OptionsInstruction = new OptionsInstruction({
+    SettingsNodes: [
+    ]
+});
 
-//export = optionsInstruction;
+export = optionsInstruction;

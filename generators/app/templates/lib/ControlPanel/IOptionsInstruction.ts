@@ -10,7 +10,7 @@ export default interface IOptionsInstruction extends IFileInstruction, IDeleteIn
     /**
      * Gets or sets the categories and options provided by the instruction.
      */
-    SettingsNode: SettingsNode;
+    SettingsNodes: SettingsNode[];
     
     /**
      * Gets or sets the directory to save the language-files to.
