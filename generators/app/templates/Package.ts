@@ -13,14 +13,14 @@ let pkg: Package = new Package({
     Identifier: "<%= identifier %>",
     Name: "<%= name %>",
     DisplayName: {
-        en: "<%= displayName %>"
+        inv: "<%= displayName %>"
     },
     Date: new Date("<% let date = new Date(); %><%=
         date.getFullYear() + "/" +
         (date.getMonth() + 1).toString().padStart(2, "0") + "/" +
         date.getDate().toString().padStart(2, "0") %>"),
     Description: {
-        en: "<%= description %>"
+        inv: "<%= description %>"
     },
     InstallInstructions: [
         <%

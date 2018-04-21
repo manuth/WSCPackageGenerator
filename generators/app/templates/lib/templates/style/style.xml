@@ -5,7 +5,7 @@
     <general><%
 %><% for (let locale in style.DisplayName) { %>
         <stylename<%
-    %><% if (locale !== "en") { %> language="<%= locale %>"<%
+    %><% if (locale !== "inv") { %> language="<%= locale %>"<%
     %><% } %>>
             <![CDATA[<%- style.DisplayName[locale] %>]]>
         </stylename><%
@@ -15,7 +15,7 @@
         </packageName><%
 %><% for (let locale in style.Description) { %>
         <description<%
-    %><% if (locale !== "en") { %><%
+    %><% if (locale !== "inv") { %><%
         %> language="<%= locale %>"<%
     %><% } %>>
             <!CDATA[<%- style.Description[locale] %>]]>
