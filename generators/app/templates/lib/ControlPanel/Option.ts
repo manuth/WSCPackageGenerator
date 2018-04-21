@@ -11,7 +11,7 @@ import IOption from "./IOption";
 /**
  * Represents an option that can be shown in the ACP.
  */
-export default class Option extends Node
+export default class Option extends Node implements IOption
 {
     /**
      * The id of the option.

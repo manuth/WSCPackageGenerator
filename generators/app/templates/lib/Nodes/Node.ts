@@ -5,7 +5,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a node.
  */
-export default class Node
+export default class Node implements INode
 {
     /**
      * The name of the node.
