@@ -22,8 +22,7 @@ let pkg: Package = new Package({
     Description: {
         inv: "<%= description %>"
     },
-    InstallInstructions: [
-        <%
+    InstallInstructions: [<%
         let items = [];
 
         for (let component of components)
