@@ -419,50 +419,46 @@ import SettingsNode from "../lib/ControlPanel/SettingsNode";
 let optionsInstruction: OptionsInstruction = new OptionsInstruction({
     SettingsNodes: [
         new SettingsNode({
-            Name: "security",
+            Name: "ldap",
+            DisplayName: {
+                en: "LDAP-Authentication"
+            },
+            Parent: "security",
             Nodes: [
                 new SettingsNode({
-                    Name: "ldap",
+                    Name: "general",
                     DisplayName: {
-                        en: "LDAP-Authentication"
+                        en: "General Settings"
                     },
-                    Nodes: [
-                        new SettingsNode({
-                            Name: "general",
+                    Description: {
+                        en: "General LDAP-settings"
+                    },
+                    Options: [
+                        new Option({
+                            ID: "Version",
+                            Name: "ldap_version",
                             DisplayName: {
-                                en: "General Settings"
+                                en: "LDAP-version"
                             },
                             Description: {
-                                en: "General LDAP-settings"
+                                en: "Select an LDAP-version"
                             },
-                            Options: [
-                                new Option({
-                                    ID: "Version",
-                                    Name: "ldap_version",
+                            Type: OptionType.ComboBox,
+                            Default: 3,
+                            Items: [
+                                new OptionItem({
+                                    Name: "v2",
                                     DisplayName: {
-                                        en: "LDAP-version"
+                                        en: "LDAPv2"
                                     },
-                                    Description: {
-                                        en: "Select an LDAP-version"
+                                    Value: 2
+                                }),
+                                new OptionItem({
+                                    Name: "v3",
+                                    DisplayName: {
+                                        en: "LDAPv3"
                                     },
-                                    Type: OptionType.ComboBox,
-                                    Default: 3,
-                                    Items: [
-                                        new OptionItem({
-                                            Name: "v2",
-                                            DisplayName: {
-                                                en: "LDAPv2"
-                                            },
-                                            Value: 2
-                                        }),
-                                        new OptionItem({
-                                            Name: "v3",
-                                            DisplayName: {
-                                                en: "LDAPv3"
-                                            },
-                                            Value: 3
-                                        })
-                                    ]
+                                    Value: 3
                                 })
                             ]
                         })
@@ -509,7 +505,8 @@ The `SettingsNodes` contains a set of [`SettingsNode`s](#settingsnode).
 ```ts
     SettingsNodes: [
         new SettingsNode({
-            Name: "security"
+            Name: "ldap",
+            Parent: "security"
         })
     ]
 ```
@@ -526,50 +523,46 @@ A category may contain sub-categories or options.
 ### Example
 ```ts
 new SettingsNode({
-    Name: "security",
+    Name: "ldap",
+    DisplayName: {
+        en: "LDAP-Authentication"
+    },
+    Parent: "security",
     Nodes: [
         new SettingsNode({
-            Name: "ldap",
+            Name: "general",
             DisplayName: {
-                en: "LDAP-Authentication"
+                en: "General Settings"
             },
-            Nodes: [
-                new SettingsNode({
-                    Name: "general",
+            Description: {
+                en: "General LDAP-settings"
+            },
+            Options: [
+                new Option({
+                    ID: "Version",
+                    Name: "ldap_version",
                     DisplayName: {
-                        en: "General Settings"
+                        en: "LDAP-version"
                     },
                     Description: {
-                        en: "General LDAP-settings"
+                        en: "Select an LDAP-version"
                     },
-                    Options: [
-                        new Option({
-                            ID: "Version",
-                            Name: "ldap_version",
+                    Type: OptionType.ComboBox,
+                    Default: 3,
+                    Items: [
+                        new OptionItem({
+                            Name: "v2",
                             DisplayName: {
-                                en: "LDAP-version"
+                                en: "LDAPv2"
                             },
-                            Description: {
-                                en: "Select an LDAP-version"
+                            Value: 2
+                        }),
+                        new OptionItem({
+                            Name: "v3",
+                            DisplayName: {
+                                en: "LDAPv3"
                             },
-                            Type: OptionType.ComboBox,
-                            Default: 3,
-                            Items: [
-                                new OptionItem({
-                                    Name: "v2",
-                                    DisplayName: {
-                                        en: "LDAPv2"
-                                    },
-                                    Value: 2
-                                }),
-                                new OptionItem({
-                                    Name: "v3",
-                                    DisplayName: {
-                                        en: "LDAPv3"
-                                    },
-                                    Value: 3
-                                })
-                            ]
+                            Value: 3
                         })
                     ]
                 })
@@ -597,6 +590,14 @@ The localizable name of the category
         en: "LDAP-Link",
         de: "LDAP-Anbindung"
     }
+```
+
+#### `Parent`
+Use this property if you want to attach the category to an existing category.
+
+**Examlpe:**
+```ts
+    Parent: "security"
 ```
 
 #### `Description`
