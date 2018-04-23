@@ -21,16 +21,14 @@
             <!CDATA[<%- style.Description[locale] %>]]>
         </description><%
 %><% } %>
-        <date>
-            <%= (
+        <version><%= style.Version %></version>
+        <date><%
+            %><%= (
                 style.Date.getFullYear() + "-" +
                 (style.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
                 style.Date.getDate().toString().padStart(2, "0"))
-            %>
-        </date>
-        <version>
-            <%= style.Version %>
-        </version><%
+            %><%
+        %></date><%
 %><% if (style.Thumbnail) { %>
         <image>
             <![CDATA[<%- style.Thumbnail %>]]>
@@ -53,13 +51,9 @@
 %><% } %>
     </author>
     <files>
-        <variables>
-            variables.xml
-        </variables><%
+        <variables>variables.xml</variables><%
 %><% if (style.ImagesRoot) { %>
-    <images path="images/<%= Style.Name %>">
-        images.tar
-    </images><%
+    <images path="images/<%= Style.Name %>">images.tar</images><%
 %><% } %>
     </files>
 </style>

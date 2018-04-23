@@ -424,26 +424,26 @@ let optionsInstruction: OptionsInstruction = new OptionsInstruction({
                 new SettingsNode({
                     Name: "ldap",
                     DisplayName: {
-                        inv: "LDAP-Authentication"
+                        en: "LDAP-Authentication"
                     },
                     Nodes: [
                         new SettingsNode({
                             Name: "general",
                             DisplayName: {
-                                inv: "General Settings"
+                                en: "General Settings"
                             },
                             Description: {
-                                inv: "General LDAP-settings"
+                                en: "General LDAP-settings"
                             },
                             Options: [
                                 new Option({
                                     ID: "Version",
                                     Name: "ldap_version",
                                     DisplayName: {
-                                        inv: "LDAP-version"
+                                        en: "LDAP-version"
                                     },
                                     Description: {
-                                        inv: "Select an LDAP-version"
+                                        en: "Select an LDAP-version"
                                     },
                                     Type: OptionType.ComboBox,
                                     Default: 3,
@@ -451,14 +451,14 @@ let optionsInstruction: OptionsInstruction = new OptionsInstruction({
                                         new OptionItem({
                                             Name: "v2",
                                             DisplayName: {
-                                                inv: "LDAPv2"
+                                                en: "LDAPv2"
                                             },
                                             Value: 2
                                         }),
                                         new OptionItem({
                                             Name: "v3",
                                             DisplayName: {
-                                                inv: "LDAPv3"
+                                                en: "LDAPv3"
                                             },
                                             Value: 3
                                         })
@@ -531,26 +531,26 @@ new SettingsNode({
         new SettingsNode({
             Name: "ldap",
             DisplayName: {
-                inv: "LDAP-Authentication"
+                en: "LDAP-Authentication"
             },
             Nodes: [
                 new SettingsNode({
                     Name: "general",
                     DisplayName: {
-                        inv: "General Settings"
+                        en: "General Settings"
                     },
                     Description: {
-                        inv: "General LDAP-settings"
+                        en: "General LDAP-settings"
                     },
                     Options: [
                         new Option({
                             ID: "Version",
                             Name: "ldap_version",
                             DisplayName: {
-                                inv: "LDAP-version"
+                                en: "LDAP-version"
                             },
                             Description: {
-                                inv: "Select an LDAP-version"
+                                en: "Select an LDAP-version"
                             },
                             Type: OptionType.ComboBox,
                             Default: 3,
@@ -558,14 +558,14 @@ new SettingsNode({
                                 new OptionItem({
                                     Name: "v2",
                                     DisplayName: {
-                                        inv: "LDAPv2"
+                                        en: "LDAPv2"
                                     },
                                     Value: 2
                                 }),
                                 new OptionItem({
                                     Name: "v3",
                                     DisplayName: {
-                                        inv: "LDAPv3"
+                                        en: "LDAPv3"
                                     },
                                     Value: 3
                                 })
@@ -594,7 +594,7 @@ The localizable name of the category
 **Example:**
 ```ts
     DisplayName: {
-        inv: "LDAP-Link",
+        en: "LDAP-Link",
         de: "LDAP-Anbindung"
     }
 ```
@@ -605,7 +605,7 @@ The localizable description of the category
 **Example:**
 ```ts
     Description: {
-        inv: "Settings related to LDAP",
+        en: "Settings related to LDAP",
         de: "Einstellungen im Zusammenhang mit LDAP"
     }
 ```
@@ -667,7 +667,7 @@ The localizable display-name of the option.
 **Examlpe:**
 ```ts
     DisplayName: {
-        inv: "Enable LDAP"
+        en: "Enable LDAP"
     }
 ```
 
@@ -677,7 +677,7 @@ The localizable description of the option.
 **Examlpe:**
 ```ts
     Description: {
-        inv: `
+        en: `
 <p>
     If you enable this option:
     <ul>
@@ -756,7 +756,7 @@ The localizable display-name of the item.
 **Examlpe:**
 ```ts
     DisplayName: {
-        inv: "LDAPv3"
+        en: "LDAPv3"
     }
 ```
 
@@ -849,7 +849,7 @@ let translationsInstruction: TranslationsInstruction = new TranslationsInstructi
                 new TranslationNode({
                     Name: "infraction",
                     Translations: {
-                        inv: "Infraction",
+                        en: "Infraction",
                         de: "Verwarnung"
                     }
                 })
@@ -896,7 +896,7 @@ let errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruc
                     ID: "InvalidHostname",
                     Name: "invalidHostName",
                     Translations: {
-                        inv: "Host not found",
+                        en: "Host not found",
                         de: "Host nicht gefunden"
                     }
                 })

@@ -13,20 +13,20 @@
             <![CDATA[<%- Package.Description[locale] %>]]>
         </packagedescription><% } %>
         <version><%= Package.Version %></version>
-        <date>
-            <%= (
+        <date><%
+            %><%= (
                 Package.Date.getFullYear() + "-" +
                 (Package.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
                 Package.Date.getDate().toString().padStart(2, "0"))
-            %>
-        </date>
+            %><%
+        %></date>
     </packageinformation>
-    <authorinformtion>
+    <authorinformation>
         <author><%= Package.Author.Name %></author><%
     %><% if (Package.Author.URL) { %>
         <authorurl><%= Package.Author.URL %></authorurl><%
     %><% } %>
-    </authorinformtion><%
+    </authorinformation><%
     %><% if (Package.RequiredPackages.length > 0) { %>
     <requiredpackages<% %>><%
         %><% for (let requiredPackage of Package.RequiredPackages) { %>

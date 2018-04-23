@@ -48,5 +48,8 @@
         %><% case "EmojisInstruction": %>
         <instruction type="smiley"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
+        %><% case "BBCodesInstruction": %>
+        <instruction type="bbcode"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
     %><% } %><%
 %><% } %>
