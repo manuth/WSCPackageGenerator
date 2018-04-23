@@ -1,6 +1,7 @@
 import * as Path from "path";
 import Instruction from "../Automation/Instruction";
 import IOptionsInstruction from "./IOptionsInstruction";
+import ITranslationsInstruction from "../Globalization/ITranslationsInstruction";
 import SettingsNode from "./SettingsNode";
 import Option from "./Option";
 import TranslationNode from "../Globalization/TranslationNode";
@@ -10,7 +11,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents an instruction that provides options for the control-panel.
  */
-export default class OptionsInstruction extends FileInstruction implements IOptionsInstruction
+export default class OptionsInstruction extends FileInstruction implements IOptionsInstruction, ITranslationsInstruction
 {
     /**
      * A set of names of options to delete.

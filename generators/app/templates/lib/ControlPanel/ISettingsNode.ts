@@ -1,5 +1,6 @@
 import INodeContainer from "../Nodes/INodeContainer";
 import Localizable from "../GLobalization/Localizable";
+import Node from "../Nodes/Node";
 import Option from "./Option";
 import SettingsNode from "./SettingsNode";
 
@@ -27,4 +28,9 @@ export default interface ISettingsNode extends INodeContainer
      * Gets the options contained by this node.
      */
     Options?: Option[];
+
+    /**
+     * The parent of the settings-node.
+     */
+    Parent?: Node;
 }

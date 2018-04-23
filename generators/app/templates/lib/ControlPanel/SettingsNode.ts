@@ -57,6 +57,11 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
         {
             this.options.push(...options.Options);
         }
+
+        if (!isNullOrUndefined(options.Parent))
+        {
+            this.Parent = options.Parent;
+        }
     }
 
     public get DisplayName(): Localizable
