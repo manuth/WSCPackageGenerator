@@ -42,7 +42,7 @@
     <delete<% %>><%
     %><% for (let name of Instruction.ObjectsToDelete) { %>
         <option name="<%= name %>" /><%
-    %><% } %><%
-    </delete>
+    %><% } %>
+    </delete><%
 %><% } %>
 </data>
