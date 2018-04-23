@@ -3,8 +3,9 @@ import * as Path from "path";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import InstructionCollection from "./Automation/InstructionCollection";
-import FilesInstruction from "./FilesInstruction";
+import BBCodesInstruction from "./Customization/BBCodesInstruction";
 import Compiler from "./Compiler";
+import FilesInstruction from "./FilesInstruction";
 import OptionsInstruction from "./ControlPanel/OptionsInstruction";
 import TranslationsInstruction from "./Globalization/TranslationsInstruction";
 import EventListenersInstruction from "./EventListenersInstruction";
@@ -183,6 +184,35 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
             else if (instruction instanceof EmojisInstruction)
             {
                 MemFileSystem.copyTpl(this.MakeTemplatePath("emojis.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+            }
+            else if (instruction instanceof BBCodesInstruction)
+            {
+                MemFileSystem.copyTpl(this.MakeTemplatePath("bbcodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                {
+                    let locales: string[] = [];
+
+                    for (let translationNode of instruction.TranslationNodes)
+                    {
+                        for (let translation of translationNode.GetTranslations())
+                        {
+                            for (let locale in translation.Translations)
+                            {
+                                if (!locales.includes(locale))
+                                {
+                                    locales.push(locale);
+                                }
+                            }
+                        }
+                    }
+
+                    for (let locale of locales)
+                    {
+                        MemFileSystem.copyTpl(
+                            this.MakeTemplatePath("language.xml"),
+                            this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
+                            { Instruction: instruction, Locale: locale });
+                    }
+                }
             }
         }
 

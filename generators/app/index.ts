@@ -222,6 +222,10 @@ class WSCPackageGenerator extends Generator
                     {
                         name: "Emojis",
                         value: "emoji"
+                    },
+                    {
+                        name: "BBCodes",
+                        value: "bbcode"
                     }
                 ]
             },
@@ -325,6 +329,16 @@ class WSCPackageGenerator extends Generator
                 {
                     return (answers["components"] as string[]).indexOf("emoji") >= 0;
                 }
+            },
+            {
+                type: "input",
+                name: "componentPaths.bbcode",
+                default: "BBCodes",
+                message: "Where do you want to store BB-Codes?",
+                when: (answers: Generator.Answers) =>
+                {
+                    return (answers["components"] as string[]).indexOf("bbcode") >= 0;
+                }
             }
         ];
 
@@ -353,7 +367,8 @@ class WSCPackageGenerator extends Generator
             template: "Templates.ts",
             acpTemplate: "ACPTemplates.ts",
             templateListener: "TemplateListeners.ts",
-            emoji: "Emojis.ts"
+            emoji: "Emojis.ts",
+            bbcode: "BBCodes.ts"
         }
 
         this.destinationRoot(this.settings["destination"]);

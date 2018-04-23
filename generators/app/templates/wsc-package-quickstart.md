@@ -22,6 +22,9 @@ This environment allows you to easily create packages for WoltLab Suite Core.
     - [`TemlpateListener`](#temlpatelistener)
     - [Emojis](#emojis)
     - [`Emoji`](#emoji)
+    - [BBCodes](#bbcodes)
+    - [`BBCode`](#bbcode)
+    - [`BBCodeAttribute`](#bbcodeattribute)
 
 ## What's in the folder?
   - `.vscode`  
@@ -1039,3 +1042,123 @@ This property is optional and points to a high-resolution picture of the emoji.
 
 #### `Aliases`
 Other aliases to access the emoji.
+
+## BBCodes
+You can provide new bb-codes using a `BBCodesInstruction`.  
+
+### Interface
+```ts
+<%- include("./lib/Customization/IBBCodesInstruction.ts") %>
+```
+
+### Example
+```ts
+```
+
+### Properties
+#### `FileName`
+The name of the file to store in the package.  
+If the `FileName` isn't specified "bbcodes.xml" will be used.
+
+## `BBCode`
+A BB-Code is a tag you can use when editing or adding contents on/to WoltLab Suite Core.
+
+### Interface
+```ts
+<%- include("./lib/Customization/IBBCode.ts") %>
+```
+
+### Properties
+#### `Name`
+Use this property to specify the name of the bb-code.  
+The BB-code will be accessible by using `[Name][/Name]`.
+
+### `DisplayName`
+The display-name of the button that is shown in the WYSIWYG-Editor.
+
+### `Icon`
+The name of a font-awesome icon that is shown.
+
+**Examlpe:**
+```ts
+    Icon: "fa-apple"
+```
+
+### `ClassName`
+The name of a PHP-class which is used for parsing the tag.  
+This class should either implement `wcf\system\bbcode\IBBCode` or extend `wcf\system\bbcode\AbstractBBCode`.
+
+**Example:**
+```ts
+    ClassName: "wcf\\system\\bbcode\\EmailBBCode"
+```
+
+### `OpeningTag`
+The **content** of the opening HTML-tag.
+
+**Examlpe:**
+```ts
+    OpeningTag: "span style=\"color: red\""
+```
+
+### `ClosingTag`
+The **content** of the closing HTML-tag.
+
+**Examlpe:**
+```ts
+    ClosingTag: "span"
+```
+
+### `IsInline`
+This property allows you to specify whether the bb-code renders an inline HTML-element.  
+Default is `false`.
+
+### `IsBBCode`
+A value indicating whether the content of the bbcode is treated like HTML- or BB-code.  
+Default is `true`.
+
+> ***Important Notice:***
+> If you set this to `false` please keep in mind to provide a `ClassName` of a class which parses the BBCode in order to ***prevent Cross-Site-Scripting**
+
+### `Attributes`
+A set of `BBCodeAttribute`s.
+
+## `BBCodeAttribute`
+A BBCode-attribute allows users to provide further arguments to the bbcode in order to manipulate the displayed html-element.
+
+### Interface
+```ts
+<%- include("./lib/Customization/IBBCodeAttribute.ts") %>
+```
+
+### Properties
+#### `Required`
+A value indicating whether the user **must** provide a value for this attribute.
+
+#### `ValueByContent`
+This property allows you to specify whether the value should be taken from the content of the BB-code if no value for this attribute is present.
+
+URL-Tags, for example, have this set to `true` which causes...
+```
+[url="https://google.com/"]https://google.com/[/url]
+```
+...to be rendered the same way like...
+```
+[url]https://google.com/[/url]
+```
+
+#### `Code`
+The code which will be appended to the opening tag.  
+`%s` will be replaced by the value of the attribute.
+
+**Examlpe:**
+```ts
+    Code: `href="%s"`
+```
+
+#### `ValidationPattern`
+A pattern that is used for validating the value of the attribute.
+
+```ts
+    ValidationPattern: /^d+$/
+```
