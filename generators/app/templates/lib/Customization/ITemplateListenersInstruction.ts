@@ -1,5 +1,5 @@
-import IFileInstruction from "../Automation/IFileInstruction";
 import IDeleteInstruction from "../Automation/IDeleteInstruction";
+import IFileInstruction from "../Automation/IFileInstruction";
 import TemplateListener from "./TemplateListener";
 
 /**

@@ -1,7 +1,7 @@
 import INode from "../Nodes/INode";
 import Localizable from "../Globalization/Localizable";
-import OptionType from "./OptionType";
 import OptionItem from "./OptionItem";
+import OptionType from "./OptionType";
 
 /**
  * Represents an option that can be shown in the ACP.

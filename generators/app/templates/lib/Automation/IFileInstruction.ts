@@ -1,4 +1,5 @@
 import IInstruction from "./IInstruction";
+
 /**
  * Represents an instruction that is bound to a file.
  */

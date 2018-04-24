@@ -1,8 +1,8 @@
-import Instruction from "./Instruction";
 import FileInstruction from "./FileInstruction";
-import { isNullOrUndefined } from "util";
 import IFileInstruction from "./IFileInstruction";
 import IFileSystemInstruction from "./IFileSystemInstruction";
+import Instruction from "./Instruction";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to the file-system.

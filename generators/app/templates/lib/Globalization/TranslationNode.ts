@@ -1,7 +1,7 @@
 import ITranslationNode from "./ITranslationNode";
 import Localizable from "./Localizable";
-import NodeContainer from "../Nodes/NodeContainer";
 import NodeCollection from "../Nodes/NodeCollection";
+import NodeContainer from "../Nodes/NodeContainer";
 import { isNullOrUndefined } from "util";
 
 /**

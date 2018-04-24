@@ -1,8 +1,8 @@
-import * as Path from "path";
 import * as Generator from "yeoman-generator";
+import * as Path from "path";
 import chalk from "chalk";
-import yosay = require("yosay");
 import { isNullOrUndefined } from "util";
+import yosay = require("yosay");
 
 /**
  * Provides the functionality to generate WSC-styles.

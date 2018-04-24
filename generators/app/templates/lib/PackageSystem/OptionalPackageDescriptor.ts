@@ -1,5 +1,5 @@
-import PackageDescriptor from "./PackageDescriptor";
 import IOptionalPackageDescriptor from "./IOptionalPackageDescriptor";
+import PackageDescriptor from "./PackageDescriptor";
 
 /**
  * Provides an abstraction of an optional package.

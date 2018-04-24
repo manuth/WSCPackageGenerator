@@ -1,5 +1,5 @@
-import PackageDescriptor from "./PackageDescriptor";
 import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
+import PackageDescriptor from "./PackageDescriptor";
 import { isNullOrUndefined } from "util";
 
 /**

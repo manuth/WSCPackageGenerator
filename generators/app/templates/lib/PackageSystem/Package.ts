@@ -1,18 +1,18 @@
 import Component from "./Component";
-import TranslationNode from "../Globalization/TranslationNode";
-import InstructionCollection from "../Automation/InstructionCollection";
-import UpdatesCollection from "../Automation/UpdatesCollection";
-import Instruction from "../Automation/Instruction";
-import UpdateInstructionCollection from "../Automation/UpdateInstructionCollection";
-import { isNullOrUndefined } from "util";
-import IPackage from "./IPackage";
-import Option from "../ControlPanel/Option";
+import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 import ErrorMessageNode from "../Globalization/ErrorMessageNode";
 import FilesInstruction from "../FilesInstruction";
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
-import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
+import Instruction from "../Automation/Instruction";
+import InstructionCollection from "../Automation/InstructionCollection";
+import IPackage from "./IPackage";
+import Option from "../ControlPanel/Option";
 import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
-import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
+import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
+import TranslationNode from "../Globalization/TranslationNode";
+import UpdateInstructionCollection from "../Automation/UpdateInstructionCollection";
+import UpdatesCollection from "../Automation/UpdatesCollection";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a package for WoltLab Suite Core.

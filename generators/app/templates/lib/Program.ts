@@ -1,8 +1,9 @@
 import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
-import * as Path from "path";
-import * as memFsEditor from "mem-fs-editor";
 import * as memFs from "mem-fs";
+import * as memFsEditor from "mem-fs-editor";
+import * as Path from "path";
+import * as WSCPackage from "../Package";
 import EmojisInstruction from "./Customization/EmojisInstruction";
 import EventListenersInstruction from "./Events/EventListenersInstruction";
 import FilesInstruction from "./FilesInstruction";
@@ -16,7 +17,6 @@ import TemplatesInstruction from "./Customization/TemplatesInstruction";
 import TranslationsInstruction from "./Globalization/TranslationsInstruction";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
-import * as WSCPackage from "../Package";
 
 /**
  * Represents the main entry-point of the script.

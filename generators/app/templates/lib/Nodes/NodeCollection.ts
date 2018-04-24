@@ -1,5 +1,5 @@
-import NodeContainer from "./NodeContainer";
 import Node from "./Node";
+import NodeContainer from "./NodeContainer";
 
 /**
  * Represents a set of nodes.

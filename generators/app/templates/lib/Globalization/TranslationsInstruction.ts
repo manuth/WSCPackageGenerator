@@ -1,7 +1,7 @@
+import FileInstruction from "../Automation/FileInstruction";
 import Instruction from "../Automation/Instruction";
 import ITranslationsInstruction from "./ITranslationsInstruction";
 import TranslationNode from "./TranslationNode";
-import FileInstruction from "../Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**

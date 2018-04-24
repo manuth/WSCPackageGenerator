@@ -1,10 +1,10 @@
+import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import IComponent from "./IComponent";
 import Instruction from "../Automation/Instruction";
 import IUpdateInstructionCollection from "../Automation/IUpdateInstructionCollection";
 import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
 import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
-import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 
 /**
  * Represents a package for WoltLab Suite Core.

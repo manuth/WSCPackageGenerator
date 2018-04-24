@@ -1,6 +1,6 @@
+import ITemplateListener from "./ITemplateListener";
 import Listener from "../Listener";
 import { isNullOrUndefined } from "util";
-import ITemplateListener from "./ITemplateListener";
 
 /**
  * Represents a listener that subscribes to an event inside a template.

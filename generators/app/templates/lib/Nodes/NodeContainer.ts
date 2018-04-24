@@ -1,6 +1,6 @@
 import INodeContainer from "./INodeContainer";
-import NodeCollection from "./NodeCollection";
 import Node from "./Node";
+import NodeCollection from "./NodeCollection";
 import { isNullOrUndefined } from "util";
 
 /**

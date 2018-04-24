@@ -1,6 +1,6 @@
-import * as Path from "path";
 import * as FileSystem from "fs-extra";
 import * as Generator from "yeoman-generator";
+import * as Path from "path";
 import chalk from "chalk";
 import yosay = require("yosay");
 

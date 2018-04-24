@@ -1,8 +1,8 @@
 import ISettingsNode from "./ISettingsNode";
-import NodeContainer from "../Nodes/NodeContainer";
-import NodeCollection from "../Nodes/NodeCollection";
-import Option from "./Option";
 import Localizable from "../Globalization/Localizable";
+import NodeCollection from "../Nodes/NodeCollection";
+import NodeContainer from "../Nodes/NodeContainer";
+import Option from "./Option";
 import TranslationNode from "../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 

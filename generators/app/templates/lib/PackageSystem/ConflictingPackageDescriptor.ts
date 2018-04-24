@@ -1,5 +1,5 @@
-import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
 import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
+import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
 
 /**
  * Provides an abstraction of a conflicting package.

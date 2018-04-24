@@ -1,11 +1,11 @@
 import * as Path from "path";
+import FileInstruction from "../Automation/FileInstruction";
 import Instruction from "../Automation/Instruction";
 import IOptionsInstruction from "./IOptionsInstruction";
 import ITranslationsInstruction from "../Globalization/ITranslationsInstruction";
-import SettingsNode from "./SettingsNode";
 import Option from "./Option";
+import SettingsNode from "./SettingsNode";
 import TranslationNode from "../Globalization/TranslationNode";
-import FileInstruction from "../Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**

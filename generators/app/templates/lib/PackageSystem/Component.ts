@@ -1,8 +1,8 @@
+import IComponent from "./IComponent";
 import Localizable from "../GLobalization/Localizable";
 import Package from "./Package";
 import Person from "./Person";
 import { isNullOrUndefined } from "util";
-import IComponent from "./IComponent";
 
 /**
  * Represents a component for WoltLab Suite Core.

@@ -1,6 +1,6 @@
+import IInstruction from "./IInstruction";
 import Package from "../PackageSystem/Package";
 import { isNullOrUndefined } from "util";
-import IInstruction from "./IInstruction";
 
 /**
  * Represents an instruction for installing a package.

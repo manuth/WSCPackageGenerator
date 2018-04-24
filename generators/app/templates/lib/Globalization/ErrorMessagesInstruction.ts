@@ -1,7 +1,7 @@
-import ITranslationsInstruction from "./ITranslationsInstruction";
 import ErrorMessageNode from "./ErrorMessageNode";
-import TranslationsInstruction from "./TranslationsInstruction";
 import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
+import ITranslationsInstruction from "./ITranslationsInstruction";
+import TranslationsInstruction from "./TranslationsInstruction";
 import { isNullOrUndefined } from "util";
 
 /**

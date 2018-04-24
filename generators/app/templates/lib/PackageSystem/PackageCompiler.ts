@@ -1,7 +1,7 @@
-import * as Path from "path";
 import * as FileSystem from "fs-extra";
-import * as memFsEditor from "mem-fs-editor";
 import * as memFs from "mem-fs";
+import * as memFsEditor from "mem-fs-editor";
+import * as Path from "path";
 import Compiler from "../Compiler";
 import FilesInstruction from "../FilesInstruction";
 import InstructionCollection from "../Automation/InstructionCollection";
