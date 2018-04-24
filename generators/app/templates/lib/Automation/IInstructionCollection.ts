@@ -1,6 +1,4 @@
 import IInstruction from "./IInstruction";
-import Instruction from "./Instruction";
-import Package from "../PackageSystem/Package";
 
 /**
  * Rerpesents a set of instructions.

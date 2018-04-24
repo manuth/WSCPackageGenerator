@@ -1,7 +1,7 @@
 import * as Path from "path";
 import Package from "./lib/PackageSystem/Package";
 import RequiredPackageDescriptor from "./lib/PackageSystem/RequiredPackageDescriptor";
-import StyleInstructionCollection from "./lib/Customization/StyleInstructionCollection";
+import StyleInstructionCollection from "./lib/Customization/Styles/StyleInstructionCollection";
 import UpdateInstructionCollection from "./lib/Automation/UpdateInstructionCollection";
 
 function getComponentsPath(value: string): string

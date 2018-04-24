@@ -1,27 +1,27 @@
-import ACPTemplatesInstruction from "../Customization/ACPTemplatesInstruction";
-import Emoji from "../Customization/Emoji";
-import EmojisInstruction from "../Customization/EmojisInstruction";
-import ErrorMessageNode from "../Globalization/ErrorMessageNode";
-import ErrorMessagesInstruction from "../Globalization/ErrorMessagesInstruction";
+import { isNullOrUndefined } from "util";
+
+import Emoji from "../Customization/Emojis/Emoji";
+import EmojisInstruction from "../Customization/Emojis/EmojisInstruction";
+import ACPTemplatesInstruction from "../Customization/Presentation/ACPTemplatesInstruction";
+import TemplateListener from "../Customization/Presentation/TemplateListener";
+import TemplateListenersInstruction from "../Customization/Presentation/TemplateListenersInstruction";
+import TemplatesInstruction from "../Customization/Presentation/TemplatesInstruction";
+import Style from "../Customization/Styles/Style";
+import StyleInstruction from "../Customization/Styles/StyleInstruction";
 import EventListener from "../Events/EventListener";
 import EventListenersInstruction from "../Events/EventListenersInstruction";
-import FileInstruction from "./FileInstruction";
 import FilesInstruction from "../FilesInstruction";
-import IInstruction from "./IInstruction";
-import IInstructionCollection from "./IInstructionCollection";
-import Instruction from "./Instruction";
-import Option from "../ControlPanel/Option";
-import OptionsInstruction from "../ControlPanel/OptionsInstruction";
-import Package from "../PackageSystem/Package";
-import SettingsNode from "../ControlPanel/SettingsNode";
-import Style from "../Customization/Style";
-import StyleInstruction from "../Customization/StyleInstruction";
-import TemplateListener from "../Customization/TemplateListener";
-import TemplateListenersInstruction from "../Customization/TemplateListenersInstruction";
-import TemplatesInstruction from "../Customization/TemplatesInstruction";
+import ErrorMessageNode from "../Globalization/Errors/ErrorMessageNode";
+import ErrorMessagesInstruction from "../Globalization/Errors/ErrorMessagesInstruction";
 import TranslationNode from "../Globalization/TranslationNode";
 import TranslationsInstruction from "../Globalization/TranslationsInstruction";
-import { isNullOrUndefined } from "util";
+import Option from "../Options/ControlPanel/Option";
+import OptionsInstruction from "../Options/ControlPanel/OptionsInstruction";
+import SettingsNode from "../Options/ControlPanel/SettingsNode";
+import Package from "../PackageSystem/Package";
+import FileInstruction from "./FileInstruction";
+import IInstructionCollection from "./IInstructionCollection";
+import Instruction from "./Instruction";
 
 /**
  * Rerpesents a set of instructions.

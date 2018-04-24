@@ -1,4 +1,4 @@
-import Option from "./ControlPanel/Option";
+import Option from "./Options/ControlPanel/Option";
 import WSCEnvironment from "./WSCEnvironment";
 
 /**

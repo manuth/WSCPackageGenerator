@@ -1,5 +1,5 @@
-import TemplateListener from "../lib/Customization/TemplateListener";
-import TemplateListenersInstruction from "../lib/Customization/TemplateListenersInstruction";
+import TemplateListener from "../lib/Customization/Presentation/TemplateListener";
+import TemplateListenersInstruction from "../lib/Customization/Presentation/TemplateListenersInstruction";
 import WSCEnvironment from "../lib/WSCEnvironment";
 
 let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({

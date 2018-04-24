@@ -1,4 +1,4 @@
-import TemplatesInstruction from "../lib/Customization/TemplatesInstruction";
+import TemplatesInstruction from "../lib/Customization/Presentation/TemplatesInstruction";
 
 let templatesInstruction: TemplatesInstruction = null;
 

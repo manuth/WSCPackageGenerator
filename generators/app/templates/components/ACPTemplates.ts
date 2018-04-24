@@ -1,4 +1,4 @@
-import ACPTemplatesInstruction from "../lib/Customization/ACPTemplatesInstruction";
+import ACPTemplatesInstruction from "../lib/Customization/Presentation/ACPTemplatesInstruction";
 
 let acpTemplatesInstruction: ACPTemplatesInstruction = null;
 
