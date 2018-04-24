@@ -1,3 +1,6 @@
+/**
+ * Represents an instruction for deleting named components.
+ */
 export default interface IDeleteInstruction
 {
     /**
