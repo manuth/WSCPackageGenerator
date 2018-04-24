@@ -9,7 +9,7 @@ export default interface IBBCodeAttribute
     Required?: boolean;
 
     /**
-     * Gets or sets a value indicating if the value of the attribute - if not present - should be taken by the content of the bb-code.
+     * Gets or sets a value indicating whether to use the content of the bb code as it's value.
      */
     ValueByContent?: boolean;
 

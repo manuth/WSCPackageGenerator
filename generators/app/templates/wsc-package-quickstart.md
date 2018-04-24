@@ -1136,7 +1136,8 @@ A BBCode-attribute allows users to provide further arguments to the bbcode in or
 A value indicating whether the user **must** provide a value for this attribute.
 
 #### `ValueByContent`
-This property allows you to specify whether the value should be taken from the content of the BB-code if no value for this attribute is present.
+This property allows you to specify whether the value should be taken from the content of the BB-code.  
+Please note that **this will remove the content of the bb-code**.
 
 URL-Tags, for example, have this set to `true` which causes...
 ```
