@@ -212,7 +212,7 @@ export default class Option extends Node implements IOption
                             }
                         )
                     ]
-                }))
+                }));
         }
 
         for (let item of this.Items)

@@ -117,7 +117,7 @@ export default class OptionsInstruction extends FileInstruction implements IOpti
             for (let translationNode of settingsNode.TranslationNodes)
             {
                 let i = result.findIndex((node: TranslationNode) => {
-                    return node.FullName === translationNode.FullName
+                    return node.FullName === translationNode.FullName;
                 });
 
                 if (i >= 0)

@@ -44,12 +44,10 @@ export default class Person implements IPerson
         return this.url;
     }
 
-
     public set URL(value: string)
     {
         this.url = value;
     }
-
 
     /**
      * Returns a string that represents the current object.

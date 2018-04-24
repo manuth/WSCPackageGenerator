@@ -2,7 +2,7 @@ import TemplateListener from "../lib/Customization/Presentation/TemplateListener
 import TemplateListenersInstruction from "../lib/Customization/Presentation/TemplateListenersInstruction";
 import WSCEnvironment from "../lib/WSCEnvironment";
 
-let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
+const templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
     TemplateListeners: [
 
     ]

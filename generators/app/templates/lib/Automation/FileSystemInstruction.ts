@@ -1,7 +1,5 @@
 import FileInstruction from "./FileInstruction";
-import IFileInstruction from "./IFileInstruction";
 import IFileSystemInstruction from "./IFileSystemInstruction";
-import Instruction from "./Instruction";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -21,7 +19,7 @@ export default class FileSystemInstruction extends FileInstruction implements IF
     {
         super(options);
         this.sourceRoot = options.SourceRoot;
-        
+
         if (isNullOrUndefined(options.FileName))
         {
             this.FileName = options.SourceRoot;

@@ -1,8 +1,8 @@
 import ErrorMessageNode from "../lib/Globalization/Errors/ErrorMessageNode";
 import ErrorMessagesInstruction from "../lib/Globalization/Errors/ErrorMessagesInstruction";
 
-let errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
-    TranslationNodes: [ 
+const errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
+    TranslationNodes: [
 
     ]
 });

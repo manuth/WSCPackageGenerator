@@ -4,9 +4,9 @@ import OptionsInstruction from "../lib/Options/ControlPanel/OptionsInstruction";
 import OptionType from "../lib/Options/ControlPanel/OptionType";
 import SettingsNode from "../lib/Options/ControlPanel/SettingsNode";
 
-let optionsInstruction: OptionsInstruction = new OptionsInstruction({
+const optionsInstruction: OptionsInstruction = new OptionsInstruction({
     SettingsNodes: [
-        
+
     ]
 });
 

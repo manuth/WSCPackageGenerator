@@ -8,5 +8,5 @@ export default interface IFilesInstruction extends IFileSystemInstruction
     /**
      * Gets the application to provide the files to.
      */
-    Application?: string,
+    Application?: string;
 }

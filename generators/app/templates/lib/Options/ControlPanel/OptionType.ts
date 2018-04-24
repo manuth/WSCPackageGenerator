@@ -18,7 +18,6 @@ enum OptionType
      */
     TextBox = "text",
 
-
     /**
      * Indicates a big text-box.
      */
