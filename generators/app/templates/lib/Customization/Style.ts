@@ -1,5 +1,5 @@
 import * as FileSystem from "fs";
-import Component from "../Component";
+import Component from "../PackageSystem/Component";
 import Instruction from "../Automation/Instruction";
 import IStyle from "./IStyle";
 import StyleInstruction from "./StyleInstruction";

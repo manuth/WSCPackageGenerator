@@ -1,5 +1,5 @@
-import EventListener from "../lib/EventListener";
-import EventListenersInstruction from "../lib/EventListenersInstruction";
+import EventListener from "../lib/Events/EventListener";
+import EventListenersInstruction from "../lib/Events/EventListenersInstruction";
 import WSCEnvironment from "../lib/WSCEnvironment";
 
 let eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({

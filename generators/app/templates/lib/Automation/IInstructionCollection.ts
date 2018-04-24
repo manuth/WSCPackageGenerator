@@ -1,4 +1,4 @@
-import Package from "../Package";
+import Package from "../PackageSystem/Package";
 import IInstruction from "./IInstruction";
 import Instruction from "./Instruction";
 

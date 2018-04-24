@@ -1,4 +1,4 @@
-import Listener from "./Listener";
+import Listener from "../Listener";
 import { isNullOrUndefined } from "util";
 import IEventListener from "./IEventListener";
 

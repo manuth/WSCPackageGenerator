@@ -2,17 +2,17 @@ import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import InstructionCollection from "./Automation/InstructionCollection";
-import BBCodesInstruction from "./Customization/BBCodesInstruction";
-import Compiler from "./Compiler";
-import FilesInstruction from "./FilesInstruction";
-import OptionsInstruction from "./ControlPanel/OptionsInstruction";
-import TranslationsInstruction from "./Globalization/TranslationsInstruction";
-import EventListenersInstruction from "./EventListenersInstruction";
-import StyleInstruction from "./Customization/StyleInstruction";
-import TemplateListenersInstruction from "./Customization/TemplateListenersInstruction";
-import EmojisInstruction from "./Customization/EmojisInstruction";
-import Instruction from "./Automation/Instruction";
+import InstructionCollection from "../Automation/InstructionCollection";
+import BBCodesInstruction from "../Customization/BBCodesInstruction";
+import Compiler from "../Compiler";
+import FilesInstruction from "../FilesInstruction";
+import OptionsInstruction from "../ControlPanel/OptionsInstruction";
+import TranslationsInstruction from "../Globalization/TranslationsInstruction";
+import EventListenersInstruction from "../Events/EventListenersInstruction";
+import StyleInstruction from "../Customization/StyleInstruction";
+import TemplateListenersInstruction from "../Customization/TemplateListenersInstruction";
+import EmojisInstruction from "../Customization/EmojisInstruction";
+import Instruction from "../Automation/Instruction";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**

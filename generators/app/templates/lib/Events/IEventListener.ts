@@ -1,4 +1,4 @@
-import IListener from "./IListener";
+import IListener from "../IListener";
 
 /**
  * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.

@@ -1,6 +1,6 @@
 import InstructionCollectionCollection from "./InstructionCollectionCollection";
 import UpdateInstructionCollection from "./UpdateInstructionCollection";
-import Package from "../Package";
+import Package from "../PackageSystem/Package";
 import Instruction from "./Instruction";
 
 /**

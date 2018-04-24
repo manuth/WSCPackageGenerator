@@ -1,7 +1,7 @@
 import IEventListenersInstruction from "./IEventListenersInstruction";
-import Instruction from "./Automation/Instruction";
+import Instruction from "../Automation/Instruction";
 import EventListener from "./EventListener";
-import FileInstruction from "./Automation/FileInstruction";
+import FileInstruction from "../Automation/FileInstruction";
 import { isNullOrUndefined } from "util";
 
 /**

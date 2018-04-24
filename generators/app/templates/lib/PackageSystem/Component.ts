@@ -1,4 +1,4 @@
-import Localizable from "./GLobalization/Localizable";
+import Localizable from "../GLobalization/Localizable";
 import Package from "./Package";
 import Person from "./Person";
 import { isNullOrUndefined } from "util";

@@ -1,7 +1,7 @@
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import Style from "./Style";
 import { isNullOrUndefined } from "util";
-import Package from "../Package";
+import Package from "../PackageSystem/Package";
 import IStyleInstruction from "./IStyleInstruction";
 
 /**

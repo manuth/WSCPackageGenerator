@@ -1,5 +1,5 @@
 import IPerson from "./IPerson";
-import Localizable from "./GLobalization/Localizable";
+import Localizable from "../GLobalization/Localizable";
 
 export default interface IComponent
 {

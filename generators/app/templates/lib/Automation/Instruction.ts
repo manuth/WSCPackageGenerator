@@ -1,4 +1,4 @@
-import Package from "../Package";
+import Package from "../PackageSystem/Package";
 import { isNullOrUndefined } from "util";
 import IInstruction from "./IInstruction";
 

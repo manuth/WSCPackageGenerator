@@ -1,6 +1,6 @@
 import * as Path from "path";
-import Package from "./lib/Package";
-import RequiredPackageDescriptor from "./lib/RequiredPackageDescriptor";
+import Package from "./lib/PackageSystem/Package";
+import RequiredPackageDescriptor from "./lib/PackageSystem/RequiredPackageDescriptor";
 import StyleInstructionCollection from "./lib/Customization/StyleInstructionCollection";
 import UpdateInstructionCollection from "./lib/Automation/UpdateInstructionCollection";
 

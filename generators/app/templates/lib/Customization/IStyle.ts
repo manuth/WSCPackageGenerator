@@ -1,5 +1,5 @@
-import Component from "../Component";
-import IComponent from "../IComponent";
+import Component from "../PackageSystem/Component";
+import IComponent from "../PackageSystem/IComponent";
 
 /**
  * Represents a style-configuration.
