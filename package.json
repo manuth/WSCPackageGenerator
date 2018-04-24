@@ -1,6 +1,6 @@
 {
   "name": "generator-wsc-package",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A yeoman generator for WoltLab Suite Core packages",
   "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
   "author": {
