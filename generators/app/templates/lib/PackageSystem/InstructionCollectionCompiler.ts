@@ -10,6 +10,7 @@ import FilesInstruction from "../FilesInstruction";
 import Instruction from "../Automation/Instruction";
 import InstructionCollection from "../Automation/InstructionCollection";
 import OptionsInstruction from "../Options/ControlPanel/OptionsInstruction";
+import SQLInstruction from "../Automation/Data/SQL/SQLInstruction";
 import StyleInstruction from "../Customization/Styles/StyleInstruction";
 import TemplateListenersInstruction from "../Customization/Presentation/TemplateListenersInstruction";
 import TranslationsInstruction from "../Globalization/TranslationsInstruction";
@@ -103,6 +104,10 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                             { Instruction: instruction, Locale: locale });
                     }
                 }
+            }
+            else if (instruction instanceof SQLInstruction)
+            {
+                
             }
             else if (instruction instanceof TranslationsInstruction)
             {

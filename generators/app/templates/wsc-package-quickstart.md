@@ -10,6 +10,7 @@ This environment allows you to easily create packages for WoltLab Suite Core.
 - [Examples](#examples)
     - [**`Package.ts`**](#packagets)
     - [Templates and Files](#templates-and-files)
+    - [`SQLInstruction`](#sqlinstruction)
     - [Options](#options)
     - [`SettingsNode`](#settingsnode)
     - [`Option`](#option)
@@ -402,6 +403,13 @@ If you don't specify a `FileName` the file will be stored to the same path with 
 ```ts
     FileName: "acptemplates/filebase.tar"
 ```
+
+## `SQLInstruction`
+Using this kind of instruction you can execute an SQL-file.
+
+### Properties
+#### `SourceRoot`
+The path to the `SQL`-file.
 
 ## Options
 Using the `OptionsInstruction` you can provide options and their translations for the Control-Panel.  

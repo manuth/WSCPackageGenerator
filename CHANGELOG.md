@@ -1,5 +1,7 @@
 # WSCPackageGenerator v0.0.5
   - Beautify code using tslint
+  - Add new Instruction-Types
+    - SQL-Instruction
 # WSCPackageGenerator v0.0.3
   - Fixed several templates which caused packages to not install such as:
     - The Package-metadata `package.xml`

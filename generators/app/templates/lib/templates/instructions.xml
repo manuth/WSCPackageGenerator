@@ -6,12 +6,14 @@
 %><% } %><%
 %><% for (let instruction of InstructionCollection) { %><%
     %><%switch (instruction.constructor.name) { case "FilesInstruction": %>
-        <instruction<%
-        %> type="file"<%
+        <instruction<% %> type="file"<%
             %><% if (instruction.Application) { %><%
                 %> application="<%= instruction.Application %>"<%
             %><% } %>><%
             %><%= destination %><%= instruction.FileName %></instruction><%
+        %><% break; %><%
+        %><% case "SQLInstruction": %>
+        <instruction type="sql"><%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "OptionsInstruction": %>
         <instruction type="option"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction>
