@@ -222,7 +222,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "componentPaths.files",
                 message: "Where do you want to store your file-mappings?",
-                default: "FileMappings",
+                default: "Files",
                 when: (answers: Generator.Answers) =>
                 {
                     return (answers["components"] as string[]).includes("files");
