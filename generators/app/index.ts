@@ -50,27 +50,6 @@ class WSCPackageGenerator extends Generator
     }
 
     /**
-     * Validates whether a file stored in a different folder is provided.
-     * 
-     * @param {string} value
-     * The value that is to be validated.
-     * 
-     * @param {Generator.Answers} answers
-     * The answers provided by the user.
-     */
-    private enforceSameFolder = (value: string, answers?: Generator.Answers): boolean | string =>
-    {
-        if (Path.dirname(value) === ".")
-        {
-            return true;
-        }
-        else
-        {
-            return "Subfolders are not allowed!";
-        }
-    }
-
-    /**
      * Validates whether the a value is provided.
      * 
      * @param {string} value
