@@ -100,7 +100,7 @@ For example:
 > The `Package.ts`-file contains meta-data of your package.
 ### Interface
 ```ts
-<%- include("./lib/IPackage.ts") %>
+<%- include("./lib/PackageSystem/IPackage.ts") %>
 ```
 
 ### Example
@@ -416,7 +416,7 @@ Using the `OptionsInstruction` you can provide options and their translations fo
 
 ### Interface
 ```ts
-<%- include("./lib/ControlPanel/IOptionsInstruction.ts") %>
+<%- include("./lib/Options/ControlPanel/IOptionsInstruction.ts") %>
 ```
 
 ### Example
@@ -528,7 +528,7 @@ A category may contain sub-categories or options.
 
 ### Interface
 ```ts
-<%- include("./lib/ControlPanel/ISettingsNode.ts") %>
+<%- include("./lib/Options/ControlPanel/ISettingsNode.ts") %>
 ```
 
 ### Example
@@ -644,7 +644,7 @@ Options are displayed in the Admin Control-Panel inside the category you've chos
 
 ### Interface
 ```ts
-<%- include("./lib/ControlPanel/IOption.ts") %>
+<%- include("./lib/Options/ControlPanel/IOption.ts") %>
 ```
 
 ### Properties
@@ -715,7 +715,7 @@ The type of the option.
 Following types are allowed:
 
 ```ts
-<%- include("./lib/Controlpanel/OptionType.ts") %>
+<%- include("./lib/Options/Controlpanel/OptionType.ts") %>
 ```
 
 **Examlpe:**
@@ -750,7 +750,7 @@ An option-item represents an item of an option with a `ComboBox`, `MultiSelect` 
 
 ### Interface
 ```ts
-<%- include("./lib/ControlPanel/IOptionItem.ts") %>
+<%- include("./lib/Options/ControlPanel/IOptionItem.ts") %>
 ```
 
 ### Properties
@@ -785,7 +785,7 @@ The `EventListenerInstruction` allows you to make WoltLab executing custom code 
 
 ### Interface
 ```ts
-<%- include("./lib/EventListener.ts") %>
+<%- include("./lib/Events/EventListener.ts") %>
 ```
 
 ### Examlpe
@@ -891,7 +891,7 @@ But there is one major difference: You can declare an ID to access the error-mes
 
 ### Interface
 ```ts
-<%- include("./lib/Globalization/IErrorMessagesInstruction.ts") %>
+<%- include("./lib/Globalization/Errors/IErrorMessagesInstruction.ts") %>
 ```
 
 ### Example
@@ -935,7 +935,7 @@ You can provide them using `TemlpateListenersInstruction`s.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/ITemplateListenersInstruction.ts") %>
+<%- include("./lib/Customization/Presentation/ITemplateListenersInstruction.ts") %>
 ```
 
 ### Examlpe
@@ -969,7 +969,7 @@ A set of temlpate-listeners.
 ## `TemlpateListener`
 ### Interface
 ```ts
-<%- include("./lib/Customization/ITemplateListener.ts") %>
+<%- include("./lib/Customization/Presentation/ITemplateListener.ts") %>
 ```
 
 ### Properties
@@ -993,7 +993,7 @@ You can provide your own emojis by using an `EmojisInstruction`.
 
 ### Interface
 ```ts
-<% include("./lib/Customization/IEmojisInstruction.ts") %>
+<% include("./lib/Customization/Emojis/IEmojisInstruction.ts") %>
 ```
 
 ### Examlpe
@@ -1031,7 +1031,7 @@ This class represents an emoji.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/IEmoji.ts") %>
+<%- include("./lib/Customization/Emojis/IEmoji.ts") %>
 ```
 
 ### Properties
@@ -1056,7 +1056,7 @@ You can provide new bb-codes using a `BBCodesInstruction`.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/IBBCodesInstruction.ts") %>
+<%- include("./lib/Customization/BBCodes/IBBCodesInstruction.ts") %>
 ```
 
 ### Example
@@ -1073,7 +1073,7 @@ A BB-Code is a tag you can use when editing or adding contents on/to WoltLab Sui
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/IBBCode.ts") %>
+<%- include("./lib/Customization/BBCodes/IBBCode.ts") %>
 ```
 
 ### Properties
@@ -1136,7 +1136,7 @@ A BBCode-attribute allows users to provide further arguments to the bbcode in or
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/IBBCodeAttribute.ts") %>
+<%- include("./lib/Customization/BBCodes/IBBCodeAttribute.ts") %>
 ```
 
 ### Properties
