@@ -32,20 +32,20 @@ export default abstract class Component implements IComponent
     /**
      * The version of the component.
      */
-    private version: string = require("../package.json").version;
+    private version: string = require("../../package.json").version;
 
     /**
      * The author of the component.
      */
     private author: Person = new Person({
-        Name: require("../package.json").author.name,
-        URL:  require("../package.json").author.url 
+        Name: require("../../package.json").author.name,
+        URL:  require("../../package.json").author.url 
     });
 
     /**
      * The license of the component.
      */
-    private license: string = require("../package.json").license;
+    private license: string = require("../../package.json").license;
 
     /**
      * Initializes a new instance of the `Component` class.
