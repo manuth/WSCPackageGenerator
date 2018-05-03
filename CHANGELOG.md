@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.6
+  - Rework the folder-structure
+
 # WSCPackageGenerator v0.0.5
   - Beautify code using tslint
   - Add new Instruction-Types
