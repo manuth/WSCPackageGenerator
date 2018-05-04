@@ -12,6 +12,7 @@
         "@types/mem-fs-editor": "^4.0.0",
         "@types/node": "^9.6.4",
         "@types/tmp": "0.0.33",
+        "deep-extend": "^0.5.1",
         "ejs": "^2.5.9",
         "fs-extra": "^5.0.0",
         "isbinaryfile": "^3.0.2",
