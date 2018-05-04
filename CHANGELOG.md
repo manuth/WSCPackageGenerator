@@ -1,5 +1,6 @@
 # WSCPackageGenerator v0.0.6
   - Rework the folder-structure
+  - Complete `SQLInstruction`-support
 
 # WSCPackageGenerator v0.0.5
   - Beautify code using tslint

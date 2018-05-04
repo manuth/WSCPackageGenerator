@@ -107,7 +107,7 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
             }
             else if (instruction instanceof SQLInstruction)
             {
-                
+                MemFileSystem.copyTpl(instruction.SourceRoot, this.MakeDestinationPath(instruction.FileName), { Instruction: instruction });
             }
             else if (instruction instanceof TranslationsInstruction)
             {
