@@ -1,3 +1,7 @@
+# WSCPackageGenerator v0.0.6
+  - Rework the fixed `copyTpl`-method which was written the wrong way.  
+    Sorry guys :sweat_smile:
+
 # WSCPackageGenerator v0.0.5
   - Rework the folder-structure
   - Complete `SQLInstruction`-support
