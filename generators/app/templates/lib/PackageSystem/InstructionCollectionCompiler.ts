@@ -262,7 +262,7 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                             MemFileSystem,
                             this.MakeTemplatePath("language.xml"),
                             this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
-                            { Instruction: instruction });
+                            { Instruction: instruction, Locale: locale });
                         // MemFileSystem.copyTpl(
                         //     this.MakeTemplatePath("language.xml"),
                         //     this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
