@@ -64,7 +64,8 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
             if (instruction instanceof FilesInstruction)
             {
                 let filesGenerator = memFsEditor.create(memFs.create());
-                filesGenerator.copyTpl(instruction.SourceRoot, this.MakeTempPath(instruction.SourceRoot), instruction.Package);
+                this.CopyTplFix(filesGenerator, instruction.SourceRoot, this.MakeTempPath(instruction.SourceRoot), instruction.Package);
+                // filesGenerator.copyTpl(instruction.SourceRoot, this.MakeTempPath(instruction.SourceRoot), instruction.Package);
 
                 await new Promise((resolve) =>
                 {
@@ -78,7 +79,8 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
             }
             else if (instruction instanceof OptionsInstruction)
             {
-                MemFileSystem.copyTpl(this.MakeTemplatePath("options.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                this.CopyTplFix(MemFileSystem, this.MakeTemplatePath("options.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                // MemFileSystem.copyTpl(this.MakeTemplatePath("options.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
                 {
                     let locales: string[] = [];
 
@@ -98,16 +100,22 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
 
                     for (let locale of locales)
                     {
-                        MemFileSystem.copyTpl(
+                        this.CopyTplFix(
+                            MemFileSystem,
                             this.MakeTemplatePath("language.xml"),
                             this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
                             { Instruction: instruction, Locale: locale });
+                        // MemFileSystem.copyTpl(
+                        //     this.MakeTemplatePath("language.xml"),
+                        //     this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
+                        //     { Instruction: instruction, Locale: locale });
                     }
                 }
             }
             else if (instruction instanceof SQLInstruction)
             {
-                MemFileSystem.copyTpl(instruction.SourceRoot, this.MakeDestinationPath(instruction.FileName), { Instruction: instruction });
+                this.CopyTplFix(MemFileSystem, instruction.SourceRoot, this.MakeDestinationPath(instruction.FileName), { Instruction: instruction });
+                // MemFileSystem.copyTpl(instruction.SourceRoot, this.MakeDestinationPath(instruction.FileName), { Instruction: instruction });
             }
             else if (instruction instanceof TranslationsInstruction)
             {
@@ -129,10 +137,15 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
 
                 for (let locale of locales)
                 {
-                    MemFileSystem.copyTpl(
+                    this.CopyTplFix(
+                        MemFileSystem,
                         this.MakeTemplatePath("language.xml"),
                         this.MakeComponentsPath(instruction.FileName, locale + ".xml"),
                         { Instruction: instruction, Locale: locale });
+                    // MemFileSystem.copyTpl(
+                    //     this.MakeTemplatePath("language.xml"),
+                    //     this.MakeComponentsPath(instruction.FileName, locale + ".xml"),
+                    //     { Instruction: instruction, Locale: locale });
                 }
             }
             else if (instruction instanceof EventListenersInstruction)
@@ -144,14 +157,24 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                 let style = instruction.Style;
                 let styleGenerator = memFsEditor.create(memFs.create());
 
-                styleGenerator.copyTpl(
+                this.CopyTplFix(
+                    styleGenerator,
                     this.MakeTemplatePath("style", "style.xml"),
-                    this.MakeStylesTempPath(instruction.Style.Name, "style.xml"),
+                    this.MakeStylesTempPath(style.Name, "style.xml"),
                     { Instruction: instruction });
-                styleGenerator.copyTpl(
+                // styleGenerator.copyTpl(
+                //     this.MakeTemplatePath("style", "style.xml"),
+                //     this.MakeStylesTempPath(style.Name, "style.xml"),
+                //     { Instruction: instruction });
+                this.CopyTplFix(
+                    styleGenerator,
                     this.MakeTemplatePath("style", "variables.xml"),
                     this.MakeStylesTempPath(style.Name, "variables.xml"),
                     { Instruction: instruction });
+                // styleGenerator.copyTpl(
+                //     this.MakeTemplatePath("style", "variables.xml"),
+                //     this.MakeStylesTempPath(style.Name, "variables.xml"),
+                //     { Instruction: instruction });
                 
                 await new Promise((resolve) =>
                 {
@@ -164,7 +187,15 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                 if (style.ImagesRoot)
                 {
                     let imagesGenerator = memFsEditor.create(memFs.create());
-                    imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, style.ImagesRoot), this.MakeStylesTempPath(style.Name, "images"), instruction.Package);
+                    this.CopyTplFix(
+                        imagesGenerator,
+                        Path.join(instruction.SourceRoot, style.ImagesRoot),
+                        this.MakeStylesTempPath(style.Name, "images"),
+                        instruction.Package);
+                    // imagesGenerator.copyTpl(
+                    //     Path.join(instruction.SourceRoot, style.ImagesRoot),
+                    //     this.MakeStylesTempPath(style.Name, "images"),
+                    //     instruction.Package);
 
                     await new Promise((resolve) =>
                     {
@@ -182,18 +213,32 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
             }
             else if (instruction instanceof TemplateListenersInstruction)
             {
-                MemFileSystem.copyTpl(
+                this.CopyTplFix(
+                    MemFileSystem,
                     this.MakeTemplatePath("templateListeners.xml"),
                     this.MakeComponentsPath(instruction.FileName),
                     { Instruction: instruction });
+                // MemFileSystem.copyTpl(
+                //     this.MakeTemplatePath("templateListeners.xml"),
+                //     this.MakeComponentsPath(instruction.FileName),
+                //     { Instruction: instruction });
             }
             else if (instruction instanceof EmojisInstruction)
             {
-                MemFileSystem.copyTpl(this.MakeTemplatePath("emojis.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                this.CopyTplFix(
+                    MemFileSystem,
+                    this.MakeTemplatePath("emojis.xml"),
+                    this.MakeComponentsPath(instruction.FileName),
+                    { Instruction: instruction });
+                // MemFileSystem.copyTpl(
+                //     this.MakeTemplatePath("emojis.xml"),
+                //     this.MakeComponentsPath(instruction.FileName),
+                //     { Instruction: instruction });
             }
             else if (instruction instanceof BBCodesInstruction)
             {
-                MemFileSystem.copyTpl(this.MakeTemplatePath("bbcodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                this.CopyTplFix(MemFileSystem, this.MakeTemplatePath("bbcodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                // MemFileSystem.copyTpl(this.MakeTemplatePath("bbcodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
                 {
                     let locales: string[] = [];
 
@@ -213,10 +258,15 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
 
                     for (let locale of locales)
                     {
-                        MemFileSystem.copyTpl(
+                        this.CopyTplFix(
+                            MemFileSystem,
                             this.MakeTemplatePath("language.xml"),
                             this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
-                            { Instruction: instruction, Locale: locale });
+                            { Instruction: instruction });
+                        // MemFileSystem.copyTpl(
+                        //     this.MakeTemplatePath("language.xml"),
+                        //     this.MakeComponentsPath(instruction.TranslationsDirectory, locale + ".xml"),
+                        //     { Instruction: instruction, Locale: locale });
                     }
                 }
             }

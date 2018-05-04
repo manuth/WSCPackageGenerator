@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
+    "ejs": "^2.5.9",
+    "isbinaryfile": "^3.0.2",
     "yeoman-generator": "^2.0.5",
     "yosay": "^2.0.1"
   },

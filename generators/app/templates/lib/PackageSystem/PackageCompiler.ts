@@ -70,7 +70,8 @@ export default class PackageCompiler extends Compiler<Package>
         await FileSystem.emptyDir(this.DestinationPath);
         await FileSystem.emptyDir(this.sourcePath);
 
-        MemFileSystem.copyTpl(
+        this.CopyTplFix(
+            MemFileSystem,
             this.MakeTemplatePath("package.xml"),
             this.MakeSourcePath("package.xml"),
             { Package: this.Item, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
@@ -97,12 +98,12 @@ export default class PackageCompiler extends Compiler<Package>
         {
             if (additionalFiles instanceof FilesInstruction)
             {
-                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeTempPath(additionalFiles.SourceRoot), this.Item);
+                this.CopyTplFix(MemFileSystem, additionalFiles.SourceRoot, this.MakeTempPath(additionalFiles.SourceRoot), this.Item);
                 this.Compress(this.MakeTempPath(additionalFiles.SourceRoot), this.MakeSourcePath(additionalFiles.FileName));
             }
             else
             {
-                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
+                this.CopyTplFix(MemFileSystem, additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
             }
         }
 

@@ -1,8 +1,11 @@
 import * as ChildProcess from "child_process";
+import * as EJS from "ejs";
 import * as FileSystem from "fs-extra";
+import IsBinaryFile = require("isbinaryfile");
 import * as Path from "path";
 import * as Temp from "tmp";
 import { isNullOrUndefined } from "util";
+import { memFsEditor } from "mem-fs-editor";
 
 /**
  * Provides the functionality to compile parts of the package.
@@ -142,5 +145,40 @@ export default abstract class Compiler<T>
             {
                 cwd: source
             });
+    }
+
+    /**
+     * Provides a quick and dirty fix for `mem-fs-editor` which doesn't support copying binary files yet.
+     * 
+     * @param editor
+     * The `mem-fs-editor` to perform the action.
+     * 
+     * @param from
+     * The source-file/directory/glob-pattern.
+     * 
+     * @param to 
+     * The destination-file/directory/glob-pattern.
+     * 
+     * @param context
+     * The context to use when transforming files using `ejs`.
+     * 
+     * @param tplSettings
+     * The settings to use when transforming file using `ejs`.
+     */
+    protected CopyTplFix(editor: memFsEditor.Editor, from: any, to: any, context: EJS.Data, tplSettings?: EJS.Options)
+    {
+        editor.copy(from, to, {
+            process: (contents: Object, filename?: string): memFsEditor.Contents =>
+            {
+                if (IsBinaryFile.sync(filename))
+                {
+                    return Buffer.from(contents as string, "binary");
+                }
+                else
+                {
+                    return EJS.render(contents.toString(), context, tplSettings || { });
+                }
+            }
+        })
     }
 }
