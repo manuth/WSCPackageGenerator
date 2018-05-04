@@ -1,5 +1,6 @@
 import * as ChildProcess from "child_process";
 import * as EJS from "ejs";
+import Extend = require("deep-extend")
 import * as FileSystem from "fs-extra";
 import IsBinaryFile = require("isbinaryfile");
 import * as Path from "path";
@@ -176,7 +177,7 @@ export default abstract class Compiler<T>
                 }
                 else
                 {
-                    return EJS.render(contents.toString(), context, tplSettings || { });
+                    return EJS.render(contents.toString(), context, Extend({ filename: filename }, tplSettings || { }));
                 }
             }
         })
