@@ -1,3 +1,7 @@
+# WSCPackageGenerator v0.0.8
+  - Add the most recent version of `mem-fs-editor`  
+    I'm so excited my PR really got merged just some days ago - can't believe it, tbh xD
+
 # WSCPackageGenerator v0.0.7
   - Its getting even worse... this time I forgot to add a some required dependencies to the template.  
     Looks just like today isn't my day xD
