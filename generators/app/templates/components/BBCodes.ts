@@ -3,8 +3,8 @@ import BBCodesInstruction from "../lib/Customization/BBCodes/BBCodesInstruction"
 
 const bbcodesInstruction: BBCodesInstruction = new BBCodesInstruction({
     BBCodes: [
-
-    ],
+        
+    ]
 });
 
 export = bbcodesInstruction;
