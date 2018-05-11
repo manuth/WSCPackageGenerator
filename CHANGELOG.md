@@ -1,7 +1,13 @@
+# WSCPackageGenerator v0.0.10
+  - Improve the user-experience of the main generator
+  - Fix the quickstart-package
+
+# WSCPackageGenerator v0.0.9
+  - Provide the functionality to access translation-identifiers using EJS
+
 # WSCPackageGenerator v0.0.8
   - Add the most recent version of `mem-fs-editor`  
     I'm so excited my PR really got merged just some days ago - can't believe it, tbh xD
-  - Provide the functionality to access translation-identifiers using EJS
 
 # WSCPackageGenerator v0.0.7
   - Its getting even worse... this time I forgot to add a some required dependencies to the template.  
