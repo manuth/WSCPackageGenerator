@@ -15,6 +15,11 @@ class WSCPackageGenerator extends Generator
     private settings: { [key: string]: any };
 
     /**
+     * The path to save the result to.
+     */
+    private destination: string;
+
+    /**
      * Initializes a new instance of the `Generator` class.
      * 
      * @param args
@@ -39,7 +44,7 @@ class WSCPackageGenerator extends Generator
      */
     private enforceDifferentFolder = (value: string, answers?: Generator.Answers): boolean | string =>
     {
-        if (answers["destination"] !== Path.resolve(answers["destination"], value))
+        if (this.destination !== Path.resolve(process.cwd(), this.destination, value))
         {
             return true;
         }
@@ -85,7 +90,8 @@ class WSCPackageGenerator extends Generator
                 default: "./",
                 filter: (value: string, answers?: Generator.Answers) =>
                 {
-                    return Path.resolve(process.cwd(), value);
+                    this.destination = Path.resolve(process.cwd(), value);
+                    return value;
                 }
             },
             {
@@ -94,7 +100,7 @@ class WSCPackageGenerator extends Generator
                 message: "What's the name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
-                    return Path.basename(answers["destination"]);
+                    return Path.basename(this.destination);
                 },
                 validate: this.forceInput
             },
@@ -350,7 +356,7 @@ class WSCPackageGenerator extends Generator
             bbcode: "BBCodes.ts"
         }
 
-        this.destinationRoot(this.settings["destination"]);
+        this.destinationRoot(this.destination);
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
         this.fs.copy(this.templatePath("lib/templates"), this.destinationPath("lib/templates"));
