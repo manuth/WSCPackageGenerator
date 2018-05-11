@@ -848,12 +848,12 @@ for example for displaying them when a user causes an exception.
 These identifiers are pretty long and you have to change them always when you adjust the structure of your messages.  
 That's why this package build-system allows you to access these identifiers using following syntax:
 ```
-<%= Translations.{ Translation-ID } %>
+<%%= Translations.{ Translation-ID } %%>
 ```
 
 For Example:
 ```php
-    throw new NamedUserException(WCF::getLanguage()->getDynamicVariable('<%= Translations.OutdatedInfraction %>'));
+    throw new NamedUserException(WCF::getLanguage()->getDynamicVariable('<%%= Translations.OutdatedInfraction %%>'));
 ```
 
 ### Interface
