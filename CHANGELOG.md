@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.11
+  - Display the path chosen when prompted for the destination-path after the generation has finished
+
 # WSCPackageGenerator v0.0.10
   - Improve the user-experience of the main generator
   - Fix the quickstart-package
