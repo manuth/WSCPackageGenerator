@@ -8,6 +8,11 @@ import TranslationNode from "./TranslationNode";
 export default interface ITranslationNode extends INodeContainer
 {
     /**
+     * Gets or sets the id of the error-message.
+     */
+    ID?: string;
+    
+    /**
      * Gets the nodes contained by this node.
      */
     Nodes?: TranslationNode[];

@@ -33,4 +33,19 @@ export default class TranslationsInstruction extends FileInstruction implements 
     {
         return this.translationNodes;
     }
+
+    /**
+     * Gets all messages provided by this instruction.
+     */
+    public get Translations(): { [id: string]: TranslationNode }
+    {
+        let result: { [id: string]: TranslationNode } = { };
+
+        for (let node of this.TranslationNodes)
+        {
+            Object.assign(result, node.GetMessages());
+        }
+
+        return result;
+    }
 }

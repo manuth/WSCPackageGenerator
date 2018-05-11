@@ -8,10 +8,5 @@ import Localizable from "../Localizable";
  */
 export default interface IErrorMessageNode extends ITranslationNode
 {
-    /**
-     * Gets or sets the id of the error-message.
-     */
-    ID?: string;
-
     Nodes?: ErrorMessageNode[];
 }

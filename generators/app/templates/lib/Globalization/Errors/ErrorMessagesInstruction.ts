@@ -42,13 +42,6 @@ export default class ErrorMessagesInstruction extends TranslationsInstruction im
      */
     public get Errors(): { [id: string]: ErrorMessageNode }
     {
-        let result: { [id: string]: ErrorMessageNode } = { };
-        
-        for (let node of this.TranslationNodes)
-        {
-            Object.assign(result, node.GetErrors());
-        }
-
-        return result;
+        return this.Translations as { [id: string]: ErrorMessageNode };
     }
 }

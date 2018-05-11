@@ -162,6 +162,14 @@ export default class Package extends Component implements IPackage
     }
 
     /**
+     * Gets the translations provided by this package
+     */
+    public get Translations(): { [id: string]: TranslationNode }
+    {
+        return this.InstallInstructions.Translations;
+    }
+
+    /**
      * Gets the error-messages provided by this package
      */
     public get ErrorMessages(): { [id: string]: ErrorMessageNode }

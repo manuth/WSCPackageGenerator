@@ -154,15 +154,15 @@ export default class InstructionCollection<T extends Instruction> extends Array<
     /**
      * Gets the translations provided by this collection.
      */
-    public get Translations(): TranslationNode[]
+    public get Translations(): { [id: string]: TranslationNode }
     {
-        let result: TranslationNode[] = [];
+        let result: { [id: string]: TranslationNode } = { };
 
         for (let instruction of this)
         {
-            if (instruction instanceof TranslationsInstruction)
+            if (instruction instanceof TranslationsInstruction && !(instruction instanceof ErrorMessagesInstruction))
             {
-                result.push(...instruction.TranslationNodes);
+                Object.assign(result, instruction.Translations);
             }
         }
 

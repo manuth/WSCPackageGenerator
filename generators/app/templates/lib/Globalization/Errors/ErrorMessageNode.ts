@@ -9,11 +9,6 @@ import { isNullOrUndefined } from "util";
 export default class ErrorMessageNode extends TranslationNode implements IErrorMessageNode
 {
     /**
-     * The id of the error-message.
-     */
-    private id: string;
-
-    /**
      * The nodes contained by this node.
      */
     private errorMessageNodes: ErrorMessageNode[] = new NodeCollection(this);
@@ -21,11 +16,6 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
     public constructor(options: IErrorMessageNode)
     {
         super(options);
-
-        if (!isNullOrUndefined(options.ID))
-        {
-            this.ID = options.ID;
-        }
 
         if (!isNullOrUndefined(options.Nodes))
         {
@@ -46,16 +36,6 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
         {
             return "wcf.acp.option.error." + this.FullName;
         }
-    }
-
-    public get ID(): string
-    {
-        return this.id;
-    }
-
-    public set ID(value: string)
-    {
-        this.id = value;
     }
 
     public get Nodes(): ErrorMessageNode[]
@@ -94,19 +74,7 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
      */
     public GetErrors(): { [id: string]: ErrorMessageNode }
     {
-        let result: { [id: string]: ErrorMessageNode } = { };
-
-        if (Object.keys(this.Translations).length > 0)
-        {
-            result[this.ID] = this;
-        }
-
-        for (let node of this.Nodes)
-        {
-            Object.assign(result, node.GetErrors());
-        }
-
-        return result;
+        return this.GetMessages() as { [id: string]: ErrorMessageNode };
     }
 
     /**

@@ -8,7 +8,12 @@ import { isNullOrUndefined } from "util";
  * Represents a node that contains localized variables.
  */
 export default class TranslationNode extends NodeContainer implements ITranslationNode
-{   
+{
+    /**
+     * The id of the error-message.
+     */
+    private id: string;
+
     /**
      * The nodes contained by this node.
      */
@@ -26,6 +31,11 @@ export default class TranslationNode extends NodeContainer implements ITranslati
     {
         super(options);
 
+        if (!isNullOrUndefined(options.ID))
+        {
+            this.ID = options.ID;
+        }
+
         if (!isNullOrUndefined(options.Nodes))
         {
             this.translationNodes.push(...options.Nodes);
@@ -37,6 +47,16 @@ export default class TranslationNode extends NodeContainer implements ITranslati
         }
     }
 
+    public get ID(): string
+    {
+        return this.id;
+    }
+
+    public set ID(value: string)
+    {
+        this.id = value;
+    }
+
     public get Nodes(): TranslationNode[]
     {
         return this.translationNodes;
@@ -45,6 +65,26 @@ export default class TranslationNode extends NodeContainer implements ITranslati
     public get Translations(): Localizable
     {
         return this.translations;
+    }
+
+    /**
+     * Gets all errors in this node and all its sub-nodes.
+     */
+    public GetMessages(): { [id: string]: TranslationNode }
+    {
+        let result: { [id: string]: TranslationNode } = { };
+
+        if (Object.keys(this.Translations).length > 0)
+        {
+            result[this.ID] = this;
+        }
+
+        for (let node of this.Nodes)
+        {
+            Object.assign(result, node.GetMessages());
+        }
+
+        return result;
     }
 
     /**
@@ -65,5 +105,10 @@ export default class TranslationNode extends NodeContainer implements ITranslati
         }
 
         return result;
+    }
+
+    public toString(): string
+    {
+        return this.FullName;
     }
 }
