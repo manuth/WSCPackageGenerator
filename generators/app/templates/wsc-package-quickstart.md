@@ -841,7 +841,20 @@ Please keep in mind to provide the PHP-file(s) using a `FilesInstruction`.
 This property allows you to choose whether to install the event-listener to the Default- (front-end), the Admin- (back-end) or both environments.
 
 ## Translations
-The `TranslationsInstruction` allows you to provide localizable messages for WoltLab.
+The `TranslationsInstruction` allows you to provide localizable messages for WoltLab.  
+When writing files (using the `FilesInstruction`) for WoltLab you may want to access the identifiers of the messages,
+for example for displaying them when a user causes an exception.
+
+These identifiers are pretty long and you have to change them always when you adjust the structure of your messages.  
+That's why this package build-system allows you to access these identifiers using following syntax:
+```
+<%= Translations.{ Translation-ID } %>
+```
+
+For Example:
+```php
+    throw new NamedUserException(WCF::getLanguage()->getDynamicVariable('<%= Translations.OutdatedInfraction %>'));
+```
 
 ### Interface
 ```ts
@@ -863,7 +876,17 @@ let translationsInstruction: TranslationsInstruction = new TranslationsInstructi
                     Translations: {
                         en: "Infraction",
                         de: "Verwarnung"
-                    }
+                    },
+                    Nodes: [
+                        new TranslationNode({
+                            ID: "OutdatedInfraction",
+                            Name: "outdated",
+                            Translations: {
+                                de: "Die Verwarnung ist veraltet.",
+                                en: "The infraction is outdated."
+                            }
+                        })
+                    ]
                 })
             ]
         })
@@ -884,7 +907,7 @@ If you don't specify a `FileName` "language" will be used.
 
 ## ErrorMessages
 Error-Messages are made up just the same way like translations.  
-But there is one major difference: You can declare an ID to access the error-message inside of EJS-compiled files using:
+You can access error-identifiers inside your ejs-flavored files like this:
 ```
 <%%= Errors.{ Error-ID } %%>
 ```
