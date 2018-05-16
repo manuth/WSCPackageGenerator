@@ -1,3 +1,7 @@
+# WSCPackageGenerator v0.0.12
+  - Add missing dependency  
+    I just noticed my generator never really worked unless one has `fs-extra` installed already
+
 # WSCPackageGenerator v0.0.11
   - Display the path chosen when prompted for the destination-path after the generation has finished
 
