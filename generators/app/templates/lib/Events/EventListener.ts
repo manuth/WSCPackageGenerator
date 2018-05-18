@@ -40,6 +40,11 @@ export default class EventListener extends Listener implements IEventListener
         {
             this.inherit = options.Inherit;
         }
+
+        if (!isNullOrUndefined(options.EventHandlerClassName))
+        {
+            this.eventHandlerClassName = options.EventHandlerClassName;
+        }
     }
 
     public get ClassName(): string

@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.13
+  - Fix the event-listener class
+
 # WSCPackageGenerator v0.0.12
   - Add missing dependency  
     I just noticed my generator never really worked unless one has `fs-extra` installed already
