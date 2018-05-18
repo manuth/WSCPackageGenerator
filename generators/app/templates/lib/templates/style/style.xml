@@ -5,21 +5,21 @@
     <general><%
 %><% for (let locale in style.DisplayName) { %>
         <stylename<%
-    %><% if (locale !== "inv") { %> language="<%= locale %>"<%
-    %><% } %>>
-            <![CDATA[<%- style.DisplayName[locale] %>]]>
-        </stylename><%
+    %><% if (locale !== "inv") { %><%
+        %> language="<%= locale %>"<%
+    %><% } %><%
+        %>><%
+            %><%= style.DisplayName[locale] %><%
+        %></stylename><%
 %><% } %>
-        <packageName>
-            <%= Instruction.Package.Identifier %>
-        </packageName><%
+        <packageName><%= Instruction.Package.Identifier %></packageName><%
 %><% for (let locale in style.Description) { %>
         <description<%
     %><% if (locale !== "inv") { %><%
         %> language="<%= locale %>"<%
-    %><% } %>>
-            <!CDATA[<%- style.Description[locale] %>]]>
-        </description><%
+    %><% } %>><%
+            %><%= style.Description[locale] %><%
+        %></description><%
 %><% } %>
         <version><%= style.Version %></version>
         <date><%
@@ -30,24 +30,24 @@
             %><%
         %></date><%
 %><% if (style.Thumbnail) { %>
-        <image>
-            <![CDATA[<%- style.Thumbnail %>]]>
-        </image><%
+        <image><%
+            %><%= style.Thumbnail %><%
+        %></image><%
 %><% } %><%
 %><% if (style.License) { %>
-        <license>
-            <![CDATA[<%- style.License %>]]>
-        </license><%
+        <license><%
+            %><%= style.License %><%
+        %></license><%
 %><% } %>
     </general>
     <author>
-        <authorname>
-            <![CDATA[<%- style.Author.Name %>]]>
-        </authorname><%
+        <authorname><%
+            %><%= style.Author.Name %><%
+        %></authorname><%
 %><% if (style.Author.URL) { %>
-        <authorurl>
-            <![CDATA[<%- style.Author.URL %>]]>
-        </authorurl><%
+        <authorurl><%
+            %><%= style.Author.URL %><%
+        %></authorurl><%
 %><% } %>
     </author>
     <files>

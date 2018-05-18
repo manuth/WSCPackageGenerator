@@ -7,7 +7,7 @@
         %><% for (let locale in node.Translations) { %><%
             %><% if (locale === Locale) { %>
         <item<% %> name="<%= node.FullName %>"><%
-            %><![CDATA[<%- node.Translations[locale] %>]]><%
+            %><%= node.Translations[locale] %><%
         %></item><%
             %><% } %><%
         %><% } %><%

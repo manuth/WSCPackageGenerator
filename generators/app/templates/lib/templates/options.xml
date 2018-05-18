@@ -26,9 +26,9 @@
             <defaultvalue><%= option.Default %></defaultvalue><%
         %><% } %><%
         %><% if (option.Items.length > 0) { %>
-            <selectoptions<% %>>
-                <![CDATA[<%= option.Items.map((item) => { return item.Value.toString() + ":" + item.FullName }).join("\n") %>]]>
-            </selectoptions><%
+            <selectoptions<% %>><%
+                %><%= option.Items.map((item) => { return item.Value.toString() + ":" + item.FullName }).join("\n") %><%
+            %></selectoptions><%
         %><% } %><%
         %><% if (option.EnableOptions.length > 0) { %>
             <enableoptions<% %>><%= option.EnableOptions.join(",") %></enableoptions><%

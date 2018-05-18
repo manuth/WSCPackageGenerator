@@ -26,9 +26,7 @@
         %><% } %>">
             <templatename><%= templateListener.TemplateName %></templatename>
             <eventname><%= templateListener.EventName %></eventname>
-            <templatecode>
-                <![CDATA[<%- templateListener.Code %>]]>
-            </templatecode>
+            <templatecode><%= templateListener.Code %></templatecode>
             <environment><%= environment %></environment>
         </templateListener><%
     %><% } %><%

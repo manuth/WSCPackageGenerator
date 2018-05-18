@@ -1,5 +1,6 @@
 # WSCPackageGenerator v0.0.13
   - Fix the event-listener class
+  - Rework xml-templates
 
 # WSCPackageGenerator v0.0.12
   - Add missing dependency  

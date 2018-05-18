@@ -4,14 +4,14 @@
     <packageinformation><%
     %><% for (let locale in Package.DisplayName) { %>
         <packagename<%
-        %><% if (locale !== "inv") { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- Package.DisplayName[locale] %>]]>
-        </packagename><% } %><%
+        %><% if (locale !== "inv") { %> language="<%= locale %>"<% } %>><%
+            %><%= Package.DisplayName[locale] %><%
+        %></packagename><% } %><%
     %><% for (let locale in Package.Description) { %>
         <packagedescription<%
-    %><% if (locale !== "inv") { %> language="<%= locale %>"<% } %>>
-            <![CDATA[<%- Package.Description[locale] %>]]>
-        </packagedescription><% } %>
+    %><% if (locale !== "inv") { %> language="<%= locale %>"<% } %>><%
+            %><%= Package.Description[locale] %><%
+        %></packagedescription><% } %>
         <version><%= Package.Version %></version>
         <date><%
             %><%= (

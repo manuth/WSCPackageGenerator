@@ -10,8 +10,8 @@
             <path2x<% %>><%= emoji.HighResFileName %><%
     %><% } %><%
     %><% if (emoji.Aliases.length > 0) { %>
-            <aliases<% %>><![CDATA[<%
-        %><%- emoji.Aliases.join("\n") %>]]><%
+            <aliases<% %>><%
+        %><%= emoji.Aliases.join("\n") %><%
         %></aliases><%
     %><% } %>
         </smiley><%
