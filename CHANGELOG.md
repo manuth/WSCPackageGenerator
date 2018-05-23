@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.16
+  - Add some more `.gitignore`-entries for a better user-experience
+
 # WSCPackageGenerator v0.0.15
   - Adjust the `.gitignore`-file to only ignore automatically generated JavaScript-files
   - Update all `npm`-packages
