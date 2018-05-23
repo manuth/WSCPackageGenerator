@@ -1,3 +1,7 @@
+# WSCPackageGenerator v0.0.15
+  - Adjust the `.gitignore`-file to only ignore automatically generated JavaScript-files
+  - Update all `npm`-packages
+
 # WSCPackageGenerator v0.0.14
   - Fix the creation of template-listeners
 
