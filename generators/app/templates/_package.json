@@ -1,6 +1,6 @@
 {
     "name": <%- JSON.stringify(name.toLowerCase()) %>,
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": <%- JSON.stringify(description) %>,
     "author": {
         "name": <%- JSON.stringify(author) %><% if (authorURL.length > 0) { %>,
