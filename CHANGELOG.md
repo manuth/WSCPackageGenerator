@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.14
+  - Fix the creation of template-listeners
+
 # WSCPackageGenerator v0.0.13
   - Fix the event-listener class
   - Rework xml-templates
