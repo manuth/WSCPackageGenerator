@@ -8,7 +8,6 @@
     "email": "m@nuth.ch",
     "url": "https://github.com/manuth"
   },
-  "main": "generators/index.js",
   "keywords": [
     "Woltlab Suite Core",
     "Package",
@@ -27,6 +26,7 @@
     "mem-fs-editor": "^4.0.2",
     "mocha": "^5.2.0",
     "tmp": "0.0.33",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.2",
