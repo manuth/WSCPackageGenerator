@@ -1,6 +1,7 @@
 .vscode/
-generators/*/*.js.map
-generators/*/*.ts
+**/*.js.map
+**/*.ts
+!generators/*/templates/**
 test/
 tests/
 .travis.yml
