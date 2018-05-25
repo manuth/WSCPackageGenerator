@@ -76,7 +76,7 @@ class WSCPackageGenerator extends Generator
     }
 
     /**
-     * Collects all informations about the packaged that is to be created.
+     * Collects all informations about the package that is to be created.
      */
     public Prompting()
     {
