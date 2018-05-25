@@ -123,12 +123,14 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "author",
                 message: "Please enter your name.",
-                default: this.user.git.name
+                default: this.user.git.name,
+                store: true
             },
             {
                 type: "input",
                 name: "authorURL",
-                message: "Please enter your homepage."
+                message: "Please enter your homepage.",
+                store: true
             },
             {
                 type: "input",
