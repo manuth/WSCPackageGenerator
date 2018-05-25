@@ -5,6 +5,7 @@
     ],
     "jsRules": {
         "eofline": false,
+        "forin": false,
         "one-line": false,
         "trailing-comma": false,
         "no-empty-interface": false,
@@ -20,6 +21,7 @@
     },
     "rules": {
         "eofline": false,
+        "forin": false,
         "one-line": false,
         "trailing-comma": false,
         "no-empty-interface": false,
