@@ -23,7 +23,7 @@ class WSCStyleGenerator extends Generator
      * @param {Generator.Answers} answers
      * The answers provided by the user.
      */
-    private forceInput = (value: string, answers?: Generator.Answers): boolean | string =>
+    private ForceInput = (value: string, answers?: Generator.Answers): boolean | string =>
     {
         if (value.length > 0)
         {
@@ -52,7 +52,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Collects all informations about the style that is to be created.
      */
-    prompting()
+    public Prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Style")} generator!`));
 
@@ -70,7 +70,7 @@ class WSCStyleGenerator extends Generator
                     }
                     else
                     {
-                        answers["stylesPath"] = this.config.get("stylesPath");
+                        answers.stylesPath = this.config.get("stylesPath");
                     }
                 }
             },
@@ -78,7 +78,7 @@ class WSCStyleGenerator extends Generator
                 type: "input",
                 name: "name",
                 message: "What's the name of your style?",
-                validate: this.forceInput
+                validate: this.ForceInput
             },
             {
                 type: "input",
@@ -86,9 +86,9 @@ class WSCStyleGenerator extends Generator
                 message: "What's the display-name of your style?",
                 default: (answers: Generator.Answers) =>
                 {
-                    return answers["name"];
+                    return answers.name;
                 },
-                validate: this.forceInput
+                validate: this.ForceInput
             },
             {
                 type: "input",
@@ -117,7 +117,7 @@ class WSCStyleGenerator extends Generator
                 default: "styles.scss",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("customStyles");
+                    return (answers.components as string[]).includes("customStyles");
                 }
             },
             {
@@ -127,7 +127,7 @@ class WSCStyleGenerator extends Generator
                 default: "override.scss",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("variableOverrides");
+                    return (answers.components as string[]).includes("variableOverrides");
                 }
             }
         ];
@@ -141,9 +141,9 @@ class WSCStyleGenerator extends Generator
     /**
      * Writes the templates
      */
-    writing()
+    public Writing()
     {
-        let basePath: string = Path.relative(Path.join(this.settings["stylesPath"], this.settings["name"]), ".");
+        let basePath: string = Path.relative(Path.join(this.settings.stylesPath, this.settings.name), ".");
         basePath = basePath.replace("\\", "/");
 
         if (basePath.length === 0)
@@ -151,23 +151,23 @@ class WSCStyleGenerator extends Generator
             basePath = ".";
         }
 
-        this.settings["basePath"] = basePath + "/";
-        this.fs.copyTpl(this.templatePath("Style.ts"), this.destinationPath(this.settings["stylesPath"], this.settings["name"], "Style.ts"), this.settings);
+        this.settings.basePath = basePath + "/";
+        this.fs.copyTpl(this.templatePath("Style.ts"), this.destinationPath(this.settings.stylesPath, this.settings.name, "Style.ts"), this.settings);
 
-        for (let component of (this.settings["components"] as string[]))
+        for (let component of (this.settings.components as string[]))
         {
             switch (component)
             {
                 case "customStyles":
                     this.fs.copyTpl(
                         this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings["stylesPath"], this.settings["name"], this.settings["componentPaths"][component]),
+                        this.destinationPath(this.settings.stylesPath, this.settings.name, this.settings.componentPaths[component]),
                         this.settings);
                     break;
                 case "variableOverrides":
                     this.fs.copyTpl(
                         this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings["stylesPath"], this.settings["name"], this.settings["componentPaths"][component]),
+                        this.destinationPath(this.settings.stylesPath, this.settings.name, this.settings.componentPaths[component]),
                         this.settings);
                     break;
                         
@@ -178,17 +178,17 @@ class WSCStyleGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    finalize()
+    public Finalize()
     {
-        this.config.set("stylesPath", this.settings["stylesPath"]);
+        this.config.set("stylesPath", this.settings.stylesPath);
         this.config.save();
 
         this.log();
-        this.log("Your style \"" + this.settings["name"] + "\" has been created!");
+        this.log("Your style \"" + this.settings.name + "\" has been created!");
         this.log();
         this.log(
             "Please keep in mind to add your styles-folder to the package" +
-            "by adding \"...new StyleInstructionCollection(\"" + this.settings["stylesPath"] + "\"" +
+            "by adding \"...new StyleInstructionCollection(\"" + this.settings.stylesPath + "\"" +
             "to the Install- or Update instruction-collection.");
     }
 }

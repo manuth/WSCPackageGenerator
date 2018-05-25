@@ -42,7 +42,7 @@ class WSCPackageGenerator extends Generator
      * @param {Generator.Answers} answers
      * The answers provided by the user.
      */
-    private enforceDifferentFolder = (value: string, answers?: Generator.Answers): boolean | string =>
+    private EnforceDifferentFolder = (value: string, answers?: Generator.Answers): boolean | string =>
     {
         if (this.destination !== Path.resolve(process.cwd(), this.destination, value))
         {
@@ -63,7 +63,7 @@ class WSCPackageGenerator extends Generator
      * @param {Generator.Answers} answers
      * The answers provided by the user.
      */
-    private forceInput = (value: string, answers?: Generator.Answers): boolean | string =>
+    private ForceInput = (value: string, answers?: Generator.Answers): boolean | string =>
     {
         if (value.length > 0)
         {
@@ -78,7 +78,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Collects all informations about the packaged that is to be created.
      */
-    prompting()
+    public Prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
@@ -102,7 +102,7 @@ class WSCPackageGenerator extends Generator
                 {
                     return Path.basename(this.destination);
                 },
-                validate: this.forceInput
+                validate: this.ForceInput
             },
             {
                 type: "input",
@@ -110,9 +110,9 @@ class WSCPackageGenerator extends Generator
                 message: "What's the display-name of your package?",
                 default: (answers: Generator.Answers) =>
                 {
-                    return answers["name"];
+                    return answers.name;
                 },
-                validate: this.forceInput
+                validate: this.ForceInput
             },
             {
                 type: "input",
@@ -136,16 +136,16 @@ class WSCPackageGenerator extends Generator
                 message: "Please type an identifier for your package:",
                 default: (answers: Generator.Answers) =>
                 {
-                    let reversedURI = (answers["authorURL"] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
+                    let reversedURI = (answers.authorURL as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
                     if (reversedURI.length === 0)
                     {
                         reversedURI = "com.example";
                     }
 
-                    return reversedURI + "." + (answers["name"] as string).toLowerCase();
+                    return reversedURI + "." + (answers.name as string).toLowerCase();
                 },
-                validate: this.forceInput
+                validate: this.ForceInput
             },
             {
                 type: "checkbox",
@@ -221,7 +221,7 @@ class WSCPackageGenerator extends Generator
                 default: "styles",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("style");
+                    return (answers.components as string[]).includes("style");
                 }
             },
             {
@@ -231,7 +231,7 @@ class WSCPackageGenerator extends Generator
                 default: "Files",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("files");
+                    return (answers.components as string[]).includes("files");
                 }
             },
             {
@@ -241,7 +241,7 @@ class WSCPackageGenerator extends Generator
                 default: "Options",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("acpOptions");
+                    return (answers.components as string[]).includes("acpOptions");
                 }
             },
             {
@@ -251,7 +251,7 @@ class WSCPackageGenerator extends Generator
                 default: "EventListeners",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("eventListener");
+                    return (answers.components as string[]).includes("eventListener");
                 }
             },
             {
@@ -261,7 +261,7 @@ class WSCPackageGenerator extends Generator
                 default: "Translations",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("translations");
+                    return (answers.components as string[]).includes("translations");
                 }
             },
             {
@@ -271,7 +271,7 @@ class WSCPackageGenerator extends Generator
                 default: "ErrorMessages",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).includes("errors");
+                    return (answers.components as string[]).includes("errors");
                 }
             },
             {
@@ -281,7 +281,7 @@ class WSCPackageGenerator extends Generator
                 default: "Templates",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("template") >= 0;
+                    return (answers.components as string[]).indexOf("template") >= 0;
                 }
             },
             {
@@ -291,9 +291,9 @@ class WSCPackageGenerator extends Generator
                 default: "ACPTemplates",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("acpTemplate") >= 0;
+                    return (answers.components as string[]).indexOf("acpTemplate") >= 0;
                 },
-                validate: this.enforceDifferentFolder
+                validate: this.EnforceDifferentFolder
             },
             {
                 type: "input",
@@ -302,7 +302,7 @@ class WSCPackageGenerator extends Generator
                 default: "TemplateListeners",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("templateListener") >= 0;
+                    return (answers.components as string[]).indexOf("templateListener") >= 0;
                 },
             },
             {
@@ -312,7 +312,7 @@ class WSCPackageGenerator extends Generator
                 message: "Where do you want to store emojis?",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("emoji") >= 0;
+                    return (answers.components as string[]).indexOf("emoji") >= 0;
                 }
             },
             {
@@ -322,7 +322,7 @@ class WSCPackageGenerator extends Generator
                 message: "Where do you want to store BB-Codes?",
                 when: (answers: Generator.Answers) =>
                 {
-                    return (answers["components"] as string[]).indexOf("bbcode") >= 0;
+                    return (answers.components as string[]).indexOf("bbcode") >= 0;
                 }
             }
         ];
@@ -336,12 +336,12 @@ class WSCPackageGenerator extends Generator
     /**
      * Writes the templates
      */
-    writing()
+    public writing()
     {
         let componentsPath = (value: string): string =>
         {
             return this.destinationPath("components", value);
-        }
+        };
 
         let componentTemplates: { [key: string]: string } = {
             files: "Files.ts",
@@ -354,7 +354,7 @@ class WSCPackageGenerator extends Generator
             templateListener: "TemplateListeners.ts",
             emoji: "Emojis.ts",
             bbcode: "BBCodes.ts"
-        }
+        };
 
         this.destinationRoot(this.destination);
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
@@ -367,17 +367,17 @@ class WSCPackageGenerator extends Generator
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
         this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"), { });
 
-        for (let component of this.settings["components"])
+        for (let component of this.settings.components)
         {
             switch (component)
             {
                 case "style":
-                    FileSystem.mkdirpSync(this.destinationPath(this.settings["componentPaths"][component]));
+                    FileSystem.mkdirpSync(this.destinationPath(this.settings.componentPaths[component]));
                     break;
                 default:
                     this.fs.copyTpl(
                         this.templatePath("components", componentTemplates[component]),
-                        componentsPath(this.settings["componentPaths"][component] + ".ts"),
+                        componentsPath(this.settings.componentPaths[component] + ".ts"),
                         this.settings);
                     break;
             }
@@ -387,11 +387,11 @@ class WSCPackageGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    install()
+    public install()
     {   
-        if (this.settings["components"].includes("style"))
+        if (this.settings.components.includes("style"))
         {
-            this.config.set("stylesPath", this.settings["componentPaths"]["style"]);
+            this.config.set("stylesPath", this.settings.componentPaths.style);
         }
 
         this.config.save();
@@ -402,19 +402,18 @@ class WSCPackageGenerator extends Generator
     /**
      * Show some helpful messages after finishing the installation-process.
      */
-    end()
+    public End()
     {
-
         this.log();
-        this.log("Your package \"" + this.settings["name"] + "\" has been created!");
+        this.log("Your package \"" + this.settings.name + "\" has been created!");
         this.log();
         this.log("To start editing with Visual Studio Code, use following commands:");
         this.log();
-        this.log("    cd \"" + this.settings["destination"] + "\"");
+        this.log("    cd \"" + this.settings.destination + "\"");
         this.log("    code .");
         this.log();
         this.log("Open wsc-package-quickstart.md inside the new package for further instructions on how to build it.");
     }
-};
+}
 
 export = WSCPackageGenerator;
