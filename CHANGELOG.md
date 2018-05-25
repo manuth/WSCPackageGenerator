@@ -1,3 +1,7 @@
+# WSCPackageGenerator v0.0.17
+  - Fix spelling-errors
+  - Store often used inputs such as the author's name or URL
+
 # WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience
 
