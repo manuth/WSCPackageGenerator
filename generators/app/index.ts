@@ -20,7 +20,7 @@ class WSCPackageGenerator extends Generator
     private destination: string;
 
     /**
-     * Initializes a new instance of the `Generator` class.
+     * Initializes a new instance of the `WSCPackageGenerator` class.
      * 
      * @param args
      * A set of arguments.
