@@ -925,15 +925,20 @@ import ErrorMessagesInstruction from "../lib/Globalization/ErrorMessagesInstruct
 let errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
     TranslationNodes: [
         new ErrorMessageNode({
-            Name: "ldap",
+            Name: "wcf.acp.option.error",
             Nodes: [
                 new ErrorMessageNode({
-                    ID: "InvalidHostname",
-                    Name: "invalidHostName",
-                    Translations: {
-                        en: "Host not found",
-                        de: "Host nicht gefunden"
-                    }
+                    Name: "ldap",
+                    Nodes: [
+                        new ErrorMessageNode({
+                            ID: "InvalidHostname",
+                            Name: "invalidHostName",
+                            Translations: {
+                                en: "Host not found",
+                                de: "Host nicht gefunden"
+                            }
+                        })
+                    ]
                 })
             ]
         })

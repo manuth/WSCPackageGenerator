@@ -3,7 +3,12 @@ import ErrorMessagesInstruction from "../lib/Globalization/Errors/ErrorMessagesI
 
 const errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
     TranslationNodes: [
-
+        new ErrorMessageNode({
+            Name: "wcf.acp.option.error",
+            Nodes: [
+                
+            ]
+        })
     ]
 });
 
