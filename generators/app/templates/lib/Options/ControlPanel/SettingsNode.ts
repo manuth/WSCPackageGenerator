@@ -68,11 +68,6 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
     {
         return this.displayName;
     }
-
-    public get FullCategoryName(): string
-    {
-        return "wcf.acp.option.category." + this.Name;
-    }
     
     public get Description(): Localizable
     {
@@ -101,7 +96,7 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
         if (Object.keys(this.DisplayName).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: "category." + this.Name,
+                Name: "category." + this.FullName,
                 Translations: this.DisplayName
             }));
         }
@@ -109,7 +104,7 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
         if (Object.keys(this.Description).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
-                Name: "category." + this.Name,
+                Name: "category." + this.FullName,
                 Nodes: [
                     new TranslationNode({
                         Name: "description",
