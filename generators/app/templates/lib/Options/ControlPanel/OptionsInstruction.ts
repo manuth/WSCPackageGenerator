@@ -124,6 +124,10 @@ export default class OptionsInstruction extends FileInstruction implements IOpti
                 {
                     result[i].Nodes.push(...translationNode.Nodes);
                 }
+                else
+                {
+                    result.push(translationNode);
+                }
             }
         }
 
