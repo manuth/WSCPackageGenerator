@@ -1,3 +1,6 @@
+# WSCPackageGenerator v0.0.17
+  - Add TSLint-support
+
 # WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience
   - Fix spelling-errors
