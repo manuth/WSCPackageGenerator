@@ -102,7 +102,7 @@ export default class InstructionCollection<T extends Instruction> extends Array<
      */
     public get Options(): { [id: string]: Option }
     {
-        let result: { [id: string]: Option } = { };
+        let result: { [id: string]: Option } = {};
 
         for (let instruction of this)
         {
@@ -118,15 +118,15 @@ export default class InstructionCollection<T extends Instruction> extends Array<
     /**
      * Gets the categories provided by this collection.
      */
-    public get Categories(): SettingsNode[]
+    public get Categories(): { [id: string]: SettingsNode }
     {
-        let result: SettingsNode[] = [];
+        let result: { [id: string]: SettingsNode } = {}   ;
 
         for (let instruction of this)
         {
             if (instruction instanceof OptionsInstruction)
             {
-                result.push(...instruction.Categories);
+                Object.assign(result, instruction.Categories);
             }
         }
 
@@ -156,7 +156,7 @@ export default class InstructionCollection<T extends Instruction> extends Array<
      */
     public get Translations(): { [id: string]: TranslationNode }
     {
-        let result: { [id: string]: TranslationNode } = { };
+        let result: { [id: string]: TranslationNode } = {};
 
         for (let instruction of this)
         {
@@ -174,7 +174,7 @@ export default class InstructionCollection<T extends Instruction> extends Array<
      */
     public get ErrorMessages(): { [id: string]: ErrorMessageNode }
     {
-        let result: { [id: string]: ErrorMessageNode } = { };
+        let result: { [id: string]: ErrorMessageNode } = {};
 
         for (const instruction of this)
         {
@@ -219,7 +219,7 @@ export default class InstructionCollection<T extends Instruction> extends Array<
                 result.push(instruction);
             }
         }
-        
+
         return result;
     }
 

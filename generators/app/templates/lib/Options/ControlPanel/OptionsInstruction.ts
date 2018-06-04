@@ -93,13 +93,13 @@ export default class OptionsInstruction extends FileInstruction implements IOpti
     /**
      * Gets all categories provided by the instruction.
      */
-    public get Categories(): SettingsNode[]
+    public get Categories(): { [id: string]: SettingsNode }
     {
-        let result: SettingsNode[] = [];
+        let result: { [id: string]: SettingsNode } = {};
 
         for (let settingsNode of this.SettingsNodes)
         {
-            result.push(...settingsNode.GetCategories());
+            Object.assign(result, settingsNode.GetCategories());
         }
 
         return result;

@@ -9,6 +9,7 @@ import IPackage from "./IPackage";
 import Option from "../Options/ControlPanel/Option";
 import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
 import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
+import SettingsNode from "../Options/ControlPanel/SettingsNode";
 import TranslationNode from "../Globalization/TranslationNode";
 import UpdateInstructionCollection from "../Automation/UpdateInstructionCollection";
 import UpdatesCollection from "../Automation/UpdatesCollection";
@@ -151,6 +152,14 @@ export default class Package extends Component implements IPackage
     public get ConflictingPackages(): ConflictingPackageDescriptor[]
     {
         return this.conflictingPackages;
+    }
+
+    /**
+     * Gets the categories provided by this package.
+     */
+    public get Categories(): { [id: string]: SettingsNode }
+    {
+        return this.installInstructions.Categories;
     }
 
     /**
