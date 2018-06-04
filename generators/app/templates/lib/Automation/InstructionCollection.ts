@@ -120,13 +120,16 @@ export default class InstructionCollection<T extends Instruction> extends Array<
      */
     public get Categories(): { [id: string]: SettingsNode }
     {
-        let result: { [id: string]: SettingsNode } = {}   ;
+        let result: { [id: string]: SettingsNode } = {};
 
         for (let instruction of this)
         {
             if (instruction instanceof OptionsInstruction)
             {
-                Object.assign(result, instruction.Categories);
+                for (let category of instruction.Categories)
+                {
+                    result[category.Name] = category;
+                }
             }
         }
 

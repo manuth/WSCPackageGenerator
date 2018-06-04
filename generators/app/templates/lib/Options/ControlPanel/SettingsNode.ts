@@ -167,14 +167,14 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
     /**
      * Gets all categories in this node and all its sub-nodes.
      */
-    public GetCategories(): { [id: string]: SettingsNode }
+    public GetCategories(): SettingsNode[]
     {
-        let result: { [id: string]: SettingsNode } = {};
-        result[this.Name] = this;
+        let result: SettingsNode[] = [];
+        result.push(this);
 
         for (let node of this.Nodes)
         {
-            Object.assign(node.GetCategories());
+            result.push(...node.GetCategories());
         }
 
         return result;
