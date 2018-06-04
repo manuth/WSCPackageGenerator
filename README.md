@@ -23,3 +23,7 @@ yo wsc-package
     - Watching TypeScript-files
     - Building the Package
   - Create Visual Studio Code-Tasks for compiling and building the package by pressing <kbd>CTRL</kbd>, <kbd>SHIFT</kbd> + <kbd>B</kbd>
+
+## ToDo's
+  - Simplify the usage of `ErrorMessages`
+  - Implement user-options
