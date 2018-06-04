@@ -4,9 +4,14 @@ import ErrorMessagesInstruction from "../lib/Globalization/Errors/ErrorMessagesI
 const errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
     TranslationNodes: [
         new ErrorMessageNode({
-            Name: "wcf.acp.option.error",
+            Name: "wcf.acp.option",
             Nodes: [
-                
+                new ErrorMessageNode({
+                    Name: "error",
+                    Nodes: [
+                        
+                    ]
+                })
             ]
         })
     ]
