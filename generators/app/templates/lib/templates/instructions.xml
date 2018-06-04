@@ -29,7 +29,8 @@
         %><% case "EventListenersInstruction": %>
         <instruction type="eventListener"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
-        %><% case "TranslationsInstruction": %>
+        %><% case "TranslationsInstruction": %><%
+        %><% case "ErrorMessagesInstruction": %>
         <instruction type="language"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %>/*.xml</instruction><%
         %><% break; %><%
         %><% case "StyleInstruction": %>
