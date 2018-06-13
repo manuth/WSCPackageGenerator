@@ -17,7 +17,8 @@
         "max-line-length": false,
         "arrow-parens": false,
         "array-type": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-console": false
     },
     "rules": {
         "eofline": false,
@@ -33,6 +34,7 @@
         "max-line-length": false,
         "arrow-parens": false,
         "array-type": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-console": false
     }
 }
