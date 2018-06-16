@@ -2,6 +2,7 @@
 ## WSCPackageGenerator v0.0.17
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
+  - Fix the listener-templates
 
 ## WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience

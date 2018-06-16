@@ -27,7 +27,12 @@
             <templatename><%= templateListener.TemplateName %></templatename>
             <eventname><%= templateListener.EventName %></eventname>
             <templatecode><%= templateListener.Code %></templatecode>
-            <environment><%= environment %></environment>
+            <environment><%= environment %></environment><%
+        %><% if (eventListener.Options.length > 0) { %>
+            <options><%
+            %><%= eventListener.Options.join(",") %><%
+            %></options><%
+        %><% } %>
         </templatelistener><%
     %><% } %><%
 %><% } %>
