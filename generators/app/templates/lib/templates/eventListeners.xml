@@ -27,7 +27,12 @@
             <inherit<% %>><%= (eventListener.Inherit ? 1 : 0) %></inherit>
             <eventname<% %>><%= eventListener.EventName %></eventname>
             <listenerclassname<% %>><%= eventListener.EventHandlerClassName %></listenerclassname>
-            <environment<% %>><%= environment %></environment>
+            <environment<% %>><%= environment %></environment><%
+        %><% if (eventListener.Options.length > 0) { %>
+            <options><%
+            %><%= eventListener.Options.join(",") %><%
+            %></options><%
+        %><% } %>
         </eventlistener><%
     %><% } %><%
 %><% } %>
