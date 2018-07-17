@@ -22,6 +22,7 @@
         %></description><%
 %><% } %>
         <version><%= style.Version %></version>
+        <apiVersion>3.1</apiVersion>
         <date><%
             %><%= (
                 style.Date.getFullYear() + "-" +
