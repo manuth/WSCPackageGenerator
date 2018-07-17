@@ -53,7 +53,7 @@
     <files>
         <variables>variables.xml</variables><%
 %><% if (style.ImagesRoot) { %>
-    <images path="images/<%= Style.Name %>">images.tar</images><%
+    <images path="images/<%= style.Name %>">images.tar</images><%
 %><% } %>
     </files>
 </style>

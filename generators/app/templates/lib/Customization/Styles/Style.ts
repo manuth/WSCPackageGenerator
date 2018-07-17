@@ -1,7 +1,7 @@
 import * as FileSystem from "fs";
 import Component from "../../PackageSystem/Component";
-import Instruction from "../../Automation/Instruction";
 import IStyle from "./IStyle";
+import * as Path from "path";
 import StyleInstruction from "./StyleInstruction";
 import { isNullOrUndefined } from "util";
 
@@ -26,6 +26,11 @@ export default class Style extends Component
     private imagesRoot: string = null;
 
     /**
+     * The variables of the style.
+     */
+    private variables: object = { };
+
+    /**
      * The scss-code provided by this style.
      */
     private customScss: string = null;
@@ -42,7 +47,7 @@ export default class Style extends Component
     public constructor(options: IStyle)
     {
         super(options);
-    
+
         if (!isNullOrUndefined(options.Thumbnail))
         {
             this.thumbnail = options.Thumbnail;
@@ -51,6 +56,11 @@ export default class Style extends Component
         if (!isNullOrUndefined(options.ImagesRoot))
         {
             this.imagesRoot = options.ImagesRoot;
+        }
+        
+        if (!isNullOrUndefined(options.VariableFile))
+        {
+            this.variables = require(Path.join(process.cwd(), options.VariableFile));
         }
 
         if (!isNullOrUndefined(options.CustomScssFile))
@@ -104,18 +114,31 @@ export default class Style extends Component
     }
 
     /**
+     * Gets or sets the variables of the style.
+     */
+    public get Variables(): object
+    {
+        return this.variables;
+    }
+
+    public set Variables(value: object)
+    {
+        this.variables = value;
+    }
+
+    /**
      * Gets or sets the scss-code provided by this style.
      */
     public get CustomScss(): string
     {
         return this.customScss;
     }
-    
+
     public set CustomScss(value: string)
     {
         this.customScss = value;
     }
-    
+
     /**
      * Gets or sets the scss-code provided by this style that is used
      * for overwriting variables originally provided by WoltLab Suite Core.

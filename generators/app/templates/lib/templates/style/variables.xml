@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <variables xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <%
 %>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd"><%
+%><% for (let variableName in Instruction.Style.Variables) { %>
+    <variable name="<%= variableName %>"><%
+        %><%= Instruction.Style.Variables[variableName] %><%
+    %></variable><%
+%><% } %><%
 %><% if (Instruction.Style.CustomScss) { %>
     <variable name="individualScss"><%
         %><%= Instruction.Style.CustomScss %><%

@@ -15,6 +15,11 @@ export default interface IStyle extends IComponent
      * Gets or sets the root of the images provided by the style.
      */
     ImagesRoot?: string;
+
+    /**
+     * Gets or sets the filename of the json or js-file that contains variables.
+     */
+    VariableFile?: string;
     
     /**
      * Gets or sets the filename of the file that contains the custom scss-code.
