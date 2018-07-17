@@ -22,6 +22,7 @@
     "@types/yeoman-generator": "^2.0.3",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
+    "hex-to-rgba": "^1.0.1",
     "mem-fs": "^1.1.3",
     "mem-fs-editor": "^4.0.2",
     "mocha": "^5.2.0",

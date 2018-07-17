@@ -1,5 +1,7 @@
 import * as FileSystem from "fs";
 import Component from "../../PackageSystem/Component";
+import * as Hex2RgbaMethod from "hex-to-rgba";
+import Hex2RgbaModule from "hex-to-rgba";
 import IStyle from "./IStyle";
 import * as OS from "os";
 import * as Path from "path";
@@ -7,6 +9,7 @@ import StyleInstruction from "./StyleInstruction";
 import ImageFolderDescriptor from "./ImageFolderDescriptor";
 import { isNullOrUndefined } from "util";
 import { parse } from "sass-variable-parser";
+const Hex2Rgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**
  * Represents a style for WoltLab Suite Core.
@@ -340,7 +343,14 @@ export default class Style extends Component
                 case "wcfFooterCopyrightText":
                 case "wcfFooterCopyrightLink":
                 case "wcfFooterCopyrightLinkActive":
-                    this.Variables[name] = variables[name];
+                    if (/#(\d{3}|\d{4}|\d{6}|\d{8})/.test(variables[name]))
+                    {
+                        this.Variables[name] = Hex2Rgba(variables[name]);
+                    }
+                    else
+                    {
+                        this.Variables[name] = variables[name];
+                    }
                     break;
                 
                 case "messageSidebarOrientation":
