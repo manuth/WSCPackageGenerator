@@ -3,6 +3,7 @@ import Component from "../../PackageSystem/Component";
 import IStyle from "./IStyle";
 import * as Path from "path";
 import StyleInstruction from "./StyleInstruction";
+import ImageFolderDescriptor from "./ImageFolderDescriptor";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -23,7 +24,7 @@ export default class Style extends Component
     /**
      * The root of the images provided by this style.
      */
-    private imagesRoot: string = null;
+    private images: ImageFolderDescriptor = null;
 
     /**
      * The variables of the style.
@@ -55,7 +56,7 @@ export default class Style extends Component
 
         if (!isNullOrUndefined(options.ImagesRoot))
         {
-            this.imagesRoot = options.ImagesRoot;
+            this.images = options.ImagesRoot;
         }
         
         if (!isNullOrUndefined(options.VariableFile))
@@ -103,14 +104,14 @@ export default class Style extends Component
     /**
      * Gets or sets the root of the images provided by this style.
      */
-    public get ImagesRoot(): string
+    public get Images(): ImageFolderDescriptor
     {
-        return this.imagesRoot;
+        return this.images;
     }
 
-    public set ImagesRoot(value: string)
+    public set Images(value: ImageFolderDescriptor)
     {
-        this.imagesRoot = value;
+        this.images = value;
     }
 
     /**

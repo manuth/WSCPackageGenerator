@@ -1,5 +1,5 @@
-import Component from "../../PackageSystem/Component";
 import IComponent from "../../PackageSystem/IComponent";
+import ImageFolderDescriptor from "./ImageFolderDescriptor";
 
 /**
  * Represents a style-configuration.
@@ -14,7 +14,7 @@ export default interface IStyle extends IComponent
     /**
      * Gets or sets the root of the images provided by the style.
      */
-    ImagesRoot?: string;
+    ImagesRoot?: ImageFolderDescriptor;
 
     /**
      * Gets or sets the filename of the json or js-file that contains variables.

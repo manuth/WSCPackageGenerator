@@ -161,10 +161,10 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                     });
                 });
 
-                if (style.ImagesRoot)
+                if (style.Images)
                 {
                     let imagesGenerator = memFsEditor.create(memFs.create());
-                    imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, style.ImagesRoot), this.MakeStylesTempPath(style.Name, "images"), instruction.Package);
+                    imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, style.Images.SourceRoot), this.MakeTempPath(style.Name, "images"), instruction.Package);
 
                     await new Promise((resolve) =>
                     {
@@ -174,8 +174,8 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                         });
                     });
 
-                    this.Compress(this.MakeStylesTempPath(style.Name, "images"), this.MakeStylesTempPath(style.Name, "images.tar"));
-                    await FileSystem.remove(this.MakeStylesTempPath(style.Name, "images"));
+                    this.Compress(this.MakeTempPath(style.Name, "images"), this.MakeStylesTempPath(style.Name, style.Images.FileName));
+                    await FileSystem.remove(this.MakeTempPath(style.Name, "images"));
                 }
 
                 await this.Compress(this.MakeStylesTempPath(style.Name), this.MakeStylesPath(instruction.FileName));

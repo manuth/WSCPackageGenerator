@@ -52,8 +52,8 @@
     </author>
     <files>
         <variables>variables.xml</variables><%
-%><% if (style.ImagesRoot) { %>
-    <images path="images/<%= style.Name %>">images.tar</images><%
+%><% if (style.Images) { %>
+        <images path="<%= style.Images.DestinationRoot %>"><%= style.Images.FileName %></images><%
 %><% } %>
     </files>
 </style>
