@@ -1,4 +1,5 @@
 import * as FileSystem from "fs";
+import * as ColorNames from "colornames";
 import Component from "../../PackageSystem/Component";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";
@@ -346,6 +347,14 @@ export default class Style extends Component
                     if (/#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/.test(variables[name]))
                     {
                         this.Variables[name] = Hex2Rgba(variables[name]);
+                    }
+                    else if (ColorNames.get.css(variables[name]))
+                    {
+                        this.Variables[name] = Hex2Rgba(ColorNames.get.css(variables[name]).value);
+                    }
+                    else if (variables[name] === "transparent")
+                    {
+                        this.Variables[name] = Hex2Rgba("#0000");
                     }
                     else
                     {
