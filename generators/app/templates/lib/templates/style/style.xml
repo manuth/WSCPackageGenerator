@@ -40,6 +40,11 @@
             %><%= style.HighResThumbnail %><%
         %></image2x><%
 %><% } %><%
+%><% if (style.CoverPhoto) { %>
+        <coverPhoto><%
+            %><%= style.CoverPhoto %><%
+        %></coverPhoto><%
+%><% } %><%
 %><% if (style.License) { %>
         <license><%
             %><%= style.License %><%

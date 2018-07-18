@@ -33,6 +33,11 @@ export default class Style extends Component
     private highResThumbnail: string = null;
 
     /**
+     * The default cover-photo for user-profiles.
+     */
+    private coverPhoto: string = null;
+
+    /**
      * The root of the images provided by this style.
      */
     private images: ImageFolderDescriptor = null;
@@ -68,6 +73,11 @@ export default class Style extends Component
         if (!isNullOrUndefined(options.HighResThumbnail))
         {
             this.highResThumbnail = options.HighResThumbnail;
+        }
+
+        if (!isNullOrUndefined(options.CoverPhoto))
+        {
+            this.coverPhoto = options.CoverPhoto;
         }
 
         if (!isNullOrUndefined(options.ImagesRoot))
@@ -128,6 +138,19 @@ export default class Style extends Component
     public set HighResThumbnail(value: string)
     {
         this.highResThumbnail = value;
+    }
+
+    /**
+     * Gets or sets the default cover-photo for user-profiles.
+     */
+    public get CoverPhoto(): string
+    {
+        return this.coverPhoto;
+    }
+
+    public set CoverPhoto(value: string)
+    {
+        this.coverPhoto = value;
     }
 
     /**

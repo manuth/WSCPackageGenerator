@@ -9,6 +9,7 @@
   - Fix the way to handle style-variables
     - Style-Variables are now resolved using SASS and then added to the `variables.xml`-file
   - Provide the functionality to declare thumbnails for styles
+  - Provide the functionality to add a default cover-photo
 
 ## WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience

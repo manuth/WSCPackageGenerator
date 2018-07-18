@@ -166,6 +166,13 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                         Path.join(instruction.SourceRoot, style.HighResThumbnail),
                         this.MakeStylesTempPath(style.Name, style.HighResThumbnail));
                 }
+
+                if (style.CoverPhoto)
+                {
+                    styleGenerator.copy(
+                        Path.join(instruction.SourceRoot, style.CoverPhoto),
+                        this.MakeStylesTempPath(style.Name, style.CoverPhoto));
+                }
                 
                 await new Promise((resolve) =>
                 {

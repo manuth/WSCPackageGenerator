@@ -17,6 +17,11 @@ export default interface IStyle extends IComponent
     HighResThumbnail?: string;
 
     /**
+     * Gets or sets the default cover-photo for user-profiles.
+     */
+    CoverPhoto?: string;
+
+    /**
      * Gets or sets the root of the images provided by the style.
      */
     ImagesRoot?: ImageFolderDescriptor;
