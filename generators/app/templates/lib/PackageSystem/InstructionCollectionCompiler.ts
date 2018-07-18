@@ -153,6 +153,13 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                     this.MakeStylesTempPath(style.Name, "variables.xml"),
                     { Instruction: instruction });
                 
+                if (style.Thumbnail)
+                {
+                    styleGenerator.copy(
+                        Path.join(instruction.SourceRoot, style.Thumbnail),
+                        this.MakeStylesTempPath(style.Name, style.Thumbnail));
+                }
+
                 await new Promise((resolve) =>
                 {
                     styleGenerator.commit([], () =>
