@@ -3,6 +3,12 @@
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
   - Fix the listener-templates
+  - Improve the way to declare style-variables:  
+    You can now declare style-variables using either a `.json` or a `.js`-file
+  - Improve the way to declare images for styles
+  - Fix the way to handle style-variables
+    - Style-Variables are now resolved using SASS and then added to the `variables.xml`-file
+  - Provide the functionality to declare thumbnails for styles
 
 ## WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience
