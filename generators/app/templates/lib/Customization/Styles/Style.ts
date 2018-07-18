@@ -28,6 +28,11 @@ export default class Style extends Component
     private thumbnail: string = null;
 
     /**
+     * The filename of the high-resolution version of the thumbnanil of the style.
+     */
+    private highResThumbnail: string = null;
+
+    /**
      * The root of the images provided by this style.
      */
     private images: ImageFolderDescriptor = null;
@@ -58,6 +63,11 @@ export default class Style extends Component
         if (!isNullOrUndefined(options.Thumbnail))
         {
             this.thumbnail = options.Thumbnail;
+        }
+
+        if (!isNullOrUndefined(options.HighResThumbnail))
+        {
+            this.highResThumbnail = options.HighResThumbnail;
         }
 
         if (!isNullOrUndefined(options.ImagesRoot))
@@ -105,6 +115,19 @@ export default class Style extends Component
     public set Thumbnail(value: string)
     {
         this.thumbnail = value;
+    }
+
+    /**
+     * Gets or sets the filename of the high-resolution version of the thumbnanil of the style.
+     */
+    public get HighResThumbnail(): string
+    {
+        return this.highResThumbnail;
+    }
+
+    public set HighResThumbnail(value: string)
+    {
+        this.highResThumbnail = value;
     }
 
     /**

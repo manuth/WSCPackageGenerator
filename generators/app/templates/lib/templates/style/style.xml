@@ -35,6 +35,11 @@
             %><%= style.Thumbnail %><%
         %></image><%
 %><% } %><%
+%><% if (style.HighResThumbnail) { %>
+        <image2x><%
+            %><%= style.HighResThumbnail %><%
+        %></image2x><%
+%><% } %><%
 %><% if (style.License) { %>
         <license><%
             %><%= style.License %><%

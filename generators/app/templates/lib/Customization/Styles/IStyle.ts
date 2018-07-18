@@ -12,6 +12,11 @@ export default interface IStyle extends IComponent
     Thumbnail?: string;
 
     /**
+     * Gets or sets the filename of the high-resolution version of the thumbnanil of the style.
+     */
+    HighResThumbnail?: string;
+
+    /**
      * Gets or sets the root of the images provided by the style.
      */
     ImagesRoot?: ImageFolderDescriptor;
