@@ -94,15 +94,7 @@ export default class PackageCompiler extends Compiler<Package>
 
         for (let additionalFiles of this.Item.AdditionalFiles)
         {
-            if (additionalFiles instanceof FilesInstruction)
-            {
-                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeTempPath(additionalFiles.SourceRoot), this.Item);
-                this.Compress(this.MakeTempPath(additionalFiles.SourceRoot), this.MakeSourcePath(additionalFiles.FileName));
-            }
-            else
-            {
-                MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
-            }
+            MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
         }
 
         await new Promise((resolve) =>
