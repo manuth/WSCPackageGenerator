@@ -1,5 +1,5 @@
 import ISettingsNode from "./ISettingsNode";
-import Localizable from "../../Globalization/Localizable";
+import Localizable from "../../GLobalization/Localizable";
 import NodeCollection from "../../Nodes/NodeCollection";
 import NodeContainer from "../../Nodes/NodeContainer";
 import Option from "./Option";

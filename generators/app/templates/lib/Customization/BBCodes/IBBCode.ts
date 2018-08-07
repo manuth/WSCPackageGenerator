@@ -1,5 +1,5 @@
 import BBCodeAttribute from "./BBCodeAttribute";
-import Localizable from "../../Globalization/Localizable";
+import Localizable from "../../GLobalization/Localizable";
 
 /**
  * Represents a bb-code.

@@ -1,4 +1,4 @@
-import IListener from "../../IListener";
+import IListener from "../../Core/IListener";
 
 /**
  * Represents a listener that subscribes to an event inside a template.

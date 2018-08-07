@@ -6,7 +6,7 @@ import ErrorMessagesInstruction from "../Globalization/Errors/ErrorMessagesInstr
 import EventListener from "../Events/EventListener";
 import EventListenersInstruction from "../Events/EventListenersInstruction";
 import FileInstruction from "./FileInstruction";
-import FilesInstruction from "../FilesInstruction";
+import FilesInstruction from "../Core/FilesInstruction";
 import IInstructionCollection from "./IInstructionCollection";
 import Instruction from "./Instruction";
 import Option from "../Options/ControlPanel/Option";

@@ -1,5 +1,5 @@
 import IEventListener from "./IEventListener";
-import Listener from "../Listener";
+import Listener from "../Core/Listener";
 import { isNullOrUndefined } from "util";
 
 /**

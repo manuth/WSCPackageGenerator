@@ -1,6 +1,5 @@
-import FileSystemInstruction from "./Automation/FileSystemInstruction";
+import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import IFilesInstruction from "./IFilesInstruction";
-import Instruction from "./Automation/Instruction";
 import { isNullOrUndefined } from "util";
 
 /**

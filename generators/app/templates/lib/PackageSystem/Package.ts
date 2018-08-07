@@ -1,7 +1,6 @@
 import Component from "./Component";
 import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 import ErrorMessageNode from "../Globalization/Errors/ErrorMessageNode";
-import FilesInstruction from "../FilesInstruction";
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
 import Instruction from "../Automation/Instruction";
 import InstructionCollection from "../Automation/InstructionCollection";

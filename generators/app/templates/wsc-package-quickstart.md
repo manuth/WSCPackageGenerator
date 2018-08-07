@@ -342,12 +342,12 @@ The variable inside the `<%%= %%>` will be evaluated using JavaScript and return
 
 ### Interface
 ```ts
-<%- include("./lib/IFilesInstruction.ts") %>
+<%- include("./lib/Core/IFilesInstruction.ts") %>
 ```
 
 ### Example
 ```ts
-import FilesInstruction from "../lib/FilesInstruction";
+import FilesInstruction from "../lib/Core/FilesInstruction";
 
 let filesInstruction: FilesInstruction = new FilesInstruction({
     SourceRoot: "files"
@@ -791,7 +791,7 @@ The `EventListenerInstruction` allows you to make WoltLab executing custom code 
 ### Examlpe
 ```ts
 import EventListener from "../lib/EventListener";
-import WSCEnvironment from "../lib/WSCEnvironment";
+import WSCEnvironment from "../lib/Core/WSCEnvironment";
 import EventListenersInstruction from "../lib/EventListenersInstruction";
 
 let eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({
@@ -969,7 +969,7 @@ You can provide them using `TemlpateListenersInstruction`s.
 ### Examlpe
 ```ts
 import TemplateListener from "../lib/Customization/TemplateListener";
-import WSCEnvironment from "../lib/WSCEnvironment";
+import WSCEnvironment from "../lib/Core/WSCEnvironment";
 import TemplateListenersInstruction from "../lib/Customization/TemplateListenersInstruction";
 
 let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({

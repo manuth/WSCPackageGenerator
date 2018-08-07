@@ -1,4 +1,4 @@
-import IFileSystemInstruction from "./Automation/IFileSystemInstruction";
+import IFileSystemInstruction from "../Automation/IFileSystemInstruction";
 
 /**
  * Represents an instruction which provides a set of files.

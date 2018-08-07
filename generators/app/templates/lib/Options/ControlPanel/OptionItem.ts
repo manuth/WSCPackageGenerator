@@ -1,5 +1,5 @@
 import IOptionItem from "./IOptionItem";
-import Localizable from "../../Globalization/Localizable";
+import Localizable from "../../GLobalization/Localizable";
 import Node from "../../Nodes/Node";
 import Option from "./Option";
 import TranslationNode from "../../Globalization/TranslationNode";

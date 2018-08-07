@@ -106,7 +106,7 @@ export default abstract class Compiler<T>
      */
     protected MakeTemplatePath(...path: string[]): string
     {
-        return Path.join(__dirname, "templates", ...path);
+        return Path.join(__dirname, "..", "templates", ...path);
     }
 
     /**

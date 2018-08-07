@@ -1,5 +1,5 @@
-import FilesInstruction from "../../FilesInstruction";
-import IFilesInstruction from "../../IFilesInstruction";
+import FilesInstruction from "../../Core/FilesInstruction";
+import IFilesInstruction from "../../Core/IFilesInstruction";
 
 /**
  * Represents an instruction which provides a set of templates.

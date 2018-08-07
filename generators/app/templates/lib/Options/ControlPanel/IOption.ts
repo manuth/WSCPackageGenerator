@@ -1,5 +1,5 @@
 import INode from "../../Nodes/INode";
-import Localizable from "../../Globalization/Localizable";
+import Localizable from "../../GLobalization/Localizable";
 import OptionItem from "./OptionItem";
 import OptionType from "./OptionType";
 
