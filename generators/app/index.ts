@@ -1,7 +1,8 @@
 import * as FileSystem from "fs-extra";
-import * as Generator from "yeoman-generator";
+import Generator from "../Generator";
 import * as Path from "path";
 import chalk from "chalk";
+import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 
 /**
@@ -34,61 +35,19 @@ class WSCPackageGenerator extends Generator
     }
 
     /**
-     * Validates whether a folder other than the destination is provided.
-     * 
-     * @param {string} value
-     * The value that is to be validated.
-     * 
-     * @param {Generator.Answers} answers
-     * The answers provided by the user.
-     */
-    private EnforceDifferentFolder = (value: string, answers?: Generator.Answers): boolean | string =>
-    {
-        if (this.destination !== Path.resolve(process.cwd(), this.destination, value))
-        {
-            return true;
-        }
-        else
-        {
-            return "Files must be stored in a separate folder!";
-        }
-    }
-
-    /**
-     * Validates whether the a value is provided.
-     * 
-     * @param {string} value
-     * The value that is to be validated.
-     * 
-     * @param {Generator.Answers} answers
-     * The answers provided by the user.
-     */
-    private ForceInput = (value: string, answers?: Generator.Answers): boolean | string =>
-    {
-        if (value.length > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return "Please enter a valid input!";
-        }
-    }
-
-    /**
      * Collects all informations about the package that is to be created.
      */
     public Prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
-        let prompts: Generator.Questions = [
+        let prompts: YoGenerator.Questions = [
             {
                 type: "input",
                 name: "destination",
                 message: "What directory do you want to create the package to?",
                 default: "./",
-                filter: (value: string, answers?: Generator.Answers) =>
+                filter: (value) =>
                 {
                     this.destination = Path.resolve(process.cwd(), value);
                     return value;
@@ -98,7 +57,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "name",
                 message: "What's the name of your package?",
-                default: (answers: Generator.Answers) =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return Path.basename(this.destination);
                 },
@@ -108,7 +67,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your package?",
-                default: (answers: Generator.Answers) =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return answers.name;
                 },
@@ -136,7 +95,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "identifier",
                 message: "Please type an identifier for your package:",
-                default: (answers: Generator.Answers) =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     let reversedURI = (answers.authorURL as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
@@ -221,7 +180,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.style",
                 message: "Where do you want to store styles?",
                 default: "styles",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("style");
                 }
@@ -231,7 +190,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.files",
                 message: "Where do you want to store your file-mappings?",
                 default: "Files",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("files");
                 }
@@ -241,7 +200,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.acpOptions",
                 message: "Where do you want to store the ACP-options and categories?",
                 default: "Options",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("acpOptions");
                 }
@@ -251,7 +210,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.eventListener",
                 message: "Where do you want to store your event-listeners?",
                 default: "EventListeners",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("eventListener");
                 }
@@ -261,7 +220,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.translations",
                 message: "Where do you want to store your translations?",
                 default: "Translations",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("translations");
                 }
@@ -271,7 +230,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.errors",
                 message: "Where do you want to store your error-messages?",
                 default: "ErrorMessages",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("errors");
                 }
@@ -281,7 +240,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.template",
                 message: "Where do you want to store templates?",
                 default: "Templates",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).indexOf("template") >= 0;
                 }
@@ -291,18 +250,18 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.acpTemplate",
                 message: "Where do you want to store ACP-templates?",
                 default: "ACPTemplates",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).indexOf("acpTemplate") >= 0;
                 },
-                validate: this.EnforceDifferentFolder
+                validate: this.ForceSeparateFolder
             },
             {
                 type: "input",
                 name: "componentPaths.templateListener",
                 message: "Where do you want to store template-listeners?",
                 default: "TemplateListeners",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).indexOf("templateListener") >= 0;
                 },
@@ -312,7 +271,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.emoji",
                 default: "Emojis",
                 message: "Where do you want to store emojis?",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).indexOf("emoji") >= 0;
                 }
@@ -322,7 +281,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.bbcode",
                 default: "BBCodes",
                 message: "Where do you want to store BB-Codes?",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).indexOf("bbcode") >= 0;
                 }

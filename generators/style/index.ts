@@ -1,7 +1,8 @@
-import * as Generator from "yeoman-generator";
+import Generator from "../Generator";
 import * as Path from "path";
 import chalk from "chalk";
 import { isNullOrUndefined } from "util";
+import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 
 /**
@@ -13,27 +14,6 @@ class WSCStyleGenerator extends Generator
      * The options provided by the user.
      */
     private settings: { [key: string]: any };
-
-    /**
-     * Validates whether the a value is provided.
-     * 
-     * @param {string} value
-     * The value that is to be validated.
-     * 
-     * @param {Generator.Answers} answers
-     * The answers provided by the user.
-     */
-    private ForceInput = (value: string, answers?: Generator.Answers): boolean | string =>
-    {
-        if (value.length > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return "Please enter a valid input!";
-        }
-    }
 
     /**
      * Initializes a new instance of the `Generator` class.
@@ -56,13 +36,13 @@ class WSCStyleGenerator extends Generator
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Style")} generator!`));
 
-        let prompts: Generator.Questions = [
+        let prompts: YoGenerator.Questions = [
             {
                 type: "input",
                 name: "stylesPath",
                 message: "Where do you want to store your styles?",
                 default: "styles",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     if (isNullOrUndefined(this.config.get("stylesPath")))
                     {
@@ -84,7 +64,7 @@ class WSCStyleGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your style?",
-                default: (answers: Generator.Answers) =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return answers.name;
                 },
@@ -115,7 +95,7 @@ class WSCStyleGenerator extends Generator
                 name: "componentPaths.customStyles",
                 message: "Where do you want to store the custom SCSS-styles?",
                 default: "styles.scss",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("customStyles");
                 }
@@ -125,7 +105,7 @@ class WSCStyleGenerator extends Generator
                 name: "componentPaths.variableOverrides",
                 message: "Where do you want to store the variable-overrides?",
                 default: "override.scss",
-                when: (answers: Generator.Answers) =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("variableOverrides");
                 }
