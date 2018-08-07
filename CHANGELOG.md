@@ -1,4 +1,7 @@
 # Change Log
+## WSCPackageGenerator v0.0.18
+  - Fix the build-task which caused VSCode to be unable to build the package
+
 ## WSCPackageGenerator v0.0.17
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
