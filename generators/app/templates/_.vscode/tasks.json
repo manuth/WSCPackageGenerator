@@ -20,11 +20,7 @@
             "label": "Compile",
             "type": "npm",
             "script": "compile",
-            "problemMatcher": "$tsc-watch",
-            "isBackground": true,
-            "presentation": {
-                "reveal": "never"
-            },
+            "problemMatcher": "$tsc",
             "options": {
                 "cwd": "${workspaceFolder}"
             }
