@@ -32,7 +32,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Collects all informations about the style that is to be created.
      */
-    public Prompting()
+    public prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Style")} generator!`));
 
@@ -121,7 +121,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Writes the templates
      */
-    public Writing()
+    public writing()
     {
         let basePath: string = Path.relative(Path.join(this.settings.stylesPath, this.settings.name), ".");
         basePath = basePath.replace("\\", "/");
@@ -158,7 +158,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    public Finalize()
+    public end()
     {
         this.config.set("stylesPath", this.settings.stylesPath);
         this.config.save();

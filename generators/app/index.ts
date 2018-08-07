@@ -37,7 +37,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Collects all informations about the package that is to be created.
      */
-    public Prompting()
+    public prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
@@ -363,7 +363,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Show some helpful messages after finishing the installation-process.
      */
-    public End()
+    public end()
     {
         this.log();
         this.log("Your package \"" + this.settings.name + "\" has been created!");
