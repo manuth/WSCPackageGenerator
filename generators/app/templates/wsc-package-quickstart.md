@@ -111,8 +111,7 @@ import * as Path from "path";
 import Package from "./lib/PackageSystem/Package";
 import RequiredPackageDescriptor from "./lib/PackageSystem/RequiredPackageDescriptor";
 import StyleInstructionCollection from "./lib/Customization/Styles/StyleInstructionCollection";
-import FileSystemInstruction from "./lib/Automation/FileSystemInstruction";
-import FilesInstruction from "./lib/Core/FilesInstruction";
+import FileDescriptor from "./lib/PackageSystem/FileDescriptor";
 import OptionalPackageDescriptor from "./lib/PackageSystem/OptionalPackageDescriptor";
 
 function getComponentsPath(value: string): string
@@ -136,13 +135,13 @@ let pkg: Package = new Package({
         ...new StyleInstructionCollection("styles")
     ],
     AdditionalFiles: [
-        new FileSystemInstruction({
-            SourceRoot: "../OptionalPackage/bin/OptionalPackage.tar",
-            FileName: "optional/ch.nuth.optional-package.tar"
+        new FileDescriptor({
+            Source: "../OptionalPackage/bin/OptionalPackage.tar",
+            Destination: "optional/ch.nuth.optional-package.tar"
         }),
-        new FileSystemInstruction({
-            SourceRoot: "../AnotherPackage/bin/AnotherPackage.tar",
-            FileName: "optional/ch.nuth.another-package.tar"
+        new FileDescriptor({
+            Source: "../AnotherPackage/bin/AnotherPackage.tar",
+            Destination: "optional/ch.nuth.another-package.tar"
         })
     ],
     RequiredPackages: [
@@ -280,15 +279,14 @@ You can optionally provide a `FileName` to decide where to copy the file(s) to.
 **Example:**
 ```ts
     AdditionalFiles: [
-        new FileSystemInstruction({
-            SourceRoot: "../OptionalPackage/bin/OptionalPackage.tar",
-            FileName: "optional/ch.nuth.optional-package.tar"
+        new FileDescriptor({
+            Source: "../OptionalPackage/bin/OptionalPackage.tar",
+            Destination: "optional/ch.nuth.optional-package.tar"
         }),
-        new FileSystemInstruction({
-            /* This folder will be compressed and copied to
-             * "files/another-package.tar" inside the package. */
-            SourceRoot: "../AnotherPackage/bin/AnotherPackage.tar",
-            FileName: "optional/ch.nuth.another-package.tar"
+        new FileDescriptor({
+            /* Copies the ./sql/CreateDB.sql
+             * to "./sql/CreateDB.sql" inside the package */
+            Source: "./sql/CreateDB.sql"
         })
     ]
 ```
@@ -315,7 +313,7 @@ Please don't forget to provide the package-files using [`AdditionalFiles`](#addi
     OptionalPackages: [
         new OptionalPackageDescriptor({
             Identifier: "ch.nuth.optionalpackgae",
-            FileName: "optional/optional-package.tar"
+            FileName: "optional/ch.nuth.optional-package.tar"
         })
     ]
 ```

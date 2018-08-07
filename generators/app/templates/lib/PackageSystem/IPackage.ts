@@ -1,5 +1,5 @@
 import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
-import FileSystemInstruction from "../Automation/FileSystemInstruction";
+import FileDescriptor from "./FileDescriptor";
 import IComponent from "./IComponent";
 import Instruction from "../Automation/Instruction";
 import IUpdateInstructionCollection from "../Automation/IUpdateInstructionCollection";
@@ -29,7 +29,7 @@ export default interface IPackage extends IComponent
     /**
      * Gets additional files which are copied to the package.
      */
-    AdditionalFiles?: FileSystemInstruction[];
+    AdditionalFiles?: FileDescriptor[];
 
     /**
      * Gets the packages which are required for installing this package.

@@ -94,7 +94,7 @@ export default class PackageCompiler extends Compiler<Package>
 
         for (let additionalFiles of this.Item.AdditionalFiles)
         {
-            MemFileSystem.copyTpl(additionalFiles.SourceRoot, this.MakeSourcePath(additionalFiles.FileName), this.Item);
+            MemFileSystem.copyTpl(additionalFiles.Source, this.MakeSourcePath(additionalFiles.Destination), this.Item);
         }
 
         await new Promise((resolve) =>

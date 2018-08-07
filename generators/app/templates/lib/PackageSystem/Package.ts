@@ -1,7 +1,7 @@
 import Component from "./Component";
 import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
 import ErrorMessageNode from "../Globalization/Errors/ErrorMessageNode";
-import FileSystemInstruction from "../Automation/FileSystemInstruction";
+import FileDescriptor from "./FileDescriptor";
 import Instruction from "../Automation/Instruction";
 import InstructionCollection from "../Automation/InstructionCollection";
 import IPackage from "./IPackage";
@@ -37,7 +37,7 @@ export default class Package extends Component implements IPackage
     /**
      * Additional files which are copied to the package.
      */
-    private additionalFiles: FileSystemInstruction[] = new InstructionCollection(this);
+    private additionalFiles: FileDescriptor[] = [];
 
     /**
      * The packages which are required for installing this package.
@@ -133,7 +133,7 @@ export default class Package extends Component implements IPackage
         return this.updateInstructions;
     }
 
-    public get AdditionalFiles(): FileSystemInstruction[]
+    public get AdditionalFiles(): FileDescriptor[]
     {
         return this.additionalFiles;
     }
