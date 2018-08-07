@@ -17,6 +17,8 @@ This environment allows you to easily create packages for WoltLab Suite Core.
     - [`OptionItem`](#optionitem)
     - [EventListeners](#eventlisteners)
     - [`EventListener`](#eventlistener)
+    - [Cron-Jobs](#cron-jobs)
+    - [`Cronjob`](#cronjob)
     - [Translations](#translations)
     - [ErrorMessages](#errormessages)
     - [TemplateListeners](#templatelisteners)
@@ -106,10 +108,12 @@ For example:
 ### Example
 ```ts
 import * as Path from "path";
-import Package from "./lib/Package";
-import RequiredPackageDescriptor from "./lib/RequiredPackageDescriptor";
-import StyleInstructionCollection from "./lib/Customization/StyleInstructionCollection";
-import UpdateInstructionCollection from "./lib/Automation/UpdateInstructionCollection";
+import Package from "./lib/PackageSystem/Package";
+import RequiredPackageDescriptor from "./lib/PackageSystem/RequiredPackageDescriptor";
+import StyleInstructionCollection from "./lib/Customization/Styles/StyleInstructionCollection";
+import FileSystemInstruction from "./lib/Automation/FileSystemInstruction";
+import FilesInstruction from "./lib/Core/FilesInstruction";
+import OptionalPackageDescriptor from "./lib/PackageSystem/OptionalPackageDescriptor";
 
 function getComponentsPath(value: string): string
 {
@@ -133,18 +137,28 @@ let pkg: Package = new Package({
     ],
     AdditionalFiles: [
         new FileSystemInstruction({
-            SourceRoot: "files/optional-package.tar",
-            FileName: "optional/optional-package.tar"
+            SourceRoot: "../OptionalPackage/bin/OptionalPackage.tar",
+            FileName: "optional/ch.nuth.optional-package.tar"
         }),
-        new FilesInstruction({
-            SourceRoot: "files/another-package",
-            FileName: "optional/another-package.tar"
+        new FileSystemInstruction({
+            SourceRoot: "../AnotherPackage/bin/AnotherPackage.tar",
+            FileName: "optional/ch.nuth.another-package.tar"
         })
     ],
     RequiredPackages: [
         new RequiredPackageDescriptor({
             Identifier: "com.woltlab.wcf",
             MinVersion: "3.0.0"
+        })
+    ],
+    OptionalPackages: [
+        new OptionalPackageDescriptor({
+            Identifier: "ch.nuth.optional-package",
+            FileName: "optional/ch.nuth.optional-package.tar"
+        }),
+        new OptionalPackageDescriptor({
+            Identifier: "ch.nuth.another-package",
+            FileName: "optional/ch.nuth.another-package.tar"
         })
     ]
 });
@@ -260,20 +274,21 @@ Please have a look at [`InstallInstructions`](#installinstructions) to learn mor
 
 #### `AdditionalFiles`
 This property allows you to provide custom files which will be copied into your package.  
-Files provided using `FileSystemInstruction`s will be copied to the package while files provided using `FilesInstruction`s will be **compressed** to the package.  
+Files provided using `FileSystemInstruction`s will be copied to the package.  
 You can optionally provide a `FileName` to decide where to copy the file(s) to.
 
 **Example:**
 ```ts
     AdditionalFiles: [
         new FileSystemInstruction({
-            SourceRoot: "files/optional-package.tar",
-            FileName: "optional/optional-package.tar"
+            SourceRoot: "../OptionalPackage/bin/OptionalPackage.tar",
+            FileName: "optional/ch.nuth.optional-package.tar"
         }),
-        new FilesInstruction({
+        new FileSystemInstruction({
             /* This folder will be compressed and copied to
              * "files/another-package.tar" inside the package. */
-            SourceRoot: "files/another-package"
+            SourceRoot: "../AnotherPackage/bin/AnotherPackage.tar",
+            FileName: "optional/ch.nuth.another-package.tar"
         })
     ]
 ```
@@ -356,7 +371,7 @@ let filesInstruction: FilesInstruction = new FilesInstruction({
 export = filesInstruction;
 ```
 ```ts
-import TemplatesInstruction from "../lib/Customization/TemplatesInstruction";
+import TemplatesInstruction from "../lib/Customization/Presentation/TemplatesInstruction";
 
 let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
     Application: "gallery",
@@ -366,7 +381,7 @@ let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
 export = templatesInstruction;
 ```
 ```ts
-import ACPTemplatesInstruction from "../lib/Customization/ACPTemplatesInstruction";
+import ACPTemplatesInstruction from "../lib/Customization/Presentation/ACPTemplatesInstruction";
 
 let acpTemplatesInstruction: ACPTemplatesInstruction = new ACPTemplatesInstruction({
     Application: "filebase",
@@ -421,11 +436,11 @@ Using the `OptionsInstruction` you can provide options and their translations fo
 
 ### Example
 ```ts
-import Option from "../lib/ControlPanel/Option";
-import OptionItem from "../lib/ControlPanel/OptionItem";
-import OptionsInstruction from "../lib/ControlPanel/OptionsInstruction";
-import OptionType from "../lib/ControlPanel/OptionType";
-import SettingsNode from "../lib/ControlPanel/SettingsNode";
+import Option from "../lib/Options/ControlPanel/Option";
+import OptionItem from "../lib/Options/ControlPanel/OptionItem";
+import OptionsInstruction from "../lib/Options/ControlPanel/OptionsInstruction";
+import OptionType from "../lib/Options/ControlPanel/OptionType";
+import SettingsNode from "../lib/Options/ControlPanel/SettingsNode";
 
 let optionsInstruction: OptionsInstruction = new OptionsInstruction({
     SettingsNodes: [
@@ -790,9 +805,9 @@ The `EventListenerInstruction` allows you to make WoltLab executing custom code 
 
 ### Examlpe
 ```ts
-import EventListener from "../lib/EventListener";
+import EventListener from "../lib/Events/EventListener";
 import WSCEnvironment from "../lib/Core/WSCEnvironment";
-import EventListenersInstruction from "../lib/EventListenersInstruction";
+import EventListenersInstruction from "../lib/Events/EventListenersInstruction";
 
 let eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({
     EventListeners: [
@@ -839,6 +854,78 @@ Please keep in mind to provide the PHP-file(s) using a `FilesInstruction`.
 
 #### `Environment`
 This property allows you to choose whether to install the event-listener to the Default- (front-end), the Admin- (back-end) or both environments.
+
+#### `Options`
+A set of options of which at least one must be enabled in order to activate the event-listener.
+
+## Cron-Jobs
+Using the `CronjobInstruction` you can provide one or more cron-jobs which are executed at specific times.  
+Please keep in mind to provide said cron-jobs using a `FilesInstruction`.
+
+The Cronjob-classes must implement the `wcf\system\cronjob\ICronjob` interface.
+
+### Interface
+```ts
+<%- include("./lib/Core/Cronjobs/CronjobInstruction.ts") %>
+```
+
+### Example
+```ts
+import Cronjob from "../lib/Core/Cronjobs/Cronjob";
+import CronjobInstruction from "../lib/Core/Cronjobs/CronjobInstruction";
+import TimePoint from "../lib/Core/Cronjobs/TimePoint";
+
+const cronjobInstruction: CronjobInstruction = new CronjobInstruction({
+    Cronjobs: [
+        new Cronjob({
+            Name: "ch.nuth.pokemonbbcode.fetchPokemon",
+            ClassName: "wcf\\system\\cronjob\\PokemonIconFetchCronJob",
+            TimePoint: TimePoint.Daily // Executes the cron-job daily at 0:00
+        }),
+        new Cronjob({
+            Name: "ch.nuth.pokemonbbcode.fetchItem",
+            ClassName: "wcf\\system\\cronjob\\ItemIconFetchCronJob",
+            TimePoint: new TimePoint("1", "0", "*", "*", "*") // Executes the cron-job daily at 0:01
+        })
+    ]
+});
+
+export = cronjobInstruction;
+```
+
+### Properties
+#### `Cronjobs`
+A set of cron-jobs which are installed by this instruction.
+
+## `Cronjob`
+This class represents a cron-job which is executed periodically.
+
+### Interface
+```ts
+<%- include("./lib/Core/Cronjobs/ICronjob.ts") %>
+```
+
+### Properties
+#### `Name`
+The name of the cron-job.
+
+#### `ClassName`
+The name of the class of the cron-job which is to be executed.
+
+#### `Description`
+The localizable description of the cron-job.
+
+#### `TimePoint`
+The declaration of the time-point to execute the cron-job.
+
+#### `AllowEdit`
+Indicates whether the cron-job can be edited.
+
+#### `AllowDisable`
+Indicates whether the cron-job can be disabled.
+
+#### `Options`
+A set of options of which at least one must be enabled in order to activate the cron-job.
 
 ## Translations
 The `TranslationsInstruction` allows you to provide localizable messages for WoltLab.  
@@ -919,8 +1006,8 @@ You can access error-identifiers inside your ejs-flavored files like this:
 
 ### Example
 ```ts
-import ErrorMessageNode from "../lib/Globalization/ErrorMessageNode";
-import ErrorMessagesInstruction from "../lib/Globalization/ErrorMessagesInstruction";
+import ErrorMessageNode from "../lib/Globalization/Errors/ErrorMessageNode";
+import ErrorMessagesInstruction from "../lib/Globalization/Errors/ErrorMessagesInstruction";
 
 let errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
     TranslationNodes: [
@@ -968,9 +1055,9 @@ You can provide them using `TemlpateListenersInstruction`s.
 
 ### Examlpe
 ```ts
-import TemplateListener from "../lib/Customization/TemplateListener";
+import TemplateListener from "../lib/Customization/Presentation/TemplateListener";
 import WSCEnvironment from "../lib/Core/WSCEnvironment";
-import TemplateListenersInstruction from "../lib/Customization/TemplateListenersInstruction";
+import TemplateListenersInstruction from "../lib/Customization/Presentation/TemplateListenersInstruction";
 
 let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
     TemplateListeners: [
@@ -1016,6 +1103,9 @@ Code writtenm in [Smarty](https://www.smarty.net/) which will be inserted when t
 ### `Order`
 This property is used by WoltLab Suite Core for determining the execution-order of multiple temlpate-listeners which are listening to the same event.
 
+#### `Options`
+A set of options of which at least one must be enabled in order to activate the template-listener.
+
 ## Emojis
 You can provide your own emojis by using an `EmojisInstruction`.
 
@@ -1026,8 +1116,8 @@ You can provide your own emojis by using an `EmojisInstruction`.
 
 ### Examlpe
 ```ts
-import Emoji from "../lib/Customization/Emoji";
-import EmojisInstruction from "../lib/Customization/EmojisInstruction";
+import Emoji from "../lib/Customization/Emojis/Emoji";
+import EmojisInstruction from "../lib/Customization/Emojis/EmojisInstruction";
 
 let emojiInstruction: EmojisInstruction = new EmojisInstruction({
     FileName: "smileys.xml",
@@ -1089,6 +1179,50 @@ You can provide new bb-codes using a `BBCodesInstruction`.
 
 ### Example
 ```ts
+import BBCode from "../lib/Customization/BBCodes/BBCode";
+import BBCodeAttribute from "../lib/Customization/BBCodes/BBCodeAttribute";
+import BBCodesInstruction from "../lib/Customization/BBCodes/BBCodesInstruction";
+
+const bbcodesInstruction: BBCodesInstruction = new BBCodesInstruction({
+    BBCodes: [
+        new BBCode({
+            Name: "anc",
+            DisplayName: {
+                en: "Set anchor",
+                de: "Anker setzen"
+            },
+            Icon: "fa-anchor",
+            OpeningTag: "span",
+            ClosingTag: "span",
+            Attributes: [
+                new BBCodeAttribute({
+                    Required: true,
+                    Code: "id=\"%s\"",
+                    ValidationPattern: /^.+$/
+                })
+            ]
+        }),
+        new BBCode({
+            Name: "ancurl",
+            DisplayName: {
+                en: "Link to anchor",
+                de: "Auf Anker verweisen"
+            },
+            Icon: "fa-arrows-v",
+            OpeningTag: "a",
+            ClosingTag: "a",
+            Attributes: [
+                new BBCodeAttribute({
+                    Required: true,
+                    Code: "href=\"#%s\"",
+                    ValidationPattern: /^.+$/
+                })
+            ]
+        })
+    ]
+});
+
+export = bbcodesInstruction;
 ```
 
 ### Properties

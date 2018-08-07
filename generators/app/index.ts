@@ -130,6 +130,10 @@ class WSCPackageGenerator extends Generator
                         value: "eventListener"
                     },
                     {
+                        name: "Cron-Jobs",
+                        value: "cronJobs",
+                    },
+                    {
                         type: "separator",
                         line: "Globalization"
                     },
@@ -213,6 +217,16 @@ class WSCPackageGenerator extends Generator
                 when: (answers: YoGenerator.Answers) =>
                 {
                     return (answers.components as string[]).includes("eventListener");
+                }
+            },
+            {
+                type: "input",
+                name: "componentPaths.cronJobs",
+                message: "Where do you want to store your cron-jobs?",
+                default: "CronJobs",
+                when: (answers) =>
+                {
+                    return (answers.components as string[]).includes("cronJobs");
                 }
             },
             {
@@ -308,6 +322,7 @@ class WSCPackageGenerator extends Generator
             files: "Files.ts",
             acpOptions: "Options.ts",
             eventListener: "EventListeners.ts",
+            cronJobs: "CronJobs.ts",
             translations: "Translations.ts",
             errors: "ErrorMessages.ts",
             template: "Templates.ts",
