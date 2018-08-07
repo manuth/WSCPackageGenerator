@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instace" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/cronjob.xsd">
+    <import><%
+%><% for (let cronJob of Instruction.CronJobs) { %>
+        <cronjob<% %> name="<%= cronJob.Name %>">
+            <classname><%= cronJob.ClassName %></classname><%
+    %><% for (let locale in cronJob.Description) { %>
+            <description<%
+            %><% if (locale !== "inv") { %> language="<%= locale %>"<% } %>><%
+                %><%= cronJob.Description[locale] %><%
+            %></description><%
+    %><% } %>
+            <startminute><%= cronJob.TimePoint.Minute %></startminute>
+            <starthour><%= cronJob.TimePoint.Hour %></starthour>
+            <startdom><%= cronJob.TimePoint.DayOfMonth %></startdom>
+            <startmonth><%= cronJob.TimePoint.Month %></startmonth>
+            <startdow><%= cronJob.TimePoint.DayOfWeek %></startdow>
+            <canbeedited><%= cronJob.AllowEdit ? "1" : "0" %></canbeedited>
+            <canbedisabled><%= cronJob.AllowDisable ? "1" : "0" %></canbedisabled>
+        </cronjob><%
+%><% } %>
+    </import>
+</data>

@@ -62,5 +62,8 @@
         <instruction type="bbcode"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction>
         <instruction type="language"><%= destination %><%= ComponentsPath %>/<%= instruction.TranslationsDirectory %>/*.xml</instruction><%
         %><% break; %><%
+        %><% case "CronjobInstruction": %>
+        <instruction type="cronjob"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %></instruction><%
+        %><% break; %><%
     %><% } %><%
 %><% } %>

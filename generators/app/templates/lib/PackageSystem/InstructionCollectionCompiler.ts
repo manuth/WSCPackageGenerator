@@ -4,6 +4,7 @@ import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
 import BBCodesInstruction from "../Customization/BBCodes/BBCodesInstruction";
 import Compiler from "../Core/Compiler";
+import CronjobInstruction from "../Core/Cronjobs/CronjobInstruction";
 import EmojisInstruction from "../Customization/Emojis/EmojisInstruction";
 import EventListenersInstruction from "../Events/EventListenersInstruction";
 import FilesInstruction from "../Core/FilesInstruction";
@@ -240,6 +241,10 @@ export default class InstructionCollectionCompiler extends Compiler<InstructionC
                             { Instruction: instruction, Locale: locale });
                     }
                 }
+            }
+            else if (instruction instanceof CronjobInstruction)
+            {
+                MemFileSystem.copyTpl(this.MakeTemplatePath("cronJobs.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
             }
         }
 
