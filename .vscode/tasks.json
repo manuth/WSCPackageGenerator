@@ -26,6 +26,16 @@
                 "reveal": "never"
             },
             "isBackground": true
+        },
+        {
+            "label": "Lint",
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": "$tslint5",
+            "presentation": {
+                "reveal": "never"
+            },
+            "isBackground": true
         }
     ]
 }

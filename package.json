@@ -29,7 +29,7 @@
     "mocha": "^5.2.0",
     "sass-variable-parser": "^1.1.6",
     "tmp": "0.0.33",
-    "tslint": "^5.10.0",
+    "tslint": "^5.11.0",
     "typescript": "^2.8.3",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.2",
@@ -49,7 +49,8 @@
     "watchLib": "tsc -watch -p ./generators/app/templates/lib",
     "compile": "tsc -p .",
     "compileLib": "tsc -p ./generators/app/templates/lib",
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "tslint -p . && tslint -p ./generators/app/templates/lib"
   },
   "repository": "https://github.com/manuth/WSCPackageGenerator",
   "license": "MIT"
