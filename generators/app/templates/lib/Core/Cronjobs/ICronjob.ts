@@ -1,44 +1,8 @@
-import Localizable from "../../GLobalization/Localizable";
-import TimePoint from "./TimePoint";
-import Option from "../../Options/ControlPanel/Option";
+import ICronjobOptions from "./ICronjobOptions";
 
 /**
  * Represents a cron-job.
  */
-export default interface ICronjob
+export default interface ICronjob extends Required<ICronjobOptions>
 {
-    /**
-     * Gets or sets the name of the cron-job.
-     */
-    Name: string;
-
-    /**
-     * Gets or sets the name of the class providing the cronjob's behavior.
-     */
-    ClassName: string;
-
-    /**
-     * Gets or sets the description of the cron-job.
-     */
-    Description?: Localizable;
-
-    /**
-     * Gets or sets the time-point of the cron-job.
-     */
-    TimePoint: TimePoint;
-
-    /**
-     * Gets or sets a value indicating whether editing the cron-job is allowed.
-     */
-    AllowEdit?: boolean;
-
-    /**
-     * Gets or sets a value indicating whether disabling the cron-job is allowed.
-     */
-    AllowDisable?: boolean;
-
-    /**
-     * Gets or sets the options of which at least one must be enabled in order to execute the cron-job.
-     */
-    Options?: Option[];
 }

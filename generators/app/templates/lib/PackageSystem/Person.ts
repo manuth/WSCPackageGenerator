@@ -1,5 +1,6 @@
-import IPerson from "./IPerson";
+import IPersonOptions from "./IPersonOptions";
 import { isNullOrUndefined } from "util";
+import IPerson from "./IPerson";
 
 /**
  * Represents a person.
@@ -19,7 +20,7 @@ export default class Person implements IPerson
     /**
      * Initializes a new instance of the `Person` class.
      */
-    public constructor(options: IPerson)
+    public constructor(options: IPersonOptions)
     {
         this.name = options.Name;
 

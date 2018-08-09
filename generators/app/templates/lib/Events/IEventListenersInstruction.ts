@@ -1,14 +1,6 @@
-import EventListener from "./EventListener";
-import IDeleteInstruction from "../Automation/IDeleteInstruction";
+import IEventListenersInstructionOptions from "./IEventListenersInstructionOptions";
 import IFileInstruction from "../Automation/IFileInstruction";
 
-/**
- * Represents an instruction that provides a set of event-listeners.
- */
-export default interface IEventListenersInstruction extends IFileInstruction, IDeleteInstruction
+export default interface IEventListenersInstruction extends IFileInstruction, Required<IEventListenersInstructionOptions>
 {
-    /**
-     * Gets the event-listeners provided by the instruction.
-     */
-    EventListeners: EventListener[];
 }

@@ -1,10 +1,8 @@
+import INodeOptions from "./INodeOptions";
+
 /**
  * Represents a node.
  */
-export default interface INode
+export default interface INode extends Required<INodeOptions>
 {
-    /**
-     * Gets or sets the name of the node.
-     */
-    Name: string;
 }

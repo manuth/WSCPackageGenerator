@@ -1,17 +1,8 @@
-import IListener from "../../Core/IListener";
+import ITemplateListenerOptions from "./ITemplateListenerOptions";
 
 /**
  * Represents a listener that subscribes to an event inside a template.
  */
-export default interface ITemplateListener extends IListener
+export default interface ITemplateListener extends Required<ITemplateListenerOptions>
 {
-    /**
-     * Gets or sets the name of the template to subscribe to.
-     */
-    TemplateName: string;
-
-    /**
-     * Gets or sets a **smarty**-code which is copied into the subscribed template.
-     */
-    Code: string;
 }

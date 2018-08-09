@@ -1,5 +1,6 @@
 import FileInstruction from "./FileInstruction";
 import IFileSystemInstruction from "./IFileSystemInstruction";
+import IFileSystemInstructionOptions from "./IFileSystemInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -15,7 +16,7 @@ export default class FileSystemInstruction extends FileInstruction implements IF
     /**
      * Initializes a new instance of the `FileSystemInstruction` class.
      */
-    public constructor(options: IFileSystemInstruction)
+    public constructor(options: IFileSystemInstructionOptions)
     {
         super(options);
         this.sourceRoot = options.SourceRoot;

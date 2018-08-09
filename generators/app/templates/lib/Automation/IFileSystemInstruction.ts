@@ -1,12 +1,9 @@
+import IFileSystemInstructionOptions from "./IFileSystemInstructionOptions";
 import IFileInstruction from "./IFileInstruction";
 
 /**
  * Represents an instruction that is bound to the file-system.
  */
-export default interface IFileSystemInstruction extends IFileInstruction
+export default interface IFileSystemInstruction extends IFileInstruction, Required<IFileSystemInstructionOptions>
 {
-    /**
-     * Gets or sets the root-path of the filesystem-entry that belongs to the instruction.
-     */
-    SourceRoot: string;
 }

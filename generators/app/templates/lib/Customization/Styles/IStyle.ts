@@ -1,43 +1,49 @@
-import IComponent from "../../PackageSystem/IComponent";
+import StyleInstruction from "./StyleInstruction";
 import ImageFolderDescriptor from "./ImageFolderDescriptor";
 
 /**
- * Represents a style-configuration.
+ * Represents a style for WoltLab Suite Core.
  */
-export default interface IStyle extends IComponent
+export default interface IStyle
 {
+    /**
+     * Gets or sets the instruction this style belongs to.
+     */
+    Instruction: StyleInstruction;
+
     /**
      * Gets or sets the filename of the thumbnail of the style.
      */
-    Thumbnail?: string;
+    Thumbnail: string;
 
     /**
      * Gets or sets the filename of the high-resolution version of the thumbnanil of the style.
      */
-    HighResThumbnail?: string;
+    HighResThumbnail: string;
 
     /**
      * Gets or sets the default cover-photo for user-profiles.
      */
-    CoverPhoto?: string;
+    CoverPhoto: string;
 
     /**
-     * Gets or sets the root of the images provided by the style.
+     * Gets or sets the root of the images provided by this style.
      */
-    ImagesRoot?: ImageFolderDescriptor;
+    Images: ImageFolderDescriptor;
 
     /**
-     * Gets or sets the filename of the json or js-file that contains variables.
+     * Gets or sets the variables of the style.
      */
-    VariableFile?: string;
-    
-    /**
-     * Gets or sets the filename of the file that contains the custom scss-code.
-     */
-    CustomScssFile?: string;
+    Variables: object;
 
     /**
-     * Gets or sets the filename of the file that contains scss-code for overriding variables.
+     * Gets or sets the scss-code provided by this style.
      */
-    OverrideScssFile?: string;
+    CustomScss: string;
+
+    /**
+     * Gets or sets the scss-code provided by this style that is used
+     * for overwriting variables originally provided by WoltLab Suite Core.
+     */
+    OverrideScss: string;
 }

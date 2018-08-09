@@ -1,8 +1,9 @@
-import IComponent from "./IComponent";
+import IComponentOptions from "./IComponentOptions";
 import Localizable from "../GLobalization/Localizable";
 import Package from "./Package";
 import Person from "./Person";
 import { isNullOrUndefined } from "util";
+import IComponent from "./IComponent";
 
 /**
  * Represents a component for WoltLab Suite Core.
@@ -50,7 +51,7 @@ export default abstract class Component implements IComponent
     /**
      * Initializes a new instance of the `Component` class.
      */
-    protected constructor(options: IComponent)
+    protected constructor(options: IComponentOptions)
     {
         this.name = options.Name;
 

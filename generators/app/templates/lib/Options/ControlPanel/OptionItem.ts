@@ -1,4 +1,4 @@
-import IOptionItem from "./IOptionItem";
+import IOptionItemOptions from "./IOptionItemOptions";
 import Localizable from "../../GLobalization/Localizable";
 import Node from "../../Nodes/Node";
 import Option from "./Option";
@@ -8,7 +8,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents an item of an option.
  */
-export default class OptionItem implements IOptionItem
+export default class OptionItem implements IOptionItemOptions
 {
     /**
      * The name of the item.
@@ -33,7 +33,7 @@ export default class OptionItem implements IOptionItem
     /**
      * Initializes a new instance of the `OptionItem` class.
      */
-    public constructor(options: IOptionItem)
+    public constructor(options: IOptionItemOptions)
     {
         this.name = options.Name;
 

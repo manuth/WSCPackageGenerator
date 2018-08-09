@@ -1,4 +1,4 @@
-import IEmoji from "./IEmoji";
+import IEmojiOptions from "./IEmojiOptions";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -6,7 +6,7 @@ import { isNullOrUndefined } from "util";
  * 
  * Please keep in mind to provide the files using a `FilesInstruction`.
  */
-export default class Emoji implements IEmoji
+export default class Emoji implements IEmojiOptions
 {
     /**
      * The title of the emoji.
@@ -41,7 +41,7 @@ export default class Emoji implements IEmoji
     /**
      * Initializes a new instance of the `Emoji` class.
      */
-    public constructor(options: IEmoji)
+    public constructor(options: IEmojiOptions)
     {
         this.title = options.Title;
         this.name = options.Name;

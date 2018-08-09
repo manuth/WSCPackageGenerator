@@ -1,10 +1,10 @@
-import IBBCodeAttribute from "./IBBCodeAttribute";
+import IBBCodeAttributeOptions from "./IBBCodeAttributeOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an attribute of a bb-code.
  */
-export default class BBCodeAttribute implements IBBCodeAttribute
+export default class BBCodeAttribute implements IBBCodeAttributeOptions
 {
     /**
      * A value indicating whether the attribute is required.
@@ -31,7 +31,7 @@ export default class BBCodeAttribute implements IBBCodeAttribute
     /**
      * Initializes a new instance of the `BBCodeAttribute` class.
      */
-    public constructor(options: IBBCodeAttribute)
+    public constructor(options: IBBCodeAttributeOptions)
     {
         if (!isNullOrUndefined(options.Required))
         {

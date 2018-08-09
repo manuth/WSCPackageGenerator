@@ -1,6 +1,7 @@
-import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
+import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
 import PackageDescriptor from "./PackageDescriptor";
 import { isNullOrUndefined } from "util";
+import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
 
 /**
  * Provides an abstraction of a package.
@@ -15,7 +16,7 @@ export default class RequiredPackageDescriptor extends PackageDescriptor impleme
     /**
      * Initializes a new isntance of the `RequiredPackageDescriptor` class.
      */
-    public constructor(options: IRequiredPackageDescriptor)
+    public constructor(options: IRequiredPackageDescriptorOptions)
     {
         super(options);
 

@@ -1,8 +1,9 @@
 import EventListener from "./EventListener";
 import FileInstruction from "../Automation/FileInstruction";
-import IEventListenersInstruction from "./IEventListenersInstruction";
+import IEventListenersInstructionOptions from "./IEventListenersInstructionOptions";
 import Instruction from "../Automation/Instruction";
 import { isNullOrUndefined } from "util";
+import IEventListenersInstruction from "./IEventListenersInstruction";
 
 /**
  * Represents an instruction that provides a set of event-listeners.
@@ -22,7 +23,7 @@ export default class EventListenersInstruction extends FileInstruction implement
     /**
      * Initializes a new instance of the `EventListenersInstruction` class.
      */
-    public constructor(options: IEventListenersInstruction)
+    public constructor(options: IEventListenersInstructionOptions)
     {
         super(options);
 

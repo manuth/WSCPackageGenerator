@@ -1,10 +1,10 @@
-import IInstruction from "./IInstruction";
+import IInstructionOptions from "./IInstructionOptions";
 import Package from "../PackageSystem/Package";
 
 /**
  * Represents an instruction for installing a package.
  */
-export default abstract class Instruction implements IInstruction
+export default abstract class Instruction implements IInstructionOptions
 {
     /**
      * The package this instruction belongs to.
@@ -14,13 +14,10 @@ export default abstract class Instruction implements IInstruction
     /**
      * Initializes a new instance of the `Instruction` class.
      */
-    public constructor(options: Partial<IInstruction> = { })
+    public constructor(options: Partial<IInstructionOptions> = { })
     {
     }
 
-    /**
-     * Gets or sets the package this instruction belongs to.
-     */
     public get Package(): Package
     {
         return this.package;

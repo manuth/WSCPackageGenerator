@@ -1,8 +1,9 @@
 import BBCodeAttribute from "./BBCodeAttribute";
-import IBBCode from "./IBBCode";
+import IBBCodeOptions from "./IBBCodeOptions";
 import Localizable from "../../GLobalization/Localizable";
 import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
+import IBBCode from "./IBBCode";
 
 /**
  * Represents a bb-code.
@@ -59,7 +60,7 @@ export default class BBCode implements IBBCode
     /**
      * Initializes a new instance of the `BBCode` class.
      */
-    public constructor(options: IBBCode)
+    public constructor(options: IBBCodeOptions)
     {
         if (!isNullOrUndefined(options.Name))
         {

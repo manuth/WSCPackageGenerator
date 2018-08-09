@@ -1,4 +1,4 @@
-import ICronjob from "./ICronjob";
+import ICronjobOptions from "./ICronjobOptions";
 import Localizable from "../../GLobalization/Localizable";
 import TimePoint from "./TimePoint";
 import Option from "../../Options/ControlPanel/Option";
@@ -7,7 +7,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a cron-job.
  */
-export default class Cronjob implements ICronjob
+export default class Cronjob implements ICronjobOptions
 {
     /**
      * The name of the cron-job.
@@ -47,7 +47,7 @@ export default class Cronjob implements ICronjob
     /**
      * Initializes a new instance of the `Conrjob` class.
      */
-    public constructor(options: ICronjob)
+    public constructor(options: ICronjobOptions)
     {
         this.name = options.Name;
         this.className = options.ClassName;

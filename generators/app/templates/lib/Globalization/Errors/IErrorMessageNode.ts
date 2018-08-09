@@ -1,12 +1,8 @@
-import ErrorMessageNode from "./ErrorMessageNode";
-import INodeContainer from "../../Nodes/INodeContainer";
-import ITranslationNode from "../ITranslationNode";
-import Localizable from "../Localizable";
+import IErrorMessageNodeOptions from "./IErrorMessageNodeOptions";
 
 /**
  * Represents a node that contains localized variables.
  */
-export default interface IErrorMessageNode extends ITranslationNode
+export default interface IErrorMessageNode extends Required<IErrorMessageNodeOptions>
 {
-    Nodes?: ErrorMessageNode[];
 }

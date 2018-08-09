@@ -1,13 +1,13 @@
 import Emoji from "./Emoji";
 import FileInstruction from "../../Automation/FileInstruction";
-import IEmojisInstruction from "./IEmojisInstruction";
+import IEmojisInstructionOptions from "./IEmojisInstructionOptions";
 import Instruction from "../../Automation/Instruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides emojis.
  */
-export default class EmojisInstruction extends FileInstruction implements IEmojisInstruction
+export default class EmojisInstruction extends FileInstruction implements IEmojisInstructionOptions
 {
     /**
      * The emojis provided by the instruction.
@@ -17,7 +17,7 @@ export default class EmojisInstruction extends FileInstruction implements IEmoji
     /**
      * Initializes a new instance of the `EmojisInstruction` class.
      */
-    public constructor(options: IEmojisInstruction)
+    public constructor(options: IEmojisInstructionOptions)
     {
         super(options);
 

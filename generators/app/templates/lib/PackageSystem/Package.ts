@@ -4,7 +4,7 @@ import ErrorMessageNode from "../Globalization/Errors/ErrorMessageNode";
 import FileDescriptor from "./FileDescriptor";
 import Instruction from "../Automation/Instruction";
 import InstructionCollection from "../Automation/InstructionCollection";
-import IPackage from "./IPackage";
+import IPackageOptions from "./IPackageOptions";
 import Option from "../Options/ControlPanel/Option";
 import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
 import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
@@ -13,6 +13,7 @@ import TranslationNode from "../Globalization/TranslationNode";
 import UpdateInstructionCollection from "../Automation/UpdateInstructionCollection";
 import UpdatesCollection from "../Automation/UpdatesCollection";
 import { isNullOrUndefined } from "util";
+import IPackage from "./IPackage";
 
 /**
  * Represents a package for WoltLab Suite Core.
@@ -57,7 +58,7 @@ export default class Package extends Component implements IPackage
     /**
      * Initializes a new instance of the `Package` class.
      */
-    public constructor(options: IPackage)
+    public constructor(options: IPackageOptions)
     {
         super(options);
         this.identifier = options.Identifier;

@@ -1,7 +1,8 @@
-import INodeContainer from "./INodeContainer";
+import INodeContainerOptions from "./INodeContainerOptions";
 import Node from "./Node";
 import NodeCollection from "./NodeCollection";
 import { isNullOrUndefined } from "util";
+import INodeContainer from "./INodeContainer";
 
 /**
  * Represents a node which contains child-nodes.
@@ -16,7 +17,7 @@ export default abstract class NodeContainer extends Node implements INodeContain
     /**
      * Initializes a new instance of the `Node` class.
      */
-    public constructor(options: INodeContainer)
+    public constructor(options: INodeContainerOptions)
     {
         super(options);
 

@@ -1,5 +1,6 @@
-import IOptionalPackageDescriptor from "./IOptionalPackageDescriptor";
+import IOptionalPackageDescriptorOptions from "./IOptionalPackageDescriptorOptions";
 import PackageDescriptor from "./PackageDescriptor";
+import IOptionalPackageDescriptor from "./IOptionalPackageDescriptor";
 
 /**
  * Provides an abstraction of an optional package.
@@ -16,7 +17,7 @@ export default class OptionalPackageDescriptor extends PackageDescriptor impleme
     /**
      * Initializes a new instance of the `OptionalPackageDescriptor` class.
      */
-    public constructor(options: IOptionalPackageDescriptor)
+    public constructor(options: IOptionalPackageDescriptorOptions)
     {
         super(options);
     }

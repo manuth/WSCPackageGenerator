@@ -1,8 +1,9 @@
-import ITranslationNode from "./ITranslationNode";
+import ITranslationNodeOptions from "./ITranslationNodeOptions";
 import Localizable from "./Localizable";
 import NodeCollection from "../Nodes/NodeCollection";
 import NodeContainer from "../Nodes/NodeContainer";
 import { isNullOrUndefined } from "util";
+import ITranslationNode from "./ITranslationNode";
 
 /**
  * Represents a node that contains localized variables.
@@ -27,7 +28,7 @@ export default class TranslationNode extends NodeContainer implements ITranslati
     /**
      * Initializes a new instance of the `TranslationNode` class.
      */
-    public constructor(options: ITranslationNode)
+    public constructor(options: ITranslationNodeOptions)
     {
         super(options);
 

@@ -1,8 +1,9 @@
 import ErrorMessageNode from "./ErrorMessageNode";
-import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
-import ITranslationsInstruction from "../ITranslationsInstruction";
+import IErrorMessagesInstructionOptions from "./IErrorMessagesInstructionOptions";
+import ITranslationsInstructionOptions from "../ITranslationsInstructionOptions";
 import TranslationsInstruction from "../TranslationsInstruction";
 import { isNullOrUndefined } from "util";
+import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
 
 /**
  * Represents an instruction which provides errorg-messages.
@@ -17,7 +18,7 @@ export default class ErrorMessagesInstruction extends TranslationsInstruction im
     /**
      * Initializes a new instance of the `ErrorMessagesInstruction` class.
      */
-    public constructor(options: IErrorMessagesInstruction)
+    public constructor(options: IErrorMessagesInstructionOptions)
     {
         super(options);
 

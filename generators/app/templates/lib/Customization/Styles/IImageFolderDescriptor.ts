@@ -1,12 +1,8 @@
-import IFileSystemInstruction from "../../Automation/IFileSystemInstruction";
+import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
 
 /**
  * Represents the description of an image-folder.
  */
-export default interface IImageFolderDescriptor extends IFileSystemInstruction
+export default interface IImageFolderDescriptor extends Required<IImageFolderDescriptorOptions>
 {
-    /**
-     * Gets or sets the directory to upload the pictures to.
-     */
-    DestinationRoot?: string;
 }

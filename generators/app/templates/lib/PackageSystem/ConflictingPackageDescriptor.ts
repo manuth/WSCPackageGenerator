@@ -1,4 +1,4 @@
-import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
+import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
 import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
 
 /**
@@ -9,7 +9,7 @@ export default class ConflictingPackageDescriptor extends RequiredPackageDescrip
     /**
      * Initializes a new instance of the `ConflictingPackageDescriptor`.
      */
-    public constructor(options: IRequiredPackageDescriptor)
+    public constructor(options: IRequiredPackageDescriptorOptions)
     {
         super(options);
     }

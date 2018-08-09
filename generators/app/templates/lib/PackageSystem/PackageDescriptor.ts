@@ -1,5 +1,6 @@
-import IPackageDescriptor from "./IPackageDescriptor";
+import IPackageDescriptorOptions from "./IPackageDescriptorOptions";
 import { isNullOrUndefined } from "util";
+import IPackageDescriptor from "./IPackageDescriptor";
 
 /**
  * Provides an abstraction of a package.
@@ -14,7 +15,7 @@ export default abstract class PackageDescriptor implements IPackageDescriptor
     /**
      * Initializes a new instance of the `PackageDescriptor` class.
      */
-    public constructor(options: IPackageDescriptor)
+    public constructor(options: IPackageDescriptorOptions)
     {
         if (!isNullOrUndefined(options.Identifier))
         {

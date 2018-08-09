@@ -1,6 +1,6 @@
 import FileInstruction from "./FileInstruction";
-import IFileInstruction from "./IFileInstruction";
 import IPHPInstruction from "./IPHPInstruction";
+import IPHPInstructionOptions from "./IPHPInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -20,7 +20,7 @@ export default class PHPInstruction extends FileInstruction implements IPHPInstr
     /**
      * Initializes a new instance of the `PHPInstruction` class.
      */
-    public constructor(options: IPHPInstruction)
+    public constructor(options: IPHPInstructionOptions)
     {
         super(options);
 

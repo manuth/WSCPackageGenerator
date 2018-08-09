@@ -1,4 +1,4 @@
-import IOption from "./IOption";
+import IOptionOptions from "./IOptionOptions";
 import Localizable from "../../GLobalization/Localizable";
 import Node from "../../Nodes/Node";
 import OptionItem from "./OptionItem";
@@ -11,7 +11,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents an option that can be shown in the ACP.
  */
-export default class Option extends Node implements IOption
+export default class Option extends Node implements IOptionOptions
 {
     /**
      * The id of the option.
@@ -66,7 +66,7 @@ export default class Option extends Node implements IOption
     /**
      * Initializes a new instance of the `Option` class.
      */
-    public constructor(options: IOption)
+    public constructor(options: IOptionOptions)
     {
         super(options);
         this.id = options.ID;

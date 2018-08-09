@@ -1,5 +1,6 @@
-import IFileDescriptor from "./IFileDescriptor";
+import IFileDescriptorOptions from "./IFileDescriptorOptions";
 import { isNullOrUndefined } from "util";
+import IFileDescriptor from "./IFileDescriptor";
 
 /**
  * Represents the description of file.
@@ -19,7 +20,7 @@ export default class FileDescriptor implements IFileDescriptor
     /**
      * Initializes a new instance of the `FileDescriptor` class.
      */
-    public constructor(options: IFileDescriptor)
+    public constructor(options: IFileDescriptorOptions)
     {
         this.source = options.Source;
 

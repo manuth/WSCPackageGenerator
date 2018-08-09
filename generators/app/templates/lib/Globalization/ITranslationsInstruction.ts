@@ -1,13 +1,8 @@
-import IFileInstruction from "../Automation/IFileInstruction";
-import TranslationNode from "./TranslationNode";
+import ITranslationsInstructionOptions from "./ITranslationsInstructionOptions";
 
 /**
  * Represents an instruction that provides `Translation`s.
  */
-export default interface ITranslationsInstruction extends IFileInstruction
+export default interface ITranslationsInstruction extends Required<ITranslationsInstructionOptions>
 {
-    /**
-     * Gets the nodes which contains the translations provided by this instruction.
-     */
-    TranslationNodes: TranslationNode[];
 }

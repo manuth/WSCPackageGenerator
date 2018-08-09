@@ -1,8 +1,8 @@
 import * as Path from "path";
 import FileInstruction from "../../Automation/FileInstruction";
 import Instruction from "../../Automation/Instruction";
-import IOptionsInstruction from "./IOptionsInstruction";
-import ITranslationsInstruction from "../../Globalization/ITranslationsInstruction";
+import IOptionsInstructionOptions from "./IOptionsInstructionOptions";
+import ITranslationsInstructionOptions from "../../Globalization/ITranslationsInstructionOptions";
 import Option from "./Option";
 import SettingsNode from "./SettingsNode";
 import TranslationNode from "../../Globalization/TranslationNode";
@@ -11,7 +11,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents an instruction that provides options for the control-panel.
  */
-export default class OptionsInstruction extends FileInstruction implements IOptionsInstruction, ITranslationsInstruction
+export default class OptionsInstruction extends FileInstruction implements IOptionsInstructionOptions, ITranslationsInstructionOptions
 {
     /**
      * A set of names of options to delete.
@@ -31,7 +31,7 @@ export default class OptionsInstruction extends FileInstruction implements IOpti
     /**
      * Initializes a new instance of the `OptionsInstruction` class.
      */
-    public constructor(options: IOptionsInstruction)
+    public constructor(options: IOptionsInstructionOptions)
     {
         super(options);
 

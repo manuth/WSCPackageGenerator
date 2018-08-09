@@ -1,10 +1,8 @@
+import IPackageDescriptorOptions from "./IPackageDescriptorOptions";
+
 /**
  * Provides an abstraction of a package.
  */
-export default interface IPackageDescriptor
+export default interface IPackageDescriptor extends Required<IPackageDescriptorOptions>
 {
-    /**
-     * Gets or sets the identifier of the package.
-     */
-    Identifier: string;
 }

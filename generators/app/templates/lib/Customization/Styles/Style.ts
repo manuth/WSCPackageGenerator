@@ -3,19 +3,20 @@ import * as ColorNames from "colornames";
 import Component from "../../PackageSystem/Component";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";
-import IStyle from "./IStyle";
+import IStyleOptions from "./IStyleOptions";
 import * as OS from "os";
 import * as Path from "path";
 import StyleInstruction from "./StyleInstruction";
 import ImageFolderDescriptor from "./ImageFolderDescriptor";
 import { isNullOrUndefined } from "util";
 import { parse } from "sass-variable-parser";
+import IStyle from "./IStyle";
 const Hex2Rgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**
  * Represents a style for WoltLab Suite Core.
  */
-export default class Style extends Component
+export default class Style extends Component implements IStyle
 {
     /**
      * The instruction this style belongs to.
@@ -61,7 +62,7 @@ export default class Style extends Component
     /**
      * Initializes a new instance of the `Style` class.
      */
-    public constructor(options: IStyle)
+    public constructor(options: IStyleOptions)
     {
         super(options);
 
@@ -101,9 +102,6 @@ export default class Style extends Component
         }
     }
 
-    /**
-     * Gets or sets the instruction this style belongs to.
-     */
     public get Instruction(): StyleInstruction
     {
         return this.instruction;
@@ -114,9 +112,6 @@ export default class Style extends Component
         this.instruction = value;
     }
 
-    /**
-     * Gets or sets the filename of the thumbnail of the style.
-     */
     public get Thumbnail(): string
     {
         return this.thumbnail;
@@ -127,9 +122,6 @@ export default class Style extends Component
         this.thumbnail = value;
     }
 
-    /**
-     * Gets or sets the filename of the high-resolution version of the thumbnanil of the style.
-     */
     public get HighResThumbnail(): string
     {
         return this.highResThumbnail;
@@ -140,9 +132,6 @@ export default class Style extends Component
         this.highResThumbnail = value;
     }
 
-    /**
-     * Gets or sets the default cover-photo for user-profiles.
-     */
     public get CoverPhoto(): string
     {
         return this.coverPhoto;
@@ -153,9 +142,6 @@ export default class Style extends Component
         this.coverPhoto = value;
     }
 
-    /**
-     * Gets or sets the root of the images provided by this style.
-     */
     public get Images(): ImageFolderDescriptor
     {
         return this.images;
@@ -166,9 +152,6 @@ export default class Style extends Component
         this.images = value;
     }
 
-    /**
-     * Gets or sets the variables of the style.
-     */
     public get Variables(): object
     {
         return this.variables;
@@ -179,9 +162,6 @@ export default class Style extends Component
         this.variables = value;
     }
 
-    /**
-     * Gets or sets the scss-code provided by this style.
-     */
     public get CustomScss(): string
     {
         return this.customScss;
@@ -192,10 +172,6 @@ export default class Style extends Component
         this.customScss = value;
     }
 
-    /**
-     * Gets or sets the scss-code provided by this style that is used
-     * for overwriting variables originally provided by WoltLab Suite Core.
-     */
     public get OverrideScss(): string
     {
         return this.overrideScss;

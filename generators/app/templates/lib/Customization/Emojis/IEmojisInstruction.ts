@@ -1,13 +1,9 @@
-import Emoji from "./Emoji";
+import IEmojisInstructionOptions from "./IEmojisInstructionOptions";
 import IFileInstruction from "../../Automation/IFileInstruction";
 
 /**
  * Represents an instruction that provides emojis.
  */
-export default interface IEmojisInstruction extends IFileInstruction
+export default interface IEmojisInstruction extends IFileInstruction, Required<IEmojisInstructionOptions>
 {
-    /**
-     * Gets the emojis provided by the instruction.
-     */
-    Emojis: Emoji[];
 }

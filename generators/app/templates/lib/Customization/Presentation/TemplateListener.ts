@@ -1,6 +1,7 @@
-import ITemplateListener from "./ITemplateListener";
+import ITemplateListenerOptions from "./ITemplateListenerOptions";
 import Listener from "../../Core/Listener";
 import { isNullOrUndefined } from "util";
+import ITemplateListener from "./ITemplateListener";
 
 /**
  * Represents a listener that subscribes to an event inside a template.
@@ -20,7 +21,7 @@ export default class TemplateListener extends Listener implements ITemplateListe
     /**
      * Initializes a new instance of the `TemplateListener` class.
      */
-    public constructor(options: ITemplateListener)
+    public constructor(options: ITemplateListenerOptions)
     {
         super(options);
 

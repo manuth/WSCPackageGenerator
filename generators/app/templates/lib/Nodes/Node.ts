@@ -1,6 +1,7 @@
-import INode from "./INode";
+import INodeOptions from "./INodeOptions";
 import NodeContainer from "./NodeContainer";
 import { isNullOrUndefined } from "util";
+import INode from "./INode";
 
 /**
  * Represents a node.
@@ -20,7 +21,7 @@ export default class Node implements INode
     /**
      * Initializes a new instance of the `NodeChild` class.
      */
-    public constructor(options: INode)
+    public constructor(options: INodeOptions)
     {
         if (!isNullOrUndefined(options.Name))
         {

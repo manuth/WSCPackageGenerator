@@ -1,3 +1,5 @@
+import IPackageDescriptorOptions from "./IPackageDescriptorOptions";
+import IOptionalPackageDescriptorOptions from "./IOptionalPackageDescriptorOptions";
 import IPackageDescriptor from "./IPackageDescriptor";
 
 /**
@@ -5,10 +7,6 @@ import IPackageDescriptor from "./IPackageDescriptor";
  * 
  * Keep in mind to provide the optional package using `Package.AdditionalFiles`.
  */
-export default interface IOptionalPackageDescriptor extends IPackageDescriptor
+export default interface IOptionalPackageDescriptor extends IPackageDescriptor, Required<IOptionalPackageDescriptorOptions>
 {
-    /**
-     * Gets or sets the path to the path to the package.
-     */
-    FileName: string;
 }

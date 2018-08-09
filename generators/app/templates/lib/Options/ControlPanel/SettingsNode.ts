@@ -1,4 +1,4 @@
-import ISettingsNode from "./ISettingsNode";
+import ISettingsNodeOptions from "./ISettingsNodeOptions";
 import Localizable from "../../GLobalization/Localizable";
 import NodeCollection from "../../Nodes/NodeCollection";
 import NodeContainer from "../../Nodes/NodeContainer";
@@ -9,7 +9,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a node that contains options and categories.
  */
-export default class SettingsNode extends NodeContainer implements ISettingsNode
+export default class SettingsNode extends NodeContainer implements ISettingsNodeOptions
 {
     /**
      * The displayname of the node.
@@ -34,7 +34,7 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
     /**
      * Initializes a new instance of the `SettingsNode` class.
      */
-    public constructor(options: ISettingsNode)
+    public constructor(options: ISettingsNodeOptions)
     {
         super(options);
 

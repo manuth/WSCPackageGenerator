@@ -1,12 +1,12 @@
 import Cronjob from "./Cronjob";
 import FileInstruction from "../../Automation/FileInstruction";
-import ICronjobInstruction from "./ICronjobInstruction";
+import ICronjobInstructionOptions from "./ICronjobInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides chron-jobs.
  */
-export default class CronjobInstruction extends FileInstruction implements ICronjobInstruction
+export default class CronjobInstruction extends FileInstruction implements ICronjobInstructionOptions
 {
     /**
      * The cron-jobs provided by the instruction.
@@ -16,7 +16,7 @@ export default class CronjobInstruction extends FileInstruction implements ICron
     /**
      * Initializes a new instance of the `CronjobInstruction` class.
      */
-    public constructor(options: ICronjobInstruction)
+    public constructor(options: ICronjobInstructionOptions)
     {
         super(options);
 

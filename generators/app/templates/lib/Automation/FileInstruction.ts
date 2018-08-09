@@ -1,4 +1,5 @@
 import IFileInstruction from "./IFileInstruction";
+import IFileInstructionOptions from "./IFileInstructionOptions";
 import Instruction from "./Instruction";
 import { isNullOrUndefined } from "util";
 
@@ -15,7 +16,7 @@ export default class FileInstruction extends Instruction implements IFileInstruc
     /**
      * Initializes a new instance of the `FileInstruction` class.
      */
-    public constructor(options: IFileInstruction)
+    public constructor(options: IFileInstructionOptions)
     {
         super(options);
 

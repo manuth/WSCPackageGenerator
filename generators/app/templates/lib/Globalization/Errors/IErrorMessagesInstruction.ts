@@ -1,13 +1,8 @@
-import ErrorMessageNode from "./ErrorMessageNode";
-import ITranslationsInstruction from "../ITranslationsInstruction";
+import IErrorMessagesInstructionOptions from "./IErrorMessagesInstructionOptions";
 
 /**
  * Represents an instruction which provides errorg-messages.
  */
-export default interface IErrorMessagesInstruction extends ITranslationsInstruction
+export default interface IErrorMessagesInstruction extends Required<IErrorMessagesInstructionOptions>
 {
-    /**
-     * Gets the nodes which contains the translations provided by this instruction.
-     */
-    TranslationNodes: ErrorMessageNode[];
 }

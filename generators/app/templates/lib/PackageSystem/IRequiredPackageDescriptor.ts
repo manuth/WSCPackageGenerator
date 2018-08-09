@@ -1,12 +1,8 @@
-import IPackageDescriptor from "./IPackageDescriptor";
+import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
 
 /**
  * Provides an abstraction of a required package.
  */
-export default interface IRequiredPackageDescriptor extends IPackageDescriptor
+export default interface IRequiredPackageDescriptor extends Required<IRequiredPackageDescriptorOptions>
 {
-    /**
-     * Gets or sets the minimal version the package must have.
-     */
-    MinVersion: string;
 }

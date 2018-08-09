@@ -3,11 +3,12 @@ import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as Temp from "tmp";
 import { isNullOrUndefined } from "util";
+import ICompiler from "./ICompiler";
 
 /**
- * Provides the functionality to compile parts of the package.
+ * Provides the functionality to compile a component.
  */
-export default abstract class Compiler<T>
+export default abstract class Compiler<T> implements ICompiler
 {
     /**
      * The item to compile.
@@ -47,17 +48,11 @@ export default abstract class Compiler<T>
         return this.item;
     }
 
-    /**
-     * Gets the path to save the compiled item to.
-     */
     public get DestinationPath(): string
     {
         return this.destinationPath;
     }
 
-    /**
-     * Gets the path to save temporary files to.
-     */
     public get TempPath(): string
     {
         if (isNullOrUndefined(this.tempPath))
@@ -68,9 +63,6 @@ export default abstract class Compiler<T>
         return this.tempPath.name;
     }
 
-    /**
-     * Compiles the item.
-     */
     public async Execute()
     {
         await this.Compile();

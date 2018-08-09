@@ -1,4 +1,5 @@
 import FileSystemInstruction from "../../Automation/FileSystemInstruction";
+import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
 import IImageFolderDescriptor from "./IImageFolderDescriptor";
 
 /**
@@ -14,7 +15,7 @@ export default class ImageFolderDescriptor extends FileSystemInstruction impleme
     /**
      * Initializes a new instance of the `ImageFolderDescriptor` class.
      */
-    public constructor(options: IImageFolderDescriptor)
+    public constructor(options: IImageFolderDescriptorOptions)
     {
         super(options);
 

@@ -1,15 +1,8 @@
+import IFileDescriptorOptions from "./IFileDescriptorOptions";
+
 /**
  * Represents the description of file.
  */
-export default interface IFileDescriptor
+export default interface IFileDescriptor extends Required<IFileDescriptorOptions>
 {
-    /**
-     * Gets or sets the path to load the file from.
-     */
-    Source: string;
-
-    /**
-     * Gets or sets the path to save the file to.
-     */
-    Destination?: string;
 }
