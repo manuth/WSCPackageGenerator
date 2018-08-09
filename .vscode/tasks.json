@@ -13,7 +13,7 @@
             },
             "problemMatcher": "$tsc-watch",
             "presentation": {
-                "reveal": "silent"
+                "reveal": "never"
             },
             "isBackground": true
         },
@@ -23,7 +23,7 @@
             "script": "watchLib",
             "problemMatcher": "$tsc-watch",
             "presentation": {
-                "reveal": "silent"
+                "reveal": "never"
             },
             "isBackground": true
         }
