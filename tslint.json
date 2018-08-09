@@ -13,7 +13,13 @@
         "no-trailing-whitespace": false,
         "prefer-const": false,
         "object-literal-sort-keys": false,
-        "ordered-imports": false,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true,
+                "module-source-path": "basename"
+            }
+        ],
         "max-line-length": false,
         "arrow-parens": false,
         "array-type": false,
@@ -30,7 +36,13 @@
         "no-trailing-whitespace": false,
         "prefer-const": false,
         "object-literal-sort-keys": false,
-        "ordered-imports": false,
+        "ordered-imports": [
+            true,
+            {
+                "grouped-imports": true,
+                "module-source-path": "basename"
+            }
+        ],
         "max-line-length": false,
         "arrow-parens": false,
         "array-type": false,
