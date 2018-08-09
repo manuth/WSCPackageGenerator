@@ -1,9 +1,8 @@
-import * as Path from "path";
 import FileInstruction from "../../Automation/FileInstruction";
-import Instruction from "../../Automation/Instruction";
 import IOptionsInstructionOptions from "./IOptionsInstructionOptions";
 import ITranslationsInstructionOptions from "../../Globalization/ITranslationsInstructionOptions";
 import Option from "./Option";
+import * as Path from "path";
 import SettingsNode from "./SettingsNode";
 import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";

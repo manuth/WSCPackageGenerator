@@ -1,7 +1,6 @@
-import INodeOptions from "./INodeOptions";
-import NodeContainer from "./NodeContainer";
-import { isNullOrUndefined } from "util";
 import INode from "./INode";
+import INodeOptions from "./INodeOptions";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node.

@@ -1,11 +1,10 @@
+import Compiler from "../Core/Compiler";
 import * as FileSystem from "fs-extra";
+import InstructionCollectionCompiler from "./InstructionCollectionCompiler";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import * as Path from "path";
-import Compiler from "../Core/Compiler";
-import FilesInstruction from "../Core/FilesInstruction";
-import InstructionCollectionCompiler from "./InstructionCollectionCompiler";
 import Package from "./Package";
+import * as Path from "path";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**

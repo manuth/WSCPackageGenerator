@@ -1,10 +1,8 @@
+import IErrorMessageNode from "./IErrorMessageNode";
 import IErrorMessageNodeOptions from "./IErrorMessageNodeOptions";
 import NodeCollection from "../../Nodes/NodeCollection";
 import TranslationNode from "../TranslationNode";
 import { isNullOrUndefined } from "util";
-import NodeContainer from "../../Nodes/NodeContainer";
-import Node from "../../Nodes/Node";
-import IErrorMessageNode from "./IErrorMessageNode";
 
 /**
  * Represents a node that contains localizes error-messages.
@@ -14,7 +12,7 @@ export default class ErrorMessageNode extends TranslationNode implements IErrorM
     /**
      * The nodes contained by this node.
      */
-    private errorMessageNodes: ErrorMessageNode[] = new NodeCollection(this);
+    private errorMessageNodes: ErrorMessageNode[] = new NodeCollection<ErrorMessageNode>(this);
 
     public constructor(options: IErrorMessageNodeOptions)
     {

@@ -1,9 +1,8 @@
 import FileInstruction from "../Automation/FileInstruction";
-import Instruction from "../Automation/Instruction";
+import ITranslationsInstruction from "./ITranslationsInstruction";
 import ITranslationsInstructionOptions from "./ITranslationsInstructionOptions";
 import TranslationNode from "./TranslationNode";
 import { isNullOrUndefined } from "util";
-import ITranslationsInstruction from "./ITranslationsInstruction";
 
 /**
  * Represents an instruction that provides `Translation`s.

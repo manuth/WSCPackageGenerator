@@ -1,5 +1,4 @@
 import Node from "./Node";
-import NodeContainer from "./NodeContainer";
 
 /**
  * Represents a set of nodes.
@@ -9,7 +8,7 @@ export default class NodeCollection<T extends Node> extends Array<T>
     /**
      * The node this collection belongs to.
      */
-    private node: NodeContainer;
+    private node: Node;
 
     /**
      * Initializes a new instance of the `NodeCollection` class.
@@ -17,7 +16,7 @@ export default class NodeCollection<T extends Node> extends Array<T>
      * @param node
      * The node this collection belongs to.
      */
-    public constructor(node: NodeContainer)
+    public constructor(node: Node)
     {
         super();
         this.node = node;

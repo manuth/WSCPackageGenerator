@@ -1,23 +1,23 @@
+import INodeContainer from "./INodeContainer";
 import INodeContainerOptions from "./INodeContainerOptions";
 import Node from "./Node";
 import NodeCollection from "./NodeCollection";
 import { isNullOrUndefined } from "util";
-import INodeContainer from "./INodeContainer";
 
 /**
  * Represents a node which contains child-nodes.
  */
-export default abstract class NodeContainer extends Node implements INodeContainer
+export default abstract class NodeContainer<T extends Node> extends Node implements INodeContainer<T>
 {
     /**
      * The nodes contained by this node.
      */
-    private nodes: NodeContainer[] = new NodeCollection(this);
+    private nodes: T[] = new NodeCollection(this);
 
     /**
      * Initializes a new instance of the `Node` class.
      */
-    public constructor(options: INodeContainerOptions)
+    public constructor(options: INodeContainerOptions<T>)
     {
         super(options);
 
@@ -27,7 +27,7 @@ export default abstract class NodeContainer extends Node implements INodeContain
         }
     }
 
-    public get Nodes(): NodeContainer[]
+    public get Nodes(): T[]
     {
         return this.nodes;
     }

@@ -1,9 +1,8 @@
 import FileInstruction from "../../Automation/FileInstruction";
-import Instruction from "../../Automation/Instruction";
+import ITemplateListenersInstruction from "./ITemplateListenersInstruction";
 import ITemplateListenersInstructionOptions from "./ITemplateListenersInstructionOptions";
 import TemplateListener from "./TemplateListener";
 import { isNullOrUndefined } from "util";
-import ITemplateListenersInstruction from "./ITemplateListenersInstruction";
 
 /**
  * Represents an instruction that provides a set of template-listeners.

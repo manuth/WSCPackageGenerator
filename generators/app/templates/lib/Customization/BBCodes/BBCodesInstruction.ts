@@ -2,7 +2,6 @@ import * as Path from "path";
 import BBCode from "./BBCode";
 import FileInstruction from "../../Automation/FileInstruction";
 import IBBCodesInstructionOptions from "./IBBCodesInstructionOptions";
-import Instruction from "../../Automation/Instruction";
 import ITranslationsInstruction from "../../Globalization/ITranslationsInstruction";
 import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
@@ -22,7 +21,7 @@ export default class BBCodesInstruction extends FileInstruction implements IBBCo
      * The bb-codes provided by the instruction.
      */
     private bbcodes: BBCode[] = [];
-
+    
     /**
      * Initializes a new instance of the `BBCodesInstruction` class.
      */

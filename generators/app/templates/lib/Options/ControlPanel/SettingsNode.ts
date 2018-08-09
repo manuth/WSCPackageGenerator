@@ -9,7 +9,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a node that contains options and categories.
  */
-export default class SettingsNode extends NodeContainer implements ISettingsNodeOptions
+export default class SettingsNode extends NodeContainer<SettingsNode> implements ISettingsNodeOptions
 {
     /**
      * The displayname of the node.
@@ -29,7 +29,7 @@ export default class SettingsNode extends NodeContainer implements ISettingsNode
     /**
      * The options contained by this node.
      */
-    private options: Option[] = new NodeCollection(this);
+    private options: Option[] = new NodeCollection<Option>(this);
 
     /**
      * Initializes a new instance of the `SettingsNode` class.

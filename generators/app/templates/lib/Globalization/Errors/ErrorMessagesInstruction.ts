@@ -1,9 +1,8 @@
 import ErrorMessageNode from "./ErrorMessageNode";
+import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
 import IErrorMessagesInstructionOptions from "./IErrorMessagesInstructionOptions";
-import ITranslationsInstructionOptions from "../ITranslationsInstructionOptions";
 import TranslationsInstruction from "../TranslationsInstruction";
 import { isNullOrUndefined } from "util";
-import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
 
 /**
  * Represents an instruction which provides errorg-messages.

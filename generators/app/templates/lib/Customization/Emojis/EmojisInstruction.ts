@@ -1,7 +1,6 @@
 import Emoji from "./Emoji";
 import FileInstruction from "../../Automation/FileInstruction";
 import IEmojisInstructionOptions from "./IEmojisInstructionOptions";
-import Instruction from "../../Automation/Instruction";
 import { isNullOrUndefined } from "util";
 
 /**

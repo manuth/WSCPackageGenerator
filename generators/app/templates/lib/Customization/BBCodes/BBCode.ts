@@ -1,7 +1,6 @@
 import BBCodeAttribute from "./BBCodeAttribute";
 import IBBCodeOptions from "./IBBCodeOptions";
 import Localizable from "../../GLobalization/Localizable";
-import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 import IBBCode from "./IBBCode";
 
