@@ -1,8 +1,8 @@
+import IListener from "./IListener";
 import IListenerOptions from "./IListenerOptions";
 import Option from "../Options/ControlPanel/Option";
-import WSCEnvironment from "./WSCEnvironment";
 import { isNullOrUndefined } from "util";
-import IListener from "./IListener";
+import WSCEnvironment from "./WSCEnvironment";
 
 /**
  * Represents a component that listens to an event.

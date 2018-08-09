@@ -1,5 +1,5 @@
-import IStyleInstructionOptions from "./IStyleInstructionOptions";
 import IFileSystemInstruction from "../../Automation/IFileSystemInstruction";
+import IStyleInstructionOptions from "./IStyleInstructionOptions";
 
 /**
  * Represents an instruction that provides a style.

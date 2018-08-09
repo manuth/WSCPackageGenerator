@@ -1,8 +1,8 @@
 import BBCodeAttribute from "./BBCodeAttribute";
+import IBBCode from "./IBBCode";
 import IBBCodeOptions from "./IBBCodeOptions";
 import Localizable from "../../GLobalization/Localizable";
 import { isNullOrUndefined } from "util";
-import IBBCode from "./IBBCode";
 
 /**
  * Represents a bb-code.

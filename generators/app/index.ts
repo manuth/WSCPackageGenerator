@@ -1,7 +1,7 @@
+import chalk from "chalk";
 import * as FileSystem from "fs-extra";
 import Generator from "../Generator";
 import * as Path from "path";
-import chalk from "chalk";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 

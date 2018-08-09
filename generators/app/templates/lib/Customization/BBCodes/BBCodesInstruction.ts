@@ -1,11 +1,11 @@
-import * as Path from "path";
 import BBCode from "./BBCode";
 import FileInstruction from "../../Automation/FileInstruction";
+import IBBCodesInstruction from "./IBBCodesInstruction";
 import IBBCodesInstructionOptions from "./IBBCodesInstructionOptions";
 import ITranslationsInstruction from "../../Globalization/ITranslationsInstruction";
+import * as Path from "path";
 import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
-import IBBCodesInstruction from "./IBBCodesInstruction";
 
 /**
  * Represents an instruction that provides bb-codes.

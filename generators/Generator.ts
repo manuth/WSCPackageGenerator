@@ -1,6 +1,6 @@
+import IValidator from "./IValidator";
 import * as Path from "path";
 import * as YoGenerator from "yeoman-generator";
-import IValidator from "./IValidator";
 
 /**
  * Represents a generator.

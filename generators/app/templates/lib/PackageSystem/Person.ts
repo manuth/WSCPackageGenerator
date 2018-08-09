@@ -1,6 +1,6 @@
+import IPerson from "./IPerson";
 import IPersonOptions from "./IPersonOptions";
 import { isNullOrUndefined } from "util";
-import IPerson from "./IPerson";
 
 /**
  * Represents a person.

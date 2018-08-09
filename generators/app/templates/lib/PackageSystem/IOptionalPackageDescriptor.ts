@@ -1,4 +1,3 @@
-import IPackageDescriptorOptions from "./IPackageDescriptorOptions";
 import IOptionalPackageDescriptorOptions from "./IOptionalPackageDescriptorOptions";
 import IPackageDescriptor from "./IPackageDescriptor";
 

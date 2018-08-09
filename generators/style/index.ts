@@ -1,6 +1,6 @@
+import chalk from "chalk";
 import Generator from "../Generator";
 import * as Path from "path";
-import chalk from "chalk";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");

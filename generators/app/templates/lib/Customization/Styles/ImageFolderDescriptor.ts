@@ -1,6 +1,6 @@
 import FileSystemInstruction from "../../Automation/FileSystemInstruction";
-import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
 import IImageFolderDescriptor from "./IImageFolderDescriptor";
+import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
 
 /**
  * Represents the description of an image-folder.

@@ -1,7 +1,7 @@
+import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
 import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
 import PackageDescriptor from "./PackageDescriptor";
 import { isNullOrUndefined } from "util";
-import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
 
 /**
  * Provides an abstraction of a package.

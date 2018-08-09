@@ -1,9 +1,9 @@
 import FileSystemInstruction from "../../Automation/FileSystemInstruction";
+import IStyleInstruction from "./IStyleInstruction";
 import IStyleInstructionOptions from "./IStyleInstructionOptions";
 import Package from "../../PackageSystem/Package";
 import Style from "./Style";
 import { isNullOrUndefined } from "util";
-import IStyleInstruction from "./IStyleInstruction";
 
 /**
  * Represents an instruction that provides a style.

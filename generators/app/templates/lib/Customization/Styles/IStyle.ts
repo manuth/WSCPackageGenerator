@@ -1,5 +1,5 @@
-import StyleInstruction from "./StyleInstruction";
 import ImageFolderDescriptor from "./ImageFolderDescriptor";
+import StyleInstruction from "./StyleInstruction";
 
 /**
  * Represents a style for WoltLab Suite Core.

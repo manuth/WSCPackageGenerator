@@ -1,7 +1,7 @@
+import IEventListener from "./IEventListener";
 import IEventListenerOptions from "./IEventListenerOptions";
 import Listener from "../Core/Listener";
 import { isNullOrUndefined } from "util";
-import IEventListener from "./IEventListener";
 
 /**
  * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.

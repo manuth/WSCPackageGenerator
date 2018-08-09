@@ -1,6 +1,6 @@
 import Localizable from "../../GLobalization/Localizable";
-import TimePoint from "./TimePoint";
 import Option from "../../Options/ControlPanel/Option";
+import TimePoint from "./TimePoint";
 
 /**
  * Provides options for the `ICronjob` interface.

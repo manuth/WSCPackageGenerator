@@ -1,16 +1,16 @@
-import * as FileSystem from "fs";
 import * as ColorNames from "colornames";
 import Component from "../../PackageSystem/Component";
+import * as FileSystem from "fs";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";
+import ImageFolderDescriptor from "./ImageFolderDescriptor";
+import IStyle from "./IStyle";
 import IStyleOptions from "./IStyleOptions";
 import * as OS from "os";
 import * as Path from "path";
-import StyleInstruction from "./StyleInstruction";
-import ImageFolderDescriptor from "./ImageFolderDescriptor";
-import { isNullOrUndefined } from "util";
 import { parse } from "sass-variable-parser";
-import IStyle from "./IStyle";
+import StyleInstruction from "./StyleInstruction";
+import { isNullOrUndefined } from "util";
 const Hex2Rgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**

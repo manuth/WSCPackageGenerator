@@ -1,7 +1,7 @@
 import ICronjobOptions from "./ICronjobOptions";
 import Localizable from "../../GLobalization/Localizable";
-import TimePoint from "./TimePoint";
 import Option from "../../Options/ControlPanel/Option";
+import TimePoint from "./TimePoint";
 import { isNullOrUndefined } from "util";
 
 /**

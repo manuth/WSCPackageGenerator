@@ -1,7 +1,7 @@
 import FileSystemInstruction from "../Automation/FileSystemInstruction";
+import IFilesInstruction from "./IFilesInstruction";
 import IFilesInstructionOptions from "./IFilesInstructionOptions";
 import { isNullOrUndefined } from "util";
-import IFilesInstruction from "./IFilesInstruction";
 
 /**
  * Represents an instruction which provides a set of files.

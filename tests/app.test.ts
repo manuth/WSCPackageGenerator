@@ -1,6 +1,6 @@
 "use strict";
-import assert = require("yeoman-assert");
 import * as Path from "path";
+import assert = require("yeoman-assert");
 import * as helpers from "yeoman-test";
 
 describe("WSCPackageGenerator", () =>

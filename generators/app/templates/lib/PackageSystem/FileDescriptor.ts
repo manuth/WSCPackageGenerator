@@ -1,6 +1,6 @@
+import IFileDescriptor from "./IFileDescriptor";
 import IFileDescriptorOptions from "./IFileDescriptorOptions";
 import { isNullOrUndefined } from "util";
-import IFileDescriptor from "./IFileDescriptor";
 
 /**
  * Represents the description of file.

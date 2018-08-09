@@ -1,5 +1,5 @@
-import ITranslationNodeOptions from "./ITranslationNodeOptions";
 import INodeContainer from "../Nodes/INodeContainer";
+import ITranslationNodeOptions from "./ITranslationNodeOptions";
 import TranslationNode from "./TranslationNode";
 
 /**

@@ -1,5 +1,5 @@
-import ITemplateListenersInstructionOptions from "./ITemplateListenersInstructionOptions";
 import IFileInstruction from "../../Automation/IFileInstruction";
+import ITemplateListenersInstructionOptions from "./ITemplateListenersInstructionOptions";
 
 /**
  * Represents an instruction that provides a set of template-listeners.

@@ -1,5 +1,5 @@
-import IPackageOptions from "./IPackageOptions";
 import IComponent from "./IComponent";
+import IPackageOptions from "./IPackageOptions";
 
 /**
  * Represents a package for WoltLab Suite Core.
