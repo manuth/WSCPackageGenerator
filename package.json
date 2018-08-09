@@ -45,8 +45,10 @@
     "yosay": "^2.0.1"
   },
   "scripts": {
-    "watch": "tsc -watch -p ./",
-    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p .",
+    "watchLib": "tsc -watch -p ./generators/app/templates/lib",
+    "compile": "tsc -p .",
+    "compileLib": "tsc -p ./generators/app/templates/lib",
     "test": "mocha"
   },
   "repository": "https://github.com/manuth/WSCPackageGenerator",

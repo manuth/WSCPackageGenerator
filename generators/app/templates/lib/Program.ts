@@ -1,4 +1,3 @@
-import * as WSCPackage from "../Package";
 import PackageCompiler from "./PackageSystem/PackageCompiler";
 
 /**
@@ -33,7 +32,7 @@ class Program
      */
     public static async Main(args: string[])
     {
-        await new PackageCompiler(WSCPackage, this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath).Execute();
+        await new PackageCompiler(require("../Package"), this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath).Execute();
     }
 }
 
