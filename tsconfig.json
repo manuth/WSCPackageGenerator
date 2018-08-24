@@ -8,10 +8,6 @@
         ],
         "noUnusedLocals": true
     },
-    "exclude": [
-        "node_modules",
-        "**/templates"
-    ],
     "references": [
         {
             "path": "generators/app/templates/lib"
