@@ -1,7 +1,7 @@
 /**
  * Specifies an option-type for the Admin Control-Panel.
  */
-enum OptionType
+export enum OptionType
 {
     /**
      * Indicates a checkbox.
@@ -48,5 +48,3 @@ enum OptionType
      */
     MultiSelect = "multiSelect"
 }
-
-export default OptionType;

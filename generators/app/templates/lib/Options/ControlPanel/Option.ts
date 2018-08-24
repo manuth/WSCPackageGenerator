@@ -3,8 +3,7 @@ import Localizable from "../../GLobalization/Localizable";
 import Node from "../../Nodes/Node";
 import OptionItem from "./OptionItem";
 import OptionItemCollection from "./OptionItemCollection";
-import OptionType from "./OptionType";
-import SettingsNode from "./SettingsNode";
+import { OptionType } from "./OptionType";
 import TranslationNode from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 

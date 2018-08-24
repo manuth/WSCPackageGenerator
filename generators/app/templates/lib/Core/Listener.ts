@@ -2,7 +2,7 @@ import IListener from "./IListener";
 import IListenerOptions from "./IListenerOptions";
 import Option from "../Options/ControlPanel/Option";
 import { isNullOrUndefined } from "util";
-import WSCEnvironment from "./WSCEnvironment";
+import { WSCEnvironment } from "./WSCEnvironment";
 
 /**
  * Represents a component that listens to an event.
@@ -18,7 +18,7 @@ export default class Listener implements IListener
      * The name of the event to subscribe to.
      */
     private eventName: string = "";
-    
+
     /**
      * The environment to add the subscription to.
      */

@@ -1,7 +1,7 @@
 /**
  * Specifies an environment of WoltLab Suite Core.
  */
-enum WSCEnvironment
+export enum WSCEnvironment
 {
     /**
      * Indicates the default environment.
@@ -18,5 +18,3 @@ enum WSCEnvironment
      */
     Both = 3
 }
-
-export default WSCEnvironment;

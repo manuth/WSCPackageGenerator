@@ -1,7 +1,7 @@
 import INodeOptions from "../../Nodes/INodeOptions";
 import Localizable from "../../GLobalization/Localizable";
 import OptionItem from "./OptionItem";
-import OptionType from "./OptionType";
+import { OptionType } from "./OptionType";
 
 /**
  * Provides options for the `IOption` interface.
