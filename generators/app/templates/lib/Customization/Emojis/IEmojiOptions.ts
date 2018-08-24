@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IEmoji` interface.
  */
-export default interface IEmojiOptions
+export interface IEmojiOptions
 {
     /**
      * Gets the title of the emoji.

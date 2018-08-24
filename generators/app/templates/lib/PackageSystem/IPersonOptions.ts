@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IPerson` interface.
  */
-export default interface IPersonOptions
+export interface IPersonOptions
 {
     /**
      * Gets or sets the name of the person.

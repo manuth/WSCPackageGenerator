@@ -1,13 +1,13 @@
-import EventListener from "./EventListener";
-import FileInstruction from "../Automation/FileInstruction";
-import IEventListenersInstruction from "./IEventListenersInstruction";
-import IEventListenersInstructionOptions from "./IEventListenersInstructionOptions";
+import { EventListener } from "./EventListener";
+import { FileInstruction } from "../Automation/FileInstruction";
+import { IEventListenersInstruction } from "./IEventListenersInstruction";
+import { IEventListenersInstructionOptions } from "./IEventListenersInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of event-listeners.
  */
-export default class EventListenersInstruction extends FileInstruction implements IEventListenersInstruction
+export class EventListenersInstruction extends FileInstruction implements IEventListenersInstruction
 {
     /**
      * A set of names of event-listeners to delete.

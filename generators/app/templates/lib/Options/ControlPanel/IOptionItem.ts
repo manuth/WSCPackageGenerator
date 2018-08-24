@@ -1,8 +1,8 @@
-import IOptionItemOptions from "./IOptionItemOptions";
+import { IOptionItemOptions } from "./IOptionItemOptions";
 
 /**
  * Represents an item of an option.
  */
-export default interface IOptionItem extends Required<IOptionItemOptions>
+export interface IOptionItem extends Required<IOptionItemOptions>
 {
 }

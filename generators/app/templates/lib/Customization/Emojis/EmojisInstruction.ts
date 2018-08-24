@@ -1,12 +1,12 @@
-import Emoji from "./Emoji";
-import FileInstruction from "../../Automation/FileInstruction";
-import IEmojisInstructionOptions from "./IEmojisInstructionOptions";
+import { Emoji } from "./Emoji";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { IEmojisInstructionOptions } from "./IEmojisInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides emojis.
  */
-export default class EmojisInstruction extends FileInstruction implements IEmojisInstructionOptions
+export class EmojisInstruction extends FileInstruction implements IEmojisInstructionOptions
 {
     /**
      * The emojis provided by the instruction.

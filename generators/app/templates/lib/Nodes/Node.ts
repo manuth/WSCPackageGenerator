@@ -1,11 +1,11 @@
-import INode from "./INode";
-import INodeOptions from "./INodeOptions";
+import { INode } from "./INode";
+import { INodeOptions } from "./INodeOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node.
  */
-export default class Node implements INode
+export class Node implements INode
 {
     /**
      * The name of the node.

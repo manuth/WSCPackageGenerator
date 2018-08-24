@@ -1,16 +1,16 @@
-import IOptionOptions from "./IOptionOptions";
-import Localizable from "../../GLobalization/Localizable";
-import Node from "../../Nodes/Node";
-import OptionItem from "./OptionItem";
-import OptionItemCollection from "./OptionItemCollection";
+import { IOptionOptions } from "./IOptionOptions";
+import { Localizable } from "../../GLobalization/Localizable";
+import { Node } from "../../Nodes/Node";
+import { OptionItem } from "./OptionItem";
+import { OptionItemCollection } from "./OptionItemCollection";
 import { OptionType } from "./OptionType";
-import TranslationNode from "../../Globalization/TranslationNode";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an option that can be shown in the ACP.
  */
-export default class Option extends Node implements IOptionOptions
+export class Option extends Node implements IOptionOptions
 {
     /**
      * The id of the option.

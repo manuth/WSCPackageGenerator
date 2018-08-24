@@ -1,11 +1,11 @@
-import IPerson from "./IPerson";
-import IPersonOptions from "./IPersonOptions";
+import { IPerson } from "./IPerson";
+import { IPersonOptions } from "./IPersonOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a person.
  */
-export default class Person implements IPerson
+export class Person implements IPerson
 {
     /**
      * The name of the person.

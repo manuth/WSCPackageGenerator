@@ -1,13 +1,13 @@
-import ICronjobOptions from "./ICronjobOptions";
-import Localizable from "../../GLobalization/Localizable";
-import Option from "../../Options/ControlPanel/Option";
-import TimePoint from "./TimePoint";
+import { ICronjobOptions } from "./ICronjobOptions";
+import { Localizable } from "../../GLobalization/Localizable";
+import { Option } from "../../Options/ControlPanel/Option";
+import { TimePoint } from "./TimePoint";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a cron-job.
  */
-export default class Cronjob implements ICronjobOptions
+export class Cronjob implements ICronjobOptions
 {
     /**
      * The name of the cron-job.

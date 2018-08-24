@@ -1,4 +1,4 @@
-import IEmojiOptions from "./IEmojiOptions";
+import { IEmojiOptions } from "./IEmojiOptions";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -6,7 +6,7 @@ import { isNullOrUndefined } from "util";
  * 
  * Please keep in mind to provide the files using a `FilesInstruction`.
  */
-export default class Emoji implements IEmojiOptions
+export class Emoji implements IEmojiOptions
 {
     /**
      * The title of the emoji.

@@ -1,15 +1,15 @@
-import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
-import FileDescriptor from "./FileDescriptor";
-import IComponentOptions from "./IComponentOptions";
-import Instruction from "../Automation/Instruction";
-import IUpdateInstructionCollection from "../Automation/IUpdateInstructionCollection";
-import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
-import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
+import { ConflictingPackageDescriptor } from "./ConflictingPackageDescriptor";
+import { FileDescriptor } from "./FileDescriptor";
+import { IComponentOptions } from "./IComponentOptions";
+import { Instruction } from "../Automation/Instruction";
+import { IUpdateInstructionCollection } from "../Automation/IUpdateInstructionCollection";
+import { OptionalPackageDescriptor } from "./OptionalPackageDescriptor";
+import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
 
 /**
  * Provides options for the `IPackage` interface.
  */
-export default interface IPackageOptions extends IComponentOptions
+export interface IPackageOptions extends IComponentOptions
 {
     /**
      * Gets or sets the identifier of the package.

@@ -1,8 +1,8 @@
-import IComponentOptions from "./IComponentOptions";
+import { IComponentOptions } from "./IComponentOptions";
 
 /**
  * Represents a component.
  */
-export default interface IComponent extends Required<IComponentOptions>
+export interface IComponent extends Required<IComponentOptions>
 {
 }

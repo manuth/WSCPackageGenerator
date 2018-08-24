@@ -1,13 +1,13 @@
-import ErrorMessageNode from "./ErrorMessageNode";
-import IErrorMessagesInstruction from "./IErrorMessagesInstruction";
-import IErrorMessagesInstructionOptions from "./IErrorMessagesInstructionOptions";
-import TranslationsInstruction from "../TranslationsInstruction";
+import { ErrorMessageNode } from "./ErrorMessageNode";
+import { IErrorMessagesInstruction } from "./IErrorMessagesInstruction";
+import { IErrorMessagesInstructionOptions } from "./IErrorMessagesInstructionOptions";
+import { TranslationsInstruction } from "../TranslationsInstruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides errorg-messages.
  */
-export default class ErrorMessagesInstruction extends TranslationsInstruction implements IErrorMessagesInstruction
+export class ErrorMessagesInstruction extends TranslationsInstruction implements IErrorMessagesInstruction
 {
     /**
      * The error-messages provided by this instruction.

@@ -1,13 +1,13 @@
-import IListener from "./IListener";
-import IListenerOptions from "./IListenerOptions";
-import Option from "../Options/ControlPanel/Option";
+import { IListener } from "./IListener";
+import { IListenerOptions } from "./IListenerOptions";
+import { Option } from "../Options/ControlPanel/Option";
 import { isNullOrUndefined } from "util";
 import { WSCEnvironment } from "./WSCEnvironment";
 
 /**
  * Represents a component that listens to an event.
  */
-export default class Listener implements IListener
+export class Listener implements IListener
 {
     /**
      * The name of the listener.

@@ -1,10 +1,10 @@
-import IInstructionOptions from "./IInstructionOptions";
-import Package from "../PackageSystem/Package";
+import { IInstructionOptions } from "./IInstructionOptions";
+import { Package } from "../PackageSystem/Package";
 
 /**
  * Represents an instruction for installing a package.
  */
-export default abstract class Instruction implements IInstructionOptions
+export abstract class Instruction implements IInstructionOptions
 {
     /**
      * The package this instruction belongs to.

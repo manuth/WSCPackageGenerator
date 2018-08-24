@@ -1,7 +1,7 @@
 /**
  * Provides the functionality to compile a component.
  */
-export default interface ICompiler
+export interface ICompiler
 {
     /**
      * Gets the path to save the compiled item to.

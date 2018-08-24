@@ -1,8 +1,8 @@
-import IFileDescriptorOptions from "./IFileDescriptorOptions";
+import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 
 /**
  * Represents the description of file.
  */
-export default interface IFileDescriptor extends Required<IFileDescriptorOptions>
+export interface IFileDescriptor extends Required<IFileDescriptorOptions>
 {
 }

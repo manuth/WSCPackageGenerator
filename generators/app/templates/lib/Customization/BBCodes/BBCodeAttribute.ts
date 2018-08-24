@@ -1,10 +1,10 @@
-import IBBCodeAttributeOptions from "./IBBCodeAttributeOptions";
+import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an attribute of a bb-code.
  */
-export default class BBCodeAttribute implements IBBCodeAttributeOptions
+export class BBCodeAttribute implements IBBCodeAttributeOptions
 {
     /**
      * A value indicating whether the attribute is required.

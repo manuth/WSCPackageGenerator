@@ -1,10 +1,10 @@
-import Option from "./Option";
-import OptionItem from "./OptionItem";
+import { Option } from "./Option";
+import { OptionItem } from "./OptionItem";
 
 /**
  * Represents a set of option-items.
  */
-export default class OptionItemCollection<T extends OptionItem> extends Array<T>
+export class OptionItemCollection<T extends OptionItem> extends Array<T>
 {
     /**
      * The option this collection belongs to.

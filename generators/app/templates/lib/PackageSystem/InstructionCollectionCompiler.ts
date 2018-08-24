@@ -1,27 +1,27 @@
-import BBCodesInstruction from "../Customization/BBCodes/BBCodesInstruction";
-import Compiler from "../Core/Compiler";
-import CronjobInstruction from "../Core/Cronjobs/CronjobInstruction";
-import EmojisInstruction from "../Customization/Emojis/EmojisInstruction";
-import EventListenersInstruction from "../Events/EventListenersInstruction";
-import FilesInstruction from "../Core/FilesInstruction";
+import { BBCodesInstruction } from "../Customization/BBCodes/BBCodesInstruction";
+import { Compiler } from "../Core/Compiler";
+import { CronjobInstruction } from "../Core/Cronjobs/CronjobInstruction";
+import { EmojisInstruction } from "../Customization/Emojis/EmojisInstruction";
+import { EventListenersInstruction } from "../Events/EventListenersInstruction";
+import { FilesInstruction } from "../Core/FilesInstruction";
 import * as FileSystem from "fs-extra";
-import Instruction from "../Automation/Instruction";
-import InstructionCollection from "../Automation/InstructionCollection";
+import { Instruction } from "../Automation/Instruction";
+import { InstructionCollection } from "../Automation/InstructionCollection";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import OptionsInstruction from "../Options/ControlPanel/OptionsInstruction";
+import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
 import * as Path from "path";
-import SQLInstruction from "../Automation/Data/SQL/SQLInstruction";
-import StyleInstruction from "../Customization/Styles/StyleInstruction";
-import TemplateListenersInstruction from "../Customization/Presentation/TemplateListenersInstruction";
-import TranslationsInstruction from "../Globalization/TranslationsInstruction";
+import { SQLInstruction } from "../Automation/Data/SQL/SQLInstruction";
+import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
+import { TemplateListenersInstruction } from "../Customization/Presentation/TemplateListenersInstruction";
+import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
 
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**
  * Provides the functionality to compile an `InstructionCollection`.
  */
-export default class InstructionCollectionCompiler extends Compiler<InstructionCollection<Instruction>>
+export class InstructionCollectionCompiler extends Compiler<InstructionCollection<Instruction>>
 {
     /**
      * The path to save compiled styles to.

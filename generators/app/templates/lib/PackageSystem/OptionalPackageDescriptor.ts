@@ -1,13 +1,13 @@
-import IOptionalPackageDescriptor from "./IOptionalPackageDescriptor";
-import IOptionalPackageDescriptorOptions from "./IOptionalPackageDescriptorOptions";
-import PackageDescriptor from "./PackageDescriptor";
+import { IOptionalPackageDescriptor } from "./IOptionalPackageDescriptor";
+import { IOptionalPackageDescriptorOptions } from "./IOptionalPackageDescriptorOptions";
+import { PackageDescriptor } from "./PackageDescriptor";
 
 /**
  * Provides an abstraction of an optional package.
  *
  * Keep in mind to provide the optional package using `Package.AdditionalFiles`.
  */
-export default class OptionalPackageDescriptor extends PackageDescriptor implements IOptionalPackageDescriptor
+export class OptionalPackageDescriptor extends PackageDescriptor implements IOptionalPackageDescriptor
 {
     /**
      * The path to the path to the package.

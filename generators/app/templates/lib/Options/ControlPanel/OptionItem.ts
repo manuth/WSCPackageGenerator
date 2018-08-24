@@ -1,13 +1,13 @@
-import IOptionItemOptions from "./IOptionItemOptions";
-import Localizable from "../../GLobalization/Localizable";
-import Option from "./Option";
-import TranslationNode from "../../Globalization/TranslationNode";
+import { IOptionItemOptions } from "./IOptionItemOptions";
+import { Localizable } from "../../GLobalization/Localizable";
+import { Option } from "./Option";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an item of an option.
  */
-export default class OptionItem implements IOptionItemOptions
+export class OptionItem implements IOptionItemOptions
 {
     /**
      * The name of the item.

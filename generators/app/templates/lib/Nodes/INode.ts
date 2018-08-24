@@ -1,8 +1,8 @@
-import INodeOptions from "./INodeOptions";
+import { INodeOptions } from "./INodeOptions";
 
 /**
  * Represents a node.
  */
-export default interface INode extends Required<INodeOptions>
+export interface INode extends Required<INodeOptions>
 {
 }

@@ -1,24 +1,24 @@
-import Component from "./Component";
-import ConflictingPackageDescriptor from "./ConflictingPackageDescriptor";
-import ErrorMessageNode from "../Globalization/Errors/ErrorMessageNode";
-import FileDescriptor from "./FileDescriptor";
-import Instruction from "../Automation/Instruction";
-import InstructionCollection from "../Automation/InstructionCollection";
-import IPackage from "./IPackage";
-import IPackageOptions from "./IPackageOptions";
-import Option from "../Options/ControlPanel/Option";
-import OptionalPackageDescriptor from "./OptionalPackageDescriptor";
-import RequiredPackageDescriptor from "./RequiredPackageDescriptor";
-import SettingsNode from "../Options/ControlPanel/SettingsNode";
-import TranslationNode from "../Globalization/TranslationNode";
-import UpdateInstructionCollection from "../Automation/UpdateInstructionCollection";
-import UpdatesCollection from "../Automation/UpdatesCollection";
+import { Component } from "./Component";
+import { ConflictingPackageDescriptor } from "./ConflictingPackageDescriptor";
+import { ErrorMessageNode } from "../Globalization/Errors/ErrorMessageNode";
+import { FileDescriptor } from "./FileDescriptor";
+import { Instruction } from "../Automation/Instruction";
+import { InstructionCollection } from "../Automation/InstructionCollection";
+import { IPackage } from "./IPackage";
+import { IPackageOptions } from "./IPackageOptions";
+import { Option } from "../Options/ControlPanel/Option";
+import { OptionalPackageDescriptor } from "./OptionalPackageDescriptor";
+import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
+import { SettingsNode } from "../Options/ControlPanel/SettingsNode";
+import { TranslationNode } from "../Globalization/TranslationNode";
+import { UpdateInstructionCollection } from "../Automation/UpdateInstructionCollection";
+import { UpdatesCollection } from "../Automation/UpdatesCollection";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a package for WoltLab Suite Core.
  */
-export default class Package extends Component implements IPackage
+export class Package extends Component implements IPackage
 {
     /**
      * The identifier of the package.

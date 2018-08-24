@@ -1,9 +1,9 @@
-import IListenerOptions from "../../Core/IListenerOptions";
+import { IListenerOptions } from "../../Core/IListenerOptions";
 
 /**
  * Provides options for the `ITemplateListener` interface.
  */
-export default interface ITemplateListenerOptions extends IListenerOptions
+export interface ITemplateListenerOptions extends IListenerOptions
 {
     /**
      * Gets or sets the name of the template to subscribe to.

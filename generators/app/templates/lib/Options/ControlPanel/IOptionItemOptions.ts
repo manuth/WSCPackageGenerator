@@ -1,9 +1,9 @@
-import Localizable from "../../GLobalization/Localizable";
+import { Localizable } from "../../GLobalization/Localizable";
 
 /**
  * Provides options for the `IOptionItem` interface.
  */
-export default interface IOptionItemOptions
+export interface IOptionItemOptions
 {
     /**
      * Gets or sets the name of the item.

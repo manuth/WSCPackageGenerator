@@ -1,9 +1,9 @@
-import Node from "./Node";
+import { Node } from "./Node";
 
 /**
  * Represents a set of nodes.
  */
-export default class NodeCollection<T extends Node> extends Array<T>
+export class NodeCollection<T extends Node> extends Array<T>
 {
     /**
      * The node this collection belongs to.

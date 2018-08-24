@@ -1,13 +1,13 @@
-import FileInstruction from "../../Automation/FileInstruction";
-import ITemplateListenersInstruction from "./ITemplateListenersInstruction";
-import ITemplateListenersInstructionOptions from "./ITemplateListenersInstructionOptions";
-import TemplateListener from "./TemplateListener";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { ITemplateListenersInstruction } from "./ITemplateListenersInstruction";
+import { ITemplateListenersInstructionOptions } from "./ITemplateListenersInstructionOptions";
+import { TemplateListener } from "./TemplateListener";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of template-listeners.
  */
-export default class TemplateListenersInstruction extends FileInstruction implements ITemplateListenersInstruction
+export class TemplateListenersInstruction extends FileInstruction implements ITemplateListenersInstruction
 {
     /**
      * A set of names of template-listeners to delete.

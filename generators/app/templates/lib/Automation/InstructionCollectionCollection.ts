@@ -1,11 +1,11 @@
-import Instruction from "./Instruction";
-import InstructionCollection from "./InstructionCollection";
-import Package from "../PackageSystem/Package";
+import { Instruction } from "./Instruction";
+import { InstructionCollection } from "./InstructionCollection";
+import { Package } from "../PackageSystem/Package";
 
 /**
  * Represents a set of `InstructionCollection`s.
  */
-export default class InstructionCollectionCollection<T extends InstructionCollection<Instruction>> extends Array<T>
+export class InstructionCollectionCollection<T extends InstructionCollection<Instruction>> extends Array<T>
 {
     /**
      * The package this collection belongs to.

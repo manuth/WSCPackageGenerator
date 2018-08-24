@@ -1,13 +1,13 @@
-import INodeContainer from "./INodeContainer";
-import INodeContainerOptions from "./INodeContainerOptions";
-import Node from "./Node";
-import NodeCollection from "./NodeCollection";
+import { INodeContainer } from "./INodeContainer";
+import { INodeContainerOptions } from "./INodeContainerOptions";
+import { Node } from "./Node";
+import { NodeCollection } from "./NodeCollection";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node which contains child-nodes.
  */
-export default abstract class NodeContainer<T extends Node> extends Node implements INodeContainer<T>
+export abstract class NodeContainer<T extends Node> extends Node implements INodeContainer<T>
 {
     /**
      * The nodes contained by this node.

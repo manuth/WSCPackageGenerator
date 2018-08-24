@@ -1,12 +1,12 @@
-import IRequiredPackageDescriptor from "./IRequiredPackageDescriptor";
-import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
-import PackageDescriptor from "./PackageDescriptor";
+import { IRequiredPackageDescriptor } from "./IRequiredPackageDescriptor";
+import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
+import { PackageDescriptor } from "./PackageDescriptor";
 import { isNullOrUndefined } from "util";
 
 /**
  * Provides an abstraction of a package.
  */
-export default class RequiredPackageDescriptor extends PackageDescriptor implements IRequiredPackageDescriptor
+export class RequiredPackageDescriptor extends PackageDescriptor implements IRequiredPackageDescriptor
 {
     /**
      * The minimal version the package must have.

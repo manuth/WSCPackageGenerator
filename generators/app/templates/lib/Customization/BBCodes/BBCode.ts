@@ -1,13 +1,13 @@
-import BBCodeAttribute from "./BBCodeAttribute";
-import IBBCode from "./IBBCode";
-import IBBCodeOptions from "./IBBCodeOptions";
-import Localizable from "../../GLobalization/Localizable";
+import { BBCodeAttribute } from "./BBCodeAttribute";
+import { IBBCode } from "./IBBCode";
+import { IBBCodeOptions } from "./IBBCodeOptions";
+import { Localizable } from "../../GLobalization/Localizable";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a bb-code.
  */
-export default class BBCode implements IBBCode
+export class BBCode implements IBBCode
 {
     /**
      * The name of the bb-code.

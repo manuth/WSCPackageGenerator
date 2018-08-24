@@ -1,12 +1,12 @@
-import IFileInstruction from "./IFileInstruction";
-import IFileInstructionOptions from "./IFileInstructionOptions";
-import Instruction from "./Instruction";
+import { IFileInstruction } from "./IFileInstruction";
+import { IFileInstructionOptions } from "./IFileInstructionOptions";
+import { Instruction } from "./Instruction";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to a file.
  */
-export default class FileInstruction extends Instruction implements IFileInstruction
+export class FileInstruction extends Instruction implements IFileInstruction
 {
     /**
      * The filename of the ouput of the instruction.

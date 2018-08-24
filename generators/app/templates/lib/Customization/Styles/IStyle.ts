@@ -1,10 +1,10 @@
-import ImageFolderDescriptor from "./ImageFolderDescriptor";
-import StyleInstruction from "./StyleInstruction";
+import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
+import { StyleInstruction } from "./StyleInstruction";
 
 /**
  * Represents a style for WoltLab Suite Core.
  */
-export default interface IStyle
+export interface IStyle
 {
     /**
      * Gets or sets the instruction this style belongs to.

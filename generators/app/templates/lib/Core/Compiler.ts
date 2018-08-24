@@ -1,6 +1,6 @@
 import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
-import ICompiler from "./ICompiler";
+import { ICompiler } from "./ICompiler";
 import * as Path from "path";
 import * as Temp from "tmp";
 import { isNullOrUndefined } from "util";
@@ -8,7 +8,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Provides the functionality to compile a component.
  */
-export default abstract class Compiler<T> implements ICompiler
+export abstract class Compiler<T> implements ICompiler
 {
     /**
      * The item to compile.

@@ -1,16 +1,16 @@
-import BBCode from "./BBCode";
-import FileInstruction from "../../Automation/FileInstruction";
-import IBBCodesInstruction from "./IBBCodesInstruction";
-import IBBCodesInstructionOptions from "./IBBCodesInstructionOptions";
-import ITranslationsInstruction from "../../Globalization/ITranslationsInstruction";
+import { BBCode } from "./BBCode";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { IBBCodesInstruction } from "./IBBCodesInstruction";
+import { IBBCodesInstructionOptions } from "./IBBCodesInstructionOptions";
+import { ITranslationsInstruction } from "../../Globalization/ITranslationsInstruction";
 import * as Path from "path";
-import TranslationNode from "../../Globalization/TranslationNode";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides bb-codes.
  */
-export default class BBCodesInstruction extends FileInstruction implements IBBCodesInstruction, ITranslationsInstruction
+export class BBCodesInstruction extends FileInstruction implements IBBCodesInstruction, ITranslationsInstruction
 {
     /**
      * The directory to save the language-files to.

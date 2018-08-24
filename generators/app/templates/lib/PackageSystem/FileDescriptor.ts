@@ -1,11 +1,11 @@
-import IFileDescriptor from "./IFileDescriptor";
-import IFileDescriptorOptions from "./IFileDescriptorOptions";
+import { IFileDescriptor } from "./IFileDescriptor";
+import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents the description of file.
  */
-export default class FileDescriptor implements IFileDescriptor
+export class FileDescriptor implements IFileDescriptor
 {
     /**
      * The path to load the file from.

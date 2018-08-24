@@ -1,11 +1,11 @@
-import INodeContainerOptions from "../Nodes/INodeContainerOptions";
-import Localizable from "./Localizable";
-import TranslationNode from "./TranslationNode";
+import { INodeContainerOptions } from "../Nodes/INodeContainerOptions";
+import { Localizable } from "./Localizable";
+import { TranslationNode } from "./TranslationNode";
 
 /**
  * Provides options for the `ITranslationNode` interface.
  */
-export default interface ITranslationNodeOptions extends INodeContainerOptions<TranslationNode>
+export interface ITranslationNodeOptions extends INodeContainerOptions<TranslationNode>
 {
     /**
      * Gets or sets the id of the error-message.

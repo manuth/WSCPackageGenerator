@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IPackageDescriptor` interface.
  */
-export default interface IPackageDescriptorOptions
+export interface IPackageDescriptorOptions
 {
     /**
      * Gets or sets the identifier of the package.

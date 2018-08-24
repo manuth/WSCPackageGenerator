@@ -1,9 +1,9 @@
-import IListenerOptions from "../Core/IListenerOptions";
+import { IListenerOptions } from "../Core/IListenerOptions";
 
 /**
  * Provides options for the `IEventListener` interface.
  */
-export default interface IEventListenerOptions extends IListenerOptions
+export interface IEventListenerOptions extends IListenerOptions
 {
     /**
      * Gets or sets the name of the class that invokes the event to subscribe to.

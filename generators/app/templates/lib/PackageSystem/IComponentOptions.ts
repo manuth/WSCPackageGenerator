@@ -1,10 +1,10 @@
-import IPersonOptions from "./IPersonOptions";
-import Localizable from "../GLobalization/Localizable";
+import { IPersonOptions } from "./IPersonOptions";
+import { Localizable } from "../GLobalization/Localizable";
 
 /**
  * Provides options for the `IComponent` interface.
  */
-export default interface IComponentOptions
+export interface IComponentOptions
 {
     /**
      * Gets the name of the component.

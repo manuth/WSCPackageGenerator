@@ -1,8 +1,8 @@
-import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
+import { IImageFolderDescriptorOptions } from "./IImageFolderDescriptorOptions";
 
 /**
  * Represents the description of an image-folder.
  */
-export default interface IImageFolderDescriptor extends Required<IImageFolderDescriptorOptions>
+export interface IImageFolderDescriptor extends Required<IImageFolderDescriptorOptions>
 {
 }

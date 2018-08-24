@@ -1,15 +1,15 @@
-import ISettingsNodeOptions from "./ISettingsNodeOptions";
-import Localizable from "../../GLobalization/Localizable";
-import NodeCollection from "../../Nodes/NodeCollection";
-import NodeContainer from "../../Nodes/NodeContainer";
-import Option from "./Option";
-import TranslationNode from "../../Globalization/TranslationNode";
+import { ISettingsNodeOptions } from "./ISettingsNodeOptions";
+import { Localizable } from "../../GLobalization/Localizable";
+import { NodeCollection } from "../../Nodes/NodeCollection";
+import { NodeContainer } from "../../Nodes/NodeContainer";
+import { Option } from "./Option";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains options and categories.
  */
-export default class SettingsNode extends NodeContainer<SettingsNode> implements ISettingsNodeOptions
+export class SettingsNode extends NodeContainer<SettingsNode> implements ISettingsNodeOptions
 {
     /**
      * The displayname of the node.

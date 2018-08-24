@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IImageFolderDescriptor` interface.
  */
-export default interface IImageFolderDescriptorOptions
+export interface IImageFolderDescriptorOptions
 {
     /**
      * Gets or sets the directory to load the pictures from.

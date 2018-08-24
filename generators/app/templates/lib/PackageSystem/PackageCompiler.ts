@@ -1,16 +1,16 @@
-import Compiler from "../Core/Compiler";
+import { Compiler } from "../Core/Compiler";
 import * as FileSystem from "fs-extra";
-import InstructionCollectionCompiler from "./InstructionCollectionCompiler";
+import { InstructionCollectionCompiler } from "./InstructionCollectionCompiler";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import Package from "./Package";
+import { Package } from "./Package";
 import * as Path from "path";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**
  * Provides the functionality to compile packages.
  */
-export default class PackageCompiler extends Compiler<Package>
+export class PackageCompiler extends Compiler<Package>
 {
     /**
      * The path to the directory which contains the source-files.

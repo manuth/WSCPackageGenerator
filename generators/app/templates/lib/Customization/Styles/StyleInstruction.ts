@@ -1,14 +1,14 @@
-import FileSystemInstruction from "../../Automation/FileSystemInstruction";
-import IStyleInstruction from "./IStyleInstruction";
-import IStyleInstructionOptions from "./IStyleInstructionOptions";
-import Package from "../../PackageSystem/Package";
-import Style from "./Style";
+import { FileSystemInstruction } from "../../Automation/FileSystemInstruction";
+import { IStyleInstruction } from "./IStyleInstruction";
+import { IStyleInstructionOptions } from "./IStyleInstructionOptions";
+import { Package } from "../../PackageSystem/Package";
+import { Style } from "./Style";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a style.
  */
-export default class StyleInstruction extends FileSystemInstruction implements IStyleInstruction
+export class StyleInstruction extends FileSystemInstruction implements IStyleInstruction
 {
     /**
      * The style provided by the instruction.

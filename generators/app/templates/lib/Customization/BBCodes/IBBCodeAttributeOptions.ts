@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IBBCodeAttribute` interface.
  */
-export default interface IBBCodeAttributeOptions
+export interface IBBCodeAttributeOptions
 {
     /**
      * Gets or sets a value indicating whether the attribute is required.

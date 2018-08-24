@@ -1,11 +1,11 @@
-import FileSystemInstruction from "../../Automation/FileSystemInstruction";
-import IImageFolderDescriptor from "./IImageFolderDescriptor";
-import IImageFolderDescriptorOptions from "./IImageFolderDescriptorOptions";
+import { FileSystemInstruction } from "../../Automation/FileSystemInstruction";
+import { IImageFolderDescriptor } from "./IImageFolderDescriptor";
+import { IImageFolderDescriptorOptions } from "./IImageFolderDescriptorOptions";
 
 /**
  * Represents the description of an image-folder.
  */
-export default class ImageFolderDescriptor extends FileSystemInstruction implements IImageFolderDescriptor
+export class ImageFolderDescriptor extends FileSystemInstruction implements IImageFolderDescriptor
 {
     /**
      * The folder to upload the images to.

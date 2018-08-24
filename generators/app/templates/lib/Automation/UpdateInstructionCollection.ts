@@ -1,12 +1,12 @@
-import Instruction from "./Instruction";
-import InstructionCollection from "./InstructionCollection";
-import IUpdateInstructionCollection from "./IUpdateInstructionCollection";
-import Package from "../PackageSystem/Package";
+import { Instruction } from "./Instruction";
+import { InstructionCollection } from "./InstructionCollection";
+import { IUpdateInstructionCollection } from "./IUpdateInstructionCollection";
+import { Package } from "../PackageSystem/Package";
 
 /**
  * Represents a set of `Instruction`s for updating a package.
  */
-export default class UpdateInstructionCollection<T extends Instruction> extends InstructionCollection<T> implements IUpdateInstructionCollection<T>
+export class UpdateInstructionCollection<T extends Instruction> extends InstructionCollection<T> implements IUpdateInstructionCollection<T>
 {
     /**
      * The version of the package this `UpdateInstructionCollection` can be executed on.

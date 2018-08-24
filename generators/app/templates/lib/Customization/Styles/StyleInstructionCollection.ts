@@ -1,12 +1,12 @@
 import * as FileSystem from "fs";
 import * as Path from "path";
-import Style from "./Style";
-import StyleInstruction from "./StyleInstruction";
+import { Style } from "./Style";
+import { StyleInstruction } from "./StyleInstruction";
 
 /**
  * Represents a set of instructions which povide a style.
  */
-export default class StyleInstructionCollection extends Array<StyleInstruction>
+export class StyleInstructionCollection extends Array<StyleInstruction>
 {
     /**
      * Initializes a ner instance of the `StyleInstructionCollection` class.

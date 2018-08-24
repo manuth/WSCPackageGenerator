@@ -1,12 +1,12 @@
-import INodeOptions from "../../Nodes/INodeOptions";
-import Localizable from "../../GLobalization/Localizable";
-import OptionItem from "./OptionItem";
+import { INodeOptions } from "../../Nodes/INodeOptions";
+import { Localizable } from "../../GLobalization/Localizable";
+import { OptionItem } from "./OptionItem";
 import { OptionType } from "./OptionType";
 
 /**
  * Provides options for the `IOption` interface.
  */
-export default interface IOptionOptions extends INodeOptions
+export interface IOptionOptions extends INodeOptions
 {
     /**
      * Gets or sets the id of the option.

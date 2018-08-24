@@ -1,13 +1,13 @@
-import IComponent from "./IComponent";
-import IComponentOptions from "./IComponentOptions";
-import Localizable from "../GLobalization/Localizable";
-import Person from "./Person";
+import { IComponent } from "./IComponent";
+import { IComponentOptions } from "./IComponentOptions";
+import { Localizable } from "../GLobalization/Localizable";
+import { Person } from "./Person";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a component for WoltLab Suite Core.
  */
-export default abstract class Component implements IComponent
+export abstract class Component implements IComponent
 {
     /**
      * The name of the component.

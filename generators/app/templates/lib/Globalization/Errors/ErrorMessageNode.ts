@@ -1,13 +1,13 @@
-import IErrorMessageNode from "./IErrorMessageNode";
-import IErrorMessageNodeOptions from "./IErrorMessageNodeOptions";
-import NodeCollection from "../../Nodes/NodeCollection";
-import TranslationNode from "../TranslationNode";
+import { IErrorMessageNode } from "./IErrorMessageNode";
+import { IErrorMessageNodeOptions } from "./IErrorMessageNodeOptions";
+import { NodeCollection } from "../../Nodes/NodeCollection";
+import { TranslationNode } from "../TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains localizes error-messages.
  */
-export default class ErrorMessageNode extends TranslationNode implements IErrorMessageNode
+export class ErrorMessageNode extends TranslationNode implements IErrorMessageNode
 {
     /**
      * The nodes contained by this node.

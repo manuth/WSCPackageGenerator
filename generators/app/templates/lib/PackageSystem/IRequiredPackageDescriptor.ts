@@ -1,8 +1,8 @@
-import IRequiredPackageDescriptorOptions from "./IRequiredPackageDescriptorOptions";
+import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
 
 /**
  * Provides an abstraction of a required package.
  */
-export default interface IRequiredPackageDescriptor extends Required<IRequiredPackageDescriptorOptions>
+export interface IRequiredPackageDescriptor extends Required<IRequiredPackageDescriptorOptions>
 {
 }

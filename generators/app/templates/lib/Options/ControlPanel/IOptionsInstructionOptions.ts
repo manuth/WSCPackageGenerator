@@ -1,11 +1,11 @@
-import IDeleteInstruction from "../../Automation/IDeleteInstruction";
-import IFileInstructionOptions from "../../Automation/IFileInstructionOptions";
-import SettingsNode from "./SettingsNode";
+import { IDeleteInstruction } from "../../Automation/IDeleteInstruction";
+import { IFileInstructionOptions } from "../../Automation/IFileInstructionOptions";
+import { SettingsNode } from "./SettingsNode";
 
 /**
  * Provides options for the `IOptionsInstruction` interface.
  */
-export default interface IOptionsInstructionOptions extends IFileInstructionOptions, IDeleteInstruction
+export interface IOptionsInstructionOptions extends IFileInstructionOptions, IDeleteInstruction
 {
     /**
      * Gets or sets the categories and options provided by the instruction.

@@ -1,6 +1,6 @@
-import IEventListener from "./IEventListener";
-import IEventListenerOptions from "./IEventListenerOptions";
-import Listener from "../Core/Listener";
+import { IEventListener } from "./IEventListener";
+import { IEventListenerOptions } from "./IEventListenerOptions";
+import { Listener } from "../Core/Listener";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -8,7 +8,7 @@ import { isNullOrUndefined } from "util";
  * 
  * Please note that you have to provide your PHP-files using a `FilesInstruction`.
  */
-export default class EventListener extends Listener implements IEventListener
+export class EventListener extends Listener implements IEventListener
 {
     /**
      * The name of the class that invokes the event to subscribe to.

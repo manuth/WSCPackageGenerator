@@ -1,8 +1,8 @@
-import ICronjobOptions from "./ICronjobOptions";
+import { ICronjobOptions } from "./ICronjobOptions";
 
 /**
  * Represents a cron-job.
  */
-export default interface ICronjob extends Required<ICronjobOptions>
+export interface ICronjob extends Required<ICronjobOptions>
 {
 }

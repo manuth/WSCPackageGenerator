@@ -1,11 +1,11 @@
-import Localizable from "../../GLobalization/Localizable";
-import Option from "../../Options/ControlPanel/Option";
-import TimePoint from "./TimePoint";
+import { Localizable } from "../../GLobalization/Localizable";
+import { Option } from "../../Options/ControlPanel/Option";
+import { TimePoint } from "./TimePoint";
 
 /**
  * Provides options for the `ICronjob` interface.
  */
-export default interface ICronjobOptions
+export interface ICronjobOptions
 {
     /**
      * Gets or sets the name of the cron-job.

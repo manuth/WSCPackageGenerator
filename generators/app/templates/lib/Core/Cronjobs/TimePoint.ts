@@ -1,7 +1,7 @@
 /**
  * Represents a time-point of a cron-tab.
  */
-export default class TimePoint
+export class TimePoint
 {
     /**
      * The minute-periode of the time-point. Gets or sets the minute-periode of the time-point.

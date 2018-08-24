@@ -1,16 +1,16 @@
-import FileInstruction from "../../Automation/FileInstruction";
-import IOptionsInstructionOptions from "./IOptionsInstructionOptions";
-import ITranslationsInstructionOptions from "../../Globalization/ITranslationsInstructionOptions";
-import Option from "./Option";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { IOptionsInstructionOptions } from "./IOptionsInstructionOptions";
+import { ITranslationsInstructionOptions } from "../../Globalization/ITranslationsInstructionOptions";
+import { Option } from "./Option";
 import * as Path from "path";
-import SettingsNode from "./SettingsNode";
-import TranslationNode from "../../Globalization/TranslationNode";
+import { SettingsNode } from "./SettingsNode";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides options for the control-panel.
  */
-export default class OptionsInstruction extends FileInstruction implements IOptionsInstructionOptions, ITranslationsInstructionOptions
+export class OptionsInstruction extends FileInstruction implements IOptionsInstructionOptions, ITranslationsInstructionOptions
 {
     /**
      * A set of names of options to delete.

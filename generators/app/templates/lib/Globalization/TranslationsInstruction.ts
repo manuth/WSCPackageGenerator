@@ -1,13 +1,13 @@
-import FileInstruction from "../Automation/FileInstruction";
-import ITranslationsInstruction from "./ITranslationsInstruction";
-import ITranslationsInstructionOptions from "./ITranslationsInstructionOptions";
-import TranslationNode from "./TranslationNode";
+import { FileInstruction } from "../Automation/FileInstruction";
+import { ITranslationsInstruction } from "./ITranslationsInstruction";
+import { ITranslationsInstructionOptions } from "./ITranslationsInstructionOptions";
+import { TranslationNode } from "./TranslationNode";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides `Translation`s.
  */
-export default class TranslationsInstruction extends FileInstruction implements ITranslationsInstruction
+export class TranslationsInstruction extends FileInstruction implements ITranslationsInstruction
 {
     /**
      * The nodes which contains the translations provided by this instruction.

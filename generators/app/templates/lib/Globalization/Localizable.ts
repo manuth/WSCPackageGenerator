@@ -1,7 +1,7 @@
 /**
  * Represents a localizable string.
  */
-export default class Localizable
+export class Localizable
 {
     /**
      * A string translated to the specified `locale`.

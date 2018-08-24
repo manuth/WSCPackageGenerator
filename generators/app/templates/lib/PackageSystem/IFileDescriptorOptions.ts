@@ -1,7 +1,7 @@
 /**
  * Provides options for the `IFileDescriptor` class.
  */
-export default interface IFileDescriptorOptions
+export interface IFileDescriptorOptions
 {
     /**
      * Gets or sets the path to load the file from.

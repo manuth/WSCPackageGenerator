@@ -108,11 +108,11 @@ For example:
 ### Example
 ```ts
 import * as Path from "path";
-import Package from "./lib/PackageSystem/Package";
-import RequiredPackageDescriptor from "./lib/PackageSystem/RequiredPackageDescriptor";
-import StyleInstructionCollection from "./lib/Customization/Styles/StyleInstructionCollection";
-import FileDescriptor from "./lib/PackageSystem/FileDescriptor";
-import OptionalPackageDescriptor from "./lib/PackageSystem/OptionalPackageDescriptor";
+import { Package } from "./lib/PackageSystem/Package";
+import { RequiredPackageDescriptor } from "./lib/PackageSystem/RequiredPackageDescriptor";
+import { StyleInstructionCollection } from "./lib/Customization/Styles/StyleInstructionCollection";
+import { FileDescriptor } from "./lib/PackageSystem/FileDescriptor";
+import { OptionalPackageDescriptor } from "./lib/PackageSystem/OptionalPackageDescriptor";
 
 function getComponentsPath(value: string): string
 {
@@ -360,7 +360,7 @@ The variable inside the `<%%= %%>` will be evaluated using JavaScript and return
 
 ### Example
 ```ts
-import FilesInstruction from "../lib/Core/FilesInstruction";
+import { FilesInstruction } from "../lib/Core/FilesInstruction";
 
 let filesInstruction: FilesInstruction = new FilesInstruction({
     SourceRoot: "files"
@@ -369,7 +369,7 @@ let filesInstruction: FilesInstruction = new FilesInstruction({
 export = filesInstruction;
 ```
 ```ts
-import TemplatesInstruction from "../lib/Customization/Presentation/TemplatesInstruction";
+import { TemplatesInstruction } from "../lib/Customization/Presentation/TemplatesInstruction";
 
 let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
     Application: "gallery",
@@ -379,7 +379,7 @@ let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
 export = templatesInstruction;
 ```
 ```ts
-import ACPTemplatesInstruction from "../lib/Customization/Presentation/ACPTemplatesInstruction";
+import { ACPTemplatesInstruction } from "../lib/Customization/Presentation/ACPTemplatesInstruction";
 
 let acpTemplatesInstruction: ACPTemplatesInstruction = new ACPTemplatesInstruction({
     Application: "filebase",
@@ -434,11 +434,11 @@ Using the `OptionsInstruction` you can provide options and their translations fo
 
 ### Example
 ```ts
-import Option from "../lib/Options/ControlPanel/Option";
-import OptionItem from "../lib/Options/ControlPanel/OptionItem";
-import OptionsInstruction from "../lib/Options/ControlPanel/OptionsInstruction";
-import OptionType from "../lib/Options/ControlPanel/OptionType";
-import SettingsNode from "../lib/Options/ControlPanel/SettingsNode";
+import { Option } from "../lib/Options/ControlPanel/Option";
+import { OptionItem } from "../lib/Options/ControlPanel/OptionItem";
+import { OptionsInstruction } from "../lib/Options/ControlPanel/OptionsInstruction";
+import { OptionType } from "../lib/Options/ControlPanel/OptionType";
+import { SettingsNode } from "../lib/Options/ControlPanel/SettingsNode";
 
 let optionsInstruction: OptionsInstruction = new OptionsInstruction({
     SettingsNodes: [
@@ -803,9 +803,9 @@ The `EventListenerInstruction` allows you to make WoltLab executing custom code 
 
 ### Examlpe
 ```ts
-import EventListener from "../lib/Events/EventListener";
-import WSCEnvironment from "../lib/Core/WSCEnvironment";
-import EventListenersInstruction from "../lib/Events/EventListenersInstruction";
+import { EventListener } from "../lib/Events/EventListener";
+import { WSCEnvironment } from "../lib/Core/WSCEnvironment";
+import { EventListenersInstruction } from "../lib/Events/EventListenersInstruction";
 
 let eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({
     EventListeners: [
@@ -869,9 +869,9 @@ The Cronjob-classes must implement the `wcf\system\cronjob\ICronjob` interface.
 
 ### Example
 ```ts
-import Cronjob from "../lib/Core/Cronjobs/Cronjob";
-import CronjobInstruction from "../lib/Core/Cronjobs/CronjobInstruction";
-import TimePoint from "../lib/Core/Cronjobs/TimePoint";
+import { Cronjob } from "../lib/Core/Cronjobs/Cronjob";
+import { CronjobInstruction } from "../lib/Core/Cronjobs/CronjobInstruction";
+import { TimePoint } from "../lib/Core/Cronjobs/TimePoint";
 
 const cronjobInstruction: CronjobInstruction = new CronjobInstruction({
     Cronjobs: [
@@ -948,8 +948,8 @@ For Example:
 
 ### Examlpe
 ```ts
-import TranslationNode from "../lib/Globalization/TranslationNode";
-import TranslationsInstruction from "../lib/Globalization/TranslationsInstruction";
+import { TranslationNode } from "../lib/Globalization/TranslationNode";
+import { TranslationsInstruction } from "../lib/Globalization/TranslationsInstruction";
 
 let translationsInstruction: TranslationsInstruction = new TranslationsInstruction({
     TranslationNodes: [
@@ -1004,8 +1004,8 @@ You can access error-identifiers inside your ejs-flavored files like this:
 
 ### Example
 ```ts
-import ErrorMessageNode from "../lib/Globalization/Errors/ErrorMessageNode";
-import ErrorMessagesInstruction from "../lib/Globalization/Errors/ErrorMessagesInstruction";
+import { ErrorMessageNode } from "../lib/Globalization/Errors/ErrorMessageNode";
+import { ErrorMessagesInstruction } from "../lib/Globalization/Errors/ErrorMessagesInstruction";
 
 let errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
     TranslationNodes: [
@@ -1053,9 +1053,9 @@ You can provide them using `TemlpateListenersInstruction`s.
 
 ### Examlpe
 ```ts
-import TemplateListener from "../lib/Customization/Presentation/TemplateListener";
-import WSCEnvironment from "../lib/Core/WSCEnvironment";
-import TemplateListenersInstruction from "../lib/Customization/Presentation/TemplateListenersInstruction";
+import { TemplateListener } from "../lib/Customization/Presentation/TemplateListener";
+import { WSCEnvironment } from "../lib/Core/WSCEnvironment";
+import { TemplateListenersInstruction } from "../lib/Customization/Presentation/TemplateListenersInstruction";
 
 let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
     TemplateListeners: [
@@ -1114,8 +1114,8 @@ You can provide your own emojis by using an `EmojisInstruction`.
 
 ### Examlpe
 ```ts
-import Emoji from "../lib/Customization/Emojis/Emoji";
-import EmojisInstruction from "../lib/Customization/Emojis/EmojisInstruction";
+import { Emoji } from "../lib/Customization/Emojis/Emoji";
+import { EmojisInstruction } from "../lib/Customization/Emojis/EmojisInstruction";
 
 let emojiInstruction: EmojisInstruction = new EmojisInstruction({
     FileName: "smileys.xml",
@@ -1177,9 +1177,9 @@ You can provide new bb-codes using a `BBCodesInstruction`.
 
 ### Example
 ```ts
-import BBCode from "../lib/Customization/BBCodes/BBCode";
-import BBCodeAttribute from "../lib/Customization/BBCodes/BBCodeAttribute";
-import BBCodesInstruction from "../lib/Customization/BBCodes/BBCodesInstruction";
+import { BBCode } from "../lib/Customization/BBCodes/BBCode";
+import { BBCodeAttribute } from "../lib/Customization/BBCodes/BBCodeAttribute";
+import { BBCodesInstruction } from "../lib/Customization/BBCodes/BBCodesInstruction";
 
 const bbcodesInstruction: BBCodesInstruction = new BBCodesInstruction({
     BBCodes: [

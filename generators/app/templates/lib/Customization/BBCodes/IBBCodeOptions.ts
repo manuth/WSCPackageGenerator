@@ -1,10 +1,10 @@
-import BBCodeAttribute from "./BBCodeAttribute";
-import Localizable from "../../GLobalization/Localizable";
+import { BBCodeAttribute } from "./BBCodeAttribute";
+import { Localizable } from "../../GLobalization/Localizable";
 
 /**
  * Provides options for the `IBBCode` interface.
  */
-export default interface IBBCodeOptions
+export interface IBBCodeOptions
 {
     /**
      * Gets or sets the name of the bb-code.

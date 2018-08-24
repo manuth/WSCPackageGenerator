@@ -1,11 +1,11 @@
-import IPackageDescriptor from "./IPackageDescriptor";
-import IPackageDescriptorOptions from "./IPackageDescriptorOptions";
+import { IPackageDescriptor } from "./IPackageDescriptor";
+import { IPackageDescriptorOptions } from "./IPackageDescriptorOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Provides an abstraction of a package.
  */
-export default abstract class PackageDescriptor implements IPackageDescriptor
+export abstract class PackageDescriptor implements IPackageDescriptor
 {
     /**
      * The identifier of the package.

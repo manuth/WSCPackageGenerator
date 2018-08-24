@@ -1,12 +1,12 @@
-import FileSystemInstruction from "../Automation/FileSystemInstruction";
-import IFilesInstruction from "./IFilesInstruction";
-import IFilesInstructionOptions from "./IFilesInstructionOptions";
+import { FileSystemInstruction } from "../Automation/FileSystemInstruction";
+import { IFilesInstruction } from "./IFilesInstruction";
+import { IFilesInstructionOptions } from "./IFilesInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides a set of files.
  */
-export default class FilesInstruction extends FileSystemInstruction implements IFilesInstruction
+export class FilesInstruction extends FileSystemInstruction implements IFilesInstruction
 {
     /**
      * The application to provide the files to.

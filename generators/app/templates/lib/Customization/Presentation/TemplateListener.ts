@@ -1,12 +1,12 @@
-import ITemplateListener from "./ITemplateListener";
-import ITemplateListenerOptions from "./ITemplateListenerOptions";
-import Listener from "../../Core/Listener";
+import { ITemplateListener } from "./ITemplateListener";
+import { ITemplateListenerOptions } from "./ITemplateListenerOptions";
+import { Listener } from "../../Core/Listener";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a listener that subscribes to an event inside a template.
  */
-export default class TemplateListener extends Listener implements ITemplateListener
+export class TemplateListener extends Listener implements ITemplateListener
 {
     /**
      * The name of the template to subscribe to.

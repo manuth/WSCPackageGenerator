@@ -1,6 +1,6 @@
-import FileInstruction from "./FileInstruction";
-import IPHPInstruction from "./IPHPInstruction";
-import IPHPInstructionOptions from "./IPHPInstructionOptions";
+import { FileInstruction } from "./FileInstruction";
+import { IPHPInstruction } from "./IPHPInstruction";
+import { IPHPInstructionOptions } from "./IPHPInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -8,7 +8,7 @@ import { isNullOrUndefined } from "util";
  * 
  * Please keep in mind to provide the file using a `FilesInstruction`.
  */
-export default class PHPInstruction extends FileInstruction implements IPHPInstruction
+export class PHPInstruction extends FileInstruction implements IPHPInstruction
 {
     /**
      * The application attribute must have the same value as the application attribute

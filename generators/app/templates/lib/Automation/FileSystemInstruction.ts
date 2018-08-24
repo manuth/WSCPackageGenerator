@@ -1,12 +1,12 @@
-import FileInstruction from "./FileInstruction";
-import IFileSystemInstruction from "./IFileSystemInstruction";
-import IFileSystemInstructionOptions from "./IFileSystemInstructionOptions";
+import { FileInstruction } from "./FileInstruction";
+import { IFileSystemInstruction } from "./IFileSystemInstruction";
+import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to the file-system.
  */
-export default class FileSystemInstruction extends FileInstruction implements IFileSystemInstruction
+export class FileSystemInstruction extends FileInstruction implements IFileSystemInstruction
 {
     /**
      * The root-path of the filesystem-entry that belongs to the instruction.

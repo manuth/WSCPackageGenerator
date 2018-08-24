@@ -1,10 +1,10 @@
-import IComponentOptions from "../../PackageSystem/IComponentOptions";
-import ImageFolderDescriptor from "./ImageFolderDescriptor";
+import { IComponentOptions } from "../../PackageSystem/IComponentOptions";
+import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
 
 /**
  * Provides options for the `Style` class.
  */
-export default interface IStyleOptions extends IComponentOptions
+export interface IStyleOptions extends IComponentOptions
 {
     /**
      * Gets or sets the filename of the thumbnail of the style.
