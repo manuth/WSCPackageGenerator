@@ -1,5 +1,5 @@
 import * as ColorNames from "colornames";
-import { Component } from "../../PackageSystem/Component";
+import { Component } from "../../Packaging/Component";
 import * as FileSystem from "fs";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";

@@ -1,5 +1,5 @@
 import { IInstructionOptions } from "./IInstructionOptions";
-import { Package } from "../PackageSystem/Package";
+import { Package } from "../Packaging/Package";
 
 /**
  * Represents an instruction for installing a package.

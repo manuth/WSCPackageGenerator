@@ -102,17 +102,17 @@ For example:
 > The `Package.ts`-file contains meta-data of your package.
 ### Interface
 ```ts
-<%- include("./lib/PackageSystem/IPackage.ts") %>
+<%- include("./lib/Packaging/IPackage.ts") %>
 ```
 
 ### Example
 ```ts
 import * as Path from "path";
-import { Package } from "./lib/PackageSystem/Package";
-import { RequiredPackageDescriptor } from "./lib/PackageSystem/RequiredPackageDescriptor";
+import { Package } from "./lib/Packaging/Package";
+import { RequiredPackageDescriptor } from "./lib/Packaging/RequiredPackageDescriptor";
 import { StyleInstructionCollection } from "./lib/Customization/Styles/StyleInstructionCollection";
-import { FileDescriptor } from "./lib/PackageSystem/FileDescriptor";
-import { OptionalPackageDescriptor } from "./lib/PackageSystem/OptionalPackageDescriptor";
+import { FileDescriptor } from "./lib/Packaging/FileDescriptor";
+import { OptionalPackageDescriptor } from "./lib/Packaging/OptionalPackageDescriptor";
 
 function getComponentsPath(value: string): string
 {

@@ -1,4 +1,4 @@
-import { IComponentOptions } from "../../PackageSystem/IComponentOptions";
+import { IComponentOptions } from "../../Packaging/IComponentOptions";
 import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
 
 /**

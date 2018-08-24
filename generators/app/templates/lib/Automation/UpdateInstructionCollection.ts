@@ -1,7 +1,7 @@
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
 import { IUpdateInstructionCollection } from "./IUpdateInstructionCollection";
-import { Package } from "../PackageSystem/Package";
+import { Package } from "../Packaging/Package";
 
 /**
  * Represents a set of `Instruction`s for updating a package.

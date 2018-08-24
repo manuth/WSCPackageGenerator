@@ -1,4 +1,4 @@
-import { PackageCompiler } from "./PackageSystem/PackageCompiler";
+import { PackageCompiler } from "./Packaging/PackageCompiler";
 
 /**
  * Represents the main entry-point of the script.

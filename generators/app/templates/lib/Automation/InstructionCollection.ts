@@ -11,7 +11,7 @@ import { IInstructionCollection } from "./IInstructionCollection";
 import { Instruction } from "./Instruction";
 import { Option } from "../Options/ControlPanel/Option";
 import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
-import { Package } from "../PackageSystem/Package";
+import { Package } from "../Packaging/Package";
 import { SettingsNode } from "../Options/ControlPanel/SettingsNode";
 import { Style } from "../Customization/Styles/Style";
 import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
