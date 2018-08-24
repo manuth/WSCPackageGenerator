@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "rootDir": ".",
+        "composite": true,
         "target": "es6",
         "module": "commonjs",
         "sourceMap": true,

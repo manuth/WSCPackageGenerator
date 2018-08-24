@@ -6,26 +6,15 @@
         {
             "label": "Compile",
             "type": "npm",
-            "script": "watch",
+            "script": "compile",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": "$tsc-watch",
+            "problemMatcher": "$tsc",
             "presentation": {
                 "reveal": "never"
-            },
-            "isBackground": true
-        },
-        {
-            "label": "Compile Lib",
-            "type": "npm",
-            "script": "watchLib",
-            "problemMatcher": "$tsc-watch",
-            "presentation": {
-                "reveal": "never"
-            },
-            "isBackground": true
+            }
         },
         {
             "label": "Lint",
@@ -34,8 +23,7 @@
             "problemMatcher": "$tslint5",
             "presentation": {
                 "reveal": "never"
-            },
-            "isBackground": true
+            }
         }
     ]
 }

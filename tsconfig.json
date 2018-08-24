@@ -12,5 +12,10 @@
         "node_modules",
         "**/templates"
     ],
+    "references": [
+        {
+            "path": "generators/app/templates/lib"
+        }
+    ],
     "compileOnSave": true
 }
