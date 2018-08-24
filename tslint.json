@@ -3,34 +3,12 @@
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {
-        "eofline": false,
-        "forin": false,
-        "one-line": false,
-        "trailing-comma": false,
-        "no-empty-interface": false,
-        "no-empty": false,
-        "no-trailing-whitespace": false,
-        "prefer-const": false,
-        "object-literal-sort-keys": false,
-        "ordered-imports": [
-            true,
-            {
-                "grouped-imports": true,
-                "module-source-path": "basename"
-            }
-        ],
-        "max-line-length": false,
-        "arrow-parens": false,
-        "array-type": false,
-        "member-ordering": false,
-        "no-console": false
-    },
     "rules": {
         "eofline": false,
         "forin": false,
         "one-line": false,
         "trailing-comma": false,
+        "no-default-export": true,
         "no-empty-interface": false,
         "no-empty": false,
         "no-trailing-whitespace": false,
