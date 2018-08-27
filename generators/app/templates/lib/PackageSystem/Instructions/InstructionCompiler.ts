@@ -8,6 +8,6 @@ export class InstructionCompiler extends Compiler<Instruction>
 {
     protected Compile()
     {
-        throw new Error("Method not implemented.");
+        this.FileSystem.copyTpl(this.Item.TemplatePath, this.Item.DestinationPath, { Instruction: this.Item });
     }
 }
