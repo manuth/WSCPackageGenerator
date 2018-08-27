@@ -1,6 +1,8 @@
 import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
 import { ICompilable } from "./ICompilable";
+import * as memFs from "mem-fs";
+import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
 import * as Temp from "tmp";
 import { isNullOrUndefined } from "util";
@@ -19,6 +21,11 @@ export abstract class Compiler<T extends ICompilable>
      * The path to save temporary files to.
      */
     private tempPath: Temp.SynchrounousResult = null;
+
+    /**
+     * The filesystem-editor for generating the output of the compiler.
+     */
+    private fileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
 
     /**
      * Initializes a new instance of the `Compiler` class.
@@ -61,11 +68,27 @@ export abstract class Compiler<T extends ICompilable>
     }
 
     /**
+     * Gets the filesystem-editor for generating the output of the compiler.
+     */
+    public get FileSystem()
+    {
+        return this.fileSystem;
+    }
+
+    /**
      * Compiles the item.
      */
     public async Execute()
     {
         await this.Compile();
+
+        await new Promise(done =>
+        {
+            this.FileSystem.commit(() =>
+            {
+                done();
+            });
+        });
 
         if (this.tempPath)
         {
@@ -78,7 +101,7 @@ export abstract class Compiler<T extends ICompilable>
      * Compiles the item.
      */
     protected abstract async Compile();
-    
+
     /**
      * Joins the paths and returns the path contained by the destination-folder.
      * 
