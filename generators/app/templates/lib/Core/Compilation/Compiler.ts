@@ -82,11 +82,11 @@ export abstract class Compiler<T extends ICompilable>
     {
         await this.Compile();
 
-        await new Promise(done =>
+        await new Promise(resolve =>
         {
-            this.FileSystem.commit(() =>
+            this.FileSystem.commit([], () =>
             {
-                done();
+                resolve();
             });
         });
 

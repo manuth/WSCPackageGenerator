@@ -30,9 +30,22 @@ export abstract class Instruction implements ICompilable
         }
     }
 
-    public get DestinationPath()
+    /**
+     * Gets the name of the type of the instruction.
+     */
+    public abstract get Type(): string;
+
+    /**
+     * Gets the name of the file inside the package.
+     */
+    public get PackageFileName()
     {
         return this.Collection.MakeComponentPath(this.FileName);
+    }
+
+    public get DestinationPath()
+    {
+        return this.Collection.Package.MakePackageSourcePath(this.PackageFileName);
     }
 
     /**
@@ -72,5 +85,10 @@ export abstract class Instruction implements ICompilable
     /**
      * Gets the path of the template to copy to the package.
      */
-    public abstract get TemplatePath();
+    public abstract get TemplatePath(): string;
+
+    public ToXML(): string
+    {
+        return `<instruction type="${this.Type}">${this.PackageFileName}</instruction>`;
+    }
 }

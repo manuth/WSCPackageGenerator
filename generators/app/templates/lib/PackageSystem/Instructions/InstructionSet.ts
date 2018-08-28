@@ -1,6 +1,7 @@
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
 import { Package } from "../Package";
+import * as Path from "path";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -61,7 +62,7 @@ export class InstructionSet extends InstructionCollection<Instruction>
      */
     public MakeComponentPath(...path: string[])
     {
-        return this.Package.MakePackageSourcePath(this.Directory, this.Package.ComponentPath, ...path);
+        return Path.join(this.Directory, this.Package.ComponentPath, ...path);
     }
 
     /**
@@ -72,7 +73,7 @@ export class InstructionSet extends InstructionCollection<Instruction>
      */
     public MakeStylePath(...path: string[])
     {
-        return this.Package.MakePackageSourcePath(this.Directory, this.Package.StylePath, ...path);
+        return Path.join(this.Directory, this.Package.StylePath, ...path);
     }
 
     public push(...items: Instruction[]): number
