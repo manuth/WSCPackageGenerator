@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "outDir": "bin",
         "target": "es6",
         "module": "commonjs",
         "sourceMap": true,
@@ -13,5 +14,10 @@
             "path": "generators/app/templates/lib"
         }
     ],
-    "compileOnSave": true
+    "compileOnSave": true,
+    "exclude": [
+        "**/templates/**/*",
+        "obj/",
+        "bin/"
+    ]
 }
