@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "rootDir": ".",
+        "rootDir": "./src",
         "composite": true,
         "target": "es6",
         "module": "commonjs",
@@ -9,7 +9,7 @@
             "es7"
         ],
         "noUnusedLocals": true,
-        "outDir": "../../../../obj/lib"
+        "outDir": "./lib"
     },
     "compileOnSave": true
 }

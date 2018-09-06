@@ -1,23 +1,13 @@
 {
-    "compilerOptions": {
-        "outDir": "bin",
-        "target": "es6",
-        "module": "commonjs",
-        "sourceMap": true,
-        "lib": [
-            "es7"
-        ],
-        "noUnusedLocals": true
-    },
     "references": [
         {
-            "path": "generators/app/templates/lib"
+            "path": "./generatorLib"
+        },
+        {
+            "path": "./packageLib"
         }
     ],
-    "compileOnSave": true,
     "exclude": [
-        "**/templates/**/*",
-        "obj/",
-        "bin/"
+        "**/*.*"
     ]
 }

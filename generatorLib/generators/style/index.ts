@@ -29,6 +29,11 @@ class WSCStyleGenerator extends Generator
         super(args, opts);
     }
 
+    protected get TemplateRoot()
+    {
+        return "style";
+    }
+
     /**
      * Collects all informations about the style that is to be created.
      */
@@ -132,7 +137,7 @@ class WSCStyleGenerator extends Generator
         }
 
         this.settings.basePath = basePath + "/";
-        this.fs.copyTpl(this.templatePath("Style.ts"), this.destinationPath(this.settings.stylesPath, this.settings.name, "Style.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("Style.ts.ejs"), this.destinationPath(this.settings.stylesPath, this.settings.name, "Style.ts"), this.settings);
 
         for (let component of (this.settings.components as string[]))
         {

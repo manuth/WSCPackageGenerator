@@ -1,2 +1,3 @@
-tests/
+lib/tests/
+packageLib/lib/tests/
 --recursive

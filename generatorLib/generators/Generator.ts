@@ -5,7 +5,7 @@ import * as YoGenerator from "yeoman-generator";
 /**
  * Represents a generator.
  */
-export class Generator extends YoGenerator
+export abstract class Generator extends YoGenerator
 {
     /**
      * Initializes a new instance of the `WSCPackageGenerator` class.
@@ -20,6 +20,11 @@ export class Generator extends YoGenerator
     {
         super(args, opts);
     }
+
+    /**
+     * Gets the name of the root of the template-folder.
+     */
+    protected abstract get TemplateRoot(): string;
 
     /**
      * Validates whether the a value is provided.
@@ -49,5 +54,10 @@ export class Generator extends YoGenerator
         {
             return "Files must be stored in a separate folder!";
         }
+    }
+
+    public templatePath(...path: string[])
+    {
+        return Path.join(__dirname, "..", "..", "templates", this.TemplateRoot, ...path);
     }
 }

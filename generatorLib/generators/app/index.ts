@@ -34,6 +34,11 @@ class WSCPackageGenerator extends Generator
         super(args, opts);
     }
 
+    protected get TemplateRoot()
+    {
+        return "app";
+    }
+
     /**
      * Collects all informations about the package that is to be created.
      */
@@ -313,6 +318,8 @@ class WSCPackageGenerator extends Generator
      */
     public writing()
     {
+        this.destinationRoot(this.destination);
+
         let componentsPath = (value: string): string =>
         {
             return this.destinationPath("components", value);
@@ -332,16 +339,14 @@ class WSCPackageGenerator extends Generator
             bbcode: "BBCodes.ts"
         };
 
-        this.destinationRoot(this.destination);
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
-        this.fs.copy(this.templatePath("lib"), this.destinationPath("lib"));
-        this.fs.copy(this.templatePath("lib/templates"), this.destinationPath("lib/templates"));
+        this.fs.copy(Path.join(__dirname, "..", "..", "..", "packageLib", "src"), this.destinationPath("lib"));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
-        this.fs.copyTpl(this.templatePath("_package.json"), this.destinationPath("package.json"), this.settings);
-        this.fs.copyTpl(this.templatePath("Package.ts"), this.destinationPath("Package.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("README.md"), this.destinationPath("README.md"), this.settings);
+        this.fs.copyTpl(this.templatePath("package.json.ejs"), this.destinationPath("package.json"), this.settings);
+        this.fs.copyTpl(this.templatePath("Package.ts.ejs"), this.destinationPath("Package.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), this.settings);
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
-        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"), { });
+        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md.ejs"), this.destinationPath("wsc-package-quickstart.md"), { });
 
         for (let component of this.settings.components)
         {

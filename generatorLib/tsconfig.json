@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "outDir": "../lib",
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "composite": true,
+        "lib": [
+            "es7"
+        ],
+        "noUnusedLocals": true
+    },
+    "compileOnSave": true,
+    "exclude": [
+        "**/templates/**/*"
+    ]
+}

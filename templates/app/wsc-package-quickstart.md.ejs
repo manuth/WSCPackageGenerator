@@ -102,7 +102,7 @@ For example:
 > The `Package.ts`-file contains meta-data of your package.
 ### Interface
 ```ts
-<%- include("./lib/Packaging/IPackage.ts") %>
+<%- include("../../packageLib/src/Packaging/IPackage.ts") %>
 ```
 
 ### Example
@@ -355,7 +355,7 @@ The variable inside the `<%%= %%>` will be evaluated using JavaScript and return
 
 ### Interface
 ```ts
-<%- include("./lib/Core/IFilesInstruction.ts") %>
+<%- include("../../packageLib/src/Core/IFilesInstruction.ts") %>
 ```
 
 ### Example
@@ -429,7 +429,7 @@ Using the `OptionsInstruction` you can provide options and their translations fo
 
 ### Interface
 ```ts
-<%- include("./lib/Options/ControlPanel/IOptionsInstruction.ts") %>
+<%- include("../../packageLib/src/Options/ControlPanel/IOptionsInstruction.ts") %>
 ```
 
 ### Example
@@ -541,7 +541,7 @@ A category may contain sub-categories or options.
 
 ### Interface
 ```ts
-<%- include("./lib/Options/ControlPanel/ISettingsNode.ts") %>
+<%- include("../../packageLib/src/Options/ControlPanel/ISettingsNode.ts") %>
 ```
 
 ### Example
@@ -657,7 +657,7 @@ Options are displayed in the Admin Control-Panel inside the category you've chos
 
 ### Interface
 ```ts
-<%- include("./lib/Options/ControlPanel/IOption.ts") %>
+<%- include("../../packageLib/src/Options/ControlPanel/IOption.ts") %>
 ```
 
 ### Properties
@@ -728,7 +728,7 @@ The type of the option.
 Following types are allowed:
 
 ```ts
-<%- include("./lib/Options/Controlpanel/OptionType.ts") %>
+<%- include("../../packageLib/src/Options/Controlpanel/OptionType.ts") %>
 ```
 
 **Examlpe:**
@@ -763,7 +763,7 @@ An option-item represents an item of an option with a `ComboBox`, `MultiSelect` 
 
 ### Interface
 ```ts
-<%- include("./lib/Options/ControlPanel/IOptionItem.ts") %>
+<%- include("../../packageLib/src/Options/ControlPanel/IOptionItem.ts") %>
 ```
 
 ### Properties
@@ -798,7 +798,7 @@ The `EventListenerInstruction` allows you to make WoltLab executing custom code 
 
 ### Interface
 ```ts
-<%- include("./lib/Events/EventListener.ts") %>
+<%- include("../../packageLib/src/Events/EventListener.ts") %>
 ```
 
 ### Examlpe
@@ -864,7 +864,7 @@ The Cronjob-classes must implement the `wcf\system\cronjob\ICronjob` interface.
 
 ### Interface
 ```ts
-<%- include("./lib/Core/Cronjobs/CronjobInstruction.ts") %>
+<%- include("../../packageLib/src/Core/Cronjobs/CronjobInstruction.ts") %>
 ```
 
 ### Example
@@ -900,7 +900,7 @@ This class represents a cron-job which is executed periodically.
 
 ### Interface
 ```ts
-<%- include("./lib/Core/Cronjobs/ICronjob.ts") %>
+<%- include("../../packageLib/src/Core/Cronjobs/ICronjob.ts") %>
 ```
 
 ### Properties
@@ -943,7 +943,7 @@ For Example:
 
 ### Interface
 ```ts
-<%- include("./lib/Globalization/ITranslationsInstruction.ts") %>
+<%- include("../../packageLib/src/Globalization/ITranslationsInstruction.ts") %>
 ```
 
 ### Examlpe
@@ -999,7 +999,7 @@ You can access error-identifiers inside your ejs-flavored files like this:
 
 ### Interface
 ```ts
-<%- include("./lib/Globalization/Errors/IErrorMessagesInstruction.ts") %>
+<%- include("../../packageLib/src/Globalization/Errors/IErrorMessagesInstruction.ts") %>
 ```
 
 ### Example
@@ -1048,7 +1048,7 @@ You can provide them using `TemlpateListenersInstruction`s.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/Presentation/ITemplateListenersInstruction.ts") %>
+<%- include("../../packageLib/src/Customization/Presentation/ITemplateListenersInstruction.ts") %>
 ```
 
 ### Examlpe
@@ -1082,7 +1082,7 @@ A set of temlpate-listeners.
 ## `TemlpateListener`
 ### Interface
 ```ts
-<%- include("./lib/Customization/Presentation/ITemplateListener.ts") %>
+<%- include("../../packageLib/src/Customization/Presentation/ITemplateListener.ts") %>
 ```
 
 ### Properties
@@ -1109,7 +1109,7 @@ You can provide your own emojis by using an `EmojisInstruction`.
 
 ### Interface
 ```ts
-<% include("./lib/Customization/Emojis/IEmojisInstruction.ts") %>
+<% include("../../packageLib/src/Customization/Emojis/IEmojisInstruction.ts") %>
 ```
 
 ### Examlpe
@@ -1147,7 +1147,7 @@ This class represents an emoji.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/Emojis/IEmoji.ts") %>
+<%- include("../../packageLib/src/Customization/Emojis/IEmoji.ts") %>
 ```
 
 ### Properties
@@ -1172,7 +1172,7 @@ You can provide new bb-codes using a `BBCodesInstruction`.
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/BBCodes/IBBCodesInstruction.ts") %>
+<%- include("../../packageLib/src/Customization/BBCodes/IBBCodesInstruction.ts") %>
 ```
 
 ### Example
@@ -1233,7 +1233,7 @@ A BB-Code is a tag you can use when editing or adding contents on/to WoltLab Sui
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/BBCodes/IBBCode.ts") %>
+<%- include("../../packageLib/src/Customization/BBCodes/IBBCode.ts") %>
 ```
 
 ### Properties
@@ -1296,7 +1296,7 @@ A BBCode-attribute allows users to provide further arguments to the bbcode in or
 
 ### Interface
 ```ts
-<%- include("./lib/Customization/BBCodes/IBBCodeAttribute.ts") %>
+<%- include("../../packageLib/src/Customization/BBCodes/IBBCodeAttribute.ts") %>
 ```
 
 ### Properties
