@@ -4,7 +4,6 @@ import { FileDescriptor } from "./FileDescriptor";
 import { InstructionSet } from "./Instructions/InstructionSet";
 import { IPackageOptions } from "./IPackageOptions";
 import { OptionalPackageDescriptor } from "../Packaging/OptionalPackageDescriptor";
-import * as Path from "path";
 import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
 import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
 import { isNullOrUndefined } from "util";
@@ -18,36 +17,6 @@ export class Package extends Component
      * The identifier of the package.
      */
     private identifier: string;
-
-    /**
-     * The path relative to the project-root to save temporary files to.
-     */
-    private objectPath: string = "obj";
-
-    /**
-     * The path relative to the `objectPath` to save the temporary package to.
-     */
-    private packageSourcePath: string = "package";
-
-    /**
-     * The path relative to the `objectPath` to save temporary styles to.
-     */
-    private styleSourcePath: string = "styles";
-
-    /**
-     * The path relative to the package-root to save the components to.
-     */
-    private componentPath: string = "components";
-
-    /**
-     * The path relative to the package-root to save the styles to.
-     */
-    private stylePath: string = "styles";
-
-    /**
-     * The path relative to the project-root to save the package to.
-     */
-    private destinationPath: string = "bin";
 
     /**
      * A set of files which will be added to the package.
@@ -95,36 +64,6 @@ export class Package extends Component
         });
 
         this.Identifier = options.Identifier;
-        
-        if (!isNullOrUndefined(options.ObjectPath))
-        {
-            this.ObjectPath = options.ObjectPath;
-        }
-        
-        if (!isNullOrUndefined(options.PackageSourcePath))
-        {
-            this.PackageSourcePath = options.PackageSourcePath;
-        }
-        
-        if (!isNullOrUndefined(options.StyleSourcePath))
-        {
-            this.StyleSourcePath = options.StyleSourcePath;
-        }
-        
-        if (!isNullOrUndefined(options.ComponentPath))
-        {
-            this.ComponentPath = options.ComponentPath;
-        }
-        
-        if (!isNullOrUndefined(options.StylePath))
-        {
-            this.StylePath = options.StylePath;
-        }
-        
-        if (!isNullOrUndefined(options.DestinationPath))
-        {
-            this.DestinationPath = options.DestinationPath;
-        }
         
         if (!isNullOrUndefined(options.DestinationPath))
         {
@@ -196,84 +135,6 @@ export class Package extends Component
     }
 
     /**
-     * Gets or sets the path relative to the project-root to save temporary files to.
-     */
-    public get ObjectPath()
-    {
-        return this.objectPath;
-    }
-
-    public set ObjectPath(value)
-    {
-        this.objectPath = value;
-    }
-
-    /**
-     * Gets or sets the path relative to the `objectPath` to save the temporary package to.
-     */
-    public get PackageSourcePath()
-    {
-        return this.packageSourcePath;
-    }
-
-    public set PackageSourcePath(value)
-    {
-        this.packageSourcePath = value;
-    }
-
-    /**
-     * Gets or sets the `objectPath` to save temporary styles to.
-     */
-    public get StyleSourcePath()
-    {
-        return this.styleSourcePath;
-    }
-
-    public set StyleSourcePath(value)
-    {
-        this.styleSourcePath = value;
-    }
-
-    /**
-     * Gets or sets the path relative to the package-root to save the components to.
-     */
-    public get ComponentPath()
-    {
-        return this.componentPath;
-    }
-
-    public set ComponentPath(value)
-    {
-        this.componentPath = value;
-    }
-
-    /**
-     * Gets or sets the path relative to the package-root to save the styles to.
-     */
-    public get StylePath()
-    {
-        return this.stylePath;
-    }
-
-    public set StylePath(value)
-    {
-        this.stylePath = value;
-    }
-
-    /**
-     * Gets or sets the path relative to the project-root to save the package to.
-     */
-    public get DestinationPath(): string
-    {
-        return this.destinationPath;
-    }
-
-    public set DestinationPath(value)
-    {
-        this.destinationPath = value;
-    }
-
-    /**
      * Gets a set of files which will be added to the package.
      */
     public get AddidionalFiles()
@@ -319,49 +180,5 @@ export class Package extends Component
     public get UpdateSets()
     {
         return this.updateSets;
-    }
-    
-    /**
-     * Joins the paths and returns the path contained by a object-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    public MakeObjectPath(...path: string[])
-    {
-        return Path.join(this.ObjectPath, ...path);
-    }
-
-    /**
-     * Joins the paths and returns the path contained by a `PackageSource`-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    public MakePackageSourcePath(...path: string[])
-    {
-        return this.MakeObjectPath(this.PackageSourcePath, ...path);
-    }
-
-    /**
-     * Joins the paths and returns the path contained by a `StyleSource`-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    public MakeStyleSourcePath(...path: string[])
-    {
-        return this.MakeObjectPath(this.StyleSourcePath, ...path);
-    }
-
-    /**
-     * Joins the paths and returns the path contained by the destination-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    protected MakeDestinationPath(...path: string[])
-    {
-        return Path.join(this.DestinationPath, ...path);
     }
 }

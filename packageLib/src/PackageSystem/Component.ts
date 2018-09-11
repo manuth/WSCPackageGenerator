@@ -1,4 +1,3 @@
-import { ICompilable } from "../Core/Compilation/ICompilable";
 import { IComponentOptions } from "./IComponentOptions";
 import { Localizable } from "../GLobalization/Localizable";
 import { Person } from "./Person";
@@ -7,7 +6,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Represents a component.
  */
-export abstract class Component implements ICompilable
+export abstract class Component
 {
     /**
      * The name of the package.
@@ -144,8 +143,6 @@ export abstract class Component implements ICompilable
     {
         return this.description;
     }
-
-    public abstract get DestinationPath(): string;
 
     /**
      * Gets or sets the license of the component.

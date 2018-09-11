@@ -1,7 +1,6 @@
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
 import { Package } from "../Package";
-import * as Path from "path";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -52,28 +51,6 @@ export class InstructionSet extends InstructionCollection<Instruction>
     public set Directory(value)
     {
         this.directory = value;
-    }
-
-    /**
-     * Joins the paths and returns the path contained by a component-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    public MakeComponentPath(...path: string[])
-    {
-        return Path.join(this.Directory, this.Package.ComponentPath, ...path);
-    }
-
-    /**
-     * Joins the paths and returns the path contained by a style-folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    public MakeStylePath(...path: string[])
-    {
-        return Path.join(this.Directory, this.Package.StylePath, ...path);
     }
 
     public push(...items: Instruction[]): number

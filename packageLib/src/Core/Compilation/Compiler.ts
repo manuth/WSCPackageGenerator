@@ -1,6 +1,5 @@
 import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
-import { ICompilable } from "./ICompilable";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
@@ -10,7 +9,7 @@ import { isNullOrUndefined } from "util";
 /**
  * Provides the functionality to compile a component.
  */
-export abstract class Compiler<T extends ICompilable>
+export abstract class Compiler<T>
 {
     /**
      * The item to compile.
@@ -49,10 +48,7 @@ export abstract class Compiler<T extends ICompilable>
     /**
      * Gets the path to save the compiled item to.
      */
-    public get DestinationPath(): string
-    {
-        return this.Item.DestinationPath;
-    }
+    public abstract get DestinationPath(): string;
 
     /**
      * Gets the path to save temporary files to.

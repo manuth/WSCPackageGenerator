@@ -1,13 +1,11 @@
-import { ICompilable } from "../../Core/Compilation/ICompilable";
 import { IInstructionOptions } from "./IInstructionOptions";
-import { InstructionCompiler } from "./InstructionCompiler";
 import { InstructionSet } from "./InstructionSet";
 import { isNullOrUndefined } from "util";
 
 /**
  * Represents a step of a package-installation.
  */
-export abstract class Instruction implements ICompilable
+export abstract class Instruction
 {
     /**
      * The package this instruction belongs to.
@@ -36,19 +34,6 @@ export abstract class Instruction implements ICompilable
     public abstract get Type(): string;
 
     /**
-     * Gets the name of the file inside the package.
-     */
-    public get PackageFileName()
-    {
-        return this.Collection.MakeComponentPath(this.FileName);
-    }
-
-    public get DestinationPath()
-    {
-        return this.Collection.Package.MakePackageSourcePath(this.PackageFileName);
-    }
-
-    /**
      * Gets or sets the package this instruction belongs to.
      */
     public get Collection()
@@ -72,23 +57,5 @@ export abstract class Instruction implements ICompilable
     public set FileName(value)
     {
         this.fileName = value;
-    }
-
-    /**
-     * Gets the compiler for compiling the instruction.
-     */
-    public get Compiler()
-    {
-        return new InstructionCompiler(this);
-    }
-
-    /**
-     * Gets the path of the template to copy to the package.
-     */
-    public abstract get TemplatePath(): string;
-
-    public ToXML(): string
-    {
-        return `<instruction type="${this.Type}">${this.PackageFileName}</instruction>`;
     }
 }
