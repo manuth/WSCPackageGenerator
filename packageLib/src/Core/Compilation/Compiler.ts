@@ -17,6 +17,11 @@ export abstract class Compiler<T>
     private item: T;
 
     /**
+     * The path to save the compiled item to.
+     */
+    private destinationPath: string = "";
+
+    /**
      * The path to save temporary files to.
      */
     private tempPath: Temp.SynchrounousResult = null;
@@ -46,9 +51,17 @@ export abstract class Compiler<T>
     }
 
     /**
-     * Gets the path to save the compiled item to.
+     * Gets or sets the path to save the compiled item to.
      */
-    public abstract get DestinationPath(): string;
+    public get DestinationPath(): string
+    {
+        return this.destinationPath;
+    }
+
+    public set DestinationPath(value: string)
+    {
+        this.destinationPath = value;
+    }
 
     /**
      * Gets the path to save temporary files to.
