@@ -90,7 +90,7 @@ export abstract class Compiler<T>
     public async Execute()
     {
         await this.Compile();
-
+        await this.Dispose();
         await new Promise(resolve =>
         {
             this.FileSystem.commit([], () =>
@@ -98,11 +98,18 @@ export abstract class Compiler<T>
                 resolve();
             });
         });
+    }
 
+    /**
+     * Disposes the compiler.
+     */
+    public async Dispose()
+    {
         if (this.tempPath)
         {
             await FileSystem.emptyDir(this.tempPath.name);
             this.tempPath.removeCallback();
+            this.tempPath = null;
         }
     }
 
