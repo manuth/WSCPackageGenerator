@@ -19,6 +19,7 @@
     "@types/mocha": "^5.2.0",
     "@types/node": "^9.6.18",
     "@types/tmp": "0.0.33",
+    "@types/xmldom": "^0.1.29",
     "@types/yeoman-generator": "^2.0.3",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
@@ -31,6 +32,7 @@
     "tmp": "0.0.33",
     "tslint": "^5.11.0",
     "typescript": "^3.0.3",
+    "xmldom": "^0.1.27",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.2",
     "yo": "^2.0.4"

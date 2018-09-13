@@ -2,6 +2,7 @@ import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
+import { DOMParser, XMLSerializer } from "xmldom";
 
 /**
  * Represents a step of a package-installation.
@@ -66,5 +67,32 @@ export abstract class Instruction
     public set FileName(value)
     {
         this.fileName = value;
+    }
+
+    /**
+     * Gets the full name of the file.
+     */
+    public get FullName(): string
+    {
+        return Path.join(this.DestinationRoot, this.FileName).replace(Path.sep, "/");
+    }
+
+    /**
+     * Gets an xml-element which represents the instruction.
+     */
+    protected get XMLElement(): Node
+    {
+        let document = new DOMParser().parseFromString("<instruction />");
+        document.documentElement.textContent = this.FullName;
+        document.documentElement.setAttribute("type", this.Type);
+        return document;
+    }
+
+    /**
+     * Gets an xml-code which represents the instruction.
+     */
+    public get XML(): string
+    {
+        return new XMLSerializer().serializeToString(this.XMLElement);
     }
 }
