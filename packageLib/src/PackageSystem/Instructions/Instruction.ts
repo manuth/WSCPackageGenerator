@@ -1,5 +1,6 @@
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
+import * as Path from "path";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -44,6 +45,14 @@ export abstract class Instruction
     public set Collection(value)
     {
         this.collection = value;
+    }
+
+    /**
+     * Gets the directory to save the instruction to.
+     */
+    public get DestinationRoot(): string
+    {
+        return Path.join(this.Collection.Directory);
     }
 
     /**

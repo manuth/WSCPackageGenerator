@@ -14,9 +14,9 @@ export class InstructionSet extends InstructionCollection<Instruction>
     private package: Package;
 
     /**
-     * The directory to save the components of this set.
+     * The directory to save the set to.
      */
-    private directory: string = ".";
+    private directory: string = "components";
 
     /**
      * Initializes a new instance of the `InstructionSet` class.
