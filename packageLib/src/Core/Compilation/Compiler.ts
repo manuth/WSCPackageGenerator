@@ -1,10 +1,8 @@
 import * as ChildProcess from "child_process";
-import * as FileSystem from "fs-extra";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
-import * as Temp from "tmp";
-import { isNullOrUndefined } from "util";
+import { TempDirectory } from "../FileSystem/TempDirectory";
 
 /**
  * Provides the functionality to compile a component.
@@ -20,11 +18,6 @@ export abstract class Compiler<T>
      * The path to save the compiled item to.
      */
     private destinationPath: string = "";
-
-    /**
-     * The path to save temporary files to.
-     */
-    private tempPath: Temp.SynchrounousResult = null;
 
     /**
      * The filesystem-editor for generating the output of the compiler.
@@ -66,14 +59,9 @@ export abstract class Compiler<T>
     /**
      * Gets the path to save temporary files to.
      */
-    public get TempPath(): string
+    public get TempPath(): TempDirectory
     {
-        if (isNullOrUndefined(this.tempPath))
-        {
-            this.tempPath = Temp.dirSync();
-        }
-
-        return this.tempPath.name;
+        return new TempDirectory();
     }
 
     /**
@@ -90,27 +78,6 @@ export abstract class Compiler<T>
     public async Execute()
     {
         await this.Compile();
-        await this.Dispose();
-        await new Promise(resolve =>
-        {
-            this.FileSystem.commit([], () =>
-            {
-                resolve();
-            });
-        });
-    }
-
-    /**
-     * Disposes the compiler.
-     */
-    public async Dispose()
-    {
-        if (this.tempPath)
-        {
-            await FileSystem.emptyDir(this.tempPath.name);
-            this.tempPath.removeCallback();
-            this.tempPath = null;
-        }
     }
 
     /**
@@ -138,17 +105,6 @@ export abstract class Compiler<T>
     protected MakeTemplatePath(...path: string[]): string
     {
         return Path.join(__dirname, "..", "..", "templates", ...path);
-    }
-
-    /**
-     * Joins the paths and returns the path contained by a temporary folder.
-     * 
-     * @param path
-     * The path that is to be joined.
-     */
-    protected MakeTempPath(...path: string[]): string
-    {
-        return Path.join(this.TempPath, ...path);
     }
 
     /**
