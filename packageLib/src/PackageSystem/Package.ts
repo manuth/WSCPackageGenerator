@@ -3,6 +3,7 @@ import { ConflictingPackageDescriptor } from "./ConflictingPackageDescriptor";
 import { FileDescriptor } from "./FileDescriptor";
 import { InstructionSet } from "./Instructions/InstructionSet";
 import { IPackageOptions } from "./IPackageOptions";
+import { ModuleInfo } from "./ModuleInfo";
 import { OptionalPackageDescriptor } from "../Packaging/OptionalPackageDescriptor";
 import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
 import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
@@ -54,9 +55,9 @@ export class Package extends Component
     public constructor(options: IPackageOptions)
     {
         super({
-            Name: options.Name || require("../../package.json").name,
+            Name: options.Name || new ModuleInfo().Name,
             DisplayName: options.DisplayName,
-            Version: options.Version || require("../../package.json").version,
+            Version: options.Version || new ModuleInfo().Version,
             Author: options.Author,
             CreationDate: options.CreationDate,
             Description: options.Description,

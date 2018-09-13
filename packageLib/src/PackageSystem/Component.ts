@@ -1,5 +1,6 @@
 import { IComponentOptions } from "./IComponentOptions";
 import { Localizable } from "../GLobalization/Localizable";
+import { ModuleInfo } from "./ModuleInfo";
 import { Person } from "./Person";
 import { isNullOrUndefined } from "util";
 
@@ -26,10 +27,7 @@ export abstract class Component
     /**
      * The author of the component.
      */
-    private author: Person = new Person({
-        Name: require("../../package.json").author.name,
-        URL:  require("../../package.json").author.url 
-    });
+    private author: Person = new ModuleInfo().Author;
 
     /**
      * The creation-date of the component.
@@ -44,7 +42,7 @@ export abstract class Component
     /**
      * The license of the component.
      */
-    private license: string = require("../../package.json").license;
+    private license: string = new ModuleInfo().License;
 
     /**
      * Initializes a new instance of the `Component` class.
