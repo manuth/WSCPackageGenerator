@@ -55,7 +55,7 @@ export abstract class Component
 
         if (!isNullOrUndefined(options.Author))
         {
-            this.Author = new Person(options.Author);
+            this.author = new Person(options.Author);
         }
 
         if (!isNullOrUndefined(options.CreationDate))
@@ -77,12 +77,12 @@ export abstract class Component
     /**
      * Gets or sets the name of the package.
      */
-    public get Name()
+    public get Name(): string
     {
         return this.name;
     }
 
-    public set Name(value)
+    public set Name(value: string)
     {
         this.name = value;
     }
@@ -90,7 +90,7 @@ export abstract class Component
     /**
      * Gets the human-readabnle name of the component.
      */
-    public get DisplayName()
+    public get DisplayName(): Localizable
     {
         return this.displayName;
     }
@@ -98,12 +98,12 @@ export abstract class Component
     /**
      * Gets or sets the version of the component.
      */
-    public get Version()
+    public get Version(): string
     {
         return this.version;
     }
 
-    public set Version(value)
+    public set Version(value: string)
     {
         this.version = value;
     }
@@ -111,25 +111,20 @@ export abstract class Component
     /**
      * Gets or sets the author of the component.
      */
-    public get Author()
+    public get Author(): Person
     {
         return this.author;
-    }
-
-    public set Author(value)
-    {
-        this.author = value;
     }
 
     /**
      * Gets or sets the creation-date of the component.
      */
-    public get CreationDate()
+    public get CreationDate(): Date
     {
         return this.creationDate;
     }
 
-    public set CreationDate(value)
+    public set CreationDate(value: Date)
     {
         this.creationDate = value;
     }
@@ -137,7 +132,7 @@ export abstract class Component
     /**
      * Gets the description of the component.
      */
-    public get Description()
+    public get Description(): Localizable
     {
         return this.description;
     }
@@ -145,12 +140,12 @@ export abstract class Component
     /**
      * Gets or sets the license of the component.
      */
-    public get License()
+    public get License(): string
     {
         return this.license;
     }
 
-    public set License(value)
+    public set License(value: string)
     {
         this.license = value;
     }

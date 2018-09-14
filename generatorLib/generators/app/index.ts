@@ -29,12 +29,12 @@ class WSCPackageGenerator extends Generator
      * @param opts
      * A set of options.
      */
-    constructor(args, opts)
+    constructor(args: string | string[], opts: {})
     {
         super(args, opts);
     }
 
-    protected get TemplateRoot()
+    protected get TemplateRoot(): string
     {
         return "app";
     }
@@ -42,7 +42,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Collects all informations about the package that is to be created.
      */
-    public prompting()
+    public async prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
@@ -52,7 +52,7 @@ class WSCPackageGenerator extends Generator
                 name: "destination",
                 message: "What directory do you want to create the package to?",
                 default: "./",
-                filter: (value) =>
+                filter: (value: string): string =>
                 {
                     this.destination = Path.resolve(process.cwd(), value);
                     return value;
@@ -62,7 +62,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "name",
                 message: "What's the name of your package?",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: YoGenerator.Answers): string =>
                 {
                     return Path.basename(this.destination);
                 },
@@ -72,7 +72,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your package?",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: YoGenerator.Answers): string =>
                 {
                     return answers.name;
                 },
@@ -100,9 +100,9 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "identifier",
                 message: "Please type an identifier for your package:",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: YoGenerator.Answers): string =>
                 {
-                    let reversedURI = (answers.authorURL as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
+                    let reversedURI: string = (answers.authorURL as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
                     if (reversedURI.length === 0)
                     {
@@ -189,7 +189,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.style",
                 message: "Where do you want to store styles?",
                 default: "styles",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("style");
                 }
@@ -199,7 +199,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.files",
                 message: "Where do you want to store your file-mappings?",
                 default: "Files",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("files");
                 }
@@ -209,7 +209,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.acpOptions",
                 message: "Where do you want to store the ACP-options and categories?",
                 default: "Options",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("acpOptions");
                 }
@@ -219,7 +219,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.eventListener",
                 message: "Where do you want to store your event-listeners?",
                 default: "EventListeners",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("eventListener");
                 }
@@ -229,7 +229,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.cronJobs",
                 message: "Where do you want to store your cron-jobs?",
                 default: "CronJobs",
-                when: (answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("cronJobs");
                 }
@@ -239,7 +239,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.translations",
                 message: "Where do you want to store your translations?",
                 default: "Translations",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("translations");
                 }
@@ -249,7 +249,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.errors",
                 message: "Where do you want to store your error-messages?",
                 default: "ErrorMessages",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("errors");
                 }
@@ -259,7 +259,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.template",
                 message: "Where do you want to store templates?",
                 default: "Templates",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).indexOf("template") >= 0;
                 }
@@ -269,7 +269,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.acpTemplate",
                 message: "Where do you want to store ACP-templates?",
                 default: "ACPTemplates",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).indexOf("acpTemplate") >= 0;
                 },
@@ -280,7 +280,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.templateListener",
                 message: "Where do you want to store template-listeners?",
                 default: "TemplateListeners",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).indexOf("templateListener") >= 0;
                 },
@@ -290,7 +290,7 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.emoji",
                 default: "Emojis",
                 message: "Where do you want to store emojis?",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).indexOf("emoji") >= 0;
                 }
@@ -300,14 +300,14 @@ class WSCPackageGenerator extends Generator
                 name: "componentPaths.bbcode",
                 default: "BBCodes",
                 message: "Where do you want to store BB-Codes?",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).indexOf("bbcode") >= 0;
                 }
             }
         ];
 
-        return this.prompt(prompts).then(answers =>
+        return this.prompt(prompts).then((answers: YoGenerator.Answers) =>
         {
             this.settings = answers;
         });
@@ -316,11 +316,11 @@ class WSCPackageGenerator extends Generator
     /**
      * Writes the templates
      */
-    public writing()
+    public async writing(): Promise<void>
     {
         this.destinationRoot(this.destination);
 
-        let componentsPath = (value: string): string =>
+        let componentsPath: (value: string) => string = (value: string): string =>
         {
             return this.destinationPath("components", value);
         };
@@ -346,7 +346,7 @@ class WSCPackageGenerator extends Generator
         this.fs.copyTpl(this.templatePath("Package.ts.ejs"), this.destinationPath("Package.ts"), this.settings);
         this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), this.settings);
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
-        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md.ejs"), this.destinationPath("wsc-package-quickstart.md"), { });
+        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md.ejs"), this.destinationPath("wsc-package-quickstart.md"), {});
 
         for (let component of this.settings.components)
         {
@@ -368,7 +368,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    public install()
+    public async install(): Promise<void>
     {
         if (this.settings.components.includes("style"))
         {
@@ -383,7 +383,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Show some helpful messages after finishing the installation-process.
      */
-    public end()
+    public async end(): Promise<void>
     {
         this.log();
         this.log("Your package \"" + this.settings.name + "\" has been created!");

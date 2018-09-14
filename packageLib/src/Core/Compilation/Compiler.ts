@@ -67,7 +67,7 @@ export abstract class Compiler<T>
     /**
      * Gets the filesystem-editor for generating the output of the compiler.
      */
-    public get FileSystem()
+    public get FileSystem(): memFsEditor.memFsEditor.Editor
     {
         return this.fileSystem;
     }
@@ -75,7 +75,7 @@ export abstract class Compiler<T>
     /**
      * Compiles the item.
      */
-    public async Execute()
+    public async Execute(): Promise<void>
     {
         await this.Compile();
     }
@@ -83,7 +83,7 @@ export abstract class Compiler<T>
     /**
      * Compiles the item.
      */
-    protected abstract async Compile();
+    protected abstract async Compile(): Promise<void>;
 
     /**
      * Joins the paths and returns the path contained by the destination-folder.
@@ -116,7 +116,7 @@ export abstract class Compiler<T>
      * @param destination
      * The filename to save the compressed file to.
      */
-    protected Compress(source: string, destination: string)
+    protected Compress(source: string, destination: string): void
     {
         ChildProcess.execFileSync(
             "7z",

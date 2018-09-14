@@ -23,12 +23,12 @@ export class UpdateInstructionSet extends InstructionSet
     /**
      * Gets or sets the version to update the package from.
      */
-    public get FromVersion()
+    public get FromVersion(): string
     {
         return this.fromVersion;
     }
 
-    public set FromVersion(value)
+    public set FromVersion(value: string)
     {
         this.fromVersion = value;
     }

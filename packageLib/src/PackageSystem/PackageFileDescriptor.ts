@@ -29,12 +29,12 @@ export class PackageFileDescriptor extends PackageDescriptor
      * The filename of the package.
      * Please keep in mind to provide the file using the `Package.AdditionalFiles`-property.
      */
-    public get FileName()
+    public get FileName(): string
     {
         return this.fileName;
     }
 
-    public set FileName(value)
+    public set FileName(value: string)
     {
         this.fileName = value;
     }

@@ -109,7 +109,7 @@ export class Package extends Component
         {
             for (let updateSet of options.UpdateSets)
             {
-                let updateInstructionSet = new UpdateInstructionSet(this, updateSet.FromVersion);
+                let updateInstructionSet: UpdateInstructionSet = new UpdateInstructionSet(this, updateSet.FromVersion);
 
                 if (!isNullOrUndefined(updateSet.Directory))
                 {
@@ -125,7 +125,7 @@ export class Package extends Component
     /**
      * Gets or sets the identifier of the package.
      */
-    public get Identifier()
+    public get Identifier(): string
     {
         return this.identifier;
     }
@@ -138,7 +138,7 @@ export class Package extends Component
     /**
      * Gets a set of files which will be added to the package.
      */
-    public get AddidionalFiles()
+    public get AddidionalFiles(): FileDescriptor[]
     {
         return this.additionalFiles;
     }
@@ -146,7 +146,7 @@ export class Package extends Component
     /**
      * Gets a set of packages which are required by this package.
      */
-    public get RequiredPackages()
+    public get RequiredPackages(): RequiredPackageDescriptor[]
     {
         return this.requiredPackages;
     }
@@ -154,7 +154,7 @@ export class Package extends Component
     /**
      * Gets a set of packages which cause a conflict with this package.
      */
-    public get ConflictingPackages()
+    public get ConflictingPackages(): ConflictingPackageDescriptor[]
     {
         return this.conflictingPackages;
     }
@@ -162,7 +162,7 @@ export class Package extends Component
     /**
      * Gets a set of packages which can be installed additionally.
      */
-    public get OptionalPackages()
+    public get OptionalPackages(): OptionalPackageDescriptor[]
     {
         return this.optionalPackages;
     }
@@ -170,7 +170,7 @@ export class Package extends Component
     /**
      * Gets a set of instructions for installing the package.
      */
-    public get InstallSet()
+    public get InstallSet(): InstructionSet
     {
         return this.installSet;
     }
@@ -178,7 +178,7 @@ export class Package extends Component
     /**
      * Gets a set of instructions to execute when updating from a specific version.
      */
-    public get UpdateSets()
+    public get UpdateSets(): UpdateInstructionSet[]
     {
         return this.updateSets;
     }

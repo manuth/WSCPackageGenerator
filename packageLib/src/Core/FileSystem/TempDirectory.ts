@@ -30,7 +30,7 @@ export class TempDirectory
      * @param path
      * The path that is to be joined.
      */
-    public MakePath(...path): string
+    public MakePath(...path: string[]): string
     {
         return Path.join(this.tempDirectory.name, ...path);
     }
@@ -38,7 +38,7 @@ export class TempDirectory
     /**
      * Disposes the temporary directory and removes all references.
      */
-    public Dispose()
+    public Dispose(): void
     {
         this.tempDirectory.removeCallback();
         this.tempDirectory = null;

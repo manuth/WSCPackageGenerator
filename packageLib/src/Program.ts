@@ -30,7 +30,7 @@ class Program
      *
      * @param args The arguments passed to the script.
      */
-    public static async Main(args: string[])
+    public static async Main(args: string[]): Promise<void>
     {
         await new PackageCompiler(require("../Package"), this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath).Execute();
     }

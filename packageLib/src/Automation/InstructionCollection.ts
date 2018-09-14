@@ -43,7 +43,7 @@ export class InstructionCollection<T extends Instruction> extends Array<T> imple
      * @param pkg
      * The package this collection belongs to.
      */
-    public constructor(pkg: Package, destination = "")
+    public constructor(pkg: Package, destination: string = "")
     {
         super();
         this.package = pkg;

@@ -16,7 +16,7 @@ export abstract class Generator extends YoGenerator
      * @param opts
      * A set of options.
      */
-    public constructor(args, opts)
+    public constructor(args: string | string[], opts: {})
     {
         super(args, opts);
     }
@@ -56,7 +56,7 @@ export abstract class Generator extends YoGenerator
         }
     }
 
-    public templatePath(...path: string[])
+    public templatePath(...path: string[]): string
     {
         return Path.join(__dirname, "..", "..", "templates", this.TemplateRoot, ...path);
     }

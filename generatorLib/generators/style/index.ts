@@ -24,12 +24,12 @@ class WSCStyleGenerator extends Generator
      * @param opts
      * A set of options.
      */
-    constructor(args, opts)
+    constructor(args: string | string[], opts: {})
     {
         super(args, opts);
     }
 
-    protected get TemplateRoot()
+    protected get TemplateRoot(): string
     {
         return "style";
     }
@@ -37,7 +37,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Collects all informations about the style that is to be created.
      */
-    public prompting()
+    public async prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Style")} generator!`));
 
@@ -47,7 +47,7 @@ class WSCStyleGenerator extends Generator
                 name: "stylesPath",
                 message: "Where do you want to store your styles?",
                 default: "styles",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     if (isNullOrUndefined(this.config.get("stylesPath")))
                     {
@@ -69,7 +69,7 @@ class WSCStyleGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your style?",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: YoGenerator.Answers): string =>
                 {
                     return answers.name;
                 },
@@ -100,7 +100,7 @@ class WSCStyleGenerator extends Generator
                 name: "componentPaths.customStyles",
                 message: "Where do you want to store the custom SCSS-styles?",
                 default: "styles.scss",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("customStyles");
                 }
@@ -110,14 +110,14 @@ class WSCStyleGenerator extends Generator
                 name: "componentPaths.variableOverrides",
                 message: "Where do you want to store the variable-overrides?",
                 default: "override.scss",
-                when: (answers: YoGenerator.Answers) =>
+                when: (answers: YoGenerator.Answers): boolean =>
                 {
                     return (answers.components as string[]).includes("variableOverrides");
                 }
             }
         ];
 
-        return this.prompt(prompts).then(answers =>
+        return this.prompt(prompts).then((answers: YoGenerator.Answers) =>
         {
             this.settings = answers;
         });
@@ -126,7 +126,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Writes the templates
      */
-    public writing()
+    public async writing(): Promise<void>
     {
         let basePath: string = Path.relative(Path.join(this.settings.stylesPath, this.settings.name), ".");
         basePath = basePath.replace("\\", "/");
@@ -163,7 +163,7 @@ class WSCStyleGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    public end()
+    public async end(): Promise<void>
     {
         this.config.set("stylesPath", this.settings.stylesPath);
         this.config.save();

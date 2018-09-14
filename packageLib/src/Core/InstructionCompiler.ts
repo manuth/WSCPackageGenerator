@@ -9,5 +9,5 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
     /**
      * Compiles the instruction.
      */
-    protected abstract Compile();
+    protected abstract Compile(): Promise<void>;
 }

@@ -22,7 +22,7 @@ export class NodeCollection<T extends Node> extends Array<T>
         this.node = node;
     }
 
-    public push(...items: T[])
+    public push(...items: T[]): number
     {
         for (let item of items)
         {

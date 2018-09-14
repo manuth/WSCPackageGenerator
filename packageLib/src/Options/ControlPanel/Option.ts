@@ -186,7 +186,7 @@ export class Option extends Node implements IOptionOptions
      */
     public get TranslationNodes(): TranslationNode[]
     {
-        let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
+        let translationNode: TranslationNode = new TranslationNode({ Name: "wcf.acp.option" });
         let rootNodes: TranslationNode[] = [];
 
         if (Object.keys(this.DisplayName))

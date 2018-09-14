@@ -22,7 +22,7 @@ export class UpdateInstructionCollection<T extends Instruction> extends Instruct
      * @param fromVersion
      * The version this update can be applied to.
      */
-    public constructor(pkg: Package, fromVersion: string, destination = fromVersion)
+    public constructor(pkg: Package, fromVersion: string, destination: string = fromVersion)
     {
         super(pkg, destination);
         this.fromVersion = fromVersion;

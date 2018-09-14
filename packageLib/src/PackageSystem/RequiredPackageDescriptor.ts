@@ -13,12 +13,12 @@ export class RequiredPackageDescriptor extends PackageFileDescriptor
     /**
      * Gets or sets the minimal version of the package which must bee installed.
      */
-    public get MinVersion()
+    public get MinVersion(): string
     {
         return this.minVersion;
     }
 
-    public set MinVersion(value)
+    public set MinVersion(value: string)
     {
         this.minVersion = value;
     }

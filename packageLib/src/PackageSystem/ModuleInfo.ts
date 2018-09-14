@@ -29,11 +29,11 @@ export class ModuleInfo
 
     public constructor()
     {
-        let packagePath = Path.join("..", "..", "package.json");
+        let packagePath: string = Path.join("..", "..", "package.json");
 
         if (FileSystem.existsSync(packagePath))
         {
-            let $package = require(packagePath);
+            let $package: any = require(packagePath);
 
             if ($package.name)
             {

@@ -91,7 +91,7 @@ export class SettingsNode extends NodeContainer<SettingsNode> implements ISettin
     {
         let rootNodes: TranslationNode[] = [];
         let childNodes: TranslationNode[] = [];
-        let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
+        let translationNode: TranslationNode = new TranslationNode({ Name: "wcf.acp.option" });
 
         if (Object.keys(this.DisplayName).length > 0)
         {

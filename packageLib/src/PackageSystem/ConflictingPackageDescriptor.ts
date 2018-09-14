@@ -23,12 +23,12 @@ export class ConflictingPackageDescriptor extends PackageDescriptor
     /**
      * Gets or sets the version of the package.
      */
-    public get Version()
+    public get Version(): string
     {
         return this.version;
     }
 
-    public set Version(value)
+    public set Version(value: string)
     {
         this.version = value;
     }

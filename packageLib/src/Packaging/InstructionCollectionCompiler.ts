@@ -11,12 +11,13 @@ import { FilesInstruction } from "../Core/FilesInstruction";
 import { BBCodesInstruction } from "../Customization/BBCodes/BBCodesInstruction";
 import { EmojisInstruction } from "../Customization/Emojis/EmojisInstruction";
 import { TemplateListenersInstruction } from "../Customization/Presentation/TemplateListenersInstruction";
+import { Style } from "../Customization/Styles/Style";
 import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
 import { EventListenersInstruction } from "../Events/EventListenersInstruction";
 import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
 import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
 
-const MemFileSystem = memFsEditor.create(memFs.create());
+const MemFileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
 
 /**
  * Provides the functionality to compile an `InstructionCollection`.
@@ -58,16 +59,16 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
     /**
      * Compiles the instruction-collection.
      */
-    protected async Compile()
+    protected async Compile(): Promise<void>
     {
         for (let instruction of this.Item)
         {
             if (instruction instanceof FilesInstruction)
             {
-                let filesGenerator = memFsEditor.create(memFs.create());
+                let filesGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
                 filesGenerator.copyTpl(instruction.SourceRoot, this.MakeTempPath(instruction.SourceRoot), instruction.Package);
 
-                await new Promise((resolve) =>
+                await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
                 {
                     filesGenerator.commit([], () => {
                         resolve();
@@ -142,8 +143,8 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
             }
             else if (instruction instanceof StyleInstruction)
             {
-                let style = instruction.Style;
-                let styleGenerator = memFsEditor.create(memFs.create());
+                let style: Style = instruction.Style;
+                let styleGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
 
                 styleGenerator.copyTpl(
                     this.MakeTemplatePath("style", "style.xml"),
@@ -175,7 +176,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
                         this.MakeStylesTempPath(style.Name, style.CoverPhoto));
                 }
 
-                await new Promise((resolve) =>
+                await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
                 {
                     styleGenerator.commit([], () =>
                     {
@@ -185,10 +186,10 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
                 if (style.Images)
                 {
-                    let imagesGenerator = memFsEditor.create(memFs.create());
+                    let imagesGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
                     imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, style.Images.SourceRoot), this.MakeTempPath(style.Name, "images"), instruction.Package);
 
-                    await new Promise((resolve) =>
+                    await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
                     {
                         imagesGenerator.commit([], () =>
                         {
@@ -248,7 +249,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
             }
         }
 
-        await new Promise((resolve) =>
+        await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
         {
             MemFileSystem.commit([], () =>
             {

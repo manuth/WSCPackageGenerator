@@ -18,19 +18,19 @@ export class StyleInstructionCollection extends Array<StyleInstruction>
     {
         super();
 
-        let styleFolders = FileSystem.readdirSync(Path.join(stylesRoot)).map(
-            entry => Path.join(stylesRoot, entry)).filter(
-                entry => FileSystem.lstatSync(entry).isDirectory());
+        let styleFolders: string[] = FileSystem.readdirSync(Path.join(stylesRoot)).map(
+            (entry: string) => Path.join(stylesRoot, entry)).filter(
+                (entry: string) => FileSystem.lstatSync(entry).isDirectory());
 
         for (let styleFolder of styleFolders)
         {
-            let metaFile = Path.resolve(Path.join(styleFolder, "Style"));
+            let metaFile: string = Path.resolve(Path.join(styleFolder, "Style"));
 
             if (FileSystem.existsSync(metaFile + ".js"))
             {
-                let currentDir = process.cwd();
+                let currentDir: string = process.cwd();
                 process.chdir(styleFolder);
-                let style = (require(metaFile) as Style);
+                let style: Style = (require(metaFile) as Style);
                 style.Name = Path.basename(styleFolder);
                 this.push(new StyleInstruction({ SourceRoot: styleFolder, Style: style }));
                 process.chdir(currentDir);

@@ -32,12 +32,12 @@ export class Person
     /**
      * Gets or sets the name of the person.
      */
-    public get Name()
+    public get Name(): string
     {
         return this.name;
     }
 
-    public set Name(value)
+    public set Name(value: string)
     {
         this.name = value;
     }
@@ -45,12 +45,12 @@ export class Person
     /**
      * Gets or sets the url to the homepage of the person.
      */
-    public get URL()
+    public get URL(): string
     {
         return this.url;
     }
 
-    public set URL(value)
+    public set URL(value: string)
     {
         this.url = value;
     }

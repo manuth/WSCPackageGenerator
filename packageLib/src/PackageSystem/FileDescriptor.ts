@@ -27,12 +27,12 @@ export class FileDescriptor
     /**
      * Gets or sets the path to load the file from.
      */
-    public get Source()
+    public get Source(): string
     {
         return this.source;
     }
 
-    public set Source(value)
+    public set Source(value: string)
     {
         this.source = value;
     }
@@ -40,12 +40,12 @@ export class FileDescriptor
     /**
      * Gets ort sets the filename to save the file to.
      */
-    public get FileName()
+    public get FileName(): string
     {
         return this.fileName;
     }
 
-    public set FileName(value)
+    public set FileName(value: string)
     {
         this.fileName = value;
     }

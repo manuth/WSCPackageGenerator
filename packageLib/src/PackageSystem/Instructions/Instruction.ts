@@ -38,12 +38,12 @@ export abstract class Instruction
     /**
      * Gets or sets the package this instruction belongs to.
      */
-    public get Collection()
+    public get Collection(): InstructionSet
     {
         return this.collection;
     }
 
-    public set Collection(value)
+    public set Collection(value: InstructionSet)
     {
         this.collection = value;
     }
@@ -59,12 +59,12 @@ export abstract class Instruction
     /**
      * Gets or sets the name of the file to save the compiled instruction to.
      */
-    public get FileName()
+    public get FileName(): string
     {
         return this.fileName;
     }
 
-    public set FileName(value)
+    public set FileName(value: string)
     {
         this.fileName = value;
     }
@@ -82,7 +82,7 @@ export abstract class Instruction
      */
     protected get XMLDocument(): Document
     {
-        let document = new DOMParser().parseFromString("<instruction />");
+        let document: Document = new DOMParser().parseFromString("<instruction />");
         document.documentElement.textContent = this.FullName;
         document.documentElement.setAttribute("type", this.Type);
         return document;

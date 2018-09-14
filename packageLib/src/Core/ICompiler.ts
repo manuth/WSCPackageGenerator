@@ -16,5 +16,5 @@ export interface ICompiler
     /**
      * Compiles the item.
      */
-    Execute();
+    Execute(): Promise<void>;
 }

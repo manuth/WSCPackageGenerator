@@ -5,7 +5,7 @@ import * as Path from "path";
 import { Compiler } from "../Core/Compiler";
 import { InstructionCollectionCompiler } from "./InstructionCollectionCompiler";
 import { Package } from "./Package";
-const MemFileSystem = memFsEditor.create(memFs.create());
+const MemFileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
 
 /**
  * Provides the functionality to compile packages.
@@ -63,7 +63,7 @@ export class PackageCompiler extends Compiler<Package>
     /**
      * Compiles the item.
      */
-    protected async Compile()
+    protected async Compile(): Promise<void>
     {
         await FileSystem.emptyDir(this.DestinationPath);
         await FileSystem.emptyDir(this.sourcePath);
@@ -96,7 +96,7 @@ export class PackageCompiler extends Compiler<Package>
             MemFileSystem.copyTpl(additionalFiles.Source, this.MakeSourcePath(additionalFiles.Destination), this.Item);
         }
 
-        await new Promise((resolve) =>
+        await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
         {
             MemFileSystem.commit([], () =>
             {

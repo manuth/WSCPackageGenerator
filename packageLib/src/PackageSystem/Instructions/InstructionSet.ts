@@ -30,12 +30,12 @@ export class InstructionSet extends InstructionCollection<Instruction>
     /**
      * Gets or sets the package the collection belongs to.
      */
-    public get Package()
+    public get Package(): Package
     {
         return this.package;
     }
 
-    public set Package(value)
+    public set Package(value: Package)
     {
         this.package = value;
     }
@@ -43,12 +43,12 @@ export class InstructionSet extends InstructionCollection<Instruction>
     /**
      * Gets or sets the directory to save the components of this set.
      */
-    public get Directory()
+    public get Directory(): string
     {
         return this.directory;
     }
 
-    public set Directory(value)
+    public set Directory(value: string)
     {
         this.directory = value;
     }

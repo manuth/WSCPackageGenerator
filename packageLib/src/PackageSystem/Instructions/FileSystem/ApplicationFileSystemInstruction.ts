@@ -50,7 +50,7 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
 
     protected get XMLDocument(): Document
     {
-        let result = super.XMLDocument;
+        let result: Document = super.XMLDocument;
         result.documentElement.setAttribute("application", this.Application);
         return result;
     }

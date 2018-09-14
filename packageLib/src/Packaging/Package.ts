@@ -77,7 +77,7 @@ export class Package extends Component implements IPackage
         {
             for (let updateInstruction of options.UpdateInstructions)
             {
-                let updateInstructionCollection = new UpdateInstructionCollection(this, updateInstruction.FromVersion);
+                let updateInstructionCollection: UpdateInstructionCollection<Instruction> = new UpdateInstructionCollection(this, updateInstruction.FromVersion);
 
                 if (!isNullOrUndefined(updateInstruction.Destination))
                 {

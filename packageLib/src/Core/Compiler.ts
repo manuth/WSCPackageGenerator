@@ -34,7 +34,7 @@ export abstract class Compiler<T> implements ICompiler
      * @param destinationPath
      * The path to save the compiled item to.
      */
-    public constructor(item: T, destinationPath)
+    public constructor(item: T, destinationPath: string)
     {
         this.item = item;
         this.destinationPath = destinationPath;
@@ -63,7 +63,7 @@ export abstract class Compiler<T> implements ICompiler
         return this.tempPath.name;
     }
 
-    public async Execute()
+    public async Execute(): Promise<void>
     {
         await this.Compile();
 
@@ -77,7 +77,7 @@ export abstract class Compiler<T> implements ICompiler
     /**
      * Compiles the item.
      */
-    protected abstract async Compile();
+    protected abstract async Compile(): Promise<void>;
 
     /**
      * Joins the paths and returns the path contained by the destination-folder.
@@ -121,7 +121,7 @@ export abstract class Compiler<T> implements ICompiler
      * @param destination
      * The filename to save the compressed file to.
      */
-    protected Compress(source: string, destination: string)
+    protected Compress(source: string, destination: string): void
     {
         ChildProcess.execFileSync(
             "7z",

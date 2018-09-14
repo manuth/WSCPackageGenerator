@@ -188,7 +188,7 @@ export class Style extends Component implements IStyle
      * @param fileName
      * The name of the overrides-file.
      */
-    protected ParseOverrides(fileName: string)
+    protected ParseOverrides(fileName: string): void
     {
         let variables: { [name: string]: string } = parse(
             FileSystem.readFileSync(fileName).toString(),

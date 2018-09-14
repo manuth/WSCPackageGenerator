@@ -19,6 +19,18 @@
         "array-type": false,
         "member-ordering": false,
         "no-console": false,
-        "typedef": true
+        "typedef": {
+            "options": [
+                "array-destructuring",
+                "arrow-call-signature",
+                "arrow-parameter",
+                "call-signature",
+                "member-variable-declaration",
+                "object-destructuring",
+                "parameter",
+                "property-declaration",
+                "variable-declaration"
+            ]
+        }
     }
 }

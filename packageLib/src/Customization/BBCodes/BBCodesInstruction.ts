@@ -66,7 +66,7 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
 
     public get TranslationNodes(): TranslationNode[]
     {
-        let result = new TranslationNode({
+        let result: TranslationNode = new TranslationNode({
             Name: "wcf.editor.button"
         });
 

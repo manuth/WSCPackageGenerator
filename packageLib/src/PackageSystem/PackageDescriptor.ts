@@ -21,12 +21,12 @@ export class PackageDescriptor
     /**
      * Gets or sets the identifier of the package.
      */
-    public get Identifier()
+    public get Identifier(): string
     {
         return this.identifier;
     }
 
-    public set Identifier(value)
+    public set Identifier(value: string)
     {
         this.identifier = value;
     }

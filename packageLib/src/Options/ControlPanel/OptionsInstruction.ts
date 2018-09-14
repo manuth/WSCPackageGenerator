@@ -115,7 +115,7 @@ export class OptionsInstruction extends FileInstruction implements IOptionsInstr
         {
             for (let translationNode of settingsNode.TranslationNodes)
             {
-                let i = result.findIndex((node: TranslationNode) => {
+                let i: number = result.findIndex((node: TranslationNode) => {
                     return node.FullName === translationNode.FullName;
                 });
 

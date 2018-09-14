@@ -23,7 +23,7 @@ export class OptionItemCollection<T extends OptionItem> extends Array<T>
         this.option = option;
     }
 
-    public push(...items: T[])
+    public push(...items: T[]): number
     {
         for (let item of items)
         {
