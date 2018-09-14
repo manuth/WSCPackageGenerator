@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { Instruction } from "../Instruction";
 import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
 
@@ -17,13 +16,11 @@ export abstract class FileSystemInstruction extends Instruction
      */
     public constructor(options: IFileSystemInstructionOptions)
     {
-        super(options);
-        this.Source = options.Source;
+        super({
+            FileName: options.FileName || options.Source
+        });
 
-        if (isNullOrUndefined(options.FileName))
-        {
-            this.FileName = options.Source;
-        }
+        this.Source = options.Source;
     }
 
     /**
