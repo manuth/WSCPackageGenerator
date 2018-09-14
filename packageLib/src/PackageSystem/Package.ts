@@ -66,7 +66,7 @@ export class Package extends Component
 
         this.Identifier = options.Identifier;
 
-        if (!isNullOrUndefined(options.DestinationPath))
+        if (!isNullOrUndefined(options.AdditionalFiles))
         {
             for (let additionalFile of options.AdditionalFiles)
             {
