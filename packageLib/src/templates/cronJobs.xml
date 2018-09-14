@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instace" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/cronjob.xsd">
     <import><%
-%><% for (let cronJob of Instruction.CronJobs) { %>
+%><% for (let cronJob of Instruction.Cronjobs) { %>
         <cronjob<% %> name="<%= cronJob.Name %>">
             <classname><%= cronJob.ClassName %></classname><%
     %><% for (let locale in cronJob.Description) { %>
