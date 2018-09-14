@@ -55,7 +55,7 @@
                     "instructions.xml",
                     {
                         InstructionCollection: Package.InstallInstructions,
-                        StylesPath: StylesPath,
+                        ThemesPath: ThemesPath,
                         ComponentsPath: ComponentsPath
                     });
         %>
@@ -67,7 +67,7 @@
             "instructions.xml",
             {
                 InstructionCollection: instructionCollection,
-                StylesPath: StylesPath,
+                ThemesPath: ThemesPath,
                 ComponentsPath: ComponentsPath
             }); %>
     </instructions><% } %>

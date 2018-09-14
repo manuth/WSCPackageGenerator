@@ -2,17 +2,17 @@ import { IComponentOptions } from "../../Packaging/IComponentOptions";
 import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
 
 /**
- * Provides options for the `Style` class.
+ * Provides options for the `Theme` class.
  */
-export interface IStyleOptions extends IComponentOptions
+export interface IThemeOptions extends IComponentOptions
 {
     /**
-     * Gets or sets the filename of the thumbnail of the style.
+     * Gets or sets the filename of the thumbnail of the theme.
      */
     Thumbnail?: string;
 
     /**
-     * Gets or sets the filename of the high-resolution version of the thumbnanil of the style.
+     * Gets or sets the filename of the high-resolution version of the thumbnanil of the theme.
      */
     HighResThumbnail?: string;
 
@@ -22,7 +22,7 @@ export interface IStyleOptions extends IComponentOptions
     CoverPhoto?: string;
 
     /**
-     * Gets or sets the root of the images provided by the style.
+     * Gets or sets the root of the images provided by the theme.
      */
     ImagesRoot?: ImageFolderDescriptor;
 

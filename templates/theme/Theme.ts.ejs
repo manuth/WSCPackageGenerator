@@ -1,6 +1,6 @@
-import Style from "<%= basePath %>lib/Appearance/Style";
+import Theme from "<%= basePath %>lib/Appearance/Theme";
 
-let style: Style = new Style({
+let theme: Theme = new Theme({
     Name: "<%= name  %>",
     DisplayName: {
         en: "<%= displayName %>"
@@ -8,9 +8,9 @@ let style: Style = new Style({
     Description: {
         en: "<%= description %>"
     }<%
-%><% if (components.includes("customStyles")) { %><%
+%><% if (components.includes("customThemes")) { %><%
     %>,
-    CustomScssFile: "<%= componentPaths["customStyles"] %>"<%
+    CustomScssFile: "<%= componentPaths["customThemes"] %>"<%
 %><% } %><%
 %><% if (components.includes("variableOverrides")) { %><%
     %>,
@@ -18,4 +18,4 @@ let style: Style = new Style({
 %><% } %>
 });
 
-export = style;
+export = theme;

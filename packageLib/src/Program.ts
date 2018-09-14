@@ -16,9 +16,9 @@ class Program
     private static tempPath: string = "obj";
 
     /**
-     * The style-path.
+     * The theme-path.
      */
-    private static stylesPath: string = "styles";
+    private static themesPath: string = "themes";
 
     /**
      * The components-path.
@@ -32,7 +32,7 @@ class Program
      */
     public static async Main(args: string[]): Promise<void>
     {
-        await new PackageCompiler(require("../Package"), this.tempPath, this.destinationPath, this.stylesPath, this.componentsPath).Execute();
+        await new PackageCompiler(require("../Package"), this.tempPath, this.destinationPath, this.themesPath, this.componentsPath).Execute();
     }
 }
 

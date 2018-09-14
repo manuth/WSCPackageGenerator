@@ -6,12 +6,12 @@
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
   - Fix the listener-templates
-  - Improve the way to declare style-variables:  
-    You can now declare style-variables using either a `.json` or a `.js`-file
-  - Improve the way to declare images for styles
-  - Fix the way to handle style-variables
-    - Style-Variables are now resolved using SASS and then added to the `variables.xml`-file
-  - Provide the functionality to declare thumbnails for styles
+  - Improve the way to declare theme-variables:  
+    You can now declare theme-variables using either a `.json` or a `.js`-file
+  - Improve the way to declare images for themes
+  - Fix the way to handle theme-variables
+    - Theme-Variables are now resolved using SASS and then added to the `variables.xml`-file
+  - Provide the functionality to declare thumbnails for themes
   - Provide the functionality to add a default cover-photo
 
 ## WSCPackageGenerator v0.0.16
@@ -74,6 +74,6 @@
 ## WSCPackageGenerator v0.0.3
   - Fixed several templates which caused packages to not install such as:
     - The Package-metadata `package.xml`
-    - The Style-metadata `style.xml`
+    - The Theme-metadata `theme.xml`
     - The Emoji-metadata `emojis.xml`
     - The instruction-lists inside the package-metadata `instructions.xml`

@@ -1,4 +1,4 @@
-import { FileDescriptor } from "../../PackageSystem/FileDescriptor";
+import { FileDescriptor } from "../../../PackageSystem/FileDescriptor";
 import { IImageDirectoryDescriptorOptions } from "./IImageDirectoryDescriptorOptions";
 
 /**

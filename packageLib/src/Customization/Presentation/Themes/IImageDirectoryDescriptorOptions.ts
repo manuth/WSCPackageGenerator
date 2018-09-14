@@ -1,4 +1,4 @@
-import { IFileDescriptorOptions } from "../../PackageSystem/IFileDescriptorOptions";
+import { IFileDescriptorOptions } from "../../../PackageSystem/IFileDescriptorOptions";
 
 /**
  * Provides options for the `ImageDirectoryDescriptor` class.

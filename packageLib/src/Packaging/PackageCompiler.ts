@@ -18,9 +18,9 @@ export class PackageCompiler extends Compiler<Package>
     private sourcePath: string;
 
     /**
-     * The path to save compiled styles to.
+     * The path to save compiled themes to.
      */
-    private stylesPath: string;
+    private themesPath: string;
 
     /**
      * The path to save compiled components to.
@@ -38,17 +38,17 @@ export class PackageCompiler extends Compiler<Package>
      * @param destinationPath
      * The path to save the compiled item to.
      *
-     * @param stylesPath
-     * The path to save compiled styles to.
+     * @param themesPath
+     * The path to save compiled themes to.
      *
      * @param componentsPath
      * The path to save compiled components to.
      */
-    public constructor(pkg: Package, sourcePath: string = "obj", destinationPath: string = "bin", stylesPath: string = "styles", componentsPath: string = "components")
+    public constructor(pkg: Package, sourcePath: string = "obj", destinationPath: string = "bin", themesPath: string = "themes", componentsPath: string = "components")
     {
         super(pkg, destinationPath);
         this.sourcePath = sourcePath;
-        this.stylesPath = stylesPath;
+        this.themesPath = themesPath;
         this.componentsPath = componentsPath;
     }
 
@@ -71,14 +71,14 @@ export class PackageCompiler extends Compiler<Package>
         MemFileSystem.copyTpl(
             this.MakeTemplatePath("package.xml"),
             this.MakeSourcePath("package.xml"),
-            { Package: this.Item, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
+            { Package: this.Item, ThemesPath: this.themesPath, ComponentsPath: this.componentsPath });
 
         if (this.Item.InstallInstructions.length > 0)
         {
             await new InstructionCollectionCompiler(
                 this.Item.InstallInstructions,
                 this.SourcePath,
-                this.stylesPath,
+                this.themesPath,
                 this.componentsPath).Execute();
         }
 
@@ -87,7 +87,7 @@ export class PackageCompiler extends Compiler<Package>
             await new InstructionCollectionCompiler(
                 instructionCollection,
                 this.SourcePath,
-                this.stylesPath,
+                this.themesPath,
                 this.componentsPath).Execute();
         }
 

@@ -1,13 +1,13 @@
 import { isNullOrUndefined } from "util";
-import { FilesInstruction } from "../Core/FilesInstruction";
 import { Emoji } from "../Appearance/Emojis/Emoji";
 import { EmojisInstruction } from "../Appearance/Emojis/EmojisInstruction";
 import { ACPTemplatesInstruction } from "../Appearance/Presentation/ACPTemplatesInstruction";
 import { TemplateListener } from "../Appearance/Presentation/TemplateListener";
 import { TemplateListenersInstruction } from "../Appearance/Presentation/TemplateListenersInstruction";
 import { TemplatesInstruction } from "../Appearance/Presentation/TemplatesInstruction";
-import { Style } from "../Appearance/Styles/Style";
-import { StyleInstruction } from "../Appearance/Styles/StyleInstruction";
+import { Theme } from "../Appearance/Themes/Theme";
+import { ThemeInstruction } from "../Appearance/Themes/ThemeInstruction";
+import { FilesInstruction } from "../Core/FilesInstruction";
 import { EventListener } from "../Events/EventListener";
 import { EventListenersInstruction } from "../Events/EventListenersInstruction";
 import { ErrorMessageNode } from "../Globalization/Errors/ErrorMessageNode";
@@ -191,17 +191,17 @@ export class InstructionCollection<T extends Instruction> extends Array<T> imple
     }
 
     /**
-     * Gets the styles provided by this collection.
+     * Gets the themes provided by this collection.
      */
-    public get Styles(): Style[]
+    public get Themes(): Theme[]
     {
-        let result: Style[] = [];
+        let result: Theme[] = [];
 
         for (let instruction of this)
         {
-            if (instruction instanceof StyleInstruction)
+            if (instruction instanceof ThemeInstruction)
             {
-                result.push(instruction.Style);
+                result.push(instruction.Theme);
             }
         }
 

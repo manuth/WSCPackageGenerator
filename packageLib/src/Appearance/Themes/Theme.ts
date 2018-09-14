@@ -1,111 +1,117 @@
 import * as ColorNames from "colornames";
-import * as FileSystem from "fs-extra";
+import * as FileSystem from "fs";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";
 import * as OS from "os";
+import * as Path from "path";
+import { parse } from "sass-variable-parser";
 import { isNullOrUndefined } from "util";
-import { Component } from "../../PackageSystem/Component";
-import { StyleInstruction } from "../../PackageSystem/Instructions/Customization/StyleInstruction";
-import { ModuleInfo } from "../../PackageSystem/ModuleInfo";
-import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
-import { IStyleOptions } from "./IStyleOptions";
-import { SassVariableParser } from "./SassVariableParser";
-const hexToRgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
+import { Component } from "../../Packaging/Component";
+import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
+import { ITheme } from "./ITheme";
+import { IThemeOptions } from "./IThemeOptions";
+import { ThemeInstruction } from "./ThemeInstruction";
+const Hex2Rgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**
- * Represents a theme.
+ * Represents a theme for WoltLab Suite Core.
  */
-export class Style extends Component
+export class Theme extends Component implements ITheme
 {
     /**
-     * The thumbnail of the theme.
+     * The instruction this theme belongs to.
+     */
+    private instruction: ThemeInstruction = null;
+
+    /**
+     * The filename of the thumbnail of the theme.
      */
     private thumbnail: string = null;
 
     /**
-     * The high resolution version of the thumbnail.
+     * The filename of the high-resolution version of the thumbnanil of the theme.
      */
     private highResThumbnail: string = null;
 
     /**
-     * The instruction which contains this theme.
-     */
-    private instruction: StyleInstruction;
-
-    /**
-     * The path to the default cover-photo for user-profiles.
+     * The default cover-photo for user-profiles.
      */
     private coverPhoto: string = null;
 
     /**
-     * The `scss`-code of the theme.
+     * The root of the images provided by this theme.
      */
-    private customSCSS: string = null;
-
-    /**
-     * The variable-overrides of special `scss`-variables.
-     */
-    private scssOverride: string = null;
+    private images: ImageFolderDescriptor = null;
 
     /**
      * The variables of the theme.
      */
-    private variables: { [key: string]: string } = {};
+    private variables: object = { };
 
     /**
-     * The image-directory provided by the theme.
+     * The scss-code provided by this theme.
      */
-    private images: ImageDirectoryDescriptor = null;
+    private customScss: string = null;
 
-    public constructor(instruction: StyleInstruction, options: IStyleOptions)
+    /**
+     * The scss-code provided by this theme that is used
+     * for overwriting variables originally provided by WoltLab Suite Core.
+     */
+    private overrideScss: string = null;
+
+    /**
+     * Initializes a new instance of the `Theme` class.
+     */
+    public constructor(options: IThemeOptions)
     {
-        super({
-            Name: options.Name,
-            DisplayName: options.DisplayName,
-            Version: options.Version || new ModuleInfo().Version,
-            Author: options.Author,
-            CreationDate: options.CreationDate,
-            Description: options.Description,
-            License: options.License
-        });
-
-        this.instruction = instruction;
+        super(options);
 
         if (!isNullOrUndefined(options.Thumbnail))
         {
-            this.Thumbnail = options.Thumbnail;
+            this.thumbnail = options.Thumbnail;
         }
 
         if (!isNullOrUndefined(options.HighResThumbnail))
         {
-            this.HighResThumbnail = options.HighResThumbnail;
+            this.highResThumbnail = options.HighResThumbnail;
         }
 
         if (!isNullOrUndefined(options.CoverPhoto))
         {
-            this.CoverPhoto = options.CoverPhoto;
+            this.coverPhoto = options.CoverPhoto;
         }
 
-        if (!isNullOrUndefined(options.CustomScssFileName))
+        if (!isNullOrUndefined(options.ImagesRoot))
         {
-            this.CustomScss = FileSystem.readFileSync(options.CustomScssFileName).toString();
+            this.images = options.ImagesRoot;
         }
 
-        if (!isNullOrUndefined(options.ScssOverrideFileName))
+        if (!isNullOrUndefined(options.VariableFile))
         {
-            FileSystem.readFileSync(options.ScssOverrideFileName).toString();
-            this.ParseOverrideFile(options.ScssOverrideFileName);
+            this.variables = require(Path.join(process.cwd(), options.VariableFile));
         }
 
-        if (!isNullOrUndefined(options.VariableFileName))
+        if (!isNullOrUndefined(options.CustomScssFile))
         {
-            Object.assign(this.Variables, require(options.VariableFileName));
+            this.customScss = FileSystem.readFileSync(options.CustomScssFile).toString();
+        }
+
+        if (!isNullOrUndefined(options.OverrideScssFile))
+        {
+            this.ParseOverrides(options.OverrideScssFile);
         }
     }
 
-    /**
-     * Gets or sets the thumbnail of the theme.
-     */
+    public get Instruction(): ThemeInstruction
+    {
+        return this.instruction;
+    }
+
+    public set Instruction(value: ThemeInstruction)
+    {
+        this.instruction = value;
+    }
+
     public get Thumbnail(): string
     {
         return this.thumbnail;
@@ -116,9 +122,6 @@ export class Style extends Component
         this.thumbnail = value;
     }
 
-    /**
-     * Gets or sets the high resolution version of the thumbnail.
-     */
     public get HighResThumbnail(): string
     {
         return this.highResThumbnail;
@@ -129,17 +132,6 @@ export class Style extends Component
         this.highResThumbnail = value;
     }
 
-    /**
-     * Gets the instruction which contains this theme.
-     */
-    public get Instruction(): StyleInstruction
-    {
-        return this.instruction;
-    }
-
-    /**
-     * Gets or sets the path to the default cover-photo for user-profiles.
-     */
     public get CoverPhoto(): string
     {
         return this.coverPhoto;
@@ -150,54 +142,60 @@ export class Style extends Component
         this.coverPhoto = value;
     }
 
-    /**
-     * Gets or sets the `scss`-code of the theme.
-     */
-    public get CustomScss(): string
-    {
-        return this.customSCSS;
-    }
-
-    public set CustomScss(value: string)
-    {
-        this.customSCSS = value;
-    }
-
-    /**
-     * Gets or sets the variable-overrides of special `scss`-variables.
-     */
-    public get ScssOverride(): string
-    {
-        return this.scssOverride;
-    }
-
-    public set ScssOverride(value: string)
-    {
-        this.scssOverride = value;
-    }
-
-    /**
-     * Gets the variables of the theme.
-     */
-    public get Variables(): { [key: string]: string }
-    {
-        return this.variables;
-    }
-
-    public get Images(): ImageDirectoryDescriptor
+    public get Images(): ImageFolderDescriptor
     {
         return this.images;
     }
 
+    public set Images(value: ImageFolderDescriptor)
+    {
+        this.images = value;
+    }
+
+    public get Variables(): object
+    {
+        return this.variables;
+    }
+
+    public set Variables(value: object)
+    {
+        this.variables = value;
+    }
+
+    public get CustomScss(): string
+    {
+        return this.customScss;
+    }
+
+    public set CustomScss(value: string)
+    {
+        this.customScss = value;
+    }
+
+    public get OverrideScss(): string
+    {
+        return this.overrideScss;
+    }
+
+    public set OverrideScss(value: string)
+    {
+        this.overrideScss = value;
+    }
+
     /**
-     * Parses a `.scss`-override file.
+     * Parses an overrides-file.
      *
      * @param fileName
-     * The name of the file which contains the `scss`-overrides.
+     * The name of the overrides-file.
      */
-    public ParseOverrideFile(fileName: string): void
+    protected ParseOverrides(fileName: string): void
     {
-        let variables: { [key: string]: string } = new SassVariableParser(fileName).Variables;
+        let variables: { [name: string]: string } = parse(
+            FileSystem.readFileSync(fileName).toString(),
+            {
+                camelCase: false,
+                cwd: Path.dirname(fileName)
+            });
 
         for (let name in variables)
         {
@@ -368,17 +366,17 @@ export class Style extends Component
                 case "wcfFooterCopyrightText":
                 case "wcfFooterCopyrightLink":
                 case "wcfFooterCopyrightLinkActive":
-                    if (/#(([0-9a-fA-F]{3}){1,2}|([0-9a-fA-F]{4}){1,2})/.test(variables[name]))
+                    if (/#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})/.test(variables[name]))
                     {
-                        this.Variables[name] = hexToRgba(variables[name]);
+                        this.Variables[name] = Hex2Rgba(variables[name]);
                     }
                     else if (ColorNames.get.css(variables[name]))
                     {
-                        this.Variables[name] = hexToRgba(ColorNames.get.css(variables[name]).value);
+                        this.Variables[name] = Hex2Rgba(ColorNames.get.css(variables[name]).value);
                     }
                     else if (variables[name] === "transparent")
                     {
-                        this.Variables[name] = hexToRgba("#0000");
+                        this.Variables[name] = Hex2Rgba("#0000");
                     }
                     else
                     {
@@ -386,8 +384,9 @@ export class Style extends Component
                     }
                     break;
 
-                default:
-                    this.ScssOverride += OS.EOL + `$${name}: ${variables[name]}`;
+                case "messageSidebarOrientation":
+                case "wcfFontLineHeight":
+                    this.OverrideScss += OS.EOL + `$${name}: ${variables[name]}`;
                     break;
             }
         }

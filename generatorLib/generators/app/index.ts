@@ -155,8 +155,8 @@ class WSCPackageGenerator extends Generator
                         line: "Customization"
                     },
                     {
-                        name: "Styles",
-                        value: "style"
+                        name: "Themes",
+                        value: "theme"
                     },
                     {
                         name: "Templates",
@@ -186,12 +186,12 @@ class WSCPackageGenerator extends Generator
             },
             {
                 type: "input",
-                name: "componentPaths.style",
-                message: "Where do you want to store styles?",
-                default: "styles",
+                name: "componentPaths.theme",
+                message: "Where do you want to store themes?",
+                default: "themes",
                 when: (answers: YoGenerator.Answers): boolean =>
                 {
-                    return (answers.components as string[]).includes("style");
+                    return (answers.components as string[]).includes("theme");
                 }
             },
             {
@@ -352,7 +352,7 @@ class WSCPackageGenerator extends Generator
         {
             switch (component)
             {
-                case "style":
+                case "theme":
                     FileSystem.mkdirpSync(this.destinationPath(this.settings.componentPaths[component]));
                     break;
                 default:
@@ -370,9 +370,9 @@ class WSCPackageGenerator extends Generator
      */
     public async install(): Promise<void>
     {
-        if (this.settings.components.includes("style"))
+        if (this.settings.components.includes("theme"))
         {
-            this.config.set("stylesPath", this.settings.componentPaths.style);
+            this.config.set("themesPath", this.settings.componentPaths.theme);
         }
 
         this.config.save();

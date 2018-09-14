@@ -3,7 +3,7 @@ import * as Dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
 import { TempDirectory } from "../Core/FileSystem/TempDirectory";
-import { StyleInstruction } from "../PackageSystem/Instructions/Customization/StyleInstruction";
+import { ThemeInstruction } from "../PackageSystem/Instructions/Customization/ThemeInstruction";
 import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
 import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Instruction } from "../PackageSystem/Instructions/Instruction";
@@ -139,34 +139,68 @@ suite("WoltLab Suite Core Package Library", () =>
         });
 
     suite(
-        "StyleInstruction",
+        "ThemeInstruction",
         () =>
         {
-            let styleInstruction: StyleInstruction;
+            let themeInstruction: ThemeInstruction;
+            let tempDir: TempDirectory;
 
             suiteSetup(
                 async () =>
                 {
-                    styleInstruction = new StyleInstruction({
-                        Source: null,
-                        Style: {
+                    // Creating test-files...
+                    tempDir = new TempDirectory();
+                    let customScssFileName: string = tempDir.MakePath("custom.scss");
+                    let scssOverrideFileName: string = tempDir.MakePath("override.scss");
+                    let variableFileName: string = tempDir.MakePath("variables.json");
+
+                    await FileSystem.writeFile(
+                        customScssFileName,
+                        Dedent(
+                            `
+                                :root
+                                {
+                                    color: red !important;
+                                }
+                            `));
+
+                    await FileSystem.writeFile(
+                        scssOverrideFileName,
+                        Dedent(
+                            `
+                                $wcfHeaderBackground: blue;
+                                $wcfFontLineHeight: 1.4;
+                            `));
+
+                    await FileSystem.writeJSON(
+                        variableFileName,
+                        {
+                            pageLogoWidth: 450,
+                            pageLogoHeight: 55
+                        });
+
+                    themeInstruction = new ThemeInstruction({
+                        Theme: {
                             Name: "Ugly Theme",
                             DisplayName: {
                                 inv: "Ugly Theme"
-                            }
+                            },
+                            CustomScssFileName: customScssFileName,
+                            ScssOverrideFileName: scssOverrideFileName,
+                            VariableFileName: variableFileName
                         }
                     });
                 });
 
             suite(
-                "Style",
+                "Theme",
                 () =>
                 {
                     test(
-                        "Testing whether the `Style`-property is set...",
+                        "Testing whether the `Theme`-property is set...",
                         () =>
                         {
-                            assert.notEqual(styleInstruction.Style, null);
+                            assert.notEqual(themeInstruction.Theme, null);
                         });
                 });
 
@@ -178,8 +212,15 @@ suite("WoltLab Suite Core Package Library", () =>
                         "Testing whether the `FileName`-property is set automatically according to the name of the theme...",
                         () =>
                         {
-                            assert.strictEqual(styleInstruction.FileName, `${styleInstruction.Style.Name}.tar`);
+                            assert.strictEqual(themeInstruction.FileName, `${themeInstruction.Theme.Name}.tar`);
                         });
+                });
+
+            suiteTeardown(
+                async () =>
+                {
+                    await FileSystem.emptyDir(tempDir.FileName);
+                    tempDir.Dispose();
                 });
         });
 

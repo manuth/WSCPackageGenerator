@@ -6,9 +6,9 @@ import yosay = require("yosay");
 import { Generator } from "../Generator";
 
 /**
- * Provides the functionality to generate WSC-styles.
+ * Provides the functionality to generate WSC-themes.
  */
-class WSCStyleGenerator extends Generator
+class WSCThemeGenerator extends Generator
 {
     /**
      * The options provided by the user.
@@ -31,44 +31,44 @@ class WSCStyleGenerator extends Generator
 
     protected get TemplateRoot(): string
     {
-        return "style";
+        return "theme";
     }
 
     /**
-     * Collects all informations about the style that is to be created.
+     * Collects all informations about the theme that is to be created.
      */
     public async prompting(): Promise<void>
     {
-        this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Style")} generator!`));
+        this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Theme")} generator!`));
 
         let prompts: YoGenerator.Questions = [
             {
                 type: "input",
-                name: "stylesPath",
-                message: "Where do you want to store your styles?",
-                default: "styles",
+                name: "themesPath",
+                message: "Where do you want to store your themes?",
+                default: "themes",
                 when: (answers: YoGenerator.Answers): boolean =>
                 {
-                    if (isNullOrUndefined(this.config.get("stylesPath")))
+                    if (isNullOrUndefined(this.config.get("themesPath")))
                     {
                         return true;
                     }
                     else
                     {
-                        answers.stylesPath = this.config.get("stylesPath");
+                        answers.themesPath = this.config.get("themesPath");
                     }
                 }
             },
             {
                 type: "input",
                 name: "name",
-                message: "What's the name of your style?",
+                message: "What's the name of your theme?",
                 validate: this.ForceInput
             },
             {
                 type: "input",
                 name: "displayName",
-                message: "What's the display-name of your style?",
+                message: "What's the display-name of your theme?",
                 default: (answers: YoGenerator.Answers): string =>
                 {
                     return answers.name;
@@ -86,8 +86,8 @@ class WSCStyleGenerator extends Generator
                 message: "What do you want to provide?",
                 choices: [
                     {
-                        name: "Custom SCSS-Styles",
-                        value: "customStyles"
+                        name: "Custom SCSS-Themes",
+                        value: "customThemes"
                     },
                     {
                         name: "Variable-Overrides",
@@ -97,12 +97,12 @@ class WSCStyleGenerator extends Generator
             },
             {
                 type: "input",
-                name: "componentPaths.customStyles",
-                message: "Where do you want to store the custom SCSS-styles?",
-                default: "styles.scss",
+                name: "componentPaths.customThemes",
+                message: "Where do you want to store the custom SCSS-themes?",
+                default: "themes.scss",
                 when: (answers: YoGenerator.Answers): boolean =>
                 {
-                    return (answers.components as string[]).includes("customStyles");
+                    return (answers.components as string[]).includes("customThemes");
                 }
             },
             {
@@ -128,7 +128,7 @@ class WSCStyleGenerator extends Generator
      */
     public async writing(): Promise<void>
     {
-        let basePath: string = Path.relative(Path.join(this.settings.stylesPath, this.settings.name), ".");
+        let basePath: string = Path.relative(Path.join(this.settings.themesPath, this.settings.name), ".");
         basePath = basePath.replace("\\", "/");
 
         if (basePath.length === 0)
@@ -137,22 +137,22 @@ class WSCStyleGenerator extends Generator
         }
 
         this.settings.basePath = basePath + "/";
-        this.fs.copyTpl(this.templatePath("Style.ts.ejs"), this.destinationPath(this.settings.stylesPath, this.settings.name, "Style.ts"), this.settings);
+        this.fs.copyTpl(this.templatePath("Theme.ts.ejs"), this.destinationPath(this.settings.themesPath, this.settings.name, "Theme.ts"), this.settings);
 
         for (let component of (this.settings.components as string[]))
         {
             switch (component)
             {
-                case "customStyles":
+                case "customThemes":
                     this.fs.copyTpl(
                         this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings.stylesPath, this.settings.name, this.settings.componentPaths[component]),
+                        this.destinationPath(this.settings.themesPath, this.settings.name, this.settings.componentPaths[component]),
                         this.settings);
                     break;
                 case "variableOverrides":
                     this.fs.copyTpl(
                         this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings.stylesPath, this.settings.name, this.settings.componentPaths[component]),
+                        this.destinationPath(this.settings.themesPath, this.settings.name, this.settings.componentPaths[component]),
                         this.settings);
                     break;
 
@@ -165,17 +165,17 @@ class WSCStyleGenerator extends Generator
      */
     public async end(): Promise<void>
     {
-        this.config.set("stylesPath", this.settings.stylesPath);
+        this.config.set("themesPath", this.settings.themesPath);
         this.config.save();
 
         this.log();
-        this.log("Your style \"" + this.settings.name + "\" has been created!");
+        this.log("Your theme \"" + this.settings.name + "\" has been created!");
         this.log();
         this.log(
-            "Please keep in mind to add your styles-folder to the package" +
-            "by adding \"...new StyleInstructionCollection(\"" + this.settings.stylesPath + "\"" +
+            "Please keep in mind to add your themes-folder to the package" +
+            "by adding \"...new ThemeInstructionCollection(\"" + this.settings.themesPath + "\"" +
             "to the Install- or Update instruction-collection.");
     }
 }
 
-export = WSCStyleGenerator;
+export = WSCThemeGenerator;

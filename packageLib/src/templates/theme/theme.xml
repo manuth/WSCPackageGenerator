@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <style xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" <%
 %>xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/tornado/style.xsd"><%
-%><% let style = Instruction.Style %>
+%><% let style = Instruction.Theme %>
     <general><%
-%><% for (let locale in style.DisplayName) { %>
+%><% for (let locale in theme.DisplayName) { %>
         <stylename<%
     %><% if (locale !== "inv") { %><%
         %> language="<%= locale %>"<%
     %><% } %><%
         %>><%
-            %><%= style.DisplayName[locale] %><%
+            %><%= theme.DisplayName[locale] %><%
         %></stylename><%
 %><% } %>
         <packageName><%= Instruction.Package.Identifier %></packageName><%
-%><% for (let locale in style.Description) { %>
+%><% for (let locale in theme.Description) { %>
         <description<%
     %><% if (locale !== "inv") { %><%
         %> language="<%= locale %>"<%
     %><% } %>><%
-            %><%= style.Description[locale] %><%
+            %><%= theme.Description[locale] %><%
         %></description><%
 %><% } %>
-        <version><%= style.Version %></version>
+        <version><%= theme.Version %></version>
         <apiVersion>3.1</apiVersion>
         <date><%
             %><%= (
-                style.Date.getFullYear() + "-" +
-                (style.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
-                style.Date.getDate().toString().padStart(2, "0"))
+                theme.Date.getFullYear() + "-" +
+                (theme.Date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+                theme.Date.getDate().toString().padStart(2, "0"))
             %><%
         %></date><%
-%><% if (style.Thumbnail) { %>
+%><% if (theme.Thumbnail) { %>
         <image><%
-            %><%= style.Thumbnail %><%
+            %><%= theme.Thumbnail %><%
         %></image><%
 %><% } %><%
-%><% if (style.HighResThumbnail) { %>
+%><% if (theme.HighResThumbnail) { %>
         <image2x><%
-            %><%= style.HighResThumbnail %><%
+            %><%= theme.HighResThumbnail %><%
         %></image2x><%
 %><% } %><%
-%><% if (style.CoverPhoto) { %>
+%><% if (theme.CoverPhoto) { %>
         <coverPhoto><%
-            %><%= style.CoverPhoto %><%
+            %><%= theme.CoverPhoto %><%
         %></coverPhoto><%
 %><% } %><%
-%><% if (style.License) { %>
+%><% if (theme.License) { %>
         <license><%
-            %><%= style.License %><%
+            %><%= theme.License %><%
         %></license><%
 %><% } %>
     </general>
     <author>
         <authorname><%
-            %><%= style.Author.Name %><%
+            %><%= theme.Author.Name %><%
         %></authorname><%
-%><% if (style.Author.URL) { %>
+%><% if (theme.Author.URL) { %>
         <authorurl><%
-            %><%= style.Author.URL %><%
+            %><%= theme.Author.URL %><%
         %></authorurl><%
 %><% } %>
     </author>
     <files>
         <variables>variables.xml</variables><%
-%><% if (style.Images) { %>
-        <images path="<%= style.Images.DestinationRoot %>"><%= style.Images.FileName %></images><%
+%><% if (theme.Images) { %>
+        <images path="<%= theme.Images.DestinationRoot %>"><%= theme.Images.FileName %></images><%
 %><% } %>
     </files>
 </style>

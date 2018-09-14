@@ -33,8 +33,8 @@
         %><% case "ErrorMessagesInstruction": %>
         <instruction type="language"><%= destination %><%= ComponentsPath %>/<%= instruction.FileName %>/*.xml</instruction><%
         %><% break; %><%
-        %><% case "StyleInstruction": %>
-        <instruction type="style"><%= destination %><%= StylesPath %>/<%= instruction.FileName %></instruction><%
+        %><% case "ThemeInstruction": %>
+        <instruction type="style"><%= destination %><%= ThemesPath %>/<%= instruction.FileName %></instruction><%
         %><% break; %><%
         %><% case "TemplatesInstruction": %>
         <instruction<% %> type="template"<%

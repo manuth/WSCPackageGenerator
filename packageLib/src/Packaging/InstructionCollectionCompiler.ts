@@ -2,17 +2,17 @@ import * as FileSystem from "fs-extra";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
+import { BBCodesInstruction } from "../Appearance/BBCodes/BBCodesInstruction";
+import { EmojisInstruction } from "../Appearance/Emojis/EmojisInstruction";
+import { TemplateListenersInstruction } from "../Appearance/Presentation/TemplateListenersInstruction";
+import { Theme } from "../Appearance/Themes/Theme";
+import { ThemeInstruction } from "../Appearance/Themes/ThemeInstruction";
 import { SQLInstruction } from "../Automation/Data/SQL/SQLInstruction";
 import { Instruction } from "../Automation/Instruction";
 import { InstructionCollection } from "../Automation/InstructionCollection";
 import { Compiler } from "../Core/Compiler";
 import { CronjobInstruction } from "../Core/Cronjobs/CronjobInstruction";
 import { FilesInstruction } from "../Core/FilesInstruction";
-import { BBCodesInstruction } from "../Appearance/BBCodes/BBCodesInstruction";
-import { EmojisInstruction } from "../Appearance/Emojis/EmojisInstruction";
-import { TemplateListenersInstruction } from "../Appearance/Presentation/TemplateListenersInstruction";
-import { Style } from "../Appearance/Styles/Style";
-import { StyleInstruction } from "../Appearance/Styles/StyleInstruction";
 import { EventListenersInstruction } from "../Events/EventListenersInstruction";
 import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
 import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
@@ -25,9 +25,9 @@ const MemFileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.c
 export class InstructionCollectionCompiler extends Compiler<InstructionCollection<Instruction>>
 {
     /**
-     * The path to save compiled styles to.
+     * The path to save compiled themes to.
      */
-    private stylesPath: string;
+    private themesPath: string;
 
     /**
      * The path to save compiled components to.
@@ -43,16 +43,16 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
      * @param destinationPath
      * The path to save the compiled instructions to.
      *
-     * @param stylesPath
-     * The path to save compiled styles to.
+     * @param themesPath
+     * The path to save compiled themes to.
      *
      * @param componentsPath
      * The path to save compiled components to.
      */
-    public constructor(instructionCollection: InstructionCollection<Instruction>, destinationPath: string = "obj", stylesPath: string = "styles", componentsPath: string = "components")
+    public constructor(instructionCollection: InstructionCollection<Instruction>, destinationPath: string = "obj", themesPath: string = "themes", componentsPath: string = "components")
     {
         super(instructionCollection, destinationPath);
-        this.stylesPath = stylesPath;
+        this.themesPath = themesPath;
         this.componentsPath = componentsPath;
     }
 
@@ -141,53 +141,53 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
             {
                 MemFileSystem.copyTpl(this.MakeTemplatePath("eventListeners.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
             }
-            else if (instruction instanceof StyleInstruction)
+            else if (instruction instanceof ThemeInstruction)
             {
-                let style: Style = instruction.Style;
-                let styleGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
+                let theme: Theme = instruction.Theme;
+                let themeGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
 
-                styleGenerator.copyTpl(
-                    this.MakeTemplatePath("style", "style.xml"),
-                    this.MakeStylesTempPath(instruction.Style.Name, "style.xml"),
+                themeGenerator.copyTpl(
+                    this.MakeTemplatePath("theme", "theme.xml"),
+                    this.MakeThemesTempPath(instruction.Theme.Name, "theme.xml"),
                     { Instruction: instruction });
-                styleGenerator.copyTpl(
-                    this.MakeTemplatePath("style", "variables.xml"),
-                    this.MakeStylesTempPath(style.Name, "variables.xml"),
+                themeGenerator.copyTpl(
+                    this.MakeTemplatePath("theme", "variables.xml"),
+                    this.MakeThemesTempPath(theme.Name, "variables.xml"),
                     { Instruction: instruction });
 
-                if (style.Thumbnail)
+                if (theme.Thumbnail)
                 {
-                    styleGenerator.copy(
-                        Path.join(instruction.SourceRoot, style.Thumbnail),
-                        this.MakeStylesTempPath(style.Name, style.Thumbnail));
+                    themeGenerator.copy(
+                        Path.join(instruction.SourceRoot, theme.Thumbnail),
+                        this.MakeThemesTempPath(theme.Name, theme.Thumbnail));
                 }
 
-                if (style.HighResThumbnail)
+                if (theme.HighResThumbnail)
                 {
-                    styleGenerator.copy(
-                        Path.join(instruction.SourceRoot, style.HighResThumbnail),
-                        this.MakeStylesTempPath(style.Name, style.HighResThumbnail));
+                    themeGenerator.copy(
+                        Path.join(instruction.SourceRoot, theme.HighResThumbnail),
+                        this.MakeThemesTempPath(theme.Name, theme.HighResThumbnail));
                 }
 
-                if (style.CoverPhoto)
+                if (theme.CoverPhoto)
                 {
-                    styleGenerator.copy(
-                        Path.join(instruction.SourceRoot, style.CoverPhoto),
-                        this.MakeStylesTempPath(style.Name, style.CoverPhoto));
+                    themeGenerator.copy(
+                        Path.join(instruction.SourceRoot, theme.CoverPhoto),
+                        this.MakeThemesTempPath(theme.Name, theme.CoverPhoto));
                 }
 
                 await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
                 {
-                    styleGenerator.commit([], () =>
+                    themeGenerator.commit([], () =>
                     {
                         resolve();
                     });
                 });
 
-                if (style.Images)
+                if (theme.Images)
                 {
                     let imagesGenerator: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
-                    imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, style.Images.SourceRoot), this.MakeTempPath(style.Name, "images"), instruction.Package);
+                    imagesGenerator.copyTpl(Path.join(instruction.SourceRoot, theme.Images.SourceRoot), this.MakeTempPath(theme.Name, "images"), instruction.Package);
 
                     await new Promise((resolve: (value?: {} | PromiseLike<{}>) => void): void =>
                     {
@@ -197,11 +197,11 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
                         });
                     });
 
-                    this.Compress(this.MakeTempPath(style.Name, "images"), this.MakeStylesTempPath(style.Name, style.Images.FileName));
-                    await FileSystem.remove(this.MakeTempPath(style.Name, "images"));
+                    this.Compress(this.MakeTempPath(theme.Name, "images"), this.MakeThemesTempPath(theme.Name, theme.Images.FileName));
+                    await FileSystem.remove(this.MakeTempPath(theme.Name, "images"));
                 }
 
-                await this.Compress(this.MakeStylesTempPath(style.Name), this.MakeStylesPath(instruction.FileName));
+                await this.Compress(this.MakeThemesTempPath(theme.Name), this.MakeThemesPath(instruction.FileName));
             }
             else if (instruction instanceof TemplateListenersInstruction)
             {
@@ -270,25 +270,25 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
     }
 
     /**
-     * Joins the paths and returns the path contained by the temporar styles-folder.
+     * Joins the paths and returns the path contained by the temporar themes-folder.
      *
      * @param path
      * The path that is to be joined.
      */
-    protected MakeStylesTempPath(...path: string[]): string
+    protected MakeThemesTempPath(...path: string[]): string
     {
-        return super.MakeDestinationPath("styles", ...path);
+        return super.MakeDestinationPath("themes", ...path);
     }
 
     /**
-     * Joins the paths and returns the path contained by the styles-folder.
+     * Joins the paths and returns the path contained by the themes-folder.
      *
      * @param path
      * The path that is to be joined.
      */
-    protected MakeStylesPath(...path: string[]): string
+    protected MakeThemesPath(...path: string[]): string
     {
-        return this.MakeDestinationPath(this.stylesPath, ...path);
+        return this.MakeDestinationPath(this.themesPath, ...path);
     }
 
     /**

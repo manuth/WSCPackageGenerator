@@ -5,7 +5,7 @@ This environment allows you to easily create packages for WoltLab Suite Core.
     - [What's in the folder?](#whats-in-the-folder)
     - [Console-Commands](#console-commands)
     - [Building the Package](#building-the-package)
-    - [Creating Styles](#creating-styles)
+    - [Creating Themes](#creating-themes)
     - [Creating Instructions](#creating-instructions)
 - [Examples](#examples)
     - [**`Package.ts`**](#packagets)
@@ -42,7 +42,7 @@ This environment allows you to easily create packages for WoltLab Suite Core.
     This allows you to write your meta-files in TypeScript instead of JavaScript.
   - `Package.ts` contains meta-data about the package itself.
   - The `bin` folder contains all build-results.
-  - The `obj` folder contains an uncompressed version of the package and the styles.
+  - The `obj` folder contains an uncompressed version of the package and the themes.
 
 ## Console-Commands
 When running a console inside this folder you can use following commands:  
@@ -70,10 +70,10 @@ npm run compile
 npm run build
 ```
 
-## Creating Styles
-In order to create a style open a console window inside the package-folder and run following command:
+## Creating Themes
+In order to create a theme open a console window inside the package-folder and run following command:
 ```bash
-yo wsc-package:style
+yo wsc-package:theme
 ```
 
 ## Creating Instructions
@@ -110,7 +110,7 @@ For example:
 import * as Path from "path";
 import { Package } from "./lib/Packaging/Package";
 import { RequiredPackageDescriptor } from "./lib/Packaging/RequiredPackageDescriptor";
-import { StyleInstructionCollection } from "./lib/Appearance/Styles/StyleInstructionCollection";
+import { ThemeInstructionCollection } from "./lib/Appearance/Themes/ThemeInstructionCollection";
 import { FileDescriptor } from "./lib/Packaging/FileDescriptor";
 import { OptionalPackageDescriptor } from "./lib/Packaging/OptionalPackageDescriptor";
 
@@ -132,7 +132,7 @@ let pkg: Package = new Package({
     InstallInstructions: [
         require("./components/FileMappings"),
         require(getComponentsPath("Options")),
-        ...new StyleInstructionCollection("styles")
+        ...new ThemeInstructionCollection("themes")
     ],
     AdditionalFiles: [
         new FileDescriptor({
@@ -245,9 +245,9 @@ You might want to write these instructions in separate modules and `require` the
         /* Use "require(getComponentsPath({ path })" to load
         * modules inside the "components"-directory: */
         require(getComponentsPath("Templates")),
-        /* Use "...new StyleInstructionCollection({ path })"
-        * to load a folder containing one or more styles: */
-        ...new StylesInstruction("styles")
+        /* Use "...new ThemeInstructionCollection({ path })"
+        * to load a folder containing one or more themes: */
+        ...new ThemesInstruction("themes")
     ]
 ```
 

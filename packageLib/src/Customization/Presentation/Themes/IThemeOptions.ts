@@ -1,11 +1,11 @@
-import { Localizable } from "../../GLobalization/Localizable";
-import { IComponentOptions } from "../../PackageSystem/IComponentOptions";
+import { Localizable } from "../../../Globalization/Localizable";
+import { IComponentOptions } from "../../../PackageSystem/IComponentOptions";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
 
 /**
- * Provides options for the `Style` class.
+ * Provides options for the `Theme` class.
  */
-export interface IStyleOptions extends Partial<IComponentOptions>
+export interface IThemeOptions extends Partial<IComponentOptions>
 {
     Name: string;
 
