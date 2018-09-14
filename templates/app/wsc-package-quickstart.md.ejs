@@ -110,7 +110,7 @@ For example:
 import * as Path from "path";
 import { Package } from "./lib/Packaging/Package";
 import { RequiredPackageDescriptor } from "./lib/Packaging/RequiredPackageDescriptor";
-import { StyleInstructionCollection } from "./lib/Customization/Styles/StyleInstructionCollection";
+import { StyleInstructionCollection } from "./lib/Appearance/Styles/StyleInstructionCollection";
 import { FileDescriptor } from "./lib/Packaging/FileDescriptor";
 import { OptionalPackageDescriptor } from "./lib/Packaging/OptionalPackageDescriptor";
 
@@ -369,7 +369,7 @@ let filesInstruction: FilesInstruction = new FilesInstruction({
 export = filesInstruction;
 ```
 ```ts
-import { TemplatesInstruction } from "../lib/Customization/Presentation/TemplatesInstruction";
+import { TemplatesInstruction } from "../lib/Appearance/Presentation/TemplatesInstruction";
 
 let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
     Application: "gallery",
@@ -379,7 +379,7 @@ let templatesInstruction: TemplatesInstruction = new TemplatesInstruction({
 export = templatesInstruction;
 ```
 ```ts
-import { ACPTemplatesInstruction } from "../lib/Customization/Presentation/ACPTemplatesInstruction";
+import { ACPTemplatesInstruction } from "../lib/Appearance/Presentation/ACPTemplatesInstruction";
 
 let acpTemplatesInstruction: ACPTemplatesInstruction = new ACPTemplatesInstruction({
     Application: "filebase",
@@ -1048,14 +1048,14 @@ You can provide them using `TemlpateListenersInstruction`s.
 
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/Presentation/ITemplateListenersInstruction.ts") %>
+<%- include("../../packageLib/src/Appearance/Presentation/ITemplateListenersInstruction.ts") %>
 ```
 
 ### Examlpe
 ```ts
-import { TemplateListener } from "../lib/Customization/Presentation/TemplateListener";
+import { TemplateListener } from "../lib/Appearance/Presentation/TemplateListener";
 import { WSCEnvironment } from "../lib/Core/WSCEnvironment";
-import { TemplateListenersInstruction } from "../lib/Customization/Presentation/TemplateListenersInstruction";
+import { TemplateListenersInstruction } from "../lib/Appearance/Presentation/TemplateListenersInstruction";
 
 let templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
     TemplateListeners: [
@@ -1082,7 +1082,7 @@ A set of temlpate-listeners.
 ## `TemlpateListener`
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/Presentation/ITemplateListener.ts") %>
+<%- include("../../packageLib/src/Appearance/Presentation/ITemplateListener.ts") %>
 ```
 
 ### Properties
@@ -1109,13 +1109,13 @@ You can provide your own emojis by using an `EmojisInstruction`.
 
 ### Interface
 ```ts
-<% include("../../packageLib/src/Customization/Emojis/IEmojisInstruction.ts") %>
+<% include("../../packageLib/src/Appearance/Emojis/IEmojisInstruction.ts") %>
 ```
 
 ### Examlpe
 ```ts
-import { Emoji } from "../lib/Customization/Emojis/Emoji";
-import { EmojisInstruction } from "../lib/Customization/Emojis/EmojisInstruction";
+import { Emoji } from "../lib/Appearance/Emojis/Emoji";
+import { EmojisInstruction } from "../lib/Appearance/Emojis/EmojisInstruction";
 
 let emojiInstruction: EmojisInstruction = new EmojisInstruction({
     FileName: "smileys.xml",
@@ -1147,7 +1147,7 @@ This class represents an emoji.
 
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/Emojis/IEmoji.ts") %>
+<%- include("../../packageLib/src/Appearance/Emojis/IEmoji.ts") %>
 ```
 
 ### Properties
@@ -1172,14 +1172,14 @@ You can provide new bb-codes using a `BBCodesInstruction`.
 
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/BBCodes/IBBCodesInstruction.ts") %>
+<%- include("../../packageLib/src/Appearance/BBCodes/IBBCodesInstruction.ts") %>
 ```
 
 ### Example
 ```ts
-import { BBCode } from "../lib/Customization/BBCodes/BBCode";
-import { BBCodeAttribute } from "../lib/Customization/BBCodes/BBCodeAttribute";
-import { BBCodesInstruction } from "../lib/Customization/BBCodes/BBCodesInstruction";
+import { BBCode } from "../lib/Appearance/BBCodes/BBCode";
+import { BBCodeAttribute } from "../lib/Appearance/BBCodes/BBCodeAttribute";
+import { BBCodesInstruction } from "../lib/Appearance/BBCodes/BBCodesInstruction";
 
 const bbcodesInstruction: BBCodesInstruction = new BBCodesInstruction({
     BBCodes: [
@@ -1233,7 +1233,7 @@ A BB-Code is a tag you can use when editing or adding contents on/to WoltLab Sui
 
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/BBCodes/IBBCode.ts") %>
+<%- include("../../packageLib/src/Appearance/BBCodes/IBBCode.ts") %>
 ```
 
 ### Properties
@@ -1296,7 +1296,7 @@ A BBCode-attribute allows users to provide further arguments to the bbcode in or
 
 ### Interface
 ```ts
-<%- include("../../packageLib/src/Customization/BBCodes/IBBCodeAttribute.ts") %>
+<%- include("../../packageLib/src/Appearance/BBCodes/IBBCodeAttribute.ts") %>
 ```
 
 ### Properties

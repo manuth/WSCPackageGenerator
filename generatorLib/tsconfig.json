@@ -6,13 +6,11 @@
         "module": "commonjs",
         "sourceMap": true,
         "lib": [
-            "es7"
+            "es7",
+            "dom"
         ],
         "noUnusedLocals": true,
         "outDir": "../lib"
     },
-    "compileOnSave": true,
-    "exclude": [
-        "**/templates/**/*"
-    ]
+    "compileOnSave": true
 }

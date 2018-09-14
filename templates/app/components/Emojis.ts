@@ -1,5 +1,5 @@
-import { Emoji } from "../lib/Customization/Emojis/Emoji";
-import { EmojisInstruction } from "../lib/Customization/Emojis/EmojisInstruction";
+import { Emoji } from "../lib/Appearance/Emojis/Emoji";
+import { EmojisInstruction } from "../lib/Appearance/Emojis/EmojisInstruction";
 
 const emojiInstruction: EmojisInstruction = new EmojisInstruction({
     Emojis: [

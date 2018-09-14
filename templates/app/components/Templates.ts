@@ -1,4 +1,4 @@
-import { TemplatesInstruction } from "../lib/Customization/Presentation/TemplatesInstruction";
+import { TemplatesInstruction } from "../lib/Appearance/Presentation/TemplatesInstruction";
 
 const templatesInstruction: TemplatesInstruction = null;
 
