@@ -1,9 +1,9 @@
 import chalk from "chalk";
 import * as FileSystem from "fs-extra";
-import { Generator } from "../Generator";
 import * as Path from "path";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
+import { Generator } from "../Generator";
 
 /**
  * Provides the functionality to generate a WSC-Package.
@@ -22,10 +22,10 @@ class WSCPackageGenerator extends Generator
 
     /**
      * Initializes a new instance of the `WSCPackageGenerator` class.
-     * 
+     *
      * @param args
      * A set of arguments.
-     * 
+     *
      * @param opts
      * A set of options.
      */
@@ -369,14 +369,14 @@ class WSCPackageGenerator extends Generator
      * Installs the dependencies.
      */
     public install()
-    {   
+    {
         if (this.settings.components.includes("style"))
         {
             this.config.set("stylesPath", this.settings.componentPaths.style);
         }
 
         this.config.save();
-        
+
         this.installDependencies({ bower: false, npm: true });
     }
 

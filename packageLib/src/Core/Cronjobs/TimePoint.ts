@@ -29,19 +29,19 @@ export class TimePoint
     private dayOfWeek: string;
 
     /**
-     * 
+     *
      * @param minute
      * The minute-periode of the time-point. Gets or sets the minute-periode of the time-point.
-     * 
+     *
      * @param hour
      * The hour-periode of the time-point.
-     * 
+     *
      * @param dayOfMonth
      * The month of the time-point.
-     * 
+     *
      * @param month
      * The month-periode of the time-point.
-     * 
+     *
      * @param dayOfWeek
      * The week of the time-point.
      */

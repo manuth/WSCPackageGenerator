@@ -1,9 +1,9 @@
 import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
-import { ICompiler } from "./ICompiler";
 import * as Path from "path";
 import * as Temp from "tmp";
 import { isNullOrUndefined } from "util";
+import { ICompiler } from "./ICompiler";
 
 /**
  * Provides the functionality to compile a component.
@@ -27,10 +27,10 @@ export abstract class Compiler<T> implements ICompiler
 
     /**
      * Initializes a new instance of the `Compiler` class.
-     * 
+     *
      * @param item
      * The item to compile.
-     * 
+     *
      * @param destinationPath
      * The path to save the compiled item to.
      */
@@ -78,10 +78,10 @@ export abstract class Compiler<T> implements ICompiler
      * Compiles the item.
      */
     protected abstract async Compile();
-    
+
     /**
      * Joins the paths and returns the path contained by the destination-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -92,7 +92,7 @@ export abstract class Compiler<T> implements ICompiler
 
     /**
      * Joins the paths and returns the path contained by the template-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -103,7 +103,7 @@ export abstract class Compiler<T> implements ICompiler
 
     /**
      * Joins the paths and returns the path contained by a temporary folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -114,10 +114,10 @@ export abstract class Compiler<T> implements ICompiler
 
     /**
      * Compresses a folder and saves the result to a specified file.
-     * 
+     *
      * @param source
      * The folder that is to be compressed.
-     * 
+     *
      * @param destination
      * The filename to save the compressed file to.
      */

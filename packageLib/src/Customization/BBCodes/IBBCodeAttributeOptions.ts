@@ -15,7 +15,7 @@ export interface IBBCodeAttributeOptions
 
     /**
      * Gets or sets the code that will be appended to the opening HTML-tag of the bb-code.
-     * 
+     *
      * `%s` will be replaced by the value of the attribute.
      */
     Code?: string;

@@ -1,9 +1,9 @@
+import { isNullOrUndefined } from "util";
+import { NodeCollection } from "../Nodes/NodeCollection";
+import { NodeContainer } from "../Nodes/NodeContainer";
 import { ITranslationNode } from "./ITranslationNode";
 import { ITranslationNodeOptions } from "./ITranslationNodeOptions";
 import { Localizable } from "./Localizable";
-import { NodeCollection } from "../Nodes/NodeCollection";
-import { NodeContainer } from "../Nodes/NodeContainer";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains localized variables.

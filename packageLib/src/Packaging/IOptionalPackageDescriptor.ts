@@ -3,7 +3,7 @@ import { IPackageDescriptor } from "./IPackageDescriptor";
 
 /**
  * Provides an abstraction of an optional package.
- * 
+ *
  * Keep in mind to provide the optional package using `Package.AdditionalFiles`.
  */
 export interface IOptionalPackageDescriptor extends IPackageDescriptor, Required<IOptionalPackageDescriptorOptions>

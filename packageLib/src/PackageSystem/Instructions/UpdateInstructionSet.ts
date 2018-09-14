@@ -1,5 +1,5 @@
-import { InstructionSet } from "./InstructionSet";
 import { Package } from "../Package";
+import { InstructionSet } from "./InstructionSet";
 
 /**
  * Represents a collection of instructions for updating a package.

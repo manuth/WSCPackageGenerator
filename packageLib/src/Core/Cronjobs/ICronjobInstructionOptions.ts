@@ -1,5 +1,5 @@
-import { Cronjob } from "./Cronjob";
 import { IFileInstructionOptions } from "../../Automation/IFileInstructionOptions";
+import { Cronjob } from "./Cronjob";
 
 /**
  * Provides options for the `ICronjobInstruction` interface.

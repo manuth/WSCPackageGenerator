@@ -1,20 +1,20 @@
-import { BBCodesInstruction } from "../Customization/BBCodes/BBCodesInstruction";
-import { Compiler } from "../Core/Compiler";
-import { CronjobInstruction } from "../Core/Cronjobs/CronjobInstruction";
-import { EmojisInstruction } from "../Customization/Emojis/EmojisInstruction";
-import { EventListenersInstruction } from "../Events/EventListenersInstruction";
-import { FilesInstruction } from "../Core/FilesInstruction";
 import * as FileSystem from "fs-extra";
-import { Instruction } from "../Automation/Instruction";
-import { InstructionCollection } from "../Automation/InstructionCollection";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
 import * as Path from "path";
 import { SQLInstruction } from "../Automation/Data/SQL/SQLInstruction";
-import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
+import { Instruction } from "../Automation/Instruction";
+import { InstructionCollection } from "../Automation/InstructionCollection";
+import { Compiler } from "../Core/Compiler";
+import { CronjobInstruction } from "../Core/Cronjobs/CronjobInstruction";
+import { FilesInstruction } from "../Core/FilesInstruction";
+import { BBCodesInstruction } from "../Customization/BBCodes/BBCodesInstruction";
+import { EmojisInstruction } from "../Customization/Emojis/EmojisInstruction";
 import { TemplateListenersInstruction } from "../Customization/Presentation/TemplateListenersInstruction";
+import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
+import { EventListenersInstruction } from "../Events/EventListenersInstruction";
 import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
+import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
 
 const MemFileSystem = memFsEditor.create(memFs.create());
 
@@ -35,16 +35,16 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
     /**
      * Initializes a new instance of the `InstructionCollectionCompiler`.
-     * 
+     *
      * @param instructionCollection
      * The `InstructionCollection` which is to be compiled.
-     * 
+     *
      * @param destinationPath
      * The path to save the compiled instructions to.
-     * 
+     *
      * @param stylesPath
      * The path to save compiled styles to.
-     * 
+     *
      * @param componentsPath
      * The path to save compiled components to.
      */
@@ -153,7 +153,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
                     this.MakeTemplatePath("style", "variables.xml"),
                     this.MakeStylesTempPath(style.Name, "variables.xml"),
                     { Instruction: instruction });
-                
+
                 if (style.Thumbnail)
                 {
                     styleGenerator.copy(
@@ -174,7 +174,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
                         Path.join(instruction.SourceRoot, style.CoverPhoto),
                         this.MakeStylesTempPath(style.Name, style.CoverPhoto));
                 }
-                
+
                 await new Promise((resolve) =>
                 {
                     styleGenerator.commit([], () =>
@@ -259,7 +259,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
     /**
      * Joins the paths and returns the path contained by the template-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -270,7 +270,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
     /**
      * Joins the paths and returns the path contained by the temporar styles-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -281,7 +281,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
     /**
      * Joins the paths and returns the path contained by the styles-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -292,7 +292,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
 
     /**
      * Joins the paths and returns the path contained by the components-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */

@@ -1,10 +1,10 @@
-import { ISettingsNodeOptions } from "./ISettingsNodeOptions";
+import { isNullOrUndefined } from "util";
 import { Localizable } from "../../GLobalization/Localizable";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { NodeCollection } from "../../Nodes/NodeCollection";
 import { NodeContainer } from "../../Nodes/NodeContainer";
+import { ISettingsNodeOptions } from "./ISettingsNodeOptions";
 import { Option } from "./Option";
-import { TranslationNode } from "../../Globalization/TranslationNode";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a node that contains options and categories.
@@ -68,12 +68,12 @@ export class SettingsNode extends NodeContainer<SettingsNode> implements ISettin
     {
         return this.displayName;
     }
-    
+
     public get Description(): Localizable
     {
         return this.description;
     }
-    
+
     public get Nodes(): SettingsNode[]
     {
         return this.settingsNodes;
@@ -92,7 +92,7 @@ export class SettingsNode extends NodeContainer<SettingsNode> implements ISettin
         let rootNodes: TranslationNode[] = [];
         let childNodes: TranslationNode[] = [];
         let translationNode = new TranslationNode({ Name: "wcf.acp.option" });
-    
+
         if (Object.keys(this.DisplayName).length > 0)
         {
             translationNode.Nodes.push(new TranslationNode({
@@ -150,7 +150,7 @@ export class SettingsNode extends NodeContainer<SettingsNode> implements ISettin
     public GetOptions(): { [id: string]: Option }
     {
         let result: { [id: string]: Option } = { };
-        
+
         for (let option of this.Options)
         {
             result[option.ID] = option;

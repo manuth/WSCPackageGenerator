@@ -1,8 +1,8 @@
-import { IComponentOptions } from "./IComponentOptions";
+import { isNullOrUndefined } from "util";
 import { Localizable } from "../GLobalization/Localizable";
+import { IComponentOptions } from "./IComponentOptions";
 import { ModuleInfo } from "./ModuleInfo";
 import { Person } from "./Person";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a component.
@@ -52,7 +52,7 @@ export abstract class Component
         this.Name = options.Name;
         Object.assign(this.DisplayName, options.DisplayName);
         this.Version = options.Version;
-        
+
         if (!isNullOrUndefined(options.Author))
         {
             this.Author = new Person(options.Author);

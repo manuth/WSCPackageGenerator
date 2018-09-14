@@ -1,10 +1,10 @@
-import { Compiler } from "../Core/Compiler";
 import * as FileSystem from "fs-extra";
-import { InstructionCollectionCompiler } from "./InstructionCollectionCompiler";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
-import { Package } from "./Package";
 import * as Path from "path";
+import { Compiler } from "../Core/Compiler";
+import { InstructionCollectionCompiler } from "./InstructionCollectionCompiler";
+import { Package } from "./Package";
 const MemFileSystem = memFsEditor.create(memFs.create());
 
 /**
@@ -28,19 +28,19 @@ export class PackageCompiler extends Compiler<Package>
     private componentsPath: string;
 
     /**
-     * 
-     * @param pkg 
+     *
+     * @param pkg
      * The package to compile.
-     * 
-     * @param sourcePath 
+     *
+     * @param sourcePath
      * The path to the directory which contains the source-files.
-     * 
+     *
      * @param destinationPath
      * The path to save the compiled item to.
-     * 
+     *
      * @param stylesPath
      * The path to save compiled styles to.
-     * 
+     *
      * @param componentsPath
      * The path to save compiled components to.
      */
@@ -72,7 +72,7 @@ export class PackageCompiler extends Compiler<Package>
             this.MakeTemplatePath("package.xml"),
             this.MakeSourcePath("package.xml"),
             { Package: this.Item, StylesPath: this.stylesPath, ComponentsPath: this.componentsPath });
-        
+
         if (this.Item.InstallInstructions.length > 0)
         {
             await new InstructionCollectionCompiler(
@@ -109,7 +109,7 @@ export class PackageCompiler extends Compiler<Package>
 
     /**
      * Joins the paths and returns the path contained by the source-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */

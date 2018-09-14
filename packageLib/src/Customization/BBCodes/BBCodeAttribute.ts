@@ -1,5 +1,5 @@
-import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 import { isNullOrUndefined } from "util";
+import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 
 /**
  * Represents an attribute of a bb-code.
@@ -18,7 +18,7 @@ export class BBCodeAttribute implements IBBCodeAttributeOptions
 
     /**
      * The code that will be appended to the opening HTML-tag of the bb-code.
-     * 
+     *
      * `%s` will be replaced by the value of the attribute.
      */
     private code: string = null;
@@ -58,7 +58,7 @@ export class BBCodeAttribute implements IBBCodeAttributeOptions
     {
         return this.required;
     }
-    
+
     public set Required(value: boolean)
     {
         this.Required = value;

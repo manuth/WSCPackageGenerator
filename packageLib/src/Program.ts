@@ -24,10 +24,10 @@ class Program
      * The components-path.
      */
     private static componentsPath: string = "components";
-    
+
     /**
      * The main entry-point of the script.
-     * 
+     *
      * @param args The arguments passed to the script.
      */
     public static async Main(args: string[])

@@ -1,8 +1,8 @@
+import { isNullOrUndefined } from "util";
+import { Localizable } from "../../GLobalization/Localizable";
 import { BBCodeAttribute } from "./BBCodeAttribute";
 import { IBBCode } from "./IBBCode";
 import { IBBCodeOptions } from "./IBBCodeOptions";
-import { Localizable } from "../../GLobalization/Localizable";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a bb-code.
@@ -26,7 +26,7 @@ export class BBCode implements IBBCode
 
     /**
      * A class which provides the functionality to parse the bb-code.
-     * 
+     *
      * Please keep in mind to provide the PHP-script using a `FilesInstruction`.
      */
     private className: string = null;

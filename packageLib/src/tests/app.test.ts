@@ -1,9 +1,9 @@
-import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import * as assert from "assert";
+import { DOMParser } from "xmldom";
+import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
+import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Instruction } from "../PackageSystem/Instructions/Instruction";
 import { Package } from "../PackageSystem/Package";
-import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
-import { DOMParser } from "xmldom";
 
 suite("WoltLab Suite Core Package Library", () =>
 {
@@ -104,21 +104,21 @@ suite("WoltLab Suite Core Package Library", () =>
                 {
                     let sqlInstruction: SQLInstruction;
                     let sqlInstructionWithFileName: SQLInstruction;
-        
+
                     suiteSetup(
                         () =>
                         {
                             sqlInstruction = new SQLInstruction({ Source: "main.sql" });
                             sqlInstructionWithFileName = new SQLInstruction({ FileName: "sql/script.sql", Source: "main.sql" });
                         });
-                    
+
                     test(
                         "Testing whether `FileName` equals `Source` when the `FileName` isn't specified...",
                         () =>
                         {
                             assert.strictEqual(sqlInstruction.FileName, sqlInstruction.Source);
                         });
-                    
+
                     test(
                         "Testing whether `Source` doesn't affect `FileName` when the `FileName` is specified...",
                         () =>
@@ -127,13 +127,13 @@ suite("WoltLab Suite Core Package Library", () =>
                         });
                 });
         });
-    
+
     suite(
         "SQLInstruction",
         () =>
         {
         });
-    
+
     suite(
         "ApplicationFileSystemInstruction",
         () =>
@@ -145,14 +145,14 @@ suite("WoltLab Suite Core Package Library", () =>
                 {
                     instruction = new ApplicationFileSystemInstruction({ Source: "files/gallery", Application: "gallery" });
                 });
-            
+
             test(
                 "Testing whether the application is set correctly...",
                 () =>
                 {
                     assert.strictEqual(instruction.Application, "gallery");
                 });
-            
+
             test(
                 "Testing whether the `FileName` is generated correctly if no `FileName` is specified...",
                 () =>

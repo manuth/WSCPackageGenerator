@@ -1,11 +1,11 @@
-import { BBCode } from "./BBCode";
+import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import { FileInstruction } from "../../Automation/FileInstruction";
+import { ITranslationsInstruction } from "../../Globalization/ITranslationsInstruction";
+import { TranslationNode } from "../../Globalization/TranslationNode";
+import { BBCode } from "./BBCode";
 import { IBBCodesInstruction } from "./IBBCodesInstruction";
 import { IBBCodesInstructionOptions } from "./IBBCodesInstructionOptions";
-import { ITranslationsInstruction } from "../../Globalization/ITranslationsInstruction";
-import * as Path from "path";
-import { TranslationNode } from "../../Globalization/TranslationNode";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides bb-codes.
@@ -21,7 +21,7 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
      * The bb-codes provided by the instruction.
      */
     private bbcodes: BBCode[] = [];
-    
+
     /**
      * Initializes a new instance of the `BBCodesInstruction` class.
      */

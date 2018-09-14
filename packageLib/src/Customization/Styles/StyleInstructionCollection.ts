@@ -10,7 +10,7 @@ export class StyleInstructionCollection extends Array<StyleInstruction>
 {
     /**
      * Initializes a ner instance of the `StyleInstructionCollection` class.
-     * 
+     *
      * @param stylesRoot
      * The path to the root of the styles.
      */
@@ -21,7 +21,7 @@ export class StyleInstructionCollection extends Array<StyleInstruction>
         let styleFolders = FileSystem.readdirSync(Path.join(stylesRoot)).map(
             entry => Path.join(stylesRoot, entry)).filter(
                 entry => FileSystem.lstatSync(entry).isDirectory());
-        
+
         for (let styleFolder of styleFolders)
         {
             let metaFile = Path.resolve(Path.join(styleFolder, "Style"));

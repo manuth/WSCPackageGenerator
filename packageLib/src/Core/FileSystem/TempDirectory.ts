@@ -26,7 +26,7 @@ export class TempDirectory
 
     /**
      * Joins the paths and returns the path contained by the temporary directory.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */

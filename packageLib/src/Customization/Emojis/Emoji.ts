@@ -1,9 +1,9 @@
-import { IEmojiOptions } from "./IEmojiOptions";
 import { isNullOrUndefined } from "util";
+import { IEmojiOptions } from "./IEmojiOptions";
 
 /**
  * Represents an emoji.
- * 
+ *
  * Please keep in mind to provide the files using a `FilesInstruction`.
  */
 export class Emoji implements IEmojiOptions

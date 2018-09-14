@@ -1,11 +1,11 @@
+import { Localizable } from "../GLobalization/Localizable";
+import { IOptionalPackageDescriptorOptions } from "../Packaging/IOptionalPackageDescriptorOptions";
 import { IComponentOptions } from "./IComponentOptions";
 import { IConflictingPackageDescriptorOptions } from "./IConflictingPackageDescriptorOptions";
 import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 import { IInstructionSetOptions } from "./Instructions/IInstructionSetOptions";
-import { IOptionalPackageDescriptorOptions } from "../Packaging/IOptionalPackageDescriptorOptions";
-import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
 import { IUpdateInstructionSetOptions } from "./Instructions/IUpdateInstructionSetOptions";
-import { Localizable } from "../GLobalization/Localizable";
+import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
 
 /**
  * Provides options for the `Package` class.

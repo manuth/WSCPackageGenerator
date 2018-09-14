@@ -1,5 +1,5 @@
-import { ErrorMessageNode } from "./ErrorMessageNode";
 import { ITranslationNodeOptions } from "../ITranslationNodeOptions";
+import { ErrorMessageNode } from "./ErrorMessageNode";
 
 /**
  * Provides options for the `IErrorMessageNode` interface.

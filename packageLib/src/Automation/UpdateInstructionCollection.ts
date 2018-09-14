@@ -1,7 +1,7 @@
+import { Package } from "../Packaging/Package";
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
 import { IUpdateInstructionCollection } from "./IUpdateInstructionCollection";
-import { Package } from "../Packaging/Package";
 
 /**
  * Represents a set of `Instruction`s for updating a package.
@@ -15,10 +15,10 @@ export class UpdateInstructionCollection<T extends Instruction> extends Instruct
 
     /**
      * Initializes a new instance of the `UpdateInstructionCollection`.
-     * 
+     *
      * @param pkg
      * The package this collection belongs to.
-     * 
+     *
      * @param fromVersion
      * The version this update can be applied to.
      */

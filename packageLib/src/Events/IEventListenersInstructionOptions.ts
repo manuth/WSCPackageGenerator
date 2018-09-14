@@ -1,6 +1,6 @@
-import { EventListener } from "./EventListener";
 import { IDeleteInstruction } from "../Automation/IDeleteInstruction";
 import { IFileInstructionOptions } from "../Automation/IFileInstructionOptions";
+import { EventListener } from "./EventListener";
 
 /**
  * Represents an instruction that provides a set of event-listeners.

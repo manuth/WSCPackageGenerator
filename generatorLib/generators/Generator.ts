@@ -1,6 +1,6 @@
-import { IValidator } from "./IValidator";
 import * as Path from "path";
 import * as YoGenerator from "yeoman-generator";
+import { IValidator } from "./IValidator";
 
 /**
  * Represents a generator.
@@ -9,10 +9,10 @@ export abstract class Generator extends YoGenerator
 {
     /**
      * Initializes a new instance of the `WSCPackageGenerator` class.
-     * 
+     *
      * @param args
      * A set of arguments.
-     * 
+     *
      * @param opts
      * A set of options.
      */

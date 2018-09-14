@@ -26,7 +26,7 @@ export abstract class Compiler<T>
 
     /**
      * Initializes a new instance of the `Compiler` class.
-     * 
+     *
      * @param item
      * The item to compile.
      */
@@ -87,7 +87,7 @@ export abstract class Compiler<T>
 
     /**
      * Joins the paths and returns the path contained by the destination-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -98,7 +98,7 @@ export abstract class Compiler<T>
 
     /**
      * Joins the paths and returns the path contained by the template-folder.
-     * 
+     *
      * @param path
      * The path that is to be joined.
      */
@@ -109,10 +109,10 @@ export abstract class Compiler<T>
 
     /**
      * Compresses a folder and saves the result to a specified file.
-     * 
+     *
      * @param source
      * The folder that is to be compressed.
-     * 
+     *
      * @param destination
      * The filename to save the compressed file to.
      */

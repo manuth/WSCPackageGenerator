@@ -1,8 +1,8 @@
-import { IInstructionOptions } from "./IInstructionOptions";
-import { InstructionSet } from "./InstructionSet";
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { DOMParser, XMLSerializer } from "xmldom";
+import { IInstructionOptions } from "./IInstructionOptions";
+import { InstructionSet } from "./InstructionSet";
 
 /**
  * Represents a step of a package-installation.

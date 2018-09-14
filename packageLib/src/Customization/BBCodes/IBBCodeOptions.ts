@@ -1,5 +1,5 @@
-import { BBCodeAttribute } from "./BBCodeAttribute";
 import { Localizable } from "../../GLobalization/Localizable";
+import { BBCodeAttribute } from "./BBCodeAttribute";
 
 /**
  * Provides options for the `IBBCode` interface.
@@ -23,7 +23,7 @@ export interface IBBCodeOptions
 
     /**
      * Gets or sets a class which provides the functionality to parse the bb-code.
-     * 
+     *
      * Please keep in mind to provide the PHP-script using a `FilesInstruction`.
      */
     ClassName?: string;

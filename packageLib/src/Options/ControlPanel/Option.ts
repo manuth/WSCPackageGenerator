@@ -1,11 +1,11 @@
-import { IOptionOptions } from "./IOptionOptions";
+import { isNullOrUndefined } from "util";
 import { Localizable } from "../../GLobalization/Localizable";
+import { TranslationNode } from "../../Globalization/TranslationNode";
 import { Node } from "../../Nodes/Node";
+import { IOptionOptions } from "./IOptionOptions";
 import { OptionItem } from "./OptionItem";
 import { OptionItemCollection } from "./OptionItemCollection";
 import { OptionType } from "./OptionType";
-import { TranslationNode } from "../../Globalization/TranslationNode";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an option that can be shown in the ACP.
@@ -53,11 +53,11 @@ export class Option extends Node implements IOptionOptions
     private items: OptionItem[] = new OptionItemCollection(this);
 
     /**
-     * A comma-separated list of options which should be visually enabled when this option is enabled.  
-     * A leading exclamation mark (`!`, U+0021) will disable the specified option when this option is enabled.  
+     * A comma-separated list of options which should be visually enabled when this option is enabled.
+     * A leading exclamation mark (`!`, U+0021) will disable the specified option when this option is enabled.
      * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (:, U+003A).
      *
-     * This setting is a visual helper for the administrator only.  
+     * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.
      */
     private enableOptions: string[] = [];

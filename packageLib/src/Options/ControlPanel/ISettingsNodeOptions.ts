@@ -1,5 +1,5 @@
-import { INodeContainerOptions } from "../../Nodes/INodeContainerOptions";
 import { Localizable } from "../../GLobalization/Localizable";
+import { INodeContainerOptions } from "../../Nodes/INodeContainerOptions";
 import { Node } from "../../Nodes/Node";
 import { Option } from "./Option";
 import { SettingsNode } from "./SettingsNode";
@@ -13,17 +13,17 @@ export interface ISettingsNodeOptions extends INodeContainerOptions<SettingsNode
      * Gets the displayname of the node.
      */
     DisplayName?: Localizable;
-    
+
     /**
      * Gets the description of the node.
      */
     Description?: Localizable;
-    
+
     /**
      * Gets the nodes contained by this node.
      */
     Nodes?: SettingsNode[];
-    
+
     /**
      * Gets the options contained by this node.
      */

@@ -13,7 +13,7 @@ export class OptionItemCollection<T extends OptionItem> extends Array<T>
 
     /**
      * Initializes a new instance of the `OptionItemCollection` class.
-     * 
+     *
      * @param option
      * The option this collection belongs to.
      */

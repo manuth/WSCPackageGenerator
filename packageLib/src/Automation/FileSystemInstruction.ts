@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from "util";
 import { FileInstruction } from "./FileInstruction";
 import { IFileSystemInstruction } from "./IFileSystemInstruction";
 import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to the file-system.

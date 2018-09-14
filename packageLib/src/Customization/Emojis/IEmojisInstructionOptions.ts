@@ -1,5 +1,5 @@
-import { Emoji } from "./Emoji";
 import { IFileInstructionOptions } from "../../Automation/IFileInstructionOptions";
+import { Emoji } from "./Emoji";
 
 /**
  * Provides options for the `IEmojisInstruction` interface.

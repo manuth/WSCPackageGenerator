@@ -1,13 +1,13 @@
+import { isNullOrUndefined } from "util";
+import { OptionalPackageDescriptor } from "../Packaging/OptionalPackageDescriptor";
 import { Component } from "./Component";
 import { ConflictingPackageDescriptor } from "./ConflictingPackageDescriptor";
 import { FileDescriptor } from "./FileDescriptor";
 import { InstructionSet } from "./Instructions/InstructionSet";
+import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
 import { IPackageOptions } from "./IPackageOptions";
 import { ModuleInfo } from "./ModuleInfo";
-import { OptionalPackageDescriptor } from "../Packaging/OptionalPackageDescriptor";
 import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
-import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an extension-package.
@@ -65,7 +65,7 @@ export class Package extends Component
         });
 
         this.Identifier = options.Identifier;
-        
+
         if (!isNullOrUndefined(options.DestinationPath))
         {
             for (let additionalFile of options.AdditionalFiles)
@@ -73,7 +73,7 @@ export class Package extends Component
                 this.AddidionalFiles.push(new FileDescriptor(additionalFile));
             }
         }
-        
+
         if (!isNullOrUndefined(options.RequiredPackages))
         {
             for (let requiredPackage of options.RequiredPackages)
@@ -81,7 +81,7 @@ export class Package extends Component
                 this.RequiredPackages.push(new RequiredPackageDescriptor(requiredPackage));
             }
         }
-        
+
         if (!isNullOrUndefined(options.ConflictingPackages))
         {
             for (let conflictingPackage of options.ConflictingPackages)
@@ -89,7 +89,7 @@ export class Package extends Component
                 this.ConflictingPackages.push(new ConflictingPackageDescriptor(conflictingPackage));
             }
         }
-        
+
         if (!isNullOrUndefined(options.OptionalPackages))
         {
             for (let optionalPackage of options.OptionalPackages)
@@ -97,7 +97,7 @@ export class Package extends Component
                 this.OptionalPackages.push(new OptionalPackageDescriptor(optionalPackage));
             }
         }
-        
+
         this.InstallSet.push(...options.InstallSet.Instructions);
 
         if (!isNullOrUndefined(options.InstallSet.Directory))

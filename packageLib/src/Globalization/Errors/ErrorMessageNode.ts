@@ -1,8 +1,8 @@
-import { IErrorMessageNode } from "./IErrorMessageNode";
-import { IErrorMessageNodeOptions } from "./IErrorMessageNodeOptions";
+import { isNullOrUndefined } from "util";
 import { NodeCollection } from "../../Nodes/NodeCollection";
 import { TranslationNode } from "../TranslationNode";
-import { isNullOrUndefined } from "util";
+import { IErrorMessageNode } from "./IErrorMessageNode";
+import { IErrorMessageNodeOptions } from "./IErrorMessageNodeOptions";
 
 /**
  * Represents a node that contains localizes error-messages.

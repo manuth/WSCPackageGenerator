@@ -1,16 +1,16 @@
 import * as ColorNames from "colornames";
-import { Component } from "../../Packaging/Component";
 import * as FileSystem from "fs";
 import * as Hex2RgbaMethod from "hex-to-rgba";
 import Hex2RgbaModule from "hex-to-rgba";
-import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
-import { IStyle } from "./IStyle";
-import { IStyleOptions } from "./IStyleOptions";
 import * as OS from "os";
 import * as Path from "path";
 import { parse } from "sass-variable-parser";
-import { StyleInstruction } from "./StyleInstruction";
 import { isNullOrUndefined } from "util";
+import { Component } from "../../Packaging/Component";
+import { ImageFolderDescriptor } from "./ImageFolderDescriptor";
+import { IStyle } from "./IStyle";
+import { IStyleOptions } from "./IStyleOptions";
+import { StyleInstruction } from "./StyleInstruction";
 const Hex2Rgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**
@@ -85,7 +85,7 @@ export class Style extends Component implements IStyle
         {
             this.images = options.ImagesRoot;
         }
-        
+
         if (!isNullOrUndefined(options.VariableFile))
         {
             this.variables = require(Path.join(process.cwd(), options.VariableFile));
@@ -184,7 +184,7 @@ export class Style extends Component implements IStyle
 
     /**
      * Parses an overrides-file.
-     * 
+     *
      * @param fileName
      * The name of the overrides-file.
      */
@@ -196,7 +196,7 @@ export class Style extends Component implements IStyle
                 camelCase: false,
                 cwd: Path.dirname(fileName)
             });
-        
+
         for (let name in variables)
         {
             switch (name)
@@ -247,7 +247,7 @@ export class Style extends Component implements IStyle
                 case "wcfSidebarText":
                 case "wcfSidebarLink":
                 case "wcfSidebarLinkActive":
-                
+
                 case "wcfSidebarDimmedText":
                 case "wcfSidebarDimmedLink":
                 case "$wcfSidebarDimmedLinkActive":
@@ -269,7 +269,7 @@ export class Style extends Component implements IStyle
                 case "wcfContentDimmedText":
                 case "wcfContentDimmedLink":
                 case "wcfContentDimmedLinkActive":
-                
+
                 case "wcfContentHeadlineBorder":
                 case "wcfContentHeadlineText":
                 case "wcfContentHeadlineLink":
@@ -293,7 +293,7 @@ export class Style extends Component implements IStyle
                 case "wcfInputDisabledBackground":
                 case "wcfInputDisabledBorder":
                 case "wcfInputDisabledText":
-                
+
                 case "wcfButtonBackground":
                 case "wcfButtonText":
                 case "wcfButtonBackgroundActive":
@@ -312,7 +312,7 @@ export class Style extends Component implements IStyle
                 case "wcfEditorButtonText":
                 case "wcfEditorButtonTextActive":
                 case "wcfEditorButtonTextDisabled":
-                
+
                 case "wcfDropdownBackground":
                 case "wcfDropdownBorderInner":
                 case "wcfDropdownText":
@@ -331,24 +331,24 @@ export class Style extends Component implements IStyle
                 case "wcfStatusSuccessText":
                 case "wcfStatusSuccessLink":
                 case "wcfStatusSuccessLinkActive":
-                
+
                 case "wcfStatusWarningBackground":
                 case "wcfStatusWarningBorder":
                 case "wcfStatusWarningText":
                 case "wcfStatusWarningLink":
                 case "wcfStatusWarningLinkActive":
-                
+
                 case "wcfStatusErrorBackground":
                 case "wcfStatusErrorBorder":
                 case "wcfStatusErrorText":
                 case "wcfStatusErrorLink":
                 case "wcfStatusErrorLinkActive":
-                
+
                 case "wcfFooterBoxBackground":
                 case "wcfFooterBoxText":
                 case "wcfFooterBoxLink":
                 case "wcfFooterBoxLinkActive":
-                
+
                 case "wcfFooterBoxHeadlineText":
                 case "wcfFooterBoxHeadlineLink":
                 case "wcfFooterBoxHeadlineLinkActive":
@@ -361,7 +361,7 @@ export class Style extends Component implements IStyle
                 case "wcfFooterHeadlineText":
                 case "wcfFooterHeadlineLink":
                 case "wcfFooterHeadlineLinkActive":
-                
+
                 case "wcfFooterCopyrightBackground":
                 case "wcfFooterCopyrightText":
                 case "wcfFooterCopyrightLink":
@@ -383,7 +383,7 @@ export class Style extends Component implements IStyle
                         this.Variables[name] = variables[name];
                     }
                     break;
-                
+
                 case "messageSidebarOrientation":
                 case "wcfFontLineHeight":
                     this.OverrideScss += OS.EOL + `$${name}: ${variables[name]}`;

@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from "util";
+import { Package } from "../Package";
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
-import { Package } from "../Package";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a collection of instructions.

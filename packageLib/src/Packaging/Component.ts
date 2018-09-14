@@ -1,8 +1,8 @@
+import { isNullOrUndefined } from "util";
+import { Localizable } from "../GLobalization/Localizable";
 import { IComponent } from "./IComponent";
 import { IComponentOptions } from "./IComponentOptions";
-import { Localizable } from "../GLobalization/Localizable";
 import { Person } from "./Person";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a component for WoltLab Suite Core.
@@ -39,7 +39,7 @@ export abstract class Component implements IComponent
      */
     private author: Person = new Person({
         Name: require("../../package.json").author.name,
-        URL:  require("../../package.json").author.url 
+        URL:  require("../../package.json").author.url
     });
 
     /**

@@ -1,6 +1,6 @@
+import { isNullOrUndefined } from "util";
 import { IPackageFileDescriptorOptions } from "./IPackageFileDescriptorOptions";
 import { PackageDescriptor } from "./PackageDescriptor";
-import { isNullOrUndefined } from "util";
 
 /**
  * Provides an abstraction of a package stored in a file.
@@ -26,7 +26,7 @@ export class PackageFileDescriptor extends PackageDescriptor
     }
 
     /**
-     * The filename of the package.  
+     * The filename of the package.
      * Please keep in mind to provide the file using the `Package.AdditionalFiles`-property.
      */
     public get FileName()

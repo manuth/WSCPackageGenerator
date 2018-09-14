@@ -1,8 +1,8 @@
-import { IOptionItemOptions } from "./IOptionItemOptions";
-import { Localizable } from "../../GLobalization/Localizable";
-import { Option } from "./Option";
-import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
+import { Localizable } from "../../GLobalization/Localizable";
+import { TranslationNode } from "../../Globalization/TranslationNode";
+import { IOptionItemOptions } from "./IOptionItemOptions";
+import { Option } from "./Option";
 
 /**
  * Represents an item of an option.

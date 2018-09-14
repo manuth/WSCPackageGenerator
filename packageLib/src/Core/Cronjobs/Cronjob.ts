@@ -1,8 +1,8 @@
-import { ICronjobOptions } from "./ICronjobOptions";
+import { isNullOrUndefined } from "util";
 import { Localizable } from "../../GLobalization/Localizable";
 import { Option } from "../../Options/ControlPanel/Option";
+import { ICronjobOptions } from "./ICronjobOptions";
 import { TimePoint } from "./TimePoint";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents a cron-job.

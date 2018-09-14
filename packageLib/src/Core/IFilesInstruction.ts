@@ -1,5 +1,5 @@
-import { IFilesInstructionOptions } from "./IFilesInstructionOptions";
 import { IFileSystemInstruction } from "../Automation/IFileSystemInstruction";
+import { IFilesInstructionOptions } from "./IFilesInstructionOptions";
 
 /**
  * Represents an instruction which provides a set of files.

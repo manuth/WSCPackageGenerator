@@ -1,7 +1,7 @@
-import { Emoji } from "./Emoji";
-import { FileInstruction } from "../../Automation/FileInstruction";
-import { IEmojisInstructionOptions } from "./IEmojisInstructionOptions";
 import { isNullOrUndefined } from "util";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { Emoji } from "./Emoji";
+import { IEmojisInstructionOptions } from "./IEmojisInstructionOptions";
 
 /**
  * Represents an instruction that provides emojis.

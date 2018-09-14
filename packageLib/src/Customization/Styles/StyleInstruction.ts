@@ -1,9 +1,9 @@
+import { isNullOrUndefined } from "util";
 import { FileSystemInstruction } from "../../Automation/FileSystemInstruction";
+import { Package } from "../../Packaging/Package";
 import { IStyleInstruction } from "./IStyleInstruction";
 import { IStyleInstructionOptions } from "./IStyleInstructionOptions";
-import { Package } from "../../Packaging/Package";
 import { Style } from "./Style";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a style.
@@ -59,7 +59,7 @@ export class StyleInstruction extends FileSystemInstruction implements IStyleIns
             {
                 this.style.Version = value.Version;
             }
-            
+
             if (isNullOrUndefined(this.style.Author.Name))
             {
                 this.style.Author.Name = value.Author.Name;

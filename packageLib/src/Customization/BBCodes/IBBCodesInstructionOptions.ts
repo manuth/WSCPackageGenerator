@@ -1,5 +1,5 @@
-import { BBCode } from "./BBCode";
 import { IFileInstructionOptions } from "../../Automation/IFileInstructionOptions";
+import { BBCode } from "./BBCode";
 
 /**
  * Provides options for the `IBBCodesInstruction` interface.

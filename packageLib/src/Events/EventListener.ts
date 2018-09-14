@@ -1,11 +1,11 @@
+import { isNullOrUndefined } from "util";
+import { Listener } from "../Core/Listener";
 import { IEventListener } from "./IEventListener";
 import { IEventListenerOptions } from "./IEventListenerOptions";
-import { Listener } from "../Core/Listener";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.
- * 
+ *
  * Please note that you have to provide your PHP-files using a `FilesInstruction`.
  */
 export class EventListener extends Listener implements IEventListener

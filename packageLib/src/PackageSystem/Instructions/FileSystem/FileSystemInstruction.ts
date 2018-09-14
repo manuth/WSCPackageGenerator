@@ -1,6 +1,6 @@
-import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
-import { Instruction } from "../Instruction";
 import { isNullOrUndefined } from "util";
+import { Instruction } from "../Instruction";
+import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
 
 /**
  * Represents an instruction which is bound to a file-system entry.

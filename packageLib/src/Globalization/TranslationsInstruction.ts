@@ -1,8 +1,8 @@
+import { isNullOrUndefined } from "util";
 import { FileInstruction } from "../Automation/FileInstruction";
 import { ITranslationsInstruction } from "./ITranslationsInstruction";
 import { ITranslationsInstructionOptions } from "./ITranslationsInstructionOptions";
 import { TranslationNode } from "./TranslationNode";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides `Translation`s.

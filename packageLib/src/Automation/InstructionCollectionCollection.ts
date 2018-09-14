@@ -1,6 +1,6 @@
+import { Package } from "../Packaging/Package";
 import { Instruction } from "./Instruction";
 import { InstructionCollection } from "./InstructionCollection";
-import { Package } from "../Packaging/Package";
 
 /**
  * Represents a set of `InstructionCollection`s.
@@ -14,7 +14,7 @@ export class InstructionCollectionCollection<T extends InstructionCollection<Ins
 
     /**
      * Initializes a new instance of the `InstructionCollection` class.
-     * 
+     *
      * @param pkg
      * The package the collection belongs to.
      */

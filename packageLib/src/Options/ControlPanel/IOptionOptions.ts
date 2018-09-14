@@ -1,5 +1,5 @@
-import { INodeOptions } from "../../Nodes/INodeOptions";
 import { Localizable } from "../../GLobalization/Localizable";
+import { INodeOptions } from "../../Nodes/INodeOptions";
 import { OptionItem } from "./OptionItem";
 import { OptionType } from "./OptionType";
 
@@ -49,11 +49,11 @@ export interface IOptionOptions extends INodeOptions
     Items?: OptionItem[];
 
     /**
-     * Gets a comma-separated list of options which should be visually enabled when this option is enabled.  
-     * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.  
+     * Gets a comma-separated list of options which should be visually enabled when this option is enabled.
+     * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
      * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (`:`, `U+003A`).
      *
-     * This setting is a visual helper for the administrator only.  
+     * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.
      */
     EnableOptions?: string[];

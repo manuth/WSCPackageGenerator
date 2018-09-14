@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from "util";
 import { FileSystemInstruction } from "../Automation/FileSystemInstruction";
 import { IFilesInstruction } from "./IFilesInstruction";
 import { IFilesInstructionOptions } from "./IFilesInstructionOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides a set of files.
@@ -19,7 +19,7 @@ export class FilesInstruction extends FileSystemInstruction implements IFilesIns
     public constructor(options: IFilesInstructionOptions)
     {
         super(options);
-        
+
         if (isNullOrUndefined(options.FileName))
         {
             this.FileName = options.SourceRoot + ".tar";

@@ -1,5 +1,5 @@
-import { Compiler } from "./Compiler";
 import { IInstruction } from "../Automation/IInstruction";
+import { Compiler } from "./Compiler";
 
 /**
  * Provides the functionality to compile an instruction.

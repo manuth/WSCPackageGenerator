@@ -12,7 +12,7 @@ export class NodeCollection<T extends Node> extends Array<T>
 
     /**
      * Initializes a new instance of the `NodeCollection` class.
-     * 
+     *
      * @param node
      * The node this collection belongs to.
      */

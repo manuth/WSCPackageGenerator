@@ -1,7 +1,7 @@
-import { Cronjob } from "./Cronjob";
-import { FileInstruction } from "../../Automation/FileInstruction";
-import { ICronjobInstructionOptions } from "./ICronjobInstructionOptions";
 import { isNullOrUndefined } from "util";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { Cronjob } from "./Cronjob";
+import { ICronjobInstructionOptions } from "./ICronjobInstructionOptions";
 
 /**
  * Represents an instruction that provides chron-jobs.

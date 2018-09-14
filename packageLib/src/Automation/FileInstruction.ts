@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from "util";
 import { IFileInstruction } from "./IFileInstruction";
 import { IFileInstructionOptions } from "./IFileInstructionOptions";
 import { Instruction } from "./Instruction";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that is bound to a file.

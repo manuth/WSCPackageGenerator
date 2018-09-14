@@ -1,6 +1,6 @@
+import { isNullOrUndefined } from "util";
 import { IPackageDescriptor } from "./IPackageDescriptor";
 import { IPackageDescriptorOptions } from "./IPackageDescriptorOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Provides an abstraction of a package.

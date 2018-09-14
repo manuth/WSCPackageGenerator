@@ -1,11 +1,11 @@
+import { isNullOrUndefined } from "util";
 import { FileInstruction } from "./FileInstruction";
 import { IPHPInstruction } from "./IPHPInstruction";
 import { IPHPInstructionOptions } from "./IPHPInstructionOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides a php-script execute when invoking the instruction.
- * 
+ *
  * Please keep in mind to provide the file using a `FilesInstruction`.
  */
 export class PHPInstruction extends FileInstruction implements IPHPInstruction
@@ -15,7 +15,7 @@ export class PHPInstruction extends FileInstruction implements IPHPInstruction
      * of the file package installation plugin instruction so that
      * the correct file in the intended application directory is executed.
      */
-    public application: string; 
+    public application: string;
 
     /**
      * Initializes a new instance of the `PHPInstruction` class.

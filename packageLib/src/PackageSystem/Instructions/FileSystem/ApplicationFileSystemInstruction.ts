@@ -1,6 +1,6 @@
+import { isNullOrUndefined } from "util";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which uploads files for a specific application.

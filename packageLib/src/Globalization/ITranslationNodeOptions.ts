@@ -11,12 +11,12 @@ export interface ITranslationNodeOptions extends INodeContainerOptions<Translati
      * Gets or sets the id of the error-message.
      */
     ID?: string;
-    
+
     /**
      * Gets the nodes contained by this node.
      */
     Nodes?: TranslationNode[];
-    
+
     /**
      * Gets the translations contained by this node.
      */

@@ -14,7 +14,7 @@ export interface IOptionItemOptions
      * Gets the displayname of the item.
      */
     DisplayName?: Localizable;
-    
+
     /**
      * Gets or sets the value of the item.
      */

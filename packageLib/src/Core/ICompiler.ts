@@ -7,7 +7,7 @@ export interface ICompiler
      * Gets the path to save the compiled item to.
      */
     DestinationPath: string;
-    
+
     /**
      * Gets the path to save temporary files to.
      */

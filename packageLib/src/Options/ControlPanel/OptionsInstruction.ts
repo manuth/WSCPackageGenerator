@@ -1,11 +1,11 @@
-import { FileInstruction } from "../../Automation/FileInstruction";
-import { IOptionsInstructionOptions } from "./IOptionsInstructionOptions";
-import { ITranslationsInstructionOptions } from "../../Globalization/ITranslationsInstructionOptions";
-import { Option } from "./Option";
 import * as Path from "path";
-import { SettingsNode } from "./SettingsNode";
-import { TranslationNode } from "../../Globalization/TranslationNode";
 import { isNullOrUndefined } from "util";
+import { FileInstruction } from "../../Automation/FileInstruction";
+import { ITranslationsInstructionOptions } from "../../Globalization/ITranslationsInstructionOptions";
+import { TranslationNode } from "../../Globalization/TranslationNode";
+import { IOptionsInstructionOptions } from "./IOptionsInstructionOptions";
+import { Option } from "./Option";
+import { SettingsNode } from "./SettingsNode";
 
 /**
  * Represents an instruction that provides options for the control-panel.
@@ -43,7 +43,7 @@ export class OptionsInstruction extends FileInstruction implements IOptionsInstr
         {
             this.objectsToDelete.push(...options.ObjectsToDelete);
         }
-        
+
         if (!isNullOrUndefined(options.SettingsNodes))
         {
             this.settingsNodes.push(...options.SettingsNodes);

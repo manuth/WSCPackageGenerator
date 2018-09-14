@@ -14,7 +14,7 @@ import * as assert from "assert";
 //   describe("creates files", () =>
 //   {
 //     let filename = "dummyfile.txt";
-//     it(filename, () => 
+//     it(filename, () =>
 //     {
 //       assert.file([filename]);
 //     });

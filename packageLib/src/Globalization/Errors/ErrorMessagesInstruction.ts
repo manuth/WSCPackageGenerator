@@ -1,8 +1,8 @@
+import { isNullOrUndefined } from "util";
+import { TranslationsInstruction } from "../TranslationsInstruction";
 import { ErrorMessageNode } from "./ErrorMessageNode";
 import { IErrorMessagesInstruction } from "./IErrorMessagesInstruction";
 import { IErrorMessagesInstructionOptions } from "./IErrorMessagesInstructionOptions";
-import { TranslationsInstruction } from "../TranslationsInstruction";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction which provides errorg-messages.

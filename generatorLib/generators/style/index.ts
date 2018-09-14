@@ -1,9 +1,9 @@
 import chalk from "chalk";
-import { Generator } from "../Generator";
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
+import { Generator } from "../Generator";
 
 /**
  * Provides the functionality to generate WSC-styles.
@@ -17,10 +17,10 @@ class WSCStyleGenerator extends Generator
 
     /**
      * Initializes a new instance of the `Generator` class.
-     * 
+     *
      * @param args
      * A set of arguments.
-     * 
+     *
      * @param opts
      * A set of options.
      */
@@ -155,7 +155,7 @@ class WSCStyleGenerator extends Generator
                         this.destinationPath(this.settings.stylesPath, this.settings.name, this.settings.componentPaths[component]),
                         this.settings);
                     break;
-                        
+
             }
         }
     }

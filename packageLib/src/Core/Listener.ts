@@ -1,7 +1,7 @@
+import { isNullOrUndefined } from "util";
+import { Option } from "../Options/ControlPanel/Option";
 import { IListener } from "./IListener";
 import { IListenerOptions } from "./IListenerOptions";
-import { Option } from "../Options/ControlPanel/Option";
-import { isNullOrUndefined } from "util";
 import { WSCEnvironment } from "./WSCEnvironment";
 
 /**

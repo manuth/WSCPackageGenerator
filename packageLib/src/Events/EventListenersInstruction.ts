@@ -1,8 +1,8 @@
-import { EventListener } from "./EventListener";
+import { isNullOrUndefined } from "util";
 import { FileInstruction } from "../Automation/FileInstruction";
+import { EventListener } from "./EventListener";
 import { IEventListenersInstruction } from "./IEventListenersInstruction";
 import { IEventListenersInstructionOptions } from "./IEventListenersInstructionOptions";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents an instruction that provides a set of event-listeners.

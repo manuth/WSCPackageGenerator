@@ -11,7 +11,7 @@ export interface IOptionsInstructionOptions extends IFileInstructionOptions, IDe
      * Gets or sets the categories and options provided by the instruction.
      */
     SettingsNodes: SettingsNode[];
-    
+
     /**
      * Gets or sets the directory to save the language-files to.
      */

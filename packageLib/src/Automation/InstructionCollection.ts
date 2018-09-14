@@ -1,26 +1,26 @@
-import { ACPTemplatesInstruction } from "../Customization/Presentation/ACPTemplatesInstruction";
+import { isNullOrUndefined } from "util";
+import { FilesInstruction } from "../Core/FilesInstruction";
 import { Emoji } from "../Customization/Emojis/Emoji";
 import { EmojisInstruction } from "../Customization/Emojis/EmojisInstruction";
-import { ErrorMessageNode } from "../Globalization/Errors/ErrorMessageNode";
-import { ErrorMessagesInstruction } from "../Globalization/Errors/ErrorMessagesInstruction";
-import { EventListener } from "../Events/EventListener";
-import { EventListenersInstruction } from "../Events/EventListenersInstruction";
-import { FileInstruction } from "./FileInstruction";
-import { FilesInstruction } from "../Core/FilesInstruction";
-import { IInstructionCollection } from "./IInstructionCollection";
-import { Instruction } from "./Instruction";
-import { Option } from "../Options/ControlPanel/Option";
-import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
-import { Package } from "../Packaging/Package";
-import { SettingsNode } from "../Options/ControlPanel/SettingsNode";
-import { Style } from "../Customization/Styles/Style";
-import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
+import { ACPTemplatesInstruction } from "../Customization/Presentation/ACPTemplatesInstruction";
 import { TemplateListener } from "../Customization/Presentation/TemplateListener";
 import { TemplateListenersInstruction } from "../Customization/Presentation/TemplateListenersInstruction";
 import { TemplatesInstruction } from "../Customization/Presentation/TemplatesInstruction";
+import { Style } from "../Customization/Styles/Style";
+import { StyleInstruction } from "../Customization/Styles/StyleInstruction";
+import { EventListener } from "../Events/EventListener";
+import { EventListenersInstruction } from "../Events/EventListenersInstruction";
+import { ErrorMessageNode } from "../Globalization/Errors/ErrorMessageNode";
+import { ErrorMessagesInstruction } from "../Globalization/Errors/ErrorMessagesInstruction";
 import { TranslationNode } from "../Globalization/TranslationNode";
 import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
-import { isNullOrUndefined } from "util";
+import { Option } from "../Options/ControlPanel/Option";
+import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
+import { SettingsNode } from "../Options/ControlPanel/SettingsNode";
+import { Package } from "../Packaging/Package";
+import { FileInstruction } from "./FileInstruction";
+import { IInstructionCollection } from "./IInstructionCollection";
+import { Instruction } from "./Instruction";
 
 /**
  * Rerpesents a set of instructions.
@@ -39,7 +39,7 @@ export class InstructionCollection<T extends Instruction> extends Array<T> imple
 
     /**
      * Initializes a new instance of the `InstructionCollection` class.
-     * 
+     *
      * @param pkg
      * The package this collection belongs to.
      */

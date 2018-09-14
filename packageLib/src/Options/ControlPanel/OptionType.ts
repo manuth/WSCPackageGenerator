@@ -22,7 +22,7 @@ export enum OptionType
      * Indicates a big text-box.
      */
     TextArea = "textarea",
-    
+
     /**
      * Indicates a big text-box which is localizable.
      */

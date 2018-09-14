@@ -1,5 +1,5 @@
-import { IPersonOptions } from "./IPersonOptions";
 import { Localizable } from "../GLobalization/Localizable";
+import { IPersonOptions } from "./IPersonOptions";
 
 /**
  * Provides options for the `Component` class.

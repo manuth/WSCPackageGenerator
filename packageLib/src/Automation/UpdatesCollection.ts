@@ -1,6 +1,6 @@
+import { Package } from "../Packaging/Package";
 import { Instruction } from "./Instruction";
 import { InstructionCollectionCollection } from "./InstructionCollectionCollection";
-import { Package } from "../Packaging/Package";
 import { UpdateInstructionCollection } from "./UpdateInstructionCollection";
 
 /**
@@ -10,7 +10,7 @@ export class UpdatesCollection extends InstructionCollectionCollection<UpdateIns
 {
     /**
      * Initializes a new instance of the `UpdatesCollection` class.
-     * 
+     *
      * @param pkg
      * The package the collection belongs to.
      */
