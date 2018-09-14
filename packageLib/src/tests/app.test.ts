@@ -4,11 +4,11 @@ import * as Path from "path";
 import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
 import { DOMParser } from "xmldom";
 
-describe("WSCPackageGenerator", () =>
+suite("WSCPackageGenerator", () =>
 {
     let $package: Package;
 
-    before(
+    suiteSetup(
         () =>
         {
             $package = new Package({
@@ -20,26 +20,30 @@ describe("WSCPackageGenerator", () =>
                 }
             });
         });
-    
-    describe(
+
+    suite(
         "Instruction",
         () =>
         {
-            it(
-                "Test whether the XML-code is built correctly... ",
+            suite(
+                "XML",
                 () =>
                 {
-                    let sqlInstruction = new SQLInstruction({ Source: "main.sql" });
-                    $package.InstallSet.push(sqlInstruction);
-                    {
-                        let xml = new DOMParser().parseFromString(sqlInstruction.XML);
+                    test(
+                        "Test whether the XML-code is built correctly... ",
+                        () =>
+                        {
+                            let sqlInstruction = new SQLInstruction({ Source: "main.sql" });
+                            $package.InstallSet.push(sqlInstruction);
+                            {
+                                let xml = new DOMParser().parseFromString(sqlInstruction.XML);
 
-                        assert.strictEqual(xml.documentElement.tagName, "instruction");
-                        assert.strictEqual(xml.documentElement.hasAttribute("type"), true);
-                        assert.strictEqual(xml.documentElement.getAttribute("type"), "sql");
-                        assert.strictEqual(xml.documentElement.textContent, Path.join($package.InstallSet.Directory, sqlInstruction.FileName).replace(Path.sep, "/"));
-                    }
-                    $package.InstallSet.pop();
+                                assert.strictEqual(xml.documentElement.tagName, "instruction");
+                                assert.strictEqual(xml.documentElement.hasAttribute("type"), true);
+                                assert.strictEqual(xml.documentElement.getAttribute("type"), "sql");
+                                assert.strictEqual(xml.documentElement.textContent, Path.join($package.InstallSet.Directory, sqlInstruction.FileName).replace(Path.sep, "/"));
+                            }
+                        });
                 });
         });
 });
