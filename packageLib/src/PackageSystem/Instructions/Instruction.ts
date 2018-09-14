@@ -80,7 +80,7 @@ export abstract class Instruction
     /**
      * Gets an xml-element which represents the instruction.
      */
-    protected get XMLElement(): Node
+    protected get XMLDocument(): Document
     {
         let document = new DOMParser().parseFromString("<instruction />");
         document.documentElement.textContent = this.FullName;
@@ -93,6 +93,6 @@ export abstract class Instruction
      */
     public get XML(): string
     {
-        return new XMLSerializer().serializeToString(this.XMLElement);
+        return new XMLSerializer().serializeToString(this.XMLDocument);
     }
 }
