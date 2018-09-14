@@ -1,5 +1,9 @@
 import * as assert from "assert";
+import * as Dedent from "dedent";
+import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
+import { TempDirectory } from "../Core/FileSystem/TempDirectory";
+import { StyleInstruction } from "../PackageSystem/Instructions/Customization/StyleInstruction";
 import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
 import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Instruction } from "../PackageSystem/Instructions/Instruction";
@@ -132,6 +136,51 @@ suite("WoltLab Suite Core Package Library", () =>
         "SQLInstruction",
         () =>
         {
+        });
+
+    suite(
+        "StyleInstruction",
+        () =>
+        {
+            let styleInstruction: StyleInstruction;
+
+            suiteSetup(
+                async () =>
+                {
+                    styleInstruction = new StyleInstruction({
+                        Source: null,
+                        Style: {
+                            Name: "Ugly Theme",
+                            DisplayName: {
+                                inv: "Ugly Theme"
+                            }
+                        }
+                    });
+                });
+
+            suite(
+                "Style",
+                () =>
+                {
+                    test(
+                        "Testing whether the `Style`-property is set...",
+                        () =>
+                        {
+                            assert.notEqual(styleInstruction.Style, null);
+                        });
+                });
+
+            suite(
+                "FileName",
+                () =>
+                {
+                     test(
+                        "Testing whether the `FileName`-property is set automatically according to the name of the theme...",
+                        () =>
+                        {
+                            assert.strictEqual(styleInstruction.FileName, `${styleInstruction.Style.Name}.tar`);
+                        });
+                });
         });
 
     suite(
