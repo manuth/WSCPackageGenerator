@@ -20,36 +20,6 @@ export interface IPackageOptions extends  Partial<IComponentOptions>
     DisplayName: Localizable;
 
     /**
-     * The path relative to the project-root to save temporary files to.
-     */
-    ObjectPath?: string;
-
-    /**
-     * The path relative to the `objectPath` to save the temporary package to.
-     */
-    PackageSourcePath?: string;
-
-    /**
-     * The path relative to the `objectPath` to save temporary styles to.
-     */
-    StyleSourcePath?: string;
-
-    /**
-     * The path relative to the package-root to save the components to.
-     */
-    ComponentPath?: string;
-
-    /**
-     * The path relative to the package-root to save the styles to.
-     */
-    StylePath?: string;
-
-    /**
-     * The path relative to the project-root to save the package to.
-     */
-    DestinationPath?: string;
-
-    /**
      * A set of files which will be added to the package.
      */
     AdditionalFiles?: IFileDescriptorOptions[];
