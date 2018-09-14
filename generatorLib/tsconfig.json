@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
-        "outDir": "../lib",
+        "rootDir": ".",
+        "composite": true,
         "target": "es6",
         "module": "commonjs",
         "sourceMap": true,
-        "composite": true,
         "lib": [
             "es7"
         ],
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "outDir": "../lib"
     },
     "compileOnSave": true,
     "exclude": [
