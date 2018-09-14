@@ -18,6 +18,7 @@ export abstract class FileSystemInstruction extends Instruction
     public constructor(options: IFileSystemInstructionOptions)
     {
         super(options);
+        this.Source = options.Source;
 
         if (isNullOrUndefined(options.FileName))
         {
