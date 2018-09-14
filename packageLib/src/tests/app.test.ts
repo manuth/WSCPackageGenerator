@@ -1,10 +1,11 @@
+import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import * as assert from "assert";
 import { Instruction } from "../PackageSystem/Instructions/Instruction";
 import { Package } from "../PackageSystem/Package";
 import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
 import { DOMParser } from "xmldom";
 
-suite("WSCPackageGenerator", () =>
+suite("WoltLab Suite Core Package Library", () =>
 {
     let $package: Package;
 
@@ -70,14 +71,14 @@ suite("WSCPackageGenerator", () =>
                                 });
 
                             test(
-                                'Testing whether the "type"-attribute is present...',
+                                "Testing whether the `type`-attribute is present...",
                                 () =>
                                 {
                                     assert.strictEqual(xml.documentElement.hasAttribute("type"), true);
                                 });
 
                             test(
-                                'Testing whether the "type"-attribute equals the "Type"-member of the instruction...',
+                                "Testing whether the `type`-attribute equals the `Type`-member of the instruction...",
                                 () =>
                                 {
                                     assert.strictEqual(xml.documentElement.getAttribute("type"), instruction.Type);
@@ -90,6 +91,73 @@ suite("WSCPackageGenerator", () =>
                                     assert.strictEqual(xml.documentElement.textContent, instruction.FullName);
                                 });
                         });
+                });
+        });
+
+    suite(
+        "FileSystemInstruction",
+        () =>
+        {
+            suite(
+                "FileName",
+                () =>
+                {
+                    let sqlInstruction: SQLInstruction;
+                    let sqlInstructionWithFileName: SQLInstruction;
+        
+                    suiteSetup(
+                        () =>
+                        {
+                            sqlInstruction = new SQLInstruction({ Source: "main.sql" });
+                            sqlInstructionWithFileName = new SQLInstruction({ FileName: "sql/script.sql", Source: "main.sql" });
+                        });
+                    
+                    test(
+                        "Testing whether `FileName` equals `Source` when the `FileName` isn't specified...",
+                        () =>
+                        {
+                            assert.strictEqual(sqlInstruction.FileName, sqlInstruction.Source);
+                        });
+                    
+                    test(
+                        "Testing whether `Source` doesn't affect `FileName` when the `FileName` is specified...",
+                        () =>
+                        {
+                            assert.notEqual(sqlInstructionWithFileName.FileName, sqlInstructionWithFileName.Source);
+                        });
+                });
+        });
+    
+    suite(
+        "SQLInstruction",
+        () =>
+        {
+        });
+    
+    suite(
+        "ApplicationFileSystemInstruction",
+        () =>
+        {
+            let instruction: ApplicationFileSystemInstruction;
+
+            suiteSetup(
+                () =>
+                {
+                    instruction = new ApplicationFileSystemInstruction({ Source: "files/gallery", Application: "gallery" });
+                });
+            
+            test(
+                "Testing whether the application is set correctly...",
+                () =>
+                {
+                    assert.strictEqual(instruction.Application, "gallery");
+                });
+            
+            test(
+                "Testing whether the `FileName` is generated correctly if no `FileName` is specified...",
+                () =>
+                {
+                    assert.strictEqual(instruction.FileName, `${instruction.Source}.tar`);
                 });
         });
 });
