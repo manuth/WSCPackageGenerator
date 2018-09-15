@@ -18,9 +18,10 @@ export abstract class Node
     /**
      * Initializes a new instance of the `Node` class.
      */
-    public constructor(options: INodeOptions)
+    public constructor(options: INodeOptions, parent?: Node)
     {
         this.name = options.Name;
+        this.parent = parent;
     }
 
     /**
@@ -60,16 +61,11 @@ export abstract class Node
     }
 
     /**
-     * Gets or sets the parent of the node.
+     * Gets sets the parent of the node.
      */
     public get Parent(): Node
     {
         return this.parent;
-    }
-
-    public set Parent(value: Node)
-    {
-        this.parent = value;
     }
 
     /**
