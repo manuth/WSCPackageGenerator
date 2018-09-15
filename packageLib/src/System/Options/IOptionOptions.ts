@@ -1,4 +1,4 @@
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Globalization/Localizable";
 import { OptionType } from "../../Options/ControlPanel/OptionType";
 import { INodeOptions } from "../NodeSystem/INodeOptions";
 import { IOptionItemOptions } from "./IOptionItemOptions";

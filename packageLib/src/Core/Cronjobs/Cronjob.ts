@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 import { Option } from "../../Options/ControlPanel/Option";
 import { ICronjobOptions } from "./ICronjobOptions";
 import { TimePoint } from "./TimePoint";

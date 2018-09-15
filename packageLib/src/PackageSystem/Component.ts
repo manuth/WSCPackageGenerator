@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../GLobalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 import { IComponentOptions } from "./IComponentOptions";
 import { ModuleInfo } from "./ModuleInfo";
 import { Person } from "./Person";

@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 import { BBCodeAttribute } from "./BBCodeAttribute";
 import { IBBCode } from "./IBBCode";
 import { IBBCodeOptions } from "./IBBCodeOptions";

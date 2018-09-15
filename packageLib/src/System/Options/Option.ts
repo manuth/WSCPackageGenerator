@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Globalization/Localizable";
 import { OptionType } from "../../Options/ControlPanel/OptionType";
 import { Node } from "../NodeSystem/Node";
 import { IOptionOptions } from "./IOptionOptions";

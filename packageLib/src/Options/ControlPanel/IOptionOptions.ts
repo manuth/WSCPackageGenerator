@@ -1,4 +1,4 @@
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 import { INodeOptions } from "../../Nodes/INodeOptions";
 import { OptionItem } from "./OptionItem";
 import { OptionType } from "./OptionType";

@@ -1,4 +1,4 @@
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 import { INodeContainerOptions } from "../../Nodes/INodeContainerOptions";
 import { Node } from "../../Nodes/Node";
 import { Option } from "./Option";

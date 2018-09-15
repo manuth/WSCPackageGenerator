@@ -1,4 +1,4 @@
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 
 /**
  * Provides options for the `IOptionItem` interface.

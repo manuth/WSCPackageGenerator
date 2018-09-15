@@ -14,7 +14,7 @@ import { Compiler } from "../Core/Compiler";
 import { CronjobInstruction } from "../Core/Cronjobs/CronjobInstruction";
 import { FilesInstruction } from "../Core/FilesInstruction";
 import { EventListenersInstruction } from "../Events/EventListenersInstruction";
-import { TranslationsInstruction } from "../Globalization/TranslationsInstruction";
+import { TranslationsInstruction } from "../Localization/TranslationsInstruction";
 import { OptionsInstruction } from "../Options/ControlPanel/OptionsInstruction";
 
 const MemFileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());

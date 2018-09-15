@@ -1,4 +1,4 @@
-import { Localizable } from "../GLobalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 import { IOptionalPackageDescriptorOptions } from "../Packaging/IOptionalPackageDescriptorOptions";
 import { IComponentOptions } from "./IComponentOptions";
 import { IConflictingPackageDescriptorOptions } from "./IConflictingPackageDescriptorOptions";

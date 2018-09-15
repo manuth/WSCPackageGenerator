@@ -1,8 +1,8 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { FileInstruction } from "../../Automation/FileInstruction";
-import { ITranslationsInstruction } from "../../Globalization/ITranslationsInstruction";
-import { TranslationNode } from "../../Globalization/TranslationNode";
+import { ITranslationsInstruction } from "../../Localization/ITranslationsInstruction";
+import { TranslationNode } from "../../Localization/TranslationNode";
 import { BBCode } from "./BBCode";
 import { IBBCodesInstruction } from "./IBBCodesInstruction";
 import { IBBCodesInstructionOptions } from "./IBBCodesInstructionOptions";

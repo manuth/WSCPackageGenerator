@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Globalization/Localizable";
 import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { ICronJobOptions } from "./ICronJobOptions";
 import { TimePeriod } from "./TimePeriod";

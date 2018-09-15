@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../GLobalization/Localizable";
-import { TranslationNode } from "../../Globalization/TranslationNode";
+import { Localizable } from "../../Localization/Localizable";
+import { TranslationNode } from "../../Localization/TranslationNode";
 import { Node } from "../../Nodes/Node";
 import { IOptionOptions } from "./IOptionOptions";
 import { OptionItem } from "./OptionItem";

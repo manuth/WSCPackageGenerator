@@ -1,4 +1,4 @@
-import { Localizable } from "../GLobalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 import { IPersonOptions } from "./IPersonOptions";
 
 /**

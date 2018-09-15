@@ -1,4 +1,4 @@
-import { Localizable } from "../../GLobalization/Localizable";
+import { Localizable } from "../../Localization/Localizable";
 import { Option } from "../../Options/ControlPanel/Option";
 import { TimePoint } from "./TimePoint";
 
