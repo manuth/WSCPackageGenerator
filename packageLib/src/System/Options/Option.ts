@@ -8,7 +8,7 @@ import { OptionItem } from "./OptionItem";
 /**
  * Represents an option.
  */
-export class Option extends Node
+export abstract class Option extends Node
 {
     /**
      * The id of the option.
