@@ -1,5 +1,5 @@
-import { Theme } from "../../../Customization/Presentation/Themes/Theme";
-import { Instruction } from "../Instruction";
+import { Theme } from "../../../../Customization/Presentation/Themes/Theme";
+import { Instruction } from "../../Instruction";
 import { IThemeInstructionOptions } from "./IThemeInstructionOptions";
 
 /**

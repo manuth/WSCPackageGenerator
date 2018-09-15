@@ -5,7 +5,7 @@ import Hex2RgbaModule from "hex-to-rgba";
 import * as OS from "os";
 import { isNullOrUndefined } from "util";
 import { Component } from "../../../PackageSystem/Component";
-import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/ThemeInstruction";
+import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { ModuleInfo } from "../../../PackageSystem/ModuleInfo";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
 import { IThemeOptions } from "./IThemeOptions";
