@@ -71,6 +71,9 @@ export class Option extends Node
      */
     private additionalProperties: { [key: string]: any } = {};
 
+    /**
+     * Initializes a new instance of the `Option` class.
+     */
     public constructor(options: IOptionOptions, parent: Node)
     {
         super(options, parent);
