@@ -15,7 +15,7 @@ export abstract class Component
     private name: string;
 
     /**
-     * The human-readabnle name of the component.
+     * The human-readable name of the component.
      */
     private displayName: Localizable = new Localizable();
 
