@@ -1,10 +1,20 @@
 /**
  * Provides options for the `Node` class.
  */
-export interface INodeOptions
+export interface INodeOptions<T>
 {
     /**
      * The name of the node.
      */
     Name: string;
+
+    /**
+     * The item of the node.
+     */
+    Item: T;
+
+    /**
+     * The children of the node.
+     */
+    Nodes?: INodeOptions<T>[];
 }

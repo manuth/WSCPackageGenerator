@@ -1,9 +1,10 @@
+import { isNullOrUndefined } from "util";
 import { INodeOptions } from "./INodeOptions";
 
 /**
  * Represents a node.
  */
-export abstract class Node
+export class Node<T, TOptions>
 {
     /**
      * The name of the node.
@@ -11,27 +12,45 @@ export abstract class Node
     private name: string;
 
     /**
+     * The item of the node.
+     */
+    private item: T;
+
+    /**
      * The parent of the node.
      */
-    private parent: Node;
+    private parent: Node<T, TOptions>;
+
+    /**
+     * The children of the node.
+     */
+    private nodes: Node<T, TOptions>[] = [];
 
     /**
      * Initializes a new instance of the `Node` class.
      */
-    public constructor(options: INodeOptions, parent?: Node)
+    public constructor(options: INodeOptions<TOptions>, generator: (node: Node<T, TOptions>, options: TOptions) => T)
     {
-        this.name = options.Name;
-        this.parent = parent;
+        this.Name = options.Name;
+        this.item = generator(this, options.Item);
+
+        if (!isNullOrUndefined(options.Nodes))
+        {
+            for (let node of options.Nodes)
+            {
+                this.Nodes.push(new Node<T, TOptions>(node, generator));
+            }
+        }
     }
 
     /**
      * Gets the tree of the parents of the node.
      */
-    protected get ParentTree(): Node[]
+    protected get ParentTree(): Node<T, TOptions>[]
     {
-        let result: Node[] = [];
+        let result: Node<T, TOptions>[] = [];
 
-        for (let node: Node = this.Parent; node !== null; node = node.Parent)
+        for (let node: Node<T, TOptions> = this.Parent; node !== null; node = node.Parent)
         {
             result.push(node);
         }
@@ -57,15 +76,31 @@ export abstract class Node
      */
     public get FullName(): string
     {
-        return [this as Node].concat(this.ParentTree).map((node: Node) => node.Name).join(".");
+        return [this as Node<T, TOptions>].concat(this.ParentTree).map((node: Node<T, TOptions>) => node.Name).join(".");
+    }
+
+    /**
+     * Gets the item of the node.
+     */
+    public get Item(): T
+    {
+        return this.item;
     }
 
     /**
      * Gets sets the parent of the node.
      */
-    public get Parent(): Node
+    public get Parent(): Node<T, TOptions>
     {
         return this.parent;
+    }
+
+    /**
+     * Gets the children of the node.
+     */
+    public get Nodes(): Node<T, TOptions>[]
+    {
+        return this.nodes;
     }
 
     /**
