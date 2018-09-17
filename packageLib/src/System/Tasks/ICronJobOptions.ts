@@ -1,4 +1,4 @@
-import { Localizable } from "../../Globalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { TimePeriod } from "./TimePeriod";
 

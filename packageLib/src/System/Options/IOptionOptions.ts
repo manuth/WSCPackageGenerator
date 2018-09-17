@@ -1,7 +1,7 @@
-import { Localizable } from "../../Globalization/Localizable";
-import { OptionType } from "../../Options/ControlPanel/OptionType";
+import { Localizable } from "../Globalization/Localizable";
 import { INodeOptions } from "../NodeSystem/INodeOptions";
 import { IOptionItemOptions } from "./IOptionItemOptions";
+import { OptionType } from "./OptionType";
 
 /**
  * Provides options for the `Option` class.

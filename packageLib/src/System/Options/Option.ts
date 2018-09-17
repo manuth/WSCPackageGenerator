@@ -1,9 +1,9 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../Globalization/Localizable";
-import { OptionType } from "../../Options/ControlPanel/OptionType";
+import { Localizable } from "../Globalization/Localizable";
 import { Node } from "../NodeSystem/Node";
 import { IOptionOptions } from "./IOptionOptions";
 import { OptionItem } from "./OptionItem";
+import { OptionType } from "./OptionType";
 
 /**
  * Represents an option.

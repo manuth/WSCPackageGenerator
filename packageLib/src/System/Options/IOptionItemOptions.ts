@@ -1,4 +1,4 @@
-import { Localizable } from "../../Globalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 
 /**
  * Provides options for the `OptionItem` class.

@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../Globalization/Localizable";
+import { Localizable } from "../Globalization/Localizable";
 import { IOptionItemOptions } from "./IOptionItemOptions";
 import { Option } from "./Option";
 
