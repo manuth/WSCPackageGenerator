@@ -1,4 +1,4 @@
-import { ICronJobOptions } from "../../System/Tasks/ICronJobOptions";
+import { ICronJobOptions } from "../../Tasks/ICronJobOptions";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { IRemovableInstruction } from "./IRemovableInstruction";
 

@@ -2,12 +2,12 @@ import * as assert from "assert";
 import * as Dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
-import { ThemeInstruction } from "../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
-import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
-import { Instruction } from "../PackageSystem/Instructions/Instruction";
-import { Package } from "../PackageSystem/Package";
 import { TempDirectory } from "../System/FileSystem/TempDirectory";
+import { ThemeInstruction } from "../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { SQLInstruction } from "../System/PackageSystem/Instructions/Data/SQLInstruction";
+import { ApplicationFileSystemInstruction } from "../System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
+import { Instruction } from "../System/PackageSystem/Instructions/Instruction";
+import { Package } from "../System/PackageSystem/Package";
 
 suite("WoltLab Suite Core Package Library", () =>
 {

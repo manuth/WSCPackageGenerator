@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from "util";
-import { OptionalPackageDescriptor } from "../Packaging/OptionalPackageDescriptor";
 import { Component } from "./Component";
 import { ConflictingPackageDescriptor } from "./ConflictingPackageDescriptor";
 import { FileDescriptor } from "./FileDescriptor";
@@ -7,6 +6,7 @@ import { InstructionSet } from "./Instructions/InstructionSet";
 import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
 import { IPackageOptions } from "./IPackageOptions";
 import { ModuleInfo } from "./ModuleInfo";
+import { OptionalPackageDescriptor } from "./OptionalPackageDescriptor";
 import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
 
 /**

@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { CronJob } from "../../System/Tasks/CronJob";
+import { CronJob } from "../../Tasks/CronJob";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";
 import { Instruction } from "./Instruction";
 import { IRemovableInstruction } from "./IRemovableInstruction";

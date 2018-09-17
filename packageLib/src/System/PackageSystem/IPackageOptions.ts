@@ -1,10 +1,10 @@
 import { Localizable } from "../Globalization/Localizable";
-import { IOptionalPackageDescriptorOptions } from "../Packaging/IOptionalPackageDescriptorOptions";
 import { IComponentOptions } from "./IComponentOptions";
 import { IConflictingPackageDescriptorOptions } from "./IConflictingPackageDescriptorOptions";
 import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 import { IInstructionSetOptions } from "./Instructions/IInstructionSetOptions";
 import { IUpdateInstructionSetOptions } from "./Instructions/IUpdateInstructionSetOptions";
+import { IPackageFileDescriptorOptions } from "./IPackageFileDescriptorOptions";
 import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
 
 /**
@@ -37,7 +37,7 @@ export interface IPackageOptions extends  Partial<IComponentOptions>
     /**
      * A set of packages which can be installed additionally.
      */
-    OptionalPackages?: IOptionalPackageDescriptorOptions[];
+    OptionalPackages?: Required<IPackageFileDescriptorOptions>[];
 
     /**
      * A set of instructions for installing the package.
