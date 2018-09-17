@@ -38,8 +38,9 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
      */
     protected Add(item: TreeObject<T>): boolean
     {
-        if (!this.includes(item))
+        if (item.Parent !== this.Owner)
         {
+            super.push(item);
             item.Parent = this.Owner;
             return true;
         }
@@ -57,8 +58,9 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
      */
     protected Remove(item: TreeObject<T>): boolean
     {
-        if (this.includes(item))
+        if (item.Parent === this.Owner)
         {
+            super.splice(this.indexOf(item), 1);
             item.Parent = null;
             return true;
         }
@@ -86,15 +88,13 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
     public pop(): TreeObject<T>
     {
         let result: TreeObject<T> = this[this.length - 1];
-        this.Remove(result);
-        return result;
+        return this.Remove(result) ? result : undefined;
     }
 
     public shift(): TreeObject<T>
     {
         let result: TreeObject<T> = this[0];
-        this.Remove(result);
-        return result;
+        return this.Remove(result) ? result : undefined;
     }
 
     public unshift(...items: TreeObject<T>[]): number

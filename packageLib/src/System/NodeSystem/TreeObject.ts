@@ -40,7 +40,16 @@ export class TreeObject<T>
                 this.Parent.Nodes.splice(this.Parent.Nodes.indexOf(this), 1);
             }
 
-            this.parent = value;
+            if (
+                isNullOrUndefined(value) ||
+                value.Nodes.includes(this))
+            {
+                this.parent = value;
+            }
+            else
+            {
+                value.Nodes.push(this);
+            }
         }
     }
 
