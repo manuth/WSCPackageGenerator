@@ -1,14 +1,14 @@
-import { TreeObject } from "./TreeObject";
+import { Node } from "./Node";
 
 /**
  * Represents a collection of items.
  */
-export class TreeObjectCollection<T> extends Array<TreeObject<T>>
+export class TreeObjectCollection<T extends Node> extends Array<T>
 {
     /**
      * The owner of the collection.
      */
-    private owner: TreeObject<T>;
+    private owner: T;
 
     /**
      * Initializes a new instance of the `TreeObjectCollection<T>` class.
@@ -16,7 +16,7 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
      * @param owner
      * The owner of the collection.
      */
-    public constructor(owner: TreeObject<T>)
+    public constructor(owner: T)
     {
         super();
         this.owner = owner;
@@ -25,7 +25,7 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
     /**
      * Gets the owner of the collection.
      */
-    public get Owner(): TreeObject<T>
+    public get Owner(): T
     {
         return this.owner;
     }
@@ -36,7 +36,7 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
      * @param item
      * The item to add.
      */
-    protected Add(item: TreeObject<T>): boolean
+    protected Add(item: T): boolean
     {
         if (item.Parent !== this.Owner)
         {
@@ -56,7 +56,7 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
      * @param item
      * The item to remove.
      */
-    protected Remove(item: TreeObject<T>): boolean
+    protected Remove(item: T): boolean
     {
         if (item.Parent === this.Owner)
         {
@@ -70,7 +70,7 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
         }
     }
 
-    public push(...items: TreeObject<T>[]): number
+    public push(...items: T[]): number
     {
         let result: number = 0;
 
@@ -85,19 +85,19 @@ export class TreeObjectCollection<T> extends Array<TreeObject<T>>
         return result;
     }
 
-    public pop(): TreeObject<T>
+    public pop(): T
     {
-        let result: TreeObject<T> = this[this.length - 1];
+        let result: T = this[this.length - 1];
         return this.Remove(result) ? result : undefined;
     }
 
-    public shift(): TreeObject<T>
+    public shift(): T
     {
-        let result: TreeObject<T> = this[0];
+        let result: T = this[0];
         return this.Remove(result) ? result : undefined;
     }
 
-    public unshift(...items: TreeObject<T>[]): number
+    public unshift(...items: T[]): number
     {
         let result: number = 0;
 
