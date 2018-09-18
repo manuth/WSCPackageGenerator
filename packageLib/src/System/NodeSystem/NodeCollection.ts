@@ -3,7 +3,7 @@ import { Node } from "./Node";
 /**
  * Represents a collection of items.
  */
-export class TreeObjectCollection<T extends Node> extends Array<T>
+export class NodeCollection<T extends Node> extends Array<T>
 {
     /**
      * The owner of the collection.
@@ -11,7 +11,7 @@ export class TreeObjectCollection<T extends Node> extends Array<T>
     private owner: T;
 
     /**
-     * Initializes a new instance of the `TreeObjectCollection<T>` class.
+     * Initializes a new instance of the `NodeCollection<T>` class.
      *
      * @param owner
      * The owner of the collection.

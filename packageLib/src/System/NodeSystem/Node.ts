@@ -1,28 +1,51 @@
 import { isNullOrUndefined } from "util";
-import { TreeObjectCollection } from "./NodeCollection";
+import { INodeOptions } from "./INodeOptions";
+import { NodeCollection } from "./NodeCollection";
 
 /**
- * Represents a recursive object.
+ * Represents a node.
  */
 export class Node
 {
     /**
-     * The name of the item.
+     * The name of the node.
      */
     private name: string;
 
     /**
-     * The parent of the object.
+     * The parent of the node.
      */
     private parent: Node;
 
     /**
-     * The children of the object.
+     * The children of the node.
      */
-    private nodes: Node[] = new TreeObjectCollection(this);
+    private nodes: Node[] = new NodeCollection(this);
 
     /**
-     * Gets the parents of the node of the item.
+     * Initializes a new instance of the `Node` class.
+     *
+     * @param options
+     * The options for generating the object.
+     *
+     * @param generator
+     * The generator-function for generating sub-nodes.
+     */
+    public constructor(options: INodeOptions, generator: (options: INodeOptions) => Node)
+    {
+        this.Name = options.Name;
+
+        if (!isNullOrUndefined(options.Nodes))
+        {
+            for (let node of options.Nodes)
+            {
+                this.Nodes.push(generator(node));
+            }
+        }
+    }
+
+    /**
+     * Gets the parents of the node.
      */
     protected get Parents(): Node[]
     {
@@ -58,7 +81,7 @@ export class Node
     }
 
     /**
-     * Gets or sets the parent of the object.
+     * Gets or sets the parent of the node.
      */
     public get Parent(): Node
     {
@@ -90,7 +113,7 @@ export class Node
     }
 
     /**
-     * Gets the children of the object.
+     * Gets the children of the node.
      */
     public get Nodes(): Node[]
     {
