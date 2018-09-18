@@ -1,6 +1,6 @@
 import { IdentifiableNode } from "../NodeSystem/IdentifiableNode";
-import { Localizable } from "./Localizable";
 import { ILocalizationNodeOptions } from "./ILocalizationNodeOptions";
+import { Localizable } from "./Localizable";
 
 /**
  * Represents a node which contains translations.
