@@ -10,7 +10,7 @@ export class IdentifiableNode extends Node
     private id: string = null;
 
     /**
-     * Initializes a new instance of the `Node` class.
+     * Initializes a new instance of the `IdentifiableNode` class.
      *
      * @param options
      * The options for generating the object.

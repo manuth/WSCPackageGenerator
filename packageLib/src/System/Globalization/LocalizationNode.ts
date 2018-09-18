@@ -13,7 +13,7 @@ export class LocalizationNode extends IdentifiableNode
     private translations: Localizable = new Localizable();
 
     /**
-     * Initializes a new instance of the `Node` class.
+     * Initializes a new instance of the `LocalizationNode` class.
      *
      * @param options
      * The options for generating the object.
