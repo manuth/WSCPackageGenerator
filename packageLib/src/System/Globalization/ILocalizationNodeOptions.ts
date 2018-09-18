@@ -9,5 +9,5 @@ export interface ILocalizationNodeOptions extends IIdentifiableNodeOptions
     /**
      * The translations of the node.
      */
-    Translations: ILocalizable;
+    Translations?: ILocalizable;
 }
