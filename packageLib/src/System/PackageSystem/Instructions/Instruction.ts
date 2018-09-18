@@ -1,13 +1,14 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { DOMParser, XMLSerializer } from "xmldom";
+import { IInstruction } from "./IInstruction";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
 
 /**
  * Represents a step of a package-installation.
  */
-export abstract class Instruction
+export abstract class Instruction implements IInstruction
 {
     /**
      * The package this instruction belongs to.
