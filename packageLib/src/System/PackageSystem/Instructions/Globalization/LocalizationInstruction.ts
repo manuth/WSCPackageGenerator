@@ -25,6 +25,11 @@ export abstract class LocalizationInstruction<T extends LocalizationNode, TOptio
         return "language";
     }
 
+    public get TranslationDirectory(): string
+    {
+        return this.FileName;
+    }
+
     public GetMessages(): { [category: string]: { [key: string]: Localizable } }
     {
         let result: { [category: string]: { [key: string]: Localizable } } = {};

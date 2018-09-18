@@ -1,7 +1,7 @@
 import { ILocalizationNodeOptions } from "../../../Globalization/ILocalizationNodeOptions";
 import { TranslationNode } from "../../../Globalization/TranslationNode";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
-import { LocalizationInstruction } from "./LocalizationInstructionl";
+import { LocalizationInstruction } from "./LocalizationInstruction";
 
 /**
  * Represents an instruction which provides translations.

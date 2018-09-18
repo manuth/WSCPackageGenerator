@@ -2,7 +2,7 @@ import { ErrorMessageNode } from "../../../Globalization/ErrorMessageNode";
 import { ILocalizationNodeOptions } from "../../../Globalization/ILocalizationNodeOptions";
 import { Localizable } from "../../../Globalization/Localizable";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
-import { LocalizationInstruction } from "./LocalizationInstructionl";
+import { LocalizationInstruction } from "./LocalizationInstruction";
 
 /**
  * Represents an instruction which provides translations.
