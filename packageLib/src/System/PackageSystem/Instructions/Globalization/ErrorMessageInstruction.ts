@@ -1,30 +1,35 @@
-import { ErrorMessageNode } from "../../../Globalization/ErrorMessageNode";
-import { ILocalizationNodeOptions } from "../../../Globalization/ILocalizationNodeOptions";
+import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
 import { Localizable } from "../../../Globalization/Localizable";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
-import { LocalizationInstruction } from "./LocalizationInstruction";
+import { TranslationInstruction } from "./TranslationInstruction";
 
 /**
  * Represents an instruction which provides translations.
  */
-export class ErrorMessageInstruction extends LocalizationInstruction<ErrorMessageNode, ILocalizationNodeOptions>
+export class ErrorMessageInstruction extends TranslationInstruction
 {
     /**
      * Initializes a new instance of the `ErrorMessageInstruction` class.
      */
-    public constructor(options: INodeSystemInstructionOptions<ILocalizationNodeOptions>)
+    public constructor(options: INodeSystemInstructionOptions<ILocalizationItemOptions>)
     {
-        super(options, (opts: ILocalizationNodeOptions) => new ErrorMessageNode(opts));
+        super(options);
     }
 
     public GetMessages(): { [category: string]: { [key: string]: Localizable } }
     {
-        let result: { [category: string]: { [key: string]: Localizable } } = { "wcf.acp.option.error": {} };
+        let rootName: string = "wcf.acp.option.error";
+        let result: { [category: string]: { [key: string]: Localizable } } = {};
         let messages: { [category: string]: { [key: string]: Localizable } } = super.GetMessages();
+
+        result[rootName] = {};
 
         for (let category in messages)
         {
-            Object.assign(result["wcf.acp.option.error"], messages[category]);
+            for (let key in messages[category])
+            {
+                result[rootName][`${rootName}.${key}`] = messages[category][key];
+            }
         }
 
         return result;

@@ -1,10 +1,9 @@
-import { IIdentifiableNodeOptions } from "../NodeSystem/IIdentifiableNodeOptions";
 import { ILocalizable } from "./ILocalizable";
 
 /**
  * Provides options for the `LocalizationNode` class.
  */
-export interface ILocalizationNodeOptions extends IIdentifiableNodeOptions
+export interface ILocalizationItemOptions
 {
     /**
      * The translations of the node.

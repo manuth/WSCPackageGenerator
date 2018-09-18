@@ -1,3 +1,4 @@
+import { INodeOptions } from "../../NodeSystem/INodeOptions";
 import { IInstructionOptions } from "./IInstructionOptions";
 
 /**
@@ -8,5 +9,5 @@ export interface INodeSystemInstructionOptions<T> extends IInstructionOptions
     /**
      * The nodes provided by the instruction.
      */
-    Nodes: T[];
+    Nodes: INodeOptions<T>[];
 }

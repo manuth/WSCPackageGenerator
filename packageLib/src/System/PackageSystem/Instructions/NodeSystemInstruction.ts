@@ -1,16 +1,17 @@
 import { Node } from "../../NodeSystem/Node";
+import { NodeItem } from "../../NodeSystem/NodeItem";
 import { INodeSystemInstructionOptions } from "./INodeSystemInstructionOptions";
 import { Instruction } from "./Instruction";
 
 /**
  * Represents an instruction which provides nodes.
  */
-export abstract class NodeSystemInstruction<T extends Node, TOptions> extends Instruction
+export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extends Instruction
 {
     /**
      * The nodes provides by the instruction.
      */
-    private nodes: T[];
+    private nodes: Node<T, TOptions>[];
 
     /**
      * Initializes a new instance of the `NodeSystemInstruction<T>` class.
@@ -27,14 +28,14 @@ export abstract class NodeSystemInstruction<T extends Node, TOptions> extends In
 
         for (let node of options.Nodes)
         {
-            this.nodes.push(generator(node));
+            this.nodes.push(new Node<T, TOptions>(node, generator));
         }
     }
 
     /**
      * Gets the nodes provides by the instruction.
      */
-    public get Nodes(): T[]
+    public get Nodes(): Node<T, TOptions>[]
     {
         return this.nodes;
     }

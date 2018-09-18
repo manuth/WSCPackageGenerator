@@ -1,26 +1,38 @@
 import { isNullOrUndefined } from "util";
+import { INode } from "./INode";
 import { INodeOptions } from "./INodeOptions";
 import { NodeCollection } from "./NodeCollection";
+import { NodeItem } from "./NodeItem";
 
 /**
  * Represents a node.
  */
-export class Node
+export class Node<T extends NodeItem, TOptions> implements INode
 {
+    /**
+     * The id of the node.
+     */
+    private id: string = null;
+
     /**
      * The name of the node.
      */
     private name: string;
 
     /**
+     * The item of the node.
+     */
+    private item: T = null;
+
+    /**
      * The parent of the node.
      */
-    private parent: Node;
+    private parent: Node<T, TOptions>;
 
     /**
      * The children of the node.
      */
-    private nodes: Node[] = new NodeCollection(this);
+    private nodes: Node<T, TOptions>[] = new NodeCollection(this);
 
     /**
      * Initializes a new instance of the `Node` class.
@@ -31,15 +43,25 @@ export class Node
      * @param generator
      * The generator-function for generating sub-nodes.
      */
-    public constructor(options: INodeOptions, generator: (options: INodeOptions) => Node)
+    public constructor(options: INodeOptions<TOptions>, generator: (options: TOptions) => T)
     {
+        if (!isNullOrUndefined(options.ID))
+        {
+            this.ID = options.ID;
+        }
+
         this.Name = options.Name;
+
+        if (!isNullOrUndefined(options.Item))
+        {
+            this.item = generator(options.Item);
+        }
 
         if (!isNullOrUndefined(options.Nodes))
         {
             for (let node of options.Nodes)
             {
-                this.Nodes.push(generator(node));
+                this.Nodes.push(new Node(node, generator));
             }
         }
     }
@@ -47,16 +69,29 @@ export class Node
     /**
      * Gets the parents of the node.
      */
-    protected get Parents(): Node[]
+    protected get Parents(): Node<T, TOptions>[]
     {
-        let result: Node[];
+        let result: Node<T, TOptions>[];
 
-        for (let node: Node = this.Parent; node !== null; node = node.Parent)
+        for (let node: Node<T, TOptions> = this.Parent; node !== null; node = node.Parent)
         {
             result.push(node);
         }
 
         return result;
+    }
+
+    /**
+     * Gets or sets the id of the node.
+     */
+    public get ID(): string
+    {
+        return this.id;
+    }
+
+    public set ID(value: string)
+    {
+        this.id = value;
     }
 
     /**
@@ -81,14 +116,22 @@ export class Node
     }
 
     /**
+     * Gets the item of the node.
+     */
+    public get Item(): T
+    {
+        return this.item;
+    }
+
+    /**
      * Gets or sets the parent of the node.
      */
-    public get Parent(): Node
+    public get Parent(): Node<T, TOptions>
     {
         return this.parent;
     }
 
-    public set Parent(value: Node)
+    public set Parent(value: Node<T, TOptions>)
     {
         if (this.Parent !== value)
         {
@@ -115,7 +158,7 @@ export class Node
     /**
      * Gets the children of the node.
      */
-    public get Nodes(): Node[]
+    public get Nodes(): Node<T, TOptions>[]
     {
         return this.nodes;
     }

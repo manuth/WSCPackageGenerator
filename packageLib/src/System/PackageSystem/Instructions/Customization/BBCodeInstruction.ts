@@ -1,5 +1,5 @@
 import { BBCode } from "../../../Customization/BBCodes/BBCode";
-import { TranslationNode } from "../../../Globalization/TranslationNode";
+import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { ITranslationProviderInstruction } from "../Globalization/ITranslationProviderInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
@@ -45,7 +45,7 @@ export class BBCodeInstruction extends Instruction implements ITranslationProvid
 
     public get Translations(): ILocalizationInstruction
     {
-        let rootNode: TranslationNode = new TranslationNode(
+        let rootNode: LocalizationNode = new LocalizationNode(
             {
                 Name: "wcf.editor.button"
             });
@@ -55,10 +55,12 @@ export class BBCodeInstruction extends Instruction implements ITranslationProvid
             if (Object.keys(bbCode.DisplayName).length > 0)
             {
                 rootNode.Nodes.push(
-                    new TranslationNode(
+                    new LocalizationNode(
                         {
                             Name: bbCode.Name,
-                            Translations: bbCode.DisplayName
+                            Item: {
+                                Translations: bbCode.DisplayName
+                            }
                         }));
             }
         }

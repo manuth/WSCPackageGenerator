@@ -1,9 +1,10 @@
 import { Node } from "./Node";
+import { NodeItem } from "./NodeItem";
 
 /**
  * Represents a collection of items.
  */
-export class NodeCollection<T extends Node> extends Array<T>
+export class NodeCollection<T extends Node<TItem, TOptions>, TItem extends NodeItem, TOptions> extends Array<T>
 {
     /**
      * The owner of the collection.
