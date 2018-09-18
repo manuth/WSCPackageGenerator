@@ -40,4 +40,25 @@ export class IdentifiableNode extends Node
     {
         this.id = value;
     }
+
+    /**
+     * Gets or sets the parent of the node.
+     */
+    public get Parent(): IdentifiableNode
+    {
+        return super.Parent as IdentifiableNode;
+    }
+
+    public set Parent(value: IdentifiableNode)
+    {
+        super.Parent = value;
+    }
+
+    /**
+     * Gets the children of the node.
+     */
+    public get Nodes(): IdentifiableNode[]
+    {
+        return super.Nodes as IdentifiableNode[];
+    }
 }
