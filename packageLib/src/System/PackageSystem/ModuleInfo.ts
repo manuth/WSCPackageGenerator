@@ -64,6 +64,11 @@ export class ModuleInfo
             {
                 this.license = $package.license;
             }
+
+            if ($package.version)
+            {
+                this.version = $package.version;
+            }
         }
     }
 
