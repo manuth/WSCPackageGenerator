@@ -78,6 +78,14 @@ export abstract class Instruction
     }
 
     /**
+     * Gets all identifiable objects.
+     */
+    public get ObjectsByID(): { [id: string]: any }
+    {
+        return {};
+    }
+
+    /**
      * Gets an xml-element which represents the instruction.
      */
     protected get XMLDocument(): Document
