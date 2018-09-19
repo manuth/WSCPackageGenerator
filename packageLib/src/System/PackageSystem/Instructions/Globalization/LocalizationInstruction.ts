@@ -44,7 +44,16 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
         return result;
     }
 
-    public GetTranslations(node: Node<T, TOptions>): { [key: string]: Localizable }
+    /**
+     * Gets the translations of a node recursively.
+     *
+     * @param node
+     * The node to get the translations.
+     *
+     * @returns
+     * The translations of the node.
+     */
+    protected GetTranslations(node: Node<T, TOptions>): { [key: string]: Localizable }
     {
         let result: { [key: string]: Localizable } = {};
 
