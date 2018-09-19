@@ -32,7 +32,7 @@ export class TempDirectory
      */
     public MakePath(...path: string[]): string
     {
-        return Path.join(this.tempDirectory.name, ...path);
+        return Path.join(this.FileName, ...path);
     }
 
     /**
