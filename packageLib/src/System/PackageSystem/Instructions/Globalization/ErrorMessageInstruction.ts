@@ -1,5 +1,6 @@
 import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
 import { Localizable } from "../../../Globalization/Localizable";
+import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
 import { TranslationInstruction } from "./TranslationInstruction";
 
@@ -18,20 +19,43 @@ export class ErrorMessageInstruction extends TranslationInstruction
 
     public GetMessages(): { [category: string]: { [key: string]: Localizable } }
     {
-        let rootName: string = "wcf.acp.option.error";
-        let result: { [category: string]: { [key: string]: Localizable } } = {};
-        let messages: { [category: string]: { [key: string]: Localizable } } = super.GetMessages();
+        let result: TranslationInstruction = new TranslationInstruction(
+            {
+                FileName: this.FileName,
+                Nodes: []
+            });
 
-        result[rootName] = {};
+        let rootNode: LocalizationNode = new LocalizationNode(
+            {
+                Name: "wcf.acp.option.error"
+            });
+
+        let messages: { [category: string]: { [key: string]: Localizable } } = super.GetMessages();
 
         for (let category in messages)
         {
+            let categoryNode: LocalizationNode = new LocalizationNode(
+                {
+                    Name: category
+                });
+
             for (let key in messages[category])
             {
-                result[rootName][`${rootName}.${key}`] = messages[category][key];
+                categoryNode.Nodes.push(
+                    new LocalizationNode(
+                        {
+                            Name: key,
+                            Item:
+                            {
+                                Translations: messages[category][key]
+                            }
+                        }));
             }
+
+            rootNode.Nodes.push(categoryNode);
         }
 
-        return result;
+        result.Nodes.push(rootNode);
+        return result.GetMessages();
     }
 }

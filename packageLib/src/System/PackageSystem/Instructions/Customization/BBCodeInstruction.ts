@@ -1,14 +1,14 @@
 import { BBCode } from "../../../Customization/BBCodes/BBCode";
+import { Localizable } from "../../../Globalization/Localizable";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
-import { ITranslationProviderInstruction } from "../Globalization/ITranslationProviderInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
 import { Instruction } from "../Instruction";
 
 /**
  * Represents an instruction which provides bbcodes.
  */
-export class BBCodeInstruction extends Instruction implements ITranslationProviderInstruction
+export class BBCodeInstruction extends Instruction implements ILocalizationInstruction
 {
     /**
      * The bbcodes provided by this instruction.
@@ -43,8 +43,14 @@ export class BBCodeInstruction extends Instruction implements ITranslationProvid
         this.translationDirectory = value;
     }
 
-    public get Translations(): ILocalizationInstruction
+    public GetMessages(): { [category: string]: { [key: string]: Localizable } }
     {
+        let result: TranslationInstruction = new TranslationInstruction(
+            {
+                FileName: this.TranslationDirectory,
+                Nodes: []
+            });
+
         let rootNode: LocalizationNode = new LocalizationNode(
             {
                 Name: "wcf.editor.button"
@@ -65,12 +71,7 @@ export class BBCodeInstruction extends Instruction implements ITranslationProvid
             }
         }
 
-        return new TranslationInstruction(
-            {
-                FileName: this.TranslationDirectory,
-                Nodes: [
-                    rootNode
-                ]
-            });
+        result.Nodes.push(rootNode);
+        return result.GetMessages();
     }
 }
