@@ -57,6 +57,12 @@ export class Theme extends Component
      */
     private images: ImageDirectoryDescriptor = null;
 
+    /**
+     * Initializes a new instance of the `Theme` class.
+     *
+     * @param instruction
+     * The instruction of the theme.
+     */
     public constructor(instruction: ThemeInstruction, options: IThemeOptions)
     {
         super({
