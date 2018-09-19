@@ -2,7 +2,6 @@ import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { parse } from "sass-variable-parser";
 
-
 /**
  * Provides the functionality to parse `sass`-variable files.
  */

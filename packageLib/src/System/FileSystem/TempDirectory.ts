@@ -1,3 +1,4 @@
+import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as Temp from "tmp";
 
@@ -40,6 +41,7 @@ export class TempDirectory
      */
     public Dispose(): void
     {
+        FileSystem.emptyDirSync(this.FileName);
         this.tempDirectory.removeCallback();
         this.tempDirectory = null;
     }
