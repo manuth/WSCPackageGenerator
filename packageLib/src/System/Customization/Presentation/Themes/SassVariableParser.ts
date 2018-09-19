@@ -8,34 +8,49 @@ import { parse } from "sass-variable-parser";
 export class SassVariableParser
 {
     /**
-     * The parsed variables.
+     * The filename of the scss-file to parse.
      */
-    private variables: { [key: string]: string } = {};
+    private fileName: string;
 
+    /**
+     * Provides the functionality to parse an scss-file.
+     *
+     * @param fileName
+     * The filename of the scss-file to parse.
+     */
     public constructor(fileName: string)
     {
-        let currentDir: string = process.cwd();
-        {
-            let variables: { [key: string]: string } = parse(
-                FileSystem.readFileSync(fileName).toString(),
-                {
-                    camelCase: false,
-                    cwd: Path.dirname(fileName)
-                });
-
-            for (let name in variables)
-            {
-                this.variables[name] = variables[name];
-            }
-        }
-        process.chdir(currentDir);
+        this.fileName = fileName;
     }
 
     /**
-     * Gets the parsed variables.
+     * Parses the scss-file.
+     *
+     * @returns
+     * The variables inside the scss-file.
      */
-    public get Variables(): Readonly<{ [key: string]: string }>
+    public Parse(): { [key: string]: string }
     {
-        return this.variables;
+        let currentDir: string = process.cwd();
+
+        try
+        {
+            let variables: { [key: string]: string } = parse(
+                FileSystem.readFileSync(this.fileName).toString(),
+                {
+                    camelCase: false,
+                    cwd: Path.dirname(this.fileName)
+                });
+
+            return variables;
+        }
+        catch (exception)
+        {
+            throw exception;
+        }
+        finally
+        {
+            process.chdir(currentDir);
+        }
     }
 }

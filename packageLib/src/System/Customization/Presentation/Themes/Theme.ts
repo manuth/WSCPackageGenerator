@@ -197,7 +197,7 @@ export class Theme extends Component
      */
     public ParseOverrideFile(fileName: string): void
     {
-        let variables: { [key: string]: string } = new SassVariableParser(fileName).Variables;
+        let variables: { [key: string]: string } = new SassVariableParser(fileName).Parse();
 
         for (let name in variables)
         {
