@@ -2,3 +2,4 @@ lib/tests/
 packageLib/lib/tests/
 --recursive
 --ui tdd
+--reporter nyan
