@@ -182,4 +182,26 @@ export class Package extends Component
     {
         return this.updateSets;
     }
+
+    /**
+     * Looks for an object with the specified id.
+     *
+     * @param id
+     * The id of the object to get.
+     *
+     * @returns
+     * The object with the specified id.
+     */
+    public GetObjectByID(id: string): any
+    {
+        for (let instruction of this.InstallSet)
+        {
+            let objects: { [id: string]: any } = instruction.ObjectsByID;
+
+            if (id in objects)
+            {
+                return objects[id];
+            }
+        }
+    }
 }

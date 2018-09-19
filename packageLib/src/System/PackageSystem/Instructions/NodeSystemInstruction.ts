@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { Node } from "../../NodeSystem/Node";
 import { NodeItem } from "../../NodeSystem/NodeItem";
 import { INodeSystemInstructionOptions } from "./INodeSystemInstructionOptions";
@@ -38,5 +39,37 @@ export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extend
     public get Nodes(): Node<T, TOptions>[]
     {
         return this.nodes;
+    }
+
+    public get ObjectsByID(): { [id: string]: any }
+    {
+        let result: { [id: string]: any } = {};
+
+        for (let node of this.Nodes)
+        {
+            Object.assign(result, this.GetObjects(node));
+        }
+
+        return result;
+    }
+
+    /**
+     * Gets the objects of a node.
+     */
+    protected GetObjects(node: Node<T, TOptions>): { [id: string]: any }
+    {
+        let result: { [id: string]: any } = {};
+
+        if (!isNullOrUndefined(node.ID))
+        {
+            result[node.ID] = node;
+        }
+
+        for (let subNode of node.Nodes)
+        {
+            Object.assign(result, this.GetObjects(subNode));
+        }
+
+        return result;
     }
 }
