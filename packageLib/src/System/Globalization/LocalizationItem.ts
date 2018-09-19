@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { NodeItem } from "../NodeSystem/NodeItem";
 import { ILocalizationItemOptions } from "./ILocalizationItemOptions";
 import { Localizable } from "./Localizable";
@@ -24,6 +25,11 @@ export class LocalizationItem extends NodeItem
     public constructor(options: ILocalizationItemOptions)
     {
         super();
+
+        if (!isNullOrUndefined(options.Translations))
+        {
+            Object.assign(this.Translations, options.Translations);
+        }
     }
 
     /**
