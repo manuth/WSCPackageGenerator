@@ -14,6 +14,7 @@
     "yeoman-generator"
   ],
   "devDependencies": {
+    "@types/clear-require": "^2.0.0",
     "@types/dedent": "^0.7.0",
     "@types/fs-extra": "^5.0.2",
     "@types/mem-fs-editor": "^4.0.0",
@@ -24,6 +25,7 @@
     "@types/yeoman-generator": "^2.0.3",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
+    "clear-require": "^2.0.0",
     "colornames": "^1.1.1",
     "dedent": "^0.7.0",
     "hex-to-rgba": "^1.0.1",

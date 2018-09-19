@@ -1,10 +1,13 @@
 import * as assert from "assert";
+import * as clearRequire from "clear-require";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { ImageDirectoryDescriptor } from "../System/Customization/Presentation/Themes/ImageDirectoryDescriptor";
 import { SassVariableParser } from "../System/Customization/Presentation/Themes/SassVariableParser";
 import { TempDirectory } from "../System/FileSystem/TempDirectory";
+import { ModuleInfo } from "../System/PackageSystem/ModuleInfo";
+import { Person } from "../System/PackageSystem/Person";
 
 suite("WoltLab Suite Core Package Library", () =>
 {
@@ -53,6 +56,82 @@ suite("WoltLab Suite Core Package Library", () =>
                                 () =>
                                 {
                                     assert.strictEqual(FileSystem.pathExistsSync(tempDirName), false);
+                                });
+                        });
+                });
+
+            suite(
+                "PackageSystem",
+                () =>
+                {
+                    suite(
+                        "ModuleInfo",
+                        () =>
+                        {
+                            let author: Person;
+                            let packageFileName: string;
+                            let moduleInfo: ModuleInfo;
+
+                            suiteSetup(
+                                async () =>
+                                {
+                                    author = new Person(
+                                        {
+                                            Name: "John Doe",
+                                            URL: "https://example.com/"
+                                        });
+
+                                    packageFileName = Path.join(__dirname, "..", "..", "package.json");
+                                });
+
+                            suite(
+                                "Testing whether the values are read correctly...",
+                                () =>
+                                {
+                                    setup(
+                                        () =>
+                                        {
+                                            clearRequire(packageFileName);
+                                        });
+
+                                    test(
+                                        "Checking whether the author inside the `package.json`-file with author set to a string can be read...",
+                                        async () =>
+                                        {
+                                            await FileSystem.writeJson(
+                                                packageFileName,
+                                                {
+                                                    author: author.Name
+                                                });
+
+                                            moduleInfo = new ModuleInfo();
+                                            assert.strictEqual(moduleInfo.Author.Name, author.Name);
+                                            assert.equal(moduleInfo.Author.URL, null);
+                                        });
+
+                                    test(
+                                        "Checking whether the author inside the `package.json`-file with author set to an object can be read...",
+                                        async () =>
+                                        {
+                                            await FileSystem.writeJson(
+                                                packageFileName,
+                                                {
+                                                    author: {
+                                                        name: author.Name,
+                                                        url: author.URL
+                                                    }
+                                                });
+
+                                            moduleInfo = new ModuleInfo();
+                                            assert.strictEqual(moduleInfo.Author.Name, author.Name);
+                                            assert.equal(moduleInfo.Author.URL, author.URL);
+                                        });
+                                });
+
+                            suiteTeardown(
+                                async () =>
+                                {
+                                    await FileSystem.unlink(packageFileName);
                                 });
                         });
                 });
