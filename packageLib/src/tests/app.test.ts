@@ -130,6 +130,13 @@ suite("WoltLab Suite Core Package Library", () =>
                                         });
 
                                     test(
+                                        "Checking whether variables imported variables are not present...",
+                                        () =>
+                                        {
+                                            assert.strictEqual(var1Name in variablesWithImport, false);
+                                        });
+
+                                    test(
                                         "Checking whether independent variables have the correct value...",
                                         () =>
                                         {
@@ -186,11 +193,11 @@ suite("WoltLab Suite Core Package Library", () =>
                                 () =>
                                 {
                                     test(
-                                        'Check whether the `FileName`-property is set to "images.tar" when no filename is specified...',
+                                        'Checking whether the `FileName`-property is set to "images.tar" when no filename is specified...',
                                         () => assert.strictEqual(imageDirectory.FileName, "images.tar"));
 
                                     test(
-                                        "Check whether the `FileName`-property is set properly when a filename is specified...",
+                                        "Checking whether the `FileName`-property is set properly when a filename is specified...",
                                         () => assert.strictEqual(customImageDirectory.FileName, customFileName));
                                 });
 
@@ -199,11 +206,11 @@ suite("WoltLab Suite Core Package Library", () =>
                                 () =>
                                 {
                                     test(
-                                        "Check whether `DestinationRoot` is set to `Source` when no destination-root is specified...",
+                                        "Checking whether `DestinationRoot` is set to `Source` when no destination-root is specified...",
                                         () => assert.strictEqual(imageDirectory.DestinationRoot, imageDirectory.Source));
 
                                     test(
-                                        "Check whether `DestinationRoot` is set properly when a destination-root is specified...",
+                                        "Checking whether `DestinationRoot` is set properly when a destination-root is specified...",
                                         () => assert.strictEqual(customImageDirectory.DestinationRoot, customDestination));
                                 });
                         });
