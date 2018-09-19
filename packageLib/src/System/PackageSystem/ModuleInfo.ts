@@ -27,9 +27,12 @@ export class ModuleInfo
      */
     private version: string = null;
 
+    /**
+     * Initializes a new instance of the `ModuleInfo` class.
+     */
     public constructor()
     {
-        let packagePath: string = Path.join("..", "..", "package.json");
+        let packagePath: string = Path.join(__dirname, "..", "..", "..", "package.json");
 
         if (FileSystem.existsSync(packagePath))
         {
