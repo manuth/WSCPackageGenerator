@@ -68,6 +68,9 @@ suite("WoltLab Suite Core Package Library", () =>
                         "ModuleInfo",
                         () =>
                         {
+                            let name: string;
+                            let version: string;
+                            let license: string;
                             let author: Person;
                             let packageFileName: string;
                             let moduleInfo: ModuleInfo;
@@ -75,6 +78,10 @@ suite("WoltLab Suite Core Package Library", () =>
                             suiteSetup(
                                 async () =>
                                 {
+                                    name = "example";
+                                    version = "2.0.1";
+                                    license = "Apache-2.0";
+
                                     author = new Person(
                                         {
                                             Name: "John Doe",
@@ -124,7 +131,29 @@ suite("WoltLab Suite Core Package Library", () =>
 
                                             moduleInfo = new ModuleInfo();
                                             assert.strictEqual(moduleInfo.Author.Name, author.Name);
-                                            assert.equal(moduleInfo.Author.URL, author.URL);
+                                            assert.strictEqual(moduleInfo.Author.URL, author.URL);
+                                        });
+
+                                    test(
+                                        "Checking whether all the other values of the `packaghe.json`-file are read correctly...",
+                                        async () =>
+                                        {
+                                            await FileSystem.writeJson(
+                                                packageFileName,
+                                                {
+                                                    name,
+                                                    version,
+                                                    license,
+                                                    author: {
+                                                        name: author.Name,
+                                                        url: author.URL
+                                                    }
+                                                });
+
+                                            moduleInfo = new ModuleInfo();
+                                            assert.strictEqual(moduleInfo.Name, name);
+                                            assert.strictEqual(moduleInfo.Version, version);
+                                            assert.strictEqual(moduleInfo.License, license);
                                         });
                                 });
 
