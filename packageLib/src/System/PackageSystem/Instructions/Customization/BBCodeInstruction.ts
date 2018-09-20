@@ -1,5 +1,5 @@
 import { BBCode } from "../../../Customization/BBCodes/BBCode";
-import { Localizable } from "../../../Globalization/Localizable";
+import { Localization } from "../../../Globalization/Localization";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
@@ -43,7 +43,7 @@ export class BBCodeInstruction extends Instruction implements ILocalizationInstr
         this.translationDirectory = value;
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localizable } }
+    public GetMessages(): { [category: string]: { [key: string]: Localization } }
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {

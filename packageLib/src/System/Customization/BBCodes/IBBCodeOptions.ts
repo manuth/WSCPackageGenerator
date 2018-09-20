@@ -1,4 +1,4 @@
-import { ILocalizable } from "../../Globalization/ILocalizable";
+import { ILocalization } from "../../Globalization/ILocalization";
 import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 
 export interface IBBCodeOptions
@@ -11,7 +11,7 @@ export interface IBBCodeOptions
     /**
      * The huma;the bbcode.
      */
-    DisplayName?: ILocalizable;
+    DisplayName?: ILocalization;
 
     /**
      * The name of a font-awesome icon for the bbcode-button.

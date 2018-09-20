@@ -1,5 +1,5 @@
 import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
-import { Localizable } from "../../../Globalization/Localizable";
+import { Localization } from "../../../Globalization/Localization";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
 import { TranslationInstruction } from "./TranslationInstruction";
@@ -17,7 +17,7 @@ export class ErrorMessageInstruction extends TranslationInstruction
         super(options);
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localizable } }
+    public GetMessages(): { [category: string]: { [key: string]: Localization } }
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {
@@ -30,7 +30,7 @@ export class ErrorMessageInstruction extends TranslationInstruction
                 Name: "wcf.acp.option.error"
             });
 
-        let messages: { [category: string]: { [key: string]: Localizable } } = super.GetMessages();
+        let messages: { [category: string]: { [key: string]: Localization } } = super.GetMessages();
 
         for (let category in messages)
         {

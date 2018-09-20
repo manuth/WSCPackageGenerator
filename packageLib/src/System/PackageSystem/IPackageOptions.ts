@@ -1,4 +1,4 @@
-import { Localizable } from "../Globalization/Localizable";
+import { ILocalization } from "../Globalization/ILocalization";
 import { IComponentOptions } from "./IComponentOptions";
 import { IConflictingPackageDescriptorOptions } from "./IConflictingPackageDescriptorOptions";
 import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
@@ -17,7 +17,7 @@ export interface IPackageOptions extends  Partial<IComponentOptions>
      */
     Identifier: string;
 
-    DisplayName: Localizable;
+    DisplayName: ILocalization;
 
     /**
      * A set of files which will be added to the package.

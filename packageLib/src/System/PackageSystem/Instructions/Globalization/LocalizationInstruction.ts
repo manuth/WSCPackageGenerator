@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../../Globalization/Localizable";
+import { Localization } from "../../../Globalization/Localization";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
@@ -32,9 +32,9 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
         return this.FileName;
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localizable } }
+    public GetMessages(): { [category: string]: { [key: string]: Localization } }
     {
-        let result: { [category: string]: { [key: string]: Localizable } } = {};
+        let result: { [category: string]: { [key: string]: Localization } } = {};
 
         for (let node of this.Nodes)
         {
@@ -53,9 +53,9 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
      * @returns
      * The translations of the node.
      */
-    protected GetTranslations(node: Node<T, TOptions>): { [key: string]: Localizable }
+    protected GetTranslations(node: Node<T, TOptions>): { [key: string]: Localization }
     {
-        let result: { [key: string]: Localizable } = {};
+        let result: { [key: string]: Localization } = {};
 
         if (
             !isNullOrUndefined(node.Item) &&

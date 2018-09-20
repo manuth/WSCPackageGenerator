@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../Globalization/Localizable";
+import { Localization } from "../Globalization/Localization";
 // import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { ICronJobOptions } from "./ICronJobOptions";
 import { TimePeriod } from "./TimePeriod";
@@ -22,7 +22,7 @@ export class CronJob
     /**
      * The description of the cron-job.
      */
-    private description: Localizable = new Localizable();
+    private description: Localization = new Localization();
 
     /**
      * A value indicating whether the cron-job can be disabled.
@@ -108,7 +108,7 @@ export class CronJob
     /**
      * Gets the description of the cron-job.
      */
-    public get Description(): Localizable
+    public get Description(): Localization
     {
         return this.description;
     }

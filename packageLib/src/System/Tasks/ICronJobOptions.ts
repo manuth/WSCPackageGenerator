@@ -1,4 +1,4 @@
-import { Localizable } from "../Globalization/Localizable";
+import { ILocalization } from "../Globalization/ILocalization";
 // import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { TimePeriod } from "./TimePeriod";
 
@@ -20,7 +20,7 @@ export interface ICronJobOptions
     /**
      * The description of the cron-job.
      */
-    Description?: Localizable;
+    Description?: ILocalization;
 
     /**
      * A value indicating whether the cron-job can be disabled.

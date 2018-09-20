@@ -1,4 +1,4 @@
-import { Localizable } from "../../../Globalization/Localizable";
+import { ILocalization } from "../../../Globalization/ILocalization";
 import { IComponentOptions } from "../../../PackageSystem/IComponentOptions";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
 
@@ -9,7 +9,7 @@ export interface IThemeOptions extends Partial<IComponentOptions>
 {
     Name: string;
 
-    DisplayName: Localizable;
+    DisplayName: ILocalization;
 
     /**
      * The thumbnail of the theme.

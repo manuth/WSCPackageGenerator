@@ -1,4 +1,4 @@
-import { Localizable } from "../../../Globalization/Localizable";
+import { Localization } from "../../../Globalization/Localization";
 import { Instruction } from "../Instruction";
 
 /**
@@ -14,5 +14,5 @@ export interface ILocalizationInstruction extends Required<Instruction>
     /**
      * Gets the messages provided by the instruction.
      */
-    GetMessages(): { [category: string]: { [key: string]: Localizable } };
+    GetMessages(): { [category: string]: { [key: string]: Localization } };
 }

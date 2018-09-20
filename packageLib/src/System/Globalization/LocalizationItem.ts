@@ -1,7 +1,7 @@
 import { isNullOrUndefined } from "util";
 import { NodeItem } from "../NodeSystem/NodeItem";
 import { ILocalizationItemOptions } from "./ILocalizationItemOptions";
-import { Localizable } from "./Localizable";
+import { Localization } from "./Localization";
 
 /**
  * Represents a node which contains translations.
@@ -11,7 +11,7 @@ export class LocalizationItem extends NodeItem
     /**
      * The translations of the node.
      */
-    private translations: Localizable = new Localizable();
+    private translations: Localization = new Localization();
 
     /**
      * Initializes a new instance of the `LocalizationNode` class.
@@ -35,7 +35,7 @@ export class LocalizationItem extends NodeItem
     /**
      * Gets the translations of the node.
      */
-    public get Translations(): Localizable
+    public get Translations(): Localization
     {
         return this.translations;
     }

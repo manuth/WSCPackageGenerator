@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../../Globalization/Localizable";
+import { Localization } from "../../Globalization/Localization";
 import { BBCodeAttribute } from "./BBCodeAttribute";
 import { IBBCodeOptions } from "./IBBCodeOptions";
 
@@ -16,7 +16,7 @@ export class BBCode
     /**
      * The humab-readable name of the bbcode.
      */
-    private displayName: Localizable = new Localizable();
+    private displayName: Localization = new Localization();
 
     /**
      * The name of a font-awesome icon for the bbcode-button.
@@ -120,7 +120,7 @@ export class BBCode
     /**
      * Gets the humab-readable name of the bbcode.
      */
-    public get DisplayName(): Localizable
+    public get DisplayName(): Localization
     {
         return this.displayName;
     }

@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { Localizable } from "../Globalization/Localizable";
+import { Localization } from "../Globalization/Localization";
 import { IComponentOptions } from "./IComponentOptions";
 import { ModuleInfo } from "./ModuleInfo";
 import { Person } from "./Person";
@@ -17,7 +17,7 @@ export abstract class Component
     /**
      * The human-readable name of the component.
      */
-    private displayName: Localizable = new Localizable();
+    private displayName: Localization = new Localization();
 
     /**
      * The version of the component.
@@ -37,7 +37,7 @@ export abstract class Component
     /**
      * The description of the component.
      */
-    private description: Localizable = new Localizable();
+    private description: Localization = new Localization();
 
     /**
      * The license of the component.
@@ -90,7 +90,7 @@ export abstract class Component
     /**
      * Gets the human-readabnle name of the component.
      */
-    public get DisplayName(): Localizable
+    public get DisplayName(): Localization
     {
         return this.displayName;
     }
@@ -132,7 +132,7 @@ export abstract class Component
     /**
      * Gets the description of the component.
      */
-    public get Description(): Localizable
+    public get Description(): Localization
     {
         return this.description;
     }

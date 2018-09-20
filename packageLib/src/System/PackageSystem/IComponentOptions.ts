@@ -1,4 +1,4 @@
-import { Localizable } from "../Globalization/Localizable";
+import { ILocalization } from "../Globalization/ILocalization";
 import { IPersonOptions } from "./IPersonOptions";
 
 /**
@@ -14,7 +14,7 @@ export interface IComponentOptions
     /**
      * The human-readabnle name of the component.
      */
-    DisplayName: Localizable;
+    DisplayName: ILocalization;
 
     /**
      * The version of the component.
@@ -34,7 +34,7 @@ export interface IComponentOptions
     /**
      * The description of the component.
      */
-    Description?: Localizable;
+    Description?: ILocalization;
 
     /**
      * The license of the component.

@@ -1,7 +1,7 @@
 /**
  * Represents a localizable item.
  */
-export interface ILocalizable
+export interface ILocalization
 {
     [language: string]: string;
 }
