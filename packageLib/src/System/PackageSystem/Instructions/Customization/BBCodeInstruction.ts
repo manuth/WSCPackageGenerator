@@ -15,7 +15,7 @@ export class BBCodeInstruction extends Instruction implements ILocalizationInstr
     /**
      * The bbcodes provided by this instruction.
      */
-    private bbCodes: BBCode[];
+    private bbCodes: BBCode[] = [];
 
     /**
      * The path to save the translations to. Gets the path to save the translations to.
