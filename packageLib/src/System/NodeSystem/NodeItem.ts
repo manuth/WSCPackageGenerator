@@ -22,4 +22,12 @@ export class NodeItem
     {
         this.node = value;
     }
+
+    /**
+     * Gets the identifiable objects of the node.
+     */
+    public GetObjects(): { [id: string]: any }
+    {
+        return {};
+    }
 }

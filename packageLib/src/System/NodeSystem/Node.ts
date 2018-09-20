@@ -174,6 +174,21 @@ export class Node<T extends NodeItem, TOptions> implements INode
     }
 
     /**
+     * Gets the identifiable objects of the node.
+     */
+    public GetObjects(): { [id: string]: any }
+    {
+        let result: { [id: string]: any } = {};
+
+        if (!isNullOrUndefined(this.Item))
+        {
+            Object.assign(result, this.Item.GetObjects());
+        }
+
+        return result;
+    }
+
+    /**
      * Returns a string that represents the current object.
      */
     public toString(): string
