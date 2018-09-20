@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { Node } from "./Node";
 import { NodeItem } from "./NodeItem";
 
@@ -42,7 +43,12 @@ export class NodeCollection<T extends Node<TItem, TOptions>, TItem extends NodeI
         if (item.Parent !== this.Owner)
         {
             super.push(item);
-            item.Parent = this.Owner;
+
+            if (!isNullOrUndefined(item))
+            {
+                item.Parent = this.Owner;
+            }
+
             return true;
         }
         else
@@ -62,7 +68,12 @@ export class NodeCollection<T extends Node<TItem, TOptions>, TItem extends NodeI
         if (item.Parent === this.Owner)
         {
             super.splice(this.indexOf(item), 1);
-            item.Parent = null;
+
+            if (!isNullOrUndefined(item))
+            {
+                item.Parent = null;
+            }
+
             return true;
         }
         else
