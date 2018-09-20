@@ -60,7 +60,7 @@ suite(
             () =>
             {
                 suite(
-                    "Testing whether the `Parent`-property is automatically set properly, when...",
+                    "Checking whether the `Parent`-property is automatically set properly, when...",
                     () =>
                     {
                         test(
@@ -69,6 +69,44 @@ suite(
                             {
                                 nodeA.Parent = nodeB;
                                 assert.strictEqual(nodeA.Parent, nodeB);
+                            });
+
+                        test(
+                            "...adding the node to another node's `Nodes`-array...",
+                            () =>
+                            {
+                                nodeC.Nodes.push(nodeA);
+                                assert.strictEqual(nodeA.Parent, nodeC);
+                            });
+                    });
+            });
+
+        suite(
+            "Nodes",
+            () =>
+            {
+                suite(
+                    "Checking whether the `Nodes`-property is automatically set properly, when...",
+                    () =>
+                    {
+                        test(
+                            "...setting the `Parent`-property of another node...",
+                            () =>
+                            {
+                                nodeB.Parent = nodeA;
+
+                                assert.strictEqual(nodeA.Nodes.length, 1);
+                                assert.strictEqual(nodeA.Nodes[0], nodeB);
+                            });
+
+                        test(
+                            "...adding another node to the `Nodes`-array...",
+                            () =>
+                            {
+                                nodeA.Nodes.push(nodeC);
+
+                                assert.strictEqual(nodeA.Nodes.length, 1);
+                                assert.strictEqual(nodeA.Nodes[0], nodeC);
                             });
                     });
             });
