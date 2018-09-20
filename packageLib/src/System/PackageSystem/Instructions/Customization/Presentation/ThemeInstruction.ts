@@ -23,7 +23,7 @@ export class ThemeInstruction extends Instruction
 
     public get Type(): string
     {
-        return "";
+        return "style";
     }
 
     /**
