@@ -17,12 +17,11 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
      */
     public constructor(options: IApplicationFileSystemInstructionOptions)
     {
-        super(options);
-
-        if (isNullOrUndefined(options.FileName))
-        {
-            this.FileName = `${options.Source}.tar`;
-        }
+        super(
+            {
+                Source: options.Source,
+                FileName: options.FileName || `${options.Source}.tar`
+            });
 
         if (!isNullOrUndefined(options.Application))
         {
@@ -51,7 +50,12 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
     protected get XMLDocument(): Document
     {
         let result: Document = super.XMLDocument;
-        result.documentElement.setAttribute("application", this.Application);
+
+        if (!isNullOrUndefined(this.Application))
+        {
+            result.documentElement.setAttribute("application", this.Application);
+        }
+
         return result;
     }
 }
