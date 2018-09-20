@@ -1,9 +1,11 @@
+import { isNullOrUndefined } from "util";
 import { BBCode } from "../../../Customization/BBCodes/BBCode";
 import { Localization } from "../../../Globalization/Localization";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
 import { Instruction } from "../Instruction";
+import { IBBCodeInstructionOptions } from "./IBBCodeInstructionOptions";
 
 /**
  * Represents an instruction which provides bbcodes.
@@ -19,6 +21,24 @@ export class BBCodeInstruction extends Instruction implements ILocalizationInstr
      * The path to save the translations to. Gets the path to save the translations to.
      */
     private translationDirectory: string = this.Type;
+
+    /**
+     * Initializes a new instance of the `BBCodeInstruction` class.
+     */
+    public constructor(options: IBBCodeInstructionOptions)
+    {
+        super(options);
+
+        if (!isNullOrUndefined(options.TranslationDirectory))
+        {
+            this.TranslationDirectory = options.TranslationDirectory;
+        }
+
+        for (let bbCode of options.BBCodes)
+        {
+            this.BBCodes.push(new BBCode(bbCode));
+        }
+    }
 
     public get Type(): string
     {

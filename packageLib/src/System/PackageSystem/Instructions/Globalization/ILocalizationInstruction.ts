@@ -1,10 +1,9 @@
 import { Localization } from "../../../Globalization/Localization";
-import { Instruction } from "../Instruction";
 
 /**
  * Represents a node which provides translations.
  */
-export interface ILocalizationInstruction extends Required<Instruction>
+export interface ILocalizationInstruction
 {
     /**
      * Gets the path to save the translations to.
