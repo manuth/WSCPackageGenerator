@@ -50,7 +50,7 @@ export abstract class Component
     public constructor(options: IComponentOptions)
     {
         this.Name = options.Name;
-        Object.assign(this.DisplayName, options.DisplayName);
+        Object.assign(this.DisplayName.Data, options.DisplayName);
         this.Version = options.Version;
 
         if (!isNullOrUndefined(options.Author))
@@ -65,7 +65,7 @@ export abstract class Component
 
         if (!isNullOrUndefined(options.Description))
         {
-            Object.assign(this.Description, options.Description);
+            Object.assign(this.Description.Data, options.Description);
         }
 
         if (!isNullOrUndefined(options.License))

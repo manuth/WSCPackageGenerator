@@ -1,10 +1,20 @@
+import { ILocalization } from "./ILocalization";
+
 /**
  * Represents a localizable string.
  */
 export class Localization
 {
     /**
-     * A string translated to the specified `locale`.
+     * Strings translated to the specified `locale`.
      */
-    [locale: string]: string;
+    public Data: ILocalization = {};
+
+    /**
+     * Gets the locales of the translations.
+     */
+    public GetLocales(): string[]
+    {
+        return Object.keys(this.Data);
+    }
 }

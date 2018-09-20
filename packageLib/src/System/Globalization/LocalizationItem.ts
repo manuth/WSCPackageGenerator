@@ -28,7 +28,7 @@ export class LocalizationItem extends NodeItem
 
         if (!isNullOrUndefined(options.Translations))
         {
-            Object.assign(this.Translations, options.Translations);
+            Object.assign(this.Translations.Data, options.Translations);
         }
     }
 

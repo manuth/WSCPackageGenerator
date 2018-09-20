@@ -65,7 +65,7 @@ export class BBCodeInstruction extends Instruction implements ILocalizationInstr
                         {
                             Name: bbCode.Name,
                             Item: {
-                                Translations: bbCode.DisplayName
+                                Translations: bbCode.DisplayName.Data
                             }
                         }));
             }

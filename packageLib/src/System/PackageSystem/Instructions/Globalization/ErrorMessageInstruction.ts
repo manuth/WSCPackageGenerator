@@ -47,7 +47,7 @@ export class ErrorMessageInstruction extends TranslationInstruction
                             Name: key,
                             Item:
                             {
-                                Translations: messages[category][key]
+                                Translations: messages[category][key].Data
                             }
                         }));
             }
