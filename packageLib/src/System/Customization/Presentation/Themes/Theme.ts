@@ -75,6 +75,7 @@ export class Theme extends Component
             License: options.License
         });
 
+        let variables: { [key: string]: string } = {};
         this.instruction = instruction;
 
         if (!isNullOrUndefined(options.Thumbnail))
@@ -99,14 +100,15 @@ export class Theme extends Component
 
         if (!isNullOrUndefined(options.ScssOverrideFileName))
         {
-            FileSystem.readFileSync(options.ScssOverrideFileName).toString();
-            this.ParseOverrideFile(options.ScssOverrideFileName);
+            Object.assign(variables, new SassVariableParser(options.ScssOverrideFileName).Parse());
         }
 
         if (!isNullOrUndefined(options.VariableFileName))
         {
-            Object.assign(this.Variables, require(options.VariableFileName));
+            Object.assign(variables, require(options.VariableFileName));
         }
+
+        this.ParseVariables(variables);
     }
 
     /**
@@ -196,14 +198,15 @@ export class Theme extends Component
     }
 
     /**
-     * Parses a `.scss`-override file.
+     * Parses the variables and adds them either to the override scss-code or the variables-property.
      *
-     * @param fileName
-     * The name of the file which contains the `scss`-overrides.
+     * @param variables
+     * The variables to parse.
      */
-    public ParseOverrideFile(fileName: string): void
+    protected ParseVariables(variables: { [key: string]: string }): void
     {
-        let variables: { [key: string]: string } = new SassVariableParser(fileName).Parse();
+        let normalVariables: { [key: string]: string } = {};
+        let specialVariables: { [key: string]: string } = {};
 
         for (let name in variables)
         {
@@ -376,26 +379,37 @@ export class Theme extends Component
                 case "wcfFooterCopyrightLinkActive":
                     if (/#(([0-9a-fA-F]{3}){1,2}|([0-9a-fA-F]{4}){1,2})/.test(variables[name]))
                     {
-                        this.Variables[name] = hexToRgba(variables[name]);
+                        normalVariables[name] = hexToRgba(variables[name]);
                     }
                     else if (ColorNames.get.css(variables[name]))
                     {
-                        this.Variables[name] = hexToRgba(ColorNames.get.css(variables[name]).value);
+                        normalVariables[name] = hexToRgba(ColorNames.get.css(variables[name]).value);
                     }
                     else if (variables[name] === "transparent")
                     {
-                        this.Variables[name] = hexToRgba("#0000");
+                        normalVariables[name] = hexToRgba("#0000");
                     }
                     else
                     {
-                        this.Variables[name] = variables[name];
+                        normalVariables[name] = variables[name];
                     }
                     break;
 
                 default:
-                    this.ScssOverride += OS.EOL + `$${name}: ${variables[name]}`;
+                    specialVariables[name] = variables[name];
                     break;
             }
+        }
+
+        this.variables = normalVariables;
+
+        if (Object.keys(specialVariables).length > 0)
+        {
+            this.ScssOverride = Object.keys(specialVariables).map(
+                (name: string) =>
+                {
+                    return `$${name}: ${specialVariables[name]};`;
+                }).join(OS.EOL);
         }
     }
 }
