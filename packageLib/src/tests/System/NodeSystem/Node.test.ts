@@ -51,7 +51,7 @@ suite(
                         nodeA.Parent = nodeB;
                         nodeB.Parent = nodeC;
 
-                        assert.strictEqual(nodeA.FullName, [nodeC, nodeB, nodeA].join("."));
+                        assert.strictEqual(nodeA.FullName, [nodeCName, nodeBName, nodeAName].join("."));
                     });
             });
 
@@ -67,7 +67,6 @@ suite(
                             "...setting the `Parent`-property...",
                             () =>
                             {
-                                console.log(nodeC);
                                 nodeA.Parent = nodeB;
                                 assert.strictEqual(nodeA.Parent, nodeB);
                             });
