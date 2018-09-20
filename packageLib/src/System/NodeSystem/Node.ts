@@ -27,7 +27,7 @@ export class Node<T extends NodeItem, TOptions> implements INode
     /**
      * The parent of the node.
      */
-    private parent: Node<T, TOptions>;
+    private parent: Node<T, TOptions> = null;
 
     /**
      * The children of the node.
@@ -71,7 +71,7 @@ export class Node<T extends NodeItem, TOptions> implements INode
      */
     protected get Parents(): Node<T, TOptions>[]
     {
-        let result: Node<T, TOptions>[];
+        let result: Node<T, TOptions>[] = [];
 
         for (let node: Node<T, TOptions> = this.Parent; node !== null; node = node.Parent)
         {
@@ -112,7 +112,7 @@ export class Node<T extends NodeItem, TOptions> implements INode
      */
     public get FullName(): string
     {
-        return this.Parents.reverse().concat([this]).join(".");
+        return this.Parents.reverse().concat([this]).map((node: Node<T, TOptions>) => node.Name).join(".");
     }
 
     /**
