@@ -12,7 +12,7 @@ export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extend
     /**
      * The nodes provides by the instruction.
      */
-    private nodes: Node<T, TOptions>[];
+    private nodes: Node<T, TOptions>[] = [];
 
     /**
      * Initializes a new instance of the `NodeSystemInstruction<T>` class.
