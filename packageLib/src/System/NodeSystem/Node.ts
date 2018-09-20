@@ -116,11 +116,21 @@ export class Node<T extends NodeItem, TOptions> implements INode
     }
 
     /**
-     * Gets the item of the node.
+     * Gets or sets the item of the node.
      */
     public get Item(): T
     {
         return this.item;
+    }
+
+    public set Item(value: T)
+    {
+        if (!isNullOrUndefined(value))
+        {
+            value.Node = this;
+        }
+
+        this.item = value;
     }
 
     /**
