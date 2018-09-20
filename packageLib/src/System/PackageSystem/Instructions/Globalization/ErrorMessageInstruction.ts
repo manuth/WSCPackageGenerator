@@ -34,14 +34,9 @@ export class ErrorMessageInstruction extends TranslationInstruction
 
         for (let category in messages)
         {
-            let categoryNode: LocalizationNode = new LocalizationNode(
-                {
-                    Name: category
-                });
-
             for (let key in messages[category])
             {
-                categoryNode.Nodes.push(
+                rootNode.Nodes.push(
                     new LocalizationNode(
                         {
                             Name: key,
@@ -51,8 +46,6 @@ export class ErrorMessageInstruction extends TranslationInstruction
                             }
                         }));
             }
-
-            rootNode.Nodes.push(categoryNode);
         }
 
         result.Nodes.push(rootNode);
