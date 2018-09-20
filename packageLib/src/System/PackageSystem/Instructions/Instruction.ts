@@ -1,4 +1,5 @@
 import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import { DOMParser, XMLSerializer } from "xmldom";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
@@ -41,7 +42,26 @@ export abstract class Instruction
 
     public set Collection(value: InstructionSet)
     {
-        this.collection = value;
+        if (this.Collection !== value)
+        {
+            if (
+                !isNullOrUndefined(this.Collection) &&
+                this.Collection.includes(this))
+            {
+                this.Collection.splice(this.Collection.indexOf(this), 1);
+            }
+
+            if (
+                isNullOrUndefined(value) ||
+                value.includes(this))
+            {
+                this.collection = value;
+            }
+            else
+            {
+                value.push(this);
+            }
+        }
     }
 
     /**

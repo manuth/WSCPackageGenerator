@@ -1,12 +1,11 @@
-import { isNullOrUndefined } from "util";
+import { BidirectionalCollection } from "../../Collections/BidirectionalCollection";
 import { Package } from "../Package";
 import { Instruction } from "./Instruction";
-import { InstructionCollection } from "./InstructionCollection";
 
 /**
  * Represents a collection of instructions.
  */
-export class InstructionSet extends InstructionCollection<Instruction>
+export class InstructionSet extends BidirectionalCollection<InstructionSet, Instruction>
 {
     /**
      * The package the collection belongs to.
@@ -23,8 +22,13 @@ export class InstructionSet extends InstructionCollection<Instruction>
      */
     public constructor($package: Package)
     {
-        super();
+        super(null);
         this.Package = $package;
+    }
+
+    public get Owner(): InstructionSet
+    {
+        return this;
     }
 
     /**
@@ -53,16 +57,13 @@ export class InstructionSet extends InstructionCollection<Instruction>
         this.directory = value;
     }
 
-    public push(...items: Instruction[]): number
+    protected GetParent(child: Instruction): InstructionSet
     {
-        for (let item of items)
-        {
-            if (!isNullOrUndefined(item))
-            {
-                item.Collection = this;
-            }
-        }
+        return child.Collection;
+    }
 
-        return super.push(...items);
+    protected SetParent(child: Instruction, parent: InstructionSet): void
+    {
+        child.Collection = parent;
     }
 }
