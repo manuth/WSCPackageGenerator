@@ -2,6 +2,7 @@ suite(
     "Instructions",
     () =>
     {
+        require("./InstructionSet.test");
         require("./Instruction.test");
         require("./FileSystemInstruction.test");
         require("./ApplicationFileSystemInstruction.test");

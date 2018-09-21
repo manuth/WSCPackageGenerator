@@ -25,11 +25,9 @@ suite(
 
                 $package = new Package({
                     Identifier: "example",
-                    DisplayName: {
-                    },
+                    DisplayName: {},
                     InstallSet: {
-                        Instructions: [
-                        ]
+                        Instructions: []
                     }
                 });
             });
