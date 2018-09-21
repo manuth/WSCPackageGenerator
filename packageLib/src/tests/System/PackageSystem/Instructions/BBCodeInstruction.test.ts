@@ -49,13 +49,12 @@ suite(
             "GetMessages()",
             () =>
             {
-                let category: string;
+                let category: string = "wcf.editor.button";
                 let translations: { [category: string]: { [key: string]: Localization } };
 
                 suiteSetup(
                     () =>
                     {
-                        category = "wcf.editor.button";
                         translations = bbcodeInstruction.GetMessages();
                     });
 
