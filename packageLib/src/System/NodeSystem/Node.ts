@@ -190,6 +190,11 @@ export class Node<T extends NodeItem, TOptions> implements INode
             Object.assign(result, this.Item.GetObjects());
         }
 
+        for (let node of this.Nodes)
+        {
+            Object.assign(result, node.GetObjects());
+        }
+
         return result;
     }
 
