@@ -27,6 +27,7 @@
     "@types/yosay": "0.0.29",
     "clear-require": "^2.0.0",
     "colornames": "^1.1.1",
+    "cron-parser": "^2.6.0",
     "dedent": "^0.7.0",
     "hex-to-rgba": "^1.0.1",
     "mem-fs": "^1.1.3",

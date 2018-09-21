@@ -7,5 +7,6 @@ suite(
         require("./NodeSystem/index.test");
         require("./Globalization/index.test");
         require("./PackageSystem/index.test");
+        require("./Tasks/index.test");
         require("./Themes/index.test");
     });
