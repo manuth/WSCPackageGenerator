@@ -180,6 +180,11 @@ export class Node<T extends NodeItem, TOptions> implements INode
     {
         let result: { [id: string]: any } = {};
 
+        if (!isNullOrUndefined(this.ID))
+        {
+            result[this.ID] = this;
+        }
+
         if (!isNullOrUndefined(this.Item))
         {
             Object.assign(result, this.Item.GetObjects());
