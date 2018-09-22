@@ -118,6 +118,24 @@ suite(
             });
 
         suite(
+            "GetAllNodes()",
+            () =>
+            {
+                test(
+                    "Checking whether `GetAllNodes()` gets all nodes recursively...",
+                    () =>
+                    {
+                        nodeA.Parent = nodeB;
+                        nodeB.Parent = nodeC;
+
+                        assert.strictEqual(nodeC.GetAllNodes().includes(nodeA), true);
+                        assert.strictEqual(nodeC.GetAllNodes().includes(nodeB), true);
+                        assert.strictEqual(nodeC.GetAllNodes().includes(nodeC), true);
+                        assert.strictEqual(nodeC.GetAllNodes().length, 3);
+                    });
+            });
+
+        suite(
             "GetObjects()",
             () =>
             {
