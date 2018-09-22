@@ -46,9 +46,9 @@ suite(
         let rootNode: MyNode;
         let names: string[];
         let category: MyNode;
-        let option: MyOption;
         let categoryID: string;
         let optionID: string;
+        let optionName: string;
 
         suiteSetup(
             () =>
@@ -56,6 +56,7 @@ suite(
                 names = ["foo", "bar", "baz", "this", "is", "a", "test", "and", "tests", "stuff"];
                 categoryID = "foo";
                 optionID = "bar";
+                optionName = "test-option";
 
                 category = new MyNode(
                     {
@@ -82,12 +83,19 @@ suite(
 
                 let allNodes: Node<MyCategory, ICategoryOptions<IOptionOptions>>[] = rootNode.GetAllNodes();
                 allNodes[Math.floor(Math.random() * allNodes.length)].Nodes.push(category);
-                option = new MyOption(
-                    allNodes[Math.floor(Math.random() * allNodes.length)].Item,
-                    {
-                        ID: optionID,
-                        Name: "test-option"
-                    });
+                allNodes[Math.floor(Math.random() * allNodes.length)].Nodes.push(
+                    new MyNode(
+                        {
+                            Name: "option-container",
+                            Item: {
+                                Options: [
+                                    {
+                                        ID: optionID,
+                                        Name: optionName
+                                    }
+                                ]
+                            }
+                        }));
             });
 
         suite(
@@ -115,7 +123,7 @@ suite(
                     () =>
                     {
                         assert.strictEqual(optionID in objects, true);
-                        assert.strictEqual(objects[optionID], option);
+                        assert.strictEqual((objects[optionID] as MyOption).Name, optionName);
                     });
             });
     });
