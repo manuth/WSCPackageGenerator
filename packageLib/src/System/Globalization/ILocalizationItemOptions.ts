@@ -1,7 +1,7 @@
 import { ILocalization } from "./ILocalization";
 
 /**
- * Provides options for the `LocalizationNode` class.
+ * Provides options for the `LocalizationItem` class.
  */
 export interface ILocalizationItemOptions
 {
