@@ -101,4 +101,19 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
     {
         return this.options;
     }
+
+    public GetObjects(): { [id: string]: any }
+    {
+        let result: { [id: string]: any } = {};
+
+        for (let option of this.Options)
+        {
+            if (!isNullOrUndefined(option.ID))
+            {
+                result[option.ID] = option;
+            }
+        }
+
+        return result;
+    }
 }
