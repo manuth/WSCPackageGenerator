@@ -2,8 +2,8 @@ import { isNullOrUndefined } from "util";
 import { Localization } from "../../../Globalization/Localization";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
-import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
-import { NodeSystemInstruction } from "../NodeSystemInstruction";
+import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
+import { NodeSystemInstruction } from "../NodeSystem/NodeSystemInstruction";
 import { ILocalizationInstruction } from "./ILocalizationInstruction";
 
 export abstract class LocalizationInstruction<T extends LocalizationItem, TOptions> extends NodeSystemInstruction<T, TOptions> implements ILocalizationInstruction

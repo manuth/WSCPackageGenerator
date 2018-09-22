@@ -1,5 +1,5 @@
-import { ICronJobOptions } from "../../Tasks/ICronJobOptions";
-import { IInstructionOptions } from "./IInstructionOptions";
+import { ICronJobOptions } from "../../../Tasks/ICronJobOptions";
+import { IInstructionOptions } from "../IInstructionOptions";
 
 /**
  * Provides options for the `CronJobInstruction` class.

@@ -3,8 +3,8 @@ import { INode } from "../../../../System/NodeSystem/INode";
 import { INodeOptions } from "../../../../System/NodeSystem/INodeOptions";
 import { Node } from "../../../../System/NodeSystem/Node";
 import { NodeItem } from "../../../../System/NodeSystem/NodeItem";
-import { INodeSystemInstructionOptions } from "../../../../System/PackageSystem/Instructions/INodeSystemInstructionOptions";
-import { NodeSystemInstruction } from "../../../../System/PackageSystem/Instructions/NodeSystemInstruction";
+import { INodeSystemInstructionOptions } from "../../../../System/PackageSystem/Instructions/NodeSystem/INodeSystemInstructionOptions";
+import { NodeSystemInstruction } from "../../../../System/PackageSystem/Instructions/NodeSystem/NodeSystemInstruction";
 
 suite(
     "NodeSystemInstruction",

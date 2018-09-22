@@ -1,7 +1,7 @@
 import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
-import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
+import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
 import { LocalizationInstruction } from "./LocalizationInstruction";
 
 /**

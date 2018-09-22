@@ -1,7 +1,7 @@
-import { Node } from "../../NodeSystem/Node";
-import { NodeItem } from "../../NodeSystem/NodeItem";
+import { Node } from "../../../NodeSystem/Node";
+import { NodeItem } from "../../../NodeSystem/NodeItem";
+import { Instruction } from "../Instruction";
 import { INodeSystemInstructionOptions } from "./INodeSystemInstructionOptions";
-import { Instruction } from "./Instruction";
 
 /**
  * Represents an instruction which provides nodes.

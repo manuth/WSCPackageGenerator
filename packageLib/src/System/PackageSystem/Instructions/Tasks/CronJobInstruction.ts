@@ -1,6 +1,6 @@
-import { CronJob } from "../../Tasks/CronJob";
+import { CronJob } from "../../../Tasks/CronJob";
+import { Instruction } from "../Instruction";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";
-import { Instruction } from "./Instruction";
 
 /**
  * Represents an instruction which install cron-jobs.
