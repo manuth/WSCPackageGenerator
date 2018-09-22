@@ -26,7 +26,7 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
      * @param generator
      * A function for generating options.
      */
-    public constructor(options: ICategoryOptions<TOptionOptions>, node: INode, generator: (category: Category<TOption, TOptionOptions>, optionOptions: TOptionOptions) => TOption)
+    public constructor(node: INode, options: ICategoryOptions<TOptionOptions>, generator: (category: Category<TOption, TOptionOptions>, optionOptions: TOptionOptions) => TOption)
     {
         super(node);
 
