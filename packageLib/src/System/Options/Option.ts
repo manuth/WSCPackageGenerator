@@ -176,14 +176,6 @@ export abstract class Option
     }
 
     /**
-     * Gets the full name of the option.
-     */
-    public get FullName(): string
-    {
-        return `${this.Category.Node.FullName}.${this.Name}`;
-    }
-
-    /**
      * Gets the human-readable name of the option.
      */
     public get DisplayName(): Localization

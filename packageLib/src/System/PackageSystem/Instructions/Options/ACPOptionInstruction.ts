@@ -93,12 +93,33 @@ export class ACPOptionInstruction extends NodeSystemInstruction<ACPCategory, ICa
         {
             if (node.Item.DisplayName.GetLocales().length > 0)
             {
-                result[node.FullName] = node.Item.DisplayName;
+                result[`category.${node.FullName}`] = node.Item.DisplayName;
             }
 
             if (node.Item.Description.GetLocales().length > 0)
             {
-                result[`${node.FullName}.description`] = node.Item.Description;
+                result[`category.${node.FullName}.description`] = node.Item.Description;
+            }
+
+            for (let option of node.Item.Options)
+            {
+                if (option.DisplayName.GetLocales().length > 0)
+                {
+                    result[option.Name] = option.DisplayName;
+                }
+
+                if (option.Description.GetLocales().length > 0)
+                {
+                    result[`${option.Name}.description`] = option.Description;
+                }
+
+                for (let optionItem of option.Items)
+                {
+                    if (optionItem.DisplayName.GetLocales().length > 0)
+                    {
+                        result[`${option.Name}.${optionItem.Name}`] = optionItem.DisplayName;
+                    }
+                }
             }
         }
 

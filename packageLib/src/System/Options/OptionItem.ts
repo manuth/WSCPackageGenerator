@@ -69,14 +69,6 @@ export class OptionItem
     }
 
     /**
-     * Gets the full name of the item.
-     */
-    public get FullName(): string
-    {
-        return `${this.Option.FullName}.${this.Name}`;
-    }
-
-    /**
      * Gets the value of the item.
      */
     public get Value(): any
