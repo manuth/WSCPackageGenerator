@@ -1,28 +1,24 @@
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as Temp from "tmp";
+import { TempFile } from "./TempFile";
 
-export class TempDirectory
+/**
+ * Represents a temporary directory.
+ */
+export class TempDirectory extends TempFile
 {
-    /**
-     * The temporary directory.
-     */
-    private tempDirectory: Temp.SynchrounousResult;
-
     /**
      * Initializes a new instance of the `TempDirectory` class.
      */
     public constructor()
     {
-        this.tempDirectory = Temp.dirSync();
+        super();
     }
 
-    /**
-     * The name of the temporary directory.
-     */
-    public get FileName(): string
+    protected Initialize(): void
     {
-        return this.tempDirectory.name;
+        this.TempFileEntry = Temp.dirSync();
     }
 
     /**
@@ -42,7 +38,6 @@ export class TempDirectory
     public Dispose(): void
     {
         FileSystem.emptyDirSync(this.FileName);
-        this.tempDirectory.removeCallback();
-        this.tempDirectory = null;
+        super.Dispose();
     }
 }
