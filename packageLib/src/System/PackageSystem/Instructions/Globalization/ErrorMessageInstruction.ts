@@ -21,7 +21,7 @@ export class ErrorMessageInstruction extends TranslationInstruction
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {
-                FileName: this.FileName,
+                FileName: null,
                 Nodes: []
             });
 
