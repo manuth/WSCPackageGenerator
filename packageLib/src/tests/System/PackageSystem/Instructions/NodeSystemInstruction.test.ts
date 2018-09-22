@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import { isNullOrUndefined } from "util";
 import { INode } from "../../../../System/NodeSystem/INode";
 import { INodeOptions } from "../../../../System/NodeSystem/INodeOptions";
 import { Node } from "../../../../System/NodeSystem/Node";
@@ -47,15 +48,21 @@ suite(
 
                 for (let name of names.reverse())
                 {
-                    let child: MyNode = node || idNode;
+                    let child: MyNode = node;
 
                     node = new MyNode(
                         {
                             Name: name
                         });
 
-                    node.Nodes.push(child);
+                    if (!isNullOrUndefined(child))
+                    {
+                        node.Nodes.push(child);
+                    }
                 }
+
+                let allNodes: Node<NodeItem, {}>[] = node.GetAllNodes();
+                allNodes[Math.floor(Math.random() * allNodes.length)].Nodes.push(idNode);
 
                 instruction = new MyNodeInstruction(
                     {
