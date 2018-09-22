@@ -36,37 +36,19 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
     {
         let result: { [category: string]: { [key: string]: Localization } } = {};
 
-        for (let node of this.Nodes)
+        for (let rootNode of this.Nodes)
         {
-            result[node.FullName] = this.GetTranslations(node);
-        }
+            result[rootNode.FullName] = {};
 
-        return result;
-    }
-
-    /**
-     * Gets the translations of a node recursively.
-     *
-     * @param node
-     * The node to get the translations.
-     *
-     * @returns
-     * The translations of the node.
-     */
-    protected GetTranslations(node: Node<T, TOptions>): { [key: string]: Localization }
-    {
-        let result: { [key: string]: Localization } = {};
-
-        if (
-            !isNullOrUndefined(node.Item) &&
-            Object.keys(node.Item.Translations).length > 0)
-        {
-            result[node.FullName] = node.Item.Translations;
-        }
-
-        for (let subNode of node.Nodes)
-        {
-            Object.assign(result, this.GetTranslations(subNode));
+            for (let node of rootNode.GetAllNodes())
+            {
+                if (
+                    !isNullOrUndefined(node.Item) &&
+                    node.Item.Translations.GetLocales().length > 0)
+                {
+                    result[rootNode.FullName][node.FullName] = node.Item.Translations;
+                }
+            }
         }
 
         return result;

@@ -164,6 +164,22 @@ export class Node<T extends NodeItem, TOptions> implements INode
     }
 
     /**
+     * Gets all nodes recursively.
+     */
+    public GetAllNodes(): Node<T, TOptions>[]
+    {
+        let result: Node<T, TOptions>[] = [];
+        result.push(this);
+
+        for (let node of this.Nodes)
+        {
+            result.push(...node.GetAllNodes());
+        }
+
+        return result;
+    }
+
+    /**
      * Gets the identifiable objects of the node.
      */
     public GetObjects(): { [id: string]: any }
