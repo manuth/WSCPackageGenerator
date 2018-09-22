@@ -31,7 +31,9 @@ suite("TimePeriod",
         setup(
             () =>
             {
+                startDate = new Date(period.next().getTime());
                 endDate = new Date(startDate);
+                period.reset();
             });
 
         suite(
@@ -41,7 +43,6 @@ suite("TimePeriod",
                 suiteSetup(
                     () =>
                     {
-                        startDate = new Date(1999, 0, 1);
                         period = periodConverter(TimePeriod.Yearly);
                     });
 
@@ -50,9 +51,9 @@ suite("TimePeriod",
                     () =>
                     {
                         endDate.setFullYear(endDate.getFullYear() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
-                        endDate.setFullYear(endDate.getFullYear() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
+                        assert.strictEqual(
+                            period.next().getTime() - period.next().getTime(),
+                            startDate.getTime() - endDate.getTime());
                     });
             });
 
@@ -63,7 +64,6 @@ suite("TimePeriod",
                 suiteSetup(
                     () =>
                     {
-                        startDate = new Date(1999, 0, 1);
                         period = periodConverter(TimePeriod.Monthly);
                     });
 
@@ -72,9 +72,9 @@ suite("TimePeriod",
                     () =>
                     {
                         endDate.setMonth(endDate.getMonth() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
-                        endDate.setMonth(endDate.getMonth() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
+                        assert.strictEqual(
+                            period.next().getTime() - period.next().getTime(),
+                            startDate.getTime() - endDate.getTime());
                     });
             });
 
@@ -85,7 +85,6 @@ suite("TimePeriod",
                 suiteSetup(
                     () =>
                     {
-                        startDate = new Date(1999, 0, 4);
                         period = periodConverter(TimePeriod.Weekly);
                     });
 
@@ -94,9 +93,9 @@ suite("TimePeriod",
                     () =>
                     {
                         endDate.setDate(endDate.getDate() + 7);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
-                        endDate.setDate(endDate.getDate() + 7);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
+                        assert.strictEqual(
+                            period.next().getTime() - period.next().getTime(),
+                            startDate.getTime() - endDate.getTime());
                     });
             });
 
@@ -107,7 +106,6 @@ suite("TimePeriod",
                 suiteSetup(
                     () =>
                     {
-                        startDate = new Date(1999, 0, 1);
                         period = periodConverter(TimePeriod.Daily);
                     });
 
@@ -116,9 +114,9 @@ suite("TimePeriod",
                     () =>
                     {
                         endDate.setDate(endDate.getDate() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
-                        endDate.setDate(endDate.getDate() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
+                        assert.strictEqual(
+                            period.next().getTime() - period.next().getTime(),
+                            startDate.getTime() - endDate.getTime());
                     });
             });
 
@@ -129,7 +127,6 @@ suite("TimePeriod",
                 suiteSetup(
                     () =>
                     {
-                        startDate = new Date(1999, 0, 1);
                         period = periodConverter(TimePeriod.Hourly);
                     });
 
@@ -138,9 +135,9 @@ suite("TimePeriod",
                     () =>
                     {
                         endDate.setHours(endDate.getHours() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
-                        endDate.setHours(endDate.getHours() + 1);
-                        assert.strictEqual(period.next().getTime(), endDate.getTime());
+                        assert.strictEqual(
+                            period.next().getTime() - period.next().getTime(),
+                            startDate.getTime() - endDate.getTime());
                     });
             });
     });
