@@ -1,13 +1,11 @@
-import { isNullOrUndefined } from "util";
 import { CronJob } from "../../Tasks/CronJob";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";
 import { Instruction } from "./Instruction";
-import { IRemovableInstruction } from "./IRemovableInstruction";
 
 /**
  * Represents an instruction which install cron-jobs.
  */
-export class CronJobInstruction extends Instruction implements IRemovableInstruction
+export class CronJobInstruction extends Instruction
 {
     /**
      * The cron-jobs provided by the instruction.
@@ -29,11 +27,6 @@ export class CronJobInstruction extends Instruction implements IRemovableInstruc
         for (let cronJob of options.CronJobs)
         {
             this.CronJobs.push(new CronJob(cronJob));
-        }
-
-        if (!isNullOrUndefined(options.ItemsToRemove))
-        {
-            this.ItemsToRemove = options.ItemsToRemove;
         }
     }
 
