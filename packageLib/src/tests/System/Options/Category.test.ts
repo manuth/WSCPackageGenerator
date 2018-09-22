@@ -94,12 +94,28 @@ suite(
             "GetObjects()",
             () =>
             {
+                let objects: { [key: string]: any };
+
+                suiteSetup(
+                    () =>
+                    {
+                        objects = rootNode.GetObjects();
+                    });
+
                 test(
                     "Checking whether sub-nodes can be found by their ID...",
                     () =>
                     {
-                        console.log(option);
-                        assert.strictEqual(categoryID in rootNode.GetObjects(), true);
+                        assert.strictEqual(categoryID in objects, true);
+                        assert.strictEqual(objects[categoryID], category);
+                    });
+
+                test(
+                    "Checking whether options can be found by their ID...",
+                    () =>
+                    {
+                        assert.strictEqual(optionID in objects, true);
+                        assert.strictEqual(objects[optionID], option);
                     });
             });
     });
