@@ -1,4 +1,5 @@
 import { isNullOrUndefined } from "util";
+import { Localization } from "../Globalization/Localization";
 import { INode } from "../NodeSystem/INode";
 import { NodeItem } from "../NodeSystem/NodeItem";
 import { ICategory } from "./ICategory";
@@ -10,6 +11,16 @@ import { Option } from "./Option";
  */
 export class Category<TOption extends Option, TOptionOptions> extends NodeItem implements ICategory
 {
+    /**
+     * The human-readable name of the category.
+     */
+    private displayName: Localization = new Localization();
+
+    /**
+     * The description of the category.
+     */
+    private description: Localization = new Localization();
+
     /**
      * A value for ordering the category.
      */
@@ -30,6 +41,16 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
     {
         super(node);
 
+        if (!isNullOrUndefined(options.DisplayName))
+        {
+            Object.assign(this.DisplayName.Data, options.DisplayName);
+        }
+
+        if (!isNullOrUndefined(options.Description))
+        {
+            Object.assign(this.Description.Data, options.Description);
+        }
+
         if (!isNullOrUndefined(options.ShowOrder))
         {
             this.ShowOrder = options.ShowOrder;
@@ -39,6 +60,22 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
         {
             this.options.push(generator(this, option));
         }
+    }
+
+    /**
+     * Gets the human-readable name of the category.
+     */
+    public get DisplayName(): Localization
+    {
+        return this.displayName;
+    }
+
+    /**
+     * Gets the description of the category.
+     */
+    public get Description(): Localization
+    {
+        return this.description;
     }
 
     /**
