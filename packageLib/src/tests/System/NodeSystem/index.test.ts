@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./Node.test");
+        require("./NodeItem.test");
     });
