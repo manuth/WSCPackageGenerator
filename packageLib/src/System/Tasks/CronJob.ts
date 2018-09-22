@@ -37,7 +37,7 @@ export class CronJob
     /**
      * A set of options of which at least one must be enabled in order to execute the cron-job.
      */
-    private options: any[] = [];
+    private options: string[] = [];
 
     /**
      * The period to execute the cron-job.
