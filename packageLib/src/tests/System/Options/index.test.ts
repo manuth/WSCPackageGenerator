@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./Option.test");
+        require("./Category.test");
     });
