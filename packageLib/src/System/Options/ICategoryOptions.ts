@@ -23,5 +23,5 @@ export interface ICategoryOptions<T>
     /**
      * The options of the category.
      */
-    Options: T[];
+    Options?: T[];
 }
