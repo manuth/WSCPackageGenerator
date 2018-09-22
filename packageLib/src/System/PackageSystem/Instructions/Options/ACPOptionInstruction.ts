@@ -40,94 +40,85 @@ export class ACPOptionInstruction extends NodeSystemInstruction<ACPCategory, ICa
 
     public GetMessages(): { [category: string]: { [key: string]: Localization } }
     {
-        let messages: { [key: string]: Localization } = {};
-
         let result: TranslationInstruction = new TranslationInstruction(
             {
                 FileName: null,
                 Nodes: []
             });
 
-        let rootNode: LocalizationNode = new LocalizationNode(
+        let optionNode: LocalizationNode = new LocalizationNode(
             {
                 Name: "wcf.acp.option"
             });
 
-        for (let node of this.Nodes)
-        {
-            Object.assign(messages, this.GetTranslations(node));
-        }
-
-        for (let key of Object.keys(messages))
-        {
-            let node: LocalizationNode = new LocalizationNode(
-                {
-                    Name: key,
-                    Item: {
-                        Translations: messages[key].Data
-                    }
-                });
-
-            rootNode.Nodes.push(node);
-        }
-
-        result.Nodes.push(rootNode);
-        return result.GetMessages();
-    }
-
-    /**
-     * Gets the translations of a node recursively.
-     *
-     * @param node
-     * The node to get the translations.
-     *
-     * @returns
-     * The translations of the node.
-     */
-    public GetTranslations(node: Node<ACPCategory, ICategoryOptions<IACPOptionOptions>>): { [key: string]: Localization }
-    {
-        let result: { [key: string]: Localization } = {};
-
-        if (
-            !isNullOrUndefined(node.Item))
-        {
-            if (node.Item.DisplayName.GetLocales().length > 0)
+        let categoryNode: LocalizationNode = new LocalizationNode(
             {
-                result[`category.${node.FullName}`] = node.Item.DisplayName;
-            }
+                Name: "category"
+            });
 
-            if (node.Item.Description.GetLocales().length > 0)
+        for (let rootNode of this.Nodes)
+        {
+            for (let node of rootNode.GetAllNodes())
             {
-                result[`category.${node.FullName}.description`] = node.Item.Description;
-            }
-
-            for (let option of node.Item.Options)
-            {
-                if (option.DisplayName.GetLocales().length > 0)
+                if (!isNullOrUndefined(node.Item))
                 {
-                    result[option.Name] = option.DisplayName;
-                }
+                    let categoryTranslations: LocalizationNode = new LocalizationNode(
+                        {
+                            Name: node.FullName,
+                            Item: node.Item.DisplayName.GetLocales().length > 0 ?
+                                {
+                                    Translations: node.Item.DisplayName.Data
+                                } : undefined
+                        });
 
-                if (option.Description.GetLocales().length > 0)
-                {
-                    result[`${option.Name}.description`] = option.Description;
-                }
-
-                for (let optionItem of option.Items)
-                {
-                    if (optionItem.DisplayName.GetLocales().length > 0)
+                    if (node.Item.Description.GetLocales().length > 0)
                     {
-                        result[`${option.Name}.${optionItem.Name}`] = optionItem.DisplayName;
+                        categoryTranslations.Nodes.push(
+                            new LocalizationNode(
+                                {
+                                    Name: "description",
+                                    Item: {
+                                        Translations: node.Item.Description.Data
+                                    }
+                                }));
                     }
+
+                    for (let option of node.Item.Options)
+                    {
+                        let optionTranslations: LocalizationNode = new LocalizationNode(
+                            {
+                                Name: option.Name,
+                                Item: option.DisplayName.GetLocales().length > 0 ?
+                                    {
+                                        Translations: option.DisplayName.Data
+                                    } : undefined
+                            });
+
+                        for (let optionItem of option.Items)
+                        {
+                            if (optionItem.DisplayName.GetLocales().length > 0)
+                            {
+                                optionTranslations.Nodes.push(
+                                    new LocalizationNode(
+                                        {
+                                            Name: optionItem.Name,
+                                            Item: {
+                                                Translations: optionItem.DisplayName.Data
+                                            }
+                                        }));
+                            }
+                        }
+
+                        optionNode.Nodes.push(optionTranslations);
+                    }
+
+                    categoryNode.Nodes.push(categoryTranslations);
                 }
             }
         }
 
-        for (let subNode of node.Nodes)
-        {
-            Object.assign(result, this.GetTranslations(subNode));
-        }
-
-        return result;
+        optionNode.Nodes.push(categoryNode);
+        result.Nodes.push(optionNode);
+        return result.GetMessages();
     }
 }
