@@ -56,9 +56,12 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
             this.ShowOrder = options.ShowOrder;
         }
 
-        for (let option of options.Options)
+        if (!isNullOrUndefined(options.Options))
         {
-            this.options.push(generator(this, option));
+            for (let option of options.Options)
+            {
+                this.options.push(generator(this, option));
+            }
         }
     }
 
