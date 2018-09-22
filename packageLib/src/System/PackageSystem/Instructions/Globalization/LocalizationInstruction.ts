@@ -17,7 +17,7 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
      * @param generator
      * The generator-function for generating sub-nodes.
      */
-    public constructor(options: INodeSystemInstructionOptions<TOptions>, generator: (options: TOptions) => T)
+    public constructor(options: INodeSystemInstructionOptions<TOptions>, generator: (node: Node<T, TOptions>, options: TOptions) => T)
     {
         super(options, generator);
     }

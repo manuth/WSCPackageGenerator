@@ -11,16 +11,19 @@ export class NodeItem
     private node: INode;
 
     /**
+     * Initializes a new instance of the `NodeItem` class.
+     */
+    public constructor(node: INode)
+    {
+        this.node = node;
+    }
+
+    /**
      * Gets or sets the node of the item.
      */
     public get Node(): INode
     {
         return this.node;
-    }
-
-    public set Node(value: INode)
-    {
-        this.node = value;
     }
 
     /**

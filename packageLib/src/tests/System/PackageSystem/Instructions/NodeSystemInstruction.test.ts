@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import { INode } from "../../../../System/NodeSystem/INode";
 import { INodeOptions } from "../../../../System/NodeSystem/INodeOptions";
 import { Node } from "../../../../System/NodeSystem/Node";
 import { NodeItem } from "../../../../System/NodeSystem/NodeItem";
@@ -13,7 +14,7 @@ suite(
         {
             public constructor(options: INodeOptions<{}>)
             {
-                super(options, (): NodeItem => new NodeItem());
+                super(options, (opts: INodeOptions<{}>, node: INode): NodeItem => new NodeItem(node));
             }
         }
 
@@ -23,7 +24,7 @@ suite(
 
             public constructor(options: INodeSystemInstructionOptions<{}>)
             {
-                super(options, (): NodeItem => new NodeItem());
+                super(options, (opts: INodeOptions<{}>, node: INode): NodeItem => new NodeItem(node));
             }
         }
 

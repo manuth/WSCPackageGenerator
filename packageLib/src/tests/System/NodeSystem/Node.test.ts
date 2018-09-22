@@ -11,7 +11,7 @@ suite(
         {
             public constructor(options: INodeOptions<{}>)
             {
-                super(options, (): NodeItem => new NodeItem());
+                super(options, (): NodeItem => new NodeItem(this));
             }
         }
 

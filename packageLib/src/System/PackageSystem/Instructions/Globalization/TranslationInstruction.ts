@@ -1,5 +1,6 @@
 import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
+import { Node } from "../../../NodeSystem/Node";
 import { INodeSystemInstructionOptions } from "../INodeSystemInstructionOptions";
 import { LocalizationInstruction } from "./LocalizationInstruction";
 
@@ -13,6 +14,11 @@ export class TranslationInstruction extends LocalizationInstruction<Localization
      */
     public constructor(options: INodeSystemInstructionOptions<ILocalizationItemOptions>)
     {
-        super(options, (opts: ILocalizationItemOptions) => new LocalizationItem(opts));
+        super(
+            options,
+            (node: Node<LocalizationItem, ILocalizationItemOptions>, opts: ILocalizationItemOptions): LocalizationItem =>
+            {
+                return new LocalizationItem(node, opts);
+            });
     }
 }

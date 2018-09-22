@@ -13,6 +13,11 @@ export class LocalizationNode extends Node<LocalizationItem, ILocalizationItemOp
      */
     public constructor(options: INodeOptions<ILocalizationItemOptions>)
     {
-        super(options, (opts: ILocalizationItemOptions): LocalizationItem => new LocalizationItem(opts));
+        super(
+            options,
+            (node: Node<LocalizationItem, ILocalizationItemOptions>, opts: ILocalizationItemOptions): LocalizationItem =>
+            {
+                return new LocalizationItem(node, opts);
+            });
     }
 }

@@ -43,7 +43,7 @@ export class Node<T extends NodeItem, TOptions> implements INode
      * @param generator
      * The generator-function for generating sub-nodes.
      */
-    public constructor(options: INodeOptions<TOptions>, generator: (options: TOptions) => T)
+    public constructor(options: INodeOptions<TOptions>, generator: (node: Node<T, TOptions>, options: TOptions) => T)
     {
         if (!isNullOrUndefined(options.ID))
         {
@@ -54,7 +54,7 @@ export class Node<T extends NodeItem, TOptions> implements INode
 
         if (!isNullOrUndefined(options.Item))
         {
-            this.item = generator(options.Item);
+            this.item = generator(this, options.Item);
         }
 
         if (!isNullOrUndefined(options.Nodes))
@@ -121,16 +121,6 @@ export class Node<T extends NodeItem, TOptions> implements INode
     public get Item(): T
     {
         return this.item;
-    }
-
-    public set Item(value: T)
-    {
-        if (!isNullOrUndefined(value))
-        {
-            value.Node = this;
-        }
-
-        this.item = value;
     }
 
     /**

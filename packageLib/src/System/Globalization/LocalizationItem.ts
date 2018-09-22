@@ -1,4 +1,5 @@
 import { isNullOrUndefined } from "util";
+import { INode } from "../NodeSystem/INode";
 import { NodeItem } from "../NodeSystem/NodeItem";
 import { ILocalizationItemOptions } from "./ILocalizationItemOptions";
 import { Localization } from "./Localization";
@@ -22,9 +23,9 @@ export class LocalizationItem extends NodeItem
      * @param generator
      * The generator-function for generating sub-nodes.
      */
-    public constructor(options: ILocalizationItemOptions)
+    public constructor(node: INode, options: ILocalizationItemOptions)
     {
-        super();
+        super(node);
 
         if (!isNullOrUndefined(options.Translations))
         {
