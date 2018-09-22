@@ -8,6 +8,7 @@
         "forin": false,
         "one-line": false,
         "trailing-comma": false,
+        "no-bitwise": false,
         "no-default-export": true,
         "no-empty-interface": false,
         "no-empty": false,
