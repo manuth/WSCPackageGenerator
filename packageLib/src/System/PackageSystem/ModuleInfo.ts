@@ -15,7 +15,9 @@ export class ModuleInfo
     /**
      * The author of the module.
      */
-    private author: Person = null;
+    private author: Person = new Person({
+        Name: null
+    });
 
     /**
      * The license of the module.
