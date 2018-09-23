@@ -1,4 +1,6 @@
 import * as ChildProcess from "child_process";
+import * as memFs from "mem-fs";
+import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
 
 /**
@@ -60,6 +62,35 @@ export abstract class Compiler<T>
      * Compiles the item.
      */
     protected abstract async Compile(): Promise<void>;
+
+    /**
+     * Copies files using `EJS`.
+     *
+     * @param source
+     * The source to copy the files from.
+     *
+     * @param destination
+     * The destination to copy the files to.
+     *
+     * @param context
+     * The context to use.
+     */
+    protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any }): Promise<void>
+    {
+        let fileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
+        fileSystem.copyTpl(source, destination, context);
+
+        await new Promise<void>(
+            (resolve: () => void): void =>
+            {
+                fileSystem.commit(
+                    [],
+                    () =>
+                    {
+                        resolve();
+                    });
+            });
+    }
 
     /**
      * Joins the paths and returns the path contained by the destination-folder.
