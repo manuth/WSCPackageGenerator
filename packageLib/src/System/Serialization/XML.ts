@@ -41,26 +41,25 @@ export class XML
         {
             let indent: number = 0;
             let plainText: boolean = false;
-            line = line.trim();
 
-            if (!line.match(/<(\w*)>.*<\/\1>/))
+            if (!line.match(/<(\w+)[^>]*>.*<\/\1>/))
             {
-                if (line.match(/<\/\w*/))
+                if (line.match(/<\/\w+/))
                 {
                     pad = Math.max(0, pad - 1);
                 }
-                else if (line.match(/<(\w*)>/))
+                else if (line.match(/<\w+[^>]*>/))
                 {
                     indent = 1;
                 }
             }
 
-            if (!line.startsWith("<"))
+            if (!line.trim().startsWith("<"))
             {
                 plainText = true;
             }
 
-            formatted += `${" ".repeat((plainText ? 0 : pad) * 4)}${line}\n`;
+            formatted += `${plainText ? line : `${" ".repeat(pad * 4)}${line.trim()}`}\n`;
             pad = pad + indent;
         }
 
