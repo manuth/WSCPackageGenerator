@@ -6,7 +6,7 @@
         "module": "commonjs",
         "sourceMap": true,
         "lib": [
-            "es7",
+            "es2017",
             "dom"
         ],
         "noUnusedLocals": true,
