@@ -1,7 +1,7 @@
-import * as ChildProcess from "child_process";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
+import * as tar from "tar";
 
 /**
  * Provides the functionality to compile a component.
@@ -123,18 +123,13 @@ export abstract class Compiler<T>
      * @param destination
      * The filename to save the compressed file to.
      */
-    protected Compress(source: string, destination: string): void
+    protected async Compress(source: string, destination: string): Promise<void>
     {
-        ChildProcess.execFileSync(
-            "7z",
-            [
-                "a",
-                "-up0q0",
-                Path.resolve(destination),
-                "*"
-            ],
+        await tar.create(
             {
-                cwd: source
-            });
+                cwd: Path.resolve(source),
+                file: Path.resolve(destination)
+            },
+            ["*"]);
     }
 }
