@@ -36,7 +36,7 @@ export class ModuleInfo
     {
         let packagePath: string = Path.join(__dirname, "..", "..", "..", "package.json");
 
-        if (FileSystem.existsSync(packagePath))
+        if (FileSystem.pathExistsSync(packagePath))
         {
             let $package: any = require(packagePath);
 

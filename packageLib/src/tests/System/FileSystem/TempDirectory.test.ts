@@ -29,7 +29,7 @@ suite(
 
         test(
             "Checking whether the file written to the temporary directory exists...",
-            () => assert.strictEqual(FileSystem.existsSync(Path.join(tempDirName, tempFileName)), true));
+            async () => assert.strictEqual(await FileSystem.pathExists(Path.join(tempDirName, tempFileName)), true));
 
         test(
             "Checking whether the `TempDirectory`-object can be disposed...",

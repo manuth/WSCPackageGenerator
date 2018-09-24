@@ -1,4 +1,4 @@
-import * as FileSystem from "fs";
+import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { Theme } from "./Theme";
 import { ThemeInstruction } from "./ThemeInstruction";
@@ -26,7 +26,7 @@ export class ThemeInstructionCollection extends Array<ThemeInstruction>
         {
             let metaFile: string = Path.resolve(Path.join(themeFolder, "Theme"));
 
-            if (FileSystem.existsSync(metaFile + ".js"))
+            if (FileSystem.pathExistsSync(metaFile + ".js"))
             {
                 let currentDir: string = process.cwd();
                 process.chdir(themeFolder);

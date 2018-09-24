@@ -20,7 +20,7 @@ suite(
 
         test(
             "Checking whether the temporary file exists...",
-            () => assert.strictEqual(FileSystem.existsSync(tempFileName), true));
+            async () => assert.strictEqual(await FileSystem.pathExists(tempFileName), true));
 
         test(
             "Checking whether files can be written to the temporary file...",
@@ -36,8 +36,8 @@ suite(
 
         test(
             "Checking whether the temporary file has been deleted...",
-            () =>
+            async () =>
             {
-                assert.strictEqual(FileSystem.existsSync(tempFileName), false);
+                assert.strictEqual(await FileSystem.pathExists(tempFileName), false);
             });
     });

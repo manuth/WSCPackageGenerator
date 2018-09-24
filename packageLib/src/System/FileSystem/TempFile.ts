@@ -55,4 +55,15 @@ export class TempFile
         this.tempFileEntry.removeCallback();
         this.tempFileEntry = null;
     }
+
+    /**
+     * Returns a string which represents the object.
+     *
+     * @returns
+     * A string which represents the object.
+     */
+    public toString(): string
+    {
+        return this.FileName;
+    }
 }
