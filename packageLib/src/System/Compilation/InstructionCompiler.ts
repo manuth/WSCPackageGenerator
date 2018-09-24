@@ -4,7 +4,7 @@ import { Compiler } from "./Compiler";
 /**
  * Provides the functionality to compile an instruction.
  */
-export abstract class InstructionCompiler<T extends Instruction> extends Compiler<T>
+export class InstructionCompiler<T extends Instruction> extends Compiler<T>
 {
     /**
      * Gets the name of the file to write the compiled item to.
@@ -12,6 +12,10 @@ export abstract class InstructionCompiler<T extends Instruction> extends Compile
     public get DestinationFileName(): string
     {
         return this.MakeDestinationPath(this.Item.FullName);
+    }
+
+    protected async Compile(): Promise<void>
+    {
     }
 
     /**
