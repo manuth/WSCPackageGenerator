@@ -58,7 +58,7 @@ export class ThemeCompiler extends Compiler<Theme>
         }
 
         let document: Document = XML.CreateDocument("style");
-        let generalElement: Element = document.createElement("general");
+        let general: Element = document.createElement("general");
         {
             for (let locale of this.Item.DisplayName.GetLocales())
             {
@@ -70,12 +70,12 @@ export class ThemeCompiler extends Compiler<Theme>
                 }
 
                 name.appendChild(document.createTextNode(this.Item.DisplayName.Data[locale]));
-                generalElement.appendChild(name);
+                general.appendChild(name);
             }
 
             let $package: Element = document.createElement("packageName");
             $package.appendChild(document.createTextNode(this.Item.Instruction.Collection.Package.Identifier));
-            generalElement.appendChild($package);
+            general.appendChild($package);
 
             for (let locale of this.Item.Description.GetLocales())
             {
@@ -87,12 +87,12 @@ export class ThemeCompiler extends Compiler<Theme>
                 }
 
                 description.appendChild(document.createTextNode(this.Item.Description.Data[locale]));
-                generalElement.appendChild(description);
+                general.appendChild(description);
             }
 
             let api: Element = document.createElement("apiVersion");
             api.appendChild(document.createTextNode("3.1"));
-            generalElement.appendChild(api);
+            general.appendChild(api);
 
             let date: Element = document.createElement("date");
             date.appendChild(
@@ -100,37 +100,37 @@ export class ThemeCompiler extends Compiler<Theme>
                     this.Item.CreationDate.getFullYear() + "-" +
                     (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
                     this.Item.CreationDate.getDate().toString().padStart(2, "0")));
-            generalElement.appendChild(date);
+            general.appendChild(date);
 
             if (!isNullOrUndefined(this.Item.Thumbnail))
             {
                 let thumbnail: Element = document.createElement("image");
                 thumbnail.appendChild(document.createTextNode(this.Item.Thumbnail));
-                generalElement.appendChild(thumbnail);
+                general.appendChild(thumbnail);
             }
 
             if (!isNullOrUndefined(this.Item.HighResThumbnail))
             {
                 let highResThumbnail: Element = document.createElement("image2x");
                 highResThumbnail.appendChild(document.createTextNode(this.Item.HighResThumbnail));
-                generalElement.appendChild(highResThumbnail);
+                general.appendChild(highResThumbnail);
             }
 
             if (!isNullOrUndefined(this.Item.CoverPhoto))
             {
                 let coverPhoto: Element = document.createElement("coverPhoto");
                 coverPhoto.appendChild(document.createTextNode(this.Item.CoverPhoto));
-                generalElement.appendChild(coverPhoto);
+                general.appendChild(coverPhoto);
             }
 
             if (!isNullOrUndefined(this.Item.License))
             {
                 let license: Element = document.createElement("license");
                 license.appendChild(document.createTextNode(this.Item.License));
-                generalElement.appendChild(license);
+                general.appendChild(license);
             }
         }
-        document.documentElement.appendChild(generalElement);
+        document.documentElement.appendChild(general);
 
         let author: Element = document.createElement("author");
         {
