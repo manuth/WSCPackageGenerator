@@ -1,5 +1,6 @@
 import * as FileSystem from "fs-extra";
 import { isNullOrUndefined } from "util";
+import { XMLSerializer } from "xmldom";
 import { Theme } from "../Customization/Presentation/Themes/Theme";
 import { XML } from "../Serialization/XML";
 import { Compiler } from "./Compiler";
