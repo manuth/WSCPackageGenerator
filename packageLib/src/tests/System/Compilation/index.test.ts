@@ -5,4 +5,5 @@ suite(
         require("./ThemeVariableCompiler.test");
         require("./ThemeCompiler.test");
         require("./ThemeInstructionCompiler.test");
+        require("./FileInstructionCompiler.test");
     });
