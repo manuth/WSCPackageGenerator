@@ -1,3 +1,4 @@
+import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";
@@ -20,7 +21,7 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
         super(
             {
                 Source: options.Source,
-                FileName: options.FileName || `${options.Source}.tar`
+                FileName: options.FileName || `${(Path.isAbsolute(options.Source) || options.Source.startsWith("..")) ? Path.basename(options.Source) : options.Source}.tar`
             });
 
         if (!isNullOrUndefined(options.Application))
