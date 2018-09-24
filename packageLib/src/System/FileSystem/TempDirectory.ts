@@ -11,14 +11,14 @@ export class TempDirectory extends TempFile
     /**
      * Initializes a new instance of the `TempDirectory` class.
      */
-    public constructor()
+    public constructor(options?: Temp.Options)
     {
-        super();
+        super(options);
     }
 
-    protected Initialize(): void
+    protected Initialize(options: Temp.Options): void
     {
-        this.TempFileEntry = Temp.dirSync();
+        this.TempFileEntry = Temp.dirSync(options);
     }
 
     /**

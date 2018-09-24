@@ -13,9 +13,9 @@ export class TempFile
     /**
      * Initializes a new instance of the `TempDirectory` class.
      */
-    public constructor()
+    public constructor(options?: Temp.Options)
     {
-        this.Initialize();
+        this.Initialize(options);
     }
 
     /**
@@ -42,9 +42,9 @@ export class TempFile
     /**
      * Initializes the component.
      */
-    protected Initialize(): void
+    protected Initialize(options: Temp.Options): void
     {
-        this.TempFileEntry = Temp.fileSync();
+        this.TempFileEntry = Temp.fileSync(options);
     }
 
     /**
