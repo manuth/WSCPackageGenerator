@@ -32,6 +32,12 @@ suite(
                 packageFileName = Path.join(__dirname, "..", "..", "..", "..", "package.json");
             });
 
+        suiteTeardown(
+            async () =>
+            {
+                await FileSystem.unlink(packageFileName);
+            });
+
         suite(
             "Testing whether the values are read correctly...",
             () =>
@@ -96,11 +102,5 @@ suite(
                         assert.strictEqual(moduleInfo.Version, version);
                         assert.strictEqual(moduleInfo.License, license);
                     });
-            });
-
-        suiteTeardown(
-            async () =>
-            {
-                await FileSystem.unlink(packageFileName);
             });
     });

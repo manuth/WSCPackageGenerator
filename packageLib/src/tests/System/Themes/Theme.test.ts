@@ -123,6 +123,12 @@ suite(
                     });
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempDir.Dispose();
+            });
+
         suite(
             "CustomScss",
             () =>
@@ -220,11 +226,5 @@ suite(
                             }
                         }
                     });
-            });
-
-        suiteTeardown(
-            () =>
-            {
-                tempDir.Dispose();
             });
     });

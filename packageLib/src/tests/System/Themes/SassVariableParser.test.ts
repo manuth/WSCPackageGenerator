@@ -48,6 +48,12 @@ suite(
                 variablesWithImport = new SassVariableParser(tempDir.MakePath(importFile)).Parse();
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempDir.Dispose();
+            });
+
         suite(
             "Testing scss-files without import-statements...",
             () =>
@@ -93,11 +99,5 @@ suite(
                     {
                         assert.strictEqual(variablesWithImport[var3Name], var1Value);
                     });
-            });
-
-        suiteTeardown(
-            () =>
-            {
-                tempDir.Dispose();
             });
     });
