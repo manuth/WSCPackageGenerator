@@ -11,4 +11,5 @@ suite(
         require("./PackageSystem/index.test");
         require("./Tasks/index.test");
         require("./Themes/index.test");
+        require("./Compilation/index.test");
     });
