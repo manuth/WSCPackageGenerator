@@ -79,7 +79,7 @@ export abstract class Compiler<T>
     protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any }): Promise<void>
     {
         let fileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
-        fileSystem.copyTpl(source, destination, context);
+        fileSystem.copyTpl(source, destination, context, {}, { globOptions: { dot: true } });
 
         await new Promise<void>(
             (resolve: () => void): void =>
