@@ -11,7 +11,7 @@ export class TempFile
     private tempFileEntry: Temp.SynchrounousResult;
 
     /**
-     * Initializes a new instance of the `TempDirectory` class.
+     * Initializes a new instance of the `TempFile` class.
      */
     public constructor(options?: Temp.Options)
     {
