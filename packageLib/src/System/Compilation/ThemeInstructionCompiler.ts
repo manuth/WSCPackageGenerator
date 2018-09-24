@@ -28,7 +28,7 @@ export class ThemeInstructionCompiler extends InstructionCompiler<ThemeInstructi
         themeCompiler.DestinationPath = tempDir.FileName;
         await themeCompiler.Execute();
         await this.CopyTemplate(tempDir.FileName, themeDir.FileName);
-        await this.Compress(themeDir.FileName, this.MakeDestinationPath(this.Item.FullName));
+        await this.Compress(themeDir.FileName, this.DestinationFileName);
         tempDir.Dispose();
         themeDir.Dispose();
     }

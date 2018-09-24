@@ -7,6 +7,14 @@ import { Compiler } from "./Compiler";
 export abstract class InstructionCompiler<T extends Instruction> extends Compiler<T>
 {
     /**
+     * Gets the name of the file to write the compiled item to.
+     */
+    public get DestinationFileName(): string
+    {
+        return this.MakeDestinationPath(this.Item.FullName);
+    }
+
+    /**
      * Copies files using `EJS`.
      *
      * @param source
