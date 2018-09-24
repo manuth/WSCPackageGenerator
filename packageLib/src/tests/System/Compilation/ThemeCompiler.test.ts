@@ -55,6 +55,13 @@ suite(
                 compiler.DestinationPath = tempDir.FileName;
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempDir.Dispose();
+                variableFile.Dispose();
+            });
+
         test(
             "Checking whether themes can be compild without an error...",
             async () =>

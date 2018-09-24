@@ -26,6 +26,12 @@ suite(
                 compiler.DestinationPath = tempFile.FileName;
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempFile.Dispose();
+            });
+
         test(
             "Checking whether the compiler executes without any errors...",
             async () =>
