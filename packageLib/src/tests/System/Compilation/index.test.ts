@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./ThemeVariableCompiler.test");
+        require("./ThemeCompiler.test");
     });
