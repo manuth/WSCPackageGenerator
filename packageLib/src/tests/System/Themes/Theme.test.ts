@@ -81,7 +81,7 @@ suite(
 
                 let customScssFileName: string = tempDir.MakePath("custom.scss");
                 let scssOverrideFileName: string = tempDir.MakePath("override.scss");
-                let variableFileName: string = tempDir.MakePath("vawriables.json");
+                let variableFileName: string = tempDir.MakePath("variables.json");
 
                 await FileSystem.writeFile(customScssFileName, customScss);
 
