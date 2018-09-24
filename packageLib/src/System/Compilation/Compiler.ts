@@ -1,3 +1,4 @@
+import * as FileSystem from "fs-extra";
 import * as memFs from "mem-fs";
 import * as memFsEditor from "mem-fs-editor";
 import * as Path from "path";
@@ -125,11 +126,12 @@ export abstract class Compiler<T>
      */
     protected async Compress(source: string, destination: string): Promise<void>
     {
+        await FileSystem.ensureDir(Path.dirname(destination));
         await tar.create(
             {
                 cwd: Path.resolve(source),
                 file: Path.resolve(destination)
             },
-            ["*"]);
+            await FileSystem.readdir(source));
     }
 }
