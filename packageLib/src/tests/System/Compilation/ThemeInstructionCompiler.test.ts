@@ -74,35 +74,41 @@ suite(
                 themeDir.Dispose();
             });
 
-        test(
-            "Checking whether the instruction can be compiled without any errors...",
-            async () =>
+        suite(
+            "Compile()",
+            () =>
             {
-                await compiler.Execute();
-            });
 
-        test(
-            "Checking whether the tar-archive has been created...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(themeArchive), true);
-            });
-
-        test(
-            "Checking whether the tar-archive can be extracted without an error...",
-            async () =>
-            {
-                await tar.extract(
+                test(
+                    "Checking whether the instruction can be compiled without any errors...",
+                    async () =>
                     {
-                        cwd: themeDir.FileName,
-                        file: themeArchive
+                        await compiler.Execute();
                     });
-            });
 
-        test(
-            "Checking whether the files expected in the tar-archive exist...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "style.xml")), true);
+                test(
+                    "Checking whether the tar-archive has been created...",
+                    async () =>
+                    {
+                        assert.strictEqual(await FileSystem.pathExists(themeArchive), true);
+                    });
+
+                test(
+                    "Checking whether the tar-archive can be extracted without an error...",
+                    async () =>
+                    {
+                        await tar.extract(
+                            {
+                                cwd: themeDir.FileName,
+                                file: themeArchive
+                            });
+                    });
+
+                test(
+                    "Checking whether the files expected in the tar-archive exist...",
+                    async () =>
+                    {
+                        assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "style.xml")), true);
+                    });
             });
     });

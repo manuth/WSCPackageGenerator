@@ -62,24 +62,29 @@ suite(
                 variableFile.Dispose();
             });
 
-        test(
-            "Checking whether themes can be compild without an error...",
-            async () =>
+        suite(
+            "Compile()",
+            () =>
             {
-                await compiler.Execute();
-            });
+                test(
+                    "Checking whether themes can be compild without an error...",
+                    async () =>
+                    {
+                        await compiler.Execute();
+                    });
 
-        test(
-            "Checking whether the style-metadata exists...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(tempDir.MakePath("style.xml")), true);
-            });
+                test(
+                    "Checking whether the style-metadata exists...",
+                    async () =>
+                    {
+                        assert.strictEqual(await FileSystem.pathExists(tempDir.MakePath("style.xml")), true);
+                    });
 
-        test(
-            "Checking whether the variable-file exists...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(tempDir.MakePath(variableFileName)), true);
+                test(
+                    "Checking whether the variable-file exists...",
+                    async () =>
+                    {
+                        assert.strictEqual(await FileSystem.pathExists(tempDir.MakePath(variableFileName)), true);
+                    });
             });
     });

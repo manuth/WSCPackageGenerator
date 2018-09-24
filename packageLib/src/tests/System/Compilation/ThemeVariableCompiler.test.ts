@@ -32,32 +32,38 @@ suite(
                 tempFile.Dispose();
             });
 
-        test(
-            "Checking whether the compiler executes without any errors...",
-            async () =>
+        suite(
+            "Compile()",
+            () =>
             {
-                await compiler.Execute();
-            });
 
-        test(
-            "Checking whether the compiled file exists...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
-            });
+                test(
+                    "Checking whether the compiler executes without any errors...",
+                    async () =>
+                    {
+                        await compiler.Execute();
+                    });
 
-        test(
-            "Checking whether the content of the file is correct...",
-            async () =>
-            {
-                let content: string = (await FileSystem.readFile(tempFile.FileName)).toString();
-                let xml: Document = new DOMParser().parseFromString(content);
-                assert.strictEqual(xml.documentElement.tagName, "variables");
-                assert.strictEqual(xml.documentElement.getElementsByTagName("variable").length, 1);
+                test(
+                    "Checking whether the compiled file exists...",
+                    async () =>
+                    {
+                        assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                    });
 
-                let variableElement: Element = xml.documentElement.getElementsByTagName("variable")[0];
-                assert.strictEqual(variableElement.hasAttribute("name"), true);
-                assert.strictEqual(variableElement.getAttribute("name"), variableName);
-                assert.strictEqual(variableElement.textContent, value);
+                test(
+                    "Checking whether the content of the file is correct...",
+                    async () =>
+                    {
+                        let content: string = (await FileSystem.readFile(tempFile.FileName)).toString();
+                        let xml: Document = new DOMParser().parseFromString(content);
+                        assert.strictEqual(xml.documentElement.tagName, "variables");
+                        assert.strictEqual(xml.documentElement.getElementsByTagName("variable").length, 1);
+
+                        let variableElement: Element = xml.documentElement.getElementsByTagName("variable")[0];
+                        assert.strictEqual(variableElement.hasAttribute("name"), true);
+                        assert.strictEqual(variableElement.getAttribute("name"), variableName);
+                        assert.strictEqual(variableElement.textContent, value);
+                    });
             });
     });

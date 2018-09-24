@@ -64,52 +64,58 @@ suite(
             {
                 sourceDir.Dispose();
                 testDir.Dispose();
+                packageDir.Dispose();
             });
 
-        test(
-            "Checking whether the instruction can be compiled...",
-            async () =>
+        suite(
+            "Compile()",
+            () =>
             {
-                await compiler.Execute();
-            });
-
-        test(
-            "Checking whether the archive has been created...",
-            async () =>
-            {
-                assert.strictEqual(await FileSystem.pathExists(archiveFileName), true);
-            });
-
-        test(
-            "Checking whether the archive can be extracted...",
-            async () =>
-            {
-                await tar.extract(
+                test(
+                    "Checking whether the instruction can be compiled...",
+                    async () =>
                     {
-                        cwd: testDir.FileName,
-                        file: archiveFileName
+                        await compiler.Execute();
                     });
-            });
 
-        test(
-            "Checking whether all files are present inside the archive...",
-            async () =>
-            {
-                let files: string[] = [];
-
-                await tar.list({
-                    file: archiveFileName,
-                    onentry: (entry: tar.FileStat): void =>
+                test(
+                    "Checking whether the archive has been created...",
+                    async () =>
                     {
-                        files.push(entry.header.path);
-                    },
-                    filter: (fileName: string, stat: tar.FileStat): boolean =>
-                    {
-                        return Path.parse(fileName).dir.length === 0;
-                    }
-                });
+                        assert.strictEqual(await FileSystem.pathExists(archiveFileName), true);
+                    });
 
-                assert.strictEqual(fileNames.every((fileName: string): boolean => files.includes(fileName)), true);
-                assert.strictEqual(files.every((fileName: string): boolean => fileNames.includes(fileName)), true);
+                test(
+                    "Checking whether the archive can be extracted...",
+                    async () =>
+                    {
+                        await tar.extract(
+                            {
+                                cwd: testDir.FileName,
+                                file: archiveFileName
+                            });
+                    });
+
+                test(
+                    "Checking whether all files are present inside the archive...",
+                    async () =>
+                    {
+                        let files: string[] = [];
+
+                        await tar.list({
+                            file: archiveFileName,
+                            onentry: (entry: tar.FileStat): void =>
+                            {
+                                files.push(entry.header.path);
+                            },
+                            filter: (fileName: string, stat: tar.FileStat): boolean =>
+                            {
+                                return Path.parse(fileName).dir.length === 0;
+                            }
+                        });
+
+                        assert.strictEqual(fileNames.every((fileName: string): boolean => files.includes(fileName)), true);
+                        assert.strictEqual(files.every((fileName: string): boolean => fileNames.includes(fileName)), true);
+                    });
             });
     });
