@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import * as Path from "path";
 import * as tar from "tar";
 import { FileInstructionCompiler } from "../../../System/Compilation/FileInstructionCompiler";
 import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
@@ -25,7 +26,12 @@ suite(
                 sourceDir = new TempDirectory();
                 testDir = new TempDirectory();
                 packageDir = new TempDirectory();
-                fileNames = ["test1.txt", "test2.txt", "this-is-a-file.txt", ".htaccess", "blargh.xcf"];
+                fileNames = [
+                    "test1.txt",
+                    "test2.txt",
+                    "this-is-a-file.txt",
+                    ".htaccess",
+                    "blargh.xcf"];
                 content = "Hello World";
 
                 let $package: Package = new Package(
@@ -86,12 +92,24 @@ suite(
             });
 
         test(
-            "Kacka",
+            "Checking whether all files are present inside the archive...",
             async () =>
             {
+                let files: string[] = [];
+
                 await tar.list({
                     file: archiveFileName,
-                    onentry: (entry: tar.FileStat): void => console.log(entry)
+                    onentry: (entry: tar.FileStat): void =>
+                    {
+                        files.push(entry.header.path);
+                    },
+                    filter: (fileName: string, stat: tar.FileStat): boolean =>
+                    {
+                        return Path.parse(fileName).dir.length === 0;
+                    }
                 });
+
+                assert.strictEqual(fileNames.every((fileName: string): boolean => files.includes(fileName)), true);
+                assert.strictEqual(files.every((fileName: string): boolean => fileNames.includes(fileName)), true);
             });
     });
