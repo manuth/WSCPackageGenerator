@@ -74,7 +74,7 @@ export class CronJobInstructionCompiler extends XMLInstructionCompiler<CronJobIn
                 cronJobMeta.appendChild(month);
 
                 let dayOfWeek: Element = document.createElement("startdow");
-                dayOfWeek.appendChild(document.createElement(cronJob.Period.DayOfWeek));
+                dayOfWeek.appendChild(document.createTextNode(cronJob.Period.DayOfWeek));
                 cronJobMeta.appendChild(dayOfWeek);
             }
             $import.appendChild(cronJobMeta);
