@@ -1,9 +1,9 @@
-import { XMLFileCompiler } from "./XMLFileCompiler";
+import { EJSXMLCompiler } from "./EJSXMLCompiler";
 
 /**
  * Provides the functionality to compile components to `xml`-files optimized for woltlab.
  */
-export abstract class WoltLabXMLCompiler<T> extends XMLFileCompiler<T>
+export abstract class WoltLabXMLCompiler<T> extends EJSXMLCompiler<T>
 {
     protected get TagName(): string
     {

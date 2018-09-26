@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { DOMParser } from "xmldom";
 import { CronJobInstructionCompiler } from "../../../../System/Compilation/Instructions/CronJobInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
+import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 import { TimePeriod } from "../../../../System/Tasks/TimePeriod";
@@ -27,7 +27,18 @@ suite(
                         Identifier: "foo",
                         DisplayName: {},
                         InstallSet: {
-                            Instructions: []
+                            Instructions: [
+                                new ACPOptionInstruction(
+                                    {
+                                        FileName: null,
+                                        Nodes: [
+                                            {
+                                                ID: "foo",
+                                                Name: "this-is-a-test"
+                                            }
+                                        ]
+                                    })
+                            ]
                         }
                     });
 
@@ -41,7 +52,8 @@ suite(
                             {
                                 Name: cronJobName,
                                 ClassName: "foo\\bar",
-                                Period: period
+                                Period: period,
+                                Options: ["<%= $('foo') %>"]
                             }
                         ]
                     });
@@ -77,15 +89,10 @@ suite(
                     });
 
                 test(
-                    "Checking whether the content of the file is correct...",
+                    "Checking whether ejs-strings are replaced correctly...",
                     async () =>
                     {
-                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(fileName)).toString());
-                        assert.strictEqual(document.getElementsByTagName("startminute")[0].textContent, period.Minute);
-                        assert.strictEqual(document.getElementsByTagName("starthour")[0].textContent, period.Hour);
-                        assert.strictEqual(document.getElementsByTagName("startdom")[0].textContent, period.DayOfMonth);
-                        assert.strictEqual(document.getElementsByTagName("startmonth")[0].textContent, period.Month);
-                        assert.strictEqual(document.getElementsByTagName("startdow")[0].textContent, period.DayOfWeek);
+                        (await FileSystem.readFile(fileName)).toString().includes("this-is-a-test");
                     });
             });
     });

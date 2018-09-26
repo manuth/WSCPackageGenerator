@@ -15,9 +15,7 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
 
     protected async Compile(): Promise<void>
     {
-        await FileSystem.writeFile(
-            this.DestinationPath,
-            XML.Prettify(new XMLSerializer().serializeToString(this.XMLElement)));
+        await FileSystem.writeFile(this.DestinationPath, this.Content);
     }
 
     /**
@@ -26,5 +24,13 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
     protected get XMLElement(): Document
     {
         return XML.CreateDocument(this.TagName);
+    }
+
+    /**
+     * Gets the content of the `xml`-element as a string.
+     */
+    protected get Content(): string
+    {
+        return XML.Prettify(new XMLSerializer().serializeToString(this.XMLElement));
     }
 }
