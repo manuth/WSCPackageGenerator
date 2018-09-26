@@ -15,7 +15,7 @@ export class CronJobInstructionCompiler extends InstructionCompiler<CronJobInstr
             let compiler: CronJobFileCompiler = new CronJobFileCompiler(this.Item);
             compiler.DestinationPath = tempFile.FileName;
             await compiler.Execute();
-            this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
+            await this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
         }
     }
 }
