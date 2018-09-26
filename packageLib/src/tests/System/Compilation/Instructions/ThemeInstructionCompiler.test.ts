@@ -3,10 +3,10 @@ import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as tar from "tar";
-import { ThemeInstructionCompiler } from "../../../System/Compilation/ThemeInstructionCompiler";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
-import { ThemeInstruction } from "../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { Package } from "../../../System/PackageSystem/Package";
+import { ThemeInstructionCompiler } from "../../../../System/Compilation/Instructions/ThemeInstructionCompiler";
+import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
+import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { Package } from "../../../../System/PackageSystem/Package";
 
 suite(
     "ThemeInstructionCompiler",

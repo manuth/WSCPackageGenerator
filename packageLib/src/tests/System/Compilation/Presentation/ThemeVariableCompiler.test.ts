@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
-import { ThemeVariableCompiler } from "../../../System/Compilation/ThemeVariableCompiler";
-import { TempFile } from "../../../System/FileSystem/TempFile";
+import { ThemeVariableCompiler } from "../../../../System/Compilation/Presentation/ThemeVariableCompiler";
+import { TempFile } from "../../../../System/FileSystem/TempFile";
 
 suite(
     "ThemeVariableCompiler",

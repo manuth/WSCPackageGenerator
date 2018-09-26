@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { CronJobInstruction } from "../PackageSystem/Instructions/Tasks/CronJobInstruction";
+import { CronJobInstruction } from "../../PackageSystem/Instructions/Tasks/CronJobInstruction";
 import { XMLInstructionCompiler } from "./XMLInstructionCompiler";
 
 /**

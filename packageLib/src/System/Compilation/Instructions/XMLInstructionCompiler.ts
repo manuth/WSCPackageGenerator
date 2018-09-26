@@ -1,8 +1,8 @@
 import * as FileSystem from "fs-extra";
 import { XMLSerializer } from "xmldom";
-import { TempFile } from "../FileSystem/TempFile";
-import { Instruction } from "../PackageSystem/Instructions/Instruction";
-import { XML } from "../Serialization/XML";
+import { TempFile } from "../../FileSystem/TempFile";
+import { Instruction } from "../../PackageSystem/Instructions/Instruction";
+import { XML } from "../../Serialization/XML";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

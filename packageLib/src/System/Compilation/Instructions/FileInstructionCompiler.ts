@@ -1,5 +1,5 @@
-import { TempDirectory } from "../FileSystem/TempDirectory";
-import { ApplicationFileSystemInstruction } from "../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
+import { TempDirectory } from "../../FileSystem/TempDirectory";
+import { ApplicationFileSystemInstruction } from "../../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

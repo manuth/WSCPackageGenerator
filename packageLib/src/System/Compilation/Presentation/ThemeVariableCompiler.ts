@@ -1,7 +1,7 @@
 import * as FileSystem from "fs-extra";
 import { XMLSerializer } from "xmldom";
-import { XML } from "../Serialization/XML";
-import { Compiler } from "./Compiler";
+import { XML } from "../../Serialization/XML";
+import { Compiler } from "../Compiler";
 
 /**
  * Provides the functionality to compile theme-variables.

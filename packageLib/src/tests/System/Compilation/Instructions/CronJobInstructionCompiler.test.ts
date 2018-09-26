@@ -1,11 +1,11 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
-import { CronJobInstructionCompiler } from "../../../System/Compilation/CronJobInstructionCompiler";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
-import { CronJobInstruction } from "../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
-import { Package } from "../../../System/PackageSystem/Package";
-import { TimePeriod } from "../../../System/Tasks/TimePeriod";
+import { CronJobInstructionCompiler } from "../../../../System/Compilation/Instructions/CronJobInstructionCompiler";
+import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
+import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
+import { Package } from "../../../../System/PackageSystem/Package";
+import { TimePeriod } from "../../../../System/Tasks/TimePeriod";
 
 suite(
     "CronJobInstructionCompiler",

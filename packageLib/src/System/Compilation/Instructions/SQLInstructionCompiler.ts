@@ -1,4 +1,4 @@
-import { SQLInstruction } from "../PackageSystem/Instructions/Data/SQLInstruction";
+import { SQLInstruction } from "../../PackageSystem/Instructions/Data/SQLInstruction";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

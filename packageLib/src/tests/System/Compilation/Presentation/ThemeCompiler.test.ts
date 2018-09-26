@@ -1,10 +1,10 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { ThemeCompiler } from "../../../System/Compilation/ThemeCompiler";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
-import { TempFile } from "../../../System/FileSystem/TempFile";
-import { ThemeInstruction } from "../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { Package } from "../../../System/PackageSystem/Package";
+import { ThemeCompiler } from "../../../../System/Compilation/Presentation/ThemeCompiler";
+import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
+import { TempFile } from "../../../../System/FileSystem/TempFile";
+import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { Package } from "../../../../System/PackageSystem/Package";
 
 suite(
     "ThemeCompiler",

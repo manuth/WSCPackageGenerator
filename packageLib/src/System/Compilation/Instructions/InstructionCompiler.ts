@@ -1,5 +1,5 @@
-import { Instruction } from "../PackageSystem/Instructions/Instruction";
-import { Compiler } from "./Compiler";
+import { Instruction } from "../../PackageSystem/Instructions/Instruction";
+import { Compiler } from "../Compiler";
 
 /**
  * Provides the functionality to compile an instruction.

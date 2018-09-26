@@ -1,7 +1,7 @@
-import { TempDirectory } from "../FileSystem/TempDirectory";
-import { ThemeInstruction } from "../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { TempDirectory } from "../../FileSystem/TempDirectory";
+import { ThemeInstruction } from "../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { InstructionCompiler } from "./InstructionCompiler";
-import { ThemeCompiler } from "./ThemeCompiler";
+import { ThemeCompiler } from "../Presentation/ThemeCompiler";
 
 /**
  * Provides the functionality to compile styles
