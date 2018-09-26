@@ -2,6 +2,7 @@ suite(
     "Compilation",
     () =>
     {
-        require("./Instructions/index.test");
+        require("./Tasks/index.test");
         require("./Presentation/index.test");
+        require("./Instructions/index.test");
     });
