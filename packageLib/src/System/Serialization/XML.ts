@@ -42,7 +42,7 @@ export class XML
             let indent: number = 0;
             let plainText: boolean = false;
 
-            if (!line.match(/<(\w+)[^>]*>.*<\/\1>/))
+            if (!line.match(/<(\w+)[^>]*>.*<\/\1>/) && !line.match(/\w+[^>]*\/>/))
             {
                 if (line.match(/<\/\w+/))
                 {
