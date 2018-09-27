@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { ILocalizationItemOptions } from "../../../../System/Globalization/ILocalizationItemOptions";
-import { Localization } from "../../../../System/Globalization/Localization";
 import { LocalizationItem } from "../../../../System/Globalization/LocalizationItem";
 import { LocalizationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/LocalizationInstruction";
 import { TranslationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/TranslationInstruction";
@@ -15,7 +14,7 @@ suite(
         let messageName: string;
         let messageValue: string;
         let instruction: LocalizationInstruction<LocalizationItem, ILocalizationItemOptions>;
-        let translations: { [category: string]: { [key: string]: Localization } };
+        let translations: { [locale: string]: { [category: string]: { [key: string]: string } } };
 
         suiteSetup(
             () =>
@@ -55,24 +54,31 @@ suite(
             () =>
             {
                 test(
+                    "Checking whether an entry for the locale of the translations is present...",
+                    () =>
+                    {
+                        assert.strictEqual(locale in translations, true);
+                    });
+
+                test(
                     "Checking whether categories are created correctly...",
                     () =>
                     {
-                        assert.strictEqual(category in translations, true);
+                        assert.strictEqual(category in translations[locale], true);
                     });
 
                 test(
                     "Checking whether keys are created correctly...",
                     () =>
                     {
-                        assert.strictEqual(`${category}.${messageName}` in translations[category], true);
+                        assert.strictEqual(`${category}.${messageName}` in translations[locale][category], true);
                     });
 
                 test(
                     "Checking whether translations are created correctly...",
                     () =>
                     {
-                        assert.strictEqual(translations[category][`${category}.${messageName}`].Data[locale], messageValue);
+                        assert.strictEqual(translations[locale][category][`${category}.${messageName}`], messageValue);
                     });
             });
     });

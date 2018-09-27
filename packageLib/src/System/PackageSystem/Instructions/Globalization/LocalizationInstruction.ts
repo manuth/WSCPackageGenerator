@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from "util";
-import { Localization } from "../../../Globalization/Localization";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
 import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
@@ -32,21 +31,30 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
         return this.FileName;
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localization } }
+    public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
     {
-        let result: { [category: string]: { [key: string]: Localization } } = {};
+        let result: { [locale: string]: { [category: string]: { [key: string]: string } } } = {};
 
         for (let rootNode of this.Nodes)
         {
-            result[rootNode.FullName] = {};
-
             for (let node of rootNode.GetAllNodes())
             {
-                if (
-                    !isNullOrUndefined(node.Item) &&
-                    node.Item.Translations.GetLocales().length > 0)
+                if (!isNullOrUndefined(node.Item))
                 {
-                    result[rootNode.FullName][node.FullName] = node.Item.Translations;
+                    for (let locale of node.Item.Translations.GetLocales())
+                    {
+                        if (!(locale in result))
+                        {
+                            result[locale] = {};
+                        }
+
+                        if (!(rootNode.FullName in result[locale]))
+                        {
+                            result[locale][rootNode.FullName] = {};
+                        }
+
+                        result[locale][rootNode.FullName][node.FullName] = node.Item.Translations.Data[locale];
+                    }
                 }
             }
         }

@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from "util";
-import { Localization } from "../../../Globalization/Localization";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { Node } from "../../../NodeSystem/Node";
 import { ACPCategory } from "../../../Options/ControlPanel/ACPCategory";
@@ -38,7 +37,7 @@ export class ACPOptionInstruction extends NodeSystemInstruction<ACPCategory, ICa
         return "option";
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localization } }
+    public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {

@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import { BBCode } from "../../../../System/Customization/BBCodes/BBCode";
-import { Localization } from "../../../../System/Globalization/Localization";
 import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";
 
 suite(
@@ -50,7 +49,7 @@ suite(
             () =>
             {
                 let category: string = "wcf.editor.button";
-                let translations: { [category: string]: { [key: string]: Localization } };
+                let translations: { [locale: string]: { [category: string]: { [key: string]: string } } };
 
                 suiteSetup(
                     () =>
@@ -59,24 +58,31 @@ suite(
                     });
 
                 test(
+                    "Checking whether an entry for the locale of the translations are present...",
+                    () =>
+                    {
+                        assert.strictEqual(locale in translations, true);
+                    });
+
+                test(
                     `Checking whether the \`${category}\`-category is present...`,
                     () =>
                     {
-                        assert.strictEqual(category in translations, true);
+                        assert.strictEqual(category in translations[locale], true);
                     });
 
                 test(
                     `Checking whether the \`${category}.${bbcode.Name}\` translation is present...`,
                     () =>
                     {
-                        assert.strictEqual(`${category}.${bbcode.Name}` in translations[category], true);
+                        assert.strictEqual(`${category}.${bbcode.Name}` in translations[locale][category], true);
                     });
 
                 test(
                     `Checking whether the translation of \`${category}.${bbcode.Name}\` is correct...`,
                     () =>
                     {
-                        assert.equal(translations[category][`${category}.${bbcode.Name}`].Data[locale], localization[locale]);
+                        assert.equal(translations[locale][category][`${category}.${bbcode.Name}`], localization[locale]);
                     });
             });
     });

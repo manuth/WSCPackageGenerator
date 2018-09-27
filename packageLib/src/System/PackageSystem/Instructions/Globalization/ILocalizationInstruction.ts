@@ -1,5 +1,3 @@
-import { Localization } from "../../../Globalization/Localization";
-
 /**
  * Represents a node which provides translations.
  */
@@ -13,5 +11,5 @@ export interface ILocalizationInstruction
     /**
      * Gets the messages provided by the instruction.
      */
-    GetMessages(): { [category: string]: { [key: string]: Localization } };
+    GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } };
 }

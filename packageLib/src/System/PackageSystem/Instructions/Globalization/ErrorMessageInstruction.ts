@@ -1,5 +1,5 @@
+import { isNullOrUndefined } from "util";
 import { ILocalizationItemOptions } from "../../../Globalization/ILocalizationItemOptions";
-import { Localization } from "../../../Globalization/Localization";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
 import { TranslationInstruction } from "./TranslationInstruction";
@@ -17,7 +17,7 @@ export class ErrorMessageInstruction extends TranslationInstruction
         super(options);
     }
 
-    public GetMessages(): { [category: string]: { [key: string]: Localization } }
+    public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {
@@ -25,30 +25,34 @@ export class ErrorMessageInstruction extends TranslationInstruction
                 Nodes: []
             });
 
-        let rootNode: LocalizationNode = new LocalizationNode(
+        let errorNode: LocalizationNode = new LocalizationNode(
             {
                 Name: "wcf.acp.option.error"
             });
 
-        let messages: { [category: string]: { [key: string]: Localization } } = super.GetMessages();
-
-        for (let category in messages)
+        for (let rootNode of this.Nodes)
         {
-            for (let key in messages[category])
+            for (let node of rootNode.GetAllNodes())
             {
-                rootNode.Nodes.push(
-                    new LocalizationNode(
-                        {
-                            Name: key,
-                            Item:
-                            {
-                                Translations: messages[category][key].Data
-                            }
-                        }));
+                if (!isNullOrUndefined(node.Item))
+                {
+                    if (node.Item.Translations.GetLocales().length > 0)
+                    {
+                        errorNode.Nodes.push(
+                            new LocalizationNode(
+                                {
+                                    Name: node.FullName,
+                                    Item:
+                                    {
+                                        Translations: node.Item.Translations.Data
+                                    }
+                                }));
+                    }
+                }
             }
         }
 
-        result.Nodes.push(rootNode);
+        result.Nodes.push(errorNode);
         return result.GetMessages();
     }
 }
