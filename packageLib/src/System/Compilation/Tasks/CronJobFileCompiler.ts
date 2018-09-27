@@ -77,7 +77,7 @@ export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
             }
             $import.appendChild(cronJobMeta);
         }
-        document.appendChild($import);
+        document.documentElement.appendChild($import);
         return document;
     }
 }
