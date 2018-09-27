@@ -162,6 +162,19 @@ suite(
                                 assert.strictEqual(element.getElementsByTagName("startdow")[0].parentNode === element, true);
                                 assert.strictEqual(element.getElementsByTagName("startdow")[0].textContent, period.DayOfWeek);
                             });
+
+                        test(
+                            "Checking other settings...",
+                            () =>
+                            {
+                                assert.strictEqual(element.getElementsByTagName("canbedisabled").length, 1);
+                                assert.strictEqual(element.getElementsByTagName("canbedisabled")[0].parentNode === element, true);
+                                assert.strictEqual(element.getElementsByTagName("canbedisabled")[0].textContent, instruction.CronJobs[0].AllowDisable ? "1" : "0");
+
+                                assert.strictEqual(element.getElementsByTagName("canbeedited").length, 1);
+                                assert.strictEqual(element.getElementsByTagName("canbeedited")[0].parentNode === element, true);
+                                assert.strictEqual(element.getElementsByTagName("canbeedited")[0].textContent, instruction.CronJobs[0].AllowEdit ? "1" : "0");
+                            });
                     });
             });
     });
