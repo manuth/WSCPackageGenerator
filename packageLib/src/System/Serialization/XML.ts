@@ -1,4 +1,5 @@
-import { DOMParser } from "xmldom";
+import { isNullOrUndefined } from "util";
+import { DOMParser, XMLSerializer } from "xmldom";
 
 /**
  * Provides utilities for the xml-serialization.
@@ -32,37 +33,83 @@ export class XML
      */
     public static Format(xml: string): string
     {
-        let formatted: string = "";
-        let pad: number = 0;
-        xml = xml.replace(/(\r\n)|(\r)|(\n)|(\n\r)/, "\n");
-        xml = xml.replace(/></g, ">\n<");
+        let document: Document = new DOMParser().parseFromString(xml);
+        let children: Node[] = [];
 
-        for (let line of xml.split("\n"))
+        for (let i: number = 0; i < document.childNodes.length; i++)
         {
-            let indent: number = 0;
-            let plainText: boolean = false;
-
-            if (!line.match(/<(\w+)[^>]*>.*<\/\1>/) && !line.match(/\w+[^>]*\/>/))
-            {
-                if (line.match(/<\/\w+/))
-                {
-                    pad = Math.max(0, pad - 1);
-                }
-                else if (line.match(/<\w+[^>]*>/))
-                {
-                    indent = 1;
-                }
-            }
-
-            if (!line.trim().startsWith("<"))
-            {
-                plainText = true;
-            }
-
-            formatted += `${plainText ? line : `${" ".repeat(pad * 4)}${line.trim()}`}\n`;
-            pad = pad + indent;
+            children.push(document.childNodes.item(i));
         }
 
-        return formatted.trim();
+        if (children.length > 0)
+        {
+            for (let child of children)
+            {
+                if (child !== document.firstChild)
+                {
+                    document.insertBefore(document.createTextNode("\n"), child);
+                }
+            }
+        }
+
+        this.FormatElement(document.documentElement);
+        return new XMLSerializer().serializeToString(document);
+    }
+
+    /**
+     * Formats an element.
+     *
+     * @param element
+     * The element to format.
+     *
+     * @param indent
+     * The indentation of the element itself.
+     */
+    protected static FormatElement(element: Element, indent: string = ""): void
+    {
+        let innerIndent: string = `${" ".repeat(4)}${indent}`;
+
+        if (element.childNodes.length > 0)
+        {
+            let children: Node[] = [];
+
+            while (!isNullOrUndefined(element.firstChild))
+            {
+                children.push(element.firstChild);
+                element.removeChild(element.firstChild);
+            }
+
+            for (let child of children)
+            {
+                switch (child.nodeType)
+                {
+                    case element.ELEMENT_NODE:
+                    case element.PROCESSING_INSTRUCTION_NODE:
+                    case element.COMMENT_NODE:
+                    case element.DOCUMENT_NODE:
+                    case element.DOCUMENT_TYPE_NODE:
+                        element.appendChild(child);
+                        element.insertBefore(element.ownerDocument.createTextNode(`\n${innerIndent}`), child);
+
+                        if (child.nodeType === element.ELEMENT_NODE)
+                        {
+                            this.FormatElement(child as Element, `${innerIndent}`);
+                        }
+                        break;
+                    default:
+                    case element.CDATA_SECTION_NODE:
+                    case element.TEXT_NODE:
+                        element.appendChild(child);
+                        break;
+                }
+            }
+
+            if (
+                element.lastChild.nodeType !== element.CDATA_SECTION_NODE &&
+                element.lastChild.nodeType !== element.TEXT_NODE)
+            {
+                element.appendChild(element.ownerDocument.createTextNode(`\n${indent}`));
+            }
+        }
     }
 }
