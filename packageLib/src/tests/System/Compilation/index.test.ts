@@ -2,7 +2,7 @@ suite(
     "Compilation",
     () =>
     {
-        require("./EJSFileCompiler.test");
+        require("./XMLFileCompiler.test");
         require("./Globalization/index.test");
         require("./Tasks/index.test");
         require("./Presentation/index.test");
