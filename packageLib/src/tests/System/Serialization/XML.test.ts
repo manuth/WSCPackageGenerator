@@ -15,19 +15,22 @@ suite(
                     () =>
                     {
                         let input: string = dedent(`
-                            <foo>
+                            <?xml version="1.0" encoding="UTF-8"?><foo>
                                 <bar><baz>this
                             is
                             a
-                            test</baz></bar></foo>`);
+                            test for the indentation of the XML-formatter
+                            Let's see it it works :')</baz></bar></foo>`);
 
                         let output: string = dedent(`
+                            <?xml version="1.0" encoding="UTF-8"?>
                             <foo>
                                 <bar>
                                     <baz>this
                             is
                             a
-                            test</baz>
+                            test for the indentation of the XML-formatter
+                            Let's see it it works :')</baz>
                                 </bar>
                             </foo>`);
 
