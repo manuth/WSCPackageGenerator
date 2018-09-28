@@ -4,7 +4,7 @@ import { Compiler } from "../Compiler";
 /**
  * Provides the functionality to compile an instruction.
  */
-export class InstructionCompiler<T extends Instruction> extends Compiler<T>
+export abstract class InstructionCompiler<T extends Instruction> extends Compiler<T>
 {
     /**
      * Initializes a new instance of the `InstructionCompiler<T>` class.
@@ -23,10 +23,6 @@ export class InstructionCompiler<T extends Instruction> extends Compiler<T>
     public get DestinationFileName(): string
     {
         return this.MakeDestinationPath(this.Item.FullName);
-    }
-
-    protected async Compile(): Promise<void>
-    {
     }
 
     /**
