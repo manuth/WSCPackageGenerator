@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { DOMParser, XMLSerializer } from "xmldom";
 
 /**
@@ -73,10 +72,9 @@ export class XML
         {
             let children: Node[] = [];
 
-            while (!isNullOrUndefined(element.firstChild))
+            for (let i: number = 0; i < element.childNodes.length; i++)
             {
-                children.push(element.firstChild);
-                element.removeChild(element.firstChild);
+                children.push(element.childNodes.item(i));
             }
 
             for (let child of children)
@@ -88,7 +86,6 @@ export class XML
                     case element.COMMENT_NODE:
                     case element.DOCUMENT_NODE:
                     case element.DOCUMENT_TYPE_NODE:
-                        element.appendChild(child);
                         element.insertBefore(element.ownerDocument.createTextNode(`\n${innerIndent}`), child);
 
                         if (child.nodeType === element.ELEMENT_NODE)
@@ -96,15 +93,18 @@ export class XML
                             this.FormatElement(child as Element, `${innerIndent}`);
                         }
                         break;
-                    default:
-                    case element.CDATA_SECTION_NODE:
+
                     case element.TEXT_NODE:
-                        element.appendChild(child);
-                        break;
+                        if (
+                            (children.length > 1) && child.textContent.trim().length === 0)
+                        {
+                            element.removeChild(child);
+                        }
                 }
             }
 
             if (
+                children.length > 0 &&
                 element.lastChild.nodeType !== element.CDATA_SECTION_NODE &&
                 element.lastChild.nodeType !== element.TEXT_NODE)
             {
