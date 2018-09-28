@@ -1,10 +1,10 @@
-import { Instruction } from "../../PackageSystem/Instructions/Instruction";
+import { IInstruction } from "../../PackageSystem/Instructions/IInstruction";
 import { Compiler } from "../Compiler";
 
 /**
  * Provides the functionality to compile an instruction.
  */
-export abstract class InstructionCompiler<T extends Instruction> extends Compiler<T>
+export abstract class InstructionCompiler<T extends IInstruction> extends Compiler<T>
 {
     /**
      * Initializes a new instance of the `InstructionCompiler<T>` class.
