@@ -24,10 +24,48 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
         return "%";
     }
 
-    protected get Content(): string
+    /**
+     * Gets the pattern to match against the document.
+     */
+    protected get Pattern(): RegExp
     {
-        let content: string = super.Content;
-        content = content.replace(new RegExp(`(&lt;|<)(${this.Delimiter}.*${this.Delimiter})(&gt;|>)`, "g"), "<$2>");
-        return content;
+        return new RegExp(`<${this.Delimiter}.*?${this.Delimiter}>`, "g");
+    }
+
+    protected get XMLElement(): Document
+    {
+        let document: Document = super.XMLElement;
+        this.FixEJSTags(document);
+        return document;
+    }
+
+    /**
+     * Fixes the ejs-tags inside the node.
+     *
+     * @param node
+     * The node to fix.
+     */
+    protected FixEJSTags(node: Node): void
+    {
+        switch (node.nodeType)
+        {
+            case node.TEXT_NODE:
+                if (this.Pattern.test(node.textContent))
+                {
+                    node.parentNode.replaceChild(node.ownerDocument.createCDATASection(node.textContent), node);
+                }
+                break;
+            default:
+                if (node.hasChildNodes())
+                {
+                    for (let i: number = 0; i < node.childNodes.length; i++)
+                    {
+                        let child: Node = node.childNodes.item(i);
+                        this.FixEJSTags(child);
+                    }
+                }
+                break;
+
+        }
     }
 }
