@@ -3,7 +3,7 @@ import { XMLFileCompiler } from "./XMLFileCompiler";
 /**
  * Provides the functionality to compile `xml`-files which contain `EJS`-strings.
  */
-export abstract class EJSXMLCompiler<T> extends XMLFileCompiler<T>
+export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
 {
     /**
      * Initializes a new instance of the `EJSXMLCompiler<T>` class.
