@@ -31,6 +31,6 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
      */
     protected get Content(): string
     {
-        return XML.Prettify(new XMLSerializer().serializeToString(this.XMLElement));
+        return XML.Format(new XMLSerializer().serializeToString(this.XMLElement));
     }
 }

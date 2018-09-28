@@ -22,15 +22,15 @@ export class XML
     }
 
     /**
-     * Beautifies xml-code.
+     * Formats xml-code.
      *
      * @param xml
-     * The xml-code to beautify.
+     * The xml-code to format.
      *
      * @returns
-     * Beautified xml-code.
+     * Formatted xml-code.
      */
-    public static Prettify(xml: string): string
+    public static Format(xml: string): string
     {
         let formatted: string = "";
         let pad: number = 0;

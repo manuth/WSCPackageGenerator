@@ -7,11 +7,11 @@ suite(
     () =>
     {
         suite(
-            "Prettify()",
+            "Format()",
             () =>
             {
                 test(
-                    "Checking whether `xml`-code is prettified correctly...",
+                    "Checking whether `xml`-code is formatted correctly...",
                     () =>
                     {
                         let input: string = dedent(`
@@ -31,7 +31,7 @@ suite(
                                 </bar>
                             </foo>`);
 
-                        assert.strictEqual(XML.Prettify(input), output);
+                        assert.strictEqual(XML.Format(input), output);
                     });
             });
     });

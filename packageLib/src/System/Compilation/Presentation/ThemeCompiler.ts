@@ -175,6 +175,6 @@ export class ThemeCompiler extends Compiler<Theme>
             document.documentElement.appendChild(files);
         }
 
-        await FileSystem.writeFile(this.MakeDestinationPath("style.xml"), XML.Prettify(new XMLSerializer().serializeToString(document)));
+        await FileSystem.writeFile(this.MakeDestinationPath("style.xml"), XML.Format(new XMLSerializer().serializeToString(document)));
     }
 }

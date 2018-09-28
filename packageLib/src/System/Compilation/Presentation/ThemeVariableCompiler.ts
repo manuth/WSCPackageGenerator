@@ -34,6 +34,6 @@ export class ThemeVariableCompiler extends Compiler<{ [key: string]: string }>
             document.documentElement.appendChild(variable);
         }
 
-        await FileSystem.writeFile(this.DestinationPath, XML.Prettify(new XMLSerializer().serializeToString(document)));
+        await FileSystem.writeFile(this.DestinationPath, XML.Format(new XMLSerializer().serializeToString(document)));
     }
 }
