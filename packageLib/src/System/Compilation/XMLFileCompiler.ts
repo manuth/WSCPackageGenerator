@@ -9,6 +9,17 @@ import { Compiler } from "./Compiler";
 export abstract class XMLFileCompiler<T> extends Compiler<T>
 {
     /**
+     * Initializes a new instance of the `XMLFileCompiler<T>` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: T)
+    {
+        super(item);
+    }
+
+    /**
      * Gets the tag-name of the doucment-element of the `xml`-document
      */
     protected abstract get TagName(): string;

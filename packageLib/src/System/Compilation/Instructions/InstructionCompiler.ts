@@ -7,6 +7,17 @@ import { Compiler } from "../Compiler";
 export class InstructionCompiler<T extends Instruction> extends Compiler<T>
 {
     /**
+     * Initializes a new instance of the `InstructionCompiler<T>` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: T)
+    {
+        super(item);
+    }
+
+    /**
      * Gets the name of the file to write the compiled item to.
      */
     public get DestinationFileName(): string

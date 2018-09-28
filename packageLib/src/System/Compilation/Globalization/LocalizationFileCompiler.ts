@@ -1,7 +1,21 @@
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
+/**
+ * Provides the functionality to compile localization-files.
+ */
 export class LocalizationFileCompiler extends WoltLabXMLCompiler<[string, { [category: string]: { [key: string]: string } }]>
 {
+    /**
+     * Initializes a new instance of the `LocalizationFileCompiler` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: [string, {[category: string]: {[key: string]: string}}])
+    {
+        super(item);
+    }
+
     protected get TagName(): string
     {
         return "language";

@@ -1,7 +1,7 @@
 import { TempDirectory } from "../../FileSystem/TempDirectory";
 import { ThemeInstruction } from "../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { InstructionCompiler } from "./InstructionCompiler";
 import { ThemeCompiler } from "../Presentation/ThemeCompiler";
+import { InstructionCompiler } from "./InstructionCompiler";
 
 /**
  * Provides the functionality to compile styles
@@ -9,7 +9,7 @@ import { ThemeCompiler } from "../Presentation/ThemeCompiler";
 export class ThemeInstructionCompiler extends InstructionCompiler<ThemeInstruction>
 {
     /**
-     * Initializes a new instance of the `ThemeVariableCompiler` class.
+     * Initializes a new instance of the `ThemeInstructionCompiler` class.
      *
      * @param item
      * The item to compile.

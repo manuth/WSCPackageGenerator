@@ -20,7 +20,7 @@ export abstract class Compiler<T>
     private destinationPath: string = "";
 
     /**
-     * Initializes a new instance of the `Compiler` class.
+     * Initializes a new instance of the `Compiler<T>` class.
      *
      * @param item
      * The item to compile.

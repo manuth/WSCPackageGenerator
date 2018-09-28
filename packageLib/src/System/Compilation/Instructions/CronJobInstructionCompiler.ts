@@ -8,6 +8,17 @@ import { InstructionCompiler } from "./InstructionCompiler";
  */
 export class CronJobInstructionCompiler extends InstructionCompiler<CronJobInstruction>
 {
+    /**
+     * Initializes a new instance of the `CronJobInstructionCompiler` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: CronJobInstruction)
+    {
+        super(item);
+    }
+
     protected async Compile(): Promise<void>
     {
         let tempFile: TempFile = new TempFile();

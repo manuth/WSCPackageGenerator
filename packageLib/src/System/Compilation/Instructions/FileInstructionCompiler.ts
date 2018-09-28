@@ -7,6 +7,17 @@ import { InstructionCompiler } from "./InstructionCompiler";
  */
 export class FileInstructionCompiler extends InstructionCompiler<ApplicationFileSystemInstruction>
 {
+    /**
+     * Initializes a new instance of the `FileInstructionCompiler` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: ApplicationFileSystemInstruction)
+    {
+        super(item);
+    }
+
     protected async Compile(): Promise<void>
     {
         let tempDir: TempDirectory = new TempDirectory();

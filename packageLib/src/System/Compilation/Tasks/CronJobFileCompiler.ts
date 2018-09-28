@@ -4,6 +4,17 @@ import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
 {
+    /**
+     * Initializes a new instance of the `CronJobFileCompiler` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: CronJobInstruction)
+    {
+        super(item);
+    }
+
     protected get SchemaLocation(): string
     {
         return "https://www.woltlab.com/XSD/tornado/cronjob.xsd";

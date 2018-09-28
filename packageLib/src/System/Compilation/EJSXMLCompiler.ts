@@ -6,6 +6,17 @@ import { XMLFileCompiler } from "./XMLFileCompiler";
 export abstract class EJSXMLCompiler<T> extends XMLFileCompiler<T>
 {
     /**
+     * Initializes a new instance of the `EJSXMLCompiler<T>` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: T)
+    {
+        super(item);
+    }
+
+    /**
      * Gets the delimiter of the EJS-strings inside the document.
      */
     protected get Delimiter(): string

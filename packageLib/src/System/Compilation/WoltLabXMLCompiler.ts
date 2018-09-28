@@ -5,6 +5,17 @@ import { EJSXMLCompiler } from "./EJSXMLCompiler";
  */
 export abstract class WoltLabXMLCompiler<T> extends EJSXMLCompiler<T>
 {
+    /**
+     * Initializes a new instance of the `WoltLabXMLCompiler<T>` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: T)
+    {
+        super(item);
+    }
+
     protected get TagName(): string
     {
         return "data";
