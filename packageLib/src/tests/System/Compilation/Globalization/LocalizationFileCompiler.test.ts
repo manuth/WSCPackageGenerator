@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
 import { LocalizationFileCompiler } from "../../../../System/Compilation/Globalization/LocalizationFileCompiler";
@@ -27,7 +28,11 @@ suite(
                 locale = "en";
                 category = "foo";
                 messageName = "bar";
-                messageValue = "baz";
+                messageValue = dedent(
+                    `
+                    This is a test
+                    with a message which has
+                    multiple lines`);
                 localization[locale] = messageValue;
 
                 instruction = new TranslationInstruction(
