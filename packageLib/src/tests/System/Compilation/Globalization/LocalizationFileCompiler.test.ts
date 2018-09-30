@@ -62,18 +62,23 @@ suite(
             "Compile()",
             () =>
             {
-                test(
-                    "Checking whether the item can be compiled...",
-                    async () =>
+                suite(
+                    "General",
+                    () =>
                     {
-                        await compiler.Execute();
-                    });
+                        test(
+                            "Checking whether the item can be compiled...",
+                            async () =>
+                            {
+                                await compiler.Execute();
+                            });
 
-                test(
-                    "Checking whether the expected file exists...",
-                    async () =>
-                    {
-                        assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                        test(
+                            "Checking whether the expected file exists...",
+                            async () =>
+                            {
+                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                            });
                     });
 
                 suite(
@@ -81,61 +86,84 @@ suite(
                     () =>
                     {
                         let document: Document;
-                        let element: Element;
+                        let rootElement: Element;
+                        let categoryElement: Element;
+                        let itemElement: Element;
+                        let rootTag: string = "language";
+                        let categoryTag: string = "category";
+                        let itemTag: string = "item";
+                        let languageAttribute: string = "languagecode";
+                        let categoryAttribute: string = "name";
+                        let itemAttribute: string = "name";
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                element = document.documentElement;
+                                rootElement = document.documentElement;
+                                categoryElement = rootElement.getElementsByTagName(categoryTag)[0];
+                                assert.strictEqual(categoryElement.parentNode === rootElement, true);
+                                itemElement = categoryElement.getElementsByTagName(itemTag)[0];
+                                assert.strictEqual(itemElement.parentNode === categoryElement, true);
                             });
 
-                        test(
-                            "Checking whether the root-tag is correct...",
+                        suite(
+                            `<${rootTag}>-tag...`,
                             () =>
                             {
-                                assert.strictEqual(element.tagName, "language");
-                                assert.strictEqual(element.hasAttribute("languagecode"), true);
-                                assert.strictEqual(element.getAttribute("languagecode"), locale);
+                                test(
+                                    "Checking whether the tag-name is correct...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(rootElement.tagName, rootTag);
+                                    });
+
+                                test(
+                                    `Checking whether the \`${languageAttribute}\`-attribute is present...`,
+                                    () =>
+                                    {
+                                        assert.strictEqual(rootElement.hasAttribute(languageAttribute), true);
+                                    });
+
+                                test(
+                                    `Checking whether the value of the \`${languageAttribute}\`-attribute is correct...`,
+                                    () =>
+                                    {
+                                        assert.strictEqual(rootElement.getAttribute(languageAttribute), locale);
+                                    });
                             });
 
-                        test(
-                            "Checking whether the category-element is present...",
+                        suite(
+                            `<${categoryTag}>-tag...`,
                             () =>
                             {
-                                assert.strictEqual(element.getElementsByTagName("category").length, 1);
-
-                                let categoryElement: Element = element.getElementsByTagName("category")[0];
-                                assert.strictEqual(categoryElement.parentNode === element, true);
-                                element = categoryElement;
+                                test(
+                                    "Checking whether the name of the category is correct...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(categoryElement.hasAttribute(categoryAttribute), true);
+                                        assert.strictEqual(categoryElement.getAttribute(categoryAttribute), category);
+                                    });
                             });
 
-                        test(
-                            "Checking whether the category-element is correct...",
+                        suite(
+                            `<${itemTag}>-tag...`,
                             () =>
                             {
-                                assert.strictEqual(element.hasAttribute("name"), true);
-                                assert.strictEqual(element.getAttribute("name"), category);
-                            });
+                                test(
+                                    "Checking whether the name of the message is correct...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(itemElement.hasAttribute(itemAttribute), true);
+                                        assert.strictEqual(itemElement.getAttribute(itemAttribute), `${category}.${messageName}`);
+                                    });
 
-                        test(
-                            "Checking whether the message-element is present...",
-                            () =>
-                            {
-                                assert.strictEqual(element.getElementsByTagName("item").length, 1);
-
-                                let itemElement: Element = element.getElementsByTagName("item")[0];
-                                assert.strictEqual(itemElement.parentNode === element, true);
-                                element = itemElement;
-                            });
-
-                        test(
-                            "Checking whether the message-element is correct...",
-                            () =>
-                            {
-                                assert.strictEqual(element.hasAttribute("name"), true);
-                                assert.strictEqual(element.getAttribute("name"), `${category}.${messageName}`);
-                                assert.strictEqual(element.textContent, messageValue);
+                                test(
+                                    "Checking whether the value of the message is correct...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(itemElement.textContent, messageValue);
+                                    });
                             });
                     });
             });
