@@ -109,6 +109,7 @@ suite(
                     async () =>
                     {
                         assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "style.xml")), true);
+                        assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "variables.xml")), true);
                     });
             });
     });
