@@ -53,6 +53,10 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 general.appendChild(name);
             }
 
+            let version: Element = document.createElement("version");
+            version.appendChild(document.createTextNode(this.Item.Version));
+            general.appendChild(version);
+
             let date: Element = document.createElement("date");
             date.appendChild(
                 document.createTextNode(
@@ -125,6 +129,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
             {
                 let url: Element = document.createElement("authorurl");
                 url.appendChild(document.createTextNode(this.Item.Author.URL));
+                author.appendChild(url);
             }
         }
         document.documentElement.appendChild(author);
