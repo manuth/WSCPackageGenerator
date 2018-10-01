@@ -108,6 +108,11 @@ export class Theme extends Component
             Object.assign(variables, require(options.VariableFileName));
         }
 
+        if (!isNullOrUndefined(options.Images))
+        {
+            this.images = new ImageDirectoryDescriptor(options.Images);
+        }
+
         this.ParseVariables(variables);
     }
 

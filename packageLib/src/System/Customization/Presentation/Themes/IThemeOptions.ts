@@ -1,6 +1,6 @@
 import { ILocalization } from "../../../Globalization/ILocalization";
 import { IComponentOptions } from "../../../PackageSystem/IComponentOptions";
-import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
+import { IImageDirectoryDescriptorOptions } from "./IImageDirectoryDescriptorOptions";
 
 /**
  * Provides options for the `Theme` class.
@@ -44,5 +44,5 @@ export interface IThemeOptions extends Partial<IComponentOptions>
     /**
      * The image-directory provided by the theme.
      */
-    Images?: ImageDirectoryDescriptor;
+    Images?: IImageDirectoryDescriptorOptions;
 }
