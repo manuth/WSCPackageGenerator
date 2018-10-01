@@ -4,7 +4,7 @@ import { ThemeCompiler } from "../Presentation/ThemeCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**
- * Provides the functionality to compile styles
+ * Provides the functionality to compile themes.
  */
 export class ThemeInstructionCompiler extends InstructionCompiler<ThemeInstruction>
 {

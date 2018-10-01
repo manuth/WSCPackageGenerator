@@ -74,7 +74,7 @@ suite(
                     });
 
                 test(
-                    "Checking whether the style-metadata exists...",
+                    "Checking whether the theme-metadata exists...",
                     async () =>
                     {
                         assert.strictEqual(await FileSystem.pathExists(tempDir.MakePath("style.xml")), true);
