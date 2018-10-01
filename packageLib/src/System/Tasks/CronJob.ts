@@ -1,6 +1,5 @@
 import { isNullOrUndefined } from "util";
 import { Localization } from "../Globalization/Localization";
-// import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { ICronJobOptions } from "./ICronJobOptions";
 import { TimePeriod } from "./TimePeriod";
 
@@ -142,12 +141,12 @@ export class CronJob
     /**
      * Gets or sets a set of options of which at least one must be enabled in order to execute the cron-job.
      */
-    public get Options(): any[]
+    public get Options(): string[]
     {
         return this.options;
     }
 
-    public set Options(value: any[])
+    public set Options(value: string[])
     {
         this.options = value;
     }
