@@ -21,6 +21,7 @@
         "array-type": false,
         "member-ordering": false,
         "no-console": false,
+        "no-string-literal": false,
         "typedef": {
             "options": [
                 "array-destructuring",
