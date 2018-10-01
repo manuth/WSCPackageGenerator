@@ -53,9 +53,13 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 general.appendChild(name);
             }
 
-            let $package: Element = document.createElement("packageName");
-            $package.appendChild(document.createTextNode(this.Item.Instruction.Collection.Package.Identifier));
-            general.appendChild($package);
+            let date: Element = document.createElement("date");
+            date.appendChild(
+                document.createTextNode(
+                    this.Item.CreationDate.getFullYear() + "-" +
+                    (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
+                    this.Item.CreationDate.getDate().toString().padStart(2, "0")));
+            general.appendChild(date);
 
             for (let locale of this.Item.Description.GetLocales())
             {
@@ -70,17 +74,20 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 general.appendChild(description);
             }
 
+            if (!isNullOrUndefined(this.Item.License))
+            {
+                let license: Element = document.createElement("license");
+                license.appendChild(document.createTextNode(this.Item.License));
+                general.appendChild(license);
+            }
+
+            let $package: Element = document.createElement("packageName");
+            $package.appendChild(document.createTextNode(this.Item.Instruction.Collection.Package.Identifier));
+            general.appendChild($package);
+
             let api: Element = document.createElement("apiVersion");
             api.appendChild(document.createTextNode("3.1"));
             general.appendChild(api);
-
-            let date: Element = document.createElement("date");
-            date.appendChild(
-                document.createTextNode(
-                    this.Item.CreationDate.getFullYear() + "-" +
-                    (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
-                    this.Item.CreationDate.getDate().toString().padStart(2, "0")));
-            general.appendChild(date);
 
             if (!isNullOrUndefined(this.Item.Thumbnail))
             {
@@ -101,13 +108,6 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 let coverPhoto: Element = document.createElement("coverPhoto");
                 coverPhoto.appendChild(document.createTextNode(this.Item.CoverPhoto));
                 general.appendChild(coverPhoto);
-            }
-
-            if (!isNullOrUndefined(this.Item.License))
-            {
-                let license: Element = document.createElement("license");
-                license.appendChild(document.createTextNode(this.Item.License));
-                general.appendChild(license);
             }
         }
         document.documentElement.appendChild(general);
