@@ -1,5 +1,6 @@
 import { ILocalization } from "../../../Globalization/ILocalization";
 import { IComponentOptions } from "../../../PackageSystem/IComponentOptions";
+import { IFileDescriptorOptions } from "../../../PackageSystem/IFileDescriptorOptions";
 import { IImageDirectoryDescriptorOptions } from "./IImageDirectoryDescriptorOptions";
 
 /**
@@ -14,17 +15,17 @@ export interface IThemeOptions extends Partial<IComponentOptions>
     /**
      * The thumbnail of the theme.
      */
-    Thumbnail?: string;
+    Thumbnail?: IFileDescriptorOptions | string;
 
     /**
      * The high resolution version of the thumbnail.
      */
-    HighResThumbnail?: string;
+    HighResThumbnail?: IFileDescriptorOptions | string;
 
     /**
      * The path to the default cover-photo for user-profiles.
      */
-    CoverPhoto?: string;
+    CoverPhoto?: IFileDescriptorOptions | string;
 
     /**
      * The name of the file which contains the `scss`-code of the theme.

@@ -96,21 +96,21 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
             if (!isNullOrUndefined(this.Item.Thumbnail))
             {
                 let thumbnail: Element = document.createElement("image");
-                thumbnail.appendChild(document.createTextNode(this.Item.Thumbnail));
+                thumbnail.appendChild(document.createTextNode(this.Item.Thumbnail.FileName));
                 general.appendChild(thumbnail);
             }
 
             if (!isNullOrUndefined(this.Item.HighResThumbnail))
             {
                 let highResThumbnail: Element = document.createElement("image2x");
-                highResThumbnail.appendChild(document.createTextNode(this.Item.HighResThumbnail));
+                highResThumbnail.appendChild(document.createTextNode(this.Item.HighResThumbnail.FileName));
                 general.appendChild(highResThumbnail);
             }
 
             if (!isNullOrUndefined(this.Item.CoverPhoto))
             {
                 let coverPhoto: Element = document.createElement("coverPhoto");
-                coverPhoto.appendChild(document.createTextNode(this.Item.CoverPhoto));
+                coverPhoto.appendChild(document.createTextNode(this.Item.CoverPhoto.FileName));
                 general.appendChild(coverPhoto);
             }
         }

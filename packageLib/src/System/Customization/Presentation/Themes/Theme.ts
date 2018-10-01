@@ -5,6 +5,7 @@ import Hex2RgbaModule from "hex-to-rgba";
 import * as OS from "os";
 import { isNullOrUndefined } from "util";
 import { Component } from "../../../PackageSystem/Component";
+import { FileDescriptor } from "../../../PackageSystem/FileDescriptor";
 import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { ModuleInfo } from "../../../PackageSystem/ModuleInfo";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
@@ -20,12 +21,12 @@ export class Theme extends Component
     /**
      * The thumbnail of the theme.
      */
-    private thumbnail: string = null;
+    private thumbnail: FileDescriptor = null;
 
     /**
      * The high resolution version of the thumbnail.
      */
-    private highResThumbnail: string = null;
+    private highResThumbnail: FileDescriptor = null;
 
     /**
      * The instruction which contains this theme.
@@ -35,7 +36,7 @@ export class Theme extends Component
     /**
      * The path to the default cover-photo for user-profiles.
      */
-    private coverPhoto: string = null;
+    private coverPhoto: FileDescriptor = null;
 
     /**
      * The `scss`-code of the theme.
@@ -80,17 +81,17 @@ export class Theme extends Component
 
         if (!isNullOrUndefined(options.Thumbnail))
         {
-            this.Thumbnail = options.Thumbnail;
+            this.Thumbnail = new FileDescriptor(typeof options.Thumbnail === "string" ? { Source: options.Thumbnail } : options.Thumbnail);
         }
 
         if (!isNullOrUndefined(options.HighResThumbnail))
         {
-            this.HighResThumbnail = options.HighResThumbnail;
+            this.HighResThumbnail = new FileDescriptor(typeof options.HighResThumbnail === "string" ? { Source: options.HighResThumbnail } : options.HighResThumbnail);
         }
 
         if (!isNullOrUndefined(options.CoverPhoto))
         {
-            this.CoverPhoto = options.CoverPhoto;
+            this.CoverPhoto = new FileDescriptor(typeof options.CoverPhoto === "string" ? { Source: options.CoverPhoto } : options.CoverPhoto);
         }
 
         if (!isNullOrUndefined(options.CustomScssFileName))
@@ -119,12 +120,12 @@ export class Theme extends Component
     /**
      * Gets or sets the thumbnail of the theme.
      */
-    public get Thumbnail(): string
+    public get Thumbnail(): FileDescriptor
     {
         return this.thumbnail;
     }
 
-    public set Thumbnail(value: string)
+    public set Thumbnail(value: FileDescriptor)
     {
         this.thumbnail = value;
     }
@@ -132,12 +133,12 @@ export class Theme extends Component
     /**
      * Gets or sets the high resolution version of the thumbnail.
      */
-    public get HighResThumbnail(): string
+    public get HighResThumbnail(): FileDescriptor
     {
         return this.highResThumbnail;
     }
 
-    public set HighResThumbnail(value: string)
+    public set HighResThumbnail(value: FileDescriptor)
     {
         this.highResThumbnail = value;
     }
@@ -153,12 +154,12 @@ export class Theme extends Component
     /**
      * Gets or sets the path to the default cover-photo for user-profiles.
      */
-    public get CoverPhoto(): string
+    public get CoverPhoto(): FileDescriptor
     {
         return this.coverPhoto;
     }
 
-    public set CoverPhoto(value: string)
+    public set CoverPhoto(value: FileDescriptor)
     {
         this.coverPhoto = value;
     }
