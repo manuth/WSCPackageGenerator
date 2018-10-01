@@ -8,5 +8,5 @@ export interface IFileDescriptorOptions
     /**
      * The filename to save the file to.
      */
-    FileName: string;
+    FileName?: string;
 }

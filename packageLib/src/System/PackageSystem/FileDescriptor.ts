@@ -1,3 +1,5 @@
+import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 
 /**
@@ -21,7 +23,15 @@ export class FileDescriptor
     public constructor(options: IFileDescriptorOptions)
     {
         this.Source = options.Source;
-        this.FileName = options.FileName;
+
+        if (isNullOrUndefined(options.FileName))
+        {
+            this.FileName = Path.isAbsolute(options.Source) ? Path.basename(options.Source) : options.Source;
+        }
+        else
+        {
+            this.FileName = options.FileName;
+        }
     }
 
     /**
