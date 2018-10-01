@@ -106,6 +106,12 @@ suite(
                 compiler.DestinationPath = tempFile.FileName;
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempFile.Dispose();
+            });
+
         suite(
             "Compile()",
             () =>
@@ -140,8 +146,8 @@ suite(
                         suiteSetup(
                             async () =>
                             {
-                                rootTag = "style";
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                rootTag = "style";
                                 rootElement = document.documentElement;
                             });
 

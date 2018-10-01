@@ -58,6 +58,12 @@ suite(
                 compiler.DestinationPath = tempFile.FileName;
             });
 
+        suiteTeardown(
+            () =>
+            {
+                tempFile.Dispose();
+            });
+
         suite(
             "Compile()",
             () =>

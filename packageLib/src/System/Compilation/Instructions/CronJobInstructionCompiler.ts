@@ -28,5 +28,6 @@ export class CronJobInstructionCompiler extends InstructionCompiler<CronJobInstr
             await compiler.Execute();
             await this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
         }
+        tempFile.Dispose();
     }
 }
