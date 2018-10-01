@@ -63,7 +63,7 @@ suite(
             () =>
             {
                 suite(
-                    "General",
+                    "General tests...",
                     () =>
                     {
                         test(
@@ -86,29 +86,35 @@ suite(
                     () =>
                     {
                         let document: Document;
+                        let rootTag: string;
+                        let categoryTag: string;
+                        let itemTag: string;
                         let rootElement: Element;
                         let categoryElement: Element;
                         let itemElement: Element;
-                        let rootTag: string = "language";
-                        let categoryTag: string = "category";
-                        let itemTag: string = "item";
-                        let languageAttribute: string = "languagecode";
-                        let categoryAttribute: string = "name";
-                        let itemAttribute: string = "name";
+                        let languageAttribute: string;
+                        let categoryAttribute: string;
+                        let itemAttribute: string;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                rootTag = "language";
+                                categoryTag = "category";
+                                itemTag = "item";
                                 rootElement = document.documentElement;
                                 categoryElement = rootElement.getElementsByTagName(categoryTag)[0];
                                 assert.strictEqual(categoryElement.parentNode === rootElement, true);
                                 itemElement = categoryElement.getElementsByTagName(itemTag)[0];
                                 assert.strictEqual(itemElement.parentNode === categoryElement, true);
+                                languageAttribute = "languagecode";
+                                categoryAttribute = "name";
+                                itemAttribute = "name";
                             });
 
                         suite(
-                            `<${rootTag}>-tag...`,
+                            "Testing the XML-Document...",
                             () =>
                             {
                                 test(
@@ -119,14 +125,14 @@ suite(
                                     });
 
                                 test(
-                                    `Checking whether the \`${languageAttribute}\`-attribute is present...`,
+                                    `Checking whether the language is specified...`,
                                     () =>
                                     {
                                         assert.strictEqual(rootElement.hasAttribute(languageAttribute), true);
                                     });
 
                                 test(
-                                    `Checking whether the value of the \`${languageAttribute}\`-attribute is correct...`,
+                                    `Checking whether the language is specified correctly...`,
                                     () =>
                                     {
                                         assert.strictEqual(rootElement.getAttribute(languageAttribute), locale);
@@ -134,7 +140,7 @@ suite(
                             });
 
                         suite(
-                            `<${categoryTag}>-tag...`,
+                            "Testing the categories...",
                             () =>
                             {
                                 test(
@@ -147,7 +153,7 @@ suite(
                             });
 
                         suite(
-                            `<${itemTag}>-tag...`,
+                            "Testing the translations...",
                             () =>
                             {
                                 test(
