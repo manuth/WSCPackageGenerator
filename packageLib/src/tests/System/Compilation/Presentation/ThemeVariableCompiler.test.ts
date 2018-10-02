@@ -31,6 +31,7 @@ suite(
                         color: red !important;
                     }`);
                 variables[variableName] = value;
+                variables[scssCodeName] = scssCode;
 
                 compiler = new ThemeVariableCompiler(variables);
                 compiler.DestinationPath = tempFile.FileName;
