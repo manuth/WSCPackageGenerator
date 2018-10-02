@@ -14,7 +14,6 @@ suite(
     {
         let tempFile: TempFile;
         let compiler: CronJobFileCompiler;
-        let instruction: CronJobInstruction;
         let cronJobName: string;
         let locale: string;
         let localizedDescription: string;
@@ -52,7 +51,7 @@ suite(
                 description[locale] = localizedDescription;
                 description["inv"] = invariantDescription;
 
-                instruction = new CronJobInstruction(
+                let instruction: CronJobInstruction = new CronJobInstruction(
                     {
                         FileName: "cronJobs.xml",
                         CronJobs: [
