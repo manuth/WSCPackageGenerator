@@ -31,9 +31,9 @@ suite(
                         super({});
                     }
 
-                    protected get DocumentContent(): Document
+                    protected CreateDocument(): Document
                     {
-                        let document: Document = super.DocumentContent;
+                        let document: Document = super.CreateDocument();
                         document.documentElement.appendChild(document.createTextNode(`<%= ${variableName} %>`));
                         return document;
                     }

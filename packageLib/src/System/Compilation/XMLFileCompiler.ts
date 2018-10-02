@@ -32,14 +32,9 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
     /**
      * Gets the compiled `xml`-document of the component.
      */
-    protected get DocumentContent(): Document
-    {
-        return XML.CreateDocument(this.TagName);
-    }
-
     protected get Document(): Document
     {
-        return this.DocumentContent;
+        return this.CreateDocument();
     }
 
     /**
@@ -48,5 +43,13 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
     protected get Content(): string
     {
         return XML.Format(new XMLSerializer().serializeToString(this.Document));
+    }
+
+    /**
+     * Creates the document to compile.
+     */
+    protected CreateDocument(): Document
+    {
+        return XML.CreateDocument(this.TagName);
     }
 }

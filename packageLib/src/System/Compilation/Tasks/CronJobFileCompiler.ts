@@ -20,9 +20,9 @@ export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
         return "https://www.woltlab.com/XSD/tornado/cronjob.xsd";
     }
 
-    protected get DocumentContent(): Document
+    protected CreateDocument(): Document
     {
-        let document: Document = super.DocumentContent;
+        let document: Document = super.CreateDocument();
         let $import: Element = document.createElement("import");
 
         for (let cronJob of this.Item.CronJobs)
