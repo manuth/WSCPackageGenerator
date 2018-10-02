@@ -15,8 +15,6 @@ suite(
         let fileName: string;
         let compiler: CronJobInstructionCompiler;
         let instruction: CronJobInstruction;
-        let cronJobName: string;
-        let period: TimePeriod;
 
         suiteSetup(
             () =>
@@ -42,18 +40,14 @@ suite(
                         }
                     });
 
-                cronJobName = "bar";
-                period = new TimePeriod("2", "5", "7", "Jan", "*");
-
                 instruction = new CronJobInstruction(
                     {
                         FileName: "cronJobs.xml",
                         CronJobs: [
                             {
-                                Name: cronJobName,
-                                ClassName: "foo\\bar",
-                                Period: period,
-                                Options: ["<%= $('foo') %>"]
+                                Name: "foo",
+                                ClassName: "bar",
+                                Period: TimePeriod.Monthly
                             }
                         ]
                     });
@@ -86,13 +80,6 @@ suite(
                     async () =>
                     {
                         assert.strictEqual(await FileSystem.pathExists(fileName), true);
-                    });
-
-                test(
-                    "Checking whether ejs-strings are replaced correctly...",
-                    async () =>
-                    {
-                        (await FileSystem.readFile(fileName)).toString().includes("this-is-a-test");
                     });
             });
     });
