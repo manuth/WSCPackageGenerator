@@ -1,12 +1,9 @@
-import * as FileSystem from "fs-extra";
-import { XMLSerializer } from "xmldom";
-import { XML } from "../../Serialization/XML";
-import { Compiler } from "../Compiler";
+import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
  * Provides the functionality to compile theme-variables.
  */
-export class ThemeVariableCompiler extends Compiler<{ [key: string]: string }>
+export class ThemeVariableCompiler extends WoltLabXMLCompiler<{ [key: string]: string }>
 {
     /**
      * Initializes a new instance of the `ThemeVariableCompiler` class.
@@ -19,12 +16,19 @@ export class ThemeVariableCompiler extends Compiler<{ [key: string]: string }>
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    protected get TagName(): string
     {
-        let document: Document = XML.CreateDocument("variables");
-        document.documentElement.setAttribute("xmlns", "http://www.woltlab.com");
-        document.documentElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        document.documentElement.setAttribute("xsi:schemaLocation", "http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd");
+        return "variables";
+    }
+
+    protected get SchemaLocation(): string
+    {
+        return "http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd";
+    }
+
+    protected get XMLElement(): Document
+    {
+        let document: Document = super.XMLElement;
 
         for (let name in this.Item)
         {
@@ -34,6 +38,6 @@ export class ThemeVariableCompiler extends Compiler<{ [key: string]: string }>
             document.documentElement.appendChild(variable);
         }
 
-        await FileSystem.writeFile(this.DestinationPath, XML.Format(new XMLSerializer().serializeToString(document)));
+        return document;
     }
 }
