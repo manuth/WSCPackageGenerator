@@ -75,9 +75,9 @@ export class BBCode
             this.ClassName = options.ClassName;
         }
 
-        if (!isNullOrUndefined(options.OpeningTag))
+        if (!isNullOrUndefined(options.TagName))
         {
-            this.OpeningTag = options.OpeningTag;
+            this.TagName = options.TagName;
         }
 
         if (!isNullOrUndefined(options.IsSelfClosing))
@@ -152,14 +152,14 @@ export class BBCode
     }
 
     /**
-     * Gets or sets the name of the opening HTML-tag.
+     * Gets or sets the name of the HTML-tag.
      */
-    public get OpeningTag(): string
+    public get TagName(): string
     {
         return this.tagName;
     }
 
-    public set OpeningTag(value: string)
+    public set TagName(value: string)
     {
         this.tagName = value;
     }

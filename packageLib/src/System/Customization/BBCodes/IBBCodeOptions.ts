@@ -24,9 +24,9 @@ export interface IBBCodeOptions
     ClassName?: string;
 
     /**
-     * The name of the opening HTML-tag.
+     * The name of the HTML-tag.
      */
-    OpeningTag?: string;
+    TagName?: string;
 
     /**
      * A value indicating whether the HTML-tag is self-closing.
