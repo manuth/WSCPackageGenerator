@@ -26,9 +26,9 @@ export abstract class WoltLabXMLCompiler<T> extends EJSFileCompiler<T>
      */
     protected abstract get SchemaLocation(): string;
 
-    protected get XMLElement(): Document
+    protected get Document(): Document
     {
-        let document: Document = super.XMLElement;
+        let document: Document = super.Document;
         document.documentElement.setAttribute("xmlns", "http://www.woltlab.com");
         document.documentElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instace");
         document.documentElement.setAttribute("xsi:schemaLocation", `http://www.woltlab.com ${this.SchemaLocation}`);

@@ -32,9 +32,9 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
         return new RegExp(`<${this.Delimiter}.*?${this.Delimiter}>`, "g");
     }
 
-    protected get XMLElement(): Document
+    protected get Document(): Document
     {
-        let document: Document = super.XMLElement;
+        let document: Document = super.Document;
         this.FixEJSTags(document);
         return document;
     }

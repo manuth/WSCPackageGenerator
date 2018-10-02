@@ -26,9 +26,9 @@ export class ThemeVariableCompiler extends WoltLabXMLCompiler<{ [key: string]: s
         return "http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd";
     }
 
-    protected get XMLElement(): Document
+    protected get Document(): Document
     {
-        let document: Document = super.XMLElement;
+        let document: Document = super.Document;
 
         for (let name in this.Item)
         {

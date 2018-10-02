@@ -26,9 +26,9 @@ export class LocalizationFileCompiler extends WoltLabXMLCompiler<[string, { [cat
         return "http://www.woltlab.com/XSD/tornado/language.xsd";
     }
 
-    protected get XMLElement(): Document
+    protected get Document(): Document
     {
-        let document: Document = super.XMLElement;
+        let document: Document = super.Document;
         document.documentElement.setAttribute("languagecode", this.Item[0]);
 
         for (let categoryName of Object.keys(this.Item[1]))
