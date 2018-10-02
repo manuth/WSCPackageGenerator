@@ -29,14 +29,14 @@ export class BBCode
     private className: string = null;
 
     /**
-     * The name of the opening HTML-tag.
+     * The name of the HTML-tag.
      */
-    private openingTag: string = null;
+    private tagName: string = null;
 
     /**
-     * The name of the closing HTML-tag.
+     * A value indicating whether the HTML-tag is self-closing.
      */
-    private closingTag: string = null;
+    private isSelfClosing: boolean = null;
 
     /**
      * A value indicating whether the bb-code is a block-element.
@@ -80,9 +80,9 @@ export class BBCode
             this.OpeningTag = options.OpeningTag;
         }
 
-        if (!isNullOrUndefined(options.ClosingTag))
+        if (!isNullOrUndefined(options.IsSelfClosing))
         {
-            this.ClosingTag = options.ClosingTag;
+            this.IsSelfClosing = options.IsSelfClosing;
         }
 
         if (!isNullOrUndefined(options.IsBlockElement))
@@ -156,25 +156,25 @@ export class BBCode
      */
     public get OpeningTag(): string
     {
-        return this.openingTag;
+        return this.tagName;
     }
 
     public set OpeningTag(value: string)
     {
-        this.openingTag = value;
+        this.tagName = value;
     }
 
     /**
-     * Gets or sets the name of the closing HTML-tag.
+     * Gets or sets a value indicating whether the HTML-tag is self-closing.
      */
-    public get ClosingTag(): string
+    public get IsSelfClosing(): boolean
     {
-        return this.closingTag;
+        return this.isSelfClosing;
     }
 
-    public set ClosingTag(value: string)
+    public set IsSelfClosing(value: boolean)
     {
-        this.closingTag = value;
+        this.isSelfClosing = value;
     }
 
     /**

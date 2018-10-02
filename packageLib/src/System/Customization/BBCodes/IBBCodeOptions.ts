@@ -29,9 +29,9 @@ export interface IBBCodeOptions
     OpeningTag?: string;
 
     /**
-     * The name of the closing HTML-tag.
+     * A value indicating whether the HTML-tag is self-closing.
      */
-    ClosingTag?: string;
+    IsSelfClosing?: boolean;
 
     /**
      * A value indicating whether the bb-code is a block-element.

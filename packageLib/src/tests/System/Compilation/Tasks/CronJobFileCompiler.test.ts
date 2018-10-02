@@ -138,7 +138,7 @@ suite(
                             });
 
                         suite(
-                            "Testing the integrity of the imported cron-job...",
+                            "Testing the integrity of imported cron-jobs...",
                             () =>
                             {
                                 let cronJobTag: string;
