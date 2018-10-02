@@ -65,7 +65,6 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
                     }
                 }
                 break;
-
         }
     }
 }

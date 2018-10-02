@@ -32,9 +32,14 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
     /**
      * Gets the compiled `xml`-document of the component.
      */
-    protected get Document(): Document
+    protected get DocumentContent(): Document
     {
         return XML.CreateDocument(this.TagName);
+    }
+
+    protected get Document(): Document
+    {
+        return this.DocumentContent;
     }
 
     /**

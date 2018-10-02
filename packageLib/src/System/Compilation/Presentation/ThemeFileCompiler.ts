@@ -34,9 +34,9 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
         return "https://www.woltlab.com/XSD/vortex/style.xsd";
     }
 
-    protected get Document(): Document
+    protected get DocumentContent(): Document
     {
-        let document: Document = super.Document;
+        let document: Document = super.DocumentContent;
 
         let general: Element = document.createElement("general");
         {
