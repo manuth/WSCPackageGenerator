@@ -1,9 +1,9 @@
 import { TempFile } from "../../FileSystem/TempFile";
 import { ILocalizationInstruction } from "../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
-import { Compiler } from "../Compiler";
 import { LocalizationFileCompiler } from "../Globalization/LocalizationFileCompiler";
+import { InstructionCompiler } from "./InstructionCompiler";
 
-export class LocalizationInstructionCompiler extends Compiler<ILocalizationInstruction>
+export class LocalizationInstructionCompiler extends InstructionCompiler<ILocalizationInstruction>
 {
     /**
      * Initializes a new instance of the `LocalizationInstructionCompiler` class.

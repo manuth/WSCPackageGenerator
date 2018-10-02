@@ -1,3 +1,4 @@
+import * as Path from "path";
 import { IInstruction } from "../../PackageSystem/Instructions/IInstruction";
 import { Compiler } from "../Compiler";
 
@@ -22,7 +23,7 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
      */
     public get DestinationFileName(): string
     {
-        return this.MakeDestinationPath(this.Item.FullName);
+        return super.MakeDestinationPath(this.Item.FullName);
     }
 
     /**
@@ -49,5 +50,16 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
             });
 
         await super.CopyTemplate(source, destination, context);
+    }
+
+    /**
+     * Joins the paths and returns the path contained by the destination-folder.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    protected MakeDestinationPath(...path: string[]): string
+    {
+        return Path.join(this.DestinationFileName, ...path);
     }
 }
