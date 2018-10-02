@@ -48,6 +48,6 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
                 Item: this.Item
             });
 
-        super.CopyTemplate(source, destination, context);
+        await super.CopyTemplate(source, destination, context);
     }
 }
