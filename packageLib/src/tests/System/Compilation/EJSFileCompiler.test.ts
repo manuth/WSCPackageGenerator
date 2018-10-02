@@ -41,7 +41,6 @@ suite(
                     protected async Compile(): Promise<void>
                     {
                         await super.Compile();
-                        console.log(FileSystem.readFileSync(this.DestinationPath));
                         await this.CopyTemplate(this.DestinationPath, this.DestinationPath, context);
                     }
                 }();
