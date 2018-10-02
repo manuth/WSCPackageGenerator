@@ -50,7 +50,7 @@ export class ThemeCompiler extends Compiler<Theme>
 
         if (!isNullOrUndefined(this.Item.CustomScss))
         {
-            variables.indivicualScss = this.Item.CustomScss;
+            variables.individualScss = this.Item.CustomScss;
         }
 
         if (!isNullOrUndefined(this.Item.ScssOverride))

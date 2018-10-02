@@ -23,7 +23,7 @@ import { IInstructionCollection } from "./IInstructionCollection";
 import { Instruction } from "./Instruction";
 
 /**
- * Rerpesents a set of instructions.
+ * Represents a set of instructions.
  */
 export class InstructionCollection<T extends Instruction> extends Array<T> implements IInstructionCollection<T>
 {

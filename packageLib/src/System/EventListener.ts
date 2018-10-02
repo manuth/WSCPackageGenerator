@@ -1,7 +1,7 @@
 import { Listener } from "./Listener";
 
 /**
- * Represents the declaration of a PHP-class that should be executed when a specific event occurrs.
+ * Represents the declaration of a PHP-class that should be executed when a specific event occurs.
  *
  * Please note that you have to provide your PHP-files using a `FilesInstruction`.
  */
@@ -18,9 +18,9 @@ export class EventListener extends Listener
     private allowInherited: boolean = false;
 
     /**
-     * The name of the eventhandler-class which is triggered when the event has been executed.
+     * The name of the event-handler class which is triggered when the event has been executed.
      *
-     * Please consider that the eventhandler-class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
+     * Please consider that the event-handler class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
      */
     private eventHandlerClassName: string;
 
@@ -51,9 +51,9 @@ export class EventListener extends Listener
     }
 
     /**
-     * Gets or sets the name of the eventhandler-class which is triggered when the event has been executed.
+     * Gets or sets the name of the event-handler class which is triggered when the event has been executed.
      *
-     * Please consider that the eventhandler-class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
+     * Please consider that the event-handler class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
      */
     public get EventHandlerClassName(): string
     {

@@ -20,7 +20,7 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
     }
 
     /**
-     * Gets the tag-name of the doucment-element of the `xml`-document
+     * Gets the tag-name of the document-element of the `xml`-document
      */
     protected abstract get TagName(): string;
 

@@ -31,7 +31,7 @@ suite(
                     "test2.txt",
                     "this-is-a-file.txt",
                     ".htaccess",
-                    "blargh.xcf"];
+                    "picture.xcf"];
                 content = "Hello World";
 
                 let $package: Package = new Package(

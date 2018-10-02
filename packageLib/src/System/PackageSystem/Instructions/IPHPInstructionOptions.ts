@@ -6,7 +6,7 @@ import { IInstructionOptions } from "./IInstructionOptions";
 export interface IPHPInstructionOptions extends IInstructionOptions
 {
     /**
-     * The applicatino to load the php-file from.
+     * The application to load the php-file from.
      */
     Application: string;
 }

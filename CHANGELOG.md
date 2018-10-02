@@ -18,7 +18,7 @@
   - Add some more `.gitignore`-entries for a better user-experience
   - Fix spelling-errors
   - Store often used inputs such as the author's name or URL
-  - Fix the genration of language-files for errors and options
+  - Fix the generation of language-files for errors and options
 
 ## WSCPackageGenerator v0.0.15
   - Adjust the `.gitignore`-file to only ignore automatically generated JavaScript-files

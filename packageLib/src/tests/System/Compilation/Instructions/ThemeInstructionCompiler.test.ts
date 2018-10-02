@@ -39,7 +39,7 @@ suite(
                     dedent(`
                         {
                             "wcfHeaderBackground": "red",
-                            "somethingSpecial": "blarghhacks",
+                            "somethingSpecial": "test-value",
                             "moreSpecialStuff": "foobar"
                         }`));
                 await FileSystem.writeFile(
@@ -53,7 +53,7 @@ suite(
                 instruction = new ThemeInstruction(
                     {
                         Theme: {
-                            Name: "blargh",
+                            Name: "test-theme",
                             DisplayName: {},
                             VariableFileName: tempDir.MakePath("variables.json"),
                             CustomScssFileName: tempDir.MakePath("main.scss")

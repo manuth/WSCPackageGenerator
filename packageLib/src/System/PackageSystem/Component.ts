@@ -88,7 +88,7 @@ export abstract class Component
     }
 
     /**
-     * Gets the human-readabnle name of the component.
+     * Gets the human-readable name of the component.
      */
     public get DisplayName(): Localization
     {

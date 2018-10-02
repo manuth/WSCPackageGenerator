@@ -4,7 +4,7 @@ import { Theme } from "./Theme";
 import { ThemeInstruction } from "./ThemeInstruction";
 
 /**
- * Represents a set of instructions which povide a theme.
+ * Represents a set of instructions which provide a theme.
  */
 export class ThemeInstructionCollection extends Array<ThemeInstruction>
 {

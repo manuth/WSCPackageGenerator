@@ -11,25 +11,25 @@ suite(
 
         localization[locale] = "bar";
 
-        let bbcode: BBCode = new BBCode(
+        let bbCode: BBCode = new BBCode(
             {
                 Name: "foo",
                 DisplayName: localization
             });
 
-        let bbcodeInstruction: BBCodeInstruction;
+        let bbCodeInstruction: BBCodeInstruction;
 
         suiteSetup(
             () =>
             {
 
-                bbcodeInstruction = new BBCodeInstruction(
+                bbCodeInstruction = new BBCodeInstruction(
                     {
                         FileName: "test.xml",
                         BBCodes: []
                     });
 
-                bbcodeInstruction.BBCodes.push(bbcode);
+                bbCodeInstruction.BBCodes.push(bbCode);
             });
 
         suite(
@@ -40,7 +40,7 @@ suite(
                     "Checking whether `TranslationDirectory` is set to `bbcode` if no directory is specified...",
                     () =>
                     {
-                        assert.strictEqual(bbcodeInstruction.TranslationDirectory, "bbcode");
+                        assert.strictEqual(bbCodeInstruction.TranslationDirectory, "bbcode");
                     });
             });
 
@@ -54,7 +54,7 @@ suite(
                 suiteSetup(
                     () =>
                     {
-                        translations = bbcodeInstruction.GetMessages();
+                        translations = bbCodeInstruction.GetMessages();
                     });
 
                 test(
@@ -72,17 +72,17 @@ suite(
                     });
 
                 test(
-                    `Checking whether the \`${category}.${bbcode.Name}\` translation is present...`,
+                    `Checking whether the \`${category}.${bbCode.Name}\` translation is present...`,
                     () =>
                     {
-                        assert.strictEqual(`${category}.${bbcode.Name}` in translations[locale][category], true);
+                        assert.strictEqual(`${category}.${bbCode.Name}` in translations[locale][category], true);
                     });
 
                 test(
-                    `Checking whether the translation of \`${category}.${bbcode.Name}\` is correct...`,
+                    `Checking whether the translation of \`${category}.${bbCode.Name}\` is correct...`,
                     () =>
                     {
-                        assert.equal(translations[locale][category][`${category}.${bbcode.Name}`], localization[locale]);
+                        assert.equal(translations[locale][category][`${category}.${bbCode.Name}`], localization[locale]);
                     });
             });
     });

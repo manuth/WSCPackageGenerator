@@ -40,7 +40,7 @@ class WSCPackageGenerator extends Generator
     }
 
     /**
-     * Collects all informations about the package that is to be created.
+     * Collects all information about the package that is to be created.
      */
     public async prompting(): Promise<void>
     {
@@ -180,7 +180,7 @@ class WSCPackageGenerator extends Generator
                     },
                     {
                         name: "BBCodes",
-                        value: "bbcode"
+                        value: "bbCode"
                     }
                 ]
             },
@@ -297,12 +297,12 @@ class WSCPackageGenerator extends Generator
             },
             {
                 type: "input",
-                name: "componentPaths.bbcode",
+                name: "componentPaths.bbCode",
                 default: "BBCodes",
                 message: "Where do you want to store BB-Codes?",
                 when: (answers: YoGenerator.Answers): boolean =>
                 {
-                    return (answers.components as string[]).indexOf("bbcode") >= 0;
+                    return (answers.components as string[]).indexOf("bbCode") >= 0;
                 }
             }
         ];

@@ -20,7 +20,7 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
     /**
      * The bb-codes provided by the instruction.
      */
-    private bbcodes: BBCode[] = [];
+    private bbCodes: BBCode[] = [];
 
     /**
      * Initializes a new instance of the `BBCodesInstruction` class.
@@ -31,12 +31,12 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
 
         if (isNullOrUndefined(options.FileName))
         {
-            this.FileName = "bbcodes.xml";
+            this.FileName = "bbCodes.xml";
         }
 
         if (!isNullOrUndefined(options.BBCodes))
         {
-            this.bbcodes.push(...options.BBCodes);
+            this.bbCodes.push(...options.BBCodes);
         }
 
         if (!isNullOrUndefined(options.TranslationsDirectory))
@@ -51,7 +51,7 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
 
     public get BBCodes(): BBCode[]
     {
-        return this.bbcodes;
+        return this.bbCodes;
     }
 
     public get TranslationsDirectory(): string
@@ -70,14 +70,14 @@ export class BBCodesInstruction extends FileInstruction implements IBBCodesInstr
             Name: "wcf.editor.button"
         });
 
-        for (let bbcode of this.BBCodes)
+        for (let bbCode of this.BBCodes)
         {
-            if (Object.keys(bbcode.DisplayName).length > 0)
+            if (Object.keys(bbCode.DisplayName).length > 0)
             {
                 result.Nodes.push(
                     new TranslationNode({
-                        Name: bbcode.Name,
-                        Translations: bbcode.DisplayName
+                        Name: bbCode.Name,
+                        Translations: bbCode.DisplayName
                     }));
             }
         }

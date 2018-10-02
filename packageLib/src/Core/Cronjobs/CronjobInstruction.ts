@@ -4,7 +4,7 @@ import { Cronjob } from "./Cronjob";
 import { ICronjobInstructionOptions } from "./ICronjobInstructionOptions";
 
 /**
- * Represents an instruction that provides chron-jobs.
+ * Represents an instruction that provides cronjobs.
  */
 export class CronjobInstruction extends FileInstruction implements ICronjobInstructionOptions
 {

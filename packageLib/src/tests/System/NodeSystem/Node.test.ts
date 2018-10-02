@@ -163,7 +163,7 @@ suite(
                     });
 
                 test(
-                    "Checking whether nodes with IDs are recognized correcttly if they are nested deeply...",
+                    "Checking whether nodes with IDs are recognized correctly if they are nested deeply...",
                     () =>
                     {
                         let rootNode: MyNode = new MyNode(

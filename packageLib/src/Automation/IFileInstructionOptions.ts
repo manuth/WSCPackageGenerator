@@ -6,7 +6,7 @@ import { IInstructionOptions } from "./IInstructionOptions";
 export interface IFileInstructionOptions extends IInstructionOptions
 {
     /**
-     * Gets or sets the filename of the ouput of the instruction.
+     * Gets or sets the filename of the output of the instruction.
      */
     FileName?: string;
 }

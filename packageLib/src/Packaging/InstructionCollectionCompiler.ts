@@ -216,7 +216,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
             }
             else if (instruction instanceof BBCodesInstruction)
             {
-                MemFileSystem.copyTpl(this.MakeTemplatePath("bbcodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
+                MemFileSystem.copyTpl(this.MakeTemplatePath("bbCodes.xml"), this.MakeComponentsPath(instruction.FileName), { Instruction: instruction });
                 {
                     let locales: string[] = [];
 
@@ -270,7 +270,7 @@ export class InstructionCollectionCompiler extends Compiler<InstructionCollectio
     }
 
     /**
-     * Joins the paths and returns the path contained by the temporar themes-folder.
+     * Joins the paths and returns the path contained by the temporary themes-folder.
      *
      * @param path
      * The path that is to be joined.

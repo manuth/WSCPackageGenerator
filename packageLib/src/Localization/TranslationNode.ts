@@ -89,7 +89,7 @@ export class TranslationNode extends NodeContainer<TranslationNode> implements I
     }
 
     /**
-     * Gets the translations contained by this node and all its subnodes.
+     * Gets the translations contained by this node and all its sub-nodes.
      */
     public GetTranslations(): TranslationNode[]
     {

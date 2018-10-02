@@ -60,7 +60,7 @@ export interface IOptionOptions
     /**
      * A comma-separated list of options which should be visually enabled when this option is enabled.
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
-     * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (`:`, `U+003A`).
+     * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
      *
      * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.

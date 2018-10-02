@@ -4,12 +4,12 @@
 export class TimePoint
 {
     /**
-     * The minute-periode of the time-point. Gets or sets the minute-periode of the time-point.
+     * The minute-period of the time-point. Gets or sets the minute-period of the time-point.
      */
     private minute: string;
 
     /**
-     * The hour-periode of the time-point.
+     * The hour-period of the time-point.
      */
     private hour: string;
 
@@ -19,7 +19,7 @@ export class TimePoint
     private dayOfMonth: string;
 
     /**
-     * The month-periode of the time-point.
+     * The month-period of the time-point.
      */
     private month: string;
 
@@ -31,16 +31,16 @@ export class TimePoint
     /**
      *
      * @param minute
-     * The minute-periode of the time-point. Gets or sets the minute-periode of the time-point.
+     * The minute-period of the time-point. Gets or sets the minute-period of the time-point.
      *
      * @param hour
-     * The hour-periode of the time-point.
+     * The hour-period of the time-point.
      *
      * @param dayOfMonth
      * The month of the time-point.
      *
      * @param month
-     * The month-periode of the time-point.
+     * The month-period of the time-point.
      *
      * @param dayOfWeek
      * The week of the time-point.

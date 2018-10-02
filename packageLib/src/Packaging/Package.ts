@@ -26,7 +26,7 @@ export class Package extends Component implements IPackage
     private identifier: string = "";
 
     /**
-     * The instructions which is used for installing the packge.
+     * The instructions which is used for installing the package.
      */
     private installInstructions: InstructionCollection<Instruction> = new InstructionCollection(this);
 

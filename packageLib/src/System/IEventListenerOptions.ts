@@ -14,9 +14,9 @@ export interface IEventListenerOptions
     AllowInherited?: boolean;
 
     /**
-     * The name of the eventhandler-class which is triggered when the event has been executed.
+     * The name of the event-handler class which is triggered when the event has been executed.
      *
-     * Please consider that the eventhandler-class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
+     * Please consider that the event-handler class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
      */
     EventHandlerClassName: string;
 }

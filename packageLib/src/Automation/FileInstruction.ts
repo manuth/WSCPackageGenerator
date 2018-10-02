@@ -9,7 +9,7 @@ import { Instruction } from "./Instruction";
 export class FileInstruction extends Instruction implements IFileInstruction
 {
     /**
-     * The filename of the ouput of the instruction.
+     * The filename of the output of the instruction.
      */
     private fileName: string;
 

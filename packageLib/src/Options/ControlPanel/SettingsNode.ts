@@ -12,7 +12,7 @@ import { Option } from "./Option";
 export class SettingsNode extends NodeContainer<SettingsNode> implements ISettingsNodeOptions
 {
     /**
-     * The displayname of the node.
+     * The display-name of the node.
      */
     private displayName: Localizable = new Localizable();
 

@@ -1,7 +1,7 @@
 import { IInstruction } from "./IInstruction";
 
 /**
- * Rerpesents a set of instructions.
+ * Represents a set of instructions.
  */
 export interface IInstructionCollection<T extends IInstruction>
 {

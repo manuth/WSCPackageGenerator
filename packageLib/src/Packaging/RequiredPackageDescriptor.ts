@@ -14,7 +14,7 @@ export class RequiredPackageDescriptor extends PackageDescriptor implements IReq
     private minVersion: string;
 
     /**
-     * Initializes a new isntance of the `RequiredPackageDescriptor` class.
+     * Initializes a new instance of the `RequiredPackageDescriptor` class.
      */
     public constructor(options: IRequiredPackageDescriptorOptions)
     {

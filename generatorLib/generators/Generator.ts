@@ -42,7 +42,7 @@ export abstract class Generator extends YoGenerator
     }
 
     /**
-     * Validates whetther the specified path is separated from the destination.
+     * Validates whether the specified path is separated from the destination.
      */
     protected ForceSeparateFolder: IValidator = (value, answers?) =>
     {

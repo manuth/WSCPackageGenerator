@@ -17,7 +17,7 @@ export interface IPackageOptions extends IComponentOptions
     Identifier: string;
 
     /**
-     * Gets or sets the instructions which is used for installing the packge.
+     * Gets or sets the instructions which is used for installing the package.
      */
     InstallInstructions: Instruction[];
 

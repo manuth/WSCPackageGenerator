@@ -13,7 +13,7 @@ export class Node implements INode
     private name: string = "";
 
     /**
-     * The parent of thie node.
+     * The parent of the node.
      */
     private parent: Node = null;
 

@@ -12,7 +12,7 @@ export interface IComponentOptions
     Name: string;
 
     /**
-     * The human-readabnle name of the component.
+     * The human-readable name of the component.
      */
     DisplayName: ILocalization;
 

@@ -4,22 +4,22 @@ import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 export interface IBBCodeOptions
 {
     /**
-     * The name of the bbcode.
+     * The name of the bb-code.
      */
     Name: string;
 
     /**
-     * The huma;the bbcode.
+     * The human-readable name of the bb-code.
      */
     DisplayName?: ILocalization;
 
     /**
-     * The name of a font-awesome icon for the bbcode-button.
+     * The name of a font-awesome icon for the bb-code-button.
      */
     Icon?: string;
 
     /**
-     * The classname of the bbcode.
+     * The class-name of the bb-code.
      */
     ClassName?: string;
 
@@ -34,17 +34,17 @@ export interface IBBCodeOptions
     ClosingTag?: string;
 
     /**
-     * A value indicating whether the bbcode is a block-element.
+     * A value indicating whether the bb-code is a block-element.
      */
     IsBlockElement?: boolean;
 
     /**
-     * A value indicating whether the content of the bbcode should be parsed.
+     * A value indicating whether the content of the bb-code should be parsed.
      */
     ParseContent?: boolean;
 
     /**
-     * The attributes of the bbcode.
+     * The attributes of the bb-code.
      */
     Attributes?: IBBCodeAttributeOptions[];
 }

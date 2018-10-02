@@ -1,7 +1,7 @@
 import { ICronjobOptions } from "./ICronjobOptions";
 
 /**
- * Represents a cron-job.
+ * Represents a cronjob.
  */
 export interface ICronjob extends Required<ICronjobOptions>
 {

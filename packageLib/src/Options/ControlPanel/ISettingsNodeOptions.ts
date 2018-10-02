@@ -10,7 +10,7 @@ import { SettingsNode } from "./SettingsNode";
 export interface ISettingsNodeOptions extends INodeContainerOptions<SettingsNode>
 {
     /**
-     * Gets the displayname of the node.
+     * Gets the display-name of the node.
      */
     DisplayName?: Localizable;
 

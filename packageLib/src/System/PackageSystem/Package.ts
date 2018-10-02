@@ -70,7 +70,7 @@ export class Package extends Component
         {
             for (let additionalFile of options.AdditionalFiles)
             {
-                this.AddidionalFiles.push(new FileDescriptor(additionalFile));
+                this.AdditionalFiles.push(new FileDescriptor(additionalFile));
             }
         }
 
@@ -138,7 +138,7 @@ export class Package extends Component
     /**
      * Gets a set of files which will be added to the package.
      */
-    public get AddidionalFiles(): FileDescriptor[]
+    public get AdditionalFiles(): FileDescriptor[]
     {
         return this.additionalFiles;
     }

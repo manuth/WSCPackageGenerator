@@ -1,5 +1,5 @@
 /**
- * Represents a localizable item.
+ * Represents a localization.
  */
 export interface ILocalization
 {

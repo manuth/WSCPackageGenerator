@@ -11,7 +11,7 @@ export interface IOptionItemOptions
     Name: string;
 
     /**
-     * Gets the displayname of the item.
+     * Gets the display-name of the item.
      */
     DisplayName?: Localizable;
 

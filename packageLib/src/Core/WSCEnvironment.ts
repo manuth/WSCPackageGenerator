@@ -14,7 +14,7 @@ export enum WSCEnvironment
     Admin = 2,
 
     /**
-     * Indicates both the default and the admin-environemnt.
+     * Indicates both the default and the admin-environment.
      */
     Both = 3
 }

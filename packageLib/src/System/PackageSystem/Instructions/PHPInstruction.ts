@@ -7,7 +7,7 @@ import { IPHPInstructionOptions } from "./IPHPInstructionOptions";
 export class PHPInstruction extends Instruction
 {
     /**
-     * The applicatino to load the php-file from.
+     * The application to load the php-file from.
      */
     private application: string;
 
@@ -17,7 +17,7 @@ export class PHPInstruction extends Instruction
     public constructor(options: IPHPInstructionOptions)
     {
         super(options);
-        this.Appliaction = options.Application;
+        this.Application = options.Application;
     }
 
     public get Type(): string
@@ -26,14 +26,14 @@ export class PHPInstruction extends Instruction
     }
 
     /**
-     * Gets or sets the applicatino to load the php-file from.
+     * Gets or sets the application to load the php-file from.
      */
     public get Application(): string
     {
         return this.application;
     }
 
-    public set Appliaction(value: string)
+    public set Application(value: string)
     {
         this.application = value;
     }

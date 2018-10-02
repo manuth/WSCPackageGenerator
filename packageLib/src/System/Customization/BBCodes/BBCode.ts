@@ -4,27 +4,27 @@ import { BBCodeAttribute } from "./BBCodeAttribute";
 import { IBBCodeOptions } from "./IBBCodeOptions";
 
 /**
- * Represents a bbcode.
+ * Represents a bb-code.
  */
 export class BBCode
 {
     /**
-     * The name of the bbcode.
+     * The name of the bb-code.
      */
     private name: string;
 
     /**
-     * The humab-readable name of the bbcode.
+     * The human-readable name of the bb-code.
      */
     private displayName: Localization = new Localization();
 
     /**
-     * The name of a font-awesome icon for the bbcode-button.
+     * The name of a font-awesome icon for the bb-code-button.
      */
     private icon: string = null;
 
     /**
-     * The classname of the bbcode.
+     * The class-name of the bb-code.
      */
     private className: string = null;
 
@@ -39,17 +39,17 @@ export class BBCode
     private closingTag: string = null;
 
     /**
-     * A value indicating whether the bbcode is a block-element.
+     * A value indicating whether the bb-code is a block-element.
      */
     private isBlockElement: boolean = true;
 
     /**
-     * A value indicating whether the content of the bbcode should be parsed.
+     * A value indicating whether the content of the bb-code should be parsed.
      */
     private parseContent: boolean = false;
 
     /**
-     * The attributes of the bbcode.
+     * The attributes of the bb-code.
      */
     private attributes: BBCodeAttribute[] = [];
 
@@ -105,7 +105,7 @@ export class BBCode
     }
 
     /**
-     * Gets or sets the name of the bbcode.
+     * Gets or sets the name of the bb-code.
      */
     public get Name(): string
     {
@@ -118,7 +118,7 @@ export class BBCode
     }
 
     /**
-     * Gets the humab-readable name of the bbcode.
+     * Gets the human-readable name of the bb-code.
      */
     public get DisplayName(): Localization
     {
@@ -126,7 +126,7 @@ export class BBCode
     }
 
     /**
-     * Gets or sets the name of a font-awesome icon for the bbcode-button.
+     * Gets or sets the name of a font-awesome icon for the bb-code-button.
      */
     public get Icon(): string
     {
@@ -139,7 +139,7 @@ export class BBCode
     }
 
     /**
-     * Gets or sets the classname of the bbcode.
+     * Gets or sets the class-name of the bb-code.
      */
     public get ClassName(): string
     {
@@ -178,7 +178,7 @@ export class BBCode
     }
 
     /**
-     * Gets or sets a value indicating whether the bbcode is a block-element.
+     * Gets or sets a value indicating whether the bb-code is a block-element.
      */
     public get IsBlockElement(): boolean
     {
@@ -191,7 +191,7 @@ export class BBCode
     }
 
     /**
-     * Gets or sets a value indicating whether the content of the bbcode should be parsed.
+     * Gets or sets a value indicating whether the content of the bb-code should be parsed.
      */
     public get ParseContent(): boolean
     {
@@ -204,7 +204,7 @@ export class BBCode
     }
 
     /**
-     * Gets the attributes of the bbcode.
+     * Gets the attributes of the bb-code.
      */
     public get Attributes(): BBCodeAttribute[]
     {

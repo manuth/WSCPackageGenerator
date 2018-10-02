@@ -1,7 +1,7 @@
 import { ILocalization } from "./ILocalization";
 
 /**
- * Represents a localizable string.
+ * Represents a localization.
  */
 export class Localization
 {

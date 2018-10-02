@@ -61,7 +61,7 @@ export class OptionItem
     }
 
     /**
-     * Gets the humabe-readable name of the item.
+     * Gets the human-readable name of the item.
      */
     public get DisplayName(): Localization
     {

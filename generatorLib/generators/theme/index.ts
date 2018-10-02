@@ -35,7 +35,7 @@ class WSCThemeGenerator extends Generator
     }
 
     /**
-     * Collects all informations about the theme that is to be created.
+     * Collects all information about the theme that is to be created.
      */
     public async prompting(): Promise<void>
     {

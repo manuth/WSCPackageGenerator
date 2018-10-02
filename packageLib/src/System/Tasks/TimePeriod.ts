@@ -4,7 +4,7 @@
 export class TimePeriod
 {
     /**
-     * The minute of the preiod.
+     * The minute of the period.
      */
     private minute: string;
 
@@ -32,7 +32,7 @@ export class TimePeriod
      * Initializes a new instance of the `TimePeriod` class.
      *
      * @param minute
-     * The minute of the preiod.
+     * The minute of the period.
      *
      * @param hour
      * The hour of the period.
@@ -96,7 +96,7 @@ export class TimePeriod
     }
 
     /**
-     * Gets or sets the minute of the preiod.
+     * Gets or sets the minute of the period.
      */
     public get Minute(): string
     {

@@ -15,7 +15,7 @@ export class OptionItem implements IOptionItemOptions
     private name: string = "";
 
     /**
-     * The displayname of the item.
+     * The display-name of the item.
      */
     private displayName: Localizable = new Localizable();
 

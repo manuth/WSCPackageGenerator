@@ -7,12 +7,12 @@ import { Instruction } from "../Instruction";
 import { IBBCodeInstructionOptions } from "./IBBCodeInstructionOptions";
 
 /**
- * Represents an instruction which provides bbcodes.
+ * Represents an instruction which provides bb-codes.
  */
 export class BBCodeInstruction extends Instruction implements ILocalizationInstruction
 {
     /**
-     * The bbcodes provided by this instruction.
+     * The bb-codes provided by this instruction.
      */
     private bbCodes: BBCode[] = [];
 
@@ -45,7 +45,7 @@ export class BBCodeInstruction extends Instruction implements ILocalizationInstr
     }
 
     /**
-     * Gets the bbcodes provided by this instruction.
+     * Gets the bb-codes provided by this instruction.
      */
     public get BBCodes(): BBCode[]
     {

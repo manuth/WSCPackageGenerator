@@ -13,32 +13,32 @@ export interface ICronjobOptions
     Name: string;
 
     /**
-     * Gets or sets the name of the class providing the cronjob's behavior.
+     * Gets or sets the name of the class providing the behavior of the cronjob.
      */
     ClassName: string;
 
     /**
-     * Gets or sets the description of the cron-job.
+     * Gets or sets the description of the cronjob.
      */
     Description?: Localizable;
 
     /**
-     * Gets or sets the time-point of the cron-job.
+     * Gets or sets the time-point of the cronjob.
      */
     TimePoint: TimePoint;
 
     /**
-     * Gets or sets a value indicating whether editing the cron-job is allowed.
+     * Gets or sets a value indicating whether editing the cronjob is allowed.
      */
     AllowEdit?: boolean;
 
     /**
-     * Gets or sets a value indicating whether disabling the cron-job is allowed.
+     * Gets or sets a value indicating whether disabling the cronjob is allowed.
      */
     AllowDisable?: boolean;
 
     /**
-     * Gets or sets the options of which at least one must be enabled in order to execute the cron-job.
+     * Gets or sets the options of which at least one must be enabled in order to execute the cronjob.
      */
     Options?: Option[];
 }

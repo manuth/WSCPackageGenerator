@@ -14,7 +14,7 @@ export interface IOptionOptions extends INodeOptions
     ID: string;
 
     /**
-     * Gets the displayname of the option.
+     * Gets the display-name of the option.
      */
     DisplayName?: Localizable;
 
@@ -51,7 +51,7 @@ export interface IOptionOptions extends INodeOptions
     /**
      * Gets a comma-separated list of options which should be visually enabled when this option is enabled.
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
-     * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (`:`, `U+003A`).
+     * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption` followed by a colon (`:`, `U+003A`).
      *
      * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.

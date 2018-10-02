@@ -2,7 +2,7 @@ import { isNullOrUndefined } from "util";
 import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 
 /**
- * Represents an attribute of a bocode.
+ * Represents an attribute of a bb-code.
  */
 export class BBCodeAttribute
 {

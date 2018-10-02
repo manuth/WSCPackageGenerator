@@ -53,7 +53,7 @@ export abstract class Option
     /**
      * The validation-pattern of the option.
      */
-    private validationPatterh: RegExp = null;
+    private validationPattern: RegExp = null;
 
     /**
      * The items of the option.
@@ -69,7 +69,7 @@ export abstract class Option
      * A comma-separated list of options which should be visually enabled when this option is enabled.
      *
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
-     * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (`:`, `U+003A`).
+     * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
      *
      * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.
@@ -77,7 +77,7 @@ export abstract class Option
     private enableOptions: string[] = [];
 
     /**
-     * A set of dditional properties of the option.
+     * A set of additional properties of the option.
      */
     private additionalProperties: { [key: string]: any } = {};
 
@@ -243,12 +243,12 @@ export abstract class Option
      */
     public get ValidationPattern(): RegExp
     {
-        return this.validationPatterh;
+        return this.validationPattern;
     }
 
     public set ValidationPattern(value: RegExp)
     {
-        this.validationPatterh = value;
+        this.validationPattern = value;
     }
 
     /**
@@ -276,7 +276,7 @@ export abstract class Option
      * Gets or sets a comma-separated list of options which should be visually enabled when this option is enabled.
      *
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
-     * For `ComboBox` and `RadioButton` types the list should be prefixed by the selectoptions name followed by a colon (`:`, `U+003A`).
+     * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
      *
      * This setting is a visual helper for the administrator only.
      * It does not have an effect on the server side processing of the option.
@@ -292,7 +292,7 @@ export abstract class Option
     }
 
     /**
-     * Gets or sets a set of dditional properties of the option.
+     * Gets or sets a set of additional properties of the option.
      */
     public get AdditionalProperties(): { [key: string]: any }
     {

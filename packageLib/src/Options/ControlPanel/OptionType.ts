@@ -9,7 +9,7 @@ export enum OptionType
     CheckBox = "boolean",
 
     /**
-     * Indicates a list of checkboxes.
+     * Indicates a list of check-boxes.
      */
     CheckBoxes = "checkboxes",
 
@@ -44,7 +44,7 @@ export enum OptionType
     RadioButton = "radioButton",
 
     /**
-     * Indicates a multiselect-list.
+     * Indicates a multi-select list.
      */
     MultiSelect = "multiSelect"
 }

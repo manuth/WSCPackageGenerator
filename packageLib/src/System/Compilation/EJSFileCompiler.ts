@@ -6,7 +6,7 @@ import { XMLFileCompiler } from "./XMLFileCompiler";
 export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
 {
     /**
-     * Initializes a new instance of the `EJSXMLCompiler<T>` class.
+     * Initializes a new instance of the `EJSFileCompiler<T>` class.
      *
      * @param item
      * The item to compile.

@@ -29,7 +29,7 @@ export class Theme extends Component implements ITheme
     private thumbnail: string = null;
 
     /**
-     * The filename of the high-resolution version of the thumbnanil of the theme.
+     * The filename of the high-resolution version of the thumbnail of the theme.
      */
     private highResThumbnail: string = null;
 

@@ -8,7 +8,7 @@ import { IInstructionOptions } from "../IInstructionOptions";
 export interface IBBCodeInstructionOptions extends IInstructionOptions, ILocalizationInstructionOptions
 {
     /**
-     * The bbcodes provided by this instruction.
+     * The bb-codes provided by this instruction.
      */
     BBCodes: IBBCodeOptions[];
 }

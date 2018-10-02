@@ -12,7 +12,7 @@ export interface IThemeOptions extends IComponentOptions
     Thumbnail?: string;
 
     /**
-     * Gets or sets the filename of the high-resolution version of the thumbnanil of the theme.
+     * Gets or sets the filename of the high-resolution version of the thumbnail of the theme.
      */
     HighResThumbnail?: string;
 

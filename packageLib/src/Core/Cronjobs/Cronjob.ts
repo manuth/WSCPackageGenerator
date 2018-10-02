@@ -15,7 +15,7 @@ export class Cronjob implements ICronjobOptions
     private name: string;
 
     /**
-     * The name of the class providing the cronjob's behavior.
+     * The name of the class providing the behavior of the cronjob.
      */
     private className: string;
 
@@ -45,7 +45,7 @@ export class Cronjob implements ICronjobOptions
     private options: Option[] = [];
 
     /**
-     * Initializes a new instance of the `Conrjob` class.
+     * Initializes a new instance of the `Cronjob` class.
      */
     public constructor(options: ICronjobOptions)
     {
