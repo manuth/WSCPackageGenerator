@@ -67,7 +67,7 @@ suite(
             () =>
             {
                 test(
-                    "Checking whether themes can be compild without an error...",
+                    "Checking whether themes can be compiled without an error...",
                     async () =>
                     {
                         await compiler.Execute();
