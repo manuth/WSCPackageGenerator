@@ -6,4 +6,5 @@ suite(
         require("./LocalizationInstructionCompiler.test");
         require("./CronJobInstructionCompiler.test");
         require("./ThemeInstructionCompiler.test");
+        require("./BBCodeInstructionCompiler.test");
     });
