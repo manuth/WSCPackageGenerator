@@ -26,6 +26,7 @@ export abstract class XMLFileCompiler<T> extends Compiler<T>
 
     protected async Compile(): Promise<void>
     {
+        await FileSystem.ensureFile(this.DestinationPath);
         await FileSystem.writeFile(this.DestinationPath, this.Content);
     }
 
