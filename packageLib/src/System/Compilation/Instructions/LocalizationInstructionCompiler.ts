@@ -26,7 +26,7 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
             let compiler: LocalizationFileCompiler = new LocalizationFileCompiler([locale, messages[locale]]);
             compiler.DestinationPath = tempFile.FileName;
             await compiler.Execute();
-            await this.CopyTemplate(tempFile.FileName, this.MakeDestinationPath(`${locale}.xml`));
+            await this.CopyTemplate(tempFile.FileName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
             tempFile.Dispose();
         }
     }

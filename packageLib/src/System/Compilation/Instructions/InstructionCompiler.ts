@@ -23,7 +23,7 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
      */
     public get DestinationFileName(): string
     {
-        return super.MakeDestinationPath(this.Item.FullName);
+        return this.MakePackagePath(this.Item.FullName);
     }
 
     /**
@@ -50,6 +50,17 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
             });
 
         await super.CopyTemplate(source, destination, context);
+    }
+
+    /**
+     * Joins the paths and returns the path contained by the package-folder.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    protected MakePackagePath(...path: string[]): string
+    {
+        return super.MakeDestinationPath(...path);
     }
 
     /**
