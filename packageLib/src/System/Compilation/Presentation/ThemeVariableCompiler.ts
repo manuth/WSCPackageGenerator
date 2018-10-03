@@ -1,3 +1,4 @@
+import { XML } from "../../Serialization/XML";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -32,10 +33,14 @@ export class ThemeVariableCompiler extends WoltLabXMLCompiler<{ [key: string]: s
 
         for (let name in this.Item)
         {
-            let variable: Element = document.createElement("variable");
-            variable.setAttribute("name", name);
-            variable.appendChild(document.createTextNode(this.Item[name]));
-            document.documentElement.appendChild(variable);
+            XML.AddTextElement(
+                document.documentElement,
+                "variable",
+                this.Item[name],
+                (variable: Element) =>
+                {
+                    variable.setAttribute("name", name);
+                });
         }
 
         return document;

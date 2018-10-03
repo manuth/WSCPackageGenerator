@@ -1,3 +1,4 @@
+import { XML } from "../../Serialization/XML";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -11,7 +12,7 @@ export class LocalizationFileCompiler extends WoltLabXMLCompiler<[string, { [cat
      * @param item
      * The item to compile.
      */
-    public constructor(item: [string, {[category: string]: {[key: string]: string}}])
+    public constructor(item: [string, { [category: string]: { [key: string]: string } }])
     {
         super(item);
     }
@@ -33,18 +34,18 @@ export class LocalizationFileCompiler extends WoltLabXMLCompiler<[string, { [cat
 
         for (let categoryName of Object.keys(this.Item[1]))
         {
-            let categoryNode: Element = document.createElement("category");
-            categoryNode.setAttribute("name", categoryName);
+            XML.AddElement(
+                document.documentElement,
+                "category",
+                (category: Element) =>
+                {
+                    category.setAttribute("name", categoryName);
 
-            for (let messageName of Object.keys(this.Item[1][categoryName]))
-            {
-                let itemNode: Element = document.createElement("item");
-                itemNode.setAttribute("name", messageName);
-                itemNode.appendChild(document.createCDATASection(this.Item[1][categoryName][messageName]));
-                categoryNode.appendChild(itemNode);
-            }
-
-            document.documentElement.appendChild(categoryNode);
+                    for (let messageName of Object.keys(this.Item[1][categoryName]))
+                    {
+                        XML.AddCDATAElement(category, "item", this.Item[1][categoryName][messageName], (item: Element) => item.setAttribute("name", messageName));
+                    }
+                });
         }
 
         return document;

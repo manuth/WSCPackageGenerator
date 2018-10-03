@@ -1,6 +1,7 @@
 import { isNullOrUndefined } from "util";
 import { BBCode } from "../../Customization/BBCodes/BBCode";
 import { BBCodeAttribute } from "../../Customization/BBCodes/BBCodeAttribute";
+import { XML } from "../../Serialization/XML";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -27,101 +28,86 @@ export class BBCodeFileCompiler extends WoltLabXMLCompiler<BBCode[]>
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
-        let $import: Element = document.createElement("import");
-        {
 
-            for (let bbCode of this.Item)
+        XML.AddElement(
+            document.documentElement,
+            "import",
+            ($import: Element) =>
             {
-                let bbCodeElement: Element = document.createElement("bbcode");
+                for (let bbCode of this.Item)
                 {
-                    bbCodeElement.setAttribute("name", bbCode.Name);
-
-                    if (bbCode.DisplayName.GetLocales().length > 0)
-                    {
-                        let label: Element = document.createElement("buttonLabel");
-                        label.appendChild(document.createTextNode(`wcf.editor.button.${bbCode.Name}`));
-                        bbCodeElement.appendChild(label);
-                    }
-
-                    if (!isNullOrUndefined(bbCode.Icon))
-                    {
-                        let icon: Element = document.createElement("wysiwygicon");
-                        icon.appendChild(document.createTextNode(bbCode.Icon));
-                        bbCodeElement.appendChild(icon);
-                    }
-
-                    if (!isNullOrUndefined(bbCode.ClassName))
-                    {
-                        let $class: Element = document.createElement("classname");
-                        $class.appendChild(document.createTextNode(bbCode.ClassName));
-                        bbCodeElement.appendChild($class);
-                    }
-
-                    if (!isNullOrUndefined(bbCode.TagName))
-                    {
-                        let openTag: Element = document.createElement("htmlopen");
-                        openTag.appendChild(document.createTextNode(bbCode.TagName));
-                        bbCodeElement.appendChild(openTag);
-
-                        if (!bbCode.IsSelfClosing)
+                    XML.AddElement(
+                        $import,
+                        "bbcode",
+                        (bbCodeElement: Element) =>
                         {
-                            let closeTag: Element = document.createElement("htmlClose");
-                            closeTag.appendChild(document.createTextNode(bbCode.TagName));
-                            bbCodeElement.appendChild(closeTag);
-                        }
-                    }
+                            bbCodeElement.setAttribute("name", bbCode.Name);
 
-                    let isBlockElement: Element = document.createElement("isBlockElement");
-                    isBlockElement.appendChild(document.createTextNode(bbCode.IsBlockElement ? "1" : "0"));
-                    bbCodeElement.appendChild(isBlockElement);
-
-                    let parseContent: Element = document.createElement("sourcecode");
-                    parseContent.appendChild(document.createTextNode(bbCode.ParseContent ? "0" : "1"));
-                    bbCodeElement.appendChild(parseContent);
-
-                    if (bbCode.Attributes.length > 0)
-                    {
-                        let attributesElement: Element = document.createElement("attributes");
-                        {
-                            for (let i: number = 0; i < bbCode.Attributes.length; i++)
+                            if (bbCode.DisplayName.GetLocales().length > 0)
                             {
-                                let attributeElement: Element = document.createElement("attribute");
-                                {
-                                    let attribute: BBCodeAttribute = bbCode.Attributes[i];
-                                    attributeElement.setAttribute("name", i.toString());
-
-                                    let required: Element = document.createElement("required");
-                                    required.appendChild(document.createTextNode(attribute.Required ? "1" : "0"));
-                                    attributeElement.appendChild(required);
-
-                                    let valueByContent: Element = document.createElement("useText");
-                                    valueByContent.appendChild(document.createTextNode(attribute.ValueByContent ? "1" : "0"));
-                                    attributeElement.appendChild(valueByContent);
-
-                                    if (!isNullOrUndefined(attribute.Code))
-                                    {
-                                        let code: Element = document.createElement("html");
-                                        code.appendChild(document.createTextNode(attribute.Code));
-                                        attributeElement.appendChild(code);
-                                    }
-
-                                    if (!isNullOrUndefined(attribute.ValidationPattern))
-                                    {
-                                        let validationPattern: Element = document.createElement("validationpattern");
-                                        validationPattern.appendChild(document.createTextNode(attribute.ValidationPattern.source));
-                                        attributeElement.appendChild(validationPattern);
-                                    }
-                                }
-                                attributesElement.appendChild(attributeElement);
+                                XML.AddTextElement(bbCodeElement, "buttonLabel", `wcf.editor.button.${bbCode.Name}`);
                             }
-                        }
-                        bbCodeElement.appendChild(attributesElement);
-                    }
+
+                            if (!isNullOrUndefined(bbCode.Icon))
+                            {
+                                XML.AddTextElement(bbCodeElement, "wysiwygicon", bbCode.Icon);
+                            }
+
+                            if (!isNullOrUndefined(bbCode.ClassName))
+                            {
+                                XML.AddTextElement(bbCodeElement, "classname", bbCode.ClassName);
+                            }
+
+                            if (!isNullOrUndefined(bbCode.TagName))
+                            {
+                                XML.AddTextElement(bbCodeElement, "htmlopen", bbCode.TagName);
+
+                                if (!bbCode.IsSelfClosing)
+                                {
+                                    XML.AddTextElement(bbCodeElement, "htmlclose", bbCode.TagName);
+                                }
+                            }
+
+                            XML.AddTextElement(bbCodeElement, "isBlockElement", bbCode.IsBlockElement ? "1" : "0");
+                            XML.AddTextElement(bbCodeElement, "sourcecode", bbCode.ParseContent ? "0" : "1");
+
+                            if (bbCode.Attributes.length > 0)
+                            {
+                                XML.AddElement(
+                                    bbCodeElement,
+                                    "attributes",
+                                    (attributes: Element) =>
+                                    {
+                                        for (let i: number = 0; i < bbCode.Attributes.length; i++)
+                                        {
+                                            let attribute: BBCodeAttribute = bbCode.Attributes[i];
+
+                                            XML.AddElement(
+                                                attributes,
+                                                "attribute",
+                                                (attributeElement: Element) =>
+                                                {
+                                                    attributeElement.setAttribute("name", i.toString());
+                                                    XML.AddTextElement(attributeElement, "required", attribute.Required ? "1" : "0");
+                                                    XML.AddTextElement(attributeElement, "useText", attribute.ValueByContent ? "1" : "0");
+
+                                                    if (!isNullOrUndefined(attribute.Code))
+                                                    {
+                                                        XML.AddTextElement(attributeElement, "html", attribute.Code);
+                                                    }
+
+                                                    if (!isNullOrUndefined(attribute.ValidationPattern))
+                                                    {
+                                                        XML.AddTextElement(attributeElement, "validationpattern", attribute.ValidationPattern.source);
+                                                    }
+                                                });
+                                        }
+                                    });
+                            }
+                        });
                 }
-                $import.appendChild(bbCodeElement);
-            }
-        }
-        document.documentElement.appendChild($import);
+            });
+
         return document;
     }
 }
