@@ -11,7 +11,7 @@ export class XMLEditor
     private element: Element;
 
     /**
-     * Initializes a new instance of the `XMLEditor<T>` class.
+     * Initializes a new instance of the `XMLEditor` class.
      *
      * @param element
      * The element to edit.
@@ -19,6 +19,14 @@ export class XMLEditor
     public constructor(element: Element)
     {
         this.element = element;
+    }
+
+    /**
+     * Gets the name of the tag of the element.
+     */
+    public get TagName(): string
+    {
+        return this.Element.tagName;
     }
 
     /**
@@ -45,7 +53,7 @@ export class XMLEditor
     /**
      * Gets the child-nodes of the element.
      */
-    public get ChildNodes(): ReadonlyArray<Node>
+    public get ChildNodes(): Node[]
     {
         return XMLEditor.ToArray(this.Element.childNodes);
     }
