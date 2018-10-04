@@ -51,6 +51,14 @@ export class XMLEditor
     }
 
     /**
+     * Gets the parent of the element.
+     */
+    public get ParentNode(): Node
+    {
+        return this.Element.parentNode;
+    }
+
+    /**
      * Gets the child-nodes of the element.
      */
     public get ChildNodes(): Node[]
@@ -169,9 +177,9 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetChildElementsByTag(tag: string): Element[]
+    public GetChildElementsByTag(tag: string): XMLEditor[]
     {
-        return this.GetElementsByTag(tag).filter((node: Element) => node.parentNode === this.Element);
+        return this.GetElementsByTag(tag).filter((node: XMLEditor) => node.ParentNode === this.Element);
     }
 
     /**
@@ -180,9 +188,9 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetElementsByTag(tag: string): Element[]
+    public GetElementsByTag(tag: string): XMLEditor[]
     {
-        return XMLEditor.ToArray(this.Element.getElementsByTagName(tag));
+        return XMLEditor.ToArray(this.Element.getElementsByTagName(tag)).map((element: Element) => new XMLEditor(element));
     }
 
     /**
