@@ -30,6 +30,19 @@ export class XMLEditor
     }
 
     /**
+     * Gets or sets the text of the element.
+     */
+    public get TextContent(): string
+    {
+        return this.Element.textContent;
+    }
+
+    public set TextContent(value: string)
+    {
+        this.Element.textContent = value;
+    }
+
+    /**
      * Gets the child-nodes of the element.
      */
     public get ChildNodes(): ReadonlyArray<Node>
