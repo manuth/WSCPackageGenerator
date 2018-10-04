@@ -74,7 +74,7 @@ export class XMLEditor
      */
     private static ToArray<T extends Node>(nodeList: NodeList | NodeListOf<T>): T[]
     {
-        let result: T[];
+        let result: T[] = [];
 
         for (let i: number = 0; i < nodeList.length; i++)
         {
