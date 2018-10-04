@@ -1,7 +1,7 @@
 import { isNullOrUndefined } from "util";
 import { BBCode } from "../../Customization/BBCodes/BBCode";
 import { BBCodeAttribute } from "../../Customization/BBCodes/BBCodeAttribute";
-import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -28,77 +28,75 @@ export class BBCodeFileCompiler extends WoltLabXMLCompiler<BBCode[]>
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
 
-        XML.AddElement(
-            document.documentElement,
+        editor.AddElement(
             "import",
-            ($import: Element) =>
+            ($import: XMLEditor) =>
             {
                 for (let bbCode of this.Item)
                 {
-                    XML.AddElement(
-                        $import,
+                    $import.AddElement(
                         "bbcode",
-                        (bbCodeElement: Element) =>
+                        (bbCodeEditor: XMLEditor) =>
                         {
-                            bbCodeElement.setAttribute("name", bbCode.Name);
+                            bbCodeEditor.SetAttribute("name", bbCode.Name);
 
                             if (bbCode.DisplayName.GetLocales().length > 0)
                             {
-                                XML.AddTextElement(bbCodeElement, "buttonLabel", `wcf.editor.button.${bbCode.Name}`);
+                                bbCodeEditor.AddTextElement("buttonLabel", `wcf.editor.button.${bbCode.Name}`);
                             }
 
                             if (!isNullOrUndefined(bbCode.Icon))
                             {
-                                XML.AddTextElement(bbCodeElement, "wysiwygicon", bbCode.Icon);
+                                bbCodeEditor.AddTextElement("wysiwygicon", bbCode.Icon);
                             }
 
                             if (!isNullOrUndefined(bbCode.ClassName))
                             {
-                                XML.AddTextElement(bbCodeElement, "classname", bbCode.ClassName);
+                                bbCodeEditor.AddTextElement("classname", bbCode.ClassName);
                             }
 
                             if (!isNullOrUndefined(bbCode.TagName))
                             {
-                                XML.AddTextElement(bbCodeElement, "htmlopen", bbCode.TagName);
+                                bbCodeEditor.AddTextElement("htmlopen", bbCode.TagName);
 
                                 if (!bbCode.IsSelfClosing)
                                 {
-                                    XML.AddTextElement(bbCodeElement, "htmlclose", bbCode.TagName);
+                                    bbCodeEditor.AddTextElement("htmlclose", bbCode.TagName);
                                 }
                             }
 
-                            XML.AddTextElement(bbCodeElement, "isBlockElement", bbCode.IsBlockElement ? "1" : "0");
-                            XML.AddTextElement(bbCodeElement, "sourcecode", bbCode.ParseContent ? "0" : "1");
+                            bbCodeEditor.AddTextElement("isBlockElement", bbCode.IsBlockElement ? "1" : "0");
+                            bbCodeEditor.AddTextElement("sourcecode", bbCode.ParseContent ? "0" : "1");
 
                             if (bbCode.Attributes.length > 0)
                             {
-                                XML.AddElement(
-                                    bbCodeElement,
+                                bbCodeEditor.AddElement(
                                     "attributes",
-                                    (attributes: Element) =>
+                                    (attributes: XMLEditor) =>
                                     {
                                         for (let i: number = 0; i < bbCode.Attributes.length; i++)
                                         {
                                             let attribute: BBCodeAttribute = bbCode.Attributes[i];
 
-                                            XML.AddElement(
-                                                attributes,
+                                            attributes.AddElement(
                                                 "attribute",
-                                                (attributeElement: Element) =>
+                                                (attributeEditor: XMLEditor) =>
                                                 {
-                                                    attributeElement.setAttribute("name", i.toString());
-                                                    XML.AddTextElement(attributeElement, "required", attribute.Required ? "1" : "0");
-                                                    XML.AddTextElement(attributeElement, "useText", attribute.ValueByContent ? "1" : "0");
+                                                    attributeEditor.SetAttribute("name", i.toString());
+
+                                                    attributeEditor.AddTextElement("required", attribute.Required ? "1" : "0");
+                                                    attributeEditor.AddTextElement("useText", attribute.ValueByContent ? "1" : "0");
 
                                                     if (!isNullOrUndefined(attribute.Code))
                                                     {
-                                                        XML.AddTextElement(attributeElement, "html", attribute.Code);
+                                                        attributeEditor.AddTextElement("html", attribute.Code);
                                                     }
 
                                                     if (!isNullOrUndefined(attribute.ValidationPattern))
                                                     {
-                                                        XML.AddTextElement(attributeElement, "validationpattern", attribute.ValidationPattern.source);
+                                                        attributeEditor.AddTextElement("validationpattern", attribute.ValidationPattern.source);
                                                     }
                                                 });
                                         }

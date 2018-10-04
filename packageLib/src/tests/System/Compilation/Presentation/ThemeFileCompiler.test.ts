@@ -8,6 +8,7 @@ import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 import { Person } from "../../../../System/PackageSystem/Person";
+import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
 suite(
     "ThemeFileCompiler",
@@ -141,14 +142,14 @@ suite(
                     {
                         let document: Document;
                         let rootTag: string;
-                        let rootElement: Element;
+                        let rootEditor: XMLEditor;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                 rootTag = "style";
-                                rootElement = document.documentElement;
+                                rootEditor = new XMLEditor(document.documentElement);
                             });
 
                         suite(
@@ -159,7 +160,7 @@ suite(
                                     "Checking whether the name of the root-tag is correct...",
                                     () =>
                                     {
-                                        assert.strictEqual(rootElement.tagName, rootTag);
+                                        assert.strictEqual(rootEditor.TagName, rootTag);
                                     });
                             });
 
@@ -170,9 +171,9 @@ suite(
                                 let generalTag: string;
                                 let authorTag: string;
                                 let filesTag: string;
-                                let generalElement: Element;
-                                let authorElement: Element;
-                                let filesElement: Element;
+                                let generalEditor: XMLEditor;
+                                let authorEditor: XMLEditor;
+                                let filesEditor: XMLEditor;
 
                                 suiteSetup(
                                     () =>
@@ -180,18 +181,35 @@ suite(
                                         generalTag = "general";
                                         authorTag = "author";
                                         filesTag = "files";
+                                    });
 
-                                        assert.strictEqual(rootElement.getElementsByTagName(generalTag).length, 1);
-                                        generalElement = rootElement.getElementsByTagName(generalTag)[0];
-                                        assert.strictEqual(generalElement.parentNode === rootElement, true);
+                                suite(
+                                    "General",
+                                    () =>
+                                    {
+                                        test(
+                                            "Checking whether the general meta-data is present...",
+                                            () =>
+                                            {
+                                                rootEditor.AssertTag(generalTag, true);
+                                                generalEditor = rootEditor.ChildrenByTag(generalTag)[0];
+                                            });
 
-                                        assert.strictEqual(rootElement.getElementsByTagName(authorTag).length, 1);
-                                        authorElement = rootElement.getElementsByTagName(authorTag)[0];
-                                        assert.strictEqual(authorElement.parentNode === rootElement, true);
+                                        test(
+                                            "Checking whether the author meta-data is present...",
+                                            () =>
+                                            {
+                                                rootEditor.AssertTag(authorTag, true);
+                                                authorEditor = rootEditor.ChildrenByTag(authorTag)[0];
+                                            });
 
-                                        assert.strictEqual(rootElement.getElementsByTagName(filesTag).length, 1);
-                                        filesElement = rootElement.getElementsByTagName(filesTag)[0];
-                                        assert.strictEqual(filesElement.parentNode === rootElement, true);
+                                        test(
+                                            "Checking whether the files meta-data is present...",
+                                            () =>
+                                            {
+                                                rootEditor.AssertTag(filesTag, true);
+                                                filesEditor = rootEditor.ChildrenByTag(filesTag)[0];
+                                            });
                                     });
 
                                 suite(
@@ -207,18 +225,7 @@ suite(
                                         let apiTag: string;
                                         let thumbnailTag: string;
                                         let highResThumbnailTag: string;
-
                                         let coverPhotoTag: string;
-                                        let nameElements: Element[];
-                                        let versionElement: Element;
-                                        let dateElement: Element;
-                                        let descriptionElements: Element[];
-                                        let licenseElement: Element;
-                                        let packageElement: Element;
-                                        let apiElement: Element;
-                                        let thumbnailElement: Element;
-                                        let highResThumbnailElement: Element;
-                                        let coverPhotoElement: Element;
 
                                         let languageAttribute: string;
 
@@ -236,181 +243,94 @@ suite(
                                                 highResThumbnailTag = "image2x";
                                                 coverPhotoTag = "coverPhoto";
 
-                                                nameElements = [];
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(versionTag).length, 1);
-                                                versionElement = rootElement.getElementsByTagName(versionTag)[0];
-                                                assert.strictEqual(versionElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(dateTag).length, 1);
-                                                dateElement = rootElement.getElementsByTagName(dateTag)[0];
-                                                assert.strictEqual(dateElement.parentNode === generalElement, true);
-
-                                                descriptionElements = [];
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(licenseTag).length, 1);
-                                                licenseElement = rootElement.getElementsByTagName(licenseTag)[0];
-                                                assert.strictEqual(licenseElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(packageTag).length, 1);
-                                                packageElement = rootElement.getElementsByTagName(packageTag)[0];
-                                                assert.strictEqual(packageElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(apiTag).length, 1);
-                                                apiElement = rootElement.getElementsByTagName(apiTag)[0];
-                                                assert.strictEqual(apiElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(thumbnailTag).length, 1);
-                                                thumbnailElement = rootElement.getElementsByTagName(thumbnailTag)[0];
-                                                assert.strictEqual(thumbnailElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(highResThumbnailTag).length, 1);
-                                                highResThumbnailElement = rootElement.getElementsByTagName(highResThumbnailTag)[0];
-                                                assert.strictEqual(highResThumbnailElement.parentNode === generalElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(coverPhotoTag).length, 1);
-                                                coverPhotoElement = rootElement.getElementsByTagName(coverPhotoTag)[0];
-                                                assert.strictEqual(coverPhotoElement.parentNode === generalElement, true);
-
                                                 languageAttribute = "language";
-
-                                                let nameNodes: NodeListOf<Element> = document.getElementsByTagName(nameTag);
-                                                let descriptionNodes: NodeListOf<Element> = document.getElementsByTagName(descriptionTag);
-
-                                                for (let i: number = 0; i < nameNodes.length; i++)
-                                                {
-                                                    nameElements.push(nameNodes.item(i));
-                                                }
-
-                                                for (let i: number = 0; i < descriptionNodes.length; i++)
-                                                {
-                                                    descriptionElements.push(descriptionNodes.item(i));
-                                                }
                                             });
 
                                         test(
-                                            "Checking whether the localized theme-name is correct...",
+                                            "Checking the integrity of the name...",
                                             () =>
                                             {
-                                                let localizedElement: Element;
-                                                let localizedElements: Element[] = nameElements.filter(
-                                                    (node: Element): boolean =>
+                                                for (let editor of generalEditor.ChildrenByTag(nameTag))
+                                                {
+                                                    if (editor.HasAttribute(languageAttribute))
                                                     {
-                                                        return node.hasAttribute(languageAttribute);
-                                                    });
+                                                        assert.strictEqual(editor.GetAttribute(languageAttribute), locale);
+                                                    }
 
-                                                assert.strictEqual(localizedElements.length, 1);
-                                                localizedElement = localizedElements[0];
-                                                assert.strictEqual(localizedElement.parentNode === generalElement, true);
-                                                assert.strictEqual(localizedElement.getAttribute(languageAttribute), locale);
-                                                assert.strictEqual(localizedElement.textContent, localizedName);
-                                            });
-
-                                        test(
-                                            "Checking whether the invariant theme-name is correct...",
-                                            () =>
-                                            {
-                                                let invariantElement: Element;
-                                                let invariantElements: Element[] = nameElements.filter(
-                                                    (node: Element): boolean =>
-                                                    {
-                                                        return !node.hasAttribute(languageAttribute);
-                                                    });
-
-                                                assert.strictEqual(invariantElements.length, 1);
-                                                invariantElement = invariantElements[0];
-                                                assert.strictEqual(invariantElement.parentNode === generalElement, true);
-                                                assert.strictEqual(invariantElement.textContent, invariantName);
+                                                    assert.strictEqual(editor.TextContent, editor.HasAttribute(languageAttribute) ? localizedName : invariantName);
+                                                }
                                             });
 
                                         test(
                                             "Checking whether the version is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(versionElement.textContent, version);
+                                                generalEditor.AssertText(versionTag, version);
                                             });
 
                                         test(
                                             "Checking whether the date is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(new Date(dateElement.textContent).getTime(), date.getTime());
+                                                generalEditor.AssertTag(dateTag, true);
+                                                assert.strictEqual(new Date(generalEditor.GetElementsByTag(dateTag)[0].TextContent).getTime(), date.getTime());
                                             });
 
                                         test(
                                             "Checking whether the localized description is correct...",
                                             () =>
                                             {
-                                                let localizedElement: Element;
-                                                let localizedElements: Element[] = descriptionElements.filter(
-                                                    (node: Element): boolean =>
+                                                for (let editor of generalEditor.ChildrenByTag(descriptionTag))
+                                                {
+                                                    if (editor.HasAttribute(languageAttribute))
                                                     {
-                                                        return node.hasAttribute(languageAttribute);
-                                                    });
+                                                        assert.strictEqual(editor.GetAttribute(languageAttribute), locale);
+                                                    }
 
-                                                assert.strictEqual(localizedElements.length, 1);
-                                                localizedElement = localizedElements[0];
-                                                assert.strictEqual(localizedElement.parentNode === generalElement, true);
-                                                assert.strictEqual(localizedElement.textContent, localizedDescription);
-                                            });
-
-                                        test(
-                                            "Checking whether the invariant description is correct...",
-                                            () =>
-                                            {
-                                                let invariantElement: Element;
-                                                let invariantElements: Element[] = descriptionElements.filter(
-                                                    (node: Element): boolean =>
-                                                    {
-                                                        return !node.hasAttribute(languageAttribute);
-                                                    });
-
-                                                assert.strictEqual(invariantElements.length, 1);
-                                                invariantElement = invariantElements[0];
-                                                assert.strictEqual(invariantElement.parentNode === generalElement, true);
-                                                assert.strictEqual(invariantElement.textContent, invariantDescription);
+                                                    assert.strictEqual(editor.TextContent, editor.HasAttribute(languageAttribute) ? localizedDescription : invariantDescription);
+                                                }
                                             });
 
                                         test(
                                             "Checking whether the license is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(licenseElement.textContent, license);
+                                                generalEditor.AssertText(licenseTag, license);
                                             });
 
                                         test(
                                             "Checking whether the package-name is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(packageElement.textContent, packageName);
+                                                generalEditor.AssertText(packageTag, packageName);
                                             });
 
                                         test(
                                             "Checking whether the api-version is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(apiElement.textContent, "3.1");
+                                                generalEditor.AssertText(apiTag, "3.1");
                                             });
 
                                         test(
                                             "Checking whether the thumbnail is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(thumbnailElement.textContent, thumbnail);
+                                                generalEditor.AssertText(thumbnailTag, thumbnail);
                                             });
 
                                         test(
                                             "Checking whether the high-resolution thumbnail is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(highResThumbnailElement.textContent, highResThumbnail);
+                                                generalEditor.AssertText(highResThumbnailTag, highResThumbnail);
                                             });
 
                                         test(
                                             "Checking whether the cover-photo is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(coverPhotoElement.textContent, coverPhoto);
+                                                generalEditor.AssertText(coverPhotoTag, coverPhoto);
                                             });
                                     });
 
@@ -420,36 +340,26 @@ suite(
                                     {
                                         let authorNameTag: string;
                                         let authorURLTag: string;
-                                        let authorNameElement: Element;
-                                        let authorURLElement: Element;
 
                                         suiteSetup(
                                             () =>
                                             {
                                                 authorNameTag = "authorname";
                                                 authorURLTag = "authorurl";
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(authorNameTag).length, 1);
-                                                authorNameElement = rootElement.getElementsByTagName(authorNameTag)[0];
-                                                assert.strictEqual(authorNameElement.parentNode === authorElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(authorURLTag).length, 1);
-                                                authorURLElement = rootElement.getElementsByTagName(authorURLTag)[0];
-                                                assert.strictEqual(authorURLElement.parentNode === authorElement, true);
                                             });
 
                                         test(
                                             "Checking whether the name of the author is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(authorNameElement.textContent, author.Name);
+                                                authorEditor.AssertText(authorNameTag, author.Name);
                                             });
 
                                         test(
                                             "Checking whether the website of the author is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(authorURLElement.textContent, author.URL);
+                                                authorEditor.AssertText(authorURLTag, author.URL);
                                             });
                                     });
 
@@ -460,8 +370,6 @@ suite(
                                         let variablesTag: string;
                                         let imageTag: string;
                                         let imagePathAttribute: string;
-                                        let variablesElement: Element;
-                                        let imageElement: Element;
 
                                         suiteSetup(
                                             () =>
@@ -469,30 +377,23 @@ suite(
                                                 variablesTag = "variables";
                                                 imageTag = "images";
                                                 imagePathAttribute = "path";
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(variablesTag).length, 1);
-                                                variablesElement = rootElement.getElementsByTagName(variablesTag)[0];
-                                                assert.strictEqual(variablesElement.parentNode === filesElement, true);
-
-                                                assert.strictEqual(rootElement.getElementsByTagName(imageTag).length, 1);
-                                                imageElement = rootElement.getElementsByTagName(imageTag)[0];
-                                                assert.strictEqual(imageElement.parentNode === filesElement, true);
-
                                             });
 
                                         test(
                                             "Checking whether the variables-file is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(variablesElement.textContent, variableFileName);
+                                                filesEditor.AssertText(variablesTag, variableFileName);
                                             });
 
                                         test(
                                             "Checking whether the image-descriptor is correct...",
                                             () =>
                                             {
-                                                assert.strictEqual(imageElement.getAttribute(imagePathAttribute), imageDescriptor.DestinationRoot);
-                                                assert.strictEqual(imageElement.textContent, imageDescriptor.FileName);
+                                                filesEditor.AssertTag(imageTag, true);
+                                                let imageEditor: XMLEditor = filesEditor.ChildrenByTag(imageTag)[0];
+                                                assert.strictEqual(imageEditor.GetAttribute(imagePathAttribute), imageDescriptor.DestinationRoot);
+                                                assert.strictEqual(imageEditor.TextContent, imageDescriptor.FileName);
                                             });
                                     });
                             });

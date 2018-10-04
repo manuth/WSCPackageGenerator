@@ -1,4 +1,4 @@
-import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -30,20 +30,21 @@ export class LocalizationFileCompiler extends WoltLabXMLCompiler<[string, { [cat
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
-        document.documentElement.setAttribute("languagecode", this.Item[0]);
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
+
+        editor.SetAttribute("languagecode", this.Item[0]);
 
         for (let categoryName of Object.keys(this.Item[1]))
         {
-            XML.AddElement(
-                document.documentElement,
+            editor.AddElement(
                 "category",
-                (category: Element) =>
+                (category: XMLEditor) =>
                 {
-                    category.setAttribute("name", categoryName);
+                    category.SetAttribute("name", categoryName);
 
                     for (let messageName of Object.keys(this.Item[1][categoryName]))
                     {
-                        XML.AddCDATAElement(category, "item", this.Item[1][categoryName][messageName], (item: Element) => item.setAttribute("name", messageName));
+                        category.AddCDATAElement("item", this.Item[1][categoryName][messageName], (item: XMLEditor) => item.SetAttribute("name", messageName));
                     }
                 });
         }

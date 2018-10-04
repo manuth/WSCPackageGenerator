@@ -1,4 +1,3 @@
-import { isNullOrUndefined } from "util";
 import { DOMParser, XMLSerializer } from "xmldom";
 
 /**
@@ -112,84 +111,5 @@ export class XML
 
         this.FormatElement(document.documentElement);
         return new XMLSerializer().serializeToString(document);
-    }
-
-    /**
-     * Creates a new element and appends it to the `parent`.
-     *
-     * @param parent
-     * The element to append the new element to.
-     *
-     * @param tag
-     * The tag of the element to create.
-     *
-     * @param processor
-     * A method for manipulating the new element.
-     */
-    public static AddElement(parent: Element, tag: string, processor?: (element: Element) => void): void
-    {
-        let element: Element = parent.ownerDocument.createElement(tag);
-        parent.appendChild(element);
-
-        if (!isNullOrUndefined(processor))
-        {
-            processor(element);
-        }
-    }
-
-    /**
-     * Creates a new element with the specified `textContent` and appends it to the `parent`.
-     *
-     * @param parent
-     * The element to append the new element to.
-     *
-     * @param tag
-     * The tag of the element to create.
-     *
-     * @param textContent
-     * The text to insert into the element.
-     */
-    public static AddCDATAElement(parent: Element, tag: string, textContent: string, processor?: (element: Element) => void): void
-    {
-        this.AddElement(
-            parent,
-            tag,
-            (element: Element) =>
-            {
-                if (!isNullOrUndefined(processor))
-                {
-                    processor(element);
-                }
-
-                element.appendChild(parent.ownerDocument.createCDATASection(textContent));
-            });
-    }
-
-    /**
-     * Creates a new element with the specified `textContent` and appends it to the `parent`.
-     *
-     * @param parent
-     * The element to append the new element to.
-     *
-     * @param tag
-     * The tag of the element to create.
-     *
-     * @param textContent
-     * The text to insert into the element.
-     */
-    public static AddTextElement(parent: Element, tag: string, textContent: string, processor?: (element: Element) => void): void
-    {
-        this.AddElement(
-            parent,
-            tag,
-            (element: Element) =>
-            {
-                if (!isNullOrUndefined(processor))
-                {
-                    processor(element);
-                }
-
-                element.appendChild(parent.ownerDocument.createTextNode(textContent));
-            });
     }
 }

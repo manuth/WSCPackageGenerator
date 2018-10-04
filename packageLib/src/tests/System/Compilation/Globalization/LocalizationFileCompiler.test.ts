@@ -6,6 +6,7 @@ import { LocalizationFileCompiler } from "../../../../System/Compilation/Globali
 import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { TranslationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/TranslationInstruction";
+import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
 suite(
     "LocalizationFileCompiler",
@@ -69,7 +70,7 @@ suite(
             () =>
             {
                 suite(
-                    "General tests...",
+                    "General",
                     () =>
                     {
                         test(
@@ -93,30 +94,16 @@ suite(
                     {
                         let document: Document;
                         let rootTag: string;
-                        let categoryTag: string;
-                        let itemTag: string;
-                        let rootElement: Element;
-                        let categoryElement: Element;
-                        let itemElement: Element;
+                        let rootEditor: XMLEditor;
                         let languageAttribute: string;
-                        let categoryAttribute: string;
-                        let itemAttribute: string;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                 rootTag = "language";
-                                categoryTag = "category";
-                                itemTag = "item";
-                                rootElement = document.documentElement;
-                                categoryElement = rootElement.getElementsByTagName(categoryTag)[0];
-                                assert.strictEqual(categoryElement.parentNode === rootElement, true);
-                                itemElement = categoryElement.getElementsByTagName(itemTag)[0];
-                                assert.strictEqual(itemElement.parentNode === categoryElement, true);
+                                rootEditor = new XMLEditor(document.documentElement);
                                 languageAttribute = "languagecode";
-                                categoryAttribute = "name";
-                                itemAttribute = "name";
                             });
 
                         suite(
@@ -127,54 +114,93 @@ suite(
                                     "Checking whether the tag-name is correct...",
                                     () =>
                                     {
-                                        assert.strictEqual(rootElement.tagName, rootTag);
+                                        assert.strictEqual(rootEditor.TagName, rootTag);
                                     });
 
                                 test(
-                                    `Checking whether the language is specified...`,
+                                    "Checking whether the language is specified...",
                                     () =>
                                     {
-                                        assert.strictEqual(rootElement.hasAttribute(languageAttribute), true);
+                                        assert.strictEqual(rootEditor.HasAttribute(languageAttribute), true);
                                     });
 
                                 test(
-                                    `Checking whether the language is specified correctly...`,
+                                    "Checking whether the language is specified correctly...",
                                     () =>
                                     {
-                                        assert.strictEqual(rootElement.getAttribute(languageAttribute), locale);
-                                    });
-                            });
-
-                        suite(
-                            "Testing the categories...",
-                            () =>
-                            {
-                                test(
-                                    "Checking whether the name of the category is correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(categoryElement.hasAttribute(categoryAttribute), true);
-                                        assert.strictEqual(categoryElement.getAttribute(categoryAttribute), category);
+                                        assert.strictEqual(rootEditor.GetAttribute(languageAttribute), locale);
                                     });
                             });
 
                         suite(
-                            "Testing the translations...",
+                            "Checking the integrity of the categories...",
                             () =>
                             {
-                                test(
-                                    "Checking whether the name of the message is correct...",
+                                let categoryTag: string;
+                                let categoryEditor: XMLEditor;
+                                let nameAttribute: string;
+
+                                suiteSetup(
                                     () =>
                                     {
-                                        assert.strictEqual(itemElement.hasAttribute(itemAttribute), true);
-                                        assert.strictEqual(itemElement.getAttribute(itemAttribute), `${category}.${messageName}`);
+                                        categoryTag = "category";
+                                        nameAttribute = "name";
                                     });
 
-                                test(
-                                    "Checking whether the value of the message is correct...",
+                                suite(
+                                    "General",
                                     () =>
                                     {
-                                        assert.strictEqual(itemElement.textContent, messageValue);
+                                        test(
+                                            "Checking whether the category exists...",
+                                            () =>
+                                            {
+                                                rootEditor.AssertTag(categoryTag, true);
+                                                categoryEditor = rootEditor.ChildrenByTag(categoryTag)[0];
+                                            });
+
+                                        test(
+                                            "Checking whether the integrity of the name of the category...",
+                                            () =>
+                                            {
+                                                categoryEditor.AssertAttribute(nameAttribute, category);
+                                            });
+                                    });
+
+                                suite(
+                                    "Checking the integrity of the translations...",
+                                    () =>
+                                    {
+                                        let itemTag: string;
+                                        let itemEditor: XMLEditor;
+
+                                        suiteSetup(
+                                            () =>
+                                            {
+                                                itemTag = "item";
+                                            });
+
+                                        test(
+                                            "Checking whether the translation exists...",
+                                            () =>
+                                            {
+                                                categoryEditor.AssertTag(itemTag, true);
+                                                itemEditor = categoryEditor.ChildrenByTag(itemTag)[0];
+                                            });
+
+                                        test(
+                                            "Checking whether the integrity of the name of the translation...",
+                                            () =>
+                                            {
+                                                itemEditor.AssertAttribute(nameAttribute, `${category}.${messageName}`);
+                                            });
+
+                                        test(
+                                            "Checking the integrity of the text of the translation...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(itemEditor.TextContent, messageValue);
+                                            });
                                     });
                             });
                     });

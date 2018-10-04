@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "util";
 import { CronJobInstruction } from "../../PackageSystem/Instructions/Tasks/CronJobInstruction";
-import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
@@ -24,53 +24,51 @@ export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
 
-        XML.AddElement(
-            document.documentElement,
+        editor.AddElement(
             "import",
-            ($import: Element) =>
+            ($import: XMLEditor) =>
             {
                 for (let cronJob of this.Item.CronJobs)
                 {
-                    XML.AddElement(
-                        $import,
+                    $import.AddElement(
                         "cronjob",
-                        (cronJobElement: Element) =>
+                        (cronJobEditor: XMLEditor) =>
                         {
                             if (!isNullOrUndefined(cronJob.Name))
                             {
-                                cronJobElement.setAttribute("name", cronJob.Name);
+                                cronJobEditor.SetAttribute("name", cronJob.Name);
                             }
 
                             for (let locale of cronJob.Description.GetLocales())
                             {
-                                XML.AddTextElement(
-                                    cronJobElement,
+                                cronJobEditor.AddTextElement(
                                     "description",
                                     cronJob.Description.Data[locale],
-                                    (description: Element) =>
+                                    (description: XMLEditor) =>
                                     {
                                         if (locale !== "inv")
                                         {
-                                            description.setAttribute("language", locale);
+                                            description.SetAttribute("language", locale);
                                         }
                                     });
-
-                                XML.AddTextElement(cronJobElement, "classname", cronJob.ClassName);
-                                XML.AddTextElement(cronJobElement, "canbeedited", cronJob.AllowEdit ? "1" : "0");
-                                XML.AddTextElement(cronJobElement, "canbedisabled", cronJob.AllowDisable ? "1" : "0");
-
-                                if (cronJob.Options.length > 0)
-                                {
-                                    XML.AddTextElement(cronJobElement, "options", cronJob.Options.join(","));
-                                }
-
-                                XML.AddTextElement(cronJobElement, "startminute", cronJob.Period.Minute);
-                                XML.AddTextElement(cronJobElement, "starthour", cronJob.Period.Hour);
-                                XML.AddTextElement(cronJobElement, "startdom", cronJob.Period.DayOfMonth);
-                                XML.AddTextElement(cronJobElement, "startmonth", cronJob.Period.Month);
-                                XML.AddTextElement(cronJobElement, "startdow", cronJob.Period.DayOfWeek);
                             }
+
+                            cronJobEditor.AddTextElement("classname", cronJob.ClassName);
+                            cronJobEditor.AddTextElement("canbeedited", cronJob.AllowEdit ? "1" : "0");
+                            cronJobEditor.AddTextElement("canbedisabled", cronJob.AllowDisable ? "1" : "0");
+
+                            if (cronJob.Options.length > 0)
+                            {
+                                cronJobEditor.AddTextElement("options", cronJob.Options.join(","));
+                            }
+
+                            cronJobEditor.AddTextElement("startminute", cronJob.Period.Minute);
+                            cronJobEditor.AddTextElement("starthour", cronJob.Period.Hour);
+                            cronJobEditor.AddTextElement("startdom", cronJob.Period.DayOfMonth);
+                            cronJobEditor.AddTextElement("startmonth", cronJob.Period.Month);
+                            cronJobEditor.AddTextElement("startdow", cronJob.Period.DayOfWeek);
                         });
                 }
             });

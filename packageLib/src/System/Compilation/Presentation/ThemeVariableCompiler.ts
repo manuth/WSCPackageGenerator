@@ -1,4 +1,4 @@
-import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -30,17 +30,11 @@ export class ThemeVariableCompiler extends WoltLabXMLCompiler<{ [key: string]: s
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
 
         for (let name in this.Item)
         {
-            XML.AddTextElement(
-                document.documentElement,
-                "variable",
-                this.Item[name],
-                (variable: Element) =>
-                {
-                    variable.setAttribute("name", name);
-                });
+            editor.AddTextElement("variable", this.Item[name], (variable: XMLEditor) => variable.SetAttribute("name", name));
         }
 
         return document;

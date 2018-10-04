@@ -1,3 +1,4 @@
+import * as assert from "assert";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -138,7 +139,7 @@ export class XMLEditor
             tag,
             (element: XMLEditor) =>
             {
-                this.Add(this.Element.ownerDocument.createCDATASection(textContent));
+                element.Add(this.Element.ownerDocument.createCDATASection(textContent));
 
                 if (!isNullOrUndefined(processor))
                 {
@@ -162,7 +163,7 @@ export class XMLEditor
             tag,
             (element: XMLEditor) =>
             {
-                this.Add(this.Element.ownerDocument.createTextNode(textContent));
+                element.Add(this.Element.ownerDocument.createTextNode(textContent));
 
                 if (!isNullOrUndefined(processor))
                 {
@@ -177,7 +178,7 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetChildElementsByTag(tag: string): XMLEditor[]
+    public ChildrenByTag(tag: string): XMLEditor[]
     {
         return this.GetElementsByTag(tag).filter((node: XMLEditor) => node.ParentNode === this.Element);
     }
@@ -227,5 +228,59 @@ export class XMLEditor
     public SetAttribute(name: string, value: string): void
     {
         this.Element.setAttribute(name, value);
+    }
+
+    /**
+     * Asserts a tag to contain a text.
+     *
+     * @param text
+     * The text to assert.
+     *
+     * @param tag
+     * The tag to check.
+     *
+     * @param unique
+     * A value indicating whether the tag is unique.
+     */
+    public AssertText(tag: string, text: string): void
+    {
+        this.AssertTag(tag, true);
+        assert.strictEqual(this.ChildrenByTag(tag)[0].TextContent, text);
+    }
+
+    /**
+     * Asserts the element to have a tag.
+     * @param tag
+     * The tag to assert.
+     *
+     * @param unique
+     * A value indicating whether the tag is unique.
+     */
+    public AssertTag(tag: string, unique?: boolean): void
+    {
+        let children: XMLEditor[] = this.GetElementsByTag(tag);
+        unique = unique || false;
+
+        if (unique)
+        {
+            assert.strictEqual(children.length, 1);
+        }
+        else
+        {
+            assert.strictEqual(children.length > 0, true);
+        }
+    }
+
+    /**
+     * Asserts an attribute.
+     */
+    public AssertAttribute(name: string, value?: string): void
+    {
+        assert.strictEqual(this.HasAttribute(name), true);
+
+        if (!isNullOrUndefined(value))
+        {
+            assert.strictEqual(this.GetAttribute(name), value);
+        }
     }
 }

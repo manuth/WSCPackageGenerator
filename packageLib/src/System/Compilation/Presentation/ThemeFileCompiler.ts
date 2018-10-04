@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "util";
 import { Theme } from "../../Customization/Presentation/Themes/Theme";
-import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
 /**
@@ -38,30 +38,28 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
     protected CreateDocument(): Document
     {
         let document: Document = super.CreateDocument();
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
 
-        XML.AddElement(
-            document.documentElement,
+        editor.AddElement(
             "general",
-            (general: Element) =>
+            (general: XMLEditor) =>
             {
                 for (let locale of this.Item.DisplayName.GetLocales())
                 {
-                    XML.AddTextElement(
-                        general,
+                    general.AddTextElement(
                         "stylename",
                         this.Item.DisplayName.Data[locale],
-                        (name: Element) =>
+                        (name: XMLEditor) =>
                         {
                             if (locale !== "inv")
                             {
-                                name.setAttribute("language", locale);
+                                name.SetAttribute("language", locale);
                             }
                         });
                 }
 
-                XML.AddTextElement(general, "version", this.Item.Version);
-                XML.AddTextElement(
-                    general,
+                general.AddTextElement("version", this.Item.Version);
+                general.AddTextElement(
                     "date",
                     this.Item.CreationDate.getFullYear() + "-" +
                     (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
@@ -69,85 +67,82 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
 
                 for (let locale of this.Item.Description.GetLocales())
                 {
-                    XML.AddTextElement(
-                        general,
+                    general.AddTextElement(
                         "description",
                         this.Item.Description.Data[locale],
-                        (description: Element) =>
+                        (description: XMLEditor) =>
                         {
                             if (locale !== "inv")
                             {
-                                description.setAttribute("language", locale);
+                                description.SetAttribute("language", locale);
                             }
                         });
                 }
 
                 if (!isNullOrUndefined(this.Item.License))
                 {
-                    XML.AddTextElement(general, "license", this.Item.License);
+                    general.AddTextElement("license", this.Item.License);
                 }
 
-                XML.AddTextElement(general, "packageName", this.Item.Instruction.Collection.Package.Identifier);
-                XML.AddTextElement(general, "apiVersion", "3.1");
+                general.AddTextElement("packageName", this.Item.Instruction.Collection.Package.Identifier);
+                general.AddTextElement("apiVersion", "3.1");
 
                 if (!isNullOrUndefined(this.Item.Thumbnail))
                 {
-                    XML.AddTextElement(general, "image", this.Item.Thumbnail.FileName);
+                    general.AddTextElement("image", this.Item.Thumbnail.FileName);
                 }
 
                 if (!isNullOrUndefined(this.Item.HighResThumbnail))
                 {
-                    XML.AddTextElement(general, "image2x", this.Item.HighResThumbnail.FileName);
+                    general.AddTextElement("image2x", this.Item.HighResThumbnail.FileName);
                 }
 
                 if (!isNullOrUndefined(this.Item.CoverPhoto))
                 {
-                    XML.AddTextElement(general, "coverPhoto", this.Item.CoverPhoto.FileName);
+                    general.AddTextElement("coverPhoto", this.Item.CoverPhoto.FileName);
                 }
             });
 
-        XML.AddElement(
-            document.documentElement,
+        editor.AddElement(
             "author",
-            (author: Element) =>
+            (author: XMLEditor) =>
             {
                 if (!isNullOrUndefined(this.Item.Author.Name))
                 {
-                    XML.AddTextElement(author, "authorname", this.Item.Author.Name);
+                    author.AddTextElement("authorname", this.Item.Author.Name);
                 }
 
                 if (!isNullOrUndefined(this.Item.Author.URL))
                 {
-                    XML.AddTextElement(author, "authorurl", this.Item.Author.URL);
+                    author.AddTextElement("authorurl", this.Item.Author.URL);
                 }
             });
 
-        let files: Element = document.createElement("files");
+        let files: XMLEditor = new XMLEditor(document.createElement("files"));
         {
             if (
                 Object.keys(this.Item.Variables).length > 0 ||
                 !isNullOrUndefined(this.Item.CustomScss) ||
                 !isNullOrUndefined(this.Item.ScssOverride))
             {
-                XML.AddTextElement(files, "variables", this.VariableFileName);
+                files.AddTextElement("variables", this.VariableFileName);
             }
 
             if (!isNullOrUndefined(this.Item.Images))
             {
-                XML.AddTextElement(
-                    files,
+                files.AddTextElement(
                     "images",
                     this.Item.Images.FileName,
-                    (images: Element) =>
+                    (images: XMLEditor) =>
                     {
-                        images.setAttribute("path", this.Item.Images.DestinationRoot);
+                        images.SetAttribute("path", this.Item.Images.DestinationRoot);
                     });
             }
         }
 
-        if (files.childNodes.length > 0)
+        if (files.ChildNodes.length > 0)
         {
-            document.documentElement.appendChild(files);
+            editor.Add(files.Element);
         }
 
         return document;

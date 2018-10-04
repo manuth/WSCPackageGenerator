@@ -6,6 +6,7 @@ import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
+import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 import { TimePeriod } from "../../../../System/Tasks/TimePeriod";
 
 suite(
@@ -107,208 +108,174 @@ suite(
                     {
                         let document: Document;
                         let rootTag: string;
-                        let importTag: string;
-                        let rootElement: Element;
-                        let importElement: Element;
+                        let rootEditor: XMLEditor;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                 rootTag = "data";
-                                importTag = "import";
-                                rootElement = document.documentElement;
-
-                                assert.strictEqual(document.getElementsByTagName(importTag).length, 1);
-                                importElement = document.getElementsByTagName(importTag)[0];
-                                assert.strictEqual(importElement.parentNode === rootElement, true);
+                                rootEditor = new XMLEditor(document.documentElement);
                             });
 
                         suite(
-                            "Testing the XML-document...",
+                            "General",
                             () =>
                             {
                                 test(
                                     "Checking whether the name of the root-tag is correct...",
                                     () =>
                                     {
-                                        assert.strictEqual(rootElement.tagName, rootTag);
+                                        assert.strictEqual(rootEditor.TagName, rootTag);
                                     });
                             });
 
                         suite(
-                            "Testing the integrity of imported cron-jobs...",
+                            "Checking the interity of the imported components...",
                             () =>
                             {
-                                let cronJobTag: string;
-                                let classTag: string;
-                                let descriptionTag: string;
-                                let disableTag: string;
-                                let editTag: string;
-                                let optionsTag: string;
-                                let minuteTag: string;
-                                let hourTag: string;
-                                let dayOfMonthTag: string;
-                                let monthTag: string;
-                                let dayOfWeekTag: string;
-
-                                let nameAttribute: string;
-                                let languageAttribute: string;
-
-                                let cronJobElement: Element;
-                                let classElement: Element;
-                                let descriptionElements: Element[];
-                                let disableElement: Element;
-                                let editElement: Element;
-                                let optionsElement: Element;
-                                let minuteElement: Element;
-                                let hourElement: Element;
-                                let dayOfMonthElement: Element;
-                                let monthElement: Element;
-                                let dayOfWeekElement: Element;
+                                let importEditor: XMLEditor;
+                                let importTag: string;
 
                                 suiteSetup(
                                     () =>
                                     {
-                                        cronJobTag = "cronjob";
-                                        classTag = "classname";
-                                        descriptionTag = "description";
-                                        disableTag = "canbedisabled";
-                                        editTag = "canbeedited";
-                                        optionsTag = "options";
-                                        minuteTag = "startminute";
-                                        hourTag = "starthour";
-                                        dayOfMonthTag = "startdom";
-                                        monthTag = "startmonth";
-                                        dayOfWeekTag = "startdow";
-
-                                        nameAttribute = "name";
-                                        languageAttribute = "language";
-
-                                        assert.strictEqual(document.getElementsByTagName(cronJobTag).length, 1);
-                                        cronJobElement = document.getElementsByTagName(cronJobTag)[0];
-                                        assert.strictEqual(cronJobElement.parentNode === importElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(classTag).length, 1);
-                                        classElement = document.getElementsByTagName(classTag)[0];
-                                        assert.strictEqual(classElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(disableTag).length, 1);
-                                        disableElement = document.getElementsByTagName(disableTag)[0];
-                                        assert.strictEqual(disableElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(editTag).length, 1);
-                                        editElement = document.getElementsByTagName(editTag)[0];
-                                        assert.strictEqual(editElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(optionsTag).length, 1);
-                                        optionsElement = document.getElementsByTagName(optionsTag)[0];
-                                        assert.strictEqual(optionsElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(minuteTag).length, 1);
-                                        minuteElement = document.getElementsByTagName(minuteTag)[0];
-                                        assert.strictEqual(minuteElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(hourTag).length, 1);
-                                        hourElement = document.getElementsByTagName(hourTag)[0];
-                                        assert.strictEqual(hourElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(dayOfMonthTag).length, 1);
-                                        dayOfMonthElement = document.getElementsByTagName(dayOfMonthTag)[0];
-                                        assert.strictEqual(dayOfMonthElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(monthTag).length, 1);
-                                        monthElement = document.getElementsByTagName(monthTag)[0];
-                                        assert.strictEqual(monthElement.parentNode === cronJobElement, true);
-
-                                        assert.strictEqual(document.getElementsByTagName(dayOfWeekTag).length, 1);
-                                        dayOfWeekElement = document.getElementsByTagName(dayOfWeekTag)[0];
-                                        assert.strictEqual(dayOfWeekElement.parentNode === cronJobElement, true);
-
-                                        descriptionElements = [];
-
-                                        let descriptionNodes: NodeListOf<Element> = document.getElementsByTagName(descriptionTag);
-
-                                        for (let i: number = 0; i < descriptionNodes.length; i++)
-                                        {
-                                            descriptionElements.push(descriptionNodes.item(i));
-                                        }
+                                        importTag = "import";
                                     });
 
-                                test(
-                                    "Checking the name of the cron-job...",
+                                suite(
+                                    "General",
                                     () =>
                                     {
-                                        assert.strictEqual(cronJobElement.getAttribute(nameAttribute), cronJobName);
-                                    });
-
-                                test(
-                                    "Checking the class-name of the cron-job...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(classElement.textContent, className);
-                                    });
-
-                                test(
-                                    "Checking whether the localized description is correct...",
-                                    () =>
-                                    {
-                                        let localizedElement: Element;
-                                        let localizedElements: Element[] = descriptionElements.filter(
-                                            (node: Element): boolean =>
+                                        test(
+                                            "Checking whether the import-list is present...",
+                                            () =>
                                             {
-                                                return node.hasAttribute(languageAttribute);
+                                                rootEditor.AssertTag(importTag, true);
+                                                importEditor = rootEditor.ChildrenByTag(importTag)[0];
+                                            });
+                                    });
+
+                                suite(
+                                    "Checking the integrity of the cron-job...",
+                                    () =>
+                                    {
+                                        let cronJobTag: string;
+                                        let cronJobEditor: XMLEditor;
+
+                                        suiteSetup(
+                                            () =>
+                                            {
+                                                cronJobTag = "cronjob";
                                             });
 
-                                        assert.strictEqual(localizedElements.length, 1);
-                                        localizedElement = localizedElements[0];
-                                        assert.strictEqual(localizedElement.parentNode === cronJobElement, true);
-                                        assert.strictEqual(localizedElement.textContent, localizedDescription);
-                                    });
-
-                                test(
-                                    "Checking whether the invariant description is correct...",
-                                    () =>
-                                    {
-                                        let invariantElement: Element;
-                                        let invariantElements: Element[] = descriptionElements.filter(
-                                            (node: Element): boolean =>
+                                        suite(
+                                            "General",
+                                            () =>
                                             {
-                                                return !node.hasAttribute(languageAttribute);
+                                                test(
+                                                    "Checking whether the cron-job is present...",
+                                                    () =>
+                                                    {
+                                                        importEditor.AssertTag(cronJobTag, true);
+                                                        cronJobEditor = importEditor.ChildrenByTag(cronJobTag)[0];
+                                                    });
                                             });
 
-                                        assert.strictEqual(invariantElements.length, 1);
-                                        invariantElement = invariantElements[0];
-                                        assert.strictEqual(invariantElement.parentNode === cronJobElement, true);
-                                        assert.strictEqual(invariantElement.textContent, invariantDescription);
-                                    });
+                                        suite(
+                                            "Checking the meta-data of the cron-job",
+                                            () =>
+                                            {
+                                                let classTag: string;
+                                                let descriptionTag: string;
+                                                let disableTag: string;
+                                                let editTag: string;
+                                                let optionsTag: string;
+                                                let minuteTag: string;
+                                                let hourTag: string;
+                                                let dayOfMonthTag: string;
+                                                let monthTag: string;
+                                                let dayOfWeekTag: string;
 
-                                test(
-                                    "Checking whether the permission-settings are correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(disableElement.textContent, allowDisable ? "1" : "0");
-                                        assert.strictEqual(editElement.textContent, allowEdit ? "1" : "0");
-                                    });
+                                                let nameAttribute: string;
+                                                let languageAttribute: string;
 
-                                test(
-                                    "Checking whether the options are correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(optionsElement.textContent, options.join(","));
-                                    });
+                                                suiteSetup(
+                                                    () =>
+                                                    {
+                                                        classTag = "classname";
+                                                        descriptionTag = "description";
+                                                        disableTag = "canbedisabled";
+                                                        editTag = "canbeedited";
+                                                        optionsTag = "options";
+                                                        minuteTag = "startminute";
+                                                        hourTag = "starthour";
+                                                        dayOfMonthTag = "startdom";
+                                                        monthTag = "startmonth";
+                                                        dayOfWeekTag = "startdow";
 
-                                test(
-                                    "Checking whether the time-period is correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(minuteElement.textContent, period.Minute);
-                                        assert.strictEqual(hourElement.textContent, period.Hour);
-                                        assert.strictEqual(dayOfMonthElement.textContent, period.DayOfMonth);
-                                        assert.strictEqual(monthElement.textContent, period.Month);
-                                        assert.strictEqual(dayOfWeekElement.textContent, period.DayOfWeek);
+                                                        nameAttribute = "name";
+                                                        languageAttribute = "language";
+                                                    });
+
+                                                test(
+                                                    "Checking the name of the cron-job...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(cronJobEditor.GetAttribute(nameAttribute), cronJobName);
+                                                    });
+
+                                                test(
+                                                    "Checking the class-name of the cron-job...",
+                                                    () =>
+                                                    {
+                                                        cronJobEditor.AssertText(classTag, className);
+                                                    });
+
+                                                test(
+                                                    "Checking whether the localized description is correct...",
+                                                    () =>
+                                                    {
+                                                        for (let editor of cronJobEditor.ChildrenByTag(descriptionTag))
+                                                        {
+                                                            if (editor.HasAttribute(languageAttribute))
+                                                            {
+                                                                assert.strictEqual(editor.GetAttribute(languageAttribute), locale);
+                                                            }
+
+                                                            assert.strictEqual(editor.TextContent, editor.HasAttribute(languageAttribute) ? localizedDescription : invariantDescription);
+                                                        }
+                                                    });
+
+                                                test(
+                                                    "Checking whether the permission-settings are correct...",
+                                                    () =>
+                                                    {
+                                                        cronJobEditor.AssertText(disableTag, allowDisable ? "1" : "0");
+                                                        cronJobEditor.AssertText(editTag, allowEdit ? "1" : "0");
+                                                    });
+
+                                                test(
+                                                    "Checking whether the options are correct...",
+                                                    () =>
+                                                    {
+                                                        cronJobEditor.AssertText(optionsTag, options.join(","));
+                                                    });
+
+                                                test(
+                                                    "Checking whether the time-period is correct...",
+                                                    () =>
+                                                    {
+                                                        cronJobEditor.AssertText(minuteTag, period.Minute);
+                                                        cronJobEditor.AssertText(hourTag, period.Hour);
+                                                        cronJobEditor.AssertText(dayOfMonthTag, period.DayOfMonth);
+                                                        cronJobEditor.AssertText(monthTag, period.Month);
+                                                        cronJobEditor.AssertText(dayOfWeekTag, period.DayOfWeek);
+                                                    });
+                                            });
                                     });
                             });
+
                     });
             });
     });
