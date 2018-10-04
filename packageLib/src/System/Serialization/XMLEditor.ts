@@ -47,9 +47,9 @@ export class XMLEditor
     {
         let result: T[];
 
-        for (let node of nodeList)
+        for (let i: number = 0; i < nodeList.length; i++)
         {
-            result.push(node as T);
+            result.push(nodeList.item(i) as T);
         }
 
         return result;
@@ -162,5 +162,41 @@ export class XMLEditor
     public GetElementsByTag(tag: string): Node[]
     {
         return XMLEditor.ToArray(this.Element.getElementsByTagName(tag));
+    }
+
+    /**
+     * Gets a value indicating whether an attribute with the specified name exists.
+     *
+     * @param name
+     * The name to look for.
+     */
+    public HasAttribute(name: string): boolean
+    {
+        return this.Element.hasAttribute(name);
+    }
+
+    /**
+     * Gets the value of an attribute.
+     *
+     * @param name
+     * The name of the attribute to get.
+     */
+    public GetAttribute(name: string): string
+    {
+        return this.Element.getAttribute(name);
+    }
+
+    /**
+     * Sets the value of an attribute.
+     *
+     * @param name
+     * The name of the attribute to set.
+     *
+     * @param value
+     * The value to set.
+     */
+    public SetAttribute(name: string, value: string): void
+    {
+        this.Element.setAttribute(name, value);
     }
 }
