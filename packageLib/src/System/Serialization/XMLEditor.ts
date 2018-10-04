@@ -169,9 +169,9 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetChildElementsByTag(tag: string): Node[]
+    public GetChildElementsByTag(tag: string): Element[]
     {
-        return this.GetElementsByTag(tag).filter((node: Node) => node.parentNode === this.Element);
+        return this.GetElementsByTag(tag).filter((node: Element) => node.parentNode === this.Element);
     }
 
     /**
@@ -180,7 +180,7 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetElementsByTag(tag: string): Node[]
+    public GetElementsByTag(tag: string): Element[]
     {
         return XMLEditor.ToArray(this.Element.getElementsByTagName(tag));
     }
