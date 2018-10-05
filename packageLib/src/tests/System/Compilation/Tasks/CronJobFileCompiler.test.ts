@@ -151,7 +151,7 @@ suite(
                                             "Checking whether the import-list is present...",
                                             () =>
                                             {
-                                                rootEditor.AssertTag(importTag, true);
+                                                assert.strictEqual(rootEditor.HasTag(importTag, true), true);
                                                 importEditor = rootEditor.ChildrenByTag(importTag)[0];
                                             });
                                     });
@@ -177,7 +177,7 @@ suite(
                                                     "Checking whether the cron-job is present...",
                                                     () =>
                                                     {
-                                                        importEditor.AssertTag(cronJobTag, true);
+                                                        assert.strictEqual(importEditor.HasTag(cronJobTag, true), true);
                                                         cronJobEditor = importEditor.ChildrenByTag(cronJobTag)[0];
                                                     });
                                             });
@@ -229,7 +229,7 @@ suite(
                                                     "Checking the class-name of the cron-job...",
                                                     () =>
                                                     {
-                                                        cronJobEditor.AssertText(classTag, className);
+                                                        assert.strictEqual(cronJobEditor.HasText(classTag, className), true);
                                                     });
 
                                                 test(
@@ -251,26 +251,26 @@ suite(
                                                     "Checking whether the permission-settings are correct...",
                                                     () =>
                                                     {
-                                                        cronJobEditor.AssertText(disableTag, allowDisable ? "1" : "0");
-                                                        cronJobEditor.AssertText(editTag, allowEdit ? "1" : "0");
+                                                        assert.strictEqual(cronJobEditor.HasText(disableTag, allowDisable ? "1" : "0"), true);
+                                                        assert.strictEqual(cronJobEditor.HasText(editTag, allowEdit ? "1" : "0"), true);
                                                     });
 
                                                 test(
                                                     "Checking whether the options are correct...",
                                                     () =>
                                                     {
-                                                        cronJobEditor.AssertText(optionsTag, options.join(","));
+                                                        assert.strictEqual(cronJobEditor.HasText(optionsTag, options.join(",")), true);
                                                     });
 
                                                 test(
                                                     "Checking whether the time-period is correct...",
                                                     () =>
                                                     {
-                                                        cronJobEditor.AssertText(minuteTag, period.Minute);
-                                                        cronJobEditor.AssertText(hourTag, period.Hour);
-                                                        cronJobEditor.AssertText(dayOfMonthTag, period.DayOfMonth);
-                                                        cronJobEditor.AssertText(monthTag, period.Month);
-                                                        cronJobEditor.AssertText(dayOfWeekTag, period.DayOfWeek);
+                                                        assert.strictEqual(cronJobEditor.HasText(minuteTag, period.Minute), true);
+                                                        assert.strictEqual(cronJobEditor.HasText(hourTag, period.Hour), true);
+                                                        assert.strictEqual(cronJobEditor.HasText(dayOfMonthTag, period.DayOfMonth), true);
+                                                        assert.strictEqual(cronJobEditor.HasText(monthTag, period.Month), true);
+                                                        assert.strictEqual(cronJobEditor.HasText(dayOfWeekTag, period.DayOfWeek), true);
                                                     });
                                             });
                                     });

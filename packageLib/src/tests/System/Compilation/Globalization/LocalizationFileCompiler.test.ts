@@ -155,7 +155,7 @@ suite(
                                             "Checking whether the category exists...",
                                             () =>
                                             {
-                                                rootEditor.AssertTag(categoryTag, true);
+                                                assert.strictEqual(rootEditor.HasTag(categoryTag, true), true);
                                                 categoryEditor = rootEditor.ChildrenByTag(categoryTag)[0];
                                             });
 
@@ -184,7 +184,7 @@ suite(
                                             "Checking whether the translation exists...",
                                             () =>
                                             {
-                                                categoryEditor.AssertTag(itemTag, true);
+                                                assert.strictEqual(categoryEditor.HasTag(itemTag, true), true);
                                                 itemEditor = categoryEditor.ChildrenByTag(itemTag)[0];
                                             });
 

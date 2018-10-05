@@ -238,14 +238,15 @@ export class XMLEditor
      *
      * @param tag
      * The tag to check.
-     *
-     * @param unique
-     * A value indicating whether the tag is unique.
      */
-    public AssertText(tag: string, text: string): void
+    public HasText(tag: string, text: string): boolean
     {
-        this.AssertTag(tag, true);
-        assert.strictEqual(this.ChildrenByTag(tag)[0].TextContent, text);
+        if (!isNullOrUndefined(tag))
+        {
+            this.HasTag(tag, true);
+        }
+
+        return (tag ? this.ChildrenByTag(tag)[0] : this).TextContent === text;
     }
 
     /**
@@ -256,18 +257,18 @@ export class XMLEditor
      * @param unique
      * A value indicating whether the tag is unique.
      */
-    public AssertTag(tag: string, unique?: boolean): void
+    public HasTag(tag: string, unique?: boolean): boolean
     {
         let children: XMLEditor[] = this.GetElementsByTag(tag);
         unique = unique || false;
 
         if (unique)
         {
-            assert.strictEqual(children.length, 1);
+            return children.length === 1;
         }
         else
         {
-            assert.strictEqual(children.length > 0, true);
+            return children.length > 0;
         }
     }
 
