@@ -85,67 +85,67 @@ suite(
                                         let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
+                            });
+
+                        suite(
+                            "Checking the integrity of the option",
+                            () =>
+                            {
+                                let optionEditor: XMLEditor;
 
                                 suite(
-                                    "Checking the integrity of the option",
+                                    "General",
                                     () =>
                                     {
-                                        let optionEditor: XMLEditor;
+                                        let optionTag: string;
 
-                                        suite(
-                                            "General",
+                                        suiteSetup(
                                             () =>
                                             {
-                                                let optionTag: string;
-
-                                                suiteSetup(
-                                                    () =>
-                                                    {
-                                                        optionTag = "option";
-                                                    });
-
-                                                test(
-                                                    "Checking whether the option exists...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(editor.GetElementsByTag(optionTag).length, 1);
-                                                        optionEditor = editor.GetElementsByTag(optionTag)[0];
-                                                    });
+                                                optionTag = "option";
                                             });
 
-                                        suite(
-                                            "Checking the integrity of the meta-data...",
+                                        test(
+                                            "Checking whether the option exists...",
                                             () =>
                                             {
-                                                let userValueTag: string;
-                                                let modValueTag: string;
-                                                let adminValueTag: string;
-                                                let registeredTag: string;
+                                                assert.strictEqual(editor.GetElementsByTag(optionTag).length, 1);
+                                                optionEditor = editor.GetElementsByTag(optionTag)[0];
+                                            });
+                                    });
 
-                                                suiteSetup(
-                                                    () =>
-                                                    {
-                                                        userValueTag = "userdefaultvalue";
-                                                        modValueTag = "moddefaultvalue";
-                                                        adminValueTag = "admindefaultvalue";
-                                                        registeredTag = "usersonly";
-                                                    });
+                                suite(
+                                    "Checking the integrity of the meta-data...",
+                                    () =>
+                                    {
+                                        let userValueTag: string;
+                                        let modValueTag: string;
+                                        let adminValueTag: string;
+                                        let registeredTag: string;
 
-                                                test(
-                                                    "Checking whether the default values are correct...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(optionEditor.HasText(userValueTag, `${option.UserDefaultValue}`), true);
-                                                        assert.strictEqual(optionEditor.HasText(modValueTag, `${option.ModDefaultValue}`), true);
-                                                        assert.strictEqual(optionEditor.HasText(adminValueTag, `${option.AdminDefaultValue}`), true);
-                                                    });
+                                        suiteSetup(
+                                            () =>
+                                            {
+                                                userValueTag = "userdefaultvalue";
+                                                modValueTag = "moddefaultvalue";
+                                                adminValueTag = "admindefaultvalue";
+                                                registeredTag = "usersonly";
+                                            });
 
-                                                test(
-                                                    "Checking whether the registered-restriction is correct...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(optionEditor.HasText(registeredTag, option.RegisteredOnly ? "1" : "0"), true);
-                                                    });
+                                        test(
+                                            "Checking whether the default values are correct...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(optionEditor.HasText(userValueTag, `${option.UserDefaultValue}`), true);
+                                                assert.strictEqual(optionEditor.HasText(modValueTag, `${option.ModDefaultValue}`), true);
+                                                assert.strictEqual(optionEditor.HasText(adminValueTag, `${option.AdminDefaultValue}`), true);
+                                            });
+
+                                        test(
+                                            "Checking whether the registered-restriction is correct...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(optionEditor.HasText(registeredTag, option.RegisteredOnly ? "1" : "0"), true);
                                             });
                                     });
                             });
