@@ -1,4 +1,4 @@
-import { Listener } from "../../Listener";
+import { Listener } from "../../Events/Listener";
 import { ITemplateListenerOptions } from "./ITemplateListenerOptions";
 
 /**

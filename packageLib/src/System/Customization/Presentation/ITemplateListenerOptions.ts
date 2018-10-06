@@ -1,4 +1,4 @@
-import { IListenerOptions } from "../../IListenerOptions";
+import { IListenerOptions } from "../../Events/IListenerOptions";
 
 /**
  * Provides options for the `TemplateListener` class.
