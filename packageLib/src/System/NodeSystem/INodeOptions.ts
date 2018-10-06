@@ -19,6 +19,11 @@ export interface INodeOptions<T>
     Item?: T;
 
     /**
+     * The parent of the node.
+     */
+    Parent?: INodeOptions<T>;
+
+    /**
      * The children of the node.
      */
     Nodes?: INodeOptions<T>[];

@@ -57,6 +57,11 @@ export class Node<T extends NodeItem, TOptions> implements INode
             this.item = generator(this, options.Item);
         }
 
+        if (!isNullOrUndefined(options.Parent))
+        {
+            this.Parent = new Node(options.Parent, generator);
+        }
+
         if (!isNullOrUndefined(options.Nodes))
         {
             for (let node of options.Nodes)
