@@ -53,12 +53,12 @@ export interface IOptionOptions
     Items?: IOptionItemOptions[];
 
     /**
-     * A comma-separated list of options of which at least one needs to be enabled for the option to be shown.
+     * A list of options of which at least one needs to be enabled for the option to be shown.
      */
     Options?: string[];
 
     /**
-     * A comma-separated list of options which should be visually enabled when this option is enabled.
+     * A list of options which should be visually enabled when this option is enabled.
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
      * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
      *
