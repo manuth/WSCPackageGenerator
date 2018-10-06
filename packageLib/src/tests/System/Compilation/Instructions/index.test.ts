@@ -6,6 +6,7 @@ suite(
         require("./LocalizationInstructionCompiler.test");
         require("./ACPOptionInstructionCompiler.test");
         require("./GroupOptionInstructionCompiler.test");
+        require("./UserOptionInstructionCompiler.test");
         require("./CronJobInstructionCompiler.test");
         require("./ThemeInstructionCompiler.test");
         require("./BBCodeInstructionCompiler.test");
