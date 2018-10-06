@@ -259,7 +259,7 @@ suite(
                                                     "Checking whether the options are correct...",
                                                     () =>
                                                     {
-                                                        assert.strictEqual(cronJobEditor.HasText(optionsTag, options.join(",")), true);
+                                                        assert.strictEqual(cronJobEditor.GetText(optionsTag).split(",").sort().join(","), options.sort().join(","));
                                                     });
 
                                                 test(

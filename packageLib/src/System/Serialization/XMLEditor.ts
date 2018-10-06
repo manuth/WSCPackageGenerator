@@ -194,6 +194,24 @@ export class XMLEditor
     }
 
     /**
+     * Gets the text of a child-node.
+     *
+     * @param tag
+     * The tag of the node to get the text.
+     */
+    public GetText(tag: string): string
+    {
+        if (this.HasTag(tag, true))
+        {
+            return this.GetChildrenByTag(tag)[0].TextContent;
+        }
+        else
+        {
+            throw new RangeError(`The tag "${tag}" either is not unique or does not exist.`);
+        }
+    }
+
+    /**
      * Gets a value indicating whether an attribute with the specified name exists.
      *
      * @param name
@@ -244,8 +262,14 @@ export class XMLEditor
 
         if (!isNullOrUndefined(tag))
         {
-            this.HasTag(tag, true);
-            element = this.GetChildrenByTag(tag)[0];
+            if (this.HasTag(tag, true))
+            {
+                element = this.GetChildrenByTag(tag)[0];
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {

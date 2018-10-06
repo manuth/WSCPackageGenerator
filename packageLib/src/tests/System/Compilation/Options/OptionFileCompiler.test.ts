@@ -587,14 +587,14 @@ suite(
                                                             "Checking whether the dependent options are correct...",
                                                             () =>
                                                             {
-                                                                assert.strictEqual(optionEditor.HasText(optionsTag, option.Options.join(",")), true);
+                                                                assert.strictEqual(optionEditor.GetText(optionsTag).split(",").sort().join(","), option.Options.sort().join(","));
                                                             });
 
                                                         test(
                                                             'Checking whether the "enableoptions" property is correct...',
                                                             () =>
                                                             {
-                                                                assert.strictEqual(optionEditor.HasText(enableOptionsTag, option.EnableOptions.join(",")), true);
+                                                                assert.strictEqual(optionEditor.GetText(enableOptionsTag).split(",").sort().join(","), option.EnableOptions.sort().join(","));
                                                             });
                                                     });
                                             });
