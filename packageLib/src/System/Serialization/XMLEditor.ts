@@ -258,25 +258,25 @@ export class XMLEditor
      */
     public HasText(tag: string, text: string): boolean
     {
-        let element: XMLEditor;
+        let original: string;
 
         if (!isNullOrUndefined(tag))
         {
-            if (this.HasTag(tag, true))
+            try
             {
-                element = this.GetChildrenByTag(tag)[0];
+                original = this.GetText(tag);
             }
-            else
+            catch
             {
-                return false;
+                original = null;
             }
         }
         else
         {
-            element = this;
+            original = this.TextContent;
         }
 
-        return element.TextContent === text;
+        return original === text;
     }
 
     /**
