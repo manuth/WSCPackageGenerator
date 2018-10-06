@@ -8,7 +8,7 @@ import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructi
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
 suite(
-    "EnableOptionFileCompiler",
+    "ACPOptionFileCompiler",
     () =>
     {
         let tempFile: TempFile;
