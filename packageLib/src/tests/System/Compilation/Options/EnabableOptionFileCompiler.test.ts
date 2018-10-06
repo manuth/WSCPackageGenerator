@@ -64,7 +64,7 @@ suite(
         }
 
         let tempFile: TempFile;
-        let compiler: EnabableOptionFileCompiler<MyCategory, IEnabableCategoryOptions<IOptionOptions>, Option, IOptionOptions>;
+        let compiler: EnabableOptionFileCompiler<MyOptionInstruction, MyCategory, IEnabableCategoryOptions<IOptionOptions>, Option, IOptionOptions>;
         let enableOptions: string[];
 
         suiteSetup(
@@ -88,7 +88,7 @@ suite(
                         ]
                     });
 
-                compiler = new class extends EnabableOptionFileCompiler<MyCategory, IEnabableCategoryOptions<IOptionOptions>, Option, IOptionOptions>
+                compiler = new class extends EnabableOptionFileCompiler<MyOptionInstruction, MyCategory, IEnabableCategoryOptions<IOptionOptions>, Option, IOptionOptions>
                 {
                     protected get SchemaLocation(): string
                     {

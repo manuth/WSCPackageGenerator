@@ -12,7 +12,7 @@ import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 /**
  * Provides the functionality to compile option-files.
  */
-export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions extends IOptionOptions> extends WoltLabXMLCompiler<OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>>
+export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>, TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions extends IOptionOptions> extends WoltLabXMLCompiler<T>
 {
     /**
      * The language-category which contains translations for options.
@@ -20,7 +20,7 @@ export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOp
     private languageCategory: string;
 
     /**
-     * Initializes a new instance of the `OptionFileCompiler<TCategory, TCategoryOptions, TOption, TOptionOptions>` class.
+     * Initializes a new instance of the `OptionFileCompiler<T, TCategory, TCategoryOptions, TOption, TOptionOptions>` class.
      *
      * @param item
      * The item to compile.
@@ -28,7 +28,7 @@ export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOp
      * @param languageCategory
      * The language-category which contains translations for options.
      */
-    public constructor(item: OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>)
+    public constructor(item: T)
     {
         super(item);
         this.LanguageCategory = `${item.RootCategory}${isNullOrUndefined(item.OptionCategory) ? "" : `.${item.OptionCategory}`}`;
