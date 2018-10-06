@@ -142,7 +142,7 @@ export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, 
 
         if (!isNullOrUndefined(option.DefaultValue))
         {
-            editor.AddTextElement("defaultvalue", option.DefaultValue);
+            editor.AddTextElement("defaultvalue", `${option.DefaultValue}`);
         }
 
         if (!isNullOrUndefined(option.ShowOrder))
