@@ -183,11 +183,10 @@ suite(
                             "General",
                             () =>
                             {
-                                let document: Document;
                                 let rootTag: string;
 
                                 suiteSetup(
-                                    async () =>
+                                    () =>
                                     {
                                         rootTag = "data";
                                     });
@@ -196,7 +195,7 @@ suite(
                                     "Checking whether the content is valid xml...",
                                     async () =>
                                     {
-                                        document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
 
