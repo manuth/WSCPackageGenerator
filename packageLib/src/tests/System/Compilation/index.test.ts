@@ -6,6 +6,7 @@ suite(
         require("./EJSFileCompiler.test");
         require("./WoltLabXMLCompiler.test");
         require("./Globalization/index.test");
+        require("./Options/index.test");
         require("./Tasks/index.test");
         require("./Presentation/index.test");
         require("./Instructions/index.test");
