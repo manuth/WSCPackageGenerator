@@ -240,12 +240,19 @@ export class XMLEditor
      */
     public HasText(tag: string, text: string): boolean
     {
+        let element: XMLEditor;
+
         if (!isNullOrUndefined(tag))
         {
             this.HasTag(tag, true);
+            element = this.GetChildrenByTag(tag)[0];
+        }
+        else
+        {
+            element = this;
         }
 
-        return (tag ? this.GetChildrenByTag(tag)[0] : this).TextContent === text;
+        return element.TextContent === text;
     }
 
     /**
@@ -258,7 +265,7 @@ export class XMLEditor
      */
     public HasTag(tag: string, unique?: boolean): boolean
     {
-        let children: XMLEditor[] = this.GetElementsByTag(tag);
+        let children: XMLEditor[] = this.GetChildrenByTag(tag);
         unique = unique || false;
 
         if (unique)
