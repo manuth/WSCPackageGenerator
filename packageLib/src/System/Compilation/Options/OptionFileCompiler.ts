@@ -108,6 +108,13 @@ export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOp
             editor.AddTextElement("parent", category.Parent.FullName);
         }
 
+        if (
+            !isNullOrUndefined(category.Item) &&
+            !isNullOrUndefined(category.Item.ShowOrder))
+        {
+            editor.AddTextElement("showorder", category.Item.ShowOrder.toString());
+        }
+
         return editor.Element;
     }
 
