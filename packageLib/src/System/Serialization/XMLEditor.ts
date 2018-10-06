@@ -1,4 +1,3 @@
-import * as assert from "assert";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -200,9 +199,9 @@ export class XMLEditor
      * @param name
      * The name to look for.
      */
-    public HasAttribute(name: string): boolean
+    public HasAttribute(name: string, value?: string): boolean
     {
-        return this.Element.hasAttribute(name);
+        return this.Element.hasAttribute(name) && (isNullOrUndefined(value) || (this.Element.getAttribute(name) === value));
     }
 
     /**
@@ -269,19 +268,6 @@ export class XMLEditor
         else
         {
             return children.length > 0;
-        }
-    }
-
-    /**
-     * Asserts an attribute.
-     */
-    public AssertAttribute(name: string, value?: string): void
-    {
-        assert.strictEqual(this.HasAttribute(name), true);
-
-        if (!isNullOrUndefined(value))
-        {
-            assert.strictEqual(this.GetAttribute(name), value);
         }
     }
 }

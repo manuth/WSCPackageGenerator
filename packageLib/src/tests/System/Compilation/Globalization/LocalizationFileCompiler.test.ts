@@ -163,7 +163,7 @@ suite(
                                             "Checking whether the integrity of the name of the category...",
                                             () =>
                                             {
-                                                categoryEditor.AssertAttribute(nameAttribute, category);
+                                                assert.strictEqual(categoryEditor.HasAttribute(nameAttribute, category), true);
                                             });
                                     });
 
@@ -192,7 +192,7 @@ suite(
                                             "Checking whether the integrity of the name of the translation...",
                                             () =>
                                             {
-                                                itemEditor.AssertAttribute(nameAttribute, `${category}.${messageName}`);
+                                                assert.strictEqual(itemEditor.HasAttribute(nameAttribute, `${category}.${messageName}`), true);
                                             });
 
                                         test(
