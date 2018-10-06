@@ -1,6 +1,7 @@
 import { isNullOrUndefined } from "util";
 import { Node } from "../../NodeSystem/Node";
 import { Category } from "../../Options/Category";
+import { IOptionOptions } from "../../Options/IOptionOptions";
 import { Option } from "../../Options/Option";
 import { OptionItem } from "../../Options/OptionItem";
 import { OptionInstruction } from "../../PackageSystem/Instructions/Options/OptionInstruction";
@@ -11,7 +12,7 @@ import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 /**
  * Provides the functionality to compile option-files.
  */
-export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions> extends WoltLabXMLCompiler<OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>>
+export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions extends IOptionOptions> extends WoltLabXMLCompiler<OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>>
 {
     /**
      * The language-category which contains translations for options.

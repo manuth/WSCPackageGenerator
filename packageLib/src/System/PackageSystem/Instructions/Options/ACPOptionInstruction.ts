@@ -4,12 +4,12 @@ import { ACPOption } from "../../../Options/ControlPanel/ACPOption";
 import { IACPOptionOptions } from "../../../Options/ControlPanel/IACPOptionOptions";
 import { IEnabableCategoryOptions } from "../../../Options/IEnabableCategoryOptions";
 import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
-import { OptionInstruction } from "./OptionInstruction";
+import { EnabableOptionInstruction } from "./EnabableOptionInstruction";
 
 /**
  * Represents an instruction which provides options for the control-panel.
  */
-export class ACPOptionInstruction extends OptionInstruction<ACPCategory, IEnabableCategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
+export class ACPOptionInstruction extends EnabableOptionInstruction<ACPCategory, IEnabableCategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
 {
     /**
      * Initializes a new instance of the `ACPOptionInstruction` class.

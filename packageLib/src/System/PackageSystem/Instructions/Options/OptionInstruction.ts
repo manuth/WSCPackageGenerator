@@ -3,6 +3,7 @@ import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { Node } from "../../../NodeSystem/Node";
 import { Category } from "../../../Options/Category";
 import { ICategoryOptions } from "../../../Options/ICategoryOptions";
+import { IOptionOptions } from "../../../Options/IOptionOptions";
 import { Option } from "../../../Options/Option";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
@@ -12,7 +13,7 @@ import { NodeSystemInstruction } from "../NodeSystem/NodeSystemInstruction";
 /**
  * Represents an instruction which provides options.
  */
-export abstract class OptionInstruction<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions extends ICategoryOptions<TOptionOptions>, TOption extends Option, TOptionOptions> extends NodeSystemInstruction<TCategory, TCategoryOptions> implements ILocalizationInstruction
+export abstract class OptionInstruction<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions extends ICategoryOptions<TOptionOptions>, TOption extends Option, TOptionOptions extends IOptionOptions> extends NodeSystemInstruction<TCategory, TCategoryOptions> implements ILocalizationInstruction
 {
     /**
      * Initializes a new instance of the `OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>` class.
