@@ -14,7 +14,6 @@ import { Option } from "../../../../System/Options/Option";
 import { OptionType } from "../../../../System/Options/OptionType";
 import { INodeSystemInstructionOptions } from "../../../../System/PackageSystem/Instructions/NodeSystem/INodeSystemInstructionOptions";
 import { OptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/OptionInstruction";
-import { Package } from "../../../../System/PackageSystem/Package";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
 suite(
@@ -81,15 +80,6 @@ suite(
             () =>
             {
                 tempFile = new TempFile();
-                let $package: Package = new Package(
-                    {
-                        Identifier: "foo",
-                        DisplayName: {},
-                        InstallSet: {
-                            Instructions: []
-                        }
-                    });
-
                 section = "general";
                 rootCategoryName = "bar";
                 rootShowOrder = 1;
@@ -151,7 +141,6 @@ suite(
 
                 rootCategoryNode = optionInstruction.ObjectsByID[rootCategoryID];
                 categoryNode = optionInstruction.ObjectsByID[categoryID];
-                $package.InstallSet.push(optionInstruction);
                 compiler = new class extends OptionFileCompiler<MyCategory, ICategoryOptions<IOptionOptions>, MyOption, IOptionOptions>
                 {
                     protected get SchemaLocation(): string
