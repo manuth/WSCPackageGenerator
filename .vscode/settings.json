@@ -11,14 +11,5 @@
         "Wolt",
         "WoltLab",
         "localizable"
-    ],
-    "mocha.requires": [
-        "ts-node/register"
-    ],
-    "mocha.files.glob": "**/app.test.ts",
-    "mocha.options": {
-        "compilers": [
-            "ts-node/register"
-        ]
-    }
+    ]
 }
