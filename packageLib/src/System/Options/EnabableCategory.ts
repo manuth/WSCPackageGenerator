@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { INode } from "../NodeSystem/INode";
 import { Category } from "./Category";
 import { IEnabableCategoryOptions } from "./IEnabableCategoryOptions";
@@ -11,7 +12,7 @@ export class EnabableCategory<TOption extends Option, TOptionOptions> extends Ca
     /**
      * The options of which at least one needs to be enabled for the category to be shown to the user.
      */
-    private enableOptions: string[];
+    private enableOptions: string[] = [];
 
     /**
      * Initializes a new instance of the `DisabableCategory<TOption, TOptionOptions>` class.
@@ -22,6 +23,11 @@ export class EnabableCategory<TOption extends Option, TOptionOptions> extends Ca
     public constructor(node: INode, options: IEnabableCategoryOptions<TOptionOptions>, generator: (category: Category<TOption, TOptionOptions>, optionOptions: TOptionOptions) => TOption)
     {
         super(node, options, generator);
+
+        if (!isNullOrUndefined(options.EnableOptions))
+        {
+            this.EnableOptions.push(...options.EnableOptions);
+        }
     }
 
     /**
