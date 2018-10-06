@@ -2,6 +2,9 @@ import { GroupOptionInstruction } from "../../PackageSystem/Instructions/Options
 import { GroupOptionFileCompiler } from "../Options/GroupOptionFileCompiler";
 import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
+/**
+ * Provides the functionality to compile `GroupOptionInstruction`s.
+ */
 export class GroupOptionInstructionCompiler extends LocalizationProviderCompiler<GroupOptionInstruction>
 {
     /**
