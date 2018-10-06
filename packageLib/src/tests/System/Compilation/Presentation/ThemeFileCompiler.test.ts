@@ -192,7 +192,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(rootEditor.HasTag(generalTag, true), true);
-                                                generalEditor = rootEditor.ChildrenByTag(generalTag)[0];
+                                                generalEditor = rootEditor.GetChildrenByTag(generalTag)[0];
                                             });
 
                                         test(
@@ -200,7 +200,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(rootEditor.HasTag(authorTag, true), true);
-                                                authorEditor = rootEditor.ChildrenByTag(authorTag)[0];
+                                                authorEditor = rootEditor.GetChildrenByTag(authorTag)[0];
                                             });
 
                                         test(
@@ -208,7 +208,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(rootEditor.HasTag(filesTag, true), true);
-                                                filesEditor = rootEditor.ChildrenByTag(filesTag)[0];
+                                                filesEditor = rootEditor.GetChildrenByTag(filesTag)[0];
                                             });
                                     });
 
@@ -250,7 +250,7 @@ suite(
                                             "Checking the integrity of the name...",
                                             () =>
                                             {
-                                                for (let editor of generalEditor.ChildrenByTag(nameTag))
+                                                for (let editor of generalEditor.GetChildrenByTag(nameTag))
                                                 {
                                                     if (editor.HasAttribute(languageAttribute))
                                                     {
@@ -280,7 +280,7 @@ suite(
                                             "Checking whether the localized description is correct...",
                                             () =>
                                             {
-                                                for (let editor of generalEditor.ChildrenByTag(descriptionTag))
+                                                for (let editor of generalEditor.GetChildrenByTag(descriptionTag))
                                                 {
                                                     if (editor.HasAttribute(languageAttribute))
                                                     {
@@ -391,7 +391,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(filesEditor.HasTag(imageTag, true), true);
-                                                let imageEditor: XMLEditor = filesEditor.ChildrenByTag(imageTag)[0];
+                                                let imageEditor: XMLEditor = filesEditor.GetChildrenByTag(imageTag)[0];
                                                 assert.strictEqual(imageEditor.GetAttribute(imagePathAttribute), imageDescriptor.DestinationRoot);
                                                 assert.strictEqual(imageEditor.TextContent, imageDescriptor.FileName);
                                             });

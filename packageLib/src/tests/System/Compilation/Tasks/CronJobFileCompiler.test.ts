@@ -152,7 +152,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(rootEditor.HasTag(importTag, true), true);
-                                                importEditor = rootEditor.ChildrenByTag(importTag)[0];
+                                                importEditor = rootEditor.GetChildrenByTag(importTag)[0];
                                             });
                                     });
 
@@ -178,7 +178,7 @@ suite(
                                                     () =>
                                                     {
                                                         assert.strictEqual(importEditor.HasTag(cronJobTag, true), true);
-                                                        cronJobEditor = importEditor.ChildrenByTag(cronJobTag)[0];
+                                                        cronJobEditor = importEditor.GetChildrenByTag(cronJobTag)[0];
                                                     });
                                             });
 
@@ -236,7 +236,7 @@ suite(
                                                     "Checking whether the localized description is correct...",
                                                     () =>
                                                     {
-                                                        for (let editor of cronJobEditor.ChildrenByTag(descriptionTag))
+                                                        for (let editor of cronJobEditor.GetChildrenByTag(descriptionTag))
                                                         {
                                                             if (editor.HasAttribute(languageAttribute))
                                                             {

@@ -156,7 +156,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(rootEditor.HasTag(categoryTag, true), true);
-                                                categoryEditor = rootEditor.ChildrenByTag(categoryTag)[0];
+                                                categoryEditor = rootEditor.GetChildrenByTag(categoryTag)[0];
                                             });
 
                                         test(
@@ -185,7 +185,7 @@ suite(
                                             () =>
                                             {
                                                 assert.strictEqual(categoryEditor.HasTag(itemTag, true), true);
-                                                itemEditor = categoryEditor.ChildrenByTag(itemTag)[0];
+                                                itemEditor = categoryEditor.GetChildrenByTag(itemTag)[0];
                                             });
 
                                         test(

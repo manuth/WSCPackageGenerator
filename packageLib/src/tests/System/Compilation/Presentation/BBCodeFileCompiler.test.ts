@@ -157,8 +157,8 @@ suite(
                                             "Checking whether the import exists...",
                                             () =>
                                             {
-                                                assert.strictEqual(rootEditor.ChildrenByTag(importTag).length, 1);
-                                                importEditor = rootEditor.ChildrenByTag(importTag)[0];
+                                                assert.strictEqual(rootEditor.HasTag(importTag, true), true);
+                                                importEditor = rootEditor.GetChildrenByTag(importTag)[0];
                                             });
                                     });
 
@@ -187,7 +187,7 @@ suite(
                                                     () =>
                                                     {
                                                         assert.strictEqual(importEditor.HasTag(bbCodeTag), true);
-                                                        bbCodeEditors = importEditor.ChildrenByTag(bbCodeTag);
+                                                        bbCodeEditors = importEditor.GetChildrenByTag(bbCodeTag);
                                                     });
                                             });
 
@@ -288,14 +288,14 @@ suite(
                                                                     () =>
                                                                     {
                                                                         assert.strictEqual(bbCodeEditor.HasTag(attributesTag, true), true);
-                                                                        attributesEditor = bbCodeEditor.ChildrenByTag(attributesTag)[0];
+                                                                        attributesEditor = bbCodeEditor.GetChildrenByTag(attributesTag)[0];
                                                                     });
 
                                                                 test(
                                                                     "Checking whether at least one attribute is present...",
                                                                     () =>
                                                                     {
-                                                                        let attributeEditors: XMLEditor[] = attributesEditor.ChildrenByTag(attributeTag);
+                                                                        let attributeEditors: XMLEditor[] = attributesEditor.GetChildrenByTag(attributeTag);
                                                                         assert.strictEqual(attributeEditors.length > 0, true);
                                                                         attributeEditor = attributeEditors[Math.floor(Math.random() * attributeEditors.length)];
                                                                     });

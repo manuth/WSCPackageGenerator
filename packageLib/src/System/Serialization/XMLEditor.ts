@@ -178,7 +178,7 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public ChildrenByTag(tag: string): XMLEditor[]
+    public GetChildrenByTag(tag: string): XMLEditor[]
     {
         return this.GetElementsByTag(tag).filter((node: XMLEditor) => node.ParentNode === this.Element);
     }
@@ -246,7 +246,7 @@ export class XMLEditor
             this.HasTag(tag, true);
         }
 
-        return (tag ? this.ChildrenByTag(tag)[0] : this).TextContent === text;
+        return (tag ? this.GetChildrenByTag(tag)[0] : this).TextContent === text;
     }
 
     /**
