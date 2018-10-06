@@ -29,7 +29,7 @@ export class ACPOptionInstruction extends OptionInstruction<ACPCategory, IEnabab
         return "option";
     }
 
-    public get TranslationCategory(): string
+    public get RootCategory(): string
     {
         return "wcf.acp.option";
     }

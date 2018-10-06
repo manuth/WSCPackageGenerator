@@ -28,9 +28,25 @@ export abstract class OptionInstruction<TCategory extends Category<TOption, TOpt
     }
 
     /**
+     * Gets the category of the translations.
+     */
+    public abstract get RootCategory(): string;
+
+    /**
      * Gets the category of the translations of the options.
      */
-    public abstract get TranslationCategory(): string;
+    public get OptionCategory(): string
+    {
+        return null;
+    }
+
+    /**
+     * Gets the category of the translations of the categories.
+     */
+    public get CategoryCategory(): string
+    {
+        return "category";
+    }
 
     public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
     {
@@ -40,15 +56,42 @@ export abstract class OptionInstruction<TCategory extends Category<TOption, TOpt
                 Nodes: []
             });
 
-        let optionNode: LocalizationNode = new LocalizationNode(
+        let translationRoot: LocalizationNode = new LocalizationNode(
             {
-                Name: this.TranslationCategory
+                Name: this.RootCategory
             });
 
-        let categoryNode: LocalizationNode = new LocalizationNode(
-            {
-                Name: "category"
-            });
+        let optionNode: LocalizationNode;
+
+        if (!isNullOrUndefined(this.OptionCategory))
+        {
+            optionNode = new LocalizationNode(
+                {
+                    Name: this.OptionCategory
+                });
+
+            translationRoot.Nodes.push(optionNode);
+        }
+        else
+        {
+            optionNode = translationRoot;
+        }
+
+        let categoryNode: LocalizationNode;
+
+        if (!isNullOrUndefined(this.CategoryCategory))
+        {
+            categoryNode = new LocalizationNode(
+                {
+                    Name: this.CategoryCategory
+                });
+
+            optionNode.Nodes.push(categoryNode);
+        }
+        else
+        {
+            categoryNode = optionNode;
+        }
 
         for (let rootNode of this.Nodes)
         {
@@ -111,8 +154,7 @@ export abstract class OptionInstruction<TCategory extends Category<TOption, TOpt
             }
         }
 
-        optionNode.Nodes.push(categoryNode);
-        result.Nodes.push(optionNode);
+        result.Nodes.push(translationRoot);
         return result.GetMessages();
     }
 }
