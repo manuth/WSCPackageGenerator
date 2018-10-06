@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import * as Path from "path";
 import { BBCodeInstructionCompiler } from "../../../../System/Compilation/Instructions/BBCodeInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
@@ -14,7 +13,6 @@ suite(
         let fileName: string;
         let translationDir: string;
         let packageDir: TempDirectory;
-        let instruction: BBCodeInstruction;
         let compiler: BBCodeInstructionCompiler;
         let locales: string[];
 
@@ -31,7 +29,6 @@ suite(
                         }
                     });
 
-                translationDir = "bbCodeLanguageStuff";
                 packageDir = new TempDirectory();
                 locales = ["en"];
 
@@ -40,7 +37,7 @@ suite(
                     displayName[locale] = "test";
                 }
 
-                instruction = new BBCodeInstruction(
+                let instruction: BBCodeInstruction = new BBCodeInstruction(
                     {
                         FileName: "bbCodes.xml",
                         BBCodes: [
@@ -49,13 +46,14 @@ suite(
                                 DisplayName: displayName
                             }
                         ],
-                        TranslationDirectory: translationDir
+                        TranslationDirectory: "bbCodeLanguageStuff"
                     });
 
                 $package.InstallSet.push(instruction);
                 compiler = new BBCodeInstructionCompiler(instruction);
                 compiler.DestinationPath = packageDir.FileName;
                 fileName = compiler.DestinationFileName;
+                translationDir = packageDir.MakePath(instruction.DestinationRoot, instruction.TranslationDirectory);
             });
 
         suiteTeardown(
@@ -86,7 +84,7 @@ suite(
                     "Checking whether the language-files exist...",
                     async () =>
                     {
-                        let files: string[] = await FileSystem.readdir(Path.join(packageDir.FileName, instruction.DestinationRoot, translationDir));
+                        let files: string[] = await FileSystem.readdir(translationDir);
                         assert.strictEqual(locales.every((locale: string) => files.includes(`${locale}.xml`)), true);
                     });
             });
