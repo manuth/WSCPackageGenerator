@@ -1,12 +1,11 @@
 import { BBCodeInstruction } from "../../PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { BBCodeFileCompiler } from "../Presentation/BBCodeFileCompiler";
-import { InstructionCompiler } from "./InstructionCompiler";
-import { LocalizationInstructionCompiler } from "./LocalizationInstructionCompiler";
+import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
 /**
  * Provides the functionality to compile bb-code instructions.
  */
-export class BBCodeInstructionCompiler extends InstructionCompiler<BBCodeInstruction>
+export class BBCodeInstructionCompiler extends LocalizationProviderCompiler<BBCodeInstruction>
 {
     /**
      * Initializes a new instance of the `BBCodeInstructionCompiler`.
@@ -18,11 +17,9 @@ export class BBCodeInstructionCompiler extends InstructionCompiler<BBCodeInstruc
 
     protected async Compile(): Promise<void>
     {
+        await super.Compile();
         let bbCodeFileCompiler: BBCodeFileCompiler = new BBCodeFileCompiler(this.Item.BBCodes);
-        let localizationInstructionCompiler: LocalizationInstructionCompiler = new LocalizationInstructionCompiler(this.Item);
-        bbCodeFileCompiler.DestinationPath = this.DestinationFileName ;
-        localizationInstructionCompiler.DestinationPath = this.DestinationPath;
+        bbCodeFileCompiler.DestinationPath = this.DestinationFileName;
         await bbCodeFileCompiler.Execute();
-        await localizationInstructionCompiler.Execute();
     }
 }

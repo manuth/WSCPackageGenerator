@@ -1,9 +1,10 @@
-import { TempFile } from "../../FileSystem/TempFile";
 import { ILocalizationInstruction } from "../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
-import { LocalizationFileCompiler } from "../Globalization/LocalizationFileCompiler";
-import { InstructionCompiler } from "./InstructionCompiler";
+import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
-export class LocalizationInstructionCompiler extends InstructionCompiler<ILocalizationInstruction>
+/**
+ * Provides the functionality to compile `ILocalizationInstruction`s.
+ */
+export class LocalizationInstructionCompiler extends LocalizationProviderCompiler<ILocalizationInstruction>
 {
     /**
      * Initializes a new instance of the `LocalizationInstructionCompiler` class.
@@ -14,20 +15,5 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
     public constructor(item: ILocalizationInstruction)
     {
         super(item);
-    }
-
-    protected async Compile(): Promise<void>
-    {
-        let messages: { [locale: string]: { [category: string]: { [key: string]: string } } } = this.Item.GetMessages();
-
-        for (let locale in messages)
-        {
-            let tempFile: TempFile = new TempFile();
-            let compiler: LocalizationFileCompiler = new LocalizationFileCompiler([locale, messages[locale]]);
-            compiler.DestinationPath = tempFile.FileName;
-            await compiler.Execute();
-            await this.CopyTemplate(tempFile.FileName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
-            tempFile.Dispose();
-        }
     }
 }
