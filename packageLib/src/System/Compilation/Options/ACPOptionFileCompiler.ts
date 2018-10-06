@@ -1,15 +1,15 @@
 import { ACPCategory } from "../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../Options/ControlPanel/ACPOption";
 import { IACPOptionOptions } from "../../Options/ControlPanel/IACPOptionOptions";
-import { IEnabableCategoryOptions } from "../../Options/IEnabableCategoryOptions";
+import { ICategoryOptions } from "../../Options/ICategoryOptions";
 import { ACPOptionInstruction } from "../../PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { EnabableOptionFileCompiler } from "./EnabableOptionFileCompiler";
+import { OptionFileCompiler } from "./OptionFileCompiler";
 
 /**
  * Provides the functionality to compile acp-option files.
  */
-export class ACPOptionFileCompiler extends EnabableOptionFileCompiler<ACPOptionInstruction, ACPCategory, IEnabableCategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
+export class ACPOptionFileCompiler extends OptionFileCompiler<ACPOptionInstruction, ACPCategory, ICategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
 {
     /**
      * Initializes a new instance of the `ACPOptionFileCompiler` class.

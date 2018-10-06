@@ -1,23 +1,23 @@
 import { INode } from "../../NodeSystem/INode";
-import { EnabableCategory } from "../EnabableCategory";
-import { IEnabableCategoryOptions } from "../IEnabableCategoryOptions";
+import { Category } from "../Category";
+import { ICategoryOptions } from "../ICategoryOptions";
 import { ACPOption } from "./ACPOption";
 import { IACPOptionOptions } from "./IACPOptionOptions";
 
 /**
  * Represents an option-category for the control-panel.
  */
-export class ACPCategory extends EnabableCategory<ACPOption, IACPOptionOptions>
+export class ACPCategory extends Category<ACPOption, IACPOptionOptions>
 {
     /**
      * Initializes a new instance of the `ACPCategory` class.
      */
-    public constructor(node: INode, options: IEnabableCategoryOptions<IACPOptionOptions>)
+    public constructor(node: INode, options: ICategoryOptions<IACPOptionOptions>)
     {
         super(
             node,
             options,
-            (category: EnabableCategory<ACPOption, IACPOptionOptions>, opts: IACPOptionOptions): ACPOption =>
+            (category: Category<ACPOption, IACPOptionOptions>, opts: IACPOptionOptions): ACPOption =>
             {
                 return new ACPOption(category, opts);
             });

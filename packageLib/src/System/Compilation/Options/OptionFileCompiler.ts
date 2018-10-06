@@ -116,6 +116,13 @@ export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, 
             editor.AddTextElement("showorder", category.Item.ShowOrder.toString());
         }
 
+        if (
+            !isNullOrUndefined(category.Item) &&
+            category.Item.EnableOptions.length > 0)
+        {
+            editor.AddTextElement("options", category.Item.EnableOptions.join(","));
+        }
+
         return editor.Element;
     }
 

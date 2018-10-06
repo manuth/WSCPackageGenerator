@@ -70,8 +70,10 @@ suite(
         let section: string;
         let rootCategoryName: string;
         let rootShowOrder: number;
+        let rootEnableOptions: string[];
         let categoryName: string;
         let showOrder: number;
+        let enableOptions: string[];
         let rootCategoryNode: Node<MyCategory, ICategoryOptions<IOptionOptions>>;
         let categoryNode: Node<MyCategory, ICategoryOptions<IOptionOptions>>;
         let option: IOptionOptions;
@@ -83,8 +85,10 @@ suite(
                 section = "general";
                 rootCategoryName = "bar";
                 rootShowOrder = 1;
+                rootEnableOptions = ["foo", "bar", "baz"];
                 categoryName = "baz";
                 showOrder = null;
+                enableOptions = ["foo", "bar", "baz"];
                 option = {
                     Name: "foo",
                     Type: OptionType.MultiSelect,
@@ -121,7 +125,8 @@ suite(
                                 Name: section
                             },
                             Item: {
-                                ShowOrder: rootShowOrder
+                                ShowOrder: rootShowOrder,
+                                EnableOptions: enableOptions
                             },
                             Nodes: [
                                 {
@@ -131,7 +136,8 @@ suite(
                                         ShowOrder: showOrder,
                                         Options: [
                                             option
-                                        ]
+                                        ],
+                                        EnableOptions: enableOptions
                                     }
                                 }
                             ]
@@ -275,12 +281,14 @@ suite(
                                                 let categories: XMLEditor[];
                                                 let parentTag: string;
                                                 let showOrderTag: string;
+                                                let enableOptionsTag: string;
 
                                                 suiteSetup(
                                                     () =>
                                                     {
                                                         parentTag = "parent";
                                                         showOrderTag = "showorder";
+                                                        enableOptionsTag = "options";
                                                     });
 
                                                 suite(
@@ -371,6 +379,16 @@ suite(
                                                                             assert.strictEqual(categoryEditor.HasTag(showOrderTag), false);
                                                                         }
                                                                     });
+
+                                                                test(
+                                                                    'Checking whether the "options"-property is correct...',
+                                                                    () =>
+                                                                    {
+                                                                        if (rootEnableOptions.length > 0)
+                                                                        {
+                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag).split(",").sort().join(","), enableOptions.sort().join(","));
+                                                                        }
+                                                                    });
                                                             });
                                                     });
 
@@ -385,7 +403,7 @@ suite(
                                                             () =>
                                                             {
                                                                 test(
-                                                                    "Checking whether the root-category is present..",
+                                                                    "Checking whether the sub-category is present..",
                                                                     () =>
                                                                     {
                                                                         let filtered: XMLEditor[] = categories.filter(
@@ -428,6 +446,16 @@ suite(
                                                                         else
                                                                         {
                                                                             assert.strictEqual(categoryEditor.HasTag(showOrderTag), false);
+                                                                        }
+                                                                    });
+
+                                                                test(
+                                                                    'Checking whether the "options"-property is correct...',
+                                                                    () =>
+                                                                    {
+                                                                        if (enableOptions.length > 0)
+                                                                        {
+                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag).split(",").sort().join(","), enableOptions.sort().join(","));
                                                                         }
                                                                     });
                                                             });

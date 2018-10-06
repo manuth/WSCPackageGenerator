@@ -27,6 +27,11 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
     private showOrder: number = null;
 
     /**
+     * The options of which at least one needs to be enabled for the category to be shown to the user.
+     */
+    private enableOptions: string[] = [];
+
+    /**
      * The options of the category.
      */
     private options: TOption[] = [];
@@ -63,6 +68,11 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
                 this.options.push(generator(this, option));
             }
         }
+
+        if (!isNullOrUndefined(options.EnableOptions))
+        {
+            this.EnableOptions.push(...options.EnableOptions);
+        }
     }
 
     /**
@@ -92,6 +102,19 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
     public set ShowOrder(value: number)
     {
         this.showOrder = value;
+    }
+
+    /**
+     * Gets or sets the options of which at least one needs to be enabled for the category to be shown to the user.
+     */
+    public get EnableOptions(): string[]
+    {
+        return this.enableOptions;
+    }
+
+    public set EnableOptions(value: string[])
+    {
+        this.enableOptions = value;
     }
 
     /**

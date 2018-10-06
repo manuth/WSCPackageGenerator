@@ -24,4 +24,9 @@ export interface ICategoryOptions<T>
      * The options of the category.
      */
     Options?: T[];
+
+    /**
+     * The options of which at least one needs to be enabled for the category to be shown to the user.
+     */
+    EnableOptions?: string[];
 }
