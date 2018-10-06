@@ -17,7 +17,7 @@ export class GroupCategory extends Category<GroupOption, IGroupOptionOptions>
         super(
             node,
             options,
-            (category: Category<GroupOption, IGroupOptionOptions>, opts: IGroupOptionOptions): GroupOption =>
+            (category: Category<GroupOption, IGroupOptionOptions>, opts: IGroupOptionOptions) =>
             {
                 return new GroupOption(category, opts);
             });
