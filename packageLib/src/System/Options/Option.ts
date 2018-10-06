@@ -61,12 +61,12 @@ export abstract class Option
     private items: OptionItem[] = [];
 
     /**
-     * A comma-separated list of options of which at least one needs to be enabled for the option to be shown.
+     * A list of options of which at least one needs to be enabled for the option to be shown.
      */
     private options: string[] = [];
 
     /**
-     * A comma-separated list of options which should be visually enabled when this option is enabled.
+     * A list of options which should be visually enabled when this option is enabled.
      *
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
      * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
@@ -260,7 +260,7 @@ export abstract class Option
     }
 
     /**
-     * Gets or sets a comma-separated list of options of which at least one needs to be enabled for the option to be shown.
+     * Gets or sets a list of options of which at least one needs to be enabled for the option to be shown.
      */
     public get Options(): string[]
     {
@@ -273,7 +273,7 @@ export abstract class Option
     }
 
     /**
-     * Gets or sets a comma-separated list of options which should be visually enabled when this option is enabled.
+     * Gets or sets a list of options which should be visually enabled when this option is enabled.
      *
      * A leading exclamation mark (`!`, `U+0021`) will disable the specified option when this option is enabled.
      * For `ComboBox` and `RadioButton` types the list should be prefixed by the name of the `selectoption`s followed by a colon (`:`, `U+003A`).
