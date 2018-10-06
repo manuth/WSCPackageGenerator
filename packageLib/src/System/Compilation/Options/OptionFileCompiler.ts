@@ -27,9 +27,10 @@ export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOp
      * @param languageCategory
      * The language-category which contains translations for options.
      */
-    public constructor(item: OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>, languageCategory: string)
+    public constructor(item: OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>)
     {
         super(item);
+        this.LanguageCategory = `${item.RootCategory}${isNullOrUndefined(item.OptionCategory) ? "" : `.${item.OptionCategory}`}`;
     }
 
     /**
@@ -145,7 +146,7 @@ export abstract class OptionFileCompiler<TCategory extends Category<TOption, TOp
                 "selectoptions",
                 option.Items.map((optionItem: OptionItem) =>
                 {
-                    return `${optionItem.Value}:${this.LanguageCategory}.${optionItem.Name}`;
+                    return `${optionItem.Value}:${this.LanguageCategory}.${option.Name}.${optionItem.Name}`;
                 }).join("\n"));
         }
 
