@@ -8,6 +8,17 @@ import { ListenerFileCompiler } from "./ListenerFileCompiler";
  */
 export class EventListenerFileCompiler extends ListenerFileCompiler<EventListenerInstruction, EventListener>
 {
+    /**
+     * Initializes a new instance of the `EventListenerFileCompiler` class.
+     *
+     * @param item
+     * The item to compile.
+     */
+    public constructor(item: EventListenerInstruction)
+    {
+        super(item);
+    }
+
     protected get SchemaLocation(): string
     {
         return "http://www.woltlab.com/XSD/tornado/eventListener.xsd";

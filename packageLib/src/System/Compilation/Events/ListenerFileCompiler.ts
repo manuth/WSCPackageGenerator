@@ -11,7 +11,7 @@ import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListener>, TListener extends Listener> extends WoltLabXMLCompiler<T>
 {
     /**
-     * Initializes a new instance of the `ListenerFileCompiler<T>` class.
+     * Initializes a new instance of the `ListenerFileCompiler<T, TListener>` class.
      *
      * @param item
      * The item to compile.
