@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./ListenerFileCompiler.test");
+        require("./EventListenerFileCompiler.test");
     });
