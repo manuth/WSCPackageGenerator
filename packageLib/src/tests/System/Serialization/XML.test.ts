@@ -7,6 +7,41 @@ suite(
     () =>
     {
         suite(
+            "CreateDocument",
+            () =>
+            {
+                let tag: string;
+                let document: Document;
+
+                suiteSetup(
+                    () =>
+                    {
+                        tag = "html";
+                    });
+
+                test(
+                    "Checking whether document can be created...",
+                    () =>
+                    {
+                        document = XML.CreateDocument(tag);
+                    });
+
+                test(
+                    "Checking whether the processing-instruction exists...",
+                    () =>
+                    {
+                        assert.strictEqual(document.childNodes[0].nodeType, document.PROCESSING_INSTRUCTION_NODE);
+                    });
+
+                test(
+                    "Checking whether the tag-name is correct...",
+                    () =>
+                    {
+                        assert.strictEqual(document.documentElement.tagName, tag);
+                    });
+            });
+
+        suite(
             "Format()",
             () =>
             {

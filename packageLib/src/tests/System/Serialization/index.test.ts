@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./XML.test");
+        require("./XMLEditor.test");
     });
