@@ -237,6 +237,42 @@ export class XMLEditor
     }
 
     /**
+     * Inserts an element at a specific position.
+     *
+     * @param index
+     * The index to insert the element.
+     *
+     * @param element
+     * The element to insert.
+     */
+    public Insert(index: number, element: XMLEditor | Node): void
+    {
+        let node: Node;
+
+        if (element instanceof XMLEditor)
+        {
+            node = element.Element;
+        }
+        else
+        {
+            node = element;
+        }
+
+        if (index === this.ChildNodes.length)
+        {
+            this.Add(node);
+        }
+        else if (index < this.ChildNodes.length)
+        {
+            this.Element.insertBefore(node, this.ChildNodes[index]);
+        }
+        else
+        {
+            throw new RangeError();
+        }
+    }
+
+    /**
      * Gets all children of the element with a specified tag.
      *
      * @param tag

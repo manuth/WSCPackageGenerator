@@ -305,6 +305,62 @@ suite(
             });
 
         suite(
+            "Insert(index, element)",
+            () =>
+            {
+                let parent: XMLEditor;
+                let tag: string;
+                let newElement: XMLEditor;
+
+                suiteSetup(
+                    () =>
+                    {
+                        parent = temp;
+                        tag = "foo";
+                    });
+
+                setup(
+                    () =>
+                    {
+                        newElement = parent.CreateElement(tag);
+                    });
+
+                test(
+                    "Checking whether inserting elements in inexistent-indexes causes an error...",
+                    () =>
+                    {
+                        assert.throws(() => parent.Insert(1, newElement));
+                    });
+
+                test(
+                    "Checking whether items can be inserted into an empty element...",
+                    () =>
+                    {
+                        let index: number = 0;
+                        parent.Insert(index, newElement);
+                        assert.strictEqual(parent.ChildNodes.indexOf(newElement.Element), index);
+                    });
+
+                test(
+                    "Checking whether items can be inserted at the end inside the element...",
+                    () =>
+                    {
+                        let index: number = parent.ChildNodes.length;
+                        parent.Insert(index, newElement);
+                        assert.strictEqual(parent.ChildNodes.indexOf(newElement.Element), index);
+                    });
+
+                test(
+                    "Checking whether items can be inserted anywhere inside the childnode-list...",
+                    () =>
+                    {
+                        let index: number = Math.floor(Math.random() * parent.ChildNodes.length);
+                        parent.Insert(index, newElement);
+                        assert.strictEqual(parent.ChildNodes.indexOf(newElement.Element), index);
+                    });
+            });
+
+        suite(
             "GetChildrenByTag(tag)",
             () =>
             {
