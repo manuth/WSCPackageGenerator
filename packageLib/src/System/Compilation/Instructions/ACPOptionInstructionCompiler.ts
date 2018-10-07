@@ -1,11 +1,15 @@
+import { ACPCategory } from "../../Options/ControlPanel/ACPCategory";
+import { ACPOption } from "../../Options/ControlPanel/ACPOption";
+import { IACPOptionOptions } from "../../Options/ControlPanel/IACPOptionOptions";
+import { ICategoryOptions } from "../../Options/ICategoryOptions";
 import { ACPOptionInstruction } from "../../PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { ACPOptionFileCompiler } from "../Options/ACPOptionFileCompiler";
-import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
+import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 
 /**
  * Provides the functionality to compile instructions which provide options for the control-panel.
  */
-export class ACPOptionInstructionCompiler extends LocalizationProviderCompiler<ACPOptionInstruction>
+export class ACPOptionInstructionCompiler extends OptionInstructionCompiler<ACPOptionInstruction, ACPCategory, ICategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
 {
     /**
      * Initializes a new instance of the `ACPOptionInstructionCompiler` class.
@@ -18,11 +22,8 @@ export class ACPOptionInstructionCompiler extends LocalizationProviderCompiler<A
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    protected get OptionFileCompiler(): ACPOptionFileCompiler
     {
-        await super.Compile();
-        let compiler: ACPOptionFileCompiler = new ACPOptionFileCompiler(this.Item);
-        compiler.DestinationPath = this.DestinationFileName;
-        await compiler.Execute();
+        return new ACPOptionFileCompiler(this.Item);
     }
 }

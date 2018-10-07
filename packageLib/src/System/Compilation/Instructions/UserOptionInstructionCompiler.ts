@@ -1,11 +1,15 @@
+import { ICategoryOptions } from "../../Options/ICategoryOptions";
+import { IUserOptionOptions } from "../../Options/UserPanel/IUserOptionOptions";
+import { UserCategory } from "../../Options/UserPanel/UserCategory";
+import { UserOption } from "../../Options/UserPanel/UserOption";
 import { UserOptionInstruction } from "../../PackageSystem/Instructions/Options/UserOptionInstruction";
 import { UserOptionFileCompiler } from "../Options/UserOptionFileCompiler";
-import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
+import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 
 /**
  * Provides the functionality to compile `UserOptionInstruction`s.
  */
-export class UserOptionInstructionCompiler extends LocalizationProviderCompiler<UserOptionInstruction>
+export class UserOptionInstructionCompiler extends OptionInstructionCompiler<UserOptionInstruction, UserCategory, ICategoryOptions<IUserOptionOptions>, UserOption, IUserOptionOptions>
 {
     /**
      * Initializes a new instance of the `UserOptionInstructionCompiler` class.
@@ -18,11 +22,8 @@ export class UserOptionInstructionCompiler extends LocalizationProviderCompiler<
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    protected get OptionFileCompiler(): UserOptionFileCompiler
     {
-        await super.Compile();
-        let compiler: UserOptionFileCompiler = new UserOptionFileCompiler(this.Item);
-        compiler.DestinationPath = this.DestinationFileName;
-        await compiler.Execute();
+        return new UserOptionFileCompiler(this.Item);
     }
 }
