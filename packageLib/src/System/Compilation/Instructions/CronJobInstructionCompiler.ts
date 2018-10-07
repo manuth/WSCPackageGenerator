@@ -1,12 +1,12 @@
-import { TempFile } from "../../FileSystem/TempFile";
 import { CronJobInstruction } from "../../PackageSystem/Instructions/Tasks/CronJobInstruction";
+import { Compiler } from "../Compiler";
 import { CronJobFileCompiler } from "../Tasks/CronJobFileCompiler";
-import { InstructionCompiler } from "./InstructionCompiler";
+import { TemplateInstructionCompiler } from "./TemplateInstructionCompiler";
 
 /**
  * Provides the functionality to compile cronjob-instructions.
  */
-export class CronJobInstructionCompiler extends InstructionCompiler<CronJobInstruction>
+export class CronJobInstructionCompiler extends TemplateInstructionCompiler<CronJobInstruction>
 {
     /**
      * Initializes a new instance of the `CronJobInstructionCompiler` class.
@@ -19,15 +19,8 @@ export class CronJobInstructionCompiler extends InstructionCompiler<CronJobInstr
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    protected get FileCompiler(): Compiler<CronJobInstruction>
     {
-        let tempFile: TempFile = new TempFile();
-        {
-            let compiler: CronJobFileCompiler = new CronJobFileCompiler(this.Item);
-            compiler.DestinationPath = tempFile.FileName;
-            await compiler.Execute();
-            await this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
-        }
-        tempFile.Dispose();
+        return new CronJobFileCompiler(this.Item);
     }
 }
