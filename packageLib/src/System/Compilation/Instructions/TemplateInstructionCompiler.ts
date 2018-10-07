@@ -13,7 +13,7 @@ export abstract class TemplateInstructionCompiler<T extends IInstruction> extend
         await super.Compile();
         let tempFile: TempFile = new TempFile();
         {
-            await FileSystem.move(this.DestinationFileName, tempFile.FileName);
+            await FileSystem.writeFile(tempFile.FileName, await FileSystem.readFile(this.DestinationFileName));
             await this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
         }
         tempFile.Dispose();
