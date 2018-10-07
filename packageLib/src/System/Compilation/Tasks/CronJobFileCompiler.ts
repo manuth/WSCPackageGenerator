@@ -3,6 +3,9 @@ import { CronJobInstruction } from "../../PackageSystem/Instructions/Tasks/CronJ
 import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 
+/**
+ * Provides the functionality to compile cron-job files.
+ */
 export class CronJobFileCompiler extends WoltLabXMLCompiler<CronJobInstruction>
 {
     /**
