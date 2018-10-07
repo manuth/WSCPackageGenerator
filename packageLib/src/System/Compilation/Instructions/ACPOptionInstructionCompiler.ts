@@ -1,7 +1,5 @@
 import { ACPCategory } from "../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../Options/ControlPanel/ACPOption";
-import { IACPOptionOptions } from "../../Options/ControlPanel/IACPOptionOptions";
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
 import { ACPOptionInstruction } from "../../PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { ACPOptionFileCompiler } from "../Options/ACPOptionFileCompiler";
 import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
@@ -9,7 +7,7 @@ import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 /**
  * Provides the functionality to compile instructions which provide options for the control-panel.
  */
-export class ACPOptionInstructionCompiler extends OptionInstructionCompiler<ACPOptionInstruction, ACPCategory, ICategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
+export class ACPOptionInstructionCompiler extends OptionInstructionCompiler<ACPOptionInstruction, ACPCategory, ACPOption>
 {
     /**
      * Initializes a new instance of the `ACPOptionInstructionCompiler` class.

@@ -66,7 +66,7 @@ suite(
         }
 
         let tempFile: TempFile;
-        let compiler: OptionFileCompiler<MyOptionInstruction, MyCategory, ICategoryOptions<IOptionOptions>, MyOption, IOptionOptions>;
+        let compiler: OptionFileCompiler<MyOptionInstruction, MyCategory, MyOption>;
         let section: string;
         let rootCategoryName: string;
         let rootShowOrder: number;
@@ -147,7 +147,7 @@ suite(
 
                 rootCategoryNode = optionInstruction.ObjectsByID[rootCategoryID];
                 categoryNode = optionInstruction.ObjectsByID[categoryID];
-                compiler = new class extends OptionFileCompiler<MyOptionInstruction, MyCategory, ICategoryOptions<IOptionOptions>, MyOption, IOptionOptions>
+                compiler = new class extends OptionFileCompiler<MyOptionInstruction, MyCategory, MyOption>
                 {
                     protected get SchemaLocation(): string
                     {

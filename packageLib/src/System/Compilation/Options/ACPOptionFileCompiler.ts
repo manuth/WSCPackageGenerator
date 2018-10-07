@@ -1,7 +1,5 @@
 import { ACPCategory } from "../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../Options/ControlPanel/ACPOption";
-import { IACPOptionOptions } from "../../Options/ControlPanel/IACPOptionOptions";
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
 import { ACPOptionInstruction } from "../../PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
 import { OptionFileCompiler } from "./OptionFileCompiler";
@@ -9,7 +7,7 @@ import { OptionFileCompiler } from "./OptionFileCompiler";
 /**
  * Provides the functionality to compile acp-option files.
  */
-export class ACPOptionFileCompiler extends OptionFileCompiler<ACPOptionInstruction, ACPCategory, ICategoryOptions<IACPOptionOptions>, ACPOption, IACPOptionOptions>
+export class ACPOptionFileCompiler extends OptionFileCompiler<ACPOptionInstruction, ACPCategory, ACPOption>
 {
     /**
      * Initializes a new instance of the `ACPOptionFileCompiler` class.

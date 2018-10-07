@@ -13,11 +13,6 @@ export class CronJobInstruction extends Instruction
     private cronJobs: CronJob[] = [];
 
     /**
-     * The items to remove.
-     */
-    private itemsToRemove: string[] = [];
-
-    /**
      * Initializes a new instance of the `CronJobInstruction` class.
      */
     public constructor(options: ICronJobInstructionOptions)
@@ -46,18 +41,5 @@ export class CronJobInstruction extends Instruction
     public set CronJobs(value: CronJob[])
     {
         this.cronJobs = value;
-    }
-
-    /**
-     * Gets or sets the items to remove.
-     */
-    public get ItemsToRemove(): string[]
-    {
-        return this.itemsToRemove;
-    }
-
-    public set ItemsToRemove(value: string[])
-    {
-        this.itemsToRemove = value;
     }
 }

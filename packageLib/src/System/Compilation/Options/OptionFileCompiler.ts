@@ -1,10 +1,9 @@
 import { isNullOrUndefined } from "util";
-import { Node } from "../../NodeSystem/Node";
-import { Category } from "../../Options/Category";
-import { IOptionOptions } from "../../Options/IOptionOptions";
+import { INode } from "../../NodeSystem/Generic/INode";
+import { ICategory } from "../../Options/Generic/ICategory";
 import { Option } from "../../Options/Option";
 import { OptionItem } from "../../Options/OptionItem";
-import { OptionInstruction } from "../../PackageSystem/Instructions/Options/OptionInstruction";
+import { IOptionInstruction } from "../../PackageSystem/Instructions/Options/IOptionInstruction";
 import { XML } from "../../Serialization/XML";
 import { XMLEditor } from "../../Serialization/XMLEditor";
 import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
@@ -12,7 +11,7 @@ import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
 /**
  * Provides the functionality to compile option-files.
  */
-export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>, TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions extends IOptionOptions> extends WoltLabXMLCompiler<T>
+export abstract class OptionFileCompiler<T extends IOptionInstruction<TCategory, TOption>, TCategory extends ICategory<TOption>, TOption extends Option> extends WoltLabXMLCompiler<T>
 {
     /**
      * The language-category which contains translations for options.
@@ -20,7 +19,7 @@ export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, 
     private languageCategory: string;
 
     /**
-     * Initializes a new instance of the `OptionFileCompiler<T, TCategory, TCategoryOptions, TOption, TOptionOptions>` class.
+     * Initializes a new instance of the `OptionFileCompiler<T, TCategory, TOption>` class.
      *
      * @param item
      * The item to compile.
@@ -98,7 +97,7 @@ export abstract class OptionFileCompiler<T extends OptionInstruction<TCategory, 
      * @param category
      * The category to serialize.
      */
-    protected CreateCategory(category: Node<TCategory, TCategoryOptions>): Element
+    protected CreateCategory(category: INode<TCategory>): Element
     {
         let document: Document = XML.CreateDocument("category");
         let editor: XMLEditor = new XMLEditor(document.documentElement);

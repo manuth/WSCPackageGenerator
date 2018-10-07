@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from "util";
-import { INode } from "./INode";
+import { INode } from "./Generic/INode";
 import { INodeOptions } from "./INodeOptions";
 import { NodeCollection } from "./NodeCollection";
 import { NodeItem } from "./NodeItem";
@@ -7,7 +7,7 @@ import { NodeItem } from "./NodeItem";
 /**
  * Represents a node.
  */
-export class Node<T extends NodeItem, TOptions> implements INode
+export class Node<T extends NodeItem, TOptions> implements INode<T>
 {
     /**
      * The id of the node.
@@ -120,17 +120,11 @@ export class Node<T extends NodeItem, TOptions> implements INode
         return this.Parents.reverse().concat([this]).map((node: Node<T, TOptions>) => node.Name).join(".");
     }
 
-    /**
-     * Gets or sets the item of the node.
-     */
     public get Item(): T
     {
         return this.item;
     }
 
-    /**
-     * Gets or sets the parent of the node.
-     */
     public get Parent(): Node<T, TOptions>
     {
         return this.parent;
@@ -160,17 +154,11 @@ export class Node<T extends NodeItem, TOptions> implements INode
         }
     }
 
-    /**
-     * Gets the children of the node.
-     */
     public get Nodes(): Node<T, TOptions>[]
     {
         return this.nodes;
     }
 
-    /**
-     * Gets all nodes recursively.
-     */
     public GetAllNodes(): Node<T, TOptions>[]
     {
         let result: Node<T, TOptions>[] = [];
@@ -184,9 +172,6 @@ export class Node<T extends NodeItem, TOptions> implements INode
         return result;
     }
 
-    /**
-     * Gets the identifiable objects of the node.
-     */
     public GetObjects(): { [id: string]: any }
     {
         let result: { [id: string]: any } = {};

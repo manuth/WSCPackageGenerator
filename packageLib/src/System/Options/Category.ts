@@ -2,14 +2,14 @@ import { isNullOrUndefined } from "util";
 import { Localization } from "../Globalization/Localization";
 import { INode } from "../NodeSystem/INode";
 import { NodeItem } from "../NodeSystem/NodeItem";
-import { ICategory } from "./ICategory";
+import { ICategory } from "./Generic/ICategory";
 import { ICategoryOptions } from "./ICategoryOptions";
 import { Option } from "./Option";
 
 /**
  * Represents an option-category.
  */
-export class Category<TOption extends Option, TOptionOptions> extends NodeItem implements ICategory
+export class Category<TOption extends Option, TOptionOptions> extends NodeItem implements ICategory<TOption>
 {
     /**
      * The human-readable name of the category.
@@ -75,25 +75,16 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
         }
     }
 
-    /**
-     * Gets the human-readable name of the category.
-     */
     public get DisplayName(): Localization
     {
         return this.displayName;
     }
 
-    /**
-     * Gets the description of the category.
-     */
     public get Description(): Localization
     {
         return this.description;
     }
 
-    /**
-     * Gets or sets a value for ordering the category.
-     */
     public get ShowOrder(): number
     {
         return this.showOrder;
@@ -104,9 +95,6 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
         this.showOrder = value;
     }
 
-    /**
-     * Gets or sets the options of which at least one needs to be enabled for the category to be shown to the user.
-     */
     public get EnableOptions(): string[]
     {
         return this.enableOptions;
@@ -117,9 +105,6 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
         this.enableOptions = value;
     }
 
-    /**
-     * Gets the options of the category.
-     */
     public get Options(): ReadonlyArray<TOption>
     {
         return this.options;

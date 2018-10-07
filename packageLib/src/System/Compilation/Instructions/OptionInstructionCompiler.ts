@@ -1,15 +1,13 @@
-import { Category } from "../../Options/Category";
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
-import { IOptionOptions } from "../../Options/IOptionOptions";
+import { ICategory } from "../../Options/Generic/ICategory";
 import { Option } from "../../Options/Option";
-import { OptionInstruction } from "../../PackageSystem/Instructions/Options/OptionInstruction";
+import { IOptionInstruction } from "../../PackageSystem/Instructions/Options/IOptionInstruction";
 import { Compiler } from "../Compiler";
 import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
 /**
  * Provides the functionality to compile instructions which provide options for the control-panel.
  */
-export abstract class OptionInstructionCompiler<T extends OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>, TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions extends ICategoryOptions<TOptionOptions>, TOption extends Option, TOptionOptions extends IOptionOptions> extends LocalizationProviderCompiler<T>
+export abstract class OptionInstructionCompiler<T extends IOptionInstruction<TCategory, TOption>, TCategory extends ICategory<TOption>, TOption extends Option> extends LocalizationProviderCompiler<T>
 {
     /**
      * Initializes a new instance of the `OptionInstructionCompiler` class.

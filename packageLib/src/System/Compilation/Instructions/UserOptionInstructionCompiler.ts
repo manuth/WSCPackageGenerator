@@ -1,5 +1,3 @@
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
-import { IUserOptionOptions } from "../../Options/UserPanel/IUserOptionOptions";
 import { UserCategory } from "../../Options/UserPanel/UserCategory";
 import { UserOption } from "../../Options/UserPanel/UserOption";
 import { UserOptionInstruction } from "../../PackageSystem/Instructions/Options/UserOptionInstruction";
@@ -9,7 +7,7 @@ import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 /**
  * Provides the functionality to compile `UserOptionInstruction`s.
  */
-export class UserOptionInstructionCompiler extends OptionInstructionCompiler<UserOptionInstruction, UserCategory, ICategoryOptions<IUserOptionOptions>, UserOption, IUserOptionOptions>
+export class UserOptionInstructionCompiler extends OptionInstructionCompiler<UserOptionInstruction, UserCategory, UserOption>
 {
     /**
      * Initializes a new instance of the `UserOptionInstructionCompiler` class.

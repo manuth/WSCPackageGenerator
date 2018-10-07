@@ -1,6 +1,4 @@
 import { isNullOrUndefined } from "util";
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
-import { IUserOptionOptions } from "../../Options/UserPanel/IUserOptionOptions";
 import { UserCategory } from "../../Options/UserPanel/UserCategory";
 import { UserOption } from "../../Options/UserPanel/UserOption";
 import { UserOptionInstruction } from "../../PackageSystem/Instructions/Options/UserOptionInstruction";
@@ -10,7 +8,7 @@ import { OptionFileCompiler } from "./OptionFileCompiler";
 /**
  * Provides the functionality to compiler user-option files.
  */
-export class UserOptionFileCompiler extends OptionFileCompiler<UserOptionInstruction, UserCategory, ICategoryOptions<IUserOptionOptions>, UserOption, IUserOptionOptions>
+export class UserOptionFileCompiler extends OptionFileCompiler<UserOptionInstruction, UserCategory, UserOption>
 {
     /**
      * Initializes a new instance of the `UserOptionFileCompiler` class.

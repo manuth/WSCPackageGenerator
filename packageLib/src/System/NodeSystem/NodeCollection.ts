@@ -1,11 +1,11 @@
 import { BidirectionalCollection } from "../Collections/BidirectionalCollection";
-import { Node } from "./Node";
+import { INode } from "./Generic/INode";
 import { NodeItem } from "./NodeItem";
 
 /**
  * Represents a collection of items.
  */
-export class NodeCollection<T extends Node<TItem, TOptions>, TItem extends NodeItem, TOptions> extends BidirectionalCollection<Node<TItem, TOptions>, T>
+export class NodeCollection<T extends INode<TItem>, TItem extends NodeItem> extends BidirectionalCollection<INode<TItem>, T>
 {
     /**
      * Initializes a new instance of the `NodeCollection<T>` class.
@@ -18,12 +18,12 @@ export class NodeCollection<T extends Node<TItem, TOptions>, TItem extends NodeI
         super(owner);
     }
 
-    protected GetParent(child: T): Node<TItem, TOptions>
+    protected GetParent(child: T): INode<TItem>
     {
         return child.Parent;
     }
 
-    protected SetParent(child: Node<TItem, TOptions>, parent: T): void
+    protected SetParent(child: INode<TItem>, parent: T): void
     {
         child.Parent = parent;
     }

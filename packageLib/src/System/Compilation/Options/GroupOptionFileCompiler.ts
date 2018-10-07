@@ -1,8 +1,6 @@
 import { isNullOrUndefined } from "util";
 import { GroupCategory } from "../../Options/Groups/GroupCategory";
 import { GroupOption } from "../../Options/Groups/GroupOption";
-import { IGroupOptionOptions } from "../../Options/Groups/IGroupOptionOptions";
-import { ICategoryOptions } from "../../Options/ICategoryOptions";
 import { GroupOptionInstruction } from "../../PackageSystem/Instructions/Options/GroupOptionInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
 import { OptionFileCompiler } from "./OptionFileCompiler";
@@ -10,7 +8,7 @@ import { OptionFileCompiler } from "./OptionFileCompiler";
 /**
  * Provides the functionality to compile group-option files.
  */
-export class GroupOptionFileCompiler extends OptionFileCompiler<GroupOptionInstruction, GroupCategory, ICategoryOptions<IGroupOptionOptions>, GroupOption, IGroupOptionOptions>
+export class GroupOptionFileCompiler extends OptionFileCompiler<GroupOptionInstruction, GroupCategory, GroupOption>
 {
     /**
      * Initializes a new instance of the `GroupOptionFileCompiler` class.

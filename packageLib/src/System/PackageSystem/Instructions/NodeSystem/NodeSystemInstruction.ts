@@ -1,12 +1,13 @@
 import { Node } from "../../../NodeSystem/Node";
 import { NodeItem } from "../../../NodeSystem/NodeItem";
 import { Instruction } from "../Instruction";
+import { INodeSystemInstruction } from "./INodeSystemInstruction";
 import { INodeSystemInstructionOptions } from "./INodeSystemInstructionOptions";
 
 /**
  * Represents an instruction which provides nodes.
  */
-export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extends Instruction
+export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extends Instruction implements INodeSystemInstruction<T>
 {
     /**
      * The nodes provides by the instruction.
@@ -32,9 +33,6 @@ export abstract class NodeSystemInstruction<T extends NodeItem, TOptions> extend
         }
     }
 
-    /**
-     * Gets the nodes provides by the instruction.
-     */
     public get Nodes(): Node<T, TOptions>[]
     {
         return this.nodes;

@@ -17,4 +17,9 @@ export interface INode
      * Gets the full name of the node.
      */
     FullName: string;
+
+    /**
+     * Gets the identifiable objects of the node.
+     */
+    GetObjects(): { [id: string]: any };
 }

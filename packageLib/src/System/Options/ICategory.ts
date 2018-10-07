@@ -7,11 +7,6 @@ import { INodeItem } from "../NodeSystem/INodeItem";
 export interface ICategory extends INodeItem
 {
     /**
-     * Gets or sets a value for ordering the category.
-     */
-    ShowOrder: number;
-
-    /**
      * Gets the human-readable name of the category.
      */
     DisplayName: Localization;
@@ -20,4 +15,14 @@ export interface ICategory extends INodeItem
      * Gets the description of the category.
      */
     Description: Localization;
+
+    /**
+     * Gets or sets a value for ordering the category.
+     */
+    ShowOrder: number;
+
+    /**
+     * Gets or sets the options of which at least one needs to be enabled for the category to be shown to the user.
+     */
+    EnableOptions: string[];
 }
