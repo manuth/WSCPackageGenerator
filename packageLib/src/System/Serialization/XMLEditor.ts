@@ -59,6 +59,14 @@ export class XMLEditor
     }
 
     /**
+     * Gets the document of the element.
+     */
+    public get Document(): Document
+    {
+        return this.Element.ownerDocument;
+    }
+
+    /**
      * Gets the child-nodes of the element.
      */
     public get ChildNodes(): Node[]
@@ -72,7 +80,7 @@ export class XMLEditor
      * @param nodeList
      * The node-list to convert.
      */
-    private static ToArray<T extends Node>(nodeList: NodeList | NodeListOf<T>): T[]
+    protected static ToArray<T extends Node>(nodeList: NodeList | NodeListOf<T>): T[]
     {
         let result: T[] = [];
 
@@ -85,14 +93,97 @@ export class XMLEditor
     }
 
     /**
+     * Creates a new element.
+     *
+     * @param tag
+     * The tag of the element to create.
+     *
+     * @param processor
+     * A method for manipulating the new element.
+     */
+    public CreateElement(tag: string, processor?: (element: XMLEditor) => void): XMLEditor
+    {
+        let editor: XMLEditor = new XMLEditor(this.Document.createElement(tag));
+
+        if (!isNullOrUndefined(processor))
+        {
+            processor(editor);
+        }
+
+        return editor;
+    }
+
+    /**
+     * Creates a new element with the specified `textContent` wrapped by a CDATA-section.
+     *
+     * @param tag
+     * The tag of the element to create.
+     *
+     * @param textContent
+     * The text to insert into the element.
+     *
+     * @param processor
+     * A method for manipulating the new element.
+     */
+    public CreateCDATAElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void): XMLEditor
+    {
+        return this.CreateElement(
+            tag,
+            (element: XMLEditor) =>
+            {
+                element.Add(this.Document.createCDATASection(textContent));
+
+                if (!isNullOrUndefined(processor))
+                {
+                    processor(element);
+                }
+            });
+    }
+
+    /**
+     * Creates a new element with the specified `textContent`.
+     *
+     * @param tag
+     * The tag of the element to create.
+     *
+     * @param textContent
+     * The text to insert into the element.
+     */
+    public CreateTextElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void): XMLEditor
+    {
+        return this.CreateElement(
+            tag,
+            (element: XMLEditor) =>
+            {
+                element.TextContent = textContent;
+
+                if (!isNullOrUndefined(processor))
+                {
+                    processor(element);
+                }
+            });
+    }
+
+    /**
      * Adds a new node.
      *
      * @param node
      * The node to add.
      */
-    public Add<T extends Node>(node: T, processor?: (node: T) => void): void
+    public Add<T extends Node | XMLEditor>(node: T, processor?: (node: T) => void): void
     {
-        this.Element.appendChild(node);
+        let element: Node;
+
+        if (node instanceof XMLEditor)
+        {
+            element = node.Element;
+        }
+        else
+        {
+            element = node as Node;
+        }
+
+        this.Element.appendChild(element);
 
         if (!isNullOrUndefined(processor))
         {
@@ -111,40 +202,24 @@ export class XMLEditor
      */
     public AddElement(tag: string, processor?: (element: XMLEditor) => void): void
     {
-        let element: Element = this.Element.ownerDocument.createElement(tag);
-        this.Element.appendChild(element);
-
-        if (!isNullOrUndefined(processor))
-        {
-            processor(new XMLEditor(element));
-        }
+        this.Add(this.CreateElement(tag, processor));
     }
 
     /**
      * Adds a new element with the specified `textContent` wrapped by a CDATA-section.
-     *
-     * @param parent
-     * The element to append the new element to.
      *
      * @param tag
      * The tag of the element to create.
      *
      * @param textContent
      * The text to insert into the element.
+     *
+     * @param processor
+     * A method for manipulating the new element.
      */
     public AddCDATAElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void): void
     {
-        this.AddElement(
-            tag,
-            (element: XMLEditor) =>
-            {
-                element.Add(this.Element.ownerDocument.createCDATASection(textContent));
-
-                if (!isNullOrUndefined(processor))
-                {
-                    processor(element);
-                }
-            });
+        this.Add(this.CreateCDATAElement(tag, textContent, processor));
     }
 
     /**
@@ -158,17 +233,7 @@ export class XMLEditor
      */
     public AddTextElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void): void
     {
-        this.AddElement(
-            tag,
-            (element: XMLEditor) =>
-            {
-                element.Add(this.Element.ownerDocument.createTextNode(textContent));
-
-                if (!isNullOrUndefined(processor))
-                {
-                    processor(element);
-                }
-            });
+        this.Add(this.CreateTextElement(tag, textContent, processor));
     }
 
     /**
@@ -212,17 +277,6 @@ export class XMLEditor
     }
 
     /**
-     * Gets a value indicating whether an attribute with the specified name exists.
-     *
-     * @param name
-     * The name to look for.
-     */
-    public HasAttribute(name: string, value?: string): boolean
-    {
-        return this.Element.hasAttribute(name) && (isNullOrUndefined(value) || (this.Element.getAttribute(name) === value));
-    }
-
-    /**
      * Gets the value of an attribute.
      *
      * @param name
@@ -230,7 +284,14 @@ export class XMLEditor
      */
     public GetAttribute(name: string): string
     {
-        return this.Element.getAttribute(name);
+        if (this.HasAttribute(name))
+        {
+            return this.Element.getAttribute(name);
+        }
+        else
+        {
+            throw new RangeError(`The attribute "${name}" does not exist.`);
+        }
     }
 
     /**
@@ -245,6 +306,17 @@ export class XMLEditor
     public SetAttribute(name: string, value: string): void
     {
         this.Element.setAttribute(name, value);
+    }
+
+    /**
+     * Gets a value indicating whether an attribute with the specified name exists.
+     *
+     * @param name
+     * The name to look for.
+     */
+    public HasAttribute(name: string, value?: string): boolean
+    {
+        return this.Element.hasAttribute(name) && (isNullOrUndefined(value) || (this.Element.getAttribute(name) === value));
     }
 
     /**
