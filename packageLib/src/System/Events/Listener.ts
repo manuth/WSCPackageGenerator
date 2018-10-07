@@ -25,7 +25,7 @@ export abstract class Listener
     /**
      * A number indicating the execution order of the event-listener.
      */
-    private executionOrder: number;
+    private executionOrder: number = null;
 
     /**
      * The permissions of which the active user must have at least one in order to execute the listener.
