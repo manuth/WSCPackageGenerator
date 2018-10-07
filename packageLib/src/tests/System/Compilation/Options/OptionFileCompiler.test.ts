@@ -386,7 +386,7 @@ suite(
                                                                     {
                                                                         if (rootEnableOptions.length > 0)
                                                                         {
-                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag).split(",").sort().join(","), enableOptions.sort().join(","));
+                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag), enableOptions.join(","));
                                                                         }
                                                                     });
                                                             });
@@ -455,7 +455,7 @@ suite(
                                                                     {
                                                                         if (enableOptions.length > 0)
                                                                         {
-                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag).split(",").sort().join(","), enableOptions.sort().join(","));
+                                                                            assert.strictEqual(categoryEditor.GetText(enableOptionsTag), enableOptions.join(","));
                                                                         }
                                                                     });
                                                             });
@@ -603,14 +603,14 @@ suite(
                                                             "Checking whether the dependent options are correct...",
                                                             () =>
                                                             {
-                                                                assert.strictEqual(optionEditor.GetText(optionsTag).split(",").sort().join(","), option.Options.sort().join(","));
+                                                                assert.strictEqual(optionEditor.GetText(optionsTag), option.Options.join(","));
                                                             });
 
                                                         test(
                                                             'Checking whether the "enableoptions" property is correct...',
                                                             () =>
                                                             {
-                                                                assert.strictEqual(optionEditor.GetText(enableOptionsTag).split(",").sort().join(","), option.EnableOptions.sort().join(","));
+                                                                assert.strictEqual(optionEditor.GetText(enableOptionsTag), option.EnableOptions.join(","));
                                                             });
                                                     });
                                             });

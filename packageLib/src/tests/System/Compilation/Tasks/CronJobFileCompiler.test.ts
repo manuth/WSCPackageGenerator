@@ -5,7 +5,6 @@ import { CronJobFileCompiler } from "../../../../System/Compilation/Tasks/CronJo
 import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
-import { Package } from "../../../../System/PackageSystem/Package";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 import { TimePeriod } from "../../../../System/Tasks/TimePeriod";
 
@@ -29,15 +28,6 @@ suite(
             () =>
             {
                 tempFile = new TempFile();
-                let $package: Package = new Package(
-                    {
-                        Identifier: "foo",
-                        DisplayName: {},
-                        InstallSet: {
-                            Instructions: []
-                        }
-                    });
-
                 cronJobName = "bar";
                 locale = "de";
                 localizedDescription = "test-description";
@@ -68,7 +58,6 @@ suite(
                         ]
                     });
 
-                $package.InstallSet.push(instruction);
                 compiler = new CronJobFileCompiler(instruction);
                 compiler.DestinationPath = tempFile.FileName;
             });
@@ -259,7 +248,7 @@ suite(
                                                     "Checking whether the options are correct...",
                                                     () =>
                                                     {
-                                                        assert.strictEqual(cronJobEditor.GetText(optionsTag).split(",").sort().join(","), options.sort().join(","));
+                                                        assert.strictEqual(cronJobEditor.GetText(optionsTag), options.join(","));
                                                     });
 
                                                 test(
