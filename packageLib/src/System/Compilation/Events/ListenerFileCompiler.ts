@@ -54,22 +54,22 @@ export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListe
     {
         let editor: XMLEditor = new XMLEditor(XML.CreateDocument(this.ListenerTagName).documentElement);
         editor.SetAttribute("name", listener.Name);
-        editor.SetAttribute("environment", listener.Environment);
-        editor.SetAttribute("eventname", listener.EventName);
+        editor.AddTextElement("environment", listener.Environment);
+        editor.AddTextElement("eventname", listener.EventName);
 
         if (!isNullOrUndefined(listener.ExecutionOrder))
         {
-            editor.SetAttribute("nice", listener.ExecutionOrder.toString());
+            editor.AddTextElement("nice", listener.ExecutionOrder.toString());
         }
 
         if (listener.Permissions.length > 0)
         {
-            editor.SetAttribute("permissions", listener.Permissions.join(","));
+            editor.AddTextElement("permissions", listener.Permissions.join(","));
         }
 
         if (listener.Options.length > 0)
         {
-            editor.SetAttribute("options", listener.Options.join(","));
+            editor.AddTextElement("options", listener.Options.join(","));
         }
 
         return editor.Element;
