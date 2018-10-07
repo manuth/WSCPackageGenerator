@@ -1,3 +1,5 @@
+import { isNullOrUndefined } from "util";
+import { IEventListenerOptions } from "./IEventListenerOptions";
 import { Listener } from "./Listener";
 
 /**
@@ -25,6 +27,22 @@ export class EventListener extends Listener
     private eventHandlerClassName: string;
 
     /**
+     * Initializes a new instance of the `EventListener` class.
+     */
+    public constructor(options: IEventListenerOptions)
+    {
+        super(options);
+        this.ClassName = options.ClassName;
+
+        if (!isNullOrUndefined(options.AllowInherited))
+        {
+            this.AllowInherited = options.AllowInherited;
+        }
+
+        this.EventHandlerClassName = options.EventHandlerClassName;
+    }
+
+    /**
      * Gets or sets the name of the class to listen to.
      */
     public get ClassName(): string
@@ -45,7 +63,7 @@ export class EventListener extends Listener
         return this.allowInherited;
     }
 
-    public set AllowInherit(value: boolean)
+    public set AllowInherited(value: boolean)
     {
         this.allowInherited = value;
     }

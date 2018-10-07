@@ -1,7 +1,9 @@
+import { IListenerOptions } from "./IListenerOptions";
+
 /**
  * Provides options for the `EventListener` class.
  */
-export interface IEventListenerOptions
+export interface IEventListenerOptions extends IListenerOptions
 {
     /**
      * The name of the class to listen to.
