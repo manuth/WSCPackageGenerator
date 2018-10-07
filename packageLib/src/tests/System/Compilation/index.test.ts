@@ -8,6 +8,7 @@ suite(
         require("./Globalization/index.test");
         require("./Options/index.test");
         require("./Tasks/index.test");
+        require("./Events/index.test");
         require("./Presentation/index.test");
         require("./Instructions/index.test");
     });

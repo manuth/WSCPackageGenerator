@@ -64,7 +64,7 @@ suite(
                     () =>
                     {
                         test(
-                            "0Checking whether the compiler can be executed...",
+                            "Checking whether the compiler can be executed...",
                             async () =>
                             {
                                 await compiler.Execute();
