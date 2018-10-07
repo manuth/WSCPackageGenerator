@@ -21,8 +21,8 @@ export class EventListenerFileCompiler extends ListenerFileCompiler<EventListene
     protected CreateListener(listener: EventListener): Element
     {
         let editor: XMLEditor = new XMLEditor(super.CreateListener(listener));
-        editor.Insert(3, editor.CreateTextElement("eventclassname", listener.ClassName));
-        editor.Insert(4, editor.CreateTextElement("inherit", listener.AllowInherited ? "1" : "0"));
+        editor.Insert(2, editor.CreateTextElement("eventclassname", listener.ClassName));
+        editor.Insert(3, editor.CreateTextElement("inherit", listener.AllowInherited ? "1" : "0"));
         editor.Insert(editor.ChildNodes.length, editor.CreateTextElement("listenerclassname", listener.EventHandlerClassName));
         return editor.Element;
     }
