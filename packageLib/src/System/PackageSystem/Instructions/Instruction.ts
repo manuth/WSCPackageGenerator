@@ -22,6 +22,11 @@ export abstract class Instruction implements IInstruction
     private fileName: string = null;
 
     /**
+     * A value indicating whether the instruction should be executed in standalone-mode.
+     */
+    private standalone: boolean = false;
+
+    /**
      * Initializes a new instance of the `Instruction` class.
      */
     public constructor(options: IInstructionOptions)
@@ -83,6 +88,16 @@ export abstract class Instruction implements IInstruction
         return Path.join(this.DestinationRoot, this.FileName).replace(Path.sep, "/");
     }
 
+    public get Standalone(): boolean
+    {
+        return this.standalone;
+    }
+
+    public set Standalone(value: boolean)
+    {
+        this.standalone = value;
+    }
+
     public get Compiler(): InstructionCompiler<IInstruction>
     {
         return null;
@@ -98,6 +113,12 @@ export abstract class Instruction implements IInstruction
         let document: Document = new DOMParser().parseFromString("<instruction />");
         document.documentElement.textContent = this.FullName;
         document.documentElement.setAttribute("type", this.Type);
+
+        if (this.Standalone)
+        {
+            document.documentElement.setAttribute("run", "standalone");
+        }
+
         return document.documentElement;
     }
 }

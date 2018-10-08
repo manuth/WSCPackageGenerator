@@ -26,6 +26,11 @@ export interface IInstruction
     FullName: string;
 
     /**
+     * Gets or sets a value indicating whether the instruction should be executed in standalone-mode.
+     */
+    Standalone: boolean;
+
+    /**
      * Gets all identifiable objects.
      */
     ObjectsByID: { [id: string]: any };
