@@ -3,13 +3,13 @@ import { BBCode } from "../../../Customization/BBCodes/BBCode";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
-import { Instruction } from "../Instruction";
+import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { IBBCodeInstructionOptions } from "./IBBCodeInstructionOptions";
 
 /**
  * Represents an instruction which provides bb-codes.
  */
-export class BBCodeInstruction extends Instruction implements ILocalizationInstruction
+export class BBCodeInstruction extends NamedDeleteInstruction implements ILocalizationInstruction
 {
     /**
      * The bb-codes provided by this instruction.
