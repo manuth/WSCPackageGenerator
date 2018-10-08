@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { BBCodeInstructionCompiler } from "../../../../System/Compilation/Instructions/BBCodeInstructionCompiler";
+import { BBCodeInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/BBCodeInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";

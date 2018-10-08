@@ -1,4 +1,4 @@
-import { FileSystemInstruction } from "../../PackageSystem/Instructions/FileSystem/FileSystemInstruction";
+import { FileSystemInstruction } from "../../../PackageSystem/Instructions/FileSystem/FileSystemInstruction";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

@@ -1,5 +1,5 @@
-import { InstructionCompiler } from "../../../../Compilation/Instructions/InstructionCompiler";
-import { ThemeInstructionCompiler } from "../../../../Compilation/Instructions/ThemeInstructionCompiler";
+import { InstructionCompiler } from "../../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
+import { ThemeInstructionCompiler } from "../../../../Compilation/PackageSystem/Instructions/ThemeInstructionCompiler";
 import { Theme } from "../../../../Customization/Presentation/Themes/Theme";
 import { Instruction } from "../../Instruction";
 import { IThemeInstructionOptions } from "./IThemeInstructionOptions";

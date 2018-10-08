@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from "util";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
-import { LocalizationInstructionCompiler } from "../../../Compilation/Instructions/LocalizationInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
+import { LocalizationInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/LocalizationInstructionCompiler";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
 import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";

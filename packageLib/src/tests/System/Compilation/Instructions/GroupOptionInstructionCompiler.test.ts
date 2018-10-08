@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { GroupOptionInstructionCompiler } from "../../../../System/Compilation/Instructions/GroupOptionInstructionCompiler";
+import { GroupOptionInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/GroupOptionInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { GroupOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/GroupOptionInstruction";

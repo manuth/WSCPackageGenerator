@@ -1,5 +1,5 @@
-import { EventListenerInstructionCompiler } from "../../../Compilation/Instructions/EventListenerInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { EventListenerInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/EventListenerInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { EventListener } from "../../../Events/EventListener";
 import { IEventListenerOptions } from "../../../Events/IEventListenerOptions";
 import { IListenerInstructionOptions } from "./IListenerInstructionOptions";

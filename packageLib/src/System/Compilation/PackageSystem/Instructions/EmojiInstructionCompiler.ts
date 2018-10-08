@@ -1,6 +1,6 @@
-import { EmojiInstruction } from "../../PackageSystem/Instructions/Customization/EmojiInstruction";
-import { Compiler } from "../Compiler";
-import { EmojiFileCompiler } from "../Presentation/EmojiFileCompiler";
+import { EmojiInstruction } from "../../../PackageSystem/Instructions/Customization/EmojiInstruction";
+import { Compiler } from "../../Compiler";
+import { EmojiFileCompiler } from "../../Presentation/EmojiFileCompiler";
 import { TemplateInstructionCompiler } from "./TemplateInstructionCompiler";
 
 /**

@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { TemplateListenerInstructionCompiler } from "../../../../System/Compilation/Instructions/TemplateListenerInstructionCompiler";
+import { TemplateListenerInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/TemplateListenerInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { TemplateListenerInstruction } from "../../../../System/PackageSystem/Instructions/Events/TemplateListenerInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";

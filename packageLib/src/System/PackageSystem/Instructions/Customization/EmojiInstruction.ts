@@ -1,5 +1,5 @@
-import { EmojiInstructionCompiler } from "../../../Compilation/Instructions/EmojiInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { EmojiInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/EmojiInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { Emoji } from "../../../Customization/Presentation/Emoji";
 import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { IEmojiInstructionOptions } from "./IEmojiInstructionOptions";

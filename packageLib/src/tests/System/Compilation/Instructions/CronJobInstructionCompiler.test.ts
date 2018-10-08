@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { CronJobInstructionCompiler } from "../../../../System/Compilation/Instructions/CronJobInstructionCompiler";
+import { CronJobInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/CronJobInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";

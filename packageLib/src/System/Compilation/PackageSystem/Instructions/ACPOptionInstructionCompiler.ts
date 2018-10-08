@@ -1,7 +1,7 @@
-import { ACPCategory } from "../../Options/ControlPanel/ACPCategory";
-import { ACPOption } from "../../Options/ControlPanel/ACPOption";
-import { ACPOptionInstruction } from "../../PackageSystem/Instructions/Options/ACPOptionInstruction";
-import { ACPOptionFileCompiler } from "../Options/ACPOptionFileCompiler";
+import { ACPCategory } from "../../../Options/ControlPanel/ACPCategory";
+import { ACPOption } from "../../../Options/ControlPanel/ACPOption";
+import { ACPOptionInstruction } from "../../../PackageSystem/Instructions/Options/ACPOptionInstruction";
+import { ACPOptionFileCompiler } from "../../Options/ACPOptionFileCompiler";
 import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 
 /**

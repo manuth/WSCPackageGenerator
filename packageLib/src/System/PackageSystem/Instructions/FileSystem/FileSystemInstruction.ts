@@ -1,5 +1,5 @@
-import { FileSystemInstructionCompiler } from "../../../Compilation/Instructions/FileSystemInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { FileSystemInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/FileSystemInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { Instruction } from "../Instruction";
 import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
 

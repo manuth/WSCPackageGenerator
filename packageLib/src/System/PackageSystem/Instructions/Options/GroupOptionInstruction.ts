@@ -1,5 +1,5 @@
-import { GroupOptionInstructionCompiler } from "../../../Compilation/Instructions/GroupOptionInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { GroupOptionInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/GroupOptionInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { GroupCategory } from "../../../Options/Groups/GroupCategory";
 import { GroupOption } from "../../../Options/Groups/GroupOption";

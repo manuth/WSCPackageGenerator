@@ -1,4 +1,4 @@
-import { ILocalizationInstruction } from "../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
+import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
 import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
 /**

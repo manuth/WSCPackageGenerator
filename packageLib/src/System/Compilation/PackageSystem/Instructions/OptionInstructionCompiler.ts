@@ -1,7 +1,7 @@
-import { ICategory } from "../../Options/Generic/ICategory";
-import { Option } from "../../Options/Option";
-import { IOptionInstruction } from "../../PackageSystem/Instructions/Options/IOptionInstruction";
-import { Compiler } from "../Compiler";
+import { ICategory } from "../../../Options/Generic/ICategory";
+import { Option } from "../../../Options/Option";
+import { IOptionInstruction } from "../../../PackageSystem/Instructions/Options/IOptionInstruction";
+import { Compiler } from "../../Compiler";
 import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
 /**

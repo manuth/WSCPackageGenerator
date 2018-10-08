@@ -1,6 +1,6 @@
-import { TemplateListenerInstruction } from "../../PackageSystem/Instructions/Events/TemplateListenerInstruction";
-import { Compiler } from "../Compiler";
-import { TemplateListenerFileCompiler } from "../Events/TemplateListenerFileCompiler";
+import { TemplateListenerInstruction } from "../../../PackageSystem/Instructions/Events/TemplateListenerInstruction";
+import { Compiler } from "../../Compiler";
+import { TemplateListenerFileCompiler } from "../../Events/TemplateListenerFileCompiler";
 import { TemplateInstructionCompiler } from "./TemplateInstructionCompiler";
 
 /**

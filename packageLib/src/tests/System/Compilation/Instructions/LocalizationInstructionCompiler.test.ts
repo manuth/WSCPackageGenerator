@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
-import { LocalizationInstructionCompiler } from "../../../../System/Compilation/Instructions/LocalizationInstructionCompiler";
+import { LocalizationInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/LocalizationInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { TranslationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/TranslationInstruction";

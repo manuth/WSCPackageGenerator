@@ -1,6 +1,6 @@
 import * as FileSystem from "fs-extra";
-import { TempFile } from "../../FileSystem/TempFile";
-import { IInstruction } from "../../PackageSystem/Instructions/IInstruction";
+import { TempFile } from "../../../FileSystem/TempFile";
+import { IInstruction } from "../../../PackageSystem/Instructions/IInstruction";
 import { InstructionFileCompiler } from "./InstructionFileCompiler";
 
 /**

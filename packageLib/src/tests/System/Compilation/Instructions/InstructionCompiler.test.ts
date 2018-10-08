@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { InstructionCompiler } from "../../../../System/Compilation/Instructions/InstructionCompiler";
+import { InstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { IInstruction } from "../../../../System/PackageSystem/Instructions/IInstruction";
 import { Instruction } from "../../../../System/PackageSystem/Instructions/Instruction";

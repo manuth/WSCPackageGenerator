@@ -1,6 +1,6 @@
-import { TempDirectory } from "../../FileSystem/TempDirectory";
-import { ThemeInstruction } from "../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { ThemeCompiler } from "../Presentation/ThemeCompiler";
+import { TempDirectory } from "../../../FileSystem/TempDirectory";
+import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { ThemeCompiler } from "../../Presentation/ThemeCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

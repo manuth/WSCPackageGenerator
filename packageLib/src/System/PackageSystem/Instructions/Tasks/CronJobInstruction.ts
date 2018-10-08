@@ -1,5 +1,5 @@
-import { CronJobInstructionCompiler } from "../../../Compilation/Instructions/CronJobInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { CronJobInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/CronJobInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { CronJob } from "../../../Tasks/CronJob";
 import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";

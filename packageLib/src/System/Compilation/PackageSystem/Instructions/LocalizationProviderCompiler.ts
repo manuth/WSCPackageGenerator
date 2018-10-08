@@ -1,6 +1,6 @@
-import { TempFile } from "../../FileSystem/TempFile";
-import { ILocalizationInstruction } from "../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
-import { LocalizationFileCompiler } from "../Globalization/LocalizationFileCompiler";
+import { TempFile } from "../../../FileSystem/TempFile";
+import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
+import { LocalizationFileCompiler } from "../../Globalization/LocalizationFileCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 export class LocalizationProviderCompiler<T extends ILocalizationInstruction> extends InstructionCompiler<T>

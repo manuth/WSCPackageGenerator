@@ -1,5 +1,5 @@
-import { BBCodeInstruction } from "../../PackageSystem/Instructions/Customization/BBCodeInstruction";
-import { BBCodeFileCompiler } from "../Presentation/BBCodeFileCompiler";
+import { BBCodeInstruction } from "../../../PackageSystem/Instructions/Customization/BBCodeInstruction";
+import { BBCodeFileCompiler } from "../../Presentation/BBCodeFileCompiler";
 import { LocalizationProviderCompiler } from "./LocalizationProviderCompiler";
 
 /**

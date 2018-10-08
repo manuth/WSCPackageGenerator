@@ -2,7 +2,7 @@ import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as tar from "tar";
-import { FileInstructionCompiler } from "../../../../System/Compilation/Instructions/FileInstructionCompiler";
+import { FileInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/FileInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ApplicationFileSystemInstruction } from "../../../../System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";

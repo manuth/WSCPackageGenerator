@@ -1,5 +1,5 @@
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
-import { UserOptionInstructionCompiler } from "../../../Compilation/Instructions/UserOptionInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
+import { UserOptionInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/UserOptionInstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { ICategoryOptions } from "../../../Options/ICategoryOptions";
 import { IUserOptionOptions } from "../../../Options/UserPanel/IUserOptionOptions";

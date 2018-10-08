@@ -1,7 +1,7 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
-import { InstructionCompiler } from "../../Compilation/Instructions/InstructionCompiler";
+import { InstructionCompiler } from "../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { IInstruction } from "./IInstruction";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";

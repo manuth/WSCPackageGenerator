@@ -1,5 +1,5 @@
-import { ACPOptionInstructionCompiler } from "../../../Compilation/Instructions/ACPOptionInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { ACPOptionInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/ACPOptionInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { ACPCategory } from "../../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../../Options/ControlPanel/ACPOption";

@@ -1,5 +1,5 @@
-import { IInstruction } from "../../PackageSystem/Instructions/IInstruction";
-import { Compiler } from "../Compiler";
+import { IInstruction } from "../../../PackageSystem/Instructions/IInstruction";
+import { Compiler } from "../../Compiler";
 import { InstructionCompiler } from "./InstructionCompiler";
 
 /**

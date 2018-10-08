@@ -1,6 +1,6 @@
 import * as Path from "path";
-import { IInstruction } from "../../PackageSystem/Instructions/IInstruction";
-import { Compiler } from "../Compiler";
+import { IInstruction } from "../../../PackageSystem/Instructions/IInstruction";
+import { Compiler } from "../../Compiler";
 
 /**
  * Provides the functionality to compile an instruction.

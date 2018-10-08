@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
-import { ACPOptionInstructionCompiler } from "../../../../System/Compilation/Instructions/ACPOptionInstructionCompiler";
+import { ACPOptionInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/ACPOptionInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";

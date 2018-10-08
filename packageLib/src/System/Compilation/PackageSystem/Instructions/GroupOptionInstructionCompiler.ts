@@ -1,7 +1,7 @@
-import { GroupCategory } from "../../Options/Groups/GroupCategory";
-import { GroupOption } from "../../Options/Groups/GroupOption";
-import { GroupOptionInstruction } from "../../PackageSystem/Instructions/Options/GroupOptionInstruction";
-import { GroupOptionFileCompiler } from "../Options/GroupOptionFileCompiler";
+import { GroupCategory } from "../../../Options/Groups/GroupCategory";
+import { GroupOption } from "../../../Options/Groups/GroupOption";
+import { GroupOptionInstruction } from "../../../PackageSystem/Instructions/Options/GroupOptionInstruction";
+import { GroupOptionFileCompiler } from "../../Options/GroupOptionFileCompiler";
 import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 
 /**

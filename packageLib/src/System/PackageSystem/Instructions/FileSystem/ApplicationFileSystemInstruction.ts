@@ -1,7 +1,7 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
-import { FileInstructionCompiler } from "../../../Compilation/Instructions/FileInstructionCompiler";
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { FileInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/FileInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { XMLEditor } from "../../../Serialization/XMLEditor";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";

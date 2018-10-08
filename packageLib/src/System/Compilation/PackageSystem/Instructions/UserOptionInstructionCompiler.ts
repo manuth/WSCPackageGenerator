@@ -1,7 +1,7 @@
-import { UserCategory } from "../../Options/UserPanel/UserCategory";
-import { UserOption } from "../../Options/UserPanel/UserOption";
-import { UserOptionInstruction } from "../../PackageSystem/Instructions/Options/UserOptionInstruction";
-import { UserOptionFileCompiler } from "../Options/UserOptionFileCompiler";
+import { UserCategory } from "../../../Options/UserPanel/UserCategory";
+import { UserOption } from "../../../Options/UserPanel/UserOption";
+import { UserOptionInstruction } from "../../../PackageSystem/Instructions/Options/UserOptionInstruction";
+import { UserOptionFileCompiler } from "../../Options/UserOptionFileCompiler";
 import { OptionInstructionCompiler } from "./OptionInstructionCompiler";
 
 /**

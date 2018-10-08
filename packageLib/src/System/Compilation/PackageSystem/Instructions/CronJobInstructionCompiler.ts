@@ -1,6 +1,6 @@
-import { CronJobInstruction } from "../../PackageSystem/Instructions/Tasks/CronJobInstruction";
-import { Compiler } from "../Compiler";
-import { CronJobFileCompiler } from "../Tasks/CronJobFileCompiler";
+import { CronJobInstruction } from "../../../PackageSystem/Instructions/Tasks/CronJobInstruction";
+import { Compiler } from "../../Compiler";
+import { CronJobFileCompiler } from "../../Tasks/CronJobFileCompiler";
 import { TemplateInstructionCompiler } from "./TemplateInstructionCompiler";
 
 /**

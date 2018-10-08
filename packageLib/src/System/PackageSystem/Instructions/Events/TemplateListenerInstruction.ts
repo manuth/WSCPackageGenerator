@@ -1,5 +1,5 @@
-import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
-import { TemplateListenerInstructionCompiler } from "../../../Compilation/Instructions/TemplateListenerInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
+import { TemplateListenerInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/TemplateListenerInstructionCompiler";
 import { ITemplateListenerOptions } from "../../../Customization/Presentation/ITemplateListenerOptions";
 import { TemplateListener } from "../../../Customization/Presentation/TemplateListener";
 import { IListenerInstructionOptions } from "./IListenerInstructionOptions";
