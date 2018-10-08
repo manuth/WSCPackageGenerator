@@ -6,4 +6,5 @@ suite(
         require("./ThemeVariableCompiler.test");
         require("./ThemeCompiler.test");
         require("./BBCodeFileCompiler.test");
+        require("./EmojiFileCompiler.test");
     });
