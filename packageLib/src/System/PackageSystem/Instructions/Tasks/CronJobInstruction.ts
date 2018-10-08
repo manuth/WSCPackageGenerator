@@ -1,3 +1,5 @@
+import { CronJobInstructionCompiler } from "../../../Compilation/Instructions/CronJobInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { CronJob } from "../../../Tasks/CronJob";
 import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";
@@ -41,5 +43,10 @@ export class CronJobInstruction extends NamedDeleteInstruction
     public set CronJobs(value: CronJob[])
     {
         this.cronJobs = value;
+    }
+
+    public get Compiler(): InstructionCompiler<CronJobInstruction>
+    {
+        return new CronJobInstructionCompiler(this);
     }
 }

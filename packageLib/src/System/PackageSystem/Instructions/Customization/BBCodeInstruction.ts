@@ -1,4 +1,6 @@
 import { isNullOrUndefined } from "util";
+import { BBCodeInstructionCompiler } from "../../../Compilation/Instructions/BBCodeInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { BBCode } from "../../../Customization/BBCodes/BBCode";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
@@ -60,6 +62,11 @@ export class BBCodeInstruction extends NamedDeleteInstruction implements ILocali
     public set TranslationDirectory(value: string)
     {
         this.translationDirectory = value;
+    }
+
+    public get Compiler(): InstructionCompiler<BBCodeInstruction>
+    {
+        return new BBCodeInstructionCompiler(this);
     }
 
     public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }

@@ -1,3 +1,5 @@
+import { ACPOptionInstructionCompiler } from "../../../Compilation/Instructions/ACPOptionInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { ACPCategory } from "../../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../../Options/ControlPanel/ACPOption";
@@ -32,5 +34,10 @@ export class ACPOptionInstruction extends OptionInstruction<ACPCategory, ICatego
     public get RootCategory(): string
     {
         return "wcf.acp.option";
+    }
+
+    public get Compiler(): InstructionCompiler<ACPOptionInstruction>
+    {
+        return new ACPOptionInstructionCompiler(this);
     }
 }

@@ -1,5 +1,7 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
+import { FileInstructionCompiler } from "../../../Compilation/Instructions/FileInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { XMLEditor } from "../../../Serialization/XMLEditor";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";
@@ -47,6 +49,11 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
     public set Application(value: string)
     {
         this.application = value;
+    }
+
+    public get Compiler(): InstructionCompiler<ApplicationFileSystemInstruction>
+    {
+        return new FileInstructionCompiler(this);
     }
 
     public Serialize(): Element

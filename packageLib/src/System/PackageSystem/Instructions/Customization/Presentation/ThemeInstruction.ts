@@ -1,3 +1,5 @@
+import { InstructionCompiler } from "../../../../Compilation/Instructions/InstructionCompiler";
+import { ThemeInstructionCompiler } from "../../../../Compilation/Instructions/ThemeInstructionCompiler";
 import { Theme } from "../../../../Customization/Presentation/Themes/Theme";
 import { Instruction } from "../../Instruction";
 import { IThemeInstructionOptions } from "./IThemeInstructionOptions";
@@ -32,5 +34,10 @@ export class ThemeInstruction extends Instruction
     public get Theme(): Theme
     {
         return this.theme;
+    }
+
+    public get Compiler(): InstructionCompiler<ThemeInstruction>
+    {
+        return new ThemeInstructionCompiler(this);
     }
 }

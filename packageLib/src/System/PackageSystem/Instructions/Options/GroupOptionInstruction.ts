@@ -1,3 +1,5 @@
+import { GroupOptionInstructionCompiler } from "../../../Compilation/Instructions/GroupOptionInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { GroupCategory } from "../../../Options/Groups/GroupCategory";
 import { GroupOption } from "../../../Options/Groups/GroupOption";
@@ -37,5 +39,10 @@ export class GroupOptionInstruction extends OptionInstruction<GroupCategory, ICa
     public get OptionCategory(): string
     {
         return "option";
+    }
+
+    public get Compiler(): InstructionCompiler<GroupOptionInstruction>
+    {
+        return new GroupOptionInstructionCompiler(this);
     }
 }

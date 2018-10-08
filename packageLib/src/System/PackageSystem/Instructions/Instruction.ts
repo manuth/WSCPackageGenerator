@@ -1,6 +1,7 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
+import { InstructionCompiler } from "../../Compilation/Instructions/InstructionCompiler";
 import { IInstruction } from "./IInstruction";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
@@ -80,6 +81,11 @@ export abstract class Instruction implements IInstruction
     public get FullName(): string
     {
         return Path.join(this.DestinationRoot, this.FileName).replace(Path.sep, "/");
+    }
+
+    public get Compiler(): InstructionCompiler<IInstruction>
+    {
+        return null;
     }
 
     public get ObjectsByID(): { [id: string]: any }

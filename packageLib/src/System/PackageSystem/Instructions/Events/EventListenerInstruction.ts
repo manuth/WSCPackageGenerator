@@ -1,3 +1,5 @@
+import { EventListenerInstructionCompiler } from "../../../Compilation/Instructions/EventListenerInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { EventListener } from "../../../Events/EventListener";
 import { IEventListenerOptions } from "../../../Events/IEventListenerOptions";
 import { IListenerInstructionOptions } from "./IListenerInstructionOptions";
@@ -24,5 +26,10 @@ export class EventListenerInstruction extends ListenerInstruction<EventListener,
     public get Type(): string
     {
         return "eventListener";
+    }
+
+    public get Compiler(): InstructionCompiler<EventListenerInstruction>
+    {
+        return new EventListenerInstructionCompiler(this);
     }
 }

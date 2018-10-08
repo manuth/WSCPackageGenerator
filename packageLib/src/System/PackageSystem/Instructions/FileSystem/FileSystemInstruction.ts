@@ -1,3 +1,5 @@
+import { FileSystemInstructionCompiler } from "../../../Compilation/Instructions/FileSystemInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { Instruction } from "../Instruction";
 import { IFileSystemInstructionOptions } from "./IFileSystemInstructionOptions";
 
@@ -34,5 +36,10 @@ export abstract class FileSystemInstruction extends Instruction
     public set Source(value: string)
     {
         this.source = value;
+    }
+
+    public get Compiler(): InstructionCompiler<FileSystemInstruction>
+    {
+        return new FileSystemInstructionCompiler(this);
     }
 }

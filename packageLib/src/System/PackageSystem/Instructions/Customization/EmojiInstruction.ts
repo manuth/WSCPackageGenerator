@@ -1,3 +1,5 @@
+import { EmojiInstructionCompiler } from "../../../Compilation/Instructions/EmojiInstructionCompiler";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
 import { Emoji } from "../../../Customization/Presentation/Emoji";
 import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { IEmojiInstructionOptions } from "./IEmojiInstructionOptions";
@@ -36,5 +38,10 @@ export class EmojiInstruction extends NamedDeleteInstruction
     public get Emojis(): Emoji[]
     {
         return this.emojis;
+    }
+
+    public get Compiler(): InstructionCompiler<EmojiInstruction>
+    {
+        return new EmojiInstructionCompiler(this);
     }
 }

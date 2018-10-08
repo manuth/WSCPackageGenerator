@@ -1,3 +1,5 @@
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { TemplateListenerInstructionCompiler } from "../../../Compilation/Instructions/TemplateListenerInstructionCompiler";
 import { ITemplateListenerOptions } from "../../../Customization/Presentation/ITemplateListenerOptions";
 import { TemplateListener } from "../../../Customization/Presentation/TemplateListener";
 import { IListenerInstructionOptions } from "./IListenerInstructionOptions";
@@ -24,5 +26,10 @@ export class TemplateListenerInstruction extends ListenerInstruction<TemplateLis
     public get Type(): string
     {
         return "templateListener";
+    }
+
+    public get Compiler(): InstructionCompiler<TemplateListenerInstruction>
+    {
+        return new TemplateListenerInstructionCompiler(this);
     }
 }

@@ -1,3 +1,5 @@
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { UserOptionInstructionCompiler } from "../../../Compilation/Instructions/UserOptionInstructionCompiler";
 import { Node } from "../../../NodeSystem/Node";
 import { ICategoryOptions } from "../../../Options/ICategoryOptions";
 import { IUserOptionOptions } from "../../../Options/UserPanel/IUserOptionOptions";
@@ -32,5 +34,10 @@ export class UserOptionInstruction extends OptionInstruction<UserCategory, ICate
     public get RootCategory(): string
     {
         return "wcf.user.option";
+    }
+
+    public get Compiler(): InstructionCompiler<UserOptionInstruction>
+    {
+        return new UserOptionInstructionCompiler(this);
     }
 }

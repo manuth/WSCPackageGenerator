@@ -1,4 +1,6 @@
 import { isNullOrUndefined } from "util";
+import { InstructionCompiler } from "../../../Compilation/Instructions/InstructionCompiler";
+import { LocalizationInstructionCompiler } from "../../../Compilation/Instructions/LocalizationInstructionCompiler";
 import { LocalizationItem } from "../../../Globalization/LocalizationItem";
 import { Node } from "../../../NodeSystem/Node";
 import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
@@ -29,6 +31,11 @@ export abstract class LocalizationInstruction<T extends LocalizationItem, TOptio
     public get TranslationDirectory(): string
     {
         return this.FileName;
+    }
+
+    public get Compiler(): InstructionCompiler<ILocalizationInstruction>
+    {
+        return new LocalizationInstructionCompiler(this);
     }
 
     public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
