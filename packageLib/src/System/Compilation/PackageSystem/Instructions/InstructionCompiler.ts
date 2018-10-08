@@ -75,7 +75,7 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
         return Path.join(this.DestinationFileName, ...path);
     }
 
-    public Serialize(): Element
+    public Serialize(): Document
     {
         let document: Document = new DOMParser().parseFromString("<instruction />");
         document.documentElement.textContent = this.Item.FullName;
@@ -86,6 +86,6 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
             document.documentElement.setAttribute("run", "standalone");
         }
 
-        return document.documentElement;
+        return document;
     }
 }

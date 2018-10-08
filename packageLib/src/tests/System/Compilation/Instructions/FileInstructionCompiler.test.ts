@@ -118,4 +118,53 @@ suite(
                         assert.strictEqual(files.every((fileName: string): boolean => fileNames.includes(fileName)), true);
                     });
             });
+
+        suite(
+            "Serialize()",
+            () =>
+            {
+                let application: string;
+                let normalDocument: Document;
+                let applicationDocument: Document;
+
+                suiteSetup(
+                    () =>
+                    {
+                        application = "gallery";
+
+                        normalDocument = new FileInstructionCompiler(
+                            new ApplicationFileSystemInstruction(
+                                {
+                                    Source: "files"
+                                })).Serialize();
+
+                        applicationDocument = new FileInstructionCompiler(
+                            new ApplicationFileSystemInstruction(
+                                {
+                                    Source: "gallery/files",
+                                    Application: application
+                                })).Serialize();
+                    });
+
+                test(
+                    "Checking whether the `application`-attribute is not present if the `Application` is not specified...",
+                    () =>
+                    {
+                        assert.strictEqual(normalDocument.documentElement.hasAttribute("application"), false);
+                    });
+
+                test(
+                    "Checking whether the `application`-attribute is present if the `Application` is specified...",
+                    () =>
+                    {
+                        assert.strictEqual(applicationDocument.documentElement.hasAttribute("application"), true);
+                    });
+
+                test(
+                    "Checking whether the `application`-attribute is correct...",
+                    () =>
+                    {
+                        assert.strictEqual(applicationDocument.documentElement.getAttribute("application"), application);
+                    });
+            });
     });

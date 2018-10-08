@@ -113,4 +113,52 @@ suite(
                         assert.strictEqual(content.includes(`${object}`), true);
                     });
             });
+
+        suite(
+            "Serialize()",
+            () =>
+            {
+                let document: Document;
+
+                suiteSetup(
+                    () =>
+                    {
+                        document = compiler.Serialize();
+                    });
+
+                test(
+                    "Checking whether the tag-name is correct...",
+                    () =>
+                    {
+                        assert.strictEqual(document.documentElement.tagName, "instruction");
+                    });
+
+                test(
+                    "Checking whether the type-attribute is set correctly...",
+                    () =>
+                    {
+                        assert.strictEqual(document.documentElement.getAttribute("type"), compiler.Item.Type);
+                    });
+
+                test(
+                    "Checking whether the execution-mode is set correctly...",
+                    () =>
+                    {
+                        if (compiler.Item.Standalone)
+                        {
+                            assert.strictEqual(document.documentElement.getAttribute("run"), "standalone");
+                        }
+                        else
+                        {
+                            assert.strictEqual(document.documentElement.hasAttribute("run"), false);
+                        }
+                    });
+
+                test(
+                    "Checking whether the filename is set correctly...",
+                    () =>
+                    {
+                        assert.strictEqual(document.documentElement.textContent, compiler.Item.FullName);
+                    });
+            });
     });

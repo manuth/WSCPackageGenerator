@@ -1,8 +1,10 @@
-import { TempFile } from "../../../FileSystem/TempFile";
 import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
-import { LocalizationFileCompiler } from "../../Globalization/LocalizationFileCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
+import { LocalizationInstructionCompiler } from "./LocalizationInstructionCompiler";
 
+/**
+ * Provides the functionality to compile files which provide localizations.
+ */
 export class LocalizationProviderCompiler<T extends ILocalizationInstruction> extends InstructionCompiler<T>
 {
     /**
@@ -18,16 +20,22 @@ export class LocalizationProviderCompiler<T extends ILocalizationInstruction> ex
 
     protected async Compile(): Promise<void>
     {
-        let messages: { [locale: string]: { [category: string]: { [key: string]: string } } } = this.Item.GetMessages();
+        let compiler: LocalizationInstructionCompiler = new LocalizationInstructionCompiler(this.Item);
+        compiler.DestinationPath = this.DestinationPath;
+        await compiler.Execute();
+    }
 
-        for (let locale in messages)
+    public Serialize(): Document
+    {
+        let document: Document = super.Serialize();
+        let childNodes: NodeList = new LocalizationInstructionCompiler(this.Item).Serialize().childNodes;
+
+        for (let i: number = 0; i < childNodes.length; i++)
         {
-            let tempFile: TempFile = new TempFile();
-            let compiler: LocalizationFileCompiler = new LocalizationFileCompiler([locale, messages[locale]]);
-            compiler.DestinationPath = tempFile.FileName;
-            await compiler.Execute();
-            await this.CopyTemplate(tempFile.FileName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
-            tempFile.Dispose();
+            let node: Node = childNodes.item(i);
+            document.appendChild(node);
         }
+
+        return document;
     }
 }

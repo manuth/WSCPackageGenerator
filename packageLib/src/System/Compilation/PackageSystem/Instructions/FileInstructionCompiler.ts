@@ -28,15 +28,16 @@ export class FileInstructionCompiler extends InstructionCompiler<ApplicationFile
         tempDir.Dispose();
     }
 
-    public Serialize(): Element
+    public Serialize(): Document
     {
-        let editor: XMLEditor = new XMLEditor(super.Serialize());
+        let document: Document = super.Serialize();
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
 
         if (!isNullOrUndefined(this.Item.Application))
         {
             editor.SetAttribute("application", this.Item.Application);
         }
 
-        return editor.Element;
+        return document;
     }
 }

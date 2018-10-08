@@ -80,7 +80,13 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
 
         for (let instruction of this)
         {
-            editor.Add(instruction.Compiler.Serialize());
+            let childNodes: NodeList = instruction.Compiler.Serialize().childNodes;
+
+            for (let i: number = 0; i < childNodes.length; i++)
+            {
+                let node: Node = childNodes.item(i);
+                editor.Add(node);
+            }
         }
 
         return editor.Element;
