@@ -3,7 +3,7 @@ import { GroupCategory } from "../../../Options/Groups/GroupCategory";
 import { GroupOption } from "../../../Options/Groups/GroupOption";
 import { IGroupOptionOptions } from "../../../Options/Groups/IGroupOptionOptions";
 import { ICategoryOptions } from "../../../Options/ICategoryOptions";
-import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
+import { IOptionInstructionOptions } from "./IOptionInstructionOptions";
 import { OptionInstruction } from "./OptionInstruction";
 
 /**
@@ -14,7 +14,7 @@ export class GroupOptionInstruction extends OptionInstruction<GroupCategory, ICa
     /**
      * Initializes a new instance of the `GroupOptionInstruction` class.
      */
-    public constructor(options: INodeSystemInstructionOptions<ICategoryOptions<IGroupOptionOptions>>)
+    public constructor(options: IOptionInstructionOptions<ICategoryOptions<IGroupOptionOptions>>)
     {
         super(
             options,

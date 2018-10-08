@@ -1,24 +1,46 @@
 import { isNullOrUndefined } from "util";
 import { LocalizationNode } from "../../../Globalization/LocalizationNode";
+import { INamedObject } from "../../../INamedObject";
 import { Node } from "../../../NodeSystem/Node";
 import { Category } from "../../../Options/Category";
 import { Option } from "../../../Options/Option";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
 import { TranslationInstruction } from "../Globalization/TranslationInstruction";
-import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
 import { NodeSystemInstruction } from "../NodeSystem/NodeSystemInstruction";
+import { IOptionInstruction } from "./IOptionInstruction";
+import { IOptionInstructionOptions } from "./IOptionInstructionOptions";
 
 /**
  * Represents an instruction which provides options.
  */
-export abstract class OptionInstruction<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions> extends NodeSystemInstruction<TCategory, TCategoryOptions> implements ILocalizationInstruction
+export abstract class OptionInstruction<TCategory extends Category<TOption, TOptionOptions>, TCategoryOptions, TOption extends Option, TOptionOptions> extends NodeSystemInstruction<TCategory, TCategoryOptions> implements IOptionInstruction<TCategory, TOption>, ILocalizationInstruction
 {
+    /**
+     * The categories to delete.
+     */
+    private categoriesToDelete: INamedObject[] = [];
+
+    /**
+     * The options to delete.
+     */
+    private optionsToDelete: INamedObject[] = [];
+
     /**
      * Initializes a new instance of the `OptionInstruction<TCategory, TCategoryOptions, TOption, TOptionOptions>` class.
      */
-    public constructor(options: INodeSystemInstructionOptions<TCategoryOptions>, generator: (node: Node<TCategory, TCategoryOptions>, options: TCategoryOptions) => TCategory)
+    public constructor(options: IOptionInstructionOptions<TCategoryOptions>, generator: (node: Node<TCategory, TCategoryOptions>, options: TCategoryOptions) => TCategory)
     {
         super(options, generator);
+
+        if (!isNullOrUndefined(options.CategoriesToDelete))
+        {
+            this.CategoriesToDelete.push(...options.CategoriesToDelete);
+        }
+
+        if (!isNullOrUndefined(options.OptionsToDelete))
+        {
+            this.OptionsToDelete.push(...options.OptionsToDelete);
+        }
     }
 
     public get TranslationDirectory(): string
@@ -36,6 +58,16 @@ export abstract class OptionInstruction<TCategory extends Category<TOption, TOpt
     public get CategoryCategory(): string
     {
         return "category";
+    }
+
+    public get CategoriesToDelete(): INamedObject[]
+    {
+        return this.categoriesToDelete;
+    }
+
+    public get OptionsToDelete(): INamedObject[]
+    {
+        return this.optionsToDelete;
     }
 
     public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }

@@ -3,7 +3,7 @@ import { ACPCategory } from "../../../Options/ControlPanel/ACPCategory";
 import { ACPOption } from "../../../Options/ControlPanel/ACPOption";
 import { IACPOptionOptions } from "../../../Options/ControlPanel/IACPOptionOptions";
 import { ICategoryOptions } from "../../../Options/ICategoryOptions";
-import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
+import { IOptionInstructionOptions } from "./IOptionInstructionOptions";
 import { OptionInstruction } from "./OptionInstruction";
 
 /**
@@ -14,7 +14,7 @@ export class ACPOptionInstruction extends OptionInstruction<ACPCategory, ICatego
     /**
      * Initializes a new instance of the `ACPOptionInstruction` class.
      */
-    public constructor(options: INodeSystemInstructionOptions<ICategoryOptions<IACPOptionOptions>>)
+    public constructor(options: IOptionInstructionOptions<ICategoryOptions<IACPOptionOptions>>)
     {
         super(
             options,

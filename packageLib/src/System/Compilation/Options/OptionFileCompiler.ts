@@ -6,12 +6,12 @@ import { OptionItem } from "../../Options/OptionItem";
 import { IOptionInstruction } from "../../PackageSystem/Instructions/Options/IOptionInstruction";
 import { XML } from "../../Serialization/XML";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
+import { ImportFileCompiler } from "../ImportFileCompiler";
 
 /**
  * Provides the functionality to compile option-files.
  */
-export abstract class OptionFileCompiler<T extends IOptionInstruction<TCategory, TOption>, TCategory extends ICategory<TOption>, TOption extends Option> extends WoltLabXMLCompiler<T>
+export abstract class OptionFileCompiler<T extends IOptionInstruction<TCategory, TOption>, TCategory extends ICategory<TOption>, TOption extends Option> extends ImportFileCompiler<T>
 {
     /**
      * The language-category which contains translations for options.
@@ -46,49 +46,70 @@ export abstract class OptionFileCompiler<T extends IOptionInstruction<TCategory,
         this.languageCategory = value;
     }
 
-    protected CreateDocument(): Document
+    protected CreateImport(): Element
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let editor: XMLEditor = new XMLEditor(super.CreateImport());
 
         editor.AddElement(
-            "import",
-            ($import: XMLEditor) =>
+            "categories",
+            (categories: XMLEditor) =>
             {
-                $import.AddElement(
-                    "categories",
-                    (categories: XMLEditor) =>
+                for (let rootCategory of this.Item.Nodes)
+                {
+                    for (let category of rootCategory.GetAllNodes())
                     {
-                        for (let rootCategory of this.Item.Nodes)
-                        {
-                            for (let category of rootCategory.GetAllNodes())
-                            {
-                                categories.Add(this.CreateCategory(category));
-                            }
-                        }
-                    });
-
-                $import.AddElement(
-                    "options",
-                    (options: XMLEditor) =>
-                    {
-                        for (let rootCategory of this.Item.Nodes)
-                        {
-                            for (let category of rootCategory.GetAllNodes())
-                            {
-                                if (!isNullOrUndefined(category.Item))
-                                {
-                                    for (let option of category.Item.Options)
-                                    {
-                                        options.Add(this.CreateOption(option));
-                                    }
-                                }
-                            }
-                        }
-                    });
+                        categories.Add(this.CreateCategory(category));
+                    }
+                }
             });
 
-        return document;
+        editor.AddElement(
+            "options",
+            (options: XMLEditor) =>
+            {
+                for (let rootCategory of this.Item.Nodes)
+                {
+                    for (let category of rootCategory.GetAllNodes())
+                    {
+                        if (!isNullOrUndefined(category.Item))
+                        {
+                            for (let option of category.Item.Options)
+                            {
+                                options.Add(this.CreateOption(option));
+                            }
+                        }
+                    }
+                }
+            });
+
+        return editor.Element;
+    }
+
+    protected CreateDelete(): Element
+    {
+        let editor: XMLEditor = new XMLEditor(super.CreateDelete());
+
+        for (let categoryToDelete of this.Item.CategoriesToDelete)
+        {
+            editor.AddElement(
+                "category",
+                (category: XMLEditor) =>
+                {
+                    category.SetAttribute("name", categoryToDelete.Name);
+                });
+        }
+
+        for (let optionToDelete of this.Item.OptionsToDelete)
+        {
+            editor.AddElement(
+                "option",
+                (option: XMLEditor) =>
+                {
+                    option.SetAttribute("name", optionToDelete.Name);
+                });
+        }
+
+        return editor.Element;
     }
 
     /**

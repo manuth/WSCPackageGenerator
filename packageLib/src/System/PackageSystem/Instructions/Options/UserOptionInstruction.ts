@@ -3,7 +3,7 @@ import { ICategoryOptions } from "../../../Options/ICategoryOptions";
 import { IUserOptionOptions } from "../../../Options/UserPanel/IUserOptionOptions";
 import { UserCategory } from "../../../Options/UserPanel/UserCategory";
 import { UserOption } from "../../../Options/UserPanel/UserOption";
-import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstructionOptions";
+import { IOptionInstructionOptions } from "./IOptionInstructionOptions";
 import { OptionInstruction } from "./OptionInstruction";
 
 /**
@@ -14,7 +14,7 @@ export class UserOptionInstruction extends OptionInstruction<UserCategory, ICate
     /**
      * Initializes a new instance of the `UserOptionInstruction` class.
      */
-    public constructor(options: INodeSystemInstructionOptions<ICategoryOptions<IUserOptionOptions>>)
+    public constructor(options: IOptionInstructionOptions<ICategoryOptions<IUserOptionOptions>>)
     {
         super(
             options,

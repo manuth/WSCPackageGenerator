@@ -1,3 +1,4 @@
+import { INamedObject } from "../../../INamedObject";
 import { ICategory } from "../../../Options/Generic/ICategory";
 import { Option } from "../../../Options/Option";
 import { ILocalizationInstruction } from "../Globalization/ILocalizationInstruction";
@@ -22,4 +23,14 @@ export interface IOptionInstruction<T extends ICategory<TOption>, TOption extend
      * Gets the category of the translations of the categories.
      */
     CategoryCategory: string;
+
+    /**
+     * Gets the categories to delete.
+     */
+    CategoriesToDelete: INamedObject[];
+
+    /**
+     * Gets the options to delete.
+     */
+    OptionsToDelete: INamedObject[];
 }
