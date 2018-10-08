@@ -6,6 +6,11 @@ import { InstructionSet } from "./InstructionSet";
 export interface IInstruction
 {
     /**
+     * Gets the name of the type of the instruction.
+     */
+    Type: string;
+
+    /**
      * Gets or sets the package this instruction belongs to.
      */
     Collection: InstructionSet;
@@ -34,9 +39,4 @@ export interface IInstruction
      * Gets all identifiable objects.
      */
     ObjectsByID: { [id: string]: any };
-
-    /**
-     * Serializes the instruction to an xml dom-document.
-     */
-    Serialize(): Element;
 }

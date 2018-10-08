@@ -1,6 +1,5 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
-import { DOMParser } from "xmldom";
 import { InstructionCompiler } from "../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { IInstruction } from "./IInstruction";
 import { IInstructionOptions } from "./IInstructionOptions";
@@ -106,19 +105,5 @@ export abstract class Instruction implements IInstruction
     public get ObjectsByID(): { [id: string]: any }
     {
         return {};
-    }
-
-    public Serialize(): Element
-    {
-        let document: Document = new DOMParser().parseFromString("<instruction />");
-        document.documentElement.textContent = this.FullName;
-        document.documentElement.setAttribute("type", this.Type);
-
-        if (this.Standalone)
-        {
-            document.documentElement.setAttribute("run", "standalone");
-        }
-
-        return document.documentElement;
     }
 }

@@ -1,4 +1,5 @@
 import * as Path from "path";
+import { DOMParser } from "xmldom";
 import { IInstruction } from "../../../PackageSystem/Instructions/IInstruction";
 import { Compiler } from "../../Compiler";
 
@@ -72,5 +73,19 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
     protected MakeDestinationPath(...path: string[]): string
     {
         return Path.join(this.DestinationFileName, ...path);
+    }
+
+    public Serialize(): Element
+    {
+        let document: Document = new DOMParser().parseFromString("<instruction />");
+        document.documentElement.textContent = this.Item.FullName;
+        document.documentElement.setAttribute("type", this.Item.Type);
+
+        if (this.Item.Standalone)
+        {
+            document.documentElement.setAttribute("run", "standalone");
+        }
+
+        return document.documentElement;
     }
 }

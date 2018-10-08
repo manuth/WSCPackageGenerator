@@ -2,7 +2,6 @@ import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { FileInstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/FileInstructionCompiler";
 import { InstructionCompiler } from "../../../Compilation/PackageSystem/Instructions/InstructionCompiler";
-import { XMLEditor } from "../../../Serialization/XMLEditor";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";
 
@@ -54,17 +53,5 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
     public get Compiler(): InstructionCompiler<ApplicationFileSystemInstruction>
     {
         return new FileInstructionCompiler(this);
-    }
-
-    public Serialize(): Element
-    {
-        let editor: XMLEditor = new XMLEditor(super.Serialize());
-
-        if (!isNullOrUndefined(this.Application))
-        {
-            editor.SetAttribute("application", this.Application);
-        }
-
-        return editor.Element;
     }
 }
