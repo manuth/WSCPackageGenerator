@@ -423,7 +423,7 @@ suite(
                                                     {
                                                         if (isSelfClosing)
                                                         {
-                                                            assert.strictEqual(document.getElementsByTagName(htmlCloseTag).length, 0);
+                                                            assert.strictEqual(importEditor.GetElementsByTag(htmlCloseTag).length, 0);
                                                         }
                                                         else
                                                         {
