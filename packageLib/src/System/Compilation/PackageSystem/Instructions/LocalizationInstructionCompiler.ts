@@ -39,8 +39,7 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
     public Serialize(): Document
     {
         let document: Document = super.Serialize();
-        document.documentElement.textContent = Path.join(
-            this.DestinationPath,
+        document.documentElement.textContent = this.MakePackagePath(
             this.Item.DestinationRoot,
             this.Item.TranslationDirectory,
             "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");

@@ -1,7 +1,6 @@
 import * as assert from "assert";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
-import * as Path from "path";
 import * as tar from "tar";
 import { ThemeInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/ThemeInstructionCompiler";
 import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
@@ -108,8 +107,8 @@ suite(
                     "Checking whether the files expected in the tar-archive exist...",
                     async () =>
                     {
-                        assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "style.xml")), true);
-                        assert.strictEqual(await FileSystem.pathExists(Path.join(themeDir.FileName, "variables.xml")), true);
+                        assert.strictEqual(await FileSystem.pathExists(themeDir.MakePath("style.xml")), true);
+                        assert.strictEqual(await FileSystem.pathExists(themeDir.MakePath("variables.xml")), true);
                     });
             });
     });
