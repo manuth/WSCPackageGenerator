@@ -47,7 +47,7 @@ export class Package extends Component
     /**
      * A set of instructions to execute when updating from a specific version.
      */
-    private updateSets: UpdateInstructionSet[];
+    private updateSets: UpdateInstructionSet[] = [];
 
     /**
      * Initializes a new instance of the `Package` class.
