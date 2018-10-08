@@ -105,17 +105,6 @@ export abstract class Compiler<T>
     }
 
     /**
-     * Joins the paths and returns the path contained by the template-folder.
-     *
-     * @param path
-     * The path that is to be joined.
-     */
-    protected MakeTemplatePath(...path: string[]): string
-    {
-        return Path.join(__dirname, "..", "..", "templates", ...path);
-    }
-
-    /**
      * Compresses a folder and saves the result to a specified file.
      *
      * @param source
