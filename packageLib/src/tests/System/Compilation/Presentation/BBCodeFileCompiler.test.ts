@@ -103,13 +103,6 @@ suite(
                             {
                                 await compiler.Execute();
                             });
-
-                        test(
-                            "Checking whether the compiled file exists...",
-                            async () =>
-                            {
-                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
-                            });
                     });
 
                 suite(
@@ -117,40 +110,29 @@ suite(
                     () =>
                     {
                         let document: Document;
-                        let rootTag: string;
-                        let rootEditor: XMLEditor;
+                        let importEditor: XMLEditor;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                rootTag = "data";
-                                rootEditor = new XMLEditor(document.documentElement);
-                            });
-
-                        suite(
-                            "General",
-                            () =>
-                            {
-                                test(
-                                    "Checking whether the name of the root-tag is correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(rootEditor.TagName, rootTag);
-                                    });
+                                importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                             });
 
                         suite(
                             "Checking the integrity of imported bb-codes...",
                             () =>
                             {
-                                let importTag: string;
-                                let importEditor: XMLEditor;
+                                let bbCodeTag: string;
+                                let bbCodeEditors: XMLEditor[];
+                                let nameAttribute: string;
 
                                 suiteSetup(
                                     () =>
                                     {
-                                        importTag = "import";
+                                        bbCodeTag = "bbcode";
+                                        bbCodeEditors = [];
+                                        nameAttribute = "name";
                                     });
 
                                 suite(
@@ -158,28 +140,31 @@ suite(
                                     () =>
                                     {
                                         test(
-                                            "Checking whether the import exists...",
+                                            "Checking whether at least one bb-code exists...",
                                             () =>
                                             {
-                                                assert.strictEqual(rootEditor.HasTag(importTag, true), true);
-                                                importEditor = rootEditor.GetChildrenByTag(importTag)[0];
+                                                assert.strictEqual(importEditor.HasTag(bbCodeTag), true);
+                                                bbCodeEditors = importEditor.GetChildrenByTag(bbCodeTag);
                                             });
                                     });
 
                                 suite(
-                                    "Checking the integrity of the bb-codes...",
+                                    "Checking the integrity of common bb-codes...",
                                     () =>
                                     {
-                                        let bbCodeTag: string;
-                                        let bbCodeEditors: XMLEditor[];
-                                        let nameAttribute: string;
+                                        let bbCodeEditor: XMLEditor;
+                                        let labelTag: string;
+                                        let iconTag: string;
+                                        let isBlockElementTag: string;
+                                        let parseContentTag: string;
 
                                         suiteSetup(
                                             () =>
                                             {
-                                                bbCodeTag = "bbcode";
-                                                bbCodeEditors = [];
-                                                nameAttribute = "name";
+                                                labelTag = "buttonLabel";
+                                                iconTag = "wysiwygicon";
+                                                isBlockElementTag = "isBlockElement";
+                                                parseContentTag = "sourcecode";
                                             });
 
                                         suite(
@@ -187,49 +172,89 @@ suite(
                                             () =>
                                             {
                                                 test(
-                                                    "Checking whether at least one bb-code exists...",
+                                                    "Checking whether the common bb-code is present...",
                                                     () =>
                                                     {
-                                                        assert.strictEqual(importEditor.HasTag(bbCodeTag), true);
-                                                        bbCodeEditors = importEditor.GetChildrenByTag(bbCodeTag);
+                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
+                                                            (editor: XMLEditor) =>
+                                                            {
+                                                                return editor.GetAttribute(nameAttribute) === commonBBCodeName;
+                                                            });
+
+                                                        assert.strictEqual(matches.length, 1);
+                                                        bbCodeEditor = matches[0];
                                                     });
                                             });
 
                                         suite(
-                                            "Checking the integrity of common bb-codes...",
+                                            "Checking the integrity of the meta-data...",
                                             () =>
                                             {
-                                                let bbCodeEditor: XMLEditor;
-                                                let labelTag: string;
-                                                let iconTag: string;
-                                                let isBlockElementTag: string;
-                                                let parseContentTag: string;
-
-                                                suiteSetup(
+                                                test(
+                                                    "Checking the integrity of the label-property",
                                                     () =>
                                                     {
-                                                        labelTag = "buttonLabel";
-                                                        iconTag = "wysiwygicon";
-                                                        isBlockElementTag = "isBlockElement";
-                                                        parseContentTag = "sourcecode";
+                                                        assert.strictEqual(bbCodeEditor.HasText(labelTag, `wcf.editor.button.${commonBBCodeName}`), true);
                                                     });
+
+                                                test(
+                                                    "Checking the integrity of the icon-property...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(bbCodeEditor.HasText(iconTag, icon), true);
+                                                    });
+
+                                                test(
+                                                    "Checking the integrity of the isBlockElement-property...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(bbCodeEditor.HasText(isBlockElementTag, isBlockElement ? "1" : "0"), true);
+                                                    });
+
+                                                test(
+                                                    "Checking the integrity of the parseContent-property...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(bbCodeEditor.HasText(parseContentTag, parseContent ? "0" : "1"), true);
+                                                    });
+                                            });
+
+                                        suite(
+                                            "Checking the integrity of the attributes...",
+                                            () =>
+                                            {
+                                                let attributeEditor: XMLEditor;
+                                                let attributesEditor: XMLEditor;
 
                                                 suite(
                                                     "General",
                                                     () =>
                                                     {
-                                                        test(
-                                                            "Checking whether the common bb-code is present...",
+                                                        let attributeTag: string;
+                                                        let attributesTag: string;
+
+                                                        suiteSetup(
                                                             () =>
                                                             {
-                                                                let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                                    (editor: XMLEditor) =>
-                                                                    {
-                                                                        return editor.GetAttribute(nameAttribute) === commonBBCodeName;
-                                                                    });
+                                                                attributeTag = "attribute";
+                                                                attributesTag = "attributes";
+                                                            });
 
-                                                                assert.strictEqual(matches.length, 1);
-                                                                bbCodeEditor = matches[0];
+                                                        test(
+                                                            "Checking the integrity of the attributes-property...",
+                                                            () =>
+                                                            {
+                                                                assert.strictEqual(bbCodeEditor.HasTag(attributesTag, true), true);
+                                                                attributesEditor = bbCodeEditor.GetChildrenByTag(attributesTag)[0];
+                                                            });
+
+                                                        test(
+                                                            "Checking whether at least one attribute is present...",
+                                                            () =>
+                                                            {
+                                                                let attributeEditors: XMLEditor[] = attributesEditor.GetChildrenByTag(attributeTag);
+                                                                assert.strictEqual(attributeEditors.length > 0, true);
+                                                                attributeEditor = attributeEditors[Math.floor(Math.random() * attributeEditors.length)];
                                                             });
                                                     });
 
@@ -237,241 +262,168 @@ suite(
                                                     "Checking the integrity of the meta-data...",
                                                     () =>
                                                     {
-                                                        test(
-                                                            "Checking the integrity of the label-property",
+                                                        let requiredTag: string;
+                                                        let valueByContentTag: string;
+                                                        let codeTag: string;
+                                                        let validationPatternTag: string;
+
+                                                        suiteSetup(
                                                             () =>
                                                             {
-                                                                assert.strictEqual(bbCodeEditor.HasText(labelTag, `wcf.editor.button.${commonBBCodeName}`), true);
+                                                                requiredTag = "required";
+                                                                valueByContentTag = "useText";
+                                                                codeTag = "html";
+                                                                validationPatternTag = "validationpattern";
                                                             });
 
                                                         test(
-                                                            "Checking the integrity of the icon-property...",
+                                                            "Checking the integrity of the required-property",
                                                             () =>
                                                             {
-                                                                assert.strictEqual(bbCodeEditor.HasText(iconTag, icon), true);
+                                                                assert.strictEqual(attributeEditor.HasText(requiredTag, attribute.Required ? "1" : "0"), true);
                                                             });
 
                                                         test(
-                                                            "Checking the integrity of the isBlockElement-property...",
+                                                            "Checking the integrity of the valueByContent-property",
                                                             () =>
                                                             {
-                                                                assert.strictEqual(bbCodeEditor.HasText(isBlockElementTag, isBlockElement ? "1" : "0"), true);
+                                                                assert.strictEqual(attributeEditor.HasText(valueByContentTag, attribute.ValueByContent ? "1" : "0"), true);
                                                             });
 
                                                         test(
-                                                            "Checking the integrity of the parseContent-property...",
-                                                            () =>
+                                                            "Checking the integrity of the code-property",
+                                                            function(): void
                                                             {
-                                                                assert.strictEqual(bbCodeEditor.HasText(parseContentTag, parseContent ? "0" : "1"), true);
-                                                            });
-                                                    });
-
-                                                suite(
-                                                    "Checking the integrity of the attributes...",
-                                                    () =>
-                                                    {
-                                                        let attributeEditor: XMLEditor;
-                                                        let attributesEditor: XMLEditor;
-
-                                                        suite(
-                                                            "General",
-                                                            () =>
-                                                            {
-                                                                let attributeTag: string;
-                                                                let attributesTag: string;
-
-                                                                suiteSetup(
-                                                                    () =>
-                                                                    {
-                                                                        attributeTag = "attribute";
-                                                                        attributesTag = "attributes";
-                                                                    });
-
-                                                                test(
-                                                                    "Checking the integrity of the attributes-property...",
-                                                                    () =>
-                                                                    {
-                                                                        assert.strictEqual(bbCodeEditor.HasTag(attributesTag, true), true);
-                                                                        attributesEditor = bbCodeEditor.GetChildrenByTag(attributesTag)[0];
-                                                                    });
-
-                                                                test(
-                                                                    "Checking whether at least one attribute is present...",
-                                                                    () =>
-                                                                    {
-                                                                        let attributeEditors: XMLEditor[] = attributesEditor.GetChildrenByTag(attributeTag);
-                                                                        assert.strictEqual(attributeEditors.length > 0, true);
-                                                                        attributeEditor = attributeEditors[Math.floor(Math.random() * attributeEditors.length)];
-                                                                    });
-                                                            });
-
-                                                        suite(
-                                                            "Checking the integrity of the meta-data...",
-                                                            () =>
-                                                            {
-                                                                let requiredTag: string;
-                                                                let valueByContentTag: string;
-                                                                let codeTag: string;
-                                                                let validationPatternTag: string;
-
-                                                                suiteSetup(
-                                                                    () =>
-                                                                    {
-                                                                        requiredTag = "required";
-                                                                        valueByContentTag = "useText";
-                                                                        codeTag = "html";
-                                                                        validationPatternTag = "validationpattern";
-                                                                    });
-
-                                                                test(
-                                                                    "Checking the integrity of the required-property",
-                                                                    () =>
-                                                                    {
-                                                                        assert.strictEqual(attributeEditor.HasText(requiredTag, attribute.Required ? "1" : "0"), true);
-                                                                    });
-
-                                                                test(
-                                                                    "Checking the integrity of the valueByContent-property",
-                                                                    () =>
-                                                                    {
-                                                                        assert.strictEqual(attributeEditor.HasText(valueByContentTag, attribute.ValueByContent ? "1" : "0"), true);
-                                                                    });
-
-                                                                test(
-                                                                    "Checking the integrity of the code-property",
-                                                                    function(): void
-                                                                    {
-                                                                        if (isNullOrUndefined(attribute.Code))
-                                                                        {
-                                                                            this.skip();
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            assert.strictEqual(attributeEditor.HasText(codeTag, attribute.Code), true);
-                                                                        }
-                                                                    });
-
-                                                                test(
-                                                                    "Checking the integrity of the validationPattern-property",
-                                                                    function(): void
-                                                                    {
-                                                                        if (isNullOrUndefined(attribute.ValidationPattern))
-                                                                        {
-                                                                            this.skip();
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            assert.strictEqual(attributeEditor.HasText(validationPatternTag, attribute.ValidationPattern.source), true);
-                                                                        }
-                                                                    });
-                                                            });
-                                                    });
-                                            });
-
-                                        suite(
-                                            "Checking the integrity of bb-codes based on PHP-classes...",
-                                            () =>
-                                            {
-                                                let bbCodeEditor: XMLEditor;
-                                                let classTag: string;
-
-                                                suiteSetup(
-                                                    () =>
-                                                    {
-                                                        classTag = "classname";
-                                                    });
-
-                                                suite(
-                                                    "General",
-                                                    () =>
-                                                    {
-                                                        test(
-                                                            "Checking whether the class-bb-code is present...",
-                                                            () =>
-                                                            {
-                                                                let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                                    (element: XMLEditor) =>
-                                                                    {
-                                                                        return element.GetAttribute(nameAttribute) === classBBCodeName;
-                                                                    });
-
-                                                                assert.strictEqual(matches.length, 1);
-                                                                bbCodeEditor = matches[0];
-                                                            });
-                                                    });
-
-                                                suite(
-                                                    "Checking the integrity of the meta-data...",
-                                                    () =>
-                                                    {
-                                                        test(
-                                                            "Checking the integrity of the class-property...",
-                                                            () =>
-                                                            {
-                                                                assert.strictEqual(bbCodeEditor.HasText(classTag, className), true);
-                                                            });
-                                                    });
-                                            });
-
-                                        suite(
-                                            "Checking the integrity of bb-codes based on HTML...",
-                                            () =>
-                                            {
-                                                let bbCodeEditor: XMLEditor;
-
-                                                let htmlOpenTag: string;
-                                                let htmlCloseTag: string;
-
-                                                suiteSetup(
-                                                    () =>
-                                                    {
-                                                        htmlOpenTag = "htmlopen";
-                                                        htmlCloseTag = "htmlclose";
-                                                    });
-
-                                                suite(
-                                                    "General",
-                                                    () =>
-                                                    {
-                                                        test(
-                                                            "Checking whether the html bb-code is present...",
-                                                            () =>
-                                                            {
-                                                                let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                                    (element: XMLEditor) =>
-                                                                    {
-                                                                        return element.GetAttribute(nameAttribute) === htmlBBCodeName;
-                                                                    });
-
-                                                                assert.strictEqual(matches.length, 1);
-                                                                bbCodeEditor = matches[0];
-                                                            });
-                                                    });
-
-                                                suite(
-                                                    "Checking the integrity of the meta-data...",
-                                                    () =>
-                                                    {
-                                                        test(
-                                                            "Checking the integrity of the opening html-tag...",
-                                                            () =>
-                                                            {
-                                                                assert.strictEqual(bbCodeEditor.HasText(htmlOpenTag, htmlTag), true);
-                                                            });
-
-                                                        test(
-                                                            "Checking the integrity of the closing html-tag...",
-                                                            () =>
-                                                            {
-                                                                if (isSelfClosing)
+                                                                if (isNullOrUndefined(attribute.Code))
                                                                 {
-                                                                    assert.strictEqual(document.getElementsByTagName(htmlCloseTag).length, 0);
+                                                                    this.skip();
                                                                 }
                                                                 else
                                                                 {
-                                                                    assert.strictEqual(bbCodeEditor.HasText(htmlCloseTag, htmlTag), true);
+                                                                    assert.strictEqual(attributeEditor.HasText(codeTag, attribute.Code), true);
                                                                 }
                                                             });
+
+                                                        test(
+                                                            "Checking the integrity of the validationPattern-property",
+                                                            function(): void
+                                                            {
+                                                                if (isNullOrUndefined(attribute.ValidationPattern))
+                                                                {
+                                                                    this.skip();
+                                                                }
+                                                                else
+                                                                {
+                                                                    assert.strictEqual(attributeEditor.HasText(validationPatternTag, attribute.ValidationPattern.source), true);
+                                                                }
+                                                            });
+                                                    });
+                                            });
+                                    });
+
+                                suite(
+                                    "Checking the integrity of bb-codes based on PHP-classes...",
+                                    () =>
+                                    {
+                                        let bbCodeEditor: XMLEditor;
+                                        let classTag: string;
+
+                                        suiteSetup(
+                                            () =>
+                                            {
+                                                classTag = "classname";
+                                            });
+
+                                        suite(
+                                            "General",
+                                            () =>
+                                            {
+                                                test(
+                                                    "Checking whether the class-bb-code is present...",
+                                                    () =>
+                                                    {
+                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
+                                                            (element: XMLEditor) =>
+                                                            {
+                                                                return element.GetAttribute(nameAttribute) === classBBCodeName;
+                                                            });
+
+                                                        assert.strictEqual(matches.length, 1);
+                                                        bbCodeEditor = matches[0];
+                                                    });
+                                            });
+
+                                        suite(
+                                            "Checking the integrity of the meta-data...",
+                                            () =>
+                                            {
+                                                test(
+                                                    "Checking the integrity of the class-property...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(bbCodeEditor.HasText(classTag, className), true);
+                                                    });
+                                            });
+                                    });
+
+                                suite(
+                                    "Checking the integrity of bb-codes based on HTML...",
+                                    () =>
+                                    {
+                                        let bbCodeEditor: XMLEditor;
+
+                                        let htmlOpenTag: string;
+                                        let htmlCloseTag: string;
+
+                                        suiteSetup(
+                                            () =>
+                                            {
+                                                htmlOpenTag = "htmlopen";
+                                                htmlCloseTag = "htmlclose";
+                                            });
+
+                                        suite(
+                                            "General",
+                                            () =>
+                                            {
+                                                test(
+                                                    "Checking whether the html bb-code is present...",
+                                                    () =>
+                                                    {
+                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
+                                                            (element: XMLEditor) =>
+                                                            {
+                                                                return element.GetAttribute(nameAttribute) === htmlBBCodeName;
+                                                            });
+
+                                                        assert.strictEqual(matches.length, 1);
+                                                        bbCodeEditor = matches[0];
+                                                    });
+                                            });
+
+                                        suite(
+                                            "Checking the integrity of the meta-data...",
+                                            () =>
+                                            {
+                                                test(
+                                                    "Checking the integrity of the opening html-tag...",
+                                                    () =>
+                                                    {
+                                                        assert.strictEqual(bbCodeEditor.HasText(htmlOpenTag, htmlTag), true);
+                                                    });
+
+                                                test(
+                                                    "Checking the integrity of the closing html-tag...",
+                                                    () =>
+                                                    {
+                                                        if (isSelfClosing)
+                                                        {
+                                                            assert.strictEqual(document.getElementsByTagName(htmlCloseTag).length, 0);
+                                                        }
+                                                        else
+                                                        {
+                                                            assert.strictEqual(bbCodeEditor.HasText(htmlCloseTag, htmlTag), true);
+                                                        }
                                                     });
                                             });
                                     });
