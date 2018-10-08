@@ -14,4 +14,5 @@ suite(
         require("./Events/index.test");
         require("./Presentation/index.test");
         require("./Instructions/index.test");
+        require("./PackageSystem/index.test");
     });
