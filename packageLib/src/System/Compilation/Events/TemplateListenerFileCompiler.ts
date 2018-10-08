@@ -24,7 +24,7 @@ export class TemplateListenerFileCompiler extends ListenerFileCompiler<TemplateL
         return "http://www.woltlab.com/XSD/tornado/templateListener.xsd";
     }
 
-    protected get ListenerTagName(): string
+    protected get ObjectTagName(): string
     {
         return "templatelistener";
     }

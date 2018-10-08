@@ -1,12 +1,12 @@
 import { Listener } from "../../../Events/Listener";
-import { Instruction } from "../Instruction";
+import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { IListenerInstruction } from "./IListenerInstruction";
 import { IListenerInstructionOptions } from "./IListenerInstructionOptions";
 
 /**
  * Represents an instruction which provides listeners.
  */
-export abstract class ListenerInstruction<T extends Listener, TOptions> extends Instruction implements IListenerInstruction<T>
+export abstract class ListenerInstruction<T extends Listener, TOptions> extends NamedDeleteInstruction implements IListenerInstruction<T>
 {
     /**
      * The listeners provided by the instruction.

@@ -1,10 +1,10 @@
 import { Listener } from "../../../Events/Listener";
-import { IInstruction } from "../IInstruction";
+import { INamedDeleteInstruction } from "../INamedDeleteInstruction";
 
 /**
  * Represents an instruction which provides listeners.
  */
-export interface IListenerInstruction<T extends Listener> extends IInstruction
+export interface IListenerInstruction<T extends Listener> extends INamedDeleteInstruction
 {
     /**
      * Gets the listeners provided by the instruction.

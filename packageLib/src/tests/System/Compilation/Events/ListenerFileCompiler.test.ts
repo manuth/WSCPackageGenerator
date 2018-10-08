@@ -51,7 +51,7 @@ suite(
 
                 class MyListenerFileCompiler extends ListenerFileCompiler<MyListenerInstruction, Listener>
                 {
-                    protected get ListenerTagName(): string
+                    protected get ObjectTagName(): string
                     {
                         return listenerTag;
                     }

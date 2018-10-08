@@ -3,12 +3,12 @@ import { Listener } from "../../Events/Listener";
 import { IListenerInstruction } from "../../PackageSystem/Instructions/Events/IListenerInstruction";
 import { XML } from "../../Serialization/XML";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
+import { NamedObjectDeletionFileCompiler } from "../NamedObjectDeletionFileCompiler";
 
 /**
  * Provides the functionality to compile listener-files.
  */
-export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListener>, TListener extends Listener> extends WoltLabXMLCompiler<T>
+export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListener>, TListener extends Listener> extends NamedObjectDeletionFileCompiler<T>
 {
     /**
      * Initializes a new instance of the `ListenerFileCompiler<T, TListener>` class.
@@ -21,27 +21,16 @@ export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListe
         super(item);
     }
 
-    /**
-     * Gets the tag-name for the listeners.
-     */
-    protected abstract get ListenerTagName(): string;
-
-    protected CreateDocument(): Document
+    protected CreateImport(): Element
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let editor: XMLEditor = new XMLEditor(super.CreateImport());
 
-        editor.AddElement(
-            "import",
-            ($import: XMLEditor) =>
-            {
-                for (let listener of this.Item.Listeners)
-                {
-                    $import.Add(this.CreateListener(listener));
-                }
-            });
+        for (let listener of this.Item.Listeners)
+        {
+            editor.Add(this.CreateListener(listener));
+        }
 
-        return document;
+        return editor.Element;
     }
 
     /**
@@ -52,7 +41,7 @@ export abstract class ListenerFileCompiler<T extends IListenerInstruction<TListe
      */
     protected CreateListener(listener: TListener): Element
     {
-        let editor: XMLEditor = new XMLEditor(XML.CreateDocument(this.ListenerTagName).documentElement);
+        let editor: XMLEditor = new XMLEditor(XML.CreateDocument(this.ObjectTagName).documentElement);
         editor.SetAttribute("name", listener.Name);
         editor.AddTextElement("environment", listener.Environment);
         editor.AddTextElement("eventname", listener.EventName);

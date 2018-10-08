@@ -24,7 +24,7 @@ export class EventListenerFileCompiler extends ListenerFileCompiler<EventListene
         return "http://www.woltlab.com/XSD/tornado/eventListener.xsd";
     }
 
-    protected get ListenerTagName(): string
+    protected get ObjectTagName(): string
     {
         return "eventlistener";
     }
