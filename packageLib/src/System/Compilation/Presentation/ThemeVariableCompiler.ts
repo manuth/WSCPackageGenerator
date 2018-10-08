@@ -24,7 +24,7 @@ export class ThemeVariableCompiler extends WoltLabXMLCompiler<{ [key: string]: s
 
     protected get SchemaLocation(): string
     {
-        return "http://www.woltlab.com http://www.woltlab.com/XSD/tornado/styleVariables.xsd";
+        return "http://www.woltlab.com/XSD/tornado/styleVariables.xsd";
     }
 
     protected CreateDocument(): Document
