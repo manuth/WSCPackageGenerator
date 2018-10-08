@@ -10,7 +10,7 @@ export interface ICronJobOptions
     /**
      * The name of the cron-job.
      */
-    Name?: string;
+    Name: string;
 
     /*
      * The class-name of the cron-job.
