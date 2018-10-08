@@ -1,3 +1,4 @@
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { Package } from "../Package";
 import { InstructionSet } from "./InstructionSet";
 
@@ -31,5 +32,12 @@ export class UpdateInstructionSet extends InstructionSet
     public set FromVersion(value: string)
     {
         this.fromVersion = value;
+    }
+    public Serialize(): Element
+    {
+        let editor: XMLEditor = new XMLEditor(super.Serialize());
+        editor.SetAttribute("type", "update");
+        editor.SetAttribute("fromversion", this.FromVersion);
+        return editor.Element;
     }
 }

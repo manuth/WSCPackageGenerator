@@ -1,4 +1,6 @@
 import { BidirectionalCollection } from "../../Collections/BidirectionalCollection";
+import { XML } from "../../Serialization/XML";
+import { XMLEditor } from "../../Serialization/XMLEditor";
 import { Package } from "../Package";
 import { Instruction } from "./Instruction";
 
@@ -65,5 +67,22 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
     protected SetParent(child: Instruction, parent: InstructionSet): void
     {
         child.Collection = parent;
+    }
+
+    /**
+     * Serializes the instruction-set to an xml dom-element.
+     */
+    public Serialize(): Element
+    {
+        let document: Document = XML.CreateDocument("instructions");
+        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        editor.SetAttribute("type", "install");
+
+        for (let instruction of this)
+        {
+            editor.Add(instruction.Serialize());
+        }
+
+        return editor.Element;
     }
 }
