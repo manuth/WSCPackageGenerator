@@ -1,4 +1,5 @@
 import * as assert from "assert";
+import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
 import { Instruction } from "../../../../System/PackageSystem/Instructions/Instruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -102,7 +103,7 @@ suite(
                     {
                         assert.strictEqual(
                             instruction.FullName,
-                            Path.join($package.InstallSet.Directory, instruction.FileName).replace(Path.sep, "/"));
+                            Path.join($package.InstallSet.Directory, instruction.FileName).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
                     });
             });
     });

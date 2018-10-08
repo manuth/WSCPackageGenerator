@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
@@ -129,7 +130,7 @@ class WSCThemeGenerator extends Generator
     public async writing(): Promise<void>
     {
         let basePath: string = Path.relative(Path.join(this.settings.themesPath, this.settings.name), ".");
-        basePath = basePath.replace("\\", "/");
+        basePath = basePath.replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
 
         if (basePath.length === 0)
         {

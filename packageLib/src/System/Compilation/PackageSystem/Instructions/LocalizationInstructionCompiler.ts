@@ -1,3 +1,4 @@
+import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
 import { TempFile } from "../../../FileSystem/TempFile";
 import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
@@ -38,7 +39,11 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
     public Serialize(): Document
     {
         let document: Document = super.Serialize();
-        document.documentElement.textContent = Path.join(this.DestinationPath, this.Item.DestinationRoot, this.Item.TranslationDirectory, "*").replace(Path.sep, "/");
+        document.documentElement.textContent = Path.join(
+            this.DestinationPath,
+            this.Item.DestinationRoot,
+            this.Item.TranslationDirectory,
+            "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
         return document;
     }
 }

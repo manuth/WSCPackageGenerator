@@ -1,3 +1,5 @@
+import escapeStringRegexp = require("escape-string-regexp");
+import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { IFileInstruction } from "./IFileInstruction";
 import { IFileInstructionOptions } from "./IFileInstructionOptions";
@@ -33,6 +35,6 @@ export class FileInstruction extends Instruction implements IFileInstruction
 
     public set FileName(value: string)
     {
-        this.fileName = value.replace("\\", "/");
+        this.fileName = value.replace(new RegExp(escapeStringRegexp(Path.sep)), "/");
     }
 }

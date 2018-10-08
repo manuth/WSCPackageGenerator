@@ -1,3 +1,4 @@
+import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { InstructionCompiler } from "../../Compilation/PackageSystem/Instructions/InstructionCompiler";
@@ -84,7 +85,7 @@ export abstract class Instruction implements IInstruction
 
     public get FullName(): string
     {
-        return Path.join(this.DestinationRoot, this.FileName).replace(Path.sep, "/");
+        return Path.join(this.DestinationRoot, this.FileName).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
     }
 
     public get Standalone(): boolean
