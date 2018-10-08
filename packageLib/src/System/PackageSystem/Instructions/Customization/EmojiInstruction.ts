@@ -10,7 +10,7 @@ export class EmojiInstruction extends Instruction
     /**
      * The emojis provided by the instruction.
      */
-    private emojis: Emoji[];
+    private emojis: Emoji[] = [];
 
     /**
      * Initializes a new instance of the `EmojiInstruction` class.

@@ -41,12 +41,6 @@ export class EmojiFileCompiler extends WoltLabXMLCompiler<EmojiInstruction>
                         {
                             smiley.SetAttribute("name", `:${emoji.Name}:`);
                             smiley.AddTextElement("title", emoji.DisplayName);
-                            smiley.AddTextElement("path", emoji.FileName);
-
-                            if (!isNullOrUndefined(emoji.HighResFileName))
-                            {
-                                smiley.AddTextElement("path2x", emoji.HighResFileName);
-                            }
 
                             if (emoji.Aliases.length > 0)
                             {
@@ -56,6 +50,13 @@ export class EmojiFileCompiler extends WoltLabXMLCompiler<EmojiInstruction>
                             if (!isNullOrUndefined(emoji.ShowOrder))
                             {
                                 smiley.AddTextElement("showorder", emoji.ShowOrder.toString());
+                            }
+
+                            smiley.AddTextElement("path", emoji.FileName);
+
+                            if (!isNullOrUndefined(emoji.HighResFileName))
+                            {
+                                smiley.AddTextElement("path2x", emoji.HighResFileName);
                             }
                         });
                 }
