@@ -7,6 +7,7 @@ suite(
         require("./WoltLabXMLCompiler.test");
         require("./ImportFileCompiler.test");
         require("./ObjectDeletionFileCompiler.test");
+        require("./NamedObjectDeletionFileCompiler.test");
         require("./Globalization/index.test");
         require("./Options/index.test");
         require("./Tasks/index.test");

@@ -1,40 +1,52 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
-import { ObjectDeletionFileCompiler } from "../../../System/Compilation/ObjectDeletionFileCompiler";
+import { NamedObjectDeletionFileCompiler } from "../../../System/Compilation/NamedObjectDeletionFileCompiler";
 import { TempFile } from "../../../System/FileSystem/TempFile";
-import { IDeleteInstruction } from "../../../System/PackageSystem/Instructions/IDeleteInstruction";
+import { INamedObject } from "../../../System/INamedObject";
+import { INamedDeleteInstruction } from "../../../System/PackageSystem/Instructions/INamedDeleteInstruction";
 import { Instruction } from "../../../System/PackageSystem/Instructions/Instruction";
-import { XML } from "../../../System/Serialization/XML";
 import { XMLEditor } from "../../../System/Serialization/XMLEditor";
 
 suite(
-    "ObjectDeletionFileCompiler",
+    "NamedObjectDeletionFileCompiler",
     () =>
     {
         let tempFile: TempFile;
         let objectTag: string;
-        let compiler: ObjectDeletionFileCompiler<IDeleteInstruction<{}>, {}>;
+        let compiler: NamedObjectDeletionFileCompiler<INamedDeleteInstruction>;
+        let objectsToDelete: INamedObject[];
 
         suiteSetup(
             () =>
             {
                 tempFile = new TempFile();
                 objectTag = "myObject";
-                compiler = new class extends ObjectDeletionFileCompiler<IDeleteInstruction<{}>, {}>
+                objectsToDelete = [
+                    {
+                        Name: "foo"
+                    },
+                    {
+                        Name: "bar"
+                    },
+                    {
+                        Name: "baz"
+                    }
+                ];
+
+                compiler = new class extends NamedObjectDeletionFileCompiler<INamedDeleteInstruction>
                 {
                     protected get SchemaLocation(): string
                     {
                         return "http://example.com/mySchema.xsd";
                     }
 
-                    protected CreateDeleteObject(): Element
+                    protected get ObjectTagName(): string
                     {
-                        return XML.CreateDocument(objectTag).documentElement;
+                        return objectTag;
                     }
-
                 }(
-                    new class extends Instruction implements IDeleteInstruction<{}>
+                    new class extends Instruction implements INamedDeleteInstruction
                     {
                         public constructor()
                         {
@@ -45,10 +57,7 @@ suite(
 
                         public Type: string = "foo";
 
-                        public ObjectsToDelete: {}[] = [
-                            {},
-                            {}
-                        ];
+                        public ObjectsToDelete: INamedObject[] = objectsToDelete;
                     }());
 
                 compiler.DestinationPath = tempFile.FileName;
@@ -100,18 +109,17 @@ suite(
                             () =>
                             {
                                 test(
-                                    "Checking whether the integrity of the deleted objects...",
+                                    "Checking the integrity of the named deletions...",
                                     () =>
                                     {
                                         let deletedObjects: XMLEditor[] = editor.GetElementsByTag(objectTag);
-                                        assert.strictEqual(
-                                            deletedObjects.every(
-                                                (object: XMLEditor) =>
-                                                {
-                                                    return (object.ParentNode.nodeType === object.Element.ELEMENT_NODE) &&
-                                                        ((object.ParentNode as Element).tagName === "delete");
-                                                }),
-                                            true);
+                                        assert.strictEqual(deletedObjects.length, objectsToDelete.length);
+
+                                        for (let objectToDelete of objectsToDelete)
+                                        {
+                                            let matches: XMLEditor[] = deletedObjects.filter((objectNode: XMLEditor) => objectNode.HasAttribute("name", objectToDelete.Name));
+                                            assert.strictEqual(matches.length, 1);
+                                        }
                                     });
                             });
                     });
