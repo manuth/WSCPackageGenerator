@@ -41,7 +41,7 @@ suite(
 
                     public constructor()
                     {
-                        super({ FileName: null });
+                        super({ FileName: "example.txt" });
                     }
 
                     public get ObjectsByID(): { [key: string]: any }

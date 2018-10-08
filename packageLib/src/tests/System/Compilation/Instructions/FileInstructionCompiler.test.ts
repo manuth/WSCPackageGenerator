@@ -132,18 +132,29 @@ suite(
                     {
                         application = "gallery";
 
-                        normalDocument = new FileInstructionCompiler(
-                            new ApplicationFileSystemInstruction(
-                                {
-                                    Source: "files"
-                                })).Serialize();
+                        let normalInstruction: ApplicationFileSystemInstruction = new ApplicationFileSystemInstruction(
+                            {
+                                Source: "files"
+                            });
 
-                        applicationDocument = new FileInstructionCompiler(
-                            new ApplicationFileSystemInstruction(
-                                {
-                                    Source: "gallery/files",
-                                    Application: application
-                                })).Serialize();
+                        let applicationInstruction: ApplicationFileSystemInstruction = new ApplicationFileSystemInstruction(
+                            {
+                                Source: "gallery/files",
+                                Application: application
+                            });
+
+                        let $package: Package = new Package(
+                            {
+                                Identifier: "example",
+                                DisplayName: {},
+                                InstallSet: {
+                                    Instructions: []
+                                }
+                            });
+
+                        $package.InstallSet.push(normalInstruction, applicationInstruction);
+                        normalDocument = new FileInstructionCompiler(normalInstruction).Serialize();
+                        applicationDocument = new FileInstructionCompiler(applicationInstruction).Serialize();
                     });
 
                 test(

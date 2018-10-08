@@ -118,7 +118,7 @@ suite(
             () =>
             {
                 suite(
-                    "General tests...",
+                    "General",
                     () =>
                     {
                         test(
@@ -127,35 +127,33 @@ suite(
                             {
                                 await compiler.Execute();
                             });
-
-                        test(
-                            "Checking whether the expected file exists...",
-                            async () =>
-                            {
-                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
-                            });
                     });
 
                 suite(
-                    "Testing the integrity of the compiled file...",
+                    "Checking the integrity of the compiled file...",
                     () =>
                     {
-                        let document: Document;
                         let rootTag: string;
                         let rootEditor: XMLEditor;
 
                         suiteSetup(
-                            async () =>
+                            () =>
                             {
-                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                 rootTag = "style";
-                                rootEditor = new XMLEditor(document.documentElement);
                             });
 
                         suite(
-                            "Testing the XML-document...",
+                            "General",
                             () =>
                             {
+                                test(
+                                    "Checking whether the content of the document is valid xml...",
+                                    async () =>
+                                    {
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        rootEditor = new XMLEditor(document.documentElement);
+                                    });
+
                                 test(
                                     "Checking whether the name of the root-tag is correct...",
                                     () =>
@@ -165,7 +163,7 @@ suite(
                             });
 
                         suite(
-                            "Testing the theme-metadata...",
+                            "Checking the theme-metadata...",
                             () =>
                             {
                                 let generalTag: string;
