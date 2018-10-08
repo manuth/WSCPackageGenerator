@@ -1,11 +1,11 @@
 import { CronJob } from "../../../Tasks/CronJob";
-import { Instruction } from "../Instruction";
+import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { ICronJobInstructionOptions } from "./ICronJobInstructionOptions";
 
 /**
  * Represents an instruction which install cron-jobs.
  */
-export class CronJobInstruction extends Instruction
+export class CronJobInstruction extends NamedDeleteInstruction
 {
     /**
      * The cron-jobs provided by the instruction.

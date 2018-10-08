@@ -82,13 +82,6 @@ suite(
                             {
                                 await compiler.Execute();
                             });
-
-                        test(
-                            "Checking whether the expected file exists...",
-                            async () =>
-                            {
-                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
-                            });
                     });
 
                 suite(
@@ -96,40 +89,26 @@ suite(
                     () =>
                     {
                         let document: Document;
-                        let rootTag: string;
-                        let rootEditor: XMLEditor;
+                        let importEditor: XMLEditor;
 
                         suiteSetup(
                             async () =>
                             {
                                 document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                rootTag = "data";
-                                rootEditor = new XMLEditor(document.documentElement);
+                                importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                             });
 
                         suite(
-                            "General",
+                            "Checking the integrity of the cron-job...",
                             () =>
                             {
-                                test(
-                                    "Checking whether the name of the root-tag is correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(rootEditor.TagName, rootTag);
-                                    });
-                            });
-
-                        suite(
-                            "Checking the interity of the imported components...",
-                            () =>
-                            {
-                                let importEditor: XMLEditor;
-                                let importTag: string;
+                                let cronJobTag: string;
+                                let cronJobEditor: XMLEditor;
 
                                 suiteSetup(
                                     () =>
                                     {
-                                        importTag = "import";
+                                        cronJobTag = "cronjob";
                                     });
 
                                 suite(
@@ -137,134 +116,107 @@ suite(
                                     () =>
                                     {
                                         test(
-                                            "Checking whether the import-list is present...",
+                                            "Checking whether the cron-job is present...",
                                             () =>
                                             {
-                                                assert.strictEqual(rootEditor.HasTag(importTag, true), true);
-                                                importEditor = rootEditor.GetChildrenByTag(importTag)[0];
+                                                assert.strictEqual(importEditor.HasTag(cronJobTag, true), true);
+                                                cronJobEditor = importEditor.GetChildrenByTag(cronJobTag)[0];
                                             });
                                     });
 
                                 suite(
-                                    "Checking the integrity of the cron-job...",
+                                    "Checking the meta-data of the cron-job",
                                     () =>
                                     {
-                                        let cronJobTag: string;
-                                        let cronJobEditor: XMLEditor;
+                                        let classTag: string;
+                                        let descriptionTag: string;
+                                        let disableTag: string;
+                                        let editTag: string;
+                                        let optionsTag: string;
+                                        let minuteTag: string;
+                                        let hourTag: string;
+                                        let dayOfMonthTag: string;
+                                        let monthTag: string;
+                                        let dayOfWeekTag: string;
+
+                                        let nameAttribute: string;
+                                        let languageAttribute: string;
 
                                         suiteSetup(
                                             () =>
                                             {
-                                                cronJobTag = "cronjob";
+                                                classTag = "classname";
+                                                descriptionTag = "description";
+                                                disableTag = "canbedisabled";
+                                                editTag = "canbeedited";
+                                                optionsTag = "options";
+                                                minuteTag = "startminute";
+                                                hourTag = "starthour";
+                                                dayOfMonthTag = "startdom";
+                                                monthTag = "startmonth";
+                                                dayOfWeekTag = "startdow";
+
+                                                nameAttribute = "name";
+                                                languageAttribute = "language";
                                             });
 
-                                        suite(
-                                            "General",
+                                        test(
+                                            "Checking the name of the cron-job...",
                                             () =>
                                             {
-                                                test(
-                                                    "Checking whether the cron-job is present...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(importEditor.HasTag(cronJobTag, true), true);
-                                                        cronJobEditor = importEditor.GetChildrenByTag(cronJobTag)[0];
-                                                    });
+                                                assert.strictEqual(cronJobEditor.GetAttribute(nameAttribute), cronJobName);
                                             });
 
-                                        suite(
-                                            "Checking the meta-data of the cron-job",
+                                        test(
+                                            "Checking the class-name of the cron-job...",
                                             () =>
                                             {
-                                                let classTag: string;
-                                                let descriptionTag: string;
-                                                let disableTag: string;
-                                                let editTag: string;
-                                                let optionsTag: string;
-                                                let minuteTag: string;
-                                                let hourTag: string;
-                                                let dayOfMonthTag: string;
-                                                let monthTag: string;
-                                                let dayOfWeekTag: string;
+                                                assert.strictEqual(cronJobEditor.HasText(classTag, className), true);
+                                            });
 
-                                                let nameAttribute: string;
-                                                let languageAttribute: string;
-
-                                                suiteSetup(
-                                                    () =>
+                                        test(
+                                            "Checking whether the localized description is correct...",
+                                            () =>
+                                            {
+                                                for (let editor of cronJobEditor.GetChildrenByTag(descriptionTag))
+                                                {
+                                                    if (editor.HasAttribute(languageAttribute))
                                                     {
-                                                        classTag = "classname";
-                                                        descriptionTag = "description";
-                                                        disableTag = "canbedisabled";
-                                                        editTag = "canbeedited";
-                                                        optionsTag = "options";
-                                                        minuteTag = "startminute";
-                                                        hourTag = "starthour";
-                                                        dayOfMonthTag = "startdom";
-                                                        monthTag = "startmonth";
-                                                        dayOfWeekTag = "startdow";
+                                                        assert.strictEqual(editor.GetAttribute(languageAttribute), locale);
+                                                    }
 
-                                                        nameAttribute = "name";
-                                                        languageAttribute = "language";
-                                                    });
+                                                    assert.strictEqual(editor.TextContent, editor.HasAttribute(languageAttribute) ? localizedDescription : invariantDescription);
+                                                }
+                                            });
 
-                                                test(
-                                                    "Checking the name of the cron-job...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(cronJobEditor.GetAttribute(nameAttribute), cronJobName);
-                                                    });
+                                        test(
+                                            "Checking whether the permission-settings are correct...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(cronJobEditor.HasText(disableTag, allowDisable ? "1" : "0"), true);
+                                                assert.strictEqual(cronJobEditor.HasText(editTag, allowEdit ? "1" : "0"), true);
+                                            });
 
-                                                test(
-                                                    "Checking the class-name of the cron-job...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(cronJobEditor.HasText(classTag, className), true);
-                                                    });
+                                        test(
+                                            "Checking whether the options are correct...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(cronJobEditor.GetText(optionsTag), options.join(","));
+                                            });
 
-                                                test(
-                                                    "Checking whether the localized description is correct...",
-                                                    () =>
-                                                    {
-                                                        for (let editor of cronJobEditor.GetChildrenByTag(descriptionTag))
-                                                        {
-                                                            if (editor.HasAttribute(languageAttribute))
-                                                            {
-                                                                assert.strictEqual(editor.GetAttribute(languageAttribute), locale);
-                                                            }
-
-                                                            assert.strictEqual(editor.TextContent, editor.HasAttribute(languageAttribute) ? localizedDescription : invariantDescription);
-                                                        }
-                                                    });
-
-                                                test(
-                                                    "Checking whether the permission-settings are correct...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(cronJobEditor.HasText(disableTag, allowDisable ? "1" : "0"), true);
-                                                        assert.strictEqual(cronJobEditor.HasText(editTag, allowEdit ? "1" : "0"), true);
-                                                    });
-
-                                                test(
-                                                    "Checking whether the options are correct...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(cronJobEditor.GetText(optionsTag), options.join(","));
-                                                    });
-
-                                                test(
-                                                    "Checking whether the time-period is correct...",
-                                                    () =>
-                                                    {
-                                                        assert.strictEqual(cronJobEditor.HasText(minuteTag, period.Minute), true);
-                                                        assert.strictEqual(cronJobEditor.HasText(hourTag, period.Hour), true);
-                                                        assert.strictEqual(cronJobEditor.HasText(dayOfMonthTag, period.DayOfMonth), true);
-                                                        assert.strictEqual(cronJobEditor.HasText(monthTag, period.Month), true);
-                                                        assert.strictEqual(cronJobEditor.HasText(dayOfWeekTag, period.DayOfWeek), true);
-                                                    });
+                                        test(
+                                            "Checking whether the time-period is correct...",
+                                            () =>
+                                            {
+                                                assert.strictEqual(cronJobEditor.HasText(minuteTag, period.Minute), true);
+                                                assert.strictEqual(cronJobEditor.HasText(hourTag, period.Hour), true);
+                                                assert.strictEqual(cronJobEditor.HasText(dayOfMonthTag, period.DayOfMonth), true);
+                                                assert.strictEqual(cronJobEditor.HasText(monthTag, period.Month), true);
+                                                assert.strictEqual(cronJobEditor.HasText(dayOfWeekTag, period.DayOfWeek), true);
                                             });
                                     });
                             });
-
                     });
+
             });
     });
