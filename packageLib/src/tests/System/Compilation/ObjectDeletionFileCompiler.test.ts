@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import { DOMParser } from "xmldom";
-import { DeleteInstructionFileCompiler } from "../../../System/Compilation/DeleteInstructionFileCompiler";
+import { ObjectDeletionFileCompiler } from "../../../System/Compilation/ObjectDeletionFileCompiler";
 import { TempFile } from "../../../System/FileSystem/TempFile";
 import { IDeleteInstruction } from "../../../System/PackageSystem/Instructions/IDeleteInstruction";
 import { Instruction } from "../../../System/PackageSystem/Instructions/Instruction";
@@ -9,18 +9,18 @@ import { XML } from "../../../System/Serialization/XML";
 import { XMLEditor } from "../../../System/Serialization/XMLEditor";
 
 suite(
-    "DeleteInstructionFileCompiler",
+    "ObjectDeletionFileCompiler",
     () =>
     {
         let tempFile: TempFile;
         let objectTag: string;
-        let compiler: DeleteInstructionFileCompiler<IDeleteInstruction<{}>, {}>;
+        let compiler: ObjectDeletionFileCompiler<IDeleteInstruction<{}>, {}>;
 
         suiteSetup(
             () =>
             {
                 tempFile = new TempFile();
-                compiler = new class extends DeleteInstructionFileCompiler<IDeleteInstruction<{}>, {}>
+                compiler = new class extends ObjectDeletionFileCompiler<IDeleteInstruction<{}>, {}>
                 {
                     protected get SchemaLocation(): string
                     {

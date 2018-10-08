@@ -2,12 +2,12 @@ import { isNullOrUndefined } from "util";
 import { BBCodeAttribute } from "../../Customization/BBCodes/BBCodeAttribute";
 import { BBCodeInstruction } from "../../PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { NamedDeleteInstructionCompiler } from "../NamedDeleteInstructionFileCompiler";
+import { NamedObjectDeletionFileCompiler } from "../NamedObjectDeletionFileCompiler";
 
 /**
  * Provides the functionality to compile bb-codes.
  */
-export class BBCodeFileCompiler extends NamedDeleteInstructionCompiler<BBCodeInstruction>
+export class BBCodeFileCompiler extends NamedObjectDeletionFileCompiler<BBCodeInstruction>
 {
     /**
      * Initializes a new instance of the `BBCodeFileCompiler` class.

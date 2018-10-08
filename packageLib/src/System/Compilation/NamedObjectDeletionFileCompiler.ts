@@ -2,12 +2,12 @@ import { INamedObject } from "../INamedObject";
 import { INamedDeleteInstruction } from "../PackageSystem/Instructions/INamedDeleteInstruction";
 import { XML } from "../Serialization/XML";
 import { XMLEditor } from "../Serialization/XMLEditor";
-import { DeleteInstructionFileCompiler } from "./DeleteInstructionFileCompiler";
+import { ObjectDeletionFileCompiler } from "./ObjectDeletionFileCompiler";
 
 /**
  * Provides the functionality to compile files with a named delete-section.
  */
-export abstract class NamedDeleteInstructionCompiler<T extends INamedDeleteInstruction> extends DeleteInstructionFileCompiler<T, INamedObject>
+export abstract class NamedObjectDeletionFileCompiler<T extends INamedDeleteInstruction> extends ObjectDeletionFileCompiler<T, INamedObject>
 {
     /**
      * Gets the tag-name for the objects.
