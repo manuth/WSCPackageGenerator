@@ -1,11 +1,11 @@
 import { Emoji } from "../../../Customization/Presentation/Emoji";
-import { Instruction } from "../Instruction";
+import { NamedDeleteInstruction } from "../NamedDeleteInstruction";
 import { IEmojiInstructionOptions } from "./IEmojiInstructionOptions";
 
 /**
  * Represents an instruction which provides emojis.
  */
-export class EmojiInstruction extends Instruction
+export class EmojiInstruction extends NamedDeleteInstruction
 {
     /**
      * The emojis provided by the instruction.

@@ -1,10 +1,11 @@
 import { IEmojiOptions } from "../../../Customization/Presentation/IEmojiOptions";
-import { IInstructionOptions } from "../IInstructionOptions";
+import { INamedObject } from "../../../INamedObject";
+import { IDeleteInstructionOptions } from "../IDeleteInstructionOptions";
 
 /**
  * Provides options for the `EmojiInstruction` class.
  */
-export interface IEmojiInstructionOptions extends IInstructionOptions
+export interface IEmojiInstructionOptions extends IDeleteInstructionOptions<INamedObject>
 {
     /**
      * The emojis provided by the instruction.

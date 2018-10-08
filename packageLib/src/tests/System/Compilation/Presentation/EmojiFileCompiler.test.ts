@@ -75,7 +75,7 @@ suite(
                     "Checking the integrity of the file...",
                     () =>
                     {
-                        let editor: XMLEditor;
+                        let importEditor: XMLEditor;
 
                         suite(
                             "General",
@@ -86,81 +86,53 @@ suite(
                                     async () =>
                                     {
                                         let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                        editor = new XMLEditor(document.documentElement);
+                                        importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });
 
                         suite(
-                            "Checking the integrity of the import-list",
+                            "Checking the integrity of the emoji...",
                             () =>
                             {
-                                let importEditor: XMLEditor;
+                                let emojiEditor: XMLEditor;
+                                let emojiTag: string;
+                                let nameAttribute: string;
+                                let displayNameTag: string;
+                                let aliasesTag: string;
+                                let showOrderTag: string;
+                                let fileNameTag: string;
+                                let highResFileNameTag: string;
 
-                                suite(
-                                    "General",
+                                suiteSetup(
                                     () =>
                                     {
-                                        let importTag: string;
-
-                                        suiteSetup(
-                                            () =>
-                                            {
-                                                importTag = "import";
-                                            });
-
-                                        test(
-                                            "Checking whether the import-list is present...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(editor.HasTag(importTag, true), true);
-                                                importEditor = editor.GetChildrenByTag(importTag)[0];
-                                            });
+                                        emojiTag = "smiley";
+                                        nameAttribute = "name";
+                                        displayNameTag = "title";
+                                        aliasesTag = "aliases";
+                                        showOrderTag = "showorder";
+                                        fileNameTag = "path";
+                                        highResFileNameTag = "path2x";
                                     });
 
-                                suite(
-                                    "Checking the integrity of the emoji...",
+                                test(
+                                    "Checking whether the emoji is present...",
                                     () =>
                                     {
-                                        let emojiEditor: XMLEditor;
-                                        let emojiTag: string;
-                                        let nameAttribute: string;
-                                        let displayNameTag: string;
-                                        let aliasesTag: string;
-                                        let showOrderTag: string;
-                                        let fileNameTag: string;
-                                        let highResFileNameTag: string;
+                                        assert.strictEqual(importEditor.HasTag(emojiTag, true), true);
+                                        emojiEditor = importEditor.GetChildrenByTag(emojiTag)[0];
+                                    });
 
-                                        suiteSetup(
-                                            () =>
-                                            {
-                                                emojiTag = "smiley";
-                                                nameAttribute = "name";
-                                                displayNameTag = "title";
-                                                aliasesTag = "aliases";
-                                                showOrderTag = "showorder";
-                                                fileNameTag = "path";
-                                                highResFileNameTag = "path2x";
-                                            });
-
-                                        test(
-                                            "Checking whether the emoji is present...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(importEditor.HasTag(emojiTag, true), true);
-                                                emojiEditor = importEditor.GetChildrenByTag(emojiTag)[0];
-                                            });
-
-                                        test(
-                                            "Checking the integrity of the meta-data...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(emojiEditor.HasAttribute(nameAttribute, `:${name}:`), true);
-                                                assert.strictEqual(emojiEditor.HasText(displayNameTag, displayName), true);
-                                                assert.strictEqual(emojiEditor.HasText(aliasesTag, aliases.map((alias: string) => `:${alias}:`).join("\n")), true);
-                                                assert.strictEqual(emojiEditor.HasText(showOrderTag, showOrder.toString()), true);
-                                                assert.strictEqual(emojiEditor.HasText(fileNameTag, fileName), true);
-                                                assert.strictEqual(emojiEditor.HasText(highResFileNameTag, highResFileName), true);
-                                            });
+                                test(
+                                    "Checking the integrity of the meta-data...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(emojiEditor.HasAttribute(nameAttribute, `:${name}:`), true);
+                                        assert.strictEqual(emojiEditor.HasText(displayNameTag, displayName), true);
+                                        assert.strictEqual(emojiEditor.HasText(aliasesTag, aliases.map((alias: string) => `:${alias}:`).join("\n")), true);
+                                        assert.strictEqual(emojiEditor.HasText(showOrderTag, showOrder.toString()), true);
+                                        assert.strictEqual(emojiEditor.HasText(fileNameTag, fileName), true);
+                                        assert.strictEqual(emojiEditor.HasText(highResFileNameTag, highResFileName), true);
                                     });
                             });
                     });

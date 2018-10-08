@@ -1,12 +1,12 @@
 import { isNullOrUndefined } from "util";
 import { EmojiInstruction } from "../../PackageSystem/Instructions/Customization/EmojiInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
+import { NamedObjectDeletionFileCompiler } from "../NamedObjectDeletionFileCompiler";
 
 /**
  * Provides the functionality to compile emoji-files.
  */
-export class EmojiFileCompiler extends WoltLabXMLCompiler<EmojiInstruction>
+export class EmojiFileCompiler extends NamedObjectDeletionFileCompiler<EmojiInstruction>
 {
     /**
      * Initializes a new instance of the `EmojiFileCompiler` class.
@@ -24,44 +24,43 @@ export class EmojiFileCompiler extends WoltLabXMLCompiler<EmojiInstruction>
         return "https://www.woltlab.com/XSD/tornado/smiley.xsd";
     }
 
-    protected CreateDocument(): Document
+    protected get ObjectTagName(): string
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        return "smiley";
+    }
 
-        editor.AddElement(
-            "import",
-            ($import: XMLEditor) =>
-            {
-                for (let emoji of this.Item.Emojis)
+    protected CreateImport(): Element
+    {
+        let editor: XMLEditor = new XMLEditor(super.CreateImport());
+
+        for (let emoji of this.Item.Emojis)
+        {
+            editor.AddElement(
+                "smiley",
+                (smiley: XMLEditor) =>
                 {
-                    $import.AddElement(
-                        "smiley",
-                        (smiley: XMLEditor) =>
-                        {
-                            smiley.SetAttribute("name", `:${emoji.Name}:`);
-                            smiley.AddTextElement("title", emoji.DisplayName);
+                    smiley.SetAttribute("name", `:${emoji.Name}:`);
+                    smiley.AddTextElement("title", emoji.DisplayName);
 
-                            if (emoji.Aliases.length > 0)
-                            {
-                                smiley.AddCDATAElement("aliases", emoji.Aliases.map((alias: string) => `:${alias}:`).join("\n"));
-                            }
+                    if (emoji.Aliases.length > 0)
+                    {
+                        smiley.AddCDATAElement("aliases", emoji.Aliases.map((alias: string) => `:${alias}:`).join("\n"));
+                    }
 
-                            if (!isNullOrUndefined(emoji.ShowOrder))
-                            {
-                                smiley.AddTextElement("showorder", emoji.ShowOrder.toString());
-                            }
+                    if (!isNullOrUndefined(emoji.ShowOrder))
+                    {
+                        smiley.AddTextElement("showorder", emoji.ShowOrder.toString());
+                    }
 
-                            smiley.AddTextElement("path", emoji.FileName);
+                    smiley.AddTextElement("path", emoji.FileName);
 
-                            if (!isNullOrUndefined(emoji.HighResFileName))
-                            {
-                                smiley.AddTextElement("path2x", emoji.HighResFileName);
-                            }
-                        });
-                }
-            });
+                    if (!isNullOrUndefined(emoji.HighResFileName))
+                    {
+                        smiley.AddTextElement("path2x", emoji.HighResFileName);
+                    }
+                });
+        }
 
-        return document;
+        return editor.Element;
     }
 }
