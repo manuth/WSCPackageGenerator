@@ -109,14 +109,19 @@ suite(
                     "Testing the integrity of the created file...",
                     () =>
                     {
-                        let document: Document;
                         let importEditor: XMLEditor;
 
-                        suiteSetup(
-                            async () =>
+                        suite(
+                            "General",
+                            () =>
                             {
-                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
+                                test(
+                                    "Checking whether the content of the compiled file is valid xml...",
+                                    async () =>
+                                    {
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
+                                    });
                             });
 
                         suite(

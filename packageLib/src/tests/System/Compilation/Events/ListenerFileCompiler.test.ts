@@ -115,104 +115,62 @@ suite(
                     "Checking the integrity of the file...",
                     () =>
                     {
-                        let editor: XMLEditor;
+                        let importEditor: XMLEditor;
 
-                        suite("General",
+                        suite(
+                            "General",
                             () =>
                             {
-                                let rootTag: string;
-
-                                suiteSetup(
-                                    () =>
-                                    {
-                                        rootTag = "data";
-                                    });
-
                                 test(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
                                         let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
-                                        editor = new XMLEditor(document.documentElement);
-                                    });
-
-                                test(
-                                    "Checking whether the name of the root-tag is correct...",
-                                    () =>
-                                    {
-                                        assert.strictEqual(editor.TagName, rootTag);
+                                        importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });
 
                         suite(
-                            "Checking the integrity of the import-list",
+                            "Checking the integrity of the listener...",
                             () =>
                             {
-                                let importEditor: XMLEditor;
+                                let listenerEditor: XMLEditor;
+                                let nameAttribute: string;
+                                let environmentTag: string;
+                                let eventTag: string;
+                                let executionOrderTag: string;
+                                let permissionsTag: string;
+                                let optionsTag: string;
 
-                                suite(
-                                    "General",
+                                suiteSetup(
                                     () =>
                                     {
-                                        let importTag: string;
-
-                                        suiteSetup(
-                                            () =>
-                                            {
-                                                importTag = "import";
-                                            });
-
-                                        test(
-                                            "Checking whether the import-list is present...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(editor.HasTag(importTag, true), true);
-                                                importEditor = editor.GetChildrenByTag(importTag)[0];
-                                            });
+                                        nameAttribute = "name";
+                                        environmentTag = "environment";
+                                        eventTag = "eventname";
+                                        executionOrderTag = "nice";
+                                        permissionsTag = "permissions";
+                                        optionsTag = "options";
                                     });
 
-                                suite(
-                                    "Checking the integrity of the listener...",
+                                test(
+                                    "Checking whether the listener is present...",
                                     () =>
                                     {
-                                        let listenerEditor: XMLEditor;
-                                        let nameAttribute: string;
-                                        let environmentTag: string;
-                                        let eventTag: string;
-                                        let executionOrderTag: string;
-                                        let permissionsTag: string;
-                                        let optionsTag: string;
+                                        assert.strictEqual(importEditor.HasTag(listenerTag, true), true);
+                                        listenerEditor = importEditor.GetChildrenByTag(listenerTag)[0];
+                                    });
 
-                                        suiteSetup(
-                                            () =>
-                                            {
-                                                nameAttribute = "name";
-                                                environmentTag = "environment";
-                                                eventTag = "eventname";
-                                                executionOrderTag = "nice";
-                                                permissionsTag = "permissions";
-                                                optionsTag = "options";
-                                            });
-
-                                        test(
-                                            "Checking whether the listener is present...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(importEditor.HasTag(listenerTag, true), true);
-                                                listenerEditor = importEditor.GetChildrenByTag(listenerTag)[0];
-                                            });
-
-                                        test(
-                                            "Checking the integrity of the meta-data...",
-                                            () =>
-                                            {
-                                                assert.strictEqual(listenerEditor.HasAttribute(nameAttribute, name), true);
-                                                assert.strictEqual(listenerEditor.HasText(environmentTag, environment), true);
-                                                assert.strictEqual(listenerEditor.HasText(eventTag, event), true);
-                                                assert.strictEqual(listenerEditor.HasText(executionOrderTag, executionOrder.toString()), true);
-                                                assert.strictEqual(listenerEditor.HasText(permissionsTag, permissions.join(",")), true);
-                                                assert.strictEqual(listenerEditor.HasText(optionsTag, enableOptions.join(",")), true);
-                                            });
+                                test(
+                                    "Checking the integrity of the meta-data...",
+                                    () =>
+                                    {
+                                        assert.strictEqual(listenerEditor.HasAttribute(nameAttribute, name), true);
+                                        assert.strictEqual(listenerEditor.HasText(environmentTag, environment), true);
+                                        assert.strictEqual(listenerEditor.HasText(eventTag, event), true);
+                                        assert.strictEqual(listenerEditor.HasText(executionOrderTag, executionOrder.toString()), true);
+                                        assert.strictEqual(listenerEditor.HasText(permissionsTag, permissions.join(",")), true);
+                                        assert.strictEqual(listenerEditor.HasText(optionsTag, enableOptions.join(",")), true);
                                     });
                             });
                     });
