@@ -12,7 +12,7 @@ suite(
     () =>
     {
         let locales: string[];
-        let packageDir: TempDirectory;
+        let tempDir: TempDirectory;
         let compiler: LocalizationInstructionCompiler;
         let fileName: string;
 
@@ -21,7 +21,7 @@ suite(
             {
                 let localization: ILocalization = {};
                 locales = ["en", "it", "fr"];
-                packageDir = new TempDirectory();
+                tempDir = new TempDirectory();
 
                 for (let locale of locales)
                 {
@@ -52,14 +52,14 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new LocalizationInstructionCompiler(instruction);
-                compiler.DestinationPath = packageDir.FileName;
+                compiler.DestinationPath = tempDir.FileName;
                 fileName = compiler.DestinationFileName;
             });
 
         suiteTeardown(
             () =>
             {
-                packageDir.Dispose();
+                tempDir.Dispose();
             });
 
         suite(

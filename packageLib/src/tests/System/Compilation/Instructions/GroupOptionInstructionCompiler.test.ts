@@ -12,7 +12,7 @@ suite(
     {
         let fileName: string;
         let translationDir: string;
-        let packageDir: TempDirectory;
+        let tempDir: TempDirectory;
         let compiler: GroupOptionInstructionCompiler;
         let locales: string[];
 
@@ -29,7 +29,7 @@ suite(
                         }
                     });
 
-                packageDir = new TempDirectory();
+                tempDir = new TempDirectory();
                 locales = ["en", "cn", "es"];
 
                 for (let locale of locales)
@@ -52,15 +52,15 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new GroupOptionInstructionCompiler(instruction);
-                compiler.DestinationPath = packageDir.FileName;
+                compiler.DestinationPath = tempDir.FileName;
                 fileName = compiler.DestinationFileName;
-                translationDir = packageDir.MakePath(instruction.DestinationRoot, instruction.TranslationDirectory);
+                translationDir = tempDir.MakePath(instruction.DestinationRoot, instruction.TranslationDirectory);
             });
 
         suiteTeardown(
             () =>
             {
-                packageDir.Dispose();
+                tempDir.Dispose();
             });
 
         suite(

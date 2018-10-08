@@ -13,7 +13,7 @@ suite(
     {
         let sourceDir: TempDirectory;
         let testDir: TempDirectory;
-        let packageDir: TempDirectory;
+        let tempDir: TempDirectory;
         let archiveFileName: string;
         let instruction: ApplicationFileSystemInstruction;
         let compiler: FileInstructionCompiler;
@@ -25,7 +25,7 @@ suite(
             {
                 sourceDir = new TempDirectory();
                 testDir = new TempDirectory();
-                packageDir = new TempDirectory();
+                tempDir = new TempDirectory();
                 fileNames = [
                     "test1.txt",
                     "test2.txt",
@@ -55,7 +55,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new FileInstructionCompiler(instruction);
-                compiler.DestinationPath = packageDir.FileName;
+                compiler.DestinationPath = tempDir.FileName;
                 archiveFileName = compiler.DestinationFileName;
             });
 
@@ -64,7 +64,7 @@ suite(
             {
                 sourceDir.Dispose();
                 testDir.Dispose();
-                packageDir.Dispose();
+                tempDir.Dispose();
             });
 
         suite(

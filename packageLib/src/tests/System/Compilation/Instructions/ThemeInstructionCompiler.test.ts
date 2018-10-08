@@ -13,7 +13,7 @@ suite(
     () =>
     {
         let themeArchive: string;
-        let packageDir: TempDirectory;
+        let tempDir: TempDirectory;
         let themeDir: TempDirectory;
         let compiler: ThemeInstructionCompiler;
         let instruction: ThemeInstruction;
@@ -21,7 +21,7 @@ suite(
         suiteSetup(
             async () =>
             {
-                packageDir = new TempDirectory();
+                tempDir = new TempDirectory();
                 themeDir = new TempDirectory();
 
                 let $package: Package = new Package(
@@ -33,9 +33,9 @@ suite(
                         }
                     });
 
-                let tempDir: TempDirectory = new TempDirectory();
+                let resourceDir: TempDirectory = new TempDirectory();
                 await FileSystem.writeFile(
-                    tempDir.MakePath("variables.json"),
+                    resourceDir.MakePath("variables.json"),
                     dedent(`
                         {
                             "wcfHeaderBackground": "red",
@@ -43,7 +43,7 @@ suite(
                             "moreSpecialStuff": "foobar"
                         }`));
                 await FileSystem.writeFile(
-                    tempDir.MakePath("main.scss"),
+                    resourceDir.MakePath("main.scss"),
                     dedent(`
                         :root
                         {
@@ -55,22 +55,22 @@ suite(
                         Theme: {
                             Name: "test-theme",
                             DisplayName: {},
-                            VariableFileName: tempDir.MakePath("variables.json"),
-                            CustomScssFileName: tempDir.MakePath("main.scss")
+                            VariableFileName: resourceDir.MakePath("variables.json"),
+                            CustomScssFileName: resourceDir.MakePath("main.scss")
                         }
                     });
 
-                tempDir.Dispose();
+                resourceDir.Dispose();
                 $package.InstallSet.push(instruction);
                 compiler = new ThemeInstructionCompiler(instruction);
-                compiler.DestinationPath = packageDir.FileName;
-                themeArchive = packageDir.MakePath(instruction.FullName);
+                compiler.DestinationPath = tempDir.FileName;
+                themeArchive = tempDir.MakePath(instruction.FullName);
             });
 
         suiteTeardown(
             () =>
             {
-                packageDir.Dispose();
+                tempDir.Dispose();
                 themeDir.Dispose();
             });
 

@@ -11,7 +11,7 @@ suite(
     "CronJobInstructionCompiler",
     () =>
     {
-        let packageDir: TempDirectory;
+        let tempDir: TempDirectory;
         let fileName: string;
         let compiler: CronJobInstructionCompiler;
         let instruction: CronJobInstruction;
@@ -19,7 +19,7 @@ suite(
         suiteSetup(
             () =>
             {
-                packageDir = new TempDirectory();
+                tempDir = new TempDirectory();
                 let $package: Package = new Package(
                     {
                         Identifier: "foo",
@@ -54,14 +54,14 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new CronJobInstructionCompiler(instruction);
-                compiler.DestinationPath = packageDir.FileName;
+                compiler.DestinationPath = tempDir.FileName;
                 fileName = compiler.DestinationFileName;
             });
 
         suiteTeardown(
             () =>
             {
-                packageDir.Dispose();
+                tempDir.Dispose();
             });
 
         suite(
