@@ -8,5 +8,5 @@ export interface IDeleteInstructionOptions<T> extends IInstructionOptions
     /**
      * The objects to delete.
      */
-    ObjectsToDelete: T[];
+    ObjectsToDelete?: T[];
 }

@@ -1,5 +1,4 @@
 import * as assert from "assert";
-import { DOMParser } from "xmldom";
 import { ApplicationFileSystemInstruction } from "../../../../System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -8,8 +7,8 @@ suite(
     () =>
     {
         let application: string;
-        let normalDocument: Document;
-        let applicationDocument: Document;
+        let normalElement: Element;
+        let applicationElement: Element;
         let normalInstruction: ApplicationFileSystemInstruction;
         let applicationInstruction: ApplicationFileSystemInstruction;
 
@@ -40,8 +39,8 @@ suite(
 
                 $package.InstallSet.push(normalInstruction);
                 $package.InstallSet.push(applicationInstruction);
-                normalDocument = new DOMParser().parseFromString(normalInstruction.XML);
-                applicationDocument = new DOMParser().parseFromString(applicationInstruction.XML);
+                normalElement = normalInstruction.Serialize();
+                applicationElement = applicationInstruction.Serialize();
             });
 
         suite(
@@ -57,21 +56,21 @@ suite(
             });
 
         suite(
-            "XML",
+            "Serialize()",
             () =>
             {
                 test(
                     "Checking whether the `application`-attribute is not present if the `Application` is not specified...",
                     () =>
                     {
-                        assert.strictEqual(normalDocument.documentElement.hasAttribute("application"), false);
+                        assert.strictEqual(normalElement.hasAttribute("application"), false);
                     });
 
                 test(
                     "Checking whether the `application`-attribute is present if the `Application` is specified...",
                     () =>
                     {
-                        assert.strictEqual(applicationDocument.documentElement.hasAttribute("application"), true);
+                        assert.strictEqual(applicationElement.hasAttribute("application"), true);
                     });
             });
     });

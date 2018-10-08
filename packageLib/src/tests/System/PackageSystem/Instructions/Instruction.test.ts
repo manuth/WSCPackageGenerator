@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import * as Path from "path";
-import { DOMParser } from "xmldom";
 import { Instruction } from "../../../../System/PackageSystem/Instructions/Instruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -107,36 +106,36 @@ suite(
             });
 
         suite(
-            "XML",
+            "Serialize()",
             () =>
             {
-                let document: Document;
+                let element: Element;
 
                 suiteSetup(
                     () =>
                     {
-                        document = new DOMParser().parseFromString(instruction.XML);
+                        element = instruction.Serialize();
                     });
 
                 test(
                     "Checking whether the tag-name is correct...",
                     () =>
                     {
-                        assert.strictEqual(document.documentElement.tagName, "instruction");
+                        assert.strictEqual(element.tagName, "instruction");
                     });
 
                 test(
                     "Checking whether the type-attribute is set correctly...",
                     () =>
                     {
-                        assert.strictEqual(document.documentElement.getAttribute("type"), instruction.Type);
+                        assert.strictEqual(element.getAttribute("type"), instruction.Type);
                     });
 
                 test(
                     "Checking whether the filename is set correctly...",
                     () =>
                     {
-                        assert.strictEqual(document.documentElement.textContent, instruction.FullName);
+                        assert.strictEqual(element.textContent, instruction.FullName);
                     });
             });
     });

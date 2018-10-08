@@ -3,10 +3,10 @@ import * as FileSystem from "fs-extra";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
 import { BBCodeFileCompiler } from "../../../../System/Compilation/Presentation/BBCodeFileCompiler";
-import { BBCode } from "../../../../System/Customization/BBCodes/BBCode";
 import { IBBCodeAttributeOptions } from "../../../../System/Customization/BBCodes/IBBCodeAttributeOptions";
 import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
+import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
 suite(
@@ -56,25 +56,29 @@ suite(
                 htmlTag = "span";
                 isSelfClosing = true;
 
-                compiler = new BBCodeFileCompiler([
-                    new BBCode({
-                        Name: commonBBCodeName,
-                        DisplayName: label,
-                        Icon: icon,
-                        IsBlockElement: isBlockElement,
-                        ParseContent: parseContent,
-                        Attributes: [attribute, attribute]
-                    }),
-                    new BBCode({
-                        Name: classBBCodeName,
-                        ClassName: className
-                    }),
-                    new BBCode({
-                        Name: htmlBBCodeName,
-                        TagName: htmlTag,
-                        IsSelfClosing: isSelfClosing
-                    })
-                ]);
+                compiler = new BBCodeFileCompiler(
+                    new BBCodeInstruction({
+                        FileName: null,
+                        BBCodes: [
+                            {
+                                Name: commonBBCodeName,
+                                DisplayName: label,
+                                Icon: icon,
+                                IsBlockElement: isBlockElement,
+                                ParseContent: parseContent,
+                                Attributes: [attribute, attribute]
+                            },
+                            {
+                                Name: classBBCodeName,
+                                ClassName: className
+                            },
+                            {
+                                Name: htmlBBCodeName,
+                                TagName: htmlTag,
+                                IsSelfClosing: isSelfClosing
+                            }
+                        ]
+                    }));
 
                 compiler.DestinationPath = tempFile.FileName;
             });

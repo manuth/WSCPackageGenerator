@@ -1,13 +1,13 @@
 import { isNullOrUndefined } from "util";
-import { BBCode } from "../../Customization/BBCodes/BBCode";
 import { BBCodeAttribute } from "../../Customization/BBCodes/BBCodeAttribute";
+import { BBCodeInstruction } from "../../PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { XMLEditor } from "../../Serialization/XMLEditor";
-import { WoltLabXMLCompiler } from "../WoltLabXMLCompiler";
+import { NamedDeleteInstructionCompiler } from "../NamedDeleteInstructionFileCompiler";
 
 /**
  * Provides the functionality to compile bb-codes.
  */
-export class BBCodeFileCompiler extends WoltLabXMLCompiler<BBCode[]>
+export class BBCodeFileCompiler extends NamedDeleteInstructionCompiler<BBCodeInstruction>
 {
     /**
      * Initializes a new instance of the `BBCodeFileCompiler` class.
@@ -15,7 +15,7 @@ export class BBCodeFileCompiler extends WoltLabXMLCompiler<BBCode[]>
      * @param item
      * The item to compile.
      */
-    public constructor(item: BBCode[])
+    public constructor(item: BBCodeInstruction)
     {
         super(item);
     }
@@ -25,87 +25,85 @@ export class BBCodeFileCompiler extends WoltLabXMLCompiler<BBCode[]>
         return "https://www.woltlab.com/XSD/vortex/bbcode.xsd";
     }
 
-    protected CreateDocument(): Document
+    protected get ObjectTagName(): string
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        return "bbcode";
+    }
 
-        editor.AddElement(
-            "import",
-            ($import: XMLEditor) =>
-            {
-                for (let bbCode of this.Item)
+    protected CreateImport(): Element
+    {
+        let editor: XMLEditor = new XMLEditor(super.CreateImport());
+        for (let bbCode of this.Item.BBCodes)
+        {
+            editor.AddElement(
+                this.ObjectTagName,
+                (bbCodeEditor: XMLEditor) =>
                 {
-                    $import.AddElement(
-                        "bbcode",
-                        (bbCodeEditor: XMLEditor) =>
+                    bbCodeEditor.SetAttribute("name", bbCode.Name);
+
+                    if (bbCode.DisplayName.GetLocales().length > 0)
+                    {
+                        bbCodeEditor.AddTextElement("buttonLabel", `wcf.editor.button.${bbCode.Name}`);
+                    }
+
+                    if (!isNullOrUndefined(bbCode.Icon))
+                    {
+                        bbCodeEditor.AddTextElement("wysiwygicon", bbCode.Icon);
+                    }
+
+                    if (!isNullOrUndefined(bbCode.ClassName))
+                    {
+                        bbCodeEditor.AddTextElement("classname", bbCode.ClassName);
+                    }
+
+                    if (!isNullOrUndefined(bbCode.TagName))
+                    {
+                        bbCodeEditor.AddTextElement("htmlopen", bbCode.TagName);
+
+                        if (!bbCode.IsSelfClosing)
                         {
-                            bbCodeEditor.SetAttribute("name", bbCode.Name);
+                            bbCodeEditor.AddTextElement("htmlclose", bbCode.TagName);
+                        }
+                    }
 
-                            if (bbCode.DisplayName.GetLocales().length > 0)
+                    bbCodeEditor.AddTextElement("isBlockElement", bbCode.IsBlockElement ? "1" : "0");
+                    bbCodeEditor.AddTextElement("sourcecode", bbCode.ParseContent ? "0" : "1");
+
+                    if (bbCode.Attributes.length > 0)
+                    {
+                        bbCodeEditor.AddElement(
+                            "attributes",
+                            (attributes: XMLEditor) =>
                             {
-                                bbCodeEditor.AddTextElement("buttonLabel", `wcf.editor.button.${bbCode.Name}`);
-                            }
-
-                            if (!isNullOrUndefined(bbCode.Icon))
-                            {
-                                bbCodeEditor.AddTextElement("wysiwygicon", bbCode.Icon);
-                            }
-
-                            if (!isNullOrUndefined(bbCode.ClassName))
-                            {
-                                bbCodeEditor.AddTextElement("classname", bbCode.ClassName);
-                            }
-
-                            if (!isNullOrUndefined(bbCode.TagName))
-                            {
-                                bbCodeEditor.AddTextElement("htmlopen", bbCode.TagName);
-
-                                if (!bbCode.IsSelfClosing)
+                                for (let i: number = 0; i < bbCode.Attributes.length; i++)
                                 {
-                                    bbCodeEditor.AddTextElement("htmlclose", bbCode.TagName);
-                                }
-                            }
+                                    let attribute: BBCodeAttribute = bbCode.Attributes[i];
 
-                            bbCodeEditor.AddTextElement("isBlockElement", bbCode.IsBlockElement ? "1" : "0");
-                            bbCodeEditor.AddTextElement("sourcecode", bbCode.ParseContent ? "0" : "1");
-
-                            if (bbCode.Attributes.length > 0)
-                            {
-                                bbCodeEditor.AddElement(
-                                    "attributes",
-                                    (attributes: XMLEditor) =>
-                                    {
-                                        for (let i: number = 0; i < bbCode.Attributes.length; i++)
+                                    attributes.AddElement(
+                                        "attribute",
+                                        (attributeEditor: XMLEditor) =>
                                         {
-                                            let attribute: BBCodeAttribute = bbCode.Attributes[i];
+                                            attributeEditor.SetAttribute("name", i.toString());
 
-                                            attributes.AddElement(
-                                                "attribute",
-                                                (attributeEditor: XMLEditor) =>
-                                                {
-                                                    attributeEditor.SetAttribute("name", i.toString());
+                                            attributeEditor.AddTextElement("required", attribute.Required ? "1" : "0");
+                                            attributeEditor.AddTextElement("useText", attribute.ValueByContent ? "1" : "0");
 
-                                                    attributeEditor.AddTextElement("required", attribute.Required ? "1" : "0");
-                                                    attributeEditor.AddTextElement("useText", attribute.ValueByContent ? "1" : "0");
+                                            if (!isNullOrUndefined(attribute.Code))
+                                            {
+                                                attributeEditor.AddTextElement("html", attribute.Code);
+                                            }
 
-                                                    if (!isNullOrUndefined(attribute.Code))
-                                                    {
-                                                        attributeEditor.AddTextElement("html", attribute.Code);
-                                                    }
+                                            if (!isNullOrUndefined(attribute.ValidationPattern))
+                                            {
+                                                attributeEditor.AddTextElement("validationpattern", attribute.ValidationPattern.source);
+                                            }
+                                        });
+                                }
+                            });
+                    }
+                });
+        }
 
-                                                    if (!isNullOrUndefined(attribute.ValidationPattern))
-                                                    {
-                                                        attributeEditor.AddTextElement("validationpattern", attribute.ValidationPattern.source);
-                                                    }
-                                                });
-                                        }
-                                    });
-                            }
-                        });
-                }
-            });
-
-        return document;
+        return editor.Element;
     }
 }
