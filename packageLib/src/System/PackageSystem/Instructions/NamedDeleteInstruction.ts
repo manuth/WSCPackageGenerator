@@ -23,7 +23,7 @@ export abstract class NamedDeleteInstruction extends Instruction implements INam
 
         if (!isNullOrUndefined(options.ObjectsToDelete))
         {
-
+            this.ObjectsToDelete.push(...options.ObjectsToDelete);
         }
     }
 
