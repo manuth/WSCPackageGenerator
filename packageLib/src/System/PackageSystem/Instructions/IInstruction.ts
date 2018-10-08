@@ -31,7 +31,7 @@ export interface IInstruction
     ObjectsByID: { [id: string]: any };
 
     /**
-     * Gets an xml-code which represents the instruction.
+     * Serializes the instruction to an xml dom-document.
      */
-    XML: string;
+    Serialize(): Element;
 }

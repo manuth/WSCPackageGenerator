@@ -1,5 +1,6 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
+import { XMLEditor } from "../../../Serialization/XMLEditor";
 import { FileSystemInstruction } from "./FileSystemInstruction";
 import { IApplicationFileSystemInstructionOptions } from "./IApplicationFileSystemInstructionOptions";
 
@@ -48,15 +49,15 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
         this.application = value;
     }
 
-    protected get XMLDocument(): Document
+    public Serialize(): Element
     {
-        let result: Document = super.XMLDocument;
+        let editor: XMLEditor = new XMLEditor(super.Serialize());
 
         if (!isNullOrUndefined(this.Application))
         {
-            result.documentElement.setAttribute("application", this.Application);
+            editor.SetAttribute("application", this.Application);
         }
 
-        return result;
+        return editor.Element;
     }
 }

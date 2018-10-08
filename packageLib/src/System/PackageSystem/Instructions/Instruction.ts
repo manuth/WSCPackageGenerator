@@ -1,6 +1,6 @@
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
-import { DOMParser, XMLSerializer } from "xmldom";
+import { DOMParser } from "xmldom";
 import { IInstruction } from "./IInstruction";
 import { IInstructionOptions } from "./IInstructionOptions";
 import { InstructionSet } from "./InstructionSet";
@@ -26,17 +26,6 @@ export abstract class Instruction implements IInstruction
     public constructor(options: IInstructionOptions)
     {
         this.FileName = options.FileName;
-    }
-
-    /**
-     * Gets an xml-element which represents the instruction.
-     */
-    protected get XMLDocument(): Document
-    {
-        let document: Document = new DOMParser().parseFromString("<instruction />");
-        document.documentElement.textContent = this.FullName;
-        document.documentElement.setAttribute("type", this.Type);
-        return document;
     }
 
     /**
@@ -98,8 +87,11 @@ export abstract class Instruction implements IInstruction
         return {};
     }
 
-    public get XML(): string
+    public Serialize(): Element
     {
-        return new XMLSerializer().serializeToString(this.XMLDocument);
+        let document: Document = new DOMParser().parseFromString("<instruction />");
+        document.documentElement.textContent = this.FullName;
+        document.documentElement.setAttribute("type", this.Type);
+        return document.documentElement;
     }
 }
