@@ -19,7 +19,8 @@ suite(
             () =>
             {
                 instruction = new MyInstruction({
-                    FileName: "example.txt"
+                    FileName: "example.txt",
+                    Standalone: Math.random() > 0.5
                 });
 
                 $package = new Package({
@@ -129,6 +130,20 @@ suite(
                     () =>
                     {
                         assert.strictEqual(element.getAttribute("type"), instruction.Type);
+                    });
+
+                test(
+                    "Checking whether the execution-mode is set correctly...",
+                    () =>
+                    {
+                        if (instruction.Standalone)
+                        {
+                            assert.strictEqual(element.getAttribute("run"), "standalone");
+                        }
+                        else
+                        {
+                            assert.strictEqual(element.hasAttribute("run"), false);
+                        }
                     });
 
                 test(
