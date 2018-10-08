@@ -1,3 +1,4 @@
+import { IRequiredPackageDescriptorOptions } from "./IRequiredPackageDescriptorOptions";
 import { PackageFileDescriptor } from "./PackageFileDescriptor";
 
 /**
@@ -9,6 +10,15 @@ export class RequiredPackageDescriptor extends PackageFileDescriptor
      * The minimal version of the package which must bee installed.
      */
     private minVersion: string;
+
+    /**
+     * Initializes a new instance of the `RequiredPackageDescriptor` class.
+     */
+    public constructor(options: IRequiredPackageDescriptorOptions)
+    {
+        super(options);
+        this.MinVersion = options.MinVersion;
+    }
 
     /**
      * Gets or sets the minimal version of the package which must bee installed.
