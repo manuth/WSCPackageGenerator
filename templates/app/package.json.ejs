@@ -1,7 +1,7 @@
 {
   "name": <%- JSON.stringify(Settings.name.toLowerCase()) %>,
   "version": "0.0.0",
-  "description": <%- JSON.stringify(Settings.description) %>,
+  "description": <%- JSON.stringify(Settings.description || "") %>,
   "author": {
     "name": <%- JSON.stringify(Settings.author) %><% if (Settings.authorURL.length > 0) { %>,
     "url": <%- JSON.stringify(Settings.authorURL) %><% } %>
