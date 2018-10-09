@@ -46,9 +46,17 @@ class WSCPackageGenerator extends Generator
     /**
      * Gets the path to load component-templates from and to save component-files to.
      */
-    protected get ComponentPath(): string
+    protected get ComponentTemplatePath(): string
     {
         return "components";
+    }
+
+    /**
+     * Gets the name of the setting which contains the path to the component-directory.
+     */
+    protected get ComponentRootSetting(): string
+    {
+        return "componentRoot";
     }
 
     protected get Components(): IComponentCategory[]
@@ -218,7 +226,7 @@ class WSCPackageGenerator extends Generator
                 message: "What's the name of your package?",
                 default: (answers: YoGenerator.Answers): string =>
                 {
-                    return Path.basename(this.destination);
+                    return answers["destination"];
                 },
                 validate: this.ForceInput
             },
@@ -228,7 +236,7 @@ class WSCPackageGenerator extends Generator
                 message: "What's the display-name of your package?",
                 default: (answers: YoGenerator.Answers): string =>
                 {
-                    return answers.name;
+                    return answers["name"];
                 },
                 validate: this.ForceInput
             },
@@ -256,15 +264,22 @@ class WSCPackageGenerator extends Generator
                 message: "Please type an identifier for your package:",
                 default: (answers: YoGenerator.Answers): string =>
                 {
-                    let reversedURI: string = (answers.authorURL as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
+                    let reversedURI: string = (answers["authorURL"] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
                     if (reversedURI.length === 0)
                     {
                         reversedURI = "com.example";
                     }
 
-                    return reversedURI + "." + (answers.name as string).toLowerCase();
+                    return reversedURI + "." + (answers["name"] as string).toLowerCase();
                 },
+                validate: this.ForceInput
+            },
+            {
+                type: "input",
+                name: this.ComponentRootSetting,
+                message: "Where do you want to store the components?",
+                default: "components",
                 validate: this.ForceInput
             },
             ...this.ComponentQuestions
@@ -282,7 +297,7 @@ class WSCPackageGenerator extends Generator
 
         let componentsPath: (value: string) => string = (value: string): string =>
         {
-            return this.destinationPath(this.ComponentPath, value);
+            return this.destinationPath(this.settings[this.ComponentRootSetting], value);
         };
 
         let CopyTemplate: (source: string, destination: string) => Promise<void> = async (source: string, destination: string): Promise<void> =>
@@ -306,7 +321,7 @@ class WSCPackageGenerator extends Generator
                     destinationFile: destination,
                     packagePath: this.destination,
                     relativePackage,
-                    componentDir: this.ComponentPath,
+                    componentDir: this.ComponentTemplatePath,
                     components: this.settings[this.ComponentSetting],
                     componentPaths: this.settings[this.ComponentPathSetting],
                     Path,
@@ -317,7 +332,7 @@ class WSCPackageGenerator extends Generator
 
         let CopyComponent: (component: IComponent, destination: string) => Promise<void> = async (component: IComponent, destination: string): Promise<void> =>
         {
-            await CopyTemplate(this.templatePath(this.ComponentPath, component.TemplateFile), componentsPath(destination));
+            await CopyTemplate(this.templatePath(this.ComponentTemplatePath, component.TemplateFile), componentsPath(destination));
         };
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
