@@ -6,12 +6,13 @@
         {
             "label": "Compile",
             "type": "npm",
-            "script": "compile",
+            "script": "watch",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": "$tsc",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
             "presentation": {
                 "reveal": "never"
             }

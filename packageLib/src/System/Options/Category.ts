@@ -48,12 +48,12 @@ export class Category<TOption extends Option, TOptionOptions> extends NodeItem i
 
         if (!isNullOrUndefined(options.DisplayName))
         {
-            Object.assign(this.DisplayName.Data, options.DisplayName);
+            this.DisplayName.Data = options.DisplayName;
         }
 
         if (!isNullOrUndefined(options.Description))
         {
-            Object.assign(this.Description.Data, options.Description);
+            this.Description.Data = options.Description;
         }
 
         if (!isNullOrUndefined(options.ShowOrder))

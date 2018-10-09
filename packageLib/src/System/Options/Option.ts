@@ -97,12 +97,12 @@ export abstract class Option
 
         if (!isNullOrUndefined(options.DisplayName))
         {
-            Object.assign(this.DisplayName, options.DisplayName);
+            this.DisplayName.Data = options.DisplayName;
         }
 
         if (!isNullOrUndefined(options.Description))
         {
-            Object.assign(this.Description, options.Description);
+            this.Description.Data = options.Description;
         }
 
         if (!isNullOrUndefined(options.Type))

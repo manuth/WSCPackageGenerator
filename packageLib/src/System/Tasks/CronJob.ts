@@ -57,7 +57,7 @@ export class CronJob
 
         if (!isNullOrUndefined(options.Description))
         {
-            Object.assign(this.Description.Data, options.Description);
+            this.Description.Data = options.Description;
         }
 
         if (!isNullOrUndefined(options.AllowDisable))

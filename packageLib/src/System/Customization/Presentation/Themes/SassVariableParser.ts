@@ -40,7 +40,7 @@ export class SassVariableParser
                 {
                     camelCase: false,
                     cwd: Path.dirname(this.fileName)
-                });
+                }) as { [key: string]: string };
 
             return variables;
         }

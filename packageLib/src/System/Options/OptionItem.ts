@@ -41,7 +41,7 @@ export class OptionItem
 
         if (!isNullOrUndefined(options.DisplayName))
         {
-            Object.assign(this.DisplayName, options.DisplayName);
+            this.DisplayName.Data = options.DisplayName;
         }
 
         this.Value = options.Value;

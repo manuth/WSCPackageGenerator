@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from "util";
 import { BidirectionalCollection } from "../../Collections/BidirectionalCollection";
 import { XML } from "../../Serialization/XML";
 import { XMLEditor } from "../../Serialization/XMLEditor";
@@ -80,12 +81,15 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
 
         for (let instruction of this)
         {
-            let childNodes: NodeList = instruction.Compiler.Serialize().childNodes;
-
-            for (let i: number = 0; i < childNodes.length; i++)
+            if (!isNullOrUndefined(instruction.Compiler))
             {
-                let node: Node = childNodes.item(i);
-                editor.Add(node);
+                let childNodes: NodeList = instruction.Compiler.Serialize().childNodes;
+
+                for (let i: number = 0; i < childNodes.length; i++)
+                {
+                    let node: Node = childNodes.item(i);
+                    editor.Add(node);
+                }
             }
         }
 

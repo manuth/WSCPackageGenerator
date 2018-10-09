@@ -1,7 +1,6 @@
 import * as ColorNames from "colornames";
 import * as FileSystem from "fs-extra";
-import * as Hex2RgbaMethod from "hex-to-rgba";
-import Hex2RgbaModule from "hex-to-rgba";
+import hexToRgba = require("hex-to-rgba");
 import * as OS from "os";
 import { isNullOrUndefined } from "util";
 import { Component } from "../../../PackageSystem/Component";
@@ -11,7 +10,6 @@ import { ModuleInfo } from "../../../PackageSystem/ModuleInfo";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
 import { IThemeOptions } from "./IThemeOptions";
 import { SassVariableParser } from "./SassVariableParser";
-const hexToRgba: typeof Hex2RgbaModule = Hex2RgbaMethod as any;
 
 /**
  * Represents a theme.
