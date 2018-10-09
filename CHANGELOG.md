@@ -1,4 +1,9 @@
 # Change Log
+## WSCPackageGenerator v2.0.1
+  - Updated all packages
+  - Reworked the build-tasks
+  - Fixed the InstructionSet-serialization
+
 ## WSCPackageGenerator v2.0.0
   - Provided full build-features for the package-library
   - Moved from `ejs`-templates to `DOMDocument`s
