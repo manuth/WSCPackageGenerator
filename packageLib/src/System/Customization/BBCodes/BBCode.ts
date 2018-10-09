@@ -62,7 +62,7 @@ export class BBCode
 
         if (!isNullOrUndefined(options.DisplayName))
         {
-            Object.assign(this.DisplayName.Data, options.DisplayName);
+            this.DisplayName.Data = options.DisplayName;
         }
 
         if (!isNullOrUndefined(options.Icon))
