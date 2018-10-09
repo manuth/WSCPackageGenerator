@@ -1,4 +1,10 @@
 # Change Log
+## WSCPackageGenerator v2.0.0
+  - Provided full build-features for the package-library
+  - Moved from `ejs`-templates to `DOMDocument`s
+  - Added tests for both the generators and the package-library
+  - Completely reworked the whole code
+
 ## WSCPackageGenerator v0.0.18
   - Fix the build-task which caused VSCode to be unable to build the package
 
