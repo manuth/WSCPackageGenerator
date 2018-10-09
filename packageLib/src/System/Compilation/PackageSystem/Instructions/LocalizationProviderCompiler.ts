@@ -28,12 +28,16 @@ export class LocalizationProviderCompiler<T extends ILocalizationInstruction> ex
     public Serialize(): Document
     {
         let document: Document = super.Serialize();
-        let childNodes: NodeList = new LocalizationInstructionCompiler(this.Item).Serialize().childNodes;
 
-        for (let i: number = 0; i < childNodes.length; i++)
+        if (Object.keys(this.Item.GetMessages()).length > 0)
         {
-            let node: Node = childNodes.item(i);
-            document.appendChild(node);
+            let childNodes: NodeList = new LocalizationInstructionCompiler(this.Item).Serialize().childNodes;
+
+            for (let i: number = 0; i < childNodes.length; i++)
+            {
+                let node: Node = childNodes.item(i);
+                document.appendChild(node);
+            }
         }
 
         return document;
