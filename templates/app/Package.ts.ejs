@@ -49,10 +49,11 @@ let pkg: IPackageOptions = {
                     case "sql":
                     case "templates":
                     case "acpTemplates":
-                        formater = (value) =>
+                        formatter = (value) =>
                         {
                             return "// " + defaultFormatter(value);
                         };
+                        break;
                     default:
                         formatter = defaultFormatter;
                         break;
