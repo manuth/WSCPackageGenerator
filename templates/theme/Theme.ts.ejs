@@ -1,6 +1,4 @@
-import Theme from "<%= basePath %>lib/Appearance/Theme";
-
-let theme: Theme = new Theme({
+let theme: IThemeOptions = {
     Name: "<%= name  %>",
     DisplayName: {
         en: "<%= displayName %>"
@@ -10,12 +8,12 @@ let theme: Theme = new Theme({
     }<%
 %><% if (components.includes("customThemes")) { %><%
     %>,
-    CustomScssFile: "<%= componentPaths["customThemes"] %>"<%
+    CustomScssFileName: "<%= componentPaths["customThemes"] %>"<%
 %><% } %><%
 %><% if (components.includes("variableOverrides")) { %><%
     %>,
-    OverrideScssFile: "<%= componentPaths["variableOverrides"] %>"<%
+    ScssOverrideFileName: "<%= componentPaths["variableOverrides"] %>"<%
 %><% } %>
-});
+};
 
 export = theme;

@@ -1,11 +1,9 @@
-import { TemplateListener } from "../lib/Appearance/Presentation/TemplateListener";
-import { TemplateListenersInstruction } from "../lib/Appearance/Presentation/TemplateListenersInstruction";
-import { WSCEnvironment } from "../lib/Core/WSCEnvironment";
+import { TemplateListenerInstruction } from "../lib/System/PackageSystem/Instructions/Events/TemplateListenerInstruction";
+import { ListenerEnvironment } from "../lib/System/Events/ListenerEnvironment";
 
-const templateListenersInstruction: TemplateListenersInstruction = new TemplateListenersInstruction({
-    TemplateListeners: [
-
+const templateListenerInstruction: TemplateListenerInstruction = new TemplateListenerInstruction({
+    Listeners: [
     ]
 });
 
-export = templateListenersInstruction;
+export = templateListenerInstruction;

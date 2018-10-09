@@ -1,10 +1,8 @@
-import { TranslationNode } from "../lib/Globalization/TranslationNode";
-import { TranslationsInstruction } from "../lib/Globalization/TranslationsInstruction";
+import { TranslationInstruction } from "../lib/System/PackageSystem/Instructions/Globalization/TranslationInstruction";
 
-const translationsInstruction: TranslationsInstruction = new TranslationsInstruction({
-    TranslationNodes: [
-
+const translationInstruction: TranslationInstruction = new TranslationInstruction({
+    Nodes: [
     ]
 });
 
-export = translationsInstruction;
+export = translationInstruction;

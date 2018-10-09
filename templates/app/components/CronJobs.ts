@@ -1,5 +1,4 @@
-import { Cronjob } from "../lib/Core/Cronjobs/Cronjob";
-import { CronjobInstruction } from "../lib/Core/Cronjobs/CronjobInstruction";
+import { CronjobInstruction } from "../lib/System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 
 const cronjobInstruction: CronjobInstruction = new CronjobInstruction({
     Cronjobs: [

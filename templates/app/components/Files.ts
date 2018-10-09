@@ -1,5 +1,5 @@
-import { FilesInstruction } from "../lib/Core/FilesInstruction";
+import { ApplicationFileSystemInstruction } from "../lib/System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 
-const filesInstruction: FilesInstruction = null;
+const fileInstruction: ApplicationFileSystemInstruction = null;
 
-// export = filesInstruction;
+// export = fileInstruction;

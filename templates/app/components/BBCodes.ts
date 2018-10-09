@@ -1,10 +1,8 @@
-import { BBCode } from "../lib/Appearance/BBCodes/BBCode";
-import { BBCodesInstruction } from "../lib/Appearance/BBCodes/BBCodesInstruction";
+import { BBCodeInstruction } from "../lib/System/PackageSystem/Instructions/Customization/BBCodeInstruction";
 
-const bbCodesInstruction: BBCodesInstruction = new BBCodesInstruction({
+const bbCodeInstruction: BBCodeInstruction = new BBCodeInstruction({
     BBCodes: [
-        
     ]
 });
 
-export = bbCodesInstruction;
+export = bbCodeInstruction;

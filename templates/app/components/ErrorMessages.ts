@@ -1,19 +1,7 @@
-import { ErrorMessageNode } from "../lib/Globalization/Errors/ErrorMessageNode";
-import { ErrorMessagesInstruction } from "../lib/Globalization/Errors/ErrorMessagesInstruction";
+import { ErrorMessageInstruction } from "../lib/System/PackageSystem/Instructions/Globalization/ErrorMessageInstruction";
 
-const errorMessageInstruction: ErrorMessagesInstruction = new ErrorMessagesInstruction({
-    TranslationNodes: [
-        new ErrorMessageNode({
-            Name: "wcf.acp.option",
-            Nodes: [
-                new ErrorMessageNode({
-                    Name: "error",
-                    Nodes: [
-                        
-                    ]
-                })
-            ]
-        })
+const errorMessageInstruction: ErrorMessageInstruction = new ErrorMessageInstruction({
+    Nodes: [
     ]
 });
 

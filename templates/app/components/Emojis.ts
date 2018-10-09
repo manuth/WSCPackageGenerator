@@ -1,9 +1,7 @@
-import { Emoji } from "../lib/Appearance/Emojis/Emoji";
-import { EmojisInstruction } from "../lib/Appearance/Emojis/EmojisInstruction";
+import { EmojiInstruction } from "../lib/System/PackageSystem/Instructions/Customization/EmojiInstruction";
 
-const emojiInstruction: EmojisInstruction = new EmojisInstruction({
+const emojiInstruction: EmojiInstruction = new EmojiInstruction({
     Emojis: [
-
     ]
 });
 

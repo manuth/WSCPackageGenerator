@@ -1,5 +1,5 @@
-import { ACPTemplatesInstruction } from "../lib/Appearance/Presentation/ACPTemplatesInstruction";
+import { ACPTemplateInstruction } from "../lib/System/PackageSystem/Instructions/Customization/Presentation/ACPTemplateInstruction";
 
-const acpTemplatesInstruction: ACPTemplatesInstruction = null;
+const acpTemplatesInstruction: ACPTemplateInstruction = null;
 
 // export = acpTemplatesInstruction;

@@ -3,9 +3,6 @@
         "**/*.js": {
             "when": "$(basename).ts"
         },
-        "**/**.js": {
-            "when": "$(basename).tsx"
-        },
         "**/*.map": {"when": "$(basename)"}
     }
 }

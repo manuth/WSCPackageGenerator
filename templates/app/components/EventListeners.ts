@@ -1,11 +1,9 @@
-import { EventListener } from "../lib/Events/EventListener";
-import { EventListenersInstruction } from "../lib/Events/EventListenersInstruction";
-import { WSCEnvironment } from "../lib/Core/WSCEnvironment";
+import { EventListenerInstruction } from "../lib/System/PackageSystem/Instructions/Events/EventListenerInstruction";
+import { ListenerEnvironment } from "../lib/System/Events/ListenerEnvironment";
 
-const eventListenersInstruction: EventListenersInstruction = new EventListenersInstruction({
-    EventListeners: [
-
+const eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+    Listeners: [
     ]
 });
 
-export = eventListenersInstruction;
+export = eventListenerInstruction;

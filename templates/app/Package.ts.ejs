@@ -9,54 +9,52 @@ function getComponentsPath(value: string): string
     return Path.join(__dirname, "components", value);
 }
 
-let pkg: Package = new Package({
+let pkg: IPackageOptions = {
     Identifier: "<%= identifier %>",
     Name: "<%= name %>",
     DisplayName: {
         inv: "<%= displayName %>"
     },
-    Date: new Date("<% let date = new Date(); %><%=
+    CreationDate: new Date("<% let date = new Date(); %><%=
         date.getFullYear() + "/" +
         (date.getMonth() + 1).toString().padStart(2, "0") + "/" +
         date.getDate().toString().padStart(2, "0") %>"),
     Description: {
         inv: "<%= description %>"
     },
-    InstallInstructions: [<%
-        let items = [];
+    InstallSet: {
+        Instructions: [<%
+            let items = [];
 
-        for (let component of components)
-        {
-            let optionName = "";
-            let item = "";
-            
-            let formatter = (value) =>
+            for (let component of components)
             {
-                return value;
-            }
+                let optionName = "";
+                let item = "";
+                let formatter;
 
-            switch (component)
-            {
-                case "theme":
-                    formatter = (value) =>
-                    {
-                        return "...new ThemeInstructionCollection(\"" + value + "\")";
-                    }
-                    break;
-                default:
-                    formatter = (value) =>
-                    {
-                        return "require(getComponentsPath(\"" + value + "\"))";
-                    }
-                    break;
-            }
+                switch (component)
+                {
+                    case "theme":
+                        formatter = (value) =>
+                        {
+                            return "...new ThemeInstructionCollection(\"" + value + "\")";
+                        }
+                        break;
+                    default:
+                        formatter = (value) =>
+                        {
+                            return "require(getComponentsPath(\"" + value + "\"))";
+                        }
+                        break;
+                }
 
-            items.push(formatter(componentPaths[component]));
-        }
-    %>
-        <%- items.join(`,
-        `) %>
-    ],
+                items.push(formatter(componentPaths[component]));
+            }
+        %>
+            <%- items.join(`,
+            `) %>
+        ]
+    },
     RequiredPackages: [
         new RequiredPackageDescriptor({
             Identifier: "com.woltlab.wcf",
