@@ -80,7 +80,7 @@ export class XMLEditor
      * @param nodeList
      * The node-list to convert.
      */
-    protected static ToArray<T extends Node>(nodeList: NodeList | NodeListOf<T>): T[]
+    protected static ToArray<T extends Node>(nodeList: { item(index: number): T, length: number }): T[]
     {
         let result: T[] = [];
 

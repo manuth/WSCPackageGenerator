@@ -88,7 +88,7 @@ suite(
                                 variableAttribute = "name";
 
                                 let variableElements: Element[] = [];
-                                let variableNodeList: NodeListOf<Element> = document.getElementsByTagName(variableTag);
+                                let variableNodeList: HTMLCollectionOf<Element> = document.getElementsByTagName(variableTag);
 
                                 for (let i: number = 0; i < variableNodeList.length; i++)
                                 {
