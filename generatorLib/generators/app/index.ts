@@ -388,9 +388,13 @@ class WSCPackageGenerator extends Generator
         let componentTemplates: { [key: string]: string } = {
             files: "Files.ts",
             cronJobs: "CronJobs.ts",
+            php: "PHPScript.ts",
+            sql: "SQLScript.ts",
             translations: "Translations.ts",
             errors: "ErrorMessages.ts",
             acpOptions: "Options.ts",
+            userOptions: "UserOptions.ts",
+            groupOptions: "GroupOptions.ts",
             emojis: "Emojis.ts",
             bbCodes: "BBCodes.ts",
             templates: "Templates.ts",

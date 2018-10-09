@@ -31,6 +31,11 @@ let pkg: IPackageOptions = {
                 let item = "";
                 let formatter;
 
+                let defaultFormatter = (value) =>
+                {
+                    return "require(getComponentsPath(\"" + value + "\"))";
+                };
+
                 switch (component)
                 {
                     case "theme":
@@ -40,17 +45,16 @@ let pkg: IPackageOptions = {
                         };
                         break;
                     case "files":
+                    case "php":
+                    case "sql":
                     case "template":
                     case "acpTemplate":
                         formater = (value) =>
                         {
-                            return "// require(getComponentsPath(\"" + value + "\"))";
+                            return "// " + defaultFormatter(value);
                         };
                     default:
-                        formatter = (value) =>
-                        {
-                            return "require(getComponentsPath(\"" + value + "\"))";
-                        };
+                        formatter = defaultFormatter;
                         break;
                 }
 
