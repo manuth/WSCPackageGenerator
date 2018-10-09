@@ -1,3 +1,4 @@
+import * as FileSystem from "fs-extra";
 import { isNullOrUndefined } from "util";
 import { Theme } from "../../Customization/Presentation/Themes/Theme";
 import { Compiler } from "../Compiler";
@@ -67,6 +68,21 @@ export class ThemeCompiler extends Compiler<Theme>
             let variableCompiler: ThemeVariableCompiler = new ThemeVariableCompiler(variables);
             variableCompiler.DestinationPath = this.MakeDestinationPath(this.VariableFileName);
             await variableCompiler.Execute();
+        }
+
+        if (!isNullOrUndefined(this.Item.Thumbnail))
+        {
+            await FileSystem.copy(this.Item.Thumbnail.Source, this.MakeDestinationPath(this.Item.Thumbnail.FileName));
+        }
+
+        if (!isNullOrUndefined(this.Item.HighResThumbnail))
+        {
+            await FileSystem.copy(this.Item.HighResThumbnail.Source, this.MakeDestinationPath(this.Item.HighResThumbnail.FileName));
+        }
+
+        if (!isNullOrUndefined(this.Item.CoverPhoto))
+        {
+            await FileSystem.copy(this.Item.CoverPhoto.Source, this.MakeDestinationPath(this.Item.CoverPhoto.FileName));
         }
     }
 }

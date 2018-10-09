@@ -1,3 +1,4 @@
+import * as FileSystem from "fs-extra";
 import { TempDirectory } from "../../FileSystem/TempDirectory";
 import { Package } from "../../PackageSystem/Package";
 import { Compiler } from "../Compiler";
@@ -24,6 +25,11 @@ export class PackageCompiler extends Compiler<Package>
     {
         let tempDir: TempDirectory = new TempDirectory();
         {
+            for (let additionalFile of this.Item.AdditionalFiles)
+            {
+                FileSystem.copy(additionalFile.Source, additionalFile.FileName);
+            }
+
             let compiler: PackageFileCompiler = new PackageFileCompiler(this.Item);
             compiler.DestinationPath = tempDir.MakePath("package.xml");
             await compiler.Execute();
