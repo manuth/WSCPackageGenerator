@@ -2,6 +2,7 @@ suite(
     "Compilation",
     () =>
     {
+        require("./Compiler.test");
         require("./XMLFileCompiler.test");
         require("./EJSFileCompiler.test");
         require("./WoltLabXMLCompiler.test");
