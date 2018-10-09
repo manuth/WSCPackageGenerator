@@ -3,4 +3,5 @@ suite(
     () =>
     {
         require("./PackageFileCompiler.test");
+        require("./PackageCompiler.test");
     });

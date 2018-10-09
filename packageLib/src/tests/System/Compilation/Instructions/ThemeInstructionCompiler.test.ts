@@ -77,7 +77,6 @@ suite(
             "Compile()",
             () =>
             {
-
                 test(
                     "Checking whether the instruction can be compiled without any errors...",
                     async () =>
