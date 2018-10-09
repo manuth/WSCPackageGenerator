@@ -2,6 +2,7 @@ import { TemplateListenerInstruction } from "../lib/System/PackageSystem/Instruc
 import { ListenerEnvironment } from "../lib/System/Events/ListenerEnvironment";
 
 const templateListenerInstruction: TemplateListenerInstruction = new TemplateListenerInstruction({
+    FileName: "templateListeners.xml",
     Listeners: [
     ]
 });

@@ -2,6 +2,7 @@ import { EventListenerInstruction } from "../lib/System/PackageSystem/Instructio
 import { ListenerEnvironment } from "../lib/System/Events/ListenerEnvironment";
 
 const eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+    FileName: "eventListeners.xml",
     Listeners: [
     ]
 });

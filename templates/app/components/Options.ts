@@ -1,9 +1,9 @@
-import { OptionsInstruction } from "../lib/Options/ControlPanel/OptionsInstruction";
+import { ACPOptionInstruction } from "../lib/System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 
-const optionsInstruction: OptionsInstruction = new OptionsInstruction({
-    SettingsNodes: [
-
+const acpOptionInstruction: ACPOptionInstruction = new ACPOptionInstruction({
+    FileName: "options.xml",
+    Nodes: [
     ]
 });
 
-export = optionsInstruction;
+export = acpOptionInstruction;
