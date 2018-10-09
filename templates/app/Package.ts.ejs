@@ -1,8 +1,7 @@
 import * as Path from "path";
-import { Package } from "./lib/Packaging/Package";
-import { RequiredPackageDescriptor } from "./lib/Packaging/RequiredPackageDescriptor";
-import { ThemeInstructionCollection } from "./lib/Appearance/Themes/ThemeInstructionCollection";
-import { UpdateInstructionCollection } from "./lib/Automation/UpdateInstructionCollection";
+import { IPackageOptions } from "./lib/System/PackageSystem/IPackageOptions";
+import { ThemeInstructionCollection } from "./lib/System/Customization/Presentation/Themes/ThemeInstructionCollection";
+import { RequiredPackageDescriptor } from "./lib/System/PackageSystem/RequiredPackageDescriptor";
 
 function getComponentsPath(value: string): string
 {
