@@ -1,2 +1,4 @@
-tests/
---recursive
+packageLib/lib/tests/
+lib/tests/
+--ui tdd
+--bail

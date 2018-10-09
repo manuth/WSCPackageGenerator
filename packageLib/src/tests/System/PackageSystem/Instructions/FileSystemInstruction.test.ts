@@ -1,0 +1,36 @@
+import * as assert from "assert";
+import { FileSystemInstruction } from "../../../../System/PackageSystem/Instructions/FileSystem/FileSystemInstruction";
+
+suite(
+    "FileSystemInstruction",
+    () =>
+    {
+        let fileName: string;
+        let instruction: FileSystemInstruction;
+
+        suiteSetup(
+            () =>
+            {
+                fileName = "foo.sql";
+
+                instruction = new class extends FileSystemInstruction
+                {
+                    public Type: string = "foo";
+                }(
+                    {
+                        Source: fileName
+                    });
+            });
+
+        suite(
+            "FileName",
+            () =>
+            {
+                test(
+                    "Checking whether the `FileName` is set to `Source` automatically...",
+                    () =>
+                    {
+                        assert.strictEqual(instruction.FileName, instruction.Source);
+                    });
+            });
+    });

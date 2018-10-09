@@ -1,0 +1,76 @@
+import * as Path from "path";
+import { IPackageOptions } from "<%= relativePackage %>lib/System/PackageSystem/IPackageOptions";
+import { ThemeInstructionCollection } from "<%= relativePackage %>lib/System/Customization/Presentation/Themes/ThemeInstructionCollection";
+import { RequiredPackageDescriptor } from "<%= relativePackage %>lib/System/PackageSystem/RequiredPackageDescriptor";
+
+function getComponentsPath(value: string): string
+{
+    return Path.join(__dirname, "<%= componentDir %>", value);
+}
+
+let pkg: IPackageOptions = {
+    Identifier: "<%= Settings.identifier %>",
+    Name: "<%= Settings.name %>",
+    DisplayName: {
+        inv: "<%= Settings.displayName %>"
+    },
+    CreationDate: new Date("<% let date = new Date(); %><%=
+        date.getFullYear() + "-" +
+        (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
+        date.getDate().toString().padStart(2, "0") %>"),
+    Description: {
+        inv: "<%= Settings.description %>"
+    },
+    InstallSet: {
+        Instructions: [<%
+            let items = [];
+
+            for (let component of components)
+            {
+                let optionName = "";
+                let item = "";
+                let formatter;
+
+                let defaultFormatter = (value) =>
+                {
+                    return "require(getComponentsPath(\"" + value + "\"))";
+                };
+
+                switch (component)
+                {
+                    case "themes":
+                        formatter = (value) =>
+                        {
+                            return "...new ThemeInstructionCollection(\"" + value + "\")";
+                        };
+                        break;
+                    case "files":
+                    case "php":
+                    case "sql":
+                    case "templates":
+                    case "acpTemplates":
+                        formater = (value) =>
+                        {
+                            return "// " + defaultFormatter(value);
+                        };
+                    default:
+                        formatter = defaultFormatter;
+                        break;
+                }
+
+                items.push(formatter(componentPaths[component]));
+            }
+        %>
+            <%- items.join(`,
+            `) %>
+        ]
+    },
+    RequiredPackages: [
+        new RequiredPackageDescriptor({
+            Identifier: "com.woltlab.wcf",
+            MinVersion: "3.0.0"
+        })
+    ]
+};
+
+export = pkg;

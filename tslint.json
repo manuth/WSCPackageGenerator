@@ -1,38 +1,39 @@
 {
-    "defaultSeverity": "error",
+    "defaultSeverity": "warning",
     "extends": [
         "tslint:recommended"
     ],
-    "jsRules": {
-        "eofline": false,
-        "forin": false,
-        "one-line": false,
-        "trailing-comma": false,
-        "no-empty-interface": false,
-        "no-empty": false,
-        "no-trailing-whitespace": false,
-        "prefer-const": false,
-        "object-literal-sort-keys": false,
-        "ordered-imports": false,
-        "max-line-length": false,
-        "arrow-parens": false,
-        "array-type": false,
-        "member-ordering": false
-    },
     "rules": {
         "eofline": false,
         "forin": false,
         "one-line": false,
         "trailing-comma": false,
+        "no-bitwise": false,
+        "no-default-export": true,
         "no-empty-interface": false,
         "no-empty": false,
-        "no-trailing-whitespace": false,
         "prefer-const": false,
         "object-literal-sort-keys": false,
-        "ordered-imports": false,
+        "ordered-imports": true,
+        "max-classes-per-file": false,
         "max-line-length": false,
         "arrow-parens": false,
         "array-type": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-console": false,
+        "no-string-literal": false,
+        "typedef": {
+            "options": [
+                "array-destructuring",
+                "arrow-call-signature",
+                "arrow-parameter",
+                "call-signature",
+                "member-variable-declaration",
+                "object-destructuring",
+                "parameter",
+                "property-declaration",
+                "variable-declaration"
+            ]
+        }
     }
 }

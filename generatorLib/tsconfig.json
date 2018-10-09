@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "rootDir": ".",
+        "composite": true,
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "lib": [
+            "es7",
+            "dom"
+        ],
+        "noUnusedLocals": true,
+        "outDir": "../lib"
+    },
+    "compileOnSave": true
+}

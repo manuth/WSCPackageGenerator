@@ -1,0 +1,10 @@
+import { ListenerEnvironment } from "<%= relativePackage %>lib/System/Events/ListenerEnvironment";
+import { EventListenerInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Events/EventListenerInstruction";
+
+const eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+    FileName: "eventListeners.xml",
+    Listeners: [
+    ]
+});
+
+export = eventListenerInstruction;

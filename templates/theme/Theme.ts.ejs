@@ -1,0 +1,25 @@
+import { IThemeOptions } from "<%= RelativePackage %>lib/System/Customization/Presentation/Themes/IThemeOptions";
+
+let theme: IThemeOptions = {
+    Name: "<%= Settings.name  %>",
+    DisplayName: {
+        inv: "<%= Settings.displayName %>"
+    },
+    Description: {
+        inv: "<%= Settings.description %>"
+    }<%
+%><% if (Components.includes("customScss")) { %><%
+    %>,
+    CustomScssFileName: "<%= ComponentPaths["customScss"] %>"<%
+%><% } %><%
+%><% if (Components.includes("scssOverride")) { %><%
+    %>,
+    ScssOverrideFileName: "<%= ComponentPaths["scssOverride"] %>"<%
+%><% } %><%
+%><% if (Components.includes("variables")) { %><%
+    %>,
+    VariableFileName: "<%= ComponentPaths["variables"] %>"<%
+%><% } %>
+};
+
+export = theme;

@@ -1,8 +1,4 @@
 .vscode/
-**/*.js.map
-**/*.ts
-!generators/*/templates/**
+generatorLib/
+packageLib/lib/
 test/
-tests/
-.travis.yml
-tsconfig.json
