@@ -336,7 +336,7 @@ class WSCPackageGenerator extends Generator
             acpTemplate: "ACPTemplates.ts",
             templateListener: "TemplateListeners.ts",
             emoji: "Emojis.ts",
-            bbcode: "BBCodes.ts"
+            bbCode: "BBCodes.ts"
         };
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
