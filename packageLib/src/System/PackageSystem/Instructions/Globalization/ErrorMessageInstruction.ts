@@ -25,9 +25,14 @@ export class ErrorMessageInstruction extends TranslationInstruction
                 Nodes: []
             });
 
+        let optionNode: LocalizationNode = new LocalizationNode(
+            {
+                Name: "wcf.acp.option"
+            });
+
         let errorNode: LocalizationNode = new LocalizationNode(
             {
-                Name: "wcf.acp.option.error"
+                Name: "error"
             });
 
         for (let rootNode of this.Nodes)
@@ -52,7 +57,8 @@ export class ErrorMessageInstruction extends TranslationInstruction
             }
         }
 
-        result.Nodes.push(errorNode);
+        optionNode.Nodes.push(errorNode);
+        result.Nodes.push(optionNode);
         return result.GetMessages();
     }
 }

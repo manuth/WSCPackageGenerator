@@ -7,7 +7,8 @@ suite(
     () =>
     {
         let locale: string;
-        let category: string = "wcf.acp.option.error";
+        let optionCategory: string = "wcf.acp.option";
+        let errorCategory: string = "error";
         let messageName: string = "error";
         let messageValue: string;
         let errorMessageInstruction: ErrorMessageInstruction;
@@ -55,24 +56,24 @@ suite(
                     });
 
                 test(
-                    `Checking whether the \`${category}\`-category is present...`,
+                    `Checking whether the \`${optionCategory}\`-category is present...`,
                     () =>
                     {
-                        assert.strictEqual(category in translations[locale], true);
+                        assert.strictEqual(optionCategory in translations[locale], true);
                     });
 
                 test(
-                    `Checking whether the \`${category}.${messageName}\`-message is present...`,
+                    `Checking whether the \`${optionCategory}.${errorCategory}.${messageName}\`-message is present...`,
                     () =>
                     {
-                        assert.strictEqual(`${category}.${messageName}` in translations[locale][category], true);
+                        assert.strictEqual(`${optionCategory}.${errorCategory}.${messageName}` in translations[locale][optionCategory], true);
                     });
 
                 test(
-                    `Checking whether the \`${category}.${messageName}\`-message has the expected value...`,
+                    `Checking whether the \`${optionCategory}.${errorCategory}.${messageName}\`-message has the expected value...`,
                     () =>
                     {
-                        assert.strictEqual(translations[locale][category][`${category}.${messageName}`], messageValue);
+                        assert.strictEqual(translations[locale][optionCategory][`${optionCategory}.${errorCategory}.${messageName}`], messageValue);
                     });
             });
     });
