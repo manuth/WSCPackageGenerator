@@ -22,7 +22,7 @@ export class FileDescriptor
      */
     public constructor(options: IFileDescriptorOptions)
     {
-        this.Source = options.Source;
+        this.Source = Path.resolve(options.Source);
 
         if (isNullOrUndefined(options.FileName))
         {
