@@ -1,10 +1,10 @@
 {
-  "name": <%- JSON.stringify(name.toLowerCase()) %>,
+  "name": <%- JSON.stringify(Settings.name.toLowerCase()) %>,
   "version": "0.0.0",
-  "description": <%- JSON.stringify(description) %>,
+  "description": <%- JSON.stringify(Settings.description) %>,
   "author": {
-    "name": <%- JSON.stringify(author) %><% if (authorURL.length > 0) { %>,
-    "url": <%- JSON.stringify(authorURL) %><% } %>
+    "name": <%- JSON.stringify(Settings.author) %><% if (Settings.authorURL.length > 0) { %>,
+    "url": <%- JSON.stringify(Settings.authorURL) %><% } %>
   },
   "devDependencies": {
     "@types/clear-require": "^2.0.0",

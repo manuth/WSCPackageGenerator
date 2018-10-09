@@ -1,9 +1,13 @@
 import chalk from "chalk";
 import * as FileSystem from "fs-extra";
+import inquirer = require("inquirer");
 import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { Generator } from "../Generator";
+import { IComponent } from "./IComponent";
+import { IComponentCategory } from "./IComponentCategory";
 
 /**
  * Provides the functionality to generate a WSC-Package.
@@ -13,7 +17,7 @@ class WSCPackageGenerator extends Generator
     /**
      * The options provided by the user.
      */
-    private settings: { [key: string]: any };
+    private settings: YoGenerator.Answers;
 
     /**
      * The path to save the result to.
@@ -37,6 +41,226 @@ class WSCPackageGenerator extends Generator
     protected get TemplateRoot(): string
     {
         return "app";
+    }
+
+    /**
+     * Gets the path to load component-templates from and to save component-files to.
+     */
+    protected get ComponentPath(): string
+    {
+        return "components";
+    }
+
+    /**
+     * Gets the name of the setting which contains the components to install.
+     */
+    protected get ComponentSetting(): string
+    {
+        return "components";
+    }
+
+    /**
+     * Gets the name of the setting which contains the paths to save the components to.
+     */
+    protected get ComponentPathSetting(): string
+    {
+        return "componentPath";
+    }
+
+    /**
+     * Gets the components which can be generated.
+     */
+    protected get Components(): IComponentCategory[]
+    {
+        return [
+            {
+                DisplayName: "General",
+                Components: [
+                    {
+                        ID: "files",
+                        DisplayName: "Files to Upload",
+                        Message: "Where do you want to store your file-mappings?",
+                        TemplateFile: "Files.ts.ejs",
+                        DefaultFileName: "Files"
+                    },
+                    {
+                        ID: "cronJobs",
+                        DisplayName: "Cron Jobs",
+                        Message: "Where do you want to store your cron-jobs?",
+                        TemplateFile: "CronJobs.ts.ejs",
+                        DefaultFileName: "CronJobs"
+                    },
+                    {
+                        ID: "php",
+                        DisplayName: "PHP-Script to Execute during Installation",
+                        Message: "Where do you want to store the settings for your php-script?",
+                        TemplateFile: "PHPScript.ts.ejs",
+                        DefaultFileName: "PHPScript"
+                    },
+                    {
+                        ID: "sql",
+                        DisplayName: "SQL-Script to Execute during Installation",
+                        Message: "Where do you want to store the settings for your sql-script?",
+                        TemplateFile: "SQLScript.ts.ejs",
+                        DefaultFileName: "SQLScript"
+                    }
+                ]
+            },
+            {
+                DisplayName: "Globalization",
+                Components: [
+                    {
+                        ID: "translations",
+                        DisplayName: "Translations",
+                        Message: "Where do you want to store your translations?",
+                        TemplateFile: "Translations.ts.ejs",
+                        DefaultFileName: "Translations"
+                    },
+                    {
+                        ID: "errors",
+                        DisplayName: "Error-Messages",
+                        Message: "Where do you want to store your error-messages?",
+                        TemplateFile: "ErrorMessages.ts.ejs",
+                        DefaultFileName: "ErrorMessages"
+                    }
+                ]
+            },
+            {
+                DisplayName: "Options",
+                Components: [
+                    {
+                        ID: "acpOptions",
+                        DisplayName: "Control-Panel Options",
+                        Message: "Where do you want to store the Contron Panel options?",
+                        TemplateFile: "Options.ts.ejs",
+                        DefaultFileName: "Options"
+                    },
+                    {
+                        ID: "userOptions",
+                        DisplayName: "User-Options",
+                        Message: "Where do you want to store the User-Options?",
+                        TemplateFile: "UserOptions.ts.ejs",
+                        DefaultFileName: "UserOptions"
+                    },
+                    {
+                        ID: "groupOptions",
+                        DisplayName: "Group-Permission Options",
+                        Message: "Where do you want to store the Group-Permission Options?",
+                        TemplateFile: "GroupOptions.ts.ejs",
+                        DefaultFileName: "GroupOptions"
+                    }
+                ]
+            },
+            {
+                DisplayName: "Customization",
+                Components: [
+                    {
+                        ID: "themes",
+                        DisplayName: "Themes",
+                        Message: "Where do you want to store themes?",
+                        DefaultFileName: "Themes"
+                    },
+                    {
+                        ID: "emojis",
+                        DisplayName: "Emojis",
+                        Message: "Where do you want to store emojis?",
+                        TemplateFile: "Emojis.ts.ejs",
+                        DefaultFileName: "Emojis"
+                    },
+                    {
+                        ID: "bbCodes",
+                        DisplayName: "BB-Codes",
+                        Message: "Where do you want to store BB-Codes?",
+                        TemplateFile: "BBCodes.ts.ejs",
+                        DefaultFileName: "BBCodes"
+                    },
+                    {
+                        ID: "templates",
+                        DisplayName: "Templates",
+                        Message: "Where do you want to store templates?",
+                        TemplateFile: "Templates.ts.ejs",
+                        DefaultFileName: "Templates"
+                    },
+                    {
+                        ID: "acpTemplates",
+                        DisplayName: "Templates for the Control Panel",
+                        Message: "Where do you want to store ACP-templates?",
+                        TemplateFile: "ACPTemplates.ts.ejs",
+                        DefaultFileName: "ACPTemplates"
+                    }
+                ]
+            },
+            {
+                DisplayName: "Events",
+                Components: [
+                    {
+                        ID: "eventListeners",
+                        DisplayName: "Event-Listeners",
+                        Message: "Where do you want to store your event-listeners?",
+                        TemplateFile: "EventListeners.ts.ejs",
+                        DefaultFileName: "EventListeners"
+                    },
+                    {
+                        ID: "templateListeners",
+                        DisplayName: "Template-Listeners",
+                        Message: "Where do you want to store template-listeners?",
+                        TemplateFile: "TemplateListeners.ts.ejs",
+                        DefaultFileName: "TemplateListeners"
+                    }
+                ]
+            }
+        ];
+    }
+
+    /**
+     * Gets questions on what components to generate.
+     */
+    protected get ComponentQuestions(): YoGenerator.Question[]
+    {
+        let questions: YoGenerator.Question[] = [];
+        let choices: inquirer.ChoiceType[] = [];
+
+        for (let componentCategory of this.Components)
+        {
+            choices.push({
+                type: "separator",
+                line: componentCategory.DisplayName
+            });
+
+            for (let component of componentCategory.Components)
+            {
+                choices.push({
+                    value: component.ID,
+                    name: component.DisplayName
+                });
+
+                let question: YoGenerator.Question = {
+                    type: "input",
+                    name: `${this.ComponentPathSetting}[${JSON.stringify(component.ID)}]`,
+                    message: component.Message,
+                    when: (answers: YoGenerator.Answers): boolean =>
+                    {
+                        return (answers[this.ComponentSetting] as string[]).includes(component.ID);
+                    }
+                };
+
+                if (!isNullOrUndefined(component.DefaultFileName))
+                {
+                    question.default = component.DefaultFileName;
+                }
+
+                questions.push(question);
+            }
+        }
+
+        questions.unshift({
+            type: "checkbox",
+            name: this.ComponentSetting,
+            message: "What components do you want to provide?",
+            choices
+        });
+
+        return questions;
     }
 
     /**
@@ -113,264 +337,10 @@ class WSCPackageGenerator extends Generator
                 },
                 validate: this.ForceInput
             },
-            {
-                type: "checkbox",
-                name: "components",
-                message: "What components do you want to provide?",
-                choices: [
-                    {
-                        type: "separator",
-                        line: "General"
-                    },
-                    {
-                        name: "Files to Upload",
-                        value: "files"
-                    },
-                    {
-                        name: "Cron Jobs",
-                        value: "cronJobs"
-                    },
-                    {
-                        name: "PHP-Script to Execute during Installation",
-                        value: "php"
-                    },
-                    {
-                        name: "SQL-Script to Execute during Installation",
-                        value: "sql"
-                    },
-                    {
-                        type: "separator",
-                        line: "Globalization"
-                    },
-                    {
-                        name: "Translations",
-                        value: "translations"
-                    },
-                    {
-                        name: "Error-Messages",
-                        value: "errors"
-                    },
-                    {
-                        type: "separator",
-                        line: "Options"
-                    },
-                    {
-                        name: "Control-Panel Options",
-                        value: "acpOptions"
-                    },
-                    {
-                        name: "User-Options",
-                        value: "userOptions"
-                    },
-                    {
-                        name: "Group-Permission Options",
-                        value: "groupOptions"
-                    },
-                    {
-                        type: "separator",
-                        line: "Customization"
-                    },
-                    {
-                        name: "Themes",
-                        value: "themes"
-                    },
-                    {
-                        name: "Emojis",
-                        value: "emojis"
-                    },
-                    {
-                        name: "BB-Codes",
-                        value: "bbCodes"
-                    },
-                    {
-                        name: "Templates",
-                        value: "templates"
-                    },
-                    {
-                        name: "Templates for the Control Panel",
-                        value: "acpTemplates"
-                    },
-                    {
-                        type: "separator",
-                        line: "Events"
-                    },
-                    {
-                        name: "Event-Listeners",
-                        value: "eventListeners"
-                    },
-                    {
-                        name: "Template-Listeners",
-                        value: "templateListeners"
-                    }
-                ]
-            },
-            {
-                type: "input",
-                name: "componentPaths.files",
-                message: "Where do you want to store your file-mappings?",
-                default: "Files",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("files");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.cronJobs",
-                message: "Where do you want to store your cron-jobs?",
-                default: "CronJobs",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("cronJobs");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.php",
-                message: "Where do you want to store the settings for your php-script?",
-                default: "PHPScript",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("php");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.sql",
-                message: "Where do you want to store the settings for your sql-script?",
-                default: "SQLScript",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("sql");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.translations",
-                message: "Where do you want to store your translations?",
-                default: "Translations",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("translations");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.errors",
-                message: "Where do you want to store your error-messages?",
-                default: "ErrorMessages",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("errors");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.acpOptions",
-                message: "Where do you want to store the Contron Panel options?",
-                default: "Options",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("acpOptions");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.userOptions",
-                message: "Where do you want to store the User-Options?",
-                default: "UserOptions",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("userOptions");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.groupOptions",
-                message: "Where do you want to store the Group-Permission Options?",
-                default: "GroupOptions",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("groupOptions");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.themes",
-                message: "Where do you want to store themes?",
-                default: "themes",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("themes");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.emojis",
-                default: "Emojis",
-                message: "Where do you want to store emojis?",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).indexOf("emojis") >= 0;
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.bbCodes",
-                default: "BBCodes",
-                message: "Where do you want to store BB-Codes?",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).indexOf("bbCodes") >= 0;
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.templates",
-                message: "Where do you want to store templates?",
-                default: "Templates",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).indexOf("templates") >= 0;
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.acpTemplates",
-                message: "Where do you want to store ACP-templates?",
-                default: "ACPTemplates",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).indexOf("acpTemplates") >= 0;
-                },
-                validate: this.ForceSeparateFolder
-            },
-            {
-                type: "input",
-                name: "componentPaths.eventListeners",
-                message: "Where do you want to store your event-listeners?",
-                default: "EventListeners",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("eventListeners");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.templateListeners",
-                message: "Where do you want to store template-listeners?",
-                default: "TemplateListeners",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).indexOf("templateListeners") >= 0;
-                },
-            }
+            ...this.ComponentQuestions
         ];
 
-        return this.prompt(prompts).then((answers: YoGenerator.Answers) =>
-        {
-            this.settings = answers;
-        });
+        this.settings = await this.prompt(prompts);
     }
 
     /**
@@ -382,52 +352,78 @@ class WSCPackageGenerator extends Generator
 
         let componentsPath: (value: string) => string = (value: string): string =>
         {
-            return this.destinationPath("components", value);
+            return this.destinationPath(this.ComponentPath, value);
         };
 
-        let componentTemplates: { [key: string]: string } = {
-            files: "Files.ts",
-            cronJobs: "CronJobs.ts",
-            php: "PHPScript.ts",
-            sql: "SQLScript.ts",
-            translations: "Translations.ts",
-            errors: "ErrorMessages.ts",
-            acpOptions: "Options.ts",
-            userOptions: "UserOptions.ts",
-            groupOptions: "GroupOptions.ts",
-            emojis: "Emojis.ts",
-            bbCodes: "BBCodes.ts",
-            templates: "Templates.ts",
-            acpTemplates: "ACPTemplates.ts",
-            eventListeners: "EventListeners.ts",
-            templateListeners: "TemplateListeners.ts"
+        let CopyTemplate: (source: string, destination: string) => Promise<void> = async (source: string, destination: string): Promise<void> =>
+        {
+            let relativePackage: string = Path.posix.normalize(Path.relative(Path.dirname(destination), process.cwd()));
+
+            if (!relativePackage.startsWith("."))
+            {
+                relativePackage = "./" + relativePackage;
+            }
+
+            if (!relativePackage.endsWith("/"))
+            {
+                relativePackage = relativePackage + "/";
+            }
+
+            this.fs.copyTpl(
+                source,
+                destination,
+                {
+                    destinationFile: destination,
+                    packagePath: this.destination,
+                    relativePackage,
+                    componentDir: this.ComponentPath,
+                    components: this.settings[this.ComponentSetting],
+                    componentPaths: this.settings[this.ComponentPathSetting],
+                    Path,
+                    process,
+                    Settings: this.settings
+                });
+        };
+
+        let CopyComponent: (component: IComponent, destination: string) => Promise<void> = async (component: IComponent, destination: string): Promise<void> =>
+        {
+            await CopyTemplate(this.templatePath(this.ComponentPath, component.TemplateFile), componentsPath(destination));
         };
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(Path.join(__dirname, "..", "..", "..", "packageLib", "src"), this.destinationPath("lib"));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
-        this.fs.copyTpl(this.templatePath("package.json.ejs"), this.destinationPath("package.json"), this.settings);
-        this.fs.copyTpl(this.templatePath("Package.ts.ejs"), this.destinationPath("Package.ts"), this.settings);
-        this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), this.settings);
+        CopyTemplate(this.templatePath("package.json.ejs"), this.destinationPath("package.json"));
+        CopyTemplate(this.templatePath("Package.ts.ejs"), this.destinationPath("Package.ts"));
+        CopyTemplate(this.templatePath("README.md.ejs"), this.destinationPath("README.md"));
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
-        this.fs.copyTpl(this.templatePath("wsc-package-quickstart.md.ejs"), this.destinationPath("wsc-package-quickstart.md"), {});
+        this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
 
-        for (let component of this.settings.components)
+        for (let category of this.Components)
         {
-            switch (component)
+            for (let component of category.Components)
             {
-                case "theme":
-                    FileSystem.mkdirpSync(this.destinationPath(this.settings.componentPaths[component]));
-                    break;
-                default:
-                    if (component in componentTemplates)
+                if ((this.settings[this.ComponentSetting] as string[]).includes(component.ID))
+                {
+                    let componentPath: string = this.settings[this.ComponentPathSetting][component.ID];
+
+                    switch (component.ID)
                     {
-                        this.fs.copyTpl(
-                            this.templatePath("components", componentTemplates[component]),
-                            componentsPath(this.settings.componentPaths[component] + ".ts"),
-                            this.settings);
+                        case "themes":
+                            this.config.set(this.ThemePathSetting, componentPath);
+                            await FileSystem.mkdirp(this.destinationPath(componentPath));
+                            break;
+                        default:
+                            if (!isNullOrUndefined(component.TemplateFile))
+                            {
+                                await CopyComponent(component, componentPath + ".ts");
+                            }
+                            else
+                            {
+                                await FileSystem.ensureFile(componentsPath(componentPath + ".ts"));
+                            }
                     }
-                    break;
+                }
             }
         }
     }
@@ -437,13 +433,6 @@ class WSCPackageGenerator extends Generator
      */
     public async install(): Promise<void>
     {
-        if (this.settings.components.includes("theme"))
-        {
-            this.config.set("themesPath", this.settings.componentPaths.theme);
-        }
-
-        this.config.save();
-
         this.installDependencies({ bower: false, npm: true });
     }
 
@@ -452,6 +441,7 @@ class WSCPackageGenerator extends Generator
      */
     public async end(): Promise<void>
     {
+        this.config.save();
         this.log();
         this.log("Your package \"" + this.settings.name + "\" has been created!");
         this.log();

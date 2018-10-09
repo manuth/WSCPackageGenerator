@@ -1,0 +1,10 @@
+import { ListenerEnvironment } from "<%= relativePackage %>lib/System/Events/ListenerEnvironment";
+import { TemplateListenerInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Events/TemplateListenerInstruction";
+
+const templateListenerInstruction: TemplateListenerInstruction = new TemplateListenerInstruction({
+    FileName: "templateListeners.xml",
+    Listeners: [
+    ]
+});
+
+export = templateListenerInstruction;

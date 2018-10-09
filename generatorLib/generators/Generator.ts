@@ -27,6 +27,14 @@ export abstract class Generator extends YoGenerator
     protected abstract get TemplateRoot(): string;
 
     /**
+     * Gets the name of the setting which contains the path to the theme-directory.
+     */
+    protected get ThemePathSetting(): string
+    {
+        return "themePath";
+    }
+
+    /**
      * Validates whether the a value is provided.
      */
     protected ForceInput: IValidator = (value, answers?) =>
