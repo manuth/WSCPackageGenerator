@@ -1,3 +1,4 @@
+import * as Path from "path";
 import { PackageCompiler } from "./System/Compilation/PackageSystem/PackageCompiler";
 import { Package } from "./System/PackageSystem/Package";
 
@@ -15,7 +16,7 @@ class Program
     {
         let $package: Package = new Package(require("../Package"));
         let compiler: PackageCompiler = new PackageCompiler($package);
-        compiler.DestinationPath = "bin";
+        compiler.DestinationPath = Path.join("bin", `${$package.Name}.tar`);
         await compiler.Execute();
     }
 }
