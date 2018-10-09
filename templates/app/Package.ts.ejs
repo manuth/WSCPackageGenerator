@@ -37,13 +37,20 @@ let pkg: IPackageOptions = {
                         formatter = (value) =>
                         {
                             return "...new ThemeInstructionCollection(\"" + value + "\")";
-                        }
+                        };
                         break;
+                    case "files":
+                    case "template":
+                    case "acpTemplate":
+                        formater = (value) =>
+                        {
+                            return "// require(getComponentsPath(\"" + value + "\"))";
+                        };
                     default:
                         formatter = (value) =>
                         {
                             return "require(getComponentsPath(\"" + value + "\"))";
-                        }
+                        };
                         break;
                 }
 
