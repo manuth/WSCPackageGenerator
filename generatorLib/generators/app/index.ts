@@ -1,13 +1,13 @@
 import chalk from "chalk";
+import escapeStringRegexp = require("escape-string-regexp");
 import * as FileSystem from "fs-extra";
-import inquirer = require("inquirer");
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { Generator } from "../Generator";
-import { IComponent } from "./IComponent";
-import { IComponentCategory } from "./IComponentCategory";
+import { IComponent } from "../IComponent";
+import { IComponentCategory } from "../IComponentCategory";
 
 /**
  * Provides the functionality to generate a WSC-Package.
@@ -51,25 +51,6 @@ class WSCPackageGenerator extends Generator
         return "components";
     }
 
-    /**
-     * Gets the name of the setting which contains the components to install.
-     */
-    protected get ComponentSetting(): string
-    {
-        return "components";
-    }
-
-    /**
-     * Gets the name of the setting which contains the paths to save the components to.
-     */
-    protected get ComponentPathSetting(): string
-    {
-        return "componentPath";
-    }
-
-    /**
-     * Gets the components which can be generated.
-     */
     protected get Components(): IComponentCategory[]
     {
         return [
@@ -213,57 +194,6 @@ class WSCPackageGenerator extends Generator
     }
 
     /**
-     * Gets questions on what components to generate.
-     */
-    protected get ComponentQuestions(): YoGenerator.Question[]
-    {
-        let questions: YoGenerator.Question[] = [];
-        let choices: inquirer.ChoiceType[] = [];
-
-        for (let componentCategory of this.Components)
-        {
-            choices.push({
-                type: "separator",
-                line: componentCategory.DisplayName
-            });
-
-            for (let component of componentCategory.Components)
-            {
-                choices.push({
-                    value: component.ID,
-                    name: component.DisplayName
-                });
-
-                let question: YoGenerator.Question = {
-                    type: "input",
-                    name: `${this.ComponentPathSetting}[${JSON.stringify(component.ID)}]`,
-                    message: component.Message,
-                    when: (answers: YoGenerator.Answers): boolean =>
-                    {
-                        return (answers[this.ComponentSetting] as string[]).includes(component.ID);
-                    }
-                };
-
-                if (!isNullOrUndefined(component.DefaultFileName))
-                {
-                    question.default = component.DefaultFileName;
-                }
-
-                questions.push(question);
-            }
-        }
-
-        questions.unshift({
-            type: "checkbox",
-            name: this.ComponentSetting,
-            message: "What components do you want to provide?",
-            choices
-        });
-
-        return questions;
-    }
-
-    /**
      * Collects all information about the package that is to be created.
      */
     public async prompting(): Promise<void>
@@ -357,7 +287,7 @@ class WSCPackageGenerator extends Generator
 
         let CopyTemplate: (source: string, destination: string) => Promise<void> = async (source: string, destination: string): Promise<void> =>
         {
-            let relativePackage: string = Path.posix.normalize(Path.relative(Path.dirname(destination), process.cwd()));
+            let relativePackage: string = Path.posix.normalize(Path.relative(Path.dirname(destination), process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
 
             if (!relativePackage.startsWith("."))
             {

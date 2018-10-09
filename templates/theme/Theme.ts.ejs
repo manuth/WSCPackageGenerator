@@ -1,18 +1,24 @@
+import { IThemeOptions } from "<%= RelativePackage %>lib/System/Customization/Presentation/Themes/IThemeOptions";
+
 let theme: IThemeOptions = {
-    Name: "<%= name  %>",
+    Name: "<%= Settings.name  %>",
     DisplayName: {
-        en: "<%= displayName %>"
+        en: "<%= Settings.displayName %>"
     },
     Description: {
-        en: "<%= description %>"
+        en: "<%= Settings.description %>"
     }<%
-%><% if (components.includes("customThemes")) { %><%
+%><% if (Components.includes("customScss")) { %><%
     %>,
-    CustomScssFileName: "<%= componentPaths["customThemes"] %>"<%
+    CustomScssFileName: "<%= ComponentPaths["customScss"] %>"<%
 %><% } %><%
-%><% if (components.includes("variableOverrides")) { %><%
+%><% if (Components.includes("scssOverride")) { %><%
     %>,
-    ScssOverrideFileName: "<%= componentPaths["variableOverrides"] %>"<%
+    ScssOverrideFileName: "<%= ComponentPaths["scssOverride"] %>"<%
+%><% } %><%
+%><% if (Components.includes("variables")) { %><%
+    %>,
+    VariableFileName: "<%= ComponentPaths["variables"] %>"<%
 %><% } %>
 };
 

@@ -1,10 +1,12 @@
 import chalk from "chalk";
 import escapeStringRegexp = require("escape-string-regexp");
+import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { Generator } from "../Generator";
+import { IComponentCategory } from "../IComponentCategory";
 
 /**
  * Provides the functionality to generate WSC-themes.
@@ -35,6 +37,38 @@ class WSCThemeGenerator extends Generator
         return "theme";
     }
 
+    protected get Components(): IComponentCategory[]
+    {
+        return [
+            {
+                DisplayName: "General",
+                Components: [
+                    {
+                        ID: "customScss",
+                        DisplayName: "Custom SCSS-Code",
+                        Message: "Where do you want to store the custom SCSS-Code?",
+                        TemplateFile: "blank.scss",
+                        DefaultFileName: "main.scss"
+                    },
+                    {
+                        ID: "scssOverride",
+                        DisplayName: "SCSS-Variable Overrides",
+                        Message: "Where do you want to store the variable-overrides?",
+                        TemplateFile: "blank.scss",
+                        DefaultFileName: "overrides.scss"
+                    },
+                    {
+                        ID: "variables",
+                        DisplayName: "Theme-Variables",
+                        Message: "Where do you want to store the theme-variables?",
+                        TemplateFile: "variables.json",
+                        DefaultFileName: "variables.json"
+                    }
+                ]
+            }
+        ];
+    }
+
     /**
      * Collects all information about the theme that is to be created.
      */
@@ -45,18 +79,19 @@ class WSCThemeGenerator extends Generator
         let prompts: YoGenerator.Questions = [
             {
                 type: "input",
-                name: "themesPath",
+                name: this.ThemePathSetting,
                 message: "Where do you want to store your themes?",
                 default: "themes",
                 when: (answers: YoGenerator.Answers): boolean =>
                 {
-                    if (isNullOrUndefined(this.config.get("themesPath")))
+                    if (isNullOrUndefined(this.config.get(this.ThemePathSetting)))
                     {
                         return true;
                     }
                     else
                     {
-                        answers.themesPath = this.config.get("themesPath");
+                        answers[this.ThemePathSetting] = this.config.get(this.ThemePathSetting);
+                        return false;
                     }
                 }
             },
@@ -81,41 +116,7 @@ class WSCThemeGenerator extends Generator
                 name: "description",
                 message: "Please enter a description:"
             },
-            {
-                type: "checkbox",
-                name: "components",
-                message: "What do you want to provide?",
-                choices: [
-                    {
-                        name: "Custom SCSS-Themes",
-                        value: "customThemes"
-                    },
-                    {
-                        name: "Variable-Overrides",
-                        value: "variableOverrides"
-                    }
-                ]
-            },
-            {
-                type: "input",
-                name: "componentPaths.customThemes",
-                message: "Where do you want to store the custom SCSS-themes?",
-                default: "themes.scss",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("customThemes");
-                }
-            },
-            {
-                type: "input",
-                name: "componentPaths.variableOverrides",
-                message: "Where do you want to store the variable-overrides?",
-                default: "override.scss",
-                when: (answers: YoGenerator.Answers): boolean =>
-                {
-                    return (answers.components as string[]).includes("variableOverrides");
-                }
-            }
+            ...this.ComponentQuestions
         ];
 
         return this.prompt(prompts).then((answers: YoGenerator.Answers) =>
@@ -129,34 +130,54 @@ class WSCThemeGenerator extends Generator
      */
     public async writing(): Promise<void>
     {
-        let basePath: string = Path.relative(Path.join(this.settings.themesPath, this.settings.name), ".");
-        basePath = basePath.replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
-
-        if (basePath.length === 0)
         {
-            basePath = ".";
+            let themeFileName: string = this.destinationPath(this.settings[this.ThemePathSetting], this.settings.name, "Theme.ts");
+            let relativePackage: string = Path.posix.normalize(
+                Path.relative(
+                    Path.dirname(themeFileName),
+                    process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
+
+            if (!relativePackage.startsWith("."))
+            {
+                relativePackage = "./" + relativePackage;
+            }
+
+            if (!relativePackage.endsWith("/"))
+            {
+                relativePackage = relativePackage + "/";
+            }
+
+            this.fs.copyTpl(
+                this.templatePath("Theme.ts.ejs"),
+                themeFileName,
+                {
+                    RelativePackage: relativePackage,
+                    Settings: this.settings,
+                    Components: this.settings[this.ComponentSetting],
+                    ComponentPaths: this.settings[this.ComponentPathSetting]
+                });
         }
 
-        this.settings.basePath = basePath + "/";
-        this.fs.copyTpl(this.templatePath("Theme.ts.ejs"), this.destinationPath(this.settings.themesPath, this.settings.name, "Theme.ts"), this.settings);
-
-        for (let component of (this.settings.components as string[]))
+        for (let category of this.Components)
         {
-            switch (component)
+            for (let component of category.Components)
             {
-                case "customThemes":
-                    this.fs.copyTpl(
-                        this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings.themesPath, this.settings.name, this.settings.componentPaths[component]),
-                        this.settings);
-                    break;
-                case "variableOverrides":
-                    this.fs.copyTpl(
-                        this.templatePath("blank.scss"),
-                        this.destinationPath(this.settings.themesPath, this.settings.name, this.settings.componentPaths[component]),
-                        this.settings);
-                    break;
+                if ((this.settings[this.ComponentSetting] as string[]).includes(component.ID))
+                {
+                    let destinationFile: string = this.settings[this.ComponentPathSetting][component.ID];
 
+                    if (!isNullOrUndefined(component.TemplateFile))
+                    {
+                        this.fs.copyTpl(
+                            this.templatePath(component.TemplateFile),
+                            this.destinationPath(this.settings[this.ThemePathSetting], this.settings.name, destinationFile),
+                            this.settings);
+                    }
+                    else
+                    {
+                        await FileSystem.ensureFile(destinationFile);
+                    }
+                }
             }
         }
     }
@@ -166,7 +187,7 @@ class WSCThemeGenerator extends Generator
      */
     public async end(): Promise<void>
     {
-        this.config.set("themesPath", this.settings.themesPath);
+        this.config.set(this.ThemePathSetting, this.settings[this.ThemePathSetting]);
         this.config.save();
 
         this.log();

@@ -1,5 +1,8 @@
+import inquirer = require("inquirer");
 import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
+import { IComponentCategory } from "./IComponentCategory";
 import { IValidator } from "./IValidator";
 
 /**
@@ -32,6 +35,78 @@ export abstract class Generator extends YoGenerator
     protected get ThemePathSetting(): string
     {
         return "themePath";
+    }
+
+    /**
+     * Gets the name of the setting which contains the components to install.
+     */
+    protected get ComponentSetting(): string
+    {
+        return "components";
+    }
+
+    /**
+     * Gets the name of the setting which contains the paths to save the components to.
+     */
+    protected get ComponentPathSetting(): string
+    {
+        return "componentPath";
+    }
+
+    /**
+     * Gets the components which can be generated.
+     */
+    protected abstract get Components(): IComponentCategory[];
+
+    /**
+     * Gets questions on what components to generate.
+     */
+    protected get ComponentQuestions(): YoGenerator.Question[]
+    {
+        let questions: YoGenerator.Question[] = [];
+        let choices: inquirer.ChoiceType[] = [];
+
+        for (let componentCategory of this.Components)
+        {
+            choices.push({
+                type: "separator",
+                line: componentCategory.DisplayName
+            });
+
+            for (let component of componentCategory.Components)
+            {
+                choices.push({
+                    value: component.ID,
+                    name: component.DisplayName
+                });
+
+                let question: YoGenerator.Question = {
+                    type: "input",
+                    name: `${this.ComponentPathSetting}[${JSON.stringify(component.ID)}]`,
+                    message: component.Message,
+                    when: (answers: YoGenerator.Answers): boolean =>
+                    {
+                        return (answers[this.ComponentSetting] as string[]).includes(component.ID);
+                    }
+                };
+
+                if (!isNullOrUndefined(component.DefaultFileName))
+                {
+                    question.default = component.DefaultFileName;
+                }
+
+                questions.push(question);
+            }
+        }
+
+        questions.unshift({
+            type: "checkbox",
+            name: this.ComponentSetting,
+            message: "What components do you want to provide?",
+            choices
+        });
+
+        return questions;
     }
 
     /**
