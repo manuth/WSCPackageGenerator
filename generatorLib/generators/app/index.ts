@@ -256,6 +256,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "authorURL",
                 message: "Please enter your homepage:",
+                default: "",
                 store: true
             },
             {
