@@ -2,6 +2,7 @@ import * as ColorNames from "colornames";
 import * as FileSystem from "fs-extra";
 import hexToRgba = require("hex-to-rgba");
 import * as OS from "os";
+import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import { Component } from "../../../PackageSystem/Component";
 import { FileDescriptor } from "../../../PackageSystem/FileDescriptor";
@@ -104,7 +105,11 @@ export class Theme extends Component
 
         if (!isNullOrUndefined(options.VariableFileName))
         {
-            Object.assign(variables, require(options.VariableFileName));
+            Object.assign(
+                variables,
+                require(
+                    Path.join(
+                        ...(Path.isAbsolute(options.VariableFileName) ? [options.VariableFileName] : [process.cwd(), options.VariableFileName]))));
         }
 
         if (!isNullOrUndefined(options.Images))
