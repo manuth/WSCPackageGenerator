@@ -1,4 +1,7 @@
 .vscode/
-WSCPackageGenerator/src/
-WSCPackage/lib/
 test/
+tests/
+WSCPackageGenerator/src/
+WSCPackageGenerator/lib/tests/
+WSCPackage/lib/
+WSCPackage/src/tests/
