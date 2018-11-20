@@ -25,7 +25,7 @@ suite(
         suiteTeardown(
             function(): void
             {
-                this.timeout(5 * 1000);
+                this.timeout(1 * 60 * 1000);
                 process.chdir(currentDir);
                 packageContext.cleanTestDirectory();
             });
@@ -54,6 +54,8 @@ suite(
                                     name: packageName,
                                     displayName,
                                     identifier,
+                                    author: "Manuel Thalmann",
+                                    authorURL: "m@nuth.ch",
                                     components: []
                                 });
                     });
@@ -72,8 +74,8 @@ suite(
                     "Checking whether the package-dependencies can be installed...",
                     async function(): Promise<void>
                     {
-                        this.slow(1 * 60 * 1000);
-                        this.timeout(1 * 60 * 1000);
+                        this.slow(5 * 60 * 1000);
+                        this.timeout(5 * 60 * 1000);
 
                         let consoleLog: any = console.log;
                         console.log = (): void => { };
