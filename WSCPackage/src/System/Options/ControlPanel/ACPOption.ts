@@ -11,17 +11,17 @@ export class ACPOption extends Option
     /**
      * A value indicating whether the option is visible.
      */
-    private visible: boolean = true;
+    private visible = true;
 
     /**
      * A value indicating whether the option is localizable.
      */
-    private localizable: boolean = false;
+    private localizable = false;
 
     /**
      * A value indicating whether to force localization.
      */
-    private forceLocalization: boolean = false;
+    private forceLocalization = false;
 
     /**
      * Initializes a new instance of the `ACPOption` class.
@@ -49,12 +49,12 @@ export class ACPOption extends Option
     /**
      * Gets or sets a value indicating whether the option is visible.
      */
-    public get Visible(): boolean
+    public get Visible()
     {
         return this.visible;
     }
 
-    public set Visible(value: boolean)
+    public set Visible(value)
     {
         this.visible = value;
     }
@@ -62,12 +62,12 @@ export class ACPOption extends Option
     /**
      * Gets or sets a value indicating whether the option is localizable.
      */
-    public get Localizable(): boolean
+    public get Localizable()
     {
         return this.localizable;
     }
 
-    public set Localizable(value: boolean)
+    public set Localizable(value)
     {
         this.localizable = value;
     }
@@ -75,12 +75,12 @@ export class ACPOption extends Option
     /**
      * Gets or sets a value indicating whether to force localization.
      */
-    public get ForceLocalization(): boolean
+    public get ForceLocalization()
     {
         return this.forceLocalization;
     }
 
-    public set ForceLocalization(value: boolean)
+    public set ForceLocalization(value)
     {
         this.forceLocalization = value;
     }

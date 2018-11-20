@@ -36,17 +36,17 @@ export class BBCode
     /**
      * A value indicating whether the HTML-tag is self-closing.
      */
-    private isSelfClosing: boolean = false;
+    private isSelfClosing = false;
 
     /**
      * A value indicating whether the bb-code is a block-element.
      */
-    private isBlockElement: boolean = true;
+    private isBlockElement = true;
 
     /**
      * A value indicating whether the content of the bb-code should be parsed.
      */
-    private parseContent: boolean = false;
+    private parseContent = false;
 
     /**
      * The attributes of the bb-code.

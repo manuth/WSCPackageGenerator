@@ -119,7 +119,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });
@@ -180,8 +180,8 @@ suite(
                                                     "Checking whether the common bb-code is present...",
                                                     () =>
                                                     {
-                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                            (editor: XMLEditor) =>
+                                                        let matches = bbCodeEditors.filter(
+                                                            (editor) =>
                                                             {
                                                                 return editor.GetAttribute(nameAttribute) === commonBBCodeName;
                                                             });
@@ -257,7 +257,7 @@ suite(
                                                             "Checking whether at least one attribute is present...",
                                                             () =>
                                                             {
-                                                                let attributeEditors: XMLEditor[] = attributesEditor.GetChildrenByTag(attributeTag);
+                                                                let attributeEditors = attributesEditor.GetChildrenByTag(attributeTag);
                                                                 assert.strictEqual(attributeEditors.length > 0, true);
                                                                 attributeEditor = attributeEditors[Math.floor(Math.random() * attributeEditors.length)];
                                                             });
@@ -297,7 +297,7 @@ suite(
 
                                                         test(
                                                             "Checking the integrity of the code-property",
-                                                            function(): void
+                                                            function ()
                                                             {
                                                                 if (isNullOrUndefined(attribute.Code))
                                                                 {
@@ -311,7 +311,7 @@ suite(
 
                                                         test(
                                                             "Checking the integrity of the validationPattern-property",
-                                                            function(): void
+                                                            function (): void
                                                             {
                                                                 if (isNullOrUndefined(attribute.ValidationPattern))
                                                                 {
@@ -347,8 +347,8 @@ suite(
                                                     "Checking whether the class-bb-code is present...",
                                                     () =>
                                                     {
-                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                            (element: XMLEditor) =>
+                                                        let matches = bbCodeEditors.filter(
+                                                            (element) =>
                                                             {
                                                                 return element.GetAttribute(nameAttribute) === classBBCodeName;
                                                             });
@@ -395,8 +395,8 @@ suite(
                                                     "Checking whether the html bb-code is present...",
                                                     () =>
                                                     {
-                                                        let matches: XMLEditor[] = bbCodeEditors.filter(
-                                                            (element: XMLEditor) =>
+                                                        let matches = bbCodeEditors.filter(
+                                                            (element) =>
                                                             {
                                                                 return element.GetAttribute(nameAttribute) === htmlBBCodeName;
                                                             });

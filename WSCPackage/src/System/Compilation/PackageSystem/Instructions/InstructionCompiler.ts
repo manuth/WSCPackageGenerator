@@ -22,9 +22,26 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
     /**
      * Gets the name of the file to write the compiled item to.
      */
-    public get DestinationFileName(): string
+    public get DestinationFileName()
     {
         return this.MakePackagePath(this.Item.FullName);
+    }
+
+    /**
+     * Returns an XML `Document` which represents the compiled instruction.
+     */
+    public Serialize()
+    {
+        let document = new DOMParser().parseFromString("<instruction />");
+        document.documentElement.textContent = this.Item.FullName;
+        document.documentElement.setAttribute("type", this.Item.Type);
+
+        if (this.Item.Standalone)
+        {
+            document.documentElement.setAttribute("run", "standalone");
+        }
+
+        return document;
     }
 
     /**
@@ -39,7 +56,7 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
      * @param context
      * The context to use.
      */
-    protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any }): Promise<void>
+    protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any })
     {
         context = context || {};
 
@@ -59,7 +76,7 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
      * @param path
      * The path that is to be joined.
      */
-    protected MakePackagePath(...path: string[]): string
+    protected MakePackagePath(...path: string[])
     {
         return super.MakeDestinationPath(...path);
     }
@@ -70,22 +87,8 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
      * @param path
      * The path that is to be joined.
      */
-    protected MakeDestinationPath(...path: string[]): string
+    protected MakeDestinationPath(...path: string[])
     {
         return Path.join(this.DestinationFileName, ...path);
-    }
-
-    public Serialize(): Document
-    {
-        let document: Document = new DOMParser().parseFromString("<instruction />");
-        document.documentElement.textContent = this.Item.FullName;
-        document.documentElement.setAttribute("type", this.Item.Type);
-
-        if (this.Item.Standalone)
-        {
-            document.documentElement.setAttribute("run", "standalone");
-        }
-
-        return document;
     }
 }

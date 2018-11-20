@@ -24,21 +24,21 @@ suite(
 
                 compiler = new class extends EJSFileCompiler<{}>
                 {
-                    protected TagName: string = "test";
+                    protected TagName = "test";
 
                     public constructor()
                     {
                         super({});
                     }
 
-                    protected CreateDocument(): Document
+                    protected CreateDocument()
                     {
-                        let document: Document = super.CreateDocument();
+                        let document = super.CreateDocument();
                         document.documentElement.appendChild(document.createTextNode(`<%= ${variableName} %>`));
                         return document;
                     }
 
-                    protected async Compile(): Promise<void>
+                    protected async Compile()
                     {
                         await super.Compile();
                         await this.CopyTemplate(this.DestinationPath, this.DestinationPath, context);
@@ -70,7 +70,7 @@ suite(
                     "Checking whether the EJS-variable has been replaced...",
                     async () =>
                     {
-                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                         assert.strictEqual(document.documentElement.textContent, variableValue);
                     });
             });

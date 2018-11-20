@@ -6,12 +6,12 @@ suite(
     "BBCodeInstruction",
     () =>
     {
-        let locale: string = "en";
+        let locale = "en";
         let localization: { [locale: string]: string } = {};
 
         localization[locale] = "bar";
 
-        let bbCode: BBCode = new BBCode(
+        let bbCode = new BBCode(
             {
                 Name: "foo",
                 DisplayName: localization
@@ -48,7 +48,7 @@ suite(
             "GetMessages()",
             () =>
             {
-                let category: string = "wcf.editor.button";
+                let category = "wcf.editor.button";
                 let translations: { [locale: string]: { [category: string]: { [key: string]: string } } };
 
                 suiteSetup(

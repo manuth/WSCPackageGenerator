@@ -18,7 +18,7 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
     /**
      * The directory to save the set to.
      */
-    private directory: string = "components";
+    private directory = "components";
 
     /**
      * Initializes a new instance of the `InstructionSet` class.
@@ -37,12 +37,12 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
     /**
      * Gets or sets the package the collection belongs to.
      */
-    public get Package(): Package
+    public get Package()
     {
         return this.package;
     }
 
-    public set Package(value: Package)
+    public set Package(value)
     {
         this.package = value;
     }
@@ -50,42 +50,32 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
     /**
      * Gets or sets the directory to save the components of this set.
      */
-    public get Directory(): string
+    public get Directory()
     {
         return this.directory;
     }
 
-    public set Directory(value: string)
+    public set Directory(value)
     {
         this.directory = value;
-    }
-
-    protected GetParent(child: Instruction): InstructionSet
-    {
-        return child.Collection;
-    }
-
-    protected SetParent(child: Instruction, parent: InstructionSet): void
-    {
-        child.Collection = parent;
     }
 
     /**
      * Serializes the instruction-set to an xml dom-element.
      */
-    public Serialize(): Element
+    public Serialize()
     {
-        let document: Document = XML.CreateDocument("instructions");
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let document = XML.CreateDocument("instructions");
+        let editor = new XMLEditor(document.documentElement);
         editor.SetAttribute("type", "install");
 
         for (let instruction of this)
         {
             if (!isNullOrUndefined(instruction.Compiler))
             {
-                let childNodes: NodeList = instruction.Compiler.Serialize().childNodes;
+                let childNodes = instruction.Compiler.Serialize().childNodes;
 
-                for (let i: number = 0; i < childNodes.length; i++)
+                for (let i = 0; i < childNodes.length; i++)
                 {
                     let node: Node = childNodes.item(i);
                     editor.Add(node);
@@ -94,5 +84,15 @@ export class InstructionSet extends BidirectionalCollection<InstructionSet, Inst
         }
 
         return editor.Element;
+    }
+
+    protected GetParent(child: Instruction)
+    {
+        return child.Collection;
+    }
+
+    protected SetParent(child: Instruction, parent: InstructionSet)
+    {
+        child.Collection = parent;
     }
 }

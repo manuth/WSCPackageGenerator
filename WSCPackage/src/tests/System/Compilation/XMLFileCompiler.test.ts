@@ -19,7 +19,7 @@ suite(
                 rootTag = "foo";
                 compiler = new class extends XMLFileCompiler<{}>
                 {
-                    protected TagName: string = "foo";
+                    protected TagName = "foo";
 
                     public constructor()
                     {

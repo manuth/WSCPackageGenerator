@@ -156,8 +156,8 @@ suite(
                     "Checking whether elements can be pre-processed...",
                     () =>
                     {
-                        let content: string = "hello world";
-                        let element: XMLEditor = editor.CreateElement(tagName, (newChild: XMLEditor) => newChild.TextContent = content);
+                        let content = "hello world";
+                        let element = editor.CreateElement(tagName, (newChild: XMLEditor) => newChild.TextContent = content);
                         assert.strictEqual(element.TextContent, content);
                     });
             });
@@ -336,7 +336,7 @@ suite(
                     "Checking whether items can be inserted into an empty element...",
                     () =>
                     {
-                        let index: number = 0;
+                        let index = 0;
                         parent.Insert(index, newElement);
                         assert.strictEqual(parent.ChildNodes.indexOf(newElement.Element), index);
                     });
@@ -345,7 +345,7 @@ suite(
                     "Checking whether items can be inserted at the end inside the element...",
                     () =>
                     {
-                        let index: number = parent.ChildNodes.length;
+                        let index = parent.ChildNodes.length;
                         parent.Insert(index, newElement);
                         assert.strictEqual(parent.ChildNodes.indexOf(newElement.Element), index);
                     });
@@ -383,9 +383,9 @@ suite(
                     "Checking whether the children are queried correctly...",
                     () =>
                     {
-                        let randomTag: string = tags[Math.floor(Math.random() * tags.length)];
+                        let randomTag = tags[Math.floor(Math.random() * tags.length)];
                         parent.ChildNodes[Math.floor(Math.random() * parent.ChildNodes.length)].appendChild(parent.CreateElement(randomTag).Element);
-                        let result: XMLEditor[] = parent.GetChildrenByTag(randomTag);
+                        let result = parent.GetChildrenByTag(randomTag);
                         assert.strictEqual(result.length, 1);
                         assert.strictEqual(result[0].ParentNode === parent.Element, true);
                     });
@@ -414,9 +414,9 @@ suite(
                     "Checking whether the elements are queried correctly...",
                     () =>
                     {
-                        let randomTag: string = tags[Math.floor(Math.random() * tags.length)];
+                        let randomTag = tags[Math.floor(Math.random() * tags.length)];
                         parent.ChildNodes[Math.floor(Math.random() * parent.ChildNodes.length)].appendChild(parent.CreateElement(randomTag).Element);
-                        let result: XMLEditor[] = parent.GetElementsByTag(randomTag);
+                        let result = parent.GetElementsByTag(randomTag);
                         assert.strictEqual(result.length, 2);
                     });
             });
@@ -478,7 +478,7 @@ suite(
                     "Checking whether attributes are queried correctly...",
                     () =>
                     {
-                        let value: string = "test";
+                        let value = "test";
                         attributeEditor.SetAttribute(attributeName, value);
                         assert.strictEqual(attributeEditor.GetAttribute(attributeName), value);
                     });

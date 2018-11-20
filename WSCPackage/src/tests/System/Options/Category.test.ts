@@ -12,10 +12,16 @@ suite(
     "Category",
     () =>
     {
+        /**
+         * Represents an option.
+         */
         class MyOption extends Option
         {
         }
 
+        /**
+         * Represents a category.
+         */
         class MyCategory extends Category<Option, IOptionOptions>
         {
             public constructor(node: INode, options: ICategoryOptions<IOptionOptions>)
@@ -23,20 +29,23 @@ suite(
                 super(
                     node,
                     options,
-                    (parent: Category<Option, IOptionOptions>, opts: IOptionOptions): Option =>
+                    (parent: Category<Option, IOptionOptions>, opts: IOptionOptions) =>
                     {
                         return new MyOption(parent, opts);
                     });
             }
         }
 
+        /**
+         * Represents a node.
+         */
         class MyNode extends Node<MyCategory, ICategoryOptions<IOptionOptions>>
         {
             public constructor(options: INodeOptions<ICategoryOptions<IOptionOptions>>)
             {
                 super(
                     options,
-                    (parent: Node<MyCategory, ICategoryOptions<IOptionOptions>>, opts: ICategoryOptions<IOptionOptions>): MyCategory =>
+                    (parent: Node<MyCategory, ICategoryOptions<IOptionOptions>>, opts: ICategoryOptions<IOptionOptions>) =>
                     {
                         return new MyCategory(parent, opts);
                     });

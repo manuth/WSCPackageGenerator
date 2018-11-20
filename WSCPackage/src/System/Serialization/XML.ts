@@ -13,12 +13,46 @@ export class XML
      */
     public static CreateDocument(tagName: string): Document
     {
-        let result: Document = new DOMParser().parseFromString(`<${tagName} />`);
+        let result = new DOMParser().parseFromString(`<${tagName} />`);
         result.insertBefore(
             result.createProcessingInstruction("xml", 'version="1.0" encoding="UTF-8"'),
             result.documentElement);
 
         return result;
+    }
+
+    /**
+     * Formats xml-code.
+     *
+     * @param xml
+     * The xml-code to format.
+     *
+     * @returns
+     * Formatted xml-code.
+     */
+    public static Format(xml: string)
+    {
+        let document = new DOMParser().parseFromString(xml);
+        let children: Node[] = [];
+
+        for (let i = 0; i < document.childNodes.length; i++)
+        {
+            children.push(document.childNodes.item(i));
+        }
+
+        if (children.length > 0)
+        {
+            for (let child of children)
+            {
+                if (child !== document.firstChild)
+                {
+                    document.insertBefore(document.createTextNode("\n"), child);
+                }
+            }
+        }
+
+        this.FormatElement(document.documentElement);
+        return new XMLSerializer().serializeToString(document);
     }
 
     /**
@@ -30,15 +64,15 @@ export class XML
      * @param indent
      * The indentation of the element itself.
      */
-    protected static FormatElement(element: Element, indent: string = ""): void
+    protected static FormatElement(element: Element, indent = "")
     {
-        let innerIndent: string = `${" ".repeat(4)}${indent}`;
+        let innerIndent = `${" ".repeat(4)}${indent}`;
 
         if (element.childNodes.length > 0)
         {
             let children: Node[] = [];
 
-            for (let i: number = 0; i < element.childNodes.length; i++)
+            for (let i = 0; i < element.childNodes.length; i++)
             {
                 children.push(element.childNodes.item(i));
             }
@@ -77,39 +111,5 @@ export class XML
                 element.appendChild(element.ownerDocument.createTextNode(`\n${indent}`));
             }
         }
-    }
-
-    /**
-     * Formats xml-code.
-     *
-     * @param xml
-     * The xml-code to format.
-     *
-     * @returns
-     * Formatted xml-code.
-     */
-    public static Format(xml: string): string
-    {
-        let document: Document = new DOMParser().parseFromString(xml);
-        let children: Node[] = [];
-
-        for (let i: number = 0; i < document.childNodes.length; i++)
-        {
-            children.push(document.childNodes.item(i));
-        }
-
-        if (children.length > 0)
-        {
-            for (let child of children)
-            {
-                if (child !== document.firstChild)
-                {
-                    document.insertBefore(document.createTextNode("\n"), child);
-                }
-            }
-        }
-
-        this.FormatElement(document.documentElement);
-        return new XMLSerializer().serializeToString(document);
     }
 }

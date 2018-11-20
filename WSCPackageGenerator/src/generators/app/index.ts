@@ -38,7 +38,7 @@ class WSCPackageGenerator extends Generator
         super(args, opts);
     }
 
-    protected get TemplateRoot(): string
+    protected get TemplateRoot()
     {
         return "app";
     }
@@ -46,7 +46,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Gets the path to load component-templates from and to save component-files to.
      */
-    protected get ComponentTemplatePath(): string
+    protected get ComponentTemplatePath()
     {
         return "components";
     }
@@ -54,7 +54,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Gets the name of the setting which contains the path to the component-directory.
      */
-    protected get ComponentRootSetting(): string
+    protected get ComponentRootSetting()
     {
         return "componentRoot";
     }
@@ -204,7 +204,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Collects all information about the package that is to be created.
      */
-    public async prompting(): Promise<void>
+    public async prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
 
@@ -214,7 +214,7 @@ class WSCPackageGenerator extends Generator
                 name: "destination",
                 message: "What directory do you want to create the package to?",
                 default: "./",
-                filter: (value: string): string =>
+                filter: (value: string) =>
                 {
                     this.destination = Path.resolve(process.cwd(), value);
                     return value;
@@ -224,7 +224,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "name",
                 message: "What's the name of your package?",
-                default: (answers: YoGenerator.Answers): string =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return answers["destination"];
                 },
@@ -234,7 +234,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your package?",
-                default: (answers: YoGenerator.Answers): string =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return answers["name"];
                 },
@@ -263,7 +263,7 @@ class WSCPackageGenerator extends Generator
                 type: "input",
                 name: "identifier",
                 message: "Please type an identifier for your package:",
-                default: (answers: YoGenerator.Answers): string =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     let reversedURI: string = (answers["authorURL"] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 
@@ -292,18 +292,18 @@ class WSCPackageGenerator extends Generator
     /**
      * Writes the templates
      */
-    public async writing(): Promise<void>
+    public async writing()
     {
         this.destinationRoot(this.destination);
 
-        let componentsPath: (value: string) => string = (value: string): string =>
+        let componentsPath = (value: string) =>
         {
             return this.destinationPath(this.settings[this.ComponentRootSetting], value);
         };
 
-        let CopyTemplate: (source: string, destination: string) => Promise<void> = async (source: string, destination: string): Promise<void> =>
+        let CopyTemplate = async (source: string, destination: string) =>
         {
-            let relativePackage: string = Path.posix.normalize(Path.relative(Path.dirname(destination), process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
+            let relativePackage = Path.posix.normalize(Path.relative(Path.dirname(destination), process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
 
             if (!relativePackage.startsWith("."))
             {
@@ -331,7 +331,7 @@ class WSCPackageGenerator extends Generator
                 });
         };
 
-        let CopyComponent: (component: IComponent, destination: string) => Promise<void> = async (component: IComponent, destination: string): Promise<void> =>
+        let CopyComponent = async (component: IComponent, destination: string) =>
         {
             await CopyTemplate(this.templatePath(this.ComponentTemplatePath, component.TemplateFile), componentsPath(destination));
         };
@@ -377,7 +377,7 @@ class WSCPackageGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    public async install(): Promise<void>
+    public async install()
     {
         this.installDependencies({ bower: false, npm: true });
     }
@@ -385,15 +385,15 @@ class WSCPackageGenerator extends Generator
     /**
      * Show some helpful messages after finishing the installation-process.
      */
-    public async end(): Promise<void>
+    public async end()
     {
         this.config.save();
         this.log();
-        this.log("Your package \"" + this.settings.name + "\" has been created!");
+        this.log("Your package \"" + (this.settings.name as string) + "\" has been created!");
         this.log();
         this.log("To start editing with Visual Studio Code, use following commands:");
         this.log();
-        this.log("    cd \"" + this.settings.destination + "\"");
+        this.log("    cd \"" + (this.settings.destination as string) + "\"");
         this.log("    code .");
         this.log();
         this.log("Open wsc-package-quickstart.md inside the new package for further instructions on how to build it.");

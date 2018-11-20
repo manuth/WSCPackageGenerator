@@ -25,31 +25,31 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
         this.VariableFileName = variableFileName;
     }
 
-    protected get TagName(): string
+    protected get TagName()
     {
         return "style";
     }
 
-    protected get SchemaLocation(): string
+    protected get SchemaLocation()
     {
         return "https://www.woltlab.com/XSD/vortex/style.xsd";
     }
 
-    protected CreateDocument(): Document
+    protected CreateDocument()
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let document = super.CreateDocument();
+        let editor = new XMLEditor(document.documentElement);
 
         editor.AddElement(
             "general",
-            (general: XMLEditor) =>
+            (general) =>
             {
                 for (let locale of this.Item.DisplayName.GetLocales())
                 {
                     general.AddTextElement(
                         "stylename",
                         this.Item.DisplayName.Data[locale],
-                        (name: XMLEditor) =>
+                        (name) =>
                         {
                             if (locale !== "inv")
                             {
@@ -61,7 +61,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 general.AddTextElement("version", this.Item.Version);
                 general.AddTextElement(
                     "date",
-                    this.Item.CreationDate.getFullYear() + "-" +
+                    this.Item.CreationDate.getFullYear().toString() + "-" +
                     (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
                     this.Item.CreationDate.getDate().toString().padStart(2, "0"));
 
@@ -70,7 +70,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                     general.AddTextElement(
                         "description",
                         this.Item.Description.Data[locale],
-                        (description: XMLEditor) =>
+                        (description) =>
                         {
                             if (locale !== "inv")
                             {
@@ -105,7 +105,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
 
         editor.AddElement(
             "author",
-            (author: XMLEditor) =>
+            (author) =>
             {
                 if (!isNullOrUndefined(this.Item.Author.Name))
                 {
@@ -118,7 +118,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 }
             });
 
-        let files: XMLEditor = new XMLEditor(document.createElement("files"));
+        let files = new XMLEditor(document.createElement("files"));
         {
             if (
                 Object.keys(this.Item.Variables).length > 0 ||
@@ -133,7 +133,7 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
                 files.AddTextElement(
                     "images",
                     this.Item.Images.FileName,
-                    (images: XMLEditor) =>
+                    (images) =>
                     {
                         images.SetAttribute("path", this.Item.Images.DestinationRoot);
                     });
@@ -151,12 +151,12 @@ export class ThemeFileCompiler extends WoltLabXMLCompiler<Theme>
     /**
      * Gets or sets the filename to save variables to.
      */
-    public get VariableFileName(): string
+    public get VariableFileName()
     {
         return this.variableFileName;
     }
 
-    public set VariableFileName(value: string)
+    public set VariableFileName(value)
     {
         this.variableFileName = value;
     }

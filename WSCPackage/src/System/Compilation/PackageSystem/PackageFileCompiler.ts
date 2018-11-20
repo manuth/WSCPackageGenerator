@@ -19,32 +19,32 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
         super(item);
     }
 
-    protected get TagName(): string
+    protected get TagName()
     {
         return "package";
     }
 
-    protected get SchemaLocation(): string
+    protected get SchemaLocation()
     {
         return "http://www.woltlab.com/XSD/tornado/package.xsd";
     }
 
-    protected CreateDocument(): Document
+    protected CreateDocument()
     {
-        let document: Document = super.CreateDocument();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let document = super.CreateDocument();
+        let editor = new XMLEditor(document.documentElement);
         editor.SetAttribute("name", this.Item.Identifier);
 
         editor.AddElement(
             "packageinformation",
-            (packageInfo: XMLEditor) =>
+            (packageInfo) =>
             {
                 for (let locale of this.Item.DisplayName.GetLocales())
                 {
                     packageInfo.AddTextElement(
                         "packagename",
                         this.Item.DisplayName.Data[locale],
-                        (displayName: XMLEditor) =>
+                        (displayName) =>
                         {
                             if (locale !== "inv")
                             {
@@ -58,7 +58,7 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
                     packageInfo.AddTextElement(
                         "packagedescription",
                         this.Item.Description.Data[locale],
-                        (description: XMLEditor) =>
+                        (description) =>
                         {
                             if (locale !== "inv")
                             {
@@ -70,14 +70,14 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
                 packageInfo.AddTextElement("version", this.Item.Version);
                 packageInfo.AddTextElement(
                     "date",
-                    this.Item.CreationDate.getFullYear() + "-" +
+                    this.Item.CreationDate.getFullYear().toString() + "-" +
                     (this.Item.CreationDate.getMonth() + 1).toString().padStart(2, "0") + "-" +
                     this.Item.CreationDate.getDate().toString().padStart(2, "0"));
             });
 
         editor.AddElement(
             "authorinformation",
-            (author: XMLEditor) =>
+            (author) =>
             {
                 if (!isNullOrUndefined(this.Item.Author.Name))
                 {
@@ -94,14 +94,14 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
         {
             editor.AddElement(
                 "requiredpackages",
-                (packages: XMLEditor) =>
+                (packages) =>
                 {
                     for (let requiredPackage of this.Item.RequiredPackages)
                     {
                         packages.AddTextElement(
                             "requiredpackage",
                             requiredPackage.Identifier,
-                            (requiredPackageNode: XMLEditor) =>
+                            (requiredPackageNode) =>
                             {
                                 requiredPackageNode.SetAttribute("minversion", requiredPackage.MinVersion);
 
@@ -118,14 +118,14 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
         {
             editor.AddElement(
                 "excludedpackages",
-                (packages: XMLEditor) =>
+                (packages) =>
                 {
                     for (let conflictingPackage of this.Item.ConflictingPackages)
                     {
                         packages.AddTextElement(
                             "excludedpackage",
                             conflictingPackage.Identifier,
-                            (conflictingPackageNode: XMLEditor) =>
+                            (conflictingPackageNode) =>
                             {
                                 conflictingPackageNode.SetAttribute("version", conflictingPackage.Version);
                             });
@@ -137,14 +137,14 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
         {
             editor.AddElement(
                 "optionalpackages",
-                (packages: XMLEditor) =>
+                (packages) =>
                 {
                     for (let optionalPackage of this.Item.OptionalPackages)
                     {
                         packages.AddTextElement(
                             "optionalpackage",
                             optionalPackage.Identifier,
-                            (optionalPackageNode: XMLEditor) =>
+                            (optionalPackageNode) =>
                             {
                                 optionalPackageNode.SetAttribute("file", optionalPackage.FileName);
                             });
@@ -154,9 +154,9 @@ export class PackageFileCompiler extends WoltLabXMLCompiler<Package>
 
         editor.AddElement(
             "compatibility",
-            (compatibility: XMLEditor) =>
+            (compatibility) =>
             {
-                compatibility.AddElement("api", (api: XMLEditor) => api.SetAttribute("version", "2018"));
+                compatibility.AddElement("api", (api) => api.SetAttribute("version", "2018"));
             });
 
         editor.Add(this.Item.InstallSet.Serialize());

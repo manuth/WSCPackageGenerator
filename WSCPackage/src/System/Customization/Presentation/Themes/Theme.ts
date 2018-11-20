@@ -123,12 +123,12 @@ export class Theme extends Component
     /**
      * Gets or sets the thumbnail of the theme.
      */
-    public get Thumbnail(): FileDescriptor
+    public get Thumbnail()
     {
         return this.thumbnail;
     }
 
-    public set Thumbnail(value: FileDescriptor)
+    public set Thumbnail(value)
     {
         this.thumbnail = value;
     }
@@ -136,12 +136,12 @@ export class Theme extends Component
     /**
      * Gets or sets the high resolution version of the thumbnail.
      */
-    public get HighResThumbnail(): FileDescriptor
+    public get HighResThumbnail()
     {
         return this.highResThumbnail;
     }
 
-    public set HighResThumbnail(value: FileDescriptor)
+    public set HighResThumbnail(value)
     {
         this.highResThumbnail = value;
     }
@@ -149,7 +149,7 @@ export class Theme extends Component
     /**
      * Gets the instruction which contains this theme.
      */
-    public get Instruction(): ThemeInstruction
+    public get Instruction()
     {
         return this.instruction;
     }
@@ -157,12 +157,12 @@ export class Theme extends Component
     /**
      * Gets or sets the path to the default cover-photo for user-profiles.
      */
-    public get CoverPhoto(): FileDescriptor
+    public get CoverPhoto()
     {
         return this.coverPhoto;
     }
 
-    public set CoverPhoto(value: FileDescriptor)
+    public set CoverPhoto(value)
     {
         this.coverPhoto = value;
     }
@@ -170,12 +170,12 @@ export class Theme extends Component
     /**
      * Gets or sets the `scss`-code of the theme.
      */
-    public get CustomScss(): string
+    public get CustomScss()
     {
         return this.customSCSS;
     }
 
-    public set CustomScss(value: string)
+    public set CustomScss(value)
     {
         this.customSCSS = value;
     }
@@ -183,12 +183,12 @@ export class Theme extends Component
     /**
      * Gets or sets the variable-overrides of special `scss`-variables.
      */
-    public get ScssOverride(): string
+    public get ScssOverride()
     {
         return this.scssOverride;
     }
 
-    public set ScssOverride(value: string)
+    public set ScssOverride(value)
     {
         this.scssOverride = value;
     }
@@ -196,12 +196,15 @@ export class Theme extends Component
     /**
      * Gets the variables of the theme.
      */
-    public get Variables(): { [key: string]: string }
+    public get Variables()
     {
         return this.variables;
     }
 
-    public get Images(): ImageDirectoryDescriptor
+    /**
+     * Gets the image-directory of the theme.
+     */
+    public get Images()
     {
         return this.images;
     }

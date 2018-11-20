@@ -8,9 +8,12 @@ suite(
     "Instruction",
     () =>
     {
+        /**
+         * Represents an instruction.
+         */
         class MyInstruction extends Instruction
         {
-            public Type: string = "custom";
+            public Type = "custom";
         }
 
         let $package: Package;

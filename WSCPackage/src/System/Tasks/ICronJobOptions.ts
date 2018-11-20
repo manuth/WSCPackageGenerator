@@ -1,5 +1,4 @@
 import { ILocalization } from "../Globalization/ILocalization";
-// import { ACPOption } from "../Options/ControlPanel/ACPOption";
 import { TimePeriod } from "./TimePeriod";
 
 /**
@@ -35,7 +34,7 @@ export interface ICronJobOptions
     /**
      * A set of options of which at least one must be enabled in order to execute the cron-job.
      */
-    Options?: any[];
+    Options?: string[];
 
     /**
      * The period to execute the cron-job.

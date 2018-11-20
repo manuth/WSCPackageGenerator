@@ -21,17 +21,17 @@ export class CronJob
     /**
      * The description of the cron-job.
      */
-    private description: Localization = new Localization();
+    private description = new Localization();
 
     /**
      * A value indicating whether the cron-job can be disabled.
      */
-    private allowDisable: boolean = false;
+    private allowDisable = false;
 
     /**
      * A value indicating whether the cron-job can be edited.
      */
-    private allowEdit: boolean = false;
+    private allowEdit = false;
 
     /**
      * A set of options of which at least one must be enabled in order to execute the cron-job.
@@ -81,12 +81,12 @@ export class CronJob
     /**
      * Gets or sets the name of the cron-job.
      */
-    public get Name(): string
+    public get Name()
     {
         return this.name;
     }
 
-    public set Name(value: string)
+    public set Name(value)
     {
         this.name = value;
     }
@@ -94,12 +94,12 @@ export class CronJob
     /**
      * Gets or sets the class-name of the cron-job.
      */
-    public get ClassName(): string
+    public get ClassName()
     {
         return this.className;
     }
 
-    public set ClassName(value: string)
+    public set ClassName(value)
     {
         this.className = value;
     }
@@ -107,7 +107,7 @@ export class CronJob
     /**
      * Gets the description of the cron-job.
      */
-    public get Description(): Localization
+    public get Description()
     {
         return this.description;
     }
@@ -115,12 +115,12 @@ export class CronJob
     /**
      * Gets or sets a value indicating whether the cron-job can be disabled.
      */
-    public get AllowDisable(): boolean
+    public get AllowDisable()
     {
         return this.allowDisable;
     }
 
-    public set AllowDisable(value: boolean)
+    public set AllowDisable(value)
     {
         this.allowDisable = value;
     }
@@ -128,12 +128,12 @@ export class CronJob
     /**
      * Gets or sets a value indicating whether the cron-job can be edited.
      */
-    public get AllowEdit(): boolean
+    public get AllowEdit()
     {
         return this.allowEdit;
     }
 
-    public set AllowEdit(value: boolean)
+    public set AllowEdit(value)
     {
         this.allowEdit = value;
     }
@@ -141,12 +141,12 @@ export class CronJob
     /**
      * Gets or sets a set of options of which at least one must be enabled in order to execute the cron-job.
      */
-    public get Options(): string[]
+    public get Options()
     {
         return this.options;
     }
 
-    public set Options(value: string[])
+    public set Options(value)
     {
         this.options = value;
     }
@@ -154,12 +154,12 @@ export class CronJob
     /**
      * Gets or sets the period to execute the cron-job.
      */
-    public get Period(): TimePeriod
+    public get Period()
     {
         return this.period;
     }
 
-    public set Period(value: TimePeriod)
+    public set Period(value)
     {
         this.period = value;
     }

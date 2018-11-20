@@ -41,7 +41,7 @@ export class BBCodeInstruction extends NamedDeleteInstruction implements ILocali
         }
     }
 
-    public get Type(): string
+    public get Type()
     {
         return "bbcode";
     }
@@ -49,27 +49,27 @@ export class BBCodeInstruction extends NamedDeleteInstruction implements ILocali
     /**
      * Gets the bb-codes provided by this instruction.
      */
-    public get BBCodes(): BBCode[]
+    public get BBCodes()
     {
         return this.bbCodes;
     }
 
-    public get TranslationDirectory(): string
+    public get TranslationDirectory()
     {
         return this.translationDirectory;
     }
 
-    public set TranslationDirectory(value: string)
+    public set TranslationDirectory(value)
     {
         this.translationDirectory = value;
     }
 
-    public get Compiler(): InstructionCompiler<BBCodeInstruction>
+    public get Compiler()
     {
         return new BBCodeInstructionCompiler(this);
     }
 
-    public GetMessages(): { [locale: string]: { [category: string]: { [key: string]: string } } }
+    public GetMessages()
     {
         let result: TranslationInstruction = new TranslationInstruction(
             {

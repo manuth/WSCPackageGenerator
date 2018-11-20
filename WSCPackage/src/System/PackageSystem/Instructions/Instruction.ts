@@ -24,7 +24,7 @@ export abstract class Instruction implements IInstruction
     /**
      * A value indicating whether the instruction should be executed in standalone-mode.
      */
-    private standalone: boolean = false;
+    private standalone = false;
 
     /**
      * Initializes a new instance of the `Instruction` class.
@@ -39,12 +39,12 @@ export abstract class Instruction implements IInstruction
      */
     public abstract get Type(): string;
 
-    public get Collection(): InstructionSet
+    public get Collection()
     {
         return this.collection;
     }
 
-    public set Collection(value: InstructionSet)
+    public set Collection(value)
     {
         if (this.Collection !== value)
         {
@@ -68,36 +68,39 @@ export abstract class Instruction implements IInstruction
         }
     }
 
-    public get DestinationRoot(): string
+    public get DestinationRoot()
     {
         return Path.join(this.Collection.Directory);
     }
 
-    public get FileName(): string
+    public get FileName()
     {
         return this.fileName;
     }
 
-    public set FileName(value: string)
+    public set FileName(value)
     {
         this.fileName = value;
     }
 
-    public get FullName(): string
+    public get FullName()
     {
         return Path.join(this.DestinationRoot, this.FileName).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
     }
 
-    public get Standalone(): boolean
+    public get Standalone()
     {
         return this.standalone;
     }
 
-    public set Standalone(value: boolean)
+    public set Standalone(value)
     {
         this.standalone = value;
     }
 
+    /**
+     * Gets the compiler for compiling the instruction.
+     */
     public get Compiler(): InstructionCompiler<IInstruction>
     {
         return null;

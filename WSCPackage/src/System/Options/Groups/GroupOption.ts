@@ -26,7 +26,7 @@ export class GroupOption extends Option
     /**
      * A value indicating whether the option only applies to groups for registered users.
      */
-    private registeredOnly: boolean = false;
+    private registeredOnly = false;
 
     /**
      * Initializes a new instance of the `GroupOption` class.
@@ -59,12 +59,12 @@ export class GroupOption extends Option
     /**
      * Gets or sets the default value for groups which apply to registered users.
      */
-    public get UserDefaultValue(): any
+    public get UserDefaultValue()
     {
         return this.userDefaultValue;
     }
 
-    public set UserDefaultValue(value: any)
+    public set UserDefaultValue(value)
     {
         this.userDefaultValue = value;
     }
@@ -72,12 +72,12 @@ export class GroupOption extends Option
     /**
      * Gets or sets the default value for groups which have access to the moderation-section.
      */
-    public get ModDefaultValue(): any
+    public get ModDefaultValue()
     {
         return this.modDefaultValue;
     }
 
-    public set ModDefaultValue(value: any)
+    public set ModDefaultValue(value)
     {
         this.modDefaultValue = value;
     }
@@ -85,12 +85,12 @@ export class GroupOption extends Option
     /**
      * Gets or sets the default value for groups with administrator permissions.
      */
-    public get AdminDefaultValue(): any
+    public get AdminDefaultValue()
     {
         return this.adminDefaultValue;
     }
 
-    public set AdminDefaultValue(value: any)
+    public set AdminDefaultValue(value)
     {
         this.adminDefaultValue = value;
     }
@@ -98,12 +98,12 @@ export class GroupOption extends Option
     /**
      * Gets or sets a value indicating whether the option only applies to groups for registered users.
      */
-    public get RegisteredOnly(): boolean
+    public get RegisteredOnly()
     {
         return this.registeredOnly;
     }
 
-    public set RegisteredOnly(value: boolean)
+    public set RegisteredOnly(value)
     {
         this.registeredOnly = value;
     }

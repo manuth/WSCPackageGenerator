@@ -16,18 +16,13 @@ export class TempDirectory extends TempFile
         super(options);
     }
 
-    protected Initialize(options: Temp.Options): void
-    {
-        this.TempFileEntry = Temp.dirSync(options);
-    }
-
     /**
      * Joins the paths and returns the path contained by the temporary directory.
      *
      * @param path
      * The path that is to be joined.
      */
-    public MakePath(...path: string[]): string
+    public MakePath(...path: string[])
     {
         return Path.join(this.FileName, ...path);
     }
@@ -35,9 +30,14 @@ export class TempDirectory extends TempFile
     /**
      * Disposes the temporary directory and removes all references.
      */
-    public Dispose(): void
+    public Dispose()
     {
         FileSystem.emptyDirSync(this.FileName);
         super.Dispose();
+    }
+
+    protected Initialize(options: Temp.Options): void
+    {
+        this.TempFileEntry = Temp.dirSync(options);
     }
 }

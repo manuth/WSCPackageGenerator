@@ -24,7 +24,7 @@ export class XMLEditor
     /**
      * Gets the name of the tag of the element.
      */
-    public get TagName(): string
+    public get TagName()
     {
         return this.Element.tagName;
     }
@@ -32,7 +32,7 @@ export class XMLEditor
     /**
      * Gets the element to edit.
      */
-    public get Element(): Element
+    public get Element()
     {
         return this.element;
     }
@@ -40,12 +40,12 @@ export class XMLEditor
     /**
      * Gets or sets the text of the element.
      */
-    public get TextContent(): string
+    public get TextContent()
     {
         return this.Element.textContent;
     }
 
-    public set TextContent(value: string)
+    public set TextContent(value)
     {
         this.Element.textContent = value;
     }
@@ -53,7 +53,7 @@ export class XMLEditor
     /**
      * Gets the parent of the element.
      */
-    public get ParentNode(): Node
+    public get ParentNode()
     {
         return this.Element.parentNode;
     }
@@ -61,7 +61,7 @@ export class XMLEditor
     /**
      * Gets the document of the element.
      */
-    public get Document(): Document
+    public get Document()
     {
         return this.Element.ownerDocument;
     }
@@ -75,24 +75,6 @@ export class XMLEditor
     }
 
     /**
-     * Converts a node-list to an array.
-     *
-     * @param nodeList
-     * The node-list to convert.
-     */
-    protected static ToArray<T extends Node>(nodeList: { item(index: number): T, length: number }): T[]
-    {
-        let result: T[] = [];
-
-        for (let i: number = 0; i < nodeList.length; i++)
-        {
-            result.push(nodeList.item(i) as T);
-        }
-
-        return result;
-    }
-
-    /**
      * Creates a new element.
      *
      * @param tag
@@ -101,9 +83,9 @@ export class XMLEditor
      * @param processor
      * A method for manipulating the new element.
      */
-    public CreateElement(tag: string, processor?: (element: XMLEditor) => void): XMLEditor
+    public CreateElement(tag: string, processor?: (element: XMLEditor) => void)
     {
-        let editor: XMLEditor = new XMLEditor(this.Document.createElement(tag));
+        let editor = new XMLEditor(this.Document.createElement(tag));
 
         if (!isNullOrUndefined(processor))
         {
@@ -125,11 +107,11 @@ export class XMLEditor
      * @param processor
      * A method for manipulating the new element.
      */
-    public CreateCDATAElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void): XMLEditor
+    public CreateCDATAElement(tag: string, textContent: string, processor?: (element: XMLEditor) => void)
     {
         return this.CreateElement(
             tag,
-            (element: XMLEditor) =>
+            (element) =>
             {
                 element.Add(this.Document.createCDATASection(textContent));
 
@@ -153,7 +135,7 @@ export class XMLEditor
     {
         return this.CreateElement(
             tag,
-            (element: XMLEditor) =>
+            (element) =>
             {
                 element.TextContent = textContent;
 
@@ -278,7 +260,7 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetChildrenByTag(tag: string): XMLEditor[]
+    public GetChildrenByTag(tag: string)
     {
         return this.GetElementsByTag(tag).filter((node: XMLEditor) => node.ParentNode === this.Element);
     }
@@ -289,7 +271,7 @@ export class XMLEditor
      * @param tag
      * The tag to look for.
      */
-    public GetElementsByTag(tag: string): XMLEditor[]
+    public GetElementsByTag(tag: string)
     {
         return XMLEditor.ToArray(this.Element.getElementsByTagName(tag)).map((element: Element) => new XMLEditor(element));
     }
@@ -408,5 +390,23 @@ export class XMLEditor
         {
             return children.length > 0;
         }
+    }
+
+    /**
+     * Converts a node-list to an array.
+     *
+     * @param nodeList
+     * The node-list to convert.
+     */
+    protected static ToArray<T extends Node>(nodeList: { length: number, item(index: number): T })
+    {
+        let result: T[] = [];
+
+        for (let i = 0; i < nodeList.length; i++)
+        {
+            result.push(nodeList.item(i));
+        }
+
+        return result;
     }
 }

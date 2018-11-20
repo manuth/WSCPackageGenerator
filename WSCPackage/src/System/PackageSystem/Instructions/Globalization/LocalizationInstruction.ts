@@ -7,6 +7,9 @@ import { INodeSystemInstructionOptions } from "../NodeSystem/INodeSystemInstruct
 import { NodeSystemInstruction } from "../NodeSystem/NodeSystemInstruction";
 import { ILocalizationInstruction } from "./ILocalizationInstruction";
 
+/**
+ * Represents an instruction which provides localizations.
+ */
 export abstract class LocalizationInstruction<T extends LocalizationItem, TOptions> extends NodeSystemInstruction<T, TOptions> implements ILocalizationInstruction
 {
     /**

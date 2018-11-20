@@ -21,12 +21,12 @@ export class TempFile
     /**
      * Gets or sets the temporary file-entry.
      */
-    protected get TempFileEntry(): Temp.SynchrounousResult
+    protected get TempFileEntry()
     {
         return this.tempFileEntry;
     }
 
-    protected set TempFileEntry(value: Temp.SynchrounousResult)
+    protected set TempFileEntry(value)
     {
         this.tempFileEntry = value;
     }
@@ -34,23 +34,15 @@ export class TempFile
     /**
      * The name of the temporary directory.
      */
-    public get FileName(): string
+    public get FileName()
     {
         return this.tempFileEntry.name;
     }
 
     /**
-     * Initializes the component.
-     */
-    protected Initialize(options: Temp.Options): void
-    {
-        this.TempFileEntry = Temp.fileSync(options);
-    }
-
-    /**
      * Disposes the temporary directory and removes all references.
      */
-    public Dispose(): void
+    public Dispose()
     {
         this.tempFileEntry.removeCallback();
         this.tempFileEntry = null;
@@ -62,8 +54,16 @@ export class TempFile
      * @returns
      * A string which represents the object.
      */
-    public toString(): string
+    public toString()
     {
         return this.FileName;
+    }
+
+    /**
+     * Initializes the component.
+     */
+    protected Initialize(options: Temp.Options)
+    {
+        this.TempFileEntry = Temp.fileSync(options);
     }
 }

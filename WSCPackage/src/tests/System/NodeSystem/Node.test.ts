@@ -8,11 +8,14 @@ suite(
     "Node",
     () =>
     {
+        /**
+         * Represents a node.
+         */
         class MyNode extends Node<NodeItem, {}>
         {
             public constructor(options: INodeOptions<{}>)
             {
-                super(options, (): NodeItem => new NodeItem(this));
+                super(options, () => new NodeItem(this));
             }
         }
 

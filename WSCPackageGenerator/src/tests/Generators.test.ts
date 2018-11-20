@@ -23,7 +23,7 @@ suite(
             });
 
         suiteTeardown(
-            function(): void
+            function ()
             {
                 this.timeout(1 * 60 * 1000);
                 process.chdir(currentDir);
@@ -61,33 +61,33 @@ suite(
                     });
 
                 test("Checking whether the generator can be executed...",
-                    async function(): Promise<void>
+                    async function ()
                     {
                         this.slow(5000);
                         this.timeout(5000);
-                        tempDir = await packageContext;
+                        tempDir = await packageContext.toPromise();
                         tsConfigFile = Path.join(tempDir, "tsconfig.json");
                         packageFileName = Path.join(tempDir, "Package");
                     });
 
                 test(
                     "Checking whether the package-dependencies can be installed...",
-                    async function(): Promise<void>
+                    async function ()
                     {
                         this.slow(5 * 60 * 1000);
                         this.timeout(5 * 60 * 1000);
 
-                        let consoleLog: any = console.log;
-                        console.log = (): void => { };
+                        let consoleLog = console.log;
+                        console.log = () => { };
                         {
                             await new Promise(
-                                (resolve: (result: any) => void, reject: (reason: any) => void): void =>
+                                (resolve, reject) =>
                                 {
                                     npm.load(
                                         {
                                             loaded: false
                                         } as any,
-                                        (error: Error, result: any) =>
+                                        (error, result) =>
                                         {
                                             if (!isNullOrUndefined(error))
                                             {
@@ -101,15 +101,15 @@ suite(
                                 });
 
                             await new Promise(
-                                (resolve: (result: any) => void, reject: (reason: any) => void): void =>
+                                (resolve, reject) =>
                                 {
                                     npm.commands.install(
                                         [],
-                                        (err: Error, result: any) =>
+                                        (error, result) =>
                                         {
-                                            if (!isNullOrUndefined(err))
+                                            if (!isNullOrUndefined(error))
                                             {
-                                                reject(err);
+                                                reject(error);
                                             }
                                             else
                                             {
@@ -130,12 +130,12 @@ suite(
 
                 test(
                     "Checking whether the package-file can be compiled using typescript...",
-                    function(): void
+                    function ()
                     {
                         this.slow(20 * 1000);
                         this.timeout(20 * 1000);
 
-                        let host: ts.ParseConfigFileHost = {
+                        let host = {
                             ...ts.sys,
                             onUnRecoverableConfigFileDiagnostic: (diagnostic: ts.Diagnostic): void =>
                             {
@@ -143,8 +143,8 @@ suite(
                             }
                         } as ts.ParseConfigFileHost;
 
-                        let config: ts.ParsedCommandLine = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult: ts.EmitResult = ts.createProgram(
+                        let config = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = ts.createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options
@@ -157,7 +157,7 @@ suite(
                     "Checking the integrity of the package-manifest...",
                     () =>
                     {
-                        let $package: any = require(packageFileName);
+                        let $package = require(packageFileName);
                         assert.strictEqual($package["Name"], packageName);
                         assert.strictEqual($package["DisplayName"]["inv"], displayName);
                         assert.strictEqual($package["Identifier"], identifier);
@@ -199,17 +199,17 @@ suite(
                     "Checking whether the generator can be executed...",
                     async () =>
                     {
-                        await themeContext;
+                        await themeContext.toPromise();
                     });
 
                 test(
                     "Checking whether the theme-file can be compiled using typescript...",
-                    function(): void
+                    function (): void
                     {
                         this.slow(20 * 1000);
                         this.timeout(20 * 1000);
 
-                        let host: ts.ParseConfigFileHost = {
+                        let host = {
                             ...ts.sys,
                             onUnRecoverableConfigFileDiagnostic: (diagnostic: ts.Diagnostic): void =>
                             {
@@ -217,8 +217,8 @@ suite(
                             }
                         } as ts.ParseConfigFileHost;
 
-                        let config: ts.ParsedCommandLine = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult: ts.EmitResult = ts.createProgram(
+                        let config = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = ts.createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options

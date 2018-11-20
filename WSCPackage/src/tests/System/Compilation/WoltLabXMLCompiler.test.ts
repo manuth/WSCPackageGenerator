@@ -22,12 +22,12 @@ suite(
 
                 compiler = new class extends WoltLabXMLCompiler<{}>
                 {
+                    protected SchemaLocation = schemaLocation;
+
                     public constructor()
                     {
                         super({});
                     }
-
-                    protected SchemaLocation: string = schemaLocation;
                 }();
 
                 compiler.DestinationPath = tempFile.FileName;

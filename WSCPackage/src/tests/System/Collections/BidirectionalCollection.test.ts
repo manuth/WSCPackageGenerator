@@ -5,23 +5,35 @@ suite(
     "BidirectionalCollection",
     () =>
     {
+        /**
+         * Represents a parent-object.
+         */
         class Parent
         {
         }
 
+        /**
+         * Represents a child-object.
+         */
         class Child
         {
+            /**
+             * Gets or sets the parent of the child.
+             */
             public Parent: Parent;
         }
 
+        /**
+         * Represents a simple collection.
+         */
         class MyCollection extends BidirectionalCollection<Parent, Child>
         {
-            protected GetParent(item: Child): Parent
+            protected GetParent(item: Child)
             {
                 return item.Parent;
             }
 
-            protected SetParent(item: Child, owner: Parent): void
+            protected SetParent(item: Child, owner: Parent)
             {
                 item.Parent = owner;
             }

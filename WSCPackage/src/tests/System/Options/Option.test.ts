@@ -32,7 +32,7 @@ suite(
                     "Checking whether the option-type can be set to an `OptionType` correctly...",
                     () =>
                     {
-                        let value: string = OptionType.TextArea;
+                        let value = OptionType.TextArea;
                         option.Type = OptionType.TextArea;
                         assert.strictEqual(option.Type, value);
                     });
@@ -41,7 +41,7 @@ suite(
                     "Checking whether the option-type can be set to a string...",
                     () =>
                     {
-                        let value: string = "foo";
+                        let value = "foo";
                         option.Type = value;
                         assert.strictEqual(option.Type, value);
                     });

@@ -25,9 +25,51 @@ export abstract class BidirectionalCollection<TParent, TChild> extends Array<TCh
     /**
      * Gets the owner of the collection.
      */
-    public get Owner(): TParent
+    public get Owner()
     {
         return this.owner;
+    }
+
+    public push(...items: TChild[])
+    {
+        let result = 0;
+
+        for (let item of items)
+        {
+            if (this.Add(item))
+            {
+                result++;
+            }
+        }
+
+        return result;
+    }
+
+    public pop()
+    {
+        let result = this[this.length - 1];
+        return this.Remove(result) ? result : undefined;
+    }
+
+    public shift()
+    {
+        let result = this[0];
+        return this.Remove(result) ? result : undefined;
+    }
+
+    public unshift(...items: TChild[])
+    {
+        let result = 0;
+
+        for (let i = items.length - 1; i >= 0; i--)
+        {
+            if (this.Add(items[i]))
+            {
+                result++;
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -58,7 +100,7 @@ export abstract class BidirectionalCollection<TParent, TChild> extends Array<TCh
      * @param item
      * The item to add.
      */
-    protected Add(item: TChild): boolean
+    protected Add(item: TChild)
     {
         if (this.GetParent(item) !== this.Owner)
         {
@@ -83,7 +125,7 @@ export abstract class BidirectionalCollection<TParent, TChild> extends Array<TCh
      * @param item
      * The item to remove.
      */
-    protected Remove(item: TChild): boolean
+    protected Remove(item: TChild)
     {
         if (this.GetParent(item) === this.Owner)
         {
@@ -100,47 +142,5 @@ export abstract class BidirectionalCollection<TParent, TChild> extends Array<TCh
         {
             return false;
         }
-    }
-
-    public push(...items: TChild[]): number
-    {
-        let result: number = 0;
-
-        for (let item of items)
-        {
-            if (this.Add(item))
-            {
-                result++;
-            }
-        }
-
-        return result;
-    }
-
-    public pop(): TChild
-    {
-        let result: TChild = this[this.length - 1];
-        return this.Remove(result) ? result : undefined;
-    }
-
-    public shift(): TChild
-    {
-        let result: TChild = this[0];
-        return this.Remove(result) ? result : undefined;
-    }
-
-    public unshift(...items: TChild[]): number
-    {
-        let result: number = 0;
-
-        for (let i: number = items.length - 1; i >= 0; i--)
-        {
-            if (this.Add(items[i]))
-            {
-                result++;
-            }
-        }
-
-        return result;
     }
 }

@@ -17,7 +17,7 @@ export class EventListener extends Listener
     /**
      * A value indicating whether listening to the event thrown by a class inheriting from `className` is allowed.
      */
-    private allowInherited: boolean = false;
+    private allowInherited = false;
 
     /**
      * The name of the event-handler class which is triggered when the event has been executed.
@@ -45,12 +45,12 @@ export class EventListener extends Listener
     /**
      * Gets or sets the name of the class to listen to.
      */
-    public get ClassName(): string
+    public get ClassName()
     {
         return this.className;
     }
 
-    public set ClassName(value: string)
+    public set ClassName(value)
     {
         this.className = value;
     }
@@ -58,12 +58,12 @@ export class EventListener extends Listener
     /**
      * Gets or sets a value indicating whether listening to the event thrown by a class inheriting from `className` is allowed.
      */
-    public get AllowInherited(): boolean
+    public get AllowInherited()
     {
         return this.allowInherited;
     }
 
-    public set AllowInherited(value: boolean)
+    public set AllowInherited(value)
     {
         this.allowInherited = value;
     }
@@ -73,12 +73,12 @@ export class EventListener extends Listener
      *
      * Please consider that the event-handler class **must** inherit the `wcf\system\event\listener\IParameterizedEventListener`-class.
      */
-    public get EventHandlerClassName(): string
+    public get EventHandlerClassName()
     {
         return this.eventHandlerClassName;
     }
 
-    public set EventHandlerClassName(value: string)
+    public set EventHandlerClassName(value)
     {
         this.eventHandlerClassName = value;
     }

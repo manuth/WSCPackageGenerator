@@ -13,12 +13,12 @@ export class UserOption extends Option
     /**
      * A value indicating whether the option is required.
      */
-    private required: boolean = false;
+    private required = false;
 
     /**
      * A value indicating whether users are ask for setting the option during registration.
      */
-    private askOnRegistration: boolean = false;
+    private askOnRegistration = false;
 
     /**
      * The permissions which are required for editing the option.
@@ -33,7 +33,7 @@ export class UserOption extends Option
     /**
      * A value indicating whether users can be searched by the value of the option.
      */
-    private searchable: boolean = false;
+    private searchable = false;
 
     /**
      * The php-class which formats the output of the option.
@@ -76,12 +76,12 @@ export class UserOption extends Option
     /**
      * Gets or sets a value indicating whether the option is required.
      */
-    public get Required(): boolean
+    public get Required()
     {
         return this.required;
     }
 
-    public set Required(value: boolean)
+    public set Required(value)
     {
         this.required = value;
     }
@@ -89,12 +89,12 @@ export class UserOption extends Option
     /**
      * Gets or sets a value indicating whether users are ask for setting the option during registration.
      */
-    public get AskOnRegistration(): boolean
+    public get AskOnRegistration()
     {
         return this.askOnRegistration;
     }
 
-    public set AskOnRegistration(value: boolean)
+    public set AskOnRegistration(value)
     {
         this.askOnRegistration = value;
     }
@@ -102,12 +102,12 @@ export class UserOption extends Option
     /**
      * Gets or sets the permissions which are required for editing the option.
      */
-    public get EditPermissions(): EditPermission
+    public get EditPermissions()
     {
         return this.editPermissions;
     }
 
-    public set EditPermissions(value: EditPermission)
+    public set EditPermissions(value)
     {
         this.editPermissions = value;
     }
@@ -115,12 +115,12 @@ export class UserOption extends Option
     /**
      * Gets or sets the permissions which are required for viewing the option.
      */
-    public get ViewPermissions(): ViewPermission
+    public get ViewPermissions()
     {
         return this.viewPermissions;
     }
 
-    public set ViewPermissions(value: ViewPermission)
+    public set ViewPermissions(value)
     {
         this.viewPermissions = value;
     }
@@ -128,12 +128,12 @@ export class UserOption extends Option
     /**
      * Gets or sets a value indicating whether users can be searched by the value of the option.
      */
-    public get Searchable(): boolean
+    public get Searchable()
     {
         return this.searchable;
     }
 
-    public set Searchable(value: boolean)
+    public set Searchable(value)
     {
         this.searchable = value;
     }
@@ -143,12 +143,12 @@ export class UserOption extends Option
      *
      * The class must implement the `wcf\system\option\user\IUserOptionOutput` interface.
      */
-    public get OutputClass(): string
+    public get OutputClass()
     {
         return this.outputClass;
     }
 
-    public set OutputClass(value: string)
+    public set OutputClass(value)
     {
         this.outputClass = value;
     }

@@ -15,7 +15,7 @@ suite(
 
                 instruction = new class extends FileSystemInstruction
                 {
-                    public Type: string = "foo";
+                    public Type = "foo";
                 }(
                     {
                         Source: fileName

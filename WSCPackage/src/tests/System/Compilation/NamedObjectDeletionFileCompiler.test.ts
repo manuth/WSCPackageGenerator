@@ -48,16 +48,17 @@ suite(
                 }(
                     new class extends Instruction implements INamedDeleteInstruction
                     {
-                        public constructor()
-                        {
-                            super({
-                                FileName: null
-                            });
-                        }
-
-                        public Type: string = "foo";
+                        public Type = "foo";
 
                         public ObjectsToDelete: INamedObject[] = objectsToDelete;
+
+                        public constructor()
+                        {
+                            super(
+                                {
+                                    FileName: null
+                                });
+                        }
                     }());
 
                 compiler.DestinationPath = tempFile.FileName;
@@ -99,7 +100,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });
@@ -112,12 +113,12 @@ suite(
                                     "Checking the integrity of the named deletions...",
                                     () =>
                                     {
-                                        let deletedObjects: XMLEditor[] = editor.GetElementsByTag(objectTag);
+                                        let deletedObjects = editor.GetElementsByTag(objectTag);
                                         assert.strictEqual(deletedObjects.length, objectsToDelete.length);
 
                                         for (let objectToDelete of objectsToDelete)
                                         {
-                                            let matches: XMLEditor[] = deletedObjects.filter((objectNode: XMLEditor) => objectNode.HasAttribute("name", objectToDelete.Name));
+                                            let matches = deletedObjects.filter((objectNode: XMLEditor) => objectNode.HasAttribute("name", objectToDelete.Name));
                                             assert.strictEqual(matches.length, 1);
                                         }
                                     });

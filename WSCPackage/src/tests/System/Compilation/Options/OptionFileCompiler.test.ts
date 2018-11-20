@@ -20,6 +20,9 @@ suite(
     "OptionFileCompiler",
     () =>
     {
+        /**
+         * Represents an option.
+         */
         class MyOption extends Option
         {
             public constructor(category: ICategory, options: IOptionOptions)
@@ -28,6 +31,9 @@ suite(
             }
         }
 
+        /**
+         * Represents a category.
+         */
         class MyCategory extends Category<MyOption, IOptionOptions>
         {
             public constructor(node: INode, options: ICategoryOptions<IOptionOptions>)
@@ -42,6 +48,9 @@ suite(
             }
         }
 
+        /**
+         * Represents an instruction which provides `MyOption`s.
+         */
         class MyOptionInstruction extends OptionInstruction<MyCategory, ICategoryOptions<IOptionOptions>, MyOption, IOptionOptions>
         {
             public constructor(options: INodeSystemInstructionOptions<ICategoryOptions<IOptionOptions>>)
@@ -54,12 +63,12 @@ suite(
                     });
             }
 
-            public get RootCategory(): string
+            public get RootCategory()
             {
                 return "wcf.foo.option";
             }
 
-            public get Type(): string
+            public get Type()
             {
                 return "bar";
             }
@@ -113,9 +122,9 @@ suite(
                     }
                 };
 
-                let rootCategoryID: string = "rootCategory";
-                let categoryID: string = "category";
-                let optionInstruction: MyOptionInstruction = new MyOptionInstruction({
+                let rootCategoryID = "rootCategory";
+                let categoryID = "category";
+                let optionInstruction = new MyOptionInstruction({
                     FileName: null,
                     Nodes: [
                         {
@@ -149,7 +158,7 @@ suite(
                 categoryNode = optionInstruction.ObjectsByID[categoryID];
                 compiler = new class extends OptionFileCompiler<MyOptionInstruction, MyCategory, MyOption>
                 {
-                    protected get SchemaLocation(): string
+                    protected get SchemaLocation()
                     {
                         return "http://example.com/myOptions.xsd";
                     }
@@ -200,7 +209,7 @@ suite(
                                     "Checking whether the content is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });
@@ -274,7 +283,7 @@ suite(
                                                     () =>
                                                     {
                                                         categories.every(
-                                                            (category: XMLEditor) =>
+                                                            (category) =>
                                                             {
                                                                 return [rootCategoryName, categoryName].includes(category.GetAttribute(nameAttribute));
                                                             });
@@ -295,8 +304,8 @@ suite(
                                                             "Checking whether the root-category is present..",
                                                             () =>
                                                             {
-                                                                let filtered: XMLEditor[] = categories.filter(
-                                                                    (category: XMLEditor) =>
+                                                                let filtered = categories.filter(
+                                                                    (category) =>
                                                                     {
                                                                         return category.GetAttribute(nameAttribute) === rootCategoryNode.FullName;
                                                                     });
@@ -364,8 +373,8 @@ suite(
                                                             "Checking whether the sub-category is present..",
                                                             () =>
                                                             {
-                                                                let filtered: XMLEditor[] = categories.filter(
-                                                                    (category: XMLEditor) =>
+                                                                let filtered = categories.filter(
+                                                                    (category) =>
                                                                     {
                                                                         return category.GetAttribute(nameAttribute) === categoryNode.FullName;
                                                                     });
@@ -548,11 +557,11 @@ suite(
                                                     () =>
                                                     {
                                                         assert.strictEqual(optionEditor.HasTag(itemsTag, true), true);
-                                                        let lines: string[] = optionEditor.GetChildrenByTag(itemsTag)[0].TextContent.split("\n");
+                                                        let lines = optionEditor.GetChildrenByTag(itemsTag)[0].TextContent.split("\n");
 
                                                         for (let item of option.Items)
                                                         {
-                                                            let pattern: RegExp = new RegExp(`^${item.Value}:.*?\.${option.Name}\.${item.Name}$`, "g");
+                                                            let pattern = new RegExp(`^${item.Value}:.*?\.${option.Name}\.${item.Name}$`, "g");
                                                             assert.strictEqual(lines.filter((line: string) => pattern.test(line)).length, 1);
                                                         }
                                                     });

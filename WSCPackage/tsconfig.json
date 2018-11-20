@@ -3,14 +3,22 @@
     "compilerOptions": {
         "rootDir": "./src",
         "composite": true,
-        "target": "es6",
         "module": "commonjs",
-        "sourceMap": true,
         "lib": [
             "es2017",
             "dom"
         ],
-        "noUnusedLocals": true,
-        "outDir": "./lib"
+        "target": "es6",
+        "outDir": "./lib",
+        "declaration": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "forceConsistentCasingInFileNames": true,
+        "alwaysStrict": true,
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "downlevelIteration": true
     }
 }

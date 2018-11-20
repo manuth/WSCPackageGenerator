@@ -21,6 +21,16 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
         super(item);
     }
 
+    public Serialize(): Document
+    {
+        let document: Document = super.Serialize();
+        document.documentElement.textContent = this.MakePackagePath(
+            this.Item.DestinationRoot,
+            this.Item.TranslationDirectory,
+            "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
+        return document;
+    }
+
     protected async Compile(): Promise<void>
     {
         let messages: { [locale: string]: { [category: string]: { [key: string]: string } } } = this.Item.GetMessages();
@@ -34,15 +44,5 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
             await this.CopyTemplate(tempFile.FileName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
             tempFile.Dispose();
         }
-    }
-
-    public Serialize(): Document
-    {
-        let document: Document = super.Serialize();
-        document.documentElement.textContent = this.MakePackagePath(
-            this.Item.DestinationRoot,
-            this.Item.TranslationDirectory,
-            "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
-        return document;
     }
 }

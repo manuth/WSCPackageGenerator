@@ -20,18 +20,10 @@ export class FileInstructionCompiler extends InstructionCompiler<ApplicationFile
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    public Serialize()
     {
-        let tempDir: TempDirectory = new TempDirectory();
-        await this.CopyTemplate(this.Item.Source, tempDir.FileName);
-        await this.Compress(tempDir.FileName, this.DestinationFileName);
-        tempDir.Dispose();
-    }
-
-    public Serialize(): Document
-    {
-        let document: Document = super.Serialize();
-        let editor: XMLEditor = new XMLEditor(document.documentElement);
+        let document = super.Serialize();
+        let editor = new XMLEditor(document.documentElement);
 
         if (!isNullOrUndefined(this.Item.Application))
         {
@@ -39,5 +31,13 @@ export class FileInstructionCompiler extends InstructionCompiler<ApplicationFile
         }
 
         return document;
+    }
+
+    protected async Compile()
+    {
+        let tempDir = new TempDirectory();
+        await this.CopyTemplate(this.Item.Source, tempDir.FileName);
+        await this.Compress(tempDir.FileName, this.DestinationFileName);
+        tempDir.Dispose();
     }
 }

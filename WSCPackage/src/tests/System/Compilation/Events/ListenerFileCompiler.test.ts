@@ -30,8 +30,17 @@ suite(
             {
                 listenerTag = "myListener";
 
+                /**
+                 * Represenst an instruction which provides listeners.
+                 */
                 class MyListenerInstruction extends ListenerInstruction<Listener, IListenerOptions>
                 {
+                    /**
+                     * Initializes a new instance of the `MyListenerInstruction` class.
+                     *
+                     * @param options
+                     * The options for the initialization.
+                     */
                     public constructor(options: IListenerInstructionOptions<IListenerOptions>)
                     {
                         super(options,
@@ -43,20 +52,23 @@ suite(
                             });
                     }
 
-                    public get Type(): string
+                    public get Type()
                     {
                         return "baz";
                     }
                 }
 
+                /**
+                 * Provides the functionality to compile `MyListenerInstruction`s.
+                 */
                 class MyListenerFileCompiler extends ListenerFileCompiler<MyListenerInstruction, Listener>
                 {
-                    protected get ObjectTagName(): string
+                    protected get ObjectTagName()
                     {
                         return listenerTag;
                     }
 
-                    protected get SchemaLocation(): string
+                    protected get SchemaLocation()
                     {
                         return "http://example.com/myListener.xsd";
                     }
@@ -125,7 +137,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });

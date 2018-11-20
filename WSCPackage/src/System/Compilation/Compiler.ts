@@ -17,7 +17,7 @@ export abstract class Compiler<T>
     /**
      * The path to save the compiled item to.
      */
-    private destinationPath: string = "";
+    private destinationPath = "";
 
     /**
      * Initializes a new instance of the `Compiler<T>` class.
@@ -41,12 +41,12 @@ export abstract class Compiler<T>
     /**
      * Gets or sets the path to save the compiled item to.
      */
-    public get DestinationPath(): string
+    public get DestinationPath()
     {
         return this.destinationPath;
     }
 
-    public set DestinationPath(value: string)
+    public set DestinationPath(value)
     {
         this.destinationPath = value;
     }
@@ -54,7 +54,7 @@ export abstract class Compiler<T>
     /**
      * Compiles the item.
      */
-    public async Execute(): Promise<void>
+    public async Execute()
     {
         await this.Compile();
     }
@@ -76,13 +76,13 @@ export abstract class Compiler<T>
      * @param context
      * The context to use.
      */
-    protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any }): Promise<void>
+    protected async CopyTemplate(source: string, destination: string, context?: { [key: string]: any })
     {
-        let fileSystem: memFsEditor.memFsEditor.Editor = memFsEditor.create(memFs.create());
+        let fileSystem = memFsEditor.create(memFs.create());
         fileSystem.copyTpl(source, destination, context, {}, { globOptions: { dot: true } });
 
         await new Promise<void>(
-            (resolve: () => void): void =>
+            (resolve) =>
             {
                 fileSystem.commit(
                     [],
@@ -99,7 +99,7 @@ export abstract class Compiler<T>
      * @param path
      * The path that is to be joined.
      */
-    protected MakeDestinationPath(...path: string[]): string
+    protected MakeDestinationPath(...path: string[])
     {
         return Path.join(this.DestinationPath, ...path);
     }
@@ -113,7 +113,7 @@ export abstract class Compiler<T>
      * @param destination
      * The filename to save the compressed file to.
      */
-    protected async Compress(source: string, destination: string): Promise<void>
+    protected async Compress(source: string, destination: string)
     {
         await FileSystem.ensureDir(Path.dirname(destination));
         await tar.create(

@@ -13,7 +13,7 @@ export class ThemeCompiler extends Compiler<Theme>
     /**
      * The name to save the variables to.
      */
-    private variableFileName: string = "variables.xml";
+    private variableFileName = "variables.xml";
 
     /**
      * Initializes a new instance of the `ThemeCompiler<T>` class.
@@ -34,17 +34,17 @@ export class ThemeCompiler extends Compiler<Theme>
     /**
      * Gets or sets the filename to save variables to.
      */
-    public get VariableFileName(): string
+    public get VariableFileName()
     {
         return this.variableFileName;
     }
 
-    public set VariableFileName(value: string)
+    public set VariableFileName(value)
     {
         this.variableFileName = value;
     }
 
-    protected async Compile(): Promise<void>
+    protected async Compile()
     {
         let variables: { [key: string]: string } = {};
         Object.assign(variables, this.Item.Variables);
@@ -59,13 +59,13 @@ export class ThemeCompiler extends Compiler<Theme>
             variables.overrideScss = this.Item.ScssOverride;
         }
 
-        let themeFileCompiler: ThemeFileCompiler = new ThemeFileCompiler(this.Item, this.VariableFileName);
+        let themeFileCompiler = new ThemeFileCompiler(this.Item, this.VariableFileName);
         themeFileCompiler.DestinationPath = this.MakeDestinationPath("style.xml");
         await themeFileCompiler.Execute();
 
         if (Object.keys(variables).length > 0)
         {
-            let variableCompiler: ThemeVariableCompiler = new ThemeVariableCompiler(variables);
+            let variableCompiler = new ThemeVariableCompiler(variables);
             variableCompiler.DestinationPath = this.MakeDestinationPath(this.VariableFileName);
             await variableCompiler.Execute();
         }

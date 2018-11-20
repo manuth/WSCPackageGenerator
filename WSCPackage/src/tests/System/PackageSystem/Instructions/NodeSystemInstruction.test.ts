@@ -11,21 +11,27 @@ suite(
     "NodeSystemInstruction",
     () =>
     {
+        /**
+         * Represents a node.
+         */
         class MyNode extends Node<NodeItem, {}>
         {
             public constructor(options: INodeOptions<{}>)
             {
-                super(options, (opts: INodeOptions<{}>, node: INode): NodeItem => new NodeItem(node));
+                super(options, (node, options) => new NodeItem(node));
             }
         }
 
+        /**
+         * Represents an instruction which provides `MyNode`s.
+         */
         class MyNodeInstruction extends NodeSystemInstruction<NodeItem, {}>
         {
             public Type: string;
 
             public constructor(options: INodeSystemInstructionOptions<{}>)
             {
-                super(options, (opts: INodeOptions<{}>, node: INode): NodeItem => new NodeItem(node));
+                super(options, (node, options) => new NodeItem(node));
             }
         }
 
@@ -43,12 +49,12 @@ suite(
                         Name: "bar"
                     });
 
-                let names: string[] = [ "this", "is", "a", "test" ];
+                let names = [ "this", "is", "a", "test" ];
                 let node: MyNode;
 
                 for (let name of names.reverse())
                 {
-                    let child: MyNode = node;
+                    let child = node;
 
                     node = new MyNode(
                         {
@@ -61,7 +67,7 @@ suite(
                     }
                 }
 
-                let allNodes: Node<NodeItem, {}>[] = node.GetAllNodes();
+                let allNodes = node.GetAllNodes();
                 allNodes[Math.floor(Math.random() * allNodes.length)].Nodes.push(idNode);
 
                 instruction = new MyNodeInstruction(

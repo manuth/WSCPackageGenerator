@@ -32,7 +32,7 @@ class WSCThemeGenerator extends Generator
         super(args, opts);
     }
 
-    protected get TemplateRoot(): string
+    protected get TemplateRoot()
     {
         return "theme";
     }
@@ -72,7 +72,7 @@ class WSCThemeGenerator extends Generator
     /**
      * Collects all information about the theme that is to be created.
      */
-    public async prompting(): Promise<void>
+    public async prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Theme")} generator!`));
 
@@ -82,7 +82,7 @@ class WSCThemeGenerator extends Generator
                 name: this.ThemePathSetting,
                 message: "Where do you want to store your themes?",
                 default: "themes",
-                when: (answers: YoGenerator.Answers): boolean =>
+                when: (answers: YoGenerator.Answers) =>
                 {
                     if (isNullOrUndefined(this.config.get(this.ThemePathSetting)))
                     {
@@ -105,7 +105,7 @@ class WSCThemeGenerator extends Generator
                 type: "input",
                 name: "displayName",
                 message: "What's the display-name of your theme?",
-                default: (answers: YoGenerator.Answers): string =>
+                default: (answers: YoGenerator.Answers) =>
                 {
                     return answers.name;
                 },
@@ -128,11 +128,11 @@ class WSCThemeGenerator extends Generator
     /**
      * Writes the templates
      */
-    public async writing(): Promise<void>
+    public async writing()
     {
         {
-            let themeFileName: string = this.destinationPath(this.settings[this.ThemePathSetting], this.settings.name, "Theme.ts");
-            let relativePackage: string = Path.posix.normalize(
+            let themeFileName = this.destinationPath(this.settings[this.ThemePathSetting], this.settings.name, "Theme.ts");
+            let relativePackage = Path.posix.normalize(
                 Path.relative(
                     Path.dirname(themeFileName),
                     process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
@@ -185,17 +185,17 @@ class WSCThemeGenerator extends Generator
     /**
      * Installs the dependencies.
      */
-    public async end(): Promise<void>
+    public async end()
     {
         this.config.set(this.ThemePathSetting, this.settings[this.ThemePathSetting]);
         this.config.save();
 
         this.log();
-        this.log("Your theme \"" + this.settings.name + "\" has been created!");
+        this.log("Your theme \"" + (this.settings.name as string) + "\" has been created!");
         this.log();
         this.log(
             "Please keep in mind to add your themes-folder to the package" +
-            "by adding \"...new ThemeInstructionCollection(\"" + this.settings.themesPath + "\"" +
+            "by adding \"...new ThemeInstructionCollection(\"" + (this.settings.themesPath as string) + "\"" +
             "to the Install- or Update instruction-collection.");
     }
 }

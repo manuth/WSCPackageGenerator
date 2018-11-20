@@ -110,6 +110,17 @@ export abstract class Generator extends YoGenerator
     }
 
     /**
+     * Joins the arguments together and returns the resulting path relative to the template-directory.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    public templatePath(...path: string[]): string
+    {
+        return Path.join(__dirname, "..", "..", "..", "templates", this.TemplateRoot, ...path);
+    }
+
+    /**
      * Validates whether the a value is provided.
      */
     protected ForceInput: IValidator = (value, answers?) =>
@@ -137,10 +148,5 @@ export abstract class Generator extends YoGenerator
         {
             return "Files must be stored in a separate folder!";
         }
-    }
-
-    public templatePath(...path: string[]): string
-    {
-        return Path.join(__dirname, "..", "..", "..", "templates", this.TemplateRoot, ...path);
     }
 }

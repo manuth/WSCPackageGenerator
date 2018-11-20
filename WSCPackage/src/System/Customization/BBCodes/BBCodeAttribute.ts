@@ -9,12 +9,12 @@ export class BBCodeAttribute
     /**
      * A value indicating whether the attribute is required.
      */
-    private required: boolean = false;
+    private required = false;
 
     /**
      * A value indicating if the value of the attribute - if not present - should be taken by the content of the bb-code.
      */
-    private valueByContent: boolean = false;
+    private valueByContent = false;
 
     /**
      * The code that will be appended to the opening HTML-tag of the bb-code.
@@ -54,12 +54,12 @@ export class BBCodeAttribute
     /**
      * Gets or sets a value indicating whether the attribute is required.
      */
-    public get Required(): boolean
+    public get Required()
     {
         return this.required;
     }
 
-    public set Required(value: boolean)
+    public set Required(value)
     {
         this.Required = value;
     }
@@ -67,12 +67,12 @@ export class BBCodeAttribute
     /**
      * Gets or sets a value indicating if the value of the attribute - if not present - should be taken by the content of the bb-code.
      */
-    public get ValueByContent(): boolean
+    public get ValueByContent()
     {
         return this.valueByContent;
     }
 
-    public set ValueByContent(value: boolean)
+    public set ValueByContent(value)
     {
         this.valueByContent = value;
     }
@@ -82,12 +82,12 @@ export class BBCodeAttribute
      *
      * %s will be replaced by the value of the attribute.
      */
-    public get Code(): string
+    public get Code()
     {
         return this.code;
     }
 
-    public set Code(value: string)
+    public set Code(value)
     {
         this.code = value;
     }
@@ -95,12 +95,12 @@ export class BBCodeAttribute
     /**
      * Gets or sets a regex-pattern for validating the value of the attribute.
      */
-    public get ValidationPattern(): RegExp
+    public get ValidationPattern()
     {
         return this.validationPattern;
     }
 
-    public set ValidationPattern(value: RegExp)
+    public set ValidationPattern(value)
     {
         this.validationPattern = value;
     }

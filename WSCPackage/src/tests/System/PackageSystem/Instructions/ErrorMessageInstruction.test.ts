@@ -7,9 +7,9 @@ suite(
     () =>
     {
         let locale: string;
-        let optionCategory: string = "wcf.acp.option";
-        let errorCategory: string = "error";
-        let messageName: string = "error";
+        let optionCategory = "wcf.acp.option";
+        let errorCategory = "error";
+        let messageName = "error";
         let messageValue: string;
         let errorMessageInstruction: ErrorMessageInstruction;
 

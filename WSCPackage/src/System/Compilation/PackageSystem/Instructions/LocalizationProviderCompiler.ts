@@ -18,28 +18,28 @@ export class LocalizationProviderCompiler<T extends ILocalizationInstruction> ex
         super(item);
     }
 
-    protected async Compile(): Promise<void>
+    public Serialize()
     {
-        let compiler: LocalizationInstructionCompiler = new LocalizationInstructionCompiler(this.Item);
-        compiler.DestinationPath = this.DestinationPath;
-        await compiler.Execute();
-    }
-
-    public Serialize(): Document
-    {
-        let document: Document = super.Serialize();
+        let document = super.Serialize();
 
         if (Object.keys(this.Item.GetMessages()).length > 0)
         {
-            let childNodes: NodeList = new LocalizationInstructionCompiler(this.Item).Serialize().childNodes;
+            let childNodes = new LocalizationInstructionCompiler(this.Item).Serialize().childNodes;
 
-            for (let i: number = 0; i < childNodes.length; i++)
+            for (let i = 0; i < childNodes.length; i++)
             {
-                let node: Node = childNodes.item(i);
+                let node = childNodes.item(i);
                 document.appendChild(node);
             }
         }
 
         return document;
+    }
+
+    protected async Compile()
+    {
+        let compiler = new LocalizationInstructionCompiler(this.Item);
+        compiler.DestinationPath = this.DestinationPath;
+        await compiler.Execute();
     }
 }

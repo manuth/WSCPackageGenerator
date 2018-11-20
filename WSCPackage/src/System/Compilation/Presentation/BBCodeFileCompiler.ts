@@ -20,24 +20,24 @@ export class BBCodeFileCompiler extends NamedObjectDeletionFileCompiler<BBCodeIn
         super(item);
     }
 
-    protected get SchemaLocation(): string
+    protected get SchemaLocation()
     {
         return "https://www.woltlab.com/XSD/vortex/bbcode.xsd";
     }
 
-    protected get ObjectTagName(): string
+    protected get ObjectTagName()
     {
         return "bbcode";
     }
 
-    protected CreateImport(): Element
+    protected CreateImport()
     {
-        let editor: XMLEditor = new XMLEditor(super.CreateImport());
+        let editor = new XMLEditor(super.CreateImport());
         for (let bbCode of this.Item.BBCodes)
         {
             editor.AddElement(
                 this.ObjectTagName,
-                (bbCodeEditor: XMLEditor) =>
+                (bbCodeEditor) =>
                 {
                     bbCodeEditor.SetAttribute("name", bbCode.Name);
 
@@ -73,15 +73,15 @@ export class BBCodeFileCompiler extends NamedObjectDeletionFileCompiler<BBCodeIn
                     {
                         bbCodeEditor.AddElement(
                             "attributes",
-                            (attributes: XMLEditor) =>
+                            (attributes) =>
                             {
-                                for (let i: number = 0; i < bbCode.Attributes.length; i++)
+                                for (let i = 0; i < bbCode.Attributes.length; i++)
                                 {
-                                    let attribute: BBCodeAttribute = bbCode.Attributes[i];
+                                    let attribute = bbCode.Attributes[i];
 
                                     attributes.AddElement(
                                         "attribute",
-                                        (attributeEditor: XMLEditor) =>
+                                        (attributeEditor) =>
                                         {
                                             attributeEditor.SetAttribute("name", i.toString());
 

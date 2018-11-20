@@ -19,7 +19,7 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
     /**
      * Gets the delimiter of the EJS-strings inside the document.
      */
-    protected get Delimiter(): string
+    protected get Delimiter()
     {
         return "%";
     }
@@ -27,14 +27,14 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
     /**
      * Gets the pattern to match against the document.
      */
-    protected get Pattern(): RegExp
+    protected get Pattern()
     {
         return new RegExp(`<${this.Delimiter}.*?${this.Delimiter}>`, "g");
     }
 
-    protected get Document(): Document
+    protected get Document()
     {
-        let document: Document = super.Document;
+        let document = super.Document;
         this.FixEJSTags(document);
         return document;
     }
@@ -45,7 +45,7 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
      * @param node
      * The node to fix.
      */
-    protected FixEJSTags(node: Node): void
+    protected FixEJSTags(node: Node)
     {
         switch (node.nodeType)
         {
@@ -58,9 +58,9 @@ export abstract class EJSFileCompiler<T> extends XMLFileCompiler<T>
             default:
                 if (node.hasChildNodes())
                 {
-                    for (let i: number = 0; i < node.childNodes.length; i++)
+                    for (let i = 0; i < node.childNodes.length; i++)
                     {
-                        let child: Node = node.childNodes.item(i);
+                        let child = node.childNodes.item(i);
                         this.FixEJSTags(child);
                     }
                 }

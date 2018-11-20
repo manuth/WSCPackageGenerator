@@ -36,19 +36,19 @@ suite(
                 }(
                     new class extends Instruction implements IDeleteInstruction<{}>
                     {
+                        public Type = "foo";
+
+                        public ObjectsToDelete: {}[] = [
+                            {},
+                            {}
+                        ];
+
                         public constructor()
                         {
                             super({
                                 FileName: null
                             });
                         }
-
-                        public Type: string = "foo";
-
-                        public ObjectsToDelete: {}[] = [
-                            {},
-                            {}
-                        ];
                     }());
 
                 compiler.DestinationPath = tempFile.FileName;
