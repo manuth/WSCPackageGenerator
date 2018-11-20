@@ -337,7 +337,7 @@ class WSCPackageGenerator extends Generator
         };
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
-        this.fs.copy(Path.join(__dirname, "..", "..", "..", "packageLib", "src"), this.destinationPath("lib"));
+        this.fs.copy(Path.join(__dirname, "..", "..", "..", "..", "WSCPackage", "src"), this.destinationPath("lib"));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
         CopyTemplate(this.templatePath("package.json.ejs"), this.destinationPath("package.json"));
         CopyTemplate(this.templatePath("Package.ts.ejs"), this.destinationPath("Package.ts"));

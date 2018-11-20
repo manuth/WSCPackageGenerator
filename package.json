@@ -62,7 +62,7 @@
     "watch": "tsc -b . --watch",
     "compile": "tsc -b .",
     "test": "mocha",
-    "lint": "tslint -p ./packageLib && tslint -p ./generatorLib"
+    "lint": "tslint -p ./WSCPackage && tslint -p ./WSCPackageGenerator"
   },
   "repository": "https://github.com/manuth/WSCPackageGenerator",
   "license": "MIT"

@@ -27,7 +27,7 @@
             "sourceMaps": true,
             "outFiles": [
                 "${workspaceFolder}/lib/**/*.js",
-                "${workspaceFolder}/packageLib/lib/**/*.js"
+                "${workspaceFolder}/WSCPackage/lib/**/*.js"
             ]
         }
     ]

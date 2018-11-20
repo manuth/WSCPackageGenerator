@@ -1,4 +1,5 @@
 {
+    "compileOnSave": true,
     "compilerOptions": {
         "rootDir": "./src",
         "composite": true,
@@ -11,6 +12,5 @@
         ],
         "noUnusedLocals": true,
         "outDir": "./lib"
-    },
-    "compileOnSave": true
+    }
 }

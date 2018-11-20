@@ -141,6 +141,6 @@ export abstract class Generator extends YoGenerator
 
     public templatePath(...path: string[]): string
     {
-        return Path.join(__dirname, "..", "..", "templates", this.TemplateRoot, ...path);
+        return Path.join(__dirname, "..", "..", "..", "templates", this.TemplateRoot, ...path);
     }
 }
