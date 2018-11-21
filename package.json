@@ -1,0 +1,54 @@
+{
+  "name": "generator-wsc-package",
+  "version": "0.0.0",
+  "description": "A yeoman generator for WoltLab Suite Core packages",
+  "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
+  "author": {
+    "name": "Manuel Thalmann",
+    "email": "m@nuth.ch",
+    "url": "https://github.com/manuth"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "Woltlab Suite Core",
+    "Package",
+    "yeoman-generator"
+  ],
+  "devDependencies": {
+    "@types/mocha": "^5.0.0",
+    "@types/yeoman-generator": "^2.0.3",
+    "@types/yeoman-test": "^1.7.4",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-xo": "^0.20.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.1",
+    "mocha": "^5.0.5",
+    "nsp": "^2.8.0",
+    "prettier": "^1.11.1",
+    "typescript": "^2.8.1",
+    "yeoman-assert": "^3.1.0",
+    "yeoman-test": "^1.7.0",
+    "yo": "^2.0.1"
+  },
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.1.0",
+    "yosay": "^2.0.1"
+  },
+  "scripts": {
+    "watch": "tsc -watch -p ./",
+    "compile": "tsc -p ./",
+    "test": "mocha"
+  },
+  "repository": "https://github.com/manuth/WSCPackageGenerator",
+  "license": "MIT"
+}
