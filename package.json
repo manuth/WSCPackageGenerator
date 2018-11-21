@@ -35,7 +35,7 @@
     "xmldom": "^0.1.27",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.2",
-    "yo": "^2.0.4"
+    "yo": "^2.0.5"
   },
   "engines": {
     "npm": ">= 4.0.0"
