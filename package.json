@@ -2,16 +2,33 @@
   "name": "generator-wsc-package",
   "version": "2.0.2",
   "description": "A Generator for WoltLab Suite Core Packages.",
-  "author": {
-    "name": "Manuel Thalmann",
-    "email": "m@nuth.ch",
-    "url": "https://github.com/manuth"
-  },
+  "author": "Manuel Thalmann <m@nuth.ch>",
+  "license": "MIT",
   "keywords": [
     "Woltlab Suite Core",
     "Package",
     "yeoman-generator"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuth/WSCPackageGenerator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manuth/WSCPackageGenerator/issues"
+  },
+  "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
+  "scripts": {
+    "compile": "tsc -b .",
+    "watch": "tsc -b . --watch",
+    "test": "mocha",
+    "lint": "tslint -p ./WSCPackage && tslint -p ./WSCPackageGenerator"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "fs-extra": "^5.0.0",
+    "yeoman-generator": "^2.0.5",
+    "yosay": "^2.0.1"
+  },
   "devDependencies": {
     "@types/clear-require": "^2.0.0",
     "@types/dedent": "^0.7.0",
@@ -48,22 +65,5 @@
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.9.1",
     "yo": "^2.0.5"
-  },
-  "engines": {
-    "npm": ">= 4.0.0"
-  },
-  "dependencies": {
-    "chalk": "^2.4.1",
-    "fs-extra": "^5.0.0",
-    "yeoman-generator": "^2.0.5",
-    "yosay": "^2.0.1"
-  },
-  "scripts": {
-    "watch": "tsc -b . --watch",
-    "compile": "tsc -b .",
-    "test": "mocha",
-    "lint": "tslint -p ./WSCPackage && tslint -p ./WSCPackageGenerator"
-  },
-  "repository": "https://github.com/manuth/WSCPackageGenerator",
-  "license": "MIT"
+  }
 }
