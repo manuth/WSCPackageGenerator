@@ -21,7 +21,8 @@
     "compile": "tsc -b .",
     "watch": "tsc -b . --watch",
     "test": "mocha",
-    "lint": "tslint -p ./WSCPackage && tslint -p ./WSCPackageGenerator"
+    "lint": "tslint -p ./WSCPackage && tslint -p ./WSCPackageGenerator",
+    "prepare": "npm run compile"
   },
   "dependencies": {
     "chalk": "^2.4.1",
