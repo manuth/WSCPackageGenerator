@@ -5,6 +5,8 @@ import * as Path from "path";
 import * as ts from "typescript";
 import { isNullOrUndefined } from "util";
 import * as helpers from "yeoman-test";
+import { WSCPackageSetting } from "../generators/app/WSCPackageSetting";
+import { WSCThemeSetting } from "../generators/theme/WSCThemeSetting";
 
 suite(
     "Generators",
@@ -50,13 +52,12 @@ suite(
                         packageContext = helpers.run(
                             generatorRoot).withPrompts(
                                 {
-                                    destination: "./",
-                                    name: packageName,
-                                    displayName,
-                                    identifier,
-                                    author: "Manuel Thalmann",
-                                    authorURL: "m@nuth.ch",
-                                    components: []
+                                    [WSCPackageSetting.Destination]: "./",
+                                    [WSCPackageSetting.Name]: packageName,
+                                    [WSCPackageSetting.DisplayName]: displayName,
+                                    [WSCPackageSetting.Identifier]: identifier,
+                                    [WSCPackageSetting.Author]: "Manuel Thalmann",
+                                    [WSCPackageSetting.HomePage]: "https://nuth.ch"
                                 });
                     });
 
@@ -188,10 +189,9 @@ suite(
                                 tmpdir: false
                             }).withPrompts(
                                 {
-                                    themePath,
-                                    name,
-                                    displayName,
-                                    components: []
+                                    [WSCThemeSetting.Destination]: themePath,
+                                    [WSCThemeSetting.Name]: name,
+                                    [WSCThemeSetting.DisplayName]: displayName
                                 });
                     });
 
