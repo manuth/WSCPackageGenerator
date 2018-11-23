@@ -1,4 +1,8 @@
 # Change Log
+### WSCPackageGenerator v2.1.0
+  - Completely reworked the generator
+  - Updated all packages
+
 ## WSCPackageGenerator v2.0.1
   - Updated all packages
   - Reworked the build-tasks
