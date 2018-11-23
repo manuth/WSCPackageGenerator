@@ -3,7 +3,6 @@ suite(
     () =>
     {
         require("./Collections/index.test");
-        require("./FileSystem/index.test");
         require("./Serialization/index.test");
         require("./NodeSystem/index.test");
         require("./Globalization/index.test");

@@ -1,4 +1,4 @@
-import { TempDirectory } from "../../../FileSystem/TempDirectory";
+import { TempDirectory } from "temp-filesystem";
 import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { ThemeCompiler } from "../../Presentation/ThemeCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
@@ -25,10 +25,10 @@ export class ThemeInstructionCompiler extends InstructionCompiler<ThemeInstructi
         let themeDir: TempDirectory = new TempDirectory();
         let themeCompiler: ThemeCompiler = new ThemeCompiler(this.Item.Theme);
 
-        themeCompiler.DestinationPath = tempDir.FileName;
+        themeCompiler.DestinationPath = tempDir.FullName;
         await themeCompiler.Execute();
-        await this.CopyTemplate(tempDir.FileName, themeDir.FileName);
-        await this.Compress(themeDir.FileName, this.DestinationFileName);
+        await this.CopyTemplate(tempDir.FullName, themeDir.FullName);
+        await this.Compress(themeDir.FullName, this.DestinationFileName);
         tempDir.Dispose();
         themeDir.Dispose();
     }

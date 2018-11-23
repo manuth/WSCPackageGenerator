@@ -2,8 +2,8 @@ import * as assert from "assert";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import * as tar from "tar";
+import { TempDirectory } from "temp-filesystem";
 import { ThemeInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/ThemeInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -62,7 +62,7 @@ suite(
                 resourceDir.Dispose();
                 $package.InstallSet.push(instruction);
                 compiler = new ThemeInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 themeArchive = tempDir.MakePath(instruction.FullName);
             });
 
@@ -97,7 +97,7 @@ suite(
                     {
                         await tar.extract(
                             {
-                                cwd: themeDir.FileName,
+                                cwd: themeDir.FullName,
                                 file: themeArchive
                             });
                     });

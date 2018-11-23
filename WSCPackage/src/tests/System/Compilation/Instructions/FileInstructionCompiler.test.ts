@@ -2,8 +2,8 @@ import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as tar from "tar";
+import { TempDirectory } from "temp-filesystem";
 import { FileInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/FileInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ApplicationFileSystemInstruction } from "../../../../System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -50,12 +50,12 @@ suite(
 
                 instruction = new ApplicationFileSystemInstruction(
                     {
-                        Source: sourceDir.FileName
+                        Source: sourceDir.FullName
                     });
 
                 $package.InstallSet.push(instruction);
                 compiler = new FileInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 archiveFileName = compiler.DestinationFileName;
             });
 
@@ -91,7 +91,7 @@ suite(
                     {
                         await tar.extract(
                             {
-                                cwd: testDir.FileName,
+                                cwd: testDir.FullName,
                                 file: archiveFileName
                             });
                     });

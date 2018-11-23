@@ -1,8 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
-import { TempFile } from "../../../System/FileSystem/TempFile";
+import { TempDirectory, TempFile } from "temp-filesystem";
 import { FileDescriptor } from "../../../System/PackageSystem/FileDescriptor";
 
 suite(
@@ -20,7 +19,7 @@ suite(
             {
                 workingDir = new TempDirectory();
                 currentDir = process.cwd();
-                process.chdir(workingDir.FileName);
+                process.chdir(workingDir.FullName);
                 content = "Hello World";
             });
 
@@ -51,7 +50,7 @@ suite(
                     () =>
                     {
                         tempFile = new TempFile();
-                        fileName = tempFile.FileName;
+                        fileName = tempFile.FullName;
                     });
 
                 suiteTeardown(
@@ -102,7 +101,7 @@ suite(
                     {
                         let tempDir: TempDirectory = new TempDirectory();
                         let current: string = process.cwd();
-                        process.chdir(tempDir.FileName);
+                        process.chdir(tempDir.FullName);
                         {
                             assert.strictEqual((await FileSystem.readFile(fileDescriptor.Source)).toString(), content);
                         }

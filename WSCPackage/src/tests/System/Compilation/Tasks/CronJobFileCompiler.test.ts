@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { CronJobFileCompiler } from "../../../../System/Compilation/Tasks/CronJobFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
@@ -59,7 +59,7 @@ suite(
                     });
 
                 compiler = new CronJobFileCompiler(instruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -98,7 +98,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });

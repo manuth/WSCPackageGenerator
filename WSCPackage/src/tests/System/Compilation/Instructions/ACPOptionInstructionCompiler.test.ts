@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory } from "temp-filesystem";
 import { ACPOptionInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/ACPOptionInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -52,7 +52,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new ACPOptionInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 fileName = compiler.DestinationFileName;
                 translationDir = tempDir.MakePath(instruction.DestinationRoot, instruction.TranslationDirectory);
             });

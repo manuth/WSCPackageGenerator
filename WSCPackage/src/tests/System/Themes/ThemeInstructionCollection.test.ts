@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory } from "temp-filesystem";
 import { IThemeOptions } from "../../../System/Customization/Presentation/Themes/IThemeOptions";
 import { ThemeInstructionCollection } from "../../../System/Customization/Presentation/Themes/ThemeInstructionCollection";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
 import { ThemeInstruction } from "../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 
 suite(
@@ -49,7 +49,7 @@ suite(
             "Checking whether a new ThemeInstructionCollection can be initialized...",
             () =>
             {
-                collection = new ThemeInstructionCollection(themeRoot.FileName);
+                collection = new ThemeInstructionCollection(themeRoot.FullName);
             });
 
         test(

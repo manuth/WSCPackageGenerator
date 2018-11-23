@@ -1,6 +1,6 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
-import { TempFile } from "../../../FileSystem/TempFile";
+import { TempFile } from "temp-filesystem";
 import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
 import { LocalizationFileCompiler } from "../../Globalization/LocalizationFileCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
@@ -39,9 +39,9 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
         {
             let tempFile: TempFile = new TempFile();
             let compiler: LocalizationFileCompiler = new LocalizationFileCompiler([locale, messages[locale]]);
-            compiler.DestinationPath = tempFile.FileName;
+            compiler.DestinationPath = tempFile.FullName;
             await compiler.Execute();
-            await this.CopyTemplate(tempFile.FileName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
+            await this.CopyTemplate(tempFile.FullName, this.MakePackagePath(this.Item.DestinationRoot, this.Item.TranslationDirectory, `${locale}.xml`));
             tempFile.Dispose();
         }
     }

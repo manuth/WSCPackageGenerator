@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory } from "temp-filesystem";
 import { BBCodeInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/BBCodeInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -51,7 +51,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new BBCodeInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 fileName = compiler.DestinationFileName;
                 translationDir = tempDir.MakePath(instruction.DestinationRoot, instruction.TranslationDirectory);
             });

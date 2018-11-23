@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { ACPOptionFileCompiler } from "../../../../System/Compilation/Options/ACPOptionFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { IACPOptionOptions } from "../../../../System/Options/ControlPanel/IACPOptionOptions";
 import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
@@ -42,7 +42,7 @@ suite(
                     });
 
                 compiler = new ACPOptionFileCompiler(acpInstruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -81,7 +81,7 @@ suite(
                                     "Checking whether the file is a valid xml-file...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });

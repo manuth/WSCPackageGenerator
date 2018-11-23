@@ -2,8 +2,8 @@ import * as assert from "assert";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
+import { TempDirectory } from "temp-filesystem";
 import { SassVariableParser } from "../../../System/Customization/Presentation/Themes/SassVariableParser";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
 
 suite(
     "SassVariableParser",

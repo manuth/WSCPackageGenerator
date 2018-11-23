@@ -1,5 +1,5 @@
+import { TempDirectory } from "temp-filesystem";
 import { isNullOrUndefined } from "util";
-import { TempDirectory } from "../../../FileSystem/TempDirectory";
 import { ApplicationFileSystemInstruction } from "../../../PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
 import { XMLEditor } from "../../../Serialization/XMLEditor";
 import { InstructionCompiler } from "./InstructionCompiler";
@@ -36,8 +36,8 @@ export class FileInstructionCompiler extends InstructionCompiler<ApplicationFile
     protected async Compile()
     {
         let tempDir = new TempDirectory();
-        await this.CopyTemplate(this.Item.Source, tempDir.FileName);
-        await this.Compress(tempDir.FileName, this.DestinationFileName);
+        await this.CopyTemplate(this.Item.Source, tempDir.FullName);
+        await this.Compress(tempDir.FullName, this.DestinationFileName);
         tempDir.Dispose();
     }
 }

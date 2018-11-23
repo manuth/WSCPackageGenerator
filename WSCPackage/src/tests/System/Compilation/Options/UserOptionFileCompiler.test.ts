@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { UserOptionFileCompiler } from "../../../../System/Compilation/Options/UserOptionFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { EditPermission } from "../../../../System/Options/UserPanel/EditPermission";
 import { IUserOptionOptions } from "../../../../System/Options/UserPanel/IUserOptionOptions";
 import { ViewPermission } from "../../../../System/Options/UserPanel/ViewPermission";
@@ -46,7 +46,7 @@ suite(
                     });
 
                 compiler = new UserOptionFileCompiler(userOptionInstruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -85,7 +85,7 @@ suite(
                                     "Checking whether the file is a valid xml-file...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });

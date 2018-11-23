@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { XMLFileCompiler } from "../../../System/Compilation/XMLFileCompiler";
-import { TempFile } from "../../../System/FileSystem/TempFile";
 
 suite(
     "XMLFileCompiler",
@@ -27,7 +27,7 @@ suite(
                     }
                 }();
 
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -53,14 +53,14 @@ suite(
                     "Checking whether the compiled file exists...",
                     async () =>
                     {
-                        assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                        assert.strictEqual(await FileSystem.pathExists(tempFile.FullName), true);
                     });
 
                 test(
                     "Checking whether the compiled xml-file can be parsed...",
                     async () =>
                     {
-                        document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                        document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                     });
 
                 test(

@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory } from "temp-filesystem";
 import { CronJobInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/CronJobInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ACPOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/ACPOptionInstruction";
 import { CronJobInstruction } from "../../../../System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -54,7 +54,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new CronJobInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 fileName = compiler.DestinationFileName;
             });
 

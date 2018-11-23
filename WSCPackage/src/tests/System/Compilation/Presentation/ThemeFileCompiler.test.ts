@@ -1,9 +1,9 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { ThemeFileCompiler } from "../../../../System/Compilation/Presentation/ThemeFileCompiler";
 import { IImageDirectoryDescriptorOptions } from "../../../../System/Customization/Presentation/Themes/IImageDirectoryDescriptorOptions";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -68,7 +68,7 @@ suite(
                 description["inv"] = invariantDescription;
 
                 let variableFile: TempFile = new TempFile({ postfix: ".json" });
-                await FileSystem.writeJson(variableFile.FileName, { wfcHeaderBackground: "red" });
+                await FileSystem.writeJson(variableFile.FullName, { wfcHeaderBackground: "red" });
 
                 let themeInstruction: ThemeInstruction = new ThemeInstruction(
                     {
@@ -86,7 +86,7 @@ suite(
                                 Name: author.Name,
                                 URL: author.URL
                             },
-                            VariableFileName: variableFile.FileName,
+                            VariableFileName: variableFile.FullName,
                             Images: imageDescriptor
                         }
                     });
@@ -104,7 +104,7 @@ suite(
 
                 $package.InstallSet.push(themeInstruction);
                 compiler = new ThemeFileCompiler(themeInstruction.Theme, variableFileName);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -150,7 +150,7 @@ suite(
                                     "Checking whether the content of the document is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         rootEditor = new XMLEditor(document.documentElement);
                                     });
 

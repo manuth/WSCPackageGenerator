@@ -2,9 +2,8 @@ import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as tar from "tar";
+import { TempDirectory, TempFile } from "temp-filesystem";
 import { Compiler } from "../../../System/Compilation/Compiler";
-import { TempDirectory } from "../../../System/FileSystem/TempDirectory";
-import { TempFile } from "../../../System/FileSystem/TempFile";
 
 suite(
     "Compiler",
@@ -25,7 +24,7 @@ suite(
                     }
                 }({});
 
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
             });
 
         suiteTeardown(
@@ -75,18 +74,18 @@ suite(
                             "Checking whether ejs-strings are replaced when copying the file to a new location...",
                             async () =>
                             {
-                                await FileSystem.writeFile(sourceFile.FileName, ejsString);
-                                await compiler["CopyTemplate"](sourceFile.FileName, destinationFile.FileName, context);
-                                assert.strictEqual((await FileSystem.readFile(destinationFile.FileName)).toString(), result);
+                                await FileSystem.writeFile(sourceFile.FullName, ejsString);
+                                await compiler["CopyTemplate"](sourceFile.FullName, destinationFile.FullName, context);
+                                assert.strictEqual((await FileSystem.readFile(destinationFile.FullName)).toString(), result);
                             });
 
                         test(
                             "Checking whether ejs-strings are replaced when overwriting the source-file...",
                             async () =>
                             {
-                                await FileSystem.writeFile(sourceFile.FileName, ejsString);
-                                await compiler["CopyTemplate"](sourceFile.FileName, sourceFile.FileName, context);
-                                assert.strictEqual((await FileSystem.readFile(sourceFile.FileName)).toString(), result);
+                                await FileSystem.writeFile(sourceFile.FullName, ejsString);
+                                await compiler["CopyTemplate"](sourceFile.FullName, sourceFile.FullName, context);
+                                assert.strictEqual((await FileSystem.readFile(sourceFile.FullName)).toString(), result);
                             });
                     });
 
@@ -125,7 +124,7 @@ suite(
                             async () =>
                             {
                                 await FileSystem.writeFile(sourceDir.MakePath(fileName), ejsString);
-                                await compiler["CopyTemplate"](sourceDir.FileName, destinationDir.FileName, context);
+                                await compiler["CopyTemplate"](sourceDir.FullName, destinationDir.FullName, context);
                                 assert.strictEqual((await FileSystem.readFile(destinationDir.MakePath(fileName))).toString(), result);
                             });
 
@@ -134,7 +133,7 @@ suite(
                             async () =>
                             {
                                 await FileSystem.writeFile(sourceDir.MakePath(hiddenFileName), ejsString);
-                                await compiler["CopyTemplate"](sourceDir.FileName, destinationDir.FileName, context);
+                                await compiler["CopyTemplate"](sourceDir.FullName, destinationDir.FullName, context);
                                 assert.strictEqual((await FileSystem.readFile(destinationDir.MakePath(hiddenFileName))).toString(), result);
                             });
 
@@ -143,7 +142,7 @@ suite(
                             async () =>
                             {
                                 await FileSystem.writeFile(sourceDir.MakePath(hiddenFileName), ejsString);
-                                await compiler["CopyTemplate"](sourceDir.FileName, sourceDir.FileName, context);
+                                await compiler["CopyTemplate"](sourceDir.FullName, sourceDir.FullName, context);
                                 assert.strictEqual((await FileSystem.readFile(sourceDir.MakePath(hiddenFileName))).toString(), result);
                             });
                     });
@@ -208,14 +207,14 @@ suite(
                     {
                         let testDir: TempDirectory = new TempDirectory();
                         {
-                            await compiler["Compress"](sourceDir.FileName, destinationFile.FileName);
+                            await compiler["Compress"](sourceDir.FullName, destinationFile.FullName);
                             await tar.extract(
                                 {
-                                    cwd: testDir.FileName,
-                                    file: destinationFile.FileName
+                                    cwd: testDir.FullName,
+                                    file: destinationFile.FullName
                                 });
 
-                            let archiveFiles: string[] = await FileSystem.readdir(testDir.FileName);
+                            let archiveFiles: string[] = await FileSystem.readdir(testDir.FullName);
                             assert.strictEqual(files.every((file: string) => archiveFiles.includes(file)), true);
                         }
                         testDir.Dispose();

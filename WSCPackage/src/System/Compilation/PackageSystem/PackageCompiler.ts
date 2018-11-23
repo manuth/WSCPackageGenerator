@@ -1,5 +1,5 @@
 import * as FileSystem from "fs-extra";
-import { TempDirectory } from "../../FileSystem/TempDirectory";
+import { TempDirectory } from "temp-filesystem";
 import { Package } from "../../PackageSystem/Package";
 import { Compiler } from "../Compiler";
 import { InstructionSetCompiler } from "./InstructionSetCompiler";
@@ -34,17 +34,17 @@ export class PackageCompiler extends Compiler<Package>
             compiler.DestinationPath = tempDir.MakePath("package.xml");
             await compiler.Execute();
             let installSetCompiler: InstructionSetCompiler = new InstructionSetCompiler(this.Item.InstallSet);
-            installSetCompiler.DestinationPath = tempDir.FileName;
+            installSetCompiler.DestinationPath = tempDir.FullName;
             await installSetCompiler.Execute();
 
             for (let updateSet of this.Item.UpdateSets)
             {
                 let updateSetCompiler: InstructionSetCompiler = new InstructionSetCompiler(updateSet);
-                updateSetCompiler.DestinationPath = tempDir.FileName;
+                updateSetCompiler.DestinationPath = tempDir.FullName;
                 await installSetCompiler.Execute();
             }
 
-            await this.Compress(tempDir.FileName, this.DestinationPath);
+            await this.Compress(tempDir.FullName, this.DestinationPath);
         }
         tempDir.Dispose();
     }

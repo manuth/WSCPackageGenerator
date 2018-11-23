@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { EmojiFileCompiler } from "../../../../System/Compilation/Presentation/EmojiFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { EmojiInstruction } from "../../../../System/PackageSystem/Instructions/Customization/EmojiInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
@@ -46,7 +46,7 @@ suite(
                     });
 
                 compiler = new EmojiFileCompiler(instruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -85,7 +85,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });

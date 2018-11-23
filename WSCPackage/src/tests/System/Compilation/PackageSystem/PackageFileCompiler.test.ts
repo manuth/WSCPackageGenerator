@@ -2,10 +2,10 @@ import * as assert from "assert";
 import escapeStringRegexp = require("escape-string-regexp");
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
+import { TempFile } from "temp-filesystem";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
 import { PackageFileCompiler } from "../../../../System/Compilation/PackageSystem/PackageFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { IConflictingPackageDescriptorOptions } from "../../../../System/PackageSystem/IConflictingPackageDescriptorOptions";
 import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";
@@ -205,7 +205,7 @@ suite(
                     });
 
                 compiler = new PackageFileCompiler($package);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -254,7 +254,7 @@ suite(
                                     "Checking whether the content of the content of the document is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         $package = new XMLEditor(document.documentElement);
                                     });
 

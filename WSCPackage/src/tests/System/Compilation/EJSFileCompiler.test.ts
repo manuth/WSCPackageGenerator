@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { EJSFileCompiler } from "../../../System/Compilation/EJSFileCompiler";
-import { TempFile } from "../../../System/FileSystem/TempFile";
 
 suite(
     "EJSFileCompiler",
@@ -45,7 +45,7 @@ suite(
                     }
                 }();
 
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suite(
@@ -63,14 +63,14 @@ suite(
                     "Checking whether the compiled file exists...",
                     async () =>
                     {
-                        assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                        assert.strictEqual(await FileSystem.pathExists(tempFile.FullName), true);
                     });
 
                 test(
                     "Checking whether the EJS-variable has been replaced...",
                     async () =>
                     {
-                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                         assert.strictEqual(document.documentElement.textContent, variableValue);
                     });
             });

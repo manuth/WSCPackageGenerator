@@ -1,9 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as tar from "tar";
+import { TempDirectory, TempFile } from "temp-filesystem";
 import { PackageCompiler } from "../../../../System/Compilation/PackageSystem/PackageCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { Package } from "../../../../System/PackageSystem/Package";
 
 suite(
@@ -30,7 +29,7 @@ suite(
                     });
 
                 compiler = new PackageCompiler($package);
-                compiler.DestinationPath = archive.FileName;
+                compiler.DestinationPath = archive.FullName;
             });
 
         suiteTeardown(
@@ -57,8 +56,8 @@ suite(
                     {
                         await tar.extract(
                             {
-                                cwd: archiveDir.FileName,
-                                file: archive.FileName
+                                cwd: archiveDir.FullName,
+                                file: archive.FullName
                             });
                     });
 

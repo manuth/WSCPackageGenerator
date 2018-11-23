@@ -1,5 +1,5 @@
 import * as FileSystem from "fs-extra";
-import { TempFile } from "../../../FileSystem/TempFile";
+import { TempFile } from "temp-filesystem";
 import { IInstruction } from "../../../PackageSystem/Instructions/IInstruction";
 import { InstructionFileCompiler } from "./InstructionFileCompiler";
 
@@ -13,8 +13,8 @@ export abstract class TemplateInstructionCompiler<T extends IInstruction> extend
         await super.Compile();
         let tempFile: TempFile = new TempFile();
         {
-            await FileSystem.writeFile(tempFile.FileName, await FileSystem.readFile(this.DestinationFileName));
-            await this.CopyTemplate(tempFile.FileName, this.DestinationFileName);
+            await FileSystem.writeFile(tempFile.FullName, await FileSystem.readFile(this.DestinationFileName));
+            await this.CopyTemplate(tempFile.FullName, this.DestinationFileName);
         }
         tempFile.Dispose();
     }

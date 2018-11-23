@@ -1,9 +1,9 @@
 import * as assert from "assert";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { LocalizationFileCompiler } from "../../../../System/Compilation/Globalization/LocalizationFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { TranslationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/TranslationInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
@@ -56,7 +56,7 @@ suite(
                     });
 
                 compiler = new LocalizationFileCompiler([locale, instruction.GetMessages()[locale]]);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -84,7 +84,7 @@ suite(
                             "Checking whether the expected file exists...",
                             async () =>
                             {
-                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                                assert.strictEqual(await FileSystem.pathExists(tempFile.FullName), true);
                             });
                     });
 
@@ -100,7 +100,7 @@ suite(
                         suiteSetup(
                             async () =>
                             {
-                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                 rootTag = "language";
                                 rootEditor = new XMLEditor(document.documentElement);
                                 languageAttribute = "languagecode";

@@ -1,10 +1,10 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
 import { BBCodeFileCompiler } from "../../../../System/Compilation/Presentation/BBCodeFileCompiler";
 import { IBBCodeAttributeOptions } from "../../../../System/Customization/BBCodes/IBBCodeAttributeOptions";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { BBCodeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/BBCodeInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
@@ -80,7 +80,7 @@ suite(
                         ]
                     }));
 
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -119,7 +119,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });

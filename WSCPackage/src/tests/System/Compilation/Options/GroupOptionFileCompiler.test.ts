@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { GroupOptionFileCompiler } from "../../../../System/Compilation/Options/GroupOptionFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { IGroupOptionOptions } from "../../../../System/Options/Groups/IGroupOptionOptions";
 import { GroupOptionInstruction } from "../../../../System/PackageSystem/Instructions/Options/GroupOptionInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
@@ -43,7 +43,7 @@ suite(
                     });
 
                 compiler = new GroupOptionFileCompiler(groupOptionInstruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -82,7 +82,7 @@ suite(
                                     "Checking whether the file is a valid xml-file...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });

@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
+import { TempDirectory } from "temp-filesystem";
 import { LocalizationInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/LocalizationInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { ILocalization } from "../../../../System/Globalization/ILocalization";
 import { TranslationInstruction } from "../../../../System/PackageSystem/Instructions/Globalization/TranslationInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -52,7 +52,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new LocalizationInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 fileName = compiler.DestinationFileName;
             });
 

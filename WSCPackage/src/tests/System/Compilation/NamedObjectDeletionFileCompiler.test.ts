@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { NamedObjectDeletionFileCompiler } from "../../../System/Compilation/NamedObjectDeletionFileCompiler";
-import { TempFile } from "../../../System/FileSystem/TempFile";
 import { INamedObject } from "../../../System/INamedObject";
 import { INamedDeleteInstruction } from "../../../System/PackageSystem/Instructions/INamedDeleteInstruction";
 import { Instruction } from "../../../System/PackageSystem/Instructions/Instruction";
@@ -61,7 +61,7 @@ suite(
                         }
                     }());
 
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -100,7 +100,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });

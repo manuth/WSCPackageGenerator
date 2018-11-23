@@ -1,9 +1,9 @@
 import * as assert from "assert";
 import * as dedent from "dedent";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { ThemeVariableCompiler } from "../../../../System/Compilation/Presentation/ThemeVariableCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 
 suite(
     "ThemeVariableCompiler",
@@ -34,7 +34,7 @@ suite(
                 variables[scssCodeName] = scssCode;
 
                 compiler = new ThemeVariableCompiler(variables);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -62,7 +62,7 @@ suite(
                             "Checking whether the compiled file exists...",
                             async () =>
                             {
-                                assert.strictEqual(await FileSystem.pathExists(tempFile.FileName), true);
+                                assert.strictEqual(await FileSystem.pathExists(tempFile.FullName), true);
                             });
                     });
 
@@ -81,7 +81,7 @@ suite(
                         suiteSetup(
                             async () =>
                             {
-                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                 rootTag = "variables";
                                 variableTag = "variable";
                                 rootElement = document.documentElement;

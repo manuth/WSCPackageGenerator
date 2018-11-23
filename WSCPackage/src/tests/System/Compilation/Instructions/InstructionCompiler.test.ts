@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { InstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/InstructionCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { IInstruction } from "../../../../System/PackageSystem/Instructions/IInstruction";
 import { Instruction } from "../../../../System/PackageSystem/Instructions/Instruction";
 import { Package } from "../../../../System/PackageSystem/Package";
@@ -66,7 +66,7 @@ suite(
                     }
                 }(instruction);
 
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -96,7 +96,7 @@ suite(
                 suiteSetup(
                     async () =>
                     {
-                        content = (await FileSystem.readFile(tempFile.FileName)).toString();
+                        content = (await FileSystem.readFile(tempFile.FullName)).toString();
                     });
 
                 test(

@@ -1,8 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory, TempFile } from "temp-filesystem";
 import { ThemeCompiler } from "../../../../System/Compilation/Presentation/ThemeCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { ThemeInstruction } from "../../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -27,7 +26,7 @@ suite(
                 variableFileName = "myVariableFile.xml";
 
                 await FileSystem.writeJson(
-                    variableFile.FileName,
+                    variableFile.FullName,
                     {
                         wcfHeaderBackground: "red"
                     });
@@ -37,7 +36,7 @@ suite(
                         Theme: {
                             Name: "foo",
                             DisplayName: {},
-                            VariableFileName: variableFile.FileName
+                            VariableFileName: variableFile.FullName
                         }
                     });
 
@@ -52,7 +51,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new ThemeCompiler(instruction.Theme, variableFileName);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
             });
 
         suiteTeardown(

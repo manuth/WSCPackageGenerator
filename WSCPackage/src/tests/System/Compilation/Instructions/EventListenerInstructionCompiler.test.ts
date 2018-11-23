@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempDirectory } from "temp-filesystem";
 import { EventListenerInstructionCompiler } from "../../../../System/Compilation/PackageSystem/Instructions/EventListenerInstructionCompiler";
-import { TempDirectory } from "../../../../System/FileSystem/TempDirectory";
 import { EventListenerInstruction } from "../../../../System/PackageSystem/Instructions/Events/EventListenerInstruction";
 import { Package } from "../../../../System/PackageSystem/Package";
 
@@ -33,7 +33,7 @@ suite(
 
                 $package.InstallSet.push(instruction);
                 compiler = new EventListenerInstructionCompiler(instruction);
-                compiler.DestinationPath = tempDir.FileName;
+                compiler.DestinationPath = tempDir.FullName;
                 fileName = compiler.DestinationFileName;
             });
 

@@ -1,11 +1,11 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { ListenerFileCompiler } from "../../../../System/Compilation/Events/ListenerFileCompiler";
 import { IListenerOptions } from "../../../../System/Events/IListenerOptions";
 import { Listener } from "../../../../System/Events/Listener";
 import { ListenerEnvironment } from "../../../../System/Events/ListenerEnvironment";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { IListenerInstruction } from "../../../../System/PackageSystem/Instructions/Events/IListenerInstruction";
 import { IListenerInstructionOptions } from "../../../../System/PackageSystem/Instructions/Events/IListenerInstructionOptions";
 import { ListenerInstruction } from "../../../../System/PackageSystem/Instructions/Events/ListenerInstruction";
@@ -98,7 +98,7 @@ suite(
                     });
 
                 compiler = new MyListenerFileCompiler(instruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -137,7 +137,7 @@ suite(
                                     "Checking whether the content of the compiled file is valid xml...",
                                     async () =>
                                     {
-                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });

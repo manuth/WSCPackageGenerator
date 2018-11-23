@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { DOMParser } from "xmldom";
 import { EventListenerFileCompiler } from "../../../../System/Compilation/Events/EventListenerFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { EventListenerInstruction } from "../../../../System/PackageSystem/Instructions/Events/EventListenerInstruction";
 import { XMLEditor } from "../../../../System/Serialization/XMLEditor";
 
@@ -39,7 +39,7 @@ suite(
                     });
 
                 compiler = new EventListenerFileCompiler(instruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -78,7 +78,7 @@ suite(
                                     "Checking whether the content of the file is valid xml...",
                                     async () =>
                                     {
-                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document: Document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         editor = new XMLEditor(document.documentElement);
                                     });
                             });

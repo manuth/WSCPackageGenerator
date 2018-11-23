@@ -1,9 +1,9 @@
 import * as assert from "assert";
 import * as FileSystem from "fs-extra";
+import { TempFile } from "temp-filesystem";
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
 import { OptionFileCompiler } from "../../../../System/Compilation/Options/OptionFileCompiler";
-import { TempFile } from "../../../../System/FileSystem/TempFile";
 import { INode } from "../../../../System/NodeSystem/INode";
 import { Node } from "../../../../System/NodeSystem/Node";
 import { Category } from "../../../../System/Options/Category";
@@ -163,7 +163,7 @@ suite(
                         return "http://example.com/myOptions.xsd";
                     }
                 }(optionInstruction);
-                compiler.DestinationPath = tempFile.FileName;
+                compiler.DestinationPath = tempFile.FullName;
             });
 
         suiteTeardown(
@@ -209,7 +209,7 @@ suite(
                                     "Checking whether the content is valid xml...",
                                     async () =>
                                     {
-                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FileName)).toString());
+                                        let document = new DOMParser().parseFromString((await FileSystem.readFile(tempFile.FullName)).toString());
                                         importEditor = new XMLEditor(document.documentElement).GetChildrenByTag("import")[0];
                                     });
                             });
