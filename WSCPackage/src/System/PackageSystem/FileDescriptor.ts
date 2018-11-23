@@ -27,7 +27,7 @@ export class FileDescriptor
         if (isNullOrUndefined(options.FileName))
         {
             let fileName: string = Path.normalize(options.Source);
-            this.FileName = (Path.isAbsolute(fileName) || fileName.startsWith("..")) ? Path.basename(fileName) : fileName;
+            this.FileName = (Path.isAbsolute(fileName) || /^\.\.(\/|$)/.test(fileName)) ? Path.basename(fileName) : fileName;
         }
         else
         {
