@@ -98,12 +98,6 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                     return reversedURI + "." + (answers["name"] as string).toLowerCase();
                 },
                 validate: (input: string) => /.+/.test(input.trim()) ? true : "The name must not be empty!"
-            },
-            {
-                type: "input",
-                name: WSCPackageSetting.ComponentPath,
-                message: "Where do you want to store the components?",
-                default: "./components"
             }
         ];
     }
@@ -124,7 +118,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "Files.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store your file-mappings?",
-                                        Default: "Files.ts"
+                                        Default: "./components/Files.ts"
                                     }
                                 }
                             ]
@@ -137,7 +131,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "CronJobs.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store your cron-jobs?",
-                                        Default: "CronJobs.ts"
+                                        Default: "./components/CronJobs.ts"
                                     }
                                 }
                             ]
@@ -150,7 +144,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "PHPScript.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the settings for the PHP-script?",
-                                        Default: "PHPScript.ts"
+                                        Default: "./components/PHPScript.ts"
                                     }
                                 }
                             ]
@@ -163,7 +157,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "SQLScript.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the settings for the SQL-script?",
-                                        Default: "SQLScript.ts"
+                                        Default: "./components/SQLScript.ts"
                                     }
                                 }
                             ]
@@ -181,7 +175,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "Translations.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the translations?",
-                                        Default: "Translations.ts"
+                                        Default: "./components/Translations.ts"
                                     }
                                 }
                             ]
@@ -194,7 +188,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "ErrorMessages.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the error-messages?",
-                                        Default: "ErrorMessages.ts"
+                                        Default: "./components/ErrorMessages.ts"
                                     }
                                 }
                             ]
@@ -212,7 +206,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "Options.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the Admin Control-Panel Options?",
-                                        Default: "Options.ts"
+                                        Default: "./components/Options.ts"
                                     }
                                 }
                             ]
@@ -225,7 +219,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "UserOptions.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the User-Options?",
-                                        Default: "UserOptions.ts"
+                                        Default: "./components/UserOptions.ts"
                                     }
                                 }
                             ]
@@ -238,7 +232,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "GroupOptions.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the Group-Permission Options?",
-                                        Default: "GroupOptions.ts"
+                                        Default: "./components/GroupOptions.ts"
                                     }
                                 }
                             ]
@@ -256,7 +250,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: null,
                                     Destination: {
                                         Message: "Where do you want to store themes?",
-                                        Default: "Themes.ts"
+                                        Default: "./components/Themes.ts"
                                     }
                                 }
                             ]
@@ -269,7 +263,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "Emojis.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the emojis?",
-                                        Default: "Emojis.ts"
+                                        Default: "./components/Emojis.ts"
                                     }
                                 }
                             ]
@@ -282,7 +276,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "BBCodes.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the BB-Codes?",
-                                        Default: "BBCodes.ts"
+                                        Default: "./components/BBCodes.ts"
                                     }
                                 }
                             ]
@@ -295,7 +289,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "Templates.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the templates?",
-                                        Default: "Templates.ts"
+                                        Default: "./components/Templates.ts"
                                     }
                                 }
                             ]
@@ -308,7 +302,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "ACPTemplates.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the Admin Control Panel-Templates?",
-                                        Default: "ACPTemplates.ts"
+                                        Default: "./components/ACPTemplates.ts"
                                     }
                                 }
                             ]
@@ -326,7 +320,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "EventListeners.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the Event-Listeners?",
-                                        Default: "EventListeners.ts"
+                                        Default: "./components/EventListeners.ts"
                                     }
                                 }
                             ]
@@ -339,7 +333,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Source: "TemplateListeners.ts.ejs",
                                     Destination: {
                                         Message: "Where do you want to store the Template-Listeners?",
-                                        Default: "TemplateListeners.ts"
+                                        Default: "./components/TemplateListeners.ts"
                                     }
                                 }
                             ]
@@ -358,13 +352,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
 
     public async writing()
     {
-        await super.writing();
-        this.destinationRoot(this.Settings[WSCPackageSetting.Destination]);
-
-        let componentsPath = (value: string) =>
-        {
-            return this.destinationPath(this.Settings[WSCPackageSetting.Destination], value);
-        };
+        this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));
 
         let CopyTemplate = async (source: string, destination: string) =>
         {
@@ -387,7 +375,6 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                     destinationFile: destination,
                     packagePath: this.Settings[WSCPackageSetting.Destination],
                     relativePackage,
-                    componentDir: this.Settings[WSCPackageSetting.ComponentPath],
                     components: this.Settings[GeneratorSetting.Components],
                     componentPaths: (
                         () =>
@@ -417,11 +404,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         CopyTemplate(this.templatePath("README.md.ejs"), this.destinationPath("README.md"));
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
         this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
-
-        if (this.Settings[GeneratorSetting.Components].includes(WSCPackageComponent.Themes))
-        {
-            await FileSystem.mkdirp(this.destinationPath(this.Settings[GeneratorSetting.ComponentPaths][WSCPackageComponent.Themes]));
-        }
+        return super.writing();
     }
 
     /**

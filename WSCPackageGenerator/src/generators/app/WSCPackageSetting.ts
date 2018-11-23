@@ -36,10 +36,5 @@ export enum WSCPackageSetting
     /**
      * Indicates the `HomePage`.
      */
-    HomePage = "authorURL",
-
-    /**
-     * Indicates the `ComponentPath`.
-     */
-    ComponentPath = "componentPath"
+    HomePage = "authorURL"
 }

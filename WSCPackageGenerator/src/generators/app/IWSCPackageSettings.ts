@@ -35,9 +35,4 @@ export interface IWSCPackageSettings extends IGeneratorSettings
      * Gets or sets the homepage.
      */
     [WSCPackageSetting.HomePage]: string;
-
-    /**
-     * Gets or sets the component-path.
-     */
-    [WSCPackageSetting.ComponentPath]: string;
 }

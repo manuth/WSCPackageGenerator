@@ -3,11 +3,6 @@ import { IPackageOptions } from "<%= relativePackage %>lib/System/PackageSystem/
 import { ThemeInstructionCollection } from "<%= relativePackage %>lib/System/Customization/Presentation/Themes/ThemeInstructionCollection";
 import { RequiredPackageDescriptor } from "<%= relativePackage %>lib/System/PackageSystem/RequiredPackageDescriptor";
 
-function getComponentsPath(value: string): string
-{
-    return Path.join(__dirname, "<%= componentDir %>", value);
-}
-
 let pkg: IPackageOptions = {
     Identifier: "<%= Settings.identifier %>",
     Name: "<%= Settings.name %>",
@@ -33,7 +28,7 @@ let pkg: IPackageOptions = {
 
                 let defaultFormatter = (value) =>
                 {
-                    return "require(getComponentsPath(\"" + value + "\"))";
+                    return "require(\"" + value + "\")";
                 };
 
                 switch (component)
