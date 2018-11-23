@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import * as clearRequire from "clear-require";
+import * as ClearModule from "clear-module";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { ModuleInfo } from "../../../System/PackageSystem/ModuleInfo";
@@ -45,7 +45,12 @@ suite(
                 setup(
                     () =>
                     {
-                        clearRequire(packageFileName);
+                        try
+                        {
+                            ClearModule(packageFileName);
+                        }
+                        catch
+                        { }
                     });
 
                 test(

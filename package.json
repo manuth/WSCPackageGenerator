@@ -33,7 +33,6 @@
     "yosay": "^2.0.2"
   },
   "devDependencies": {
-    "@types/clear-require": "^2.0.0",
     "@types/dedent": "^0.7.0",
     "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.4",
