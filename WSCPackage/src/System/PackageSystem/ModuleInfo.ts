@@ -1,4 +1,5 @@
 import * as FileSystem from "fs-extra";
+import ParseAuthor = require("parse-author");
 import * as Path from "path";
 import { Person } from "./Person";
 
@@ -49,8 +50,11 @@ export class ModuleInfo
             {
                 if (typeof $package.author === "string")
                 {
+                    let person = ParseAuthor($package.author);
+
                     this.author = new Person({
-                        Name: $package.author
+                        Name: person.name,
+                        URL: person.url
                     });
                 }
                 else
