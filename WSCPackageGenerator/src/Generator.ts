@@ -68,7 +68,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
      */
     public templatePath(...path: string[])
     {
-        return Path.join(__dirname, "..", "..", "templates", this.TemplateRoot, ...path);
+        return Path.join(__dirname, "..", "templates", this.TemplateRoot, ...path);
     }
 
     /**
@@ -79,7 +79,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
      */
     public modulePath(...path: string[])
     {
-        return Path.join(__dirname, "..", "..", ...path);
+        return Path.join(__dirname, "..", ...path);
     }
 
     /**
@@ -131,6 +131,11 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
                                         return answers[GeneratorSetting.Components].includes(component.ID);
                                     }
                                 };
+
+                                if (!isNullOrUndefined(fileMapping.Destination.Settings))
+                                {
+                                    Object.assign(question, fileMapping.Destination.Settings);
+                                }
 
                                 if (!isNullOrUndefined(fileMapping.Destination.Default))
                                 {
