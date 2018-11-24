@@ -1,6 +1,7 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import { Answers, Question } from "inquirer";
 import Path = require("path");
+import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
 import { IComponentDestination } from "./IComponentDestination";
 import { IGeneratorSettings } from "./IGeneratorSettings";
@@ -69,34 +70,9 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
 
         Object.assign(this.Settings, options.Settings);
 
-        this.Settings.transformer = (input: string, answers?: T, options?: { isFinal: boolean }) =>
-        {
-            return options.isFinal ? input : this.MakeRootPath(input);
-        };
-
-        this.Settings.filter = (input) =>
-        {
-            return Path.normalize(this.MakeRootPath(input));
-        };
-
-        this.Settings.validate = (input: string) =>
-        {
-            if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
-            {
-                return `The file must be inside the \`${this.generator.sourcePath()}\`-directory.`;
-            }
-            else
-            {
-                if ((input.lastIndexOf(Path.sep) === input.length - Path.sep.length))
-                {
-                    return "Please provide a file- rather than a directory-name.";
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        };
+        this.Settings.transformer = (input: string, answers?: T, options?: { isFinal: boolean }) => this.Transform(input, answers, options);
+        this.Settings.filter = (input) => this.Filter(input);
+        this.Settings.validate = (input, answers) => this.Validate(input, answers);
     }
 
     /**
@@ -135,6 +111,59 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
     public set Settings(value)
     {
         this.settings = value;
+    }
+
+    /**
+     * Transforms the user-input.
+     *
+     * @param input
+     * The input to transform.
+     *
+     * @param answers
+     * The answers to the previous questions.
+     */
+    public Transform(input: string, answers?: T, options?: { isFinal: boolean })
+    {
+        return (!isNullOrUndefined(options) && options.isFinal) ? input : this.MakeRootPath(input);
+    }
+
+    /**
+     * Transforms the final answer.
+     *
+     * @param input
+     * The input to filter.
+     */
+    public Filter(input: string)
+    {
+        return this.Transform(input);
+    }
+
+    /**
+     * Validates the user-input.
+     *
+     * @param input
+     * The user-input.
+     *
+     * @param answers
+     * The answers to the previous questions.
+     */
+    public Validate(input: string, answers: T): string | boolean | Promise<string | boolean>
+    {
+        if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
+        {
+            return `The file must be inside the \`${this.generator.sourcePath()}\`-directory.`;
+        }
+        else
+        {
+            if ((input.lastIndexOf(Path.sep) === input.length - Path.sep.length))
+            {
+                return "Please provide a file- rather than a directory-name.";
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
     /**
