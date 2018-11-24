@@ -149,20 +149,13 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
      */
     public Validate(input: string, answers: T): string | boolean | Promise<string | boolean>
     {
-        if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
+        if ((input.lastIndexOf(Path.sep) === input.length - Path.sep.length))
         {
-            return `The file must be inside the \`${this.generator.sourcePath()}\`-directory.`;
+            return "Please provide a file- rather than a directory-name.";
         }
         else
         {
-            if ((input.lastIndexOf(Path.sep) === input.length - Path.sep.length))
-            {
-                return "Please provide a file- rather than a directory-name.";
-            }
-            else
-            {
-                return true;
-            }
+            return true;
         }
     }
 
