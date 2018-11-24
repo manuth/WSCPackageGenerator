@@ -68,7 +68,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
      */
     public templatePath(...path: string[])
     {
-        return Path.join(__dirname, "..", "templates", this.TemplateRoot, ...path);
+        return this.modulePath("templates", this.TemplateRoot, ...path);
     }
 
     /**
@@ -79,7 +79,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
      */
     public modulePath(...path: string[])
     {
-        return Path.join(__dirname, "..", ...path);
+        return Path.join(__dirname, "..", "..", ...path);
     }
 
     /**
