@@ -64,7 +64,7 @@ typings/
 WSCPackageGenerator/[Ss]rc/
 
 # Build results
-WSCPackage/[Ll]ib/
+/[Ll]ib/
 
 # TypeScript config-files
 tsconfig.json
@@ -72,8 +72,7 @@ tslint.json
 
 # Unit-Tests
 test/
-[Ll]ib/tests
-WSCPackageGenerator/[Ll]ib/tests/
+[Ll]ib/tests/
 WSCPackage/[Ss]rc/tests/
 
 # Visual Studio Code-Environment
