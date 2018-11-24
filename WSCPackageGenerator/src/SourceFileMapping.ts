@@ -6,7 +6,7 @@ import { IWSCPackageSettings } from "./generators/app/IWSCPackageSettings";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IComponentDestination } from "./IComponentDestination";
 import { IFileMapping } from "./IFileMapping";
-import { WSCComponentDestination } from "./WSCComponentDestination";
+import { SourceFileDestination } from "./SourceFileDestination";
 
 /**
  * Represents a file-mapping for a WoltLab Suite Core-component.
@@ -54,7 +54,7 @@ export class SourceFileMapping<T extends IWSCPackageSettings> implements IFileMa
             typeof options.Destination !== "string" &&
             typeof options.Destination !== "function")
         {
-            this.Destination = new WSCComponentDestination(generator, options.Destination);
+            this.Destination = new SourceFileDestination(generator, options.Destination);
         }
         else
         {

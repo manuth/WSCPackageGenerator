@@ -8,7 +8,7 @@ import { IGeneratorSettings } from "./IGeneratorSettings";
 /**
  * Represents the destination of a WoltLab Suite Core-component.
  */
-export class WSCComponentDestination<T extends IGeneratorSettings> extends ComponentDestination<T>
+export class SourceFileDestination<T extends IGeneratorSettings> extends ComponentDestination<T>
 {
     /**
      * Initializes a new instance of the `WSCComponentDestination<T>` class.
