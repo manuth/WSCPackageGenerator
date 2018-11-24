@@ -171,7 +171,7 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                 this.templatePath("Theme.ts.ejs"),
                 themeFileName,
                 {
-                    RelativePackage: relativePackage,
+                    relativePackage,
                     Settings: this.Settings,
                     Components: this.Settings[GeneratorSetting.Components],
                     ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]

@@ -1,12 +1,14 @@
 {
     "compilerOptions": {
+        "rootDir": "./src",
         "target": "es6",
         "module": "commonjs",
         "sourceMap": true,
         "lib": [
             "es2017",
             "dom"
-        ]
+        ],
+        "outDir": "./lib"
     },
     "exclude": [
         "node_modules"

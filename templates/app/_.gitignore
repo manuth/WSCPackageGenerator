@@ -288,9 +288,4 @@ __pycache__/
 *.xsd.cs
 
 # Compiled TypeScript files
-components/**/*.js
-components/**/*.js.map
-lib/**/*.js
-lib/**/*.js.map
-Package.js
-Package.js.map
+[Ll]ib/

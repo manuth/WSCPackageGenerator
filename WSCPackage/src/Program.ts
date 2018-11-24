@@ -14,7 +14,7 @@ class Program
      */
     public static async Main(args: string[]): Promise<void>
     {
-        let $package: Package = new Package(require("../Package"));
+        let $package: Package = new Package(require("./Meta/Package"));
         let compiler: PackageCompiler = new PackageCompiler($package);
         compiler.DestinationPath = Path.join("bin", `${$package.Name}.tar`);
         await compiler.Execute();

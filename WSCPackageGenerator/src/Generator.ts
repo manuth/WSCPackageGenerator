@@ -83,6 +83,39 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
     }
 
     /**
+     * Joins the arguments together and returns the resulting path relative to the source-directory.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    public sourcePath(...path: string[])
+    {
+        return ["src", ...path].join(Path.sep);
+    }
+
+    /**
+     * Joins the arguments together and returns the resulting path relative to the meta-directory.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    public metaPath(...path: string[])
+    {
+        return this.sourcePath("Meta", ...path);
+    }
+
+    /**
+     * Joins the arguments together and returns the resulting path relative to the component-directory.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    public componentPath(...path: string[])
+    {
+        return this.metaPath("Components", ...path);
+    }
+
+    /**
      * Gathers all information for executing the generator and saves them to the `Settings`.
      */
     public async prompting()
