@@ -18,9 +18,9 @@ export class ThemeInstructionCollection extends Array<ThemeInstruction>
     {
         super();
 
-        let themeFolders: string[] = FileSystem.readdirSync(path).map(
+        let themeFolders: string[] = FileSystem.pathExistsSync(path) ? FileSystem.readdirSync(path).map(
             (entry: string) => Path.join(path, entry)).filter(
-                (entry: string) => FileSystem.lstatSync(entry).isDirectory());
+                (entry: string) => FileSystem.lstatSync(entry).isDirectory()) : [];
 
         for (let themeFolder of themeFolders)
         {
