@@ -294,7 +294,11 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         {
                                             Message: "Where do you want to store themes?",
                                             Default: "Themes"
-                                        })
+                                        }),
+                                    Processor: async (source, destination) =>
+                                    {
+                                        await FileSystem.ensureDir(destination);
+                                    }
                                 }
                             ]
                         },
@@ -498,12 +502,6 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         CopyTemplate(this.templatePath("README.md.ejs"), this.destinationPath("README.md"));
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
         this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
-
-        if (this.Settings[GeneratorSetting.Components].includes(WSCPackageComponent.Themes))
-        {
-            await FileSystem.ensureDir(this.Settings[GeneratorSetting.ComponentPaths][WSCPackageComponent.Themes][0]);
-        }
-
         return super.writing();
     }
 
