@@ -74,7 +74,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 type: "input",
                 name: WSCPackageSetting.Author,
                 message: "Please enter your name:",
-                default: () => this.config.get(WSCPackageSetting.Author) || this.user.git.name
+                default: () => this.config.get(WSCPackageSetting.Author) || this.user.git.name()
             },
             {
                 type: "input",
