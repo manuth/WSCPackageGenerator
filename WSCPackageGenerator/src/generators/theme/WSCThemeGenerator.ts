@@ -11,6 +11,7 @@ import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { WSCPackageComponent } from "../app/WSCPackageComponent";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
+import { ThemeAssetDestination } from "./ThemeAssetDestination";
 import { WSCThemeComponent } from "./WSCThemeComponent";
 import { WSCThemeSetting } from "./WSCThemeSetting";
 
@@ -97,10 +98,12 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                             FileMappings: [
                                 {
                                     Source: "blank.scss",
-                                    Destination: {
-                                        Message: "Where do you want to store the custom SCSS-Code?",
-                                        Default: "main.scss"
-                                    }
+                                    Destination: new ThemeAssetDestination(
+                                        this,
+                                        {
+                                            Message: "Where do you want to store the custom SCSS-Code?",
+                                            Default: "main.scss"
+                                        })
                                 }
                             ]
                         },
@@ -110,10 +113,12 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                             FileMappings: [
                                 {
                                     Source: "blank.scss",
-                                    Destination: {
-                                        Message: "Where do you want to store the variable-overrides?",
-                                        Default: "overrides.scss"
-                                    }
+                                    Destination: new ThemeAssetDestination(
+                                        this,
+                                        {
+                                            Message: "Where do you want to store the variable-overrides?",
+                                            Default: "overrides.scss"
+                                        })
                                 }
                             ]
                         },
@@ -123,10 +128,12 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                             FileMappings: [
                                 {
                                     Source: "variables.json",
-                                    Destination: {
-                                        Message: "Where do you want to store theme-variables?",
-                                        Default: "variables.json"
-                                    }
+                                    Destination: new ThemeAssetDestination(
+                                        this,
+                                        {
+                                            Message: "Where do you want to store theme-variables?",
+                                            Default: "variables.json"
+                                        })
                                 }
                             ]
                         }
@@ -150,33 +157,33 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
      */
     public async writing()
     {
+        let themeFileName = this.destinationPath(this.sourcePath(this.Settings[WSCThemeSetting.Destination], this.Settings.name, "Theme.ts"));
+        let relativePackage = Path.posix.normalize(
+            Path.relative(
+                Path.dirname(themeFileName),
+                this.sourcePath()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
+
+        if (!relativePackage.startsWith("."))
         {
-            let themeFileName = this.destinationPath(this.Settings[WSCThemeSetting.Destination], this.Settings.name, "Theme.ts");
-            let relativePackage = Path.posix.normalize(
-                Path.relative(
-                    Path.dirname(themeFileName),
-                    process.cwd()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-            if (!relativePackage.startsWith("."))
-            {
-                relativePackage = "./" + relativePackage;
-            }
-
-            if (!relativePackage.endsWith("/"))
-            {
-                relativePackage = relativePackage + "/";
-            }
-
-            this.fs.copyTpl(
-                this.templatePath("Theme.ts.ejs"),
-                themeFileName,
-                {
-                    relativePackage,
-                    Settings: this.Settings,
-                    Components: this.Settings[GeneratorSetting.Components],
-                    ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
-                });
+            relativePackage = "./" + relativePackage;
         }
+
+        if (!relativePackage.endsWith("/"))
+        {
+            relativePackage = relativePackage + "/";
+        }
+
+        this.fs.copyTpl(
+            this.templatePath("Theme.ts.ejs"),
+            themeFileName,
+            {
+                relativePackage,
+                Settings: this.Settings,
+                Components: this.Settings[GeneratorSetting.Components],
+                ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
+            });
+
+        return super.writing();
     }
 
     /**

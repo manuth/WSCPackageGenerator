@@ -83,6 +83,17 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
     }
 
     /**
+     * Joins the arguments together and returns the resulting path relative to the assets-directory.
+     *
+     * @param path
+     * The path that is to be joined.
+     */
+    public assetPath(...path: string[])
+    {
+        return ["assets", ...path].join(Path.sep);
+    }
+
+    /**
      * Joins the arguments together and returns the resulting path relative to the source-directory.
      *
      * @param path

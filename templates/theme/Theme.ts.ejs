@@ -10,15 +10,15 @@ let theme: IThemeOptions = {
     }<%
 %><% if (Components.includes("customScss")) { %><%
     %>,
-    CustomScssFileName: "<%= ComponentPaths["customScss"] %>"<%
+    CustomScssFileName: <%- JSON.stringify(ComponentPaths["customScss"][0]) %><%
 %><% } %><%
 %><% if (Components.includes("scssOverride")) { %><%
     %>,
-    ScssOverrideFileName: "<%= ComponentPaths["scssOverride"] %>"<%
+    ScssOverrideFileName: <%- JSON.stringify(ComponentPaths["scssOverride"][0]) %><%
 %><% } %><%
 %><% if (Components.includes("variables")) { %><%
     %>,
-    VariableFileName: "<%= ComponentPaths["variables"] %>"<%
+    VariableFileName: <%- JSON.stringify(ComponentPaths["variables"][0]) %><%
 %><% } %>
 };
 
