@@ -1,9 +1,9 @@
 import { Answers } from "inquirer";
 import Path = require("path");
-import { Generator } from "../../Generator";
-import { IComponentDestination } from "../../IComponentDestination";
-import { IGeneratorSettings } from "../../IGeneratorSettings";
 import { ComponentDestination } from "./ComponentDestination";
+import { Generator } from "./Generator";
+import { IComponentDestination } from "./IComponentDestination";
+import { IGeneratorSettings } from "./IGeneratorSettings";
 
 /**
  * Represents the destination of a WoltLab Suite Core-component.

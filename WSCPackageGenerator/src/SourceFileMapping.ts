@@ -1,13 +1,12 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import Path = require("path");
 import { isNullOrUndefined } from "util";
-import { Generator } from "../../Generator";
-import { IComponentDestination } from "../../IComponentDestination";
-import { IFileMapping } from "../../IFileMapping";
-import { IWSCPackageSettings } from "./IWSCPackageSettings";
+import { Generator } from "./Generator";
+import { IWSCPackageSettings } from "./generators/app/IWSCPackageSettings";
+import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
+import { IComponentDestination } from "./IComponentDestination";
+import { IFileMapping } from "./IFileMapping";
 import { WSCComponentDestination } from "./WSCComponentDestination";
-import { WSCPackageGenerator } from "./WSCPackageGenerator";
-import { WSCPackageSetting } from "./WSCPackageSetting";
 
 /**
  * Represents a file-mapping for a WoltLab Suite Core-component.

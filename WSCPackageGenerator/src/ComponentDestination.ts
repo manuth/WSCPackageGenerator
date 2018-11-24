@@ -1,9 +1,9 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import { Answers, Question } from "inquirer";
 import Path = require("path");
-import { Generator } from "../../Generator";
-import { IComponentDestination } from "../../IComponentDestination";
-import { IGeneratorSettings } from "../../IGeneratorSettings";
+import { Generator } from "./Generator";
+import { IComponentDestination } from "./IComponentDestination";
+import { IGeneratorSettings } from "./IGeneratorSettings";
 
 /**
  * Represents the destination of a component.

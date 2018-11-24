@@ -10,9 +10,9 @@ import yosay = require("yosay");
 import { Generator } from "../../Generator";
 import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
+import { SourceFileMapping } from "../../SourceFileMapping";
+import { ThemeDestination } from "../../ThemeDestination";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
-import { SourceFileMapping } from "./SourceFileMapping";
-import { ThemeDestination } from "./ThemeDestination";
 import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
 
