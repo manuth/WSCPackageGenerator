@@ -5,6 +5,7 @@ import YeomanGenerator = require("yeoman-generator");
 import { Question as YoQuestion, Questions } from "yeoman-generator";
 import { GeneratorSetting } from "./GeneratorSetting";
 import { IComponentProvider } from "./IComponentProvider";
+import { IFileMapping } from "./IFileMapping";
 import { IGeneratorSettings } from "./IGeneratorSettings";
 
 /**
@@ -239,59 +240,11 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
             {
                 if (this.Settings[GeneratorSetting.Components].includes(component.ID))
                 {
-                    let settingsIndex = 0;
                     let fileMappings = await this.ResolveValue(component.FileMappings, this.Settings);
 
                     for (let fileMapping of fileMappings)
                     {
-                        let sourcePath: string = await this.ResolveValue(fileMapping.Source, this.Settings);
-                        let destinationPath: string;
-
-                        if (
-                            typeof fileMapping.Destination === "string" ||
-                            typeof fileMapping.Destination === "function")
-                        {
-                            destinationPath = await this.ResolveValue(fileMapping.Destination, this.Settings);
-                        }
-                        else
-                        {
-                            destinationPath = fileMapping.Destination.GetResult(this.Settings);
-                        }
-
-                        sourcePath = (isNullOrUndefined(sourcePath) || Path.isAbsolute(sourcePath)) ? sourcePath : this.templatePath(sourcePath);
-                        destinationPath = (isNullOrUndefined(destinationPath) || Path.isAbsolute(destinationPath)) ? destinationPath : this.destinationPath(destinationPath);
-
-                        let context = await this.ResolveValue(fileMapping.Context, this.Settings, sourcePath, destinationPath);
-                        let defaultProcessor = (sourcePath: string, destinationPath: string, context: any) =>
-                        {
-                            if (
-                                !isNullOrUndefined(sourcePath) &&
-                                !isNullOrUndefined(destinationPath))
-                            {
-                                if (isNullOrUndefined(context))
-                                {
-                                    this.fs.copy(sourcePath, destinationPath);
-                                }
-                                else
-                                {
-                                    this.fs.copyTpl(sourcePath, destinationPath, context);
-                                }
-                            }
-                        };
-
-                        if (isNullOrUndefined(fileMapping.Processor))
-                        {
-                            defaultProcessor(sourcePath, destinationPath, context);
-                        }
-                        else
-                        {
-                            let result = fileMapping.Processor(sourcePath, destinationPath, context, defaultProcessor, this.Settings);
-
-                            if (result instanceof Promise)
-                            {
-                                await result;
-                            }
-                        }
+                        this.ProcessFile(fileMapping);
                     }
                 }
             }
@@ -339,6 +292,64 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
         else
         {
             return value;
+        }
+    }
+
+    /**
+     * Processes a file-mapping.
+     *
+     * @param fileMapping
+     * The file-mapping to process.
+     */
+    protected async ProcessFile(fileMapping: IFileMapping<T>)
+    {
+        let sourcePath: string = await this.ResolveValue(fileMapping.Source, this.Settings);
+        let destinationPath: string;
+
+        if (
+            typeof fileMapping.Destination === "string" ||
+            typeof fileMapping.Destination === "function")
+        {
+            destinationPath = await this.ResolveValue(fileMapping.Destination, this.Settings);
+        }
+        else
+        {
+            destinationPath = fileMapping.Destination.GetResult(this.Settings);
+        }
+
+        sourcePath = (isNullOrUndefined(sourcePath) || Path.isAbsolute(sourcePath)) ? sourcePath : this.templatePath(sourcePath);
+        destinationPath = (isNullOrUndefined(destinationPath) || Path.isAbsolute(destinationPath)) ? destinationPath : this.destinationPath(destinationPath);
+
+        let context = await this.ResolveValue(fileMapping.Context, this.Settings, sourcePath, destinationPath);
+        let defaultProcessor = (sourcePath: string, destinationPath: string, context: any) =>
+        {
+            if (
+                !isNullOrUndefined(sourcePath) &&
+                !isNullOrUndefined(destinationPath))
+            {
+                if (isNullOrUndefined(context))
+                {
+                    this.fs.copy(sourcePath, destinationPath);
+                }
+                else
+                {
+                    this.fs.copyTpl(sourcePath, destinationPath, context);
+                }
+            }
+        };
+
+        if (isNullOrUndefined(fileMapping.Processor))
+        {
+            defaultProcessor(sourcePath, destinationPath, context);
+        }
+        else
+        {
+            let result = fileMapping.Processor(sourcePath, destinationPath, context, defaultProcessor, this.Settings);
+
+            if (result instanceof Promise)
+            {
+                await result;
+            }
         }
     }
 }
