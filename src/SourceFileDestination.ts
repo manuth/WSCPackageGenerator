@@ -37,7 +37,7 @@ export class SourceFileDestination<T extends IGeneratorSettings> extends Compone
         return this.id;
     }
 
-    public GetResult(answers: T)
+    public GetResult?(answers: T)
     {
         return answers[GeneratorSetting.ComponentSourceFiles][this.ID];
     }
