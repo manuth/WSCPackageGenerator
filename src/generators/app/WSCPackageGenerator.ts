@@ -4,13 +4,12 @@ import * as FileSystem from "fs-extra";
 import { Question } from "inquirer";
 import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
-import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
+import { ComponentSourceFileMapping } from "../../ComponentSourceFileMapping";
 import { Generator } from "../../Generator";
 import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
-import { SourceFileMapping } from "../../SourceFileMapping";
 import { ThemeDestination } from "../../ThemeDestination";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { WSCPackageComponent } from "./WSCPackageComponent";
@@ -127,7 +126,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.Files,
                             DisplayName: "Files to Upload",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -143,7 +142,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.CronJobs,
                             DisplayName: "Cron-Jobs",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -159,7 +158,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.PHPScript,
                             DisplayName: "PHP-Scripts to Execute During the Installation",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -175,7 +174,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.SQLScript,
                             DisplayName: "SQL-Script to Execute During the Installation",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -196,7 +195,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.Translations,
                             DisplayName: "Translations",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -212,7 +211,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.ErrorMessages,
                             DisplayName: "Error-Messages",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -233,7 +232,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.ACPOptions,
                             DisplayName: "Admin Control-Panel Options",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -249,7 +248,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.UserOptions,
                             DisplayName: "User-Options",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -265,7 +264,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.GroupOptions,
                             DisplayName: "Group-Permission Options",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -306,7 +305,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.Emojis,
                             DisplayName: "Emojis",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -322,7 +321,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.BBCodes,
                             DisplayName: "BB-Codes",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -338,7 +337,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.Templates,
                             DisplayName: "Templates",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -354,7 +353,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.ACPTemplates,
                             DisplayName: "Admin Control Panel-Templates",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -375,7 +374,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.EventListeners,
                             DisplayName: "Event-Listeners",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,
@@ -391,7 +390,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             ID: WSCPackageComponent.TemplateListeners,
                             DisplayName: "Template-Listeners",
                             FileMappings: [
-                                new SourceFileMapping(
+                                new ComponentSourceFileMapping(
                                     this,
                                     {
                                         Tag: Tag.Main,

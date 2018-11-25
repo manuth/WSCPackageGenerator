@@ -122,7 +122,7 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
      * @param answers
      * The answers to the previous questions.
      */
-    public Transform(input: string, answers?: T, options?: { isFinal: boolean })
+    protected Transform(input: string, answers?: T, options?: { isFinal: boolean })
     {
         return (!isNullOrUndefined(options) && options.isFinal) ? input : this.MakeRootPath(input);
     }
@@ -133,7 +133,7 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
      * @param input
      * The input to filter.
      */
-    public Filter(input: string)
+    protected Filter(input: string)
     {
         return this.Transform(input);
     }
@@ -147,7 +147,7 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
      * @param answers
      * The answers to the previous questions.
      */
-    public Validate(input: string, answers: T): string | boolean | Promise<string | boolean>
+    protected Validate(input: string, answers: T): string | boolean | Promise<string | boolean>
     {
         if ((input.lastIndexOf(Path.sep) === input.length - Path.sep.length))
         {

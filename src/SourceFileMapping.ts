@@ -1,17 +1,17 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import Path = require("path");
 import { isNullOrUndefined } from "util";
-import { ComponentSourceFileDestination } from "./ComponentSourceFileDestination";
 import { Generator } from "./Generator";
 import { IWSCPackageSettings } from "./generators/app/IWSCPackageSettings";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IComponentDestination } from "./IComponentDestination";
-import { IFileMapping } from "./IFileMapping";
+import { IInteractiveFileMapping } from "./IInteractiveFileMapping";
+import { SourceFileDestination } from "./SourceFileDestination";
 
 /**
  * Represents a file-mapping for a WoltLab Suite Core-component.
  */
-export class SourceFileMapping<T extends IWSCPackageSettings> implements IFileMapping<T>
+export class SourceFileMapping<T extends IWSCPackageSettings> implements IInteractiveFileMapping<T>
 {
     /**
      * The generator of the file-mapping.
@@ -36,7 +36,7 @@ export class SourceFileMapping<T extends IWSCPackageSettings> implements IFileMa
     /**
      * The destination of the file.
      */
-    private destination: string | IComponentDestination<T> | ((answers: T) => string | Promise<string>);
+    private destination: IComponentDestination<T>;
 
     /**
      * Initializes a new instance of the `WSCFileMapping<T>` class.
@@ -44,22 +44,12 @@ export class SourceFileMapping<T extends IWSCPackageSettings> implements IFileMa
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IFileMapping<T>)
+    public constructor(generator: Generator<T>, options: IInteractiveFileMapping<T>)
     {
         this.generator = generator;
         this.Tag = options.Tag;
         this.Source = options.Source;
-
-        if (
-            typeof options.Destination !== "string" &&
-            typeof options.Destination !== "function")
-        {
-            this.Destination = new ComponentSourceFileDestination(generator, options.Destination);
-        }
-        else
-        {
-            this.Destination = options.Destination;
-        }
+        this.Destination = new SourceFileDestination(generator, options.Destination);
 
         this.Context = (answers, source, destination) =>
         {
