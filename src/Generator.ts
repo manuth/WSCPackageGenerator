@@ -186,6 +186,14 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
                                     question.default = fileMapping.Destination.Default;
                                 }
 
+                                if (isNullOrUndefined(fileMapping.Destination.GetResult))
+                                {
+                                    fileMapping.Destination.GetResult = (answers) =>
+                                    {
+                                        return answers[GeneratorSetting.ComponentPaths][component.ID][i];
+                                    };
+                                }
+
                                 questions.push(question as YoQuestion);
                             }
                         }
@@ -247,7 +255,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
                         }
                         else
                         {
-                            destinationPath = this.Settings[GeneratorSetting.ComponentPaths][component.ID][settingsIndex++];
+                            destinationPath = fileMapping.Destination.GetResult(this.Settings);
                         }
 
                         sourcePath = (isNullOrUndefined(sourcePath) || Path.isAbsolute(sourcePath)) ? sourcePath : this.templatePath(sourcePath);
