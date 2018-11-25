@@ -2,161 +2,42 @@ import escapeStringRegexp = require("escape-string-regexp");
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
-import { IWSCPackageSettings } from "./generators/app/IWSCPackageSettings";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IComponentDestination } from "./IComponentDestination";
+import { IGeneratorSettings } from "./IGeneratorSettings";
 import { IInteractiveFileMapping } from "./IInteractiveFileMapping";
 import { SourceFileDestination } from "./SourceFileDestination";
+import { TypeScriptFileMapping } from "./TypeScriptFileMapping";
 
 /**
  * Represents a file-mapping for a WoltLab Suite Core-component.
  */
-export class SourceFileMapping<T extends IWSCPackageSettings> implements IInteractiveFileMapping<T>
+export class SourceFileMapping<T extends IGeneratorSettings> extends TypeScriptFileMapping<T> implements IInteractiveFileMapping<T>
 {
     /**
-     * The generator of the file-mapping.
+     * The destination of the file-mapping.
      */
-    private generator: Generator<T>;
+    private interactiveDestination: IComponentDestination<T>;
 
     /**
-     * The tag of the file-mapping.
-     */
-    private tag: string;
-
-    /**
-     * The source of the file.
-     */
-    private source: string | ((answers: T) => string | Promise<string>);
-
-    /**
-     * The context for copying the file.
-     */
-    private context: ((answers: T, srouce: string, destination: string) => any | Promise<any>);
-
-    /**
-     * The destination of the file.
-     */
-    private destination: IComponentDestination<T>;
-
-    /**
-     * Initializes a new instance of the `WSCFileMapping<T>` class.
+     * Initializes a new instance of the `SourceFileMapping<T>` class.
      *
      * @param options
      * The options for the initialization.
      */
     public constructor(generator: Generator<T>, id: string, options: IInteractiveFileMapping<T>)
     {
-        this.generator = generator;
-        this.Tag = options.Tag;
-        this.Source = options.Source;
+        super(generator, options);
         this.Destination = new SourceFileDestination(generator, id, options.Destination);
-
-        this.Context = (answers, source, destination) =>
-        {
-            let result: any | Promise<any>;
-
-            if (!isNullOrUndefined(options.Context))
-            {
-                result = options.Context(answers, source, destination);
-            }
-            else
-            {
-                result = {};
-            }
-
-            if (result instanceof Promise)
-            {
-                return (async () =>
-                {
-                    return this.ExtendContext(await result, answers, source, destination);
-                })();
-            }
-            else
-            {
-                return this.ExtendContext(result, answers, source, destination);
-            }
-        };
-    }
-
-    /**
-     * Gets the generator of the file-mapping.
-     */
-    public get Generator()
-    {
-        return this.generator;
-    }
-
-    public get Tag()
-    {
-        return this.tag;
-    }
-
-    public set Tag(value)
-    {
-        this.tag = value;
-    }
-
-    public get Source()
-    {
-        return this.source;
-    }
-
-    public set Source(value)
-    {
-        this.source = value;
-    }
-
-    public get Context()
-    {
-        return this.context;
-    }
-
-    public set Context(value)
-    {
-        this.context = value;
     }
 
     public get Destination()
     {
-        return this.destination;
+        return this.interactiveDestination;
     }
 
     public set Destination(value)
     {
-        this.destination = value;
-    }
-
-    /**
-     * Extends the context by some default values.
-     *
-     * @param context
-     * The context to extend.
-     */
-    protected ExtendContext(context: any, answers: T, source: string, destination: string)
-    {
-        Object.assign(
-            context,
-            {
-                relativePackage: (() =>
-                {
-                    let result = Path.posix.normalize(
-                        Path.relative(Path.dirname(destination), Path.join(answers[WSCPackageSetting.Destination], this.Generator.sourcePath())).replace(
-                            new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-                    if (!result.startsWith("."))
-                    {
-                        result = "./" + result;
-                    }
-
-                    if (!result.endsWith("/"))
-                    {
-                        result = result + "/";
-                    }
-
-                    return result;
-                })()
-            });
-
-        return context;
+        this.Destination = value;
     }
 }

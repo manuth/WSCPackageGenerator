@@ -11,6 +11,7 @@ import { Generator } from "../../Generator";
 import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { ThemeDestination } from "../../ThemeDestination";
+import { TypeScriptFileMapping } from "../../TypeScriptFileMapping";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
@@ -482,11 +483,26 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
-        CopyTemplate(this.templatePath("package.json.ejs"), this.destinationPath("package.json"));
-        CopyTemplate(this.templatePath("Package.ts.ejs"), this.destinationPath(this.metaPath("Package.ts")));
-        CopyTemplate(this.templatePath("README.md.ejs"), this.destinationPath("README.md"));
+        this.fs.copyTpl(this.templatePath("package.json.ejs"), this.destinationPath("package.json"), { Settings: this.Settings });
+        this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), { Settings: this.Settings });
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
         this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
+
+        this.ProcessFile(
+            new TypeScriptFileMapping(
+                this,
+                {
+                    Source: this.templatePath("Package.ts.ejs"),
+                    Context: (answers) =>
+                    {
+                        return {
+                            Settings: answers,
+                            components: answers[GeneratorSetting.Components]
+                        };
+                    },
+                    Destination: this.destinationPath(this.metaPath("Package.ts"))
+                }));
+
         return super.writing();
     }
 

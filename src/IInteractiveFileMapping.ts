@@ -7,8 +7,5 @@ import { IFileMapping } from "./IFileMapping";
  */
 export interface IInteractiveFileMapping<T extends Answers> extends IFileMapping<T>
 {
-    /**
-     * Gets or sets the destination to save the component to.
-     */
     Destination: IComponentDestination<T>;
 }
