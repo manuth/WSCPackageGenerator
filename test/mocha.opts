@@ -1,4 +1,4 @@
 WSCPackage/lib/tests
-WSCPackageGenerator/lib/tests
+lib/tests
 --ui tdd
 --bail
