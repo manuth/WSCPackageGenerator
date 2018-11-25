@@ -4,6 +4,9 @@ import * as FileSystem from "fs-extra";
 import * as OS from "os";
 import { TempDirectory } from "temp-filesystem";
 import { Theme } from "../../../System/Customization/Presentation/Themes/Theme";
+import { ThemeInstruction } from "../../../System/PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
+import { Package } from "../../../System/PackageSystem/Package";
+import { Person } from "../../../System/PackageSystem/Person";
 
 suite(
     "Theme",
@@ -19,6 +22,7 @@ suite(
         }
 
         let theme: Theme;
+        let author: Person;
         let tempDir: TempDirectory;
         let customScss: string;
         let variables: IVariable[] = [
@@ -71,13 +75,29 @@ suite(
         suiteSetup(
             async () =>
             {
+                author = new Person(
+                    {
+                        Name: "John Doe",
+                        URL: "example.com"
+                    });
+
+                let $package = new Package(
+                    {
+                        DisplayName: {},
+                        Author: author,
+                        Identifier: "test",
+                        InstallSet: {
+                            Instructions: []
+                        }
+                    });
+
                 tempDir = new TempDirectory();
                 customScss = dedent(
                     `
-                    :root
-                    {
-                        color: red !important;
-                    }`);
+                        :root
+                        {
+                            color: red !important;
+                        }`);
 
                 let customScssFileName: string = tempDir.MakePath("custom.scss");
                 let scssOverrideFileName: string = tempDir.MakePath("override.scss");
@@ -112,21 +132,38 @@ suite(
                             },
                             {}));
 
-                theme = new Theme(
-                    null,
+                let instruction = new ThemeInstruction(
                     {
-                        Name: "test",
-                        DisplayName: {},
-                        CustomScssFileName: customScssFileName,
-                        ScssOverrideFileName: scssOverrideFileName,
-                        VariableFileName: variableFileName
+                        Theme: {
+                            Name: "test",
+                            DisplayName: {},
+                            CustomScssFileName: customScssFileName,
+                            ScssOverrideFileName: scssOverrideFileName,
+                            VariableFileName: variableFileName
+                        }
                     });
+
+                $package.InstallSet.push(instruction);
+                theme = instruction.Theme;
             });
 
         suiteTeardown(
             () =>
             {
                 tempDir.Dispose();
+            });
+
+        suite(
+            "Author",
+            () =>
+            {
+                test(
+                    "Checking whether the `Author`-property equals the author of the package if no author is specified...",
+                    () =>
+                    {
+                        assert.strictEqual(theme.Author.Name, author.Name);
+                        assert.strictEqual(theme.Author.URL, author.URL);
+                    });
             });
 
         suite(

@@ -7,7 +7,7 @@ import { isNullOrUndefined } from "util";
 import { Component } from "../../../PackageSystem/Component";
 import { FileDescriptor } from "../../../PackageSystem/FileDescriptor";
 import { ThemeInstruction } from "../../../PackageSystem/Instructions/Customization/Presentation/ThemeInstruction";
-import { ModuleInfo } from "../../../PackageSystem/ModuleInfo";
+import { Person } from "../../../PackageSystem/Person";
 import { ImageDirectoryDescriptor } from "./ImageDirectoryDescriptor";
 import { IThemeOptions } from "./IThemeOptions";
 import { SassVariableParser } from "./SassVariableParser";
@@ -68,7 +68,7 @@ export class Theme extends Component
         super({
             Name: options.Name,
             DisplayName: options.DisplayName,
-            Version: options.Version || new ModuleInfo().Version,
+            Version: options.Version,
             Author: options.Author,
             CreationDate: options.CreationDate,
             Description: options.Description,
@@ -118,6 +118,15 @@ export class Theme extends Component
         }
 
         this.ParseVariables(variables);
+    }
+
+    public get Author(): Person
+    {
+        return super.Author ||
+            ((
+                !isNullOrUndefined(this.Instruction) &&
+                !isNullOrUndefined(this.Instruction.Collection) &&
+                !isNullOrUndefined(this.Instruction.Collection.Package)) ? this.Instruction.Collection.Package.Author : null);
     }
 
     /**

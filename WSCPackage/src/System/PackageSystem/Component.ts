@@ -1,7 +1,6 @@
 import { isNullOrUndefined } from "util";
 import { Localization } from "../Globalization/Localization";
 import { IComponentOptions } from "./IComponentOptions";
-import { ModuleInfo } from "./ModuleInfo";
 import { Person } from "./Person";
 
 /**
@@ -27,7 +26,7 @@ export abstract class Component
     /**
      * The author of the component.
      */
-    private author: Person = new ModuleInfo().Author;
+    private author: Person = null;
 
     /**
      * The creation-date of the component.
@@ -42,7 +41,7 @@ export abstract class Component
     /**
      * The license of the component.
      */
-    private license: string = new ModuleInfo().License;
+    private license: string = null;
 
     /**
      * Initializes a new instance of the `Component` class.

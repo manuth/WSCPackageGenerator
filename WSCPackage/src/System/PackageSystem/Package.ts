@@ -5,8 +5,8 @@ import { FileDescriptor } from "./FileDescriptor";
 import { InstructionSet } from "./Instructions/InstructionSet";
 import { UpdateInstructionSet } from "./Instructions/UpdateInstructionSet";
 import { IPackageOptions } from "./IPackageOptions";
-import { ModuleInfo } from "./ModuleInfo";
 import { OptionalPackageDescriptor } from "./OptionalPackageDescriptor";
+import { Person } from "./Person";
 import { RequiredPackageDescriptor } from "./RequiredPackageDescriptor";
 
 /**
@@ -55,10 +55,13 @@ export class Package extends Component
     public constructor(options: IPackageOptions)
     {
         super({
-            Name: options.Name || new ModuleInfo().Name,
+            Name: options.Name,
             DisplayName: options.DisplayName,
-            Version: options.Version || new ModuleInfo().Version,
-            Author: options.Author,
+            Version: options.Version,
+            Author: options.Author || new Person(
+                {
+                    Name: null
+                }),
             CreationDate: options.CreationDate,
             Description: options.Description,
             License: options.License
