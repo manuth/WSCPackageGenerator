@@ -1,7 +1,7 @@
 import { ListenerEnvironment } from "<%= relativePackage %>System/Events/ListenerEnvironment";
 import { EventListenerInstruction } from "<%= relativePackage %>System/PackageSystem/Instructions/Events/EventListenerInstruction";
 
-const eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+let eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
     FileName: "eventListeners.xml",
     Listeners: [
     ]

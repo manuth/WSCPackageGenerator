@@ -1,6 +1,6 @@
 import { CronJobInstruction } from "<%= relativePackage %>System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 
-const cronjobInstruction: CronJobInstruction = new CronJobInstruction({
+let cronjobInstruction: CronJobInstruction = new CronJobInstruction({
     FileName: "cronJobs.xml",
     CronJobs: [
     ]
