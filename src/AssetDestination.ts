@@ -19,8 +19,8 @@ export class AssetDestination<T extends IGeneratorSettings> extends ComponentDes
         super(generator, options);
     }
 
-    protected MakeRootPath(...path: string[])
+    protected get RootDir()
     {
-        return super.MakeRootPath(this.Generator.assetPath(), ...path);
+        return this.Generator.assetPath();
     }
 }

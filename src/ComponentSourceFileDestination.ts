@@ -19,8 +19,8 @@ export class ComponentSourceFileDestination<T extends IGeneratorSettings> extend
         super(generator, id, options);
     }
 
-    protected MakeRootPath(...path: string[])
+    protected get RootDir()
     {
-        return super.MakeRootPath(this.Generator.componentPath(), ...path);
+        return this.Generator.componentPath();
     }
 }

@@ -114,6 +114,14 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
     }
 
     /**
+     * Gets or sets the root the destination is relative to.
+     */
+    protected get RootDir()
+    {
+        return "";
+    }
+
+    /**
      * Gets the result of the destination.
      *
      * @param answers
@@ -175,6 +183,6 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
      */
     protected MakeRootPath(...path: string[])
     {
-        return path.join(Path.sep);
+        return [this.RootDir, ...path].join(Path.sep);
     }
 }

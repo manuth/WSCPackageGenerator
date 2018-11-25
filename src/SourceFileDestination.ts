@@ -37,6 +37,11 @@ export class SourceFileDestination<T extends IGeneratorSettings> extends Compone
         return this.id;
     }
 
+    protected get RootDir()
+    {
+        return this.Generator.sourcePath();
+    }
+
     public GetResult?(answers: T)
     {
         return answers[GeneratorSetting.ComponentSourceFiles][this.ID];
@@ -52,10 +57,5 @@ export class SourceFileDestination<T extends IGeneratorSettings> extends Compone
         {
             return super.Validate(input, answers);
         }
-    }
-
-    protected MakeRootPath(...path: string[])
-    {
-        return super.MakeRootPath(this.Generator.componentPath(), ...path);
     }
 }

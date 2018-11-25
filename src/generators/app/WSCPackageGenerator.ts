@@ -418,7 +418,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
             this.destinationPath(this.metaPath("Package.ts")),
             {
                 Settings: this.Settings,
-                components: this.Settings[GeneratorSetting.Components]
+                components: this.Settings[GeneratorSetting.Components],
+                componentPaths: this.Settings[GeneratorSetting.ComponentSourceFiles]
             });
         return super.writing();
     }
