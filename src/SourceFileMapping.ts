@@ -44,12 +44,12 @@ export class SourceFileMapping<T extends IWSCPackageSettings> implements IIntera
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IInteractiveFileMapping<T>)
+    public constructor(generator: Generator<T>, id: string, options: IInteractiveFileMapping<T>)
     {
         this.generator = generator;
         this.Tag = options.Tag;
         this.Source = options.Source;
-        this.Destination = new SourceFileDestination(generator, options.Destination);
+        this.Destination = new SourceFileDestination(generator, id, options.Destination);
 
         this.Context = (answers, source, destination) =>
         {

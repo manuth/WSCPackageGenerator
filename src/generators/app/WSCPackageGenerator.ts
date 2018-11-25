@@ -128,8 +128,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.Files,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/Files.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store your file-mappings?",
@@ -144,8 +144,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.CronJobs,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/CronJobs.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store your cron-jobs?",
@@ -160,8 +160,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.PHPScript,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/PHPScript.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the settings for the PHP-script?",
@@ -176,8 +176,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.SQLScript,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/SQLScript.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the settings for the SQL-script?",
@@ -197,8 +197,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.Translations,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/Translations.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the translations?",
@@ -213,8 +213,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.ErrorMessages,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/ErrorMessages.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the error-messages?",
@@ -234,8 +234,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.ACPOptions,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/Options.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the Admin Control-Panel Options?",
@@ -250,8 +250,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.UserOptions,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/UserOptions.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the User-Options?",
@@ -266,8 +266,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.GroupOptions,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/GroupOptions.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the Group-Permission Options?",
@@ -286,10 +286,10 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             DisplayName: "Themes",
                             FileMappings: [
                                 {
-                                    Tag: Tag.Main,
                                     Source: null,
                                     Destination: new ThemeDestination(
                                         this,
+                                        WSCPackageComponent.Themes,
                                         {
                                             Message: "Where do you want to store themes?",
                                             Default: "Themes"
@@ -307,8 +307,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.Emojis,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/Emojis.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the emojis?",
@@ -323,8 +323,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.BBCodes,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/BBCodes.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the BB-Codes?",
@@ -339,8 +339,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.Templates,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/Templates.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the templates?",
@@ -355,8 +355,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.ACPTemplates,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/ACPTemplates.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the Admin Control Panel-Templates?",
@@ -376,8 +376,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.EventListeners,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/EventListeners.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the Event-Listeners?",
@@ -392,8 +392,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             FileMappings: [
                                 new ComponentSourceFileMapping(
                                     this,
+                                    WSCPackageComponent.TemplateListeners,
                                     {
-                                        Tag: Tag.Main,
                                         Source: "./components/TemplateListeners.ts.ejs",
                                         Destination: {
                                             Message: "Where do you want to store the Template-Listeners?",
@@ -445,44 +445,30 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                         {
                             let result: { [key: string]: string } = {};
 
-                            for (let category of this.ProvidedComponents.Categories)
+                            for (let component in this.Settings[GeneratorSetting.ComponentSourceFiles])
                             {
-                                for (let component of category.Components)
+                                let path = this.Settings[GeneratorSetting.ComponentSourceFiles][component];
+                                path = Path.relative(Path.dirname(destination), path);
+                                path = Path.posix.normalize(path.replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
+
+                                switch (component)
                                 {
-                                    if (this.Settings[GeneratorSetting.Components].includes(component.ID))
-                                    {
-                                        let fileMappings = await this.ResolveValue(component.FileMappings, this.Settings);
-
-                                        for (let i = 0; i < fileMappings.length; i++)
+                                    case WSCPackageComponent.Themes:
+                                        break;
+                                    default:
+                                        if (/\.(js|ts)$/.test(path))
                                         {
-                                            if (fileMappings[i].Tag === Tag.Main)
-                                            {
-                                                let path = this.Settings[GeneratorSetting.ComponentPaths][component.ID][i];
-                                                path = Path.relative(Path.dirname(destination), path);
-                                                path = Path.posix.normalize(path.replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-                                                switch (component.ID)
-                                                {
-                                                    case WSCPackageComponent.Themes:
-                                                        break;
-                                                    default:
-                                                        if (/\.(js|ts)$/.test(path))
-                                                        {
-                                                            path = Path.posix.join(Path.posix.dirname(path), Path.posix.parse(path).name);
-                                                        }
-
-                                                        if (!path.startsWith("."))
-                                                        {
-                                                            path = "./" + path;
-                                                        }
-                                                        break;
-                                                }
-
-                                                result[component.ID] = path;
-                                            }
+                                            path = Path.posix.join(Path.posix.dirname(path), Path.posix.parse(path).name);
                                         }
-                                    }
+
+                                        if (!path.startsWith("."))
+                                        {
+                                            path = `./${path}`;
+                                        }
+                                        break;
                                 }
+
+                                result[component] = path;
                             }
 
                             return result;

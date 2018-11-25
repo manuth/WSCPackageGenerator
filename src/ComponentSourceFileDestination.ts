@@ -14,9 +14,9 @@ export class ComponentSourceFileDestination<T extends IGeneratorSettings> extend
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IComponentDestination<T>)
+    public constructor(generator: Generator<T>, id: string, options: IComponentDestination<T>)
     {
-        super(generator, options);
+        super(generator, id, options);
     }
 
     protected MakeRootPath(...path: string[])

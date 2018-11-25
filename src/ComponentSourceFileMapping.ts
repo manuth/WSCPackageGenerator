@@ -21,9 +21,9 @@ export class ComponentSourceFileMapping<T extends IWSCPackageSettings> extends S
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IInteractiveFileMapping<T>)
+    public constructor(generator: Generator<T>, id: string, options: IInteractiveFileMapping<T>)
     {
-        super(generator, options);
-        this.Destination = new ComponentSourceFileDestination(generator, options.Destination);
+        super(generator, id, options);
+        this.Destination = new ComponentSourceFileDestination(generator, id, options.Destination);
     }
 }

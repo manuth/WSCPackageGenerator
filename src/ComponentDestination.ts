@@ -114,6 +114,14 @@ export abstract class ComponentDestination<T extends IGeneratorSettings> impleme
     }
 
     /**
+     * Gets the result of the destination.
+     *
+     * @param answers
+     * The answers to the questions.
+     */
+    public GetResult?(answers: T): string;
+
+    /**
      * Transforms the user-input.
      *
      * @param input

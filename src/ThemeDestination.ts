@@ -15,8 +15,8 @@ export class ThemeDestination<T extends IGeneratorSettings> extends SourceFileDe
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IComponentDestination<T>)
+    public constructor(generator: Generator<T>, id: string, options: IComponentDestination<T>)
     {
-        super(generator, options);
+        super(generator, id, options);
     }
 }
