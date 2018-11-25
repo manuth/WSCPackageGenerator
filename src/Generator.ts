@@ -171,7 +171,6 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
                             {
                                 let question: Question<T> = {
                                     type: "input",
-                                    name: `${GeneratorSetting.ComponentPaths}[${JSON.stringify(component.ID)}][${i}]`,
                                     message: fileMapping.Destination.Message,
                                     when: answers =>
                                     {
@@ -191,6 +190,7 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
 
                                 if (isNullOrUndefined(fileMapping.Destination.GetResult))
                                 {
+                                    question.name = `${GeneratorSetting.ComponentPaths}[${JSON.stringify(component.ID)}][${i}]`;
                                     fileMapping.Destination.GetResult = (answers) =>
                                     {
                                         return answers[GeneratorSetting.ComponentPaths][component.ID][i];
