@@ -17,17 +17,6 @@ import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
 
 /**
- * Represents a tag of a file-mapping.
- */
-enum Tag
-{
-    /**
-     * Indicates a main-file.
-     */
-    Main = "main"
-}
-
-/**
  * Provides the functionality to generate a WSC-Package.
  */
 export class WSCPackageGenerator extends Generator<IWSCPackageSettings>

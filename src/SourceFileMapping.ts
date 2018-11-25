@@ -38,6 +38,6 @@ export class SourceFileMapping<T extends IGeneratorSettings> extends TypeScriptF
 
     public set Destination(value)
     {
-        this.Destination = value;
+        this.interactiveDestination = value;
     }
 }
