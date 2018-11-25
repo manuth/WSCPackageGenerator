@@ -61,7 +61,7 @@ typings/
 .next
 
 # Source-files
-WSCPackageGenerator/[Ss]rc/
+[Ss]rc/
 
 # Build results
 /[Ll]ib/

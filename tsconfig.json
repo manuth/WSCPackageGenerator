@@ -2,13 +2,15 @@
     "extends": "./tsconfig.base.json",
     "references": [
         {
-            "path": "./WSCPackageGenerator"
-        },
-        {
             "path": "./WSCPackage"
         }
     ],
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./lib"
+    },
     "exclude": [
-        "**/*.*"
+        "./lib/**/*.*",
+        "./WSCPackage/**/*.*"
     ]
 }
