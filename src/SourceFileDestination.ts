@@ -1,5 +1,4 @@
 import escapeStringRegexp = require("escape-string-regexp");
-import { Answers } from "inquirer";
 import Path = require("path");
 import { ComponentDestination } from "./ComponentDestination";
 import { Generator } from "./Generator";
@@ -12,7 +11,7 @@ import { IGeneratorSettings } from "./IGeneratorSettings";
 export class SourceFileDestination<T extends IGeneratorSettings> extends ComponentDestination<T>
 {
     /**
-     * Initializes a new instance of the `WSCComponentDestination<T>` class.
+     * Initializes a new instance of the `SourceFileDestination<T>` class.
      *
      * @param options
      * The options for the initialization.

@@ -1,16 +1,15 @@
-import Path = require("path");
 import { Generator } from "./Generator";
 import { IComponentDestination } from "./IComponentDestination";
 import { IGeneratorSettings } from "./IGeneratorSettings";
 import { SourceFileDestination } from "./SourceFileDestination";
 
 /**
- * Represents the destination of a WoltLab Suite Core-theme.
+ * Represents the destination of a WoltLab Suite Core-component.
  */
-export class ThemeDestination<T extends IGeneratorSettings> extends SourceFileDestination<T>
+export class ComponentSourceFileDestination<T extends IGeneratorSettings> extends SourceFileDestination<T>
 {
     /**
-     * Initializes a new instance of the `ThemeDestination<T>` class.
+     * Initializes a new instance of the `ComponentSourceFileDestination<T>` class.
      *
      * @param options
      * The options for the initialization.
@@ -18,5 +17,10 @@ export class ThemeDestination<T extends IGeneratorSettings> extends SourceFileDe
     public constructor(generator: Generator<T>, options: IComponentDestination<T>)
     {
         super(generator, options);
+    }
+
+    protected MakeRootPath(...path: string[])
+    {
+        return super.MakeRootPath(this.Generator.componentPath(), ...path);
     }
 }
