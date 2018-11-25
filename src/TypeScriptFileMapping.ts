@@ -1,8 +1,4 @@
-import escapeStringRegexp = require("escape-string-regexp");
-import Path = require("path");
-import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
-import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IComponentDestination } from "./IComponentDestination";
 import { IFileMapping } from "./IFileMapping";
 import { IGeneratorSettings } from "./IGeneratorSettings";
@@ -46,35 +42,8 @@ export class TypeScriptFileMapping<T extends IGeneratorSettings> implements IFil
     public constructor(generator: Generator<T>, options: IFileMapping<T>)
     {
         this.generator = generator;
-        this.Tag = options.Tag;
         this.Source = options.Source;
         this.Destination = options.Destination;
-
-        this.Context = (answers, source, destination) =>
-        {
-            let result: any | Promise<any>;
-
-            if (!isNullOrUndefined(options.Context))
-            {
-                result = options.Context(answers, source, destination);
-            }
-            else
-            {
-                result = {};
-            }
-
-            if (result instanceof Promise)
-            {
-                return (async () =>
-                {
-                    return this.ExtendContext(await result, answers, source, destination);
-                })();
-            }
-            else
-            {
-                return this.ExtendContext(result, answers, source, destination);
-            }
-        };
     }
 
     /**
@@ -83,16 +52,6 @@ export class TypeScriptFileMapping<T extends IGeneratorSettings> implements IFil
     public get Generator()
     {
         return this.generator;
-    }
-
-    public get Tag()
-    {
-        return this.tag;
-    }
-
-    public set Tag(value)
-    {
-        this.tag = value;
     }
 
     public get Source()
@@ -125,37 +84,8 @@ export class TypeScriptFileMapping<T extends IGeneratorSettings> implements IFil
         this.destination = value;
     }
 
-    /**
-     * Extends the context by some default values.
-     *
-     * @param context
-     * The context to extend.
-     */
-    protected ExtendContext(context: any, answers: T, source: string, destination: string)
+    public Process(source: string, destination: string, context?: any)
     {
-        Object.assign(
-            context,
-            {
-                relativePackage: (() =>
-                {
-                    let result = Path.posix.normalize(
-                        Path.relative(Path.dirname(destination), Path.join(answers[WSCPackageSetting.Destination], this.Generator.sourcePath())).replace(
-                            new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-                    if (!result.startsWith("."))
-                    {
-                        result = "./" + result;
-                    }
-
-                    if (!result.endsWith("/"))
-                    {
-                        result = result + "/";
-                    }
-
-                    return result;
-                })()
-            });
-
-        return context;
+        this.Generator.CopyTypeScriptFile(source, destination, context);
     }
 }

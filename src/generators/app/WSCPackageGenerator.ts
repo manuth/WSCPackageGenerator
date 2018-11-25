@@ -11,7 +11,6 @@ import { Generator } from "../../Generator";
 import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { ThemeDestination } from "../../ThemeDestination";
-import { TypeScriptFileMapping } from "../../TypeScriptFileMapping";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
@@ -284,7 +283,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                             Message: "Where do you want to store themes?",
                                             Default: "Themes"
                                         }),
-                                    Processor: async (source, destination) =>
+                                    Process: async (source, destination) =>
                                     {
                                         await FileSystem.ensureDir(destination);
                                     }
@@ -407,68 +406,6 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     public async writing()
     {
         this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));
-
-        let CopyTemplate = async (source: string, destination: string) =>
-        {
-            let relativePackage = Path.posix.normalize(Path.relative(Path.dirname(destination), this.sourcePath()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-            if (!relativePackage.startsWith("."))
-            {
-                relativePackage = "./" + relativePackage;
-            }
-
-            if (!relativePackage.endsWith("/"))
-            {
-                relativePackage = relativePackage + "/";
-            }
-
-            this.fs.copyTpl(
-                source,
-                destination,
-                {
-                    destinationFile: destination,
-                    packagePath: this.Settings[WSCPackageSetting.Destination],
-                    relativePackage,
-                    components: this.Settings[GeneratorSetting.Components],
-                    componentPaths: await (
-                        async () =>
-                        {
-                            let result: { [key: string]: string } = {};
-
-                            for (let component in this.Settings[GeneratorSetting.ComponentSourceFiles])
-                            {
-                                let path = this.Settings[GeneratorSetting.ComponentSourceFiles][component];
-                                path = Path.relative(Path.dirname(destination), path);
-                                path = Path.posix.normalize(path.replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-                                switch (component)
-                                {
-                                    case WSCPackageComponent.Themes:
-                                        break;
-                                    default:
-                                        if (/\.(js|ts)$/.test(path))
-                                        {
-                                            path = Path.posix.join(Path.posix.dirname(path), Path.posix.parse(path).name);
-                                        }
-
-                                        if (!path.startsWith("."))
-                                        {
-                                            path = `./${path}`;
-                                        }
-                                        break;
-                                }
-
-                                result[component] = path;
-                            }
-
-                            return result;
-                        })(),
-                    Path,
-                    process,
-                    Settings: this.Settings
-                });
-        };
-
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
         this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
@@ -476,22 +413,13 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), { Settings: this.Settings });
         this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
         this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
-
-        this.ProcessFile(
-            new TypeScriptFileMapping(
-                this,
-                {
-                    Source: this.templatePath("Package.ts.ejs"),
-                    Context: (answers) =>
-                    {
-                        return {
-                            Settings: answers,
-                            components: answers[GeneratorSetting.Components]
-                        };
-                    },
-                    Destination: this.destinationPath(this.metaPath("Package.ts"))
-                }));
-
+        this.CopyTypeScriptFile(
+            this.templatePath("Package.ts.ejs"),
+            this.destinationPath(this.metaPath("Package.ts")),
+            {
+                Settings: this.Settings,
+                components: this.Settings[GeneratorSetting.Components]
+            });
         return super.writing();
     }
 

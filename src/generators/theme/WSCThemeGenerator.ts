@@ -158,31 +158,14 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
     public async writing()
     {
         let themeFileName = this.destinationPath(this.sourcePath(this.Settings[WSCThemeSetting.Destination], this.Settings.name, "Theme.ts"));
-        let relativePackage = Path.posix.normalize(
-            Path.relative(
-                Path.dirname(themeFileName),
-                this.sourcePath()).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-        if (!relativePackage.startsWith("."))
-        {
-            relativePackage = "./" + relativePackage;
-        }
-
-        if (!relativePackage.endsWith("/"))
-        {
-            relativePackage = relativePackage + "/";
-        }
-
-        this.fs.copyTpl(
+        this.CopyTypeScriptFile(
             this.templatePath("Theme.ts.ejs"),
             themeFileName,
             {
-                relativePackage,
                 Settings: this.Settings,
                 Components: this.Settings[GeneratorSetting.Components],
                 ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
             });
-
         return super.writing();
     }
 
