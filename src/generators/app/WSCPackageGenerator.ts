@@ -12,6 +12,7 @@ import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { ThemeDestination } from "../../ThemeDestination";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
+import { PackageContext } from "./PackageContext";
 import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
 
@@ -406,9 +407,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     public async writing()
     {
         this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));
-        this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
-        this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
-        this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
+
         this.fs.copyTpl(
             this.templatePath("package.json.ejs"),
             this.destinationPath("package.json"),
@@ -418,17 +417,32 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 Author: this.Settings[WSCPackageSetting.Author],
                 HomePage: this.Settings[WSCPackageSetting.HomePage]
             });
-        this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), { Settings: this.Settings });
-        this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
-        this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
+
         this.CopyTypeScriptFile(
             this.templatePath("Package.ts.ejs"),
             this.destinationPath(this.metaPath("Package.ts")),
+            (() =>
             {
-                Settings: this.Settings,
-                components: this.Settings[GeneratorSetting.Components],
-                componentPaths: this.Settings[GeneratorSetting.ComponentSourceFiles]
-            });
+                let context = new PackageContext(this);
+
+                return {
+                    Identifier: context.Identifier,
+                    Name: context.Name,
+                    DisplayName: context.DisplayName,
+                    Author: context.Author,
+                    HomePage: context.HomePage,
+                    CreationDate: context.CreationDate,
+                    Description: context.Description,
+                    Instructions: context.Instructions
+                };
+            })());
+
+        this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
+        this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
+        this.fs.copy(this.templatePath("_.gitignore"), this.destinationPath(".gitignore"));
+        this.fs.copyTpl(this.templatePath("README.md.ejs"), this.destinationPath("README.md"), { Settings: this.Settings });
+        this.fs.copy(this.templatePath("_tsconfig.json"), this.destinationPath("tsconfig.json"));
+        this.fs.copy(this.templatePath("wsc-package-quickstart.md"), this.destinationPath("wsc-package-quickstart.md"));
         return super.writing();
     }
 
