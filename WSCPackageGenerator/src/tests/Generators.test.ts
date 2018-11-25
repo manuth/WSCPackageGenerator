@@ -61,14 +61,14 @@ suite(
                                 });
                     });
 
-                test("Checking whether the generator can be executed...",
+                test(
+                    "Checking whether the generator can be executed...",
                     async function ()
                     {
                         this.slow(5000);
                         this.timeout(5000);
                         tempDir = await packageContext.toPromise();
                         tsConfigFile = Path.join(tempDir, "tsconfig.json");
-                        packageFileName = Path.join(tempDir, "Package");
                     });
 
                 test(
@@ -152,6 +152,9 @@ suite(
                             }).emit();
 
                         assert.strictEqual(compilerResult.emitSkipped, false);
+
+                        let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
+                        packageFileName = Path.join(baseDir, "Meta", "Package");
                     });
 
                 test(
@@ -182,7 +185,6 @@ suite(
                         themePath = "MyThemes";
                         name = "MyTheme";
                         displayName = "This is a test";
-                        themeFileName = Path.join(tempDir, themePath, name, "Theme");
                         themeContext = helpers.run(
                             generatorRoot,
                             {
@@ -225,6 +227,9 @@ suite(
                             }).emit();
 
                         assert.strictEqual(compilerResult.emitSkipped, false);
+
+                        let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
+                        themeFileName = Path.join(baseDir, themePath, name, "Theme");
                     });
 
                 test(
