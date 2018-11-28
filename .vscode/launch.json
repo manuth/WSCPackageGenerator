@@ -7,14 +7,15 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Yeoman",
             "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
             "args": [
                 "wsc-package"
             ],
-            "console": "externalTerminal",
-            "preLaunchTask": "Compile",
-            "cwd": "${workspaceFolder}/../../Privat",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Build",
+            "cwd": "${workspaceFolder}/..",
             "sourceMaps": true
         },
         {
