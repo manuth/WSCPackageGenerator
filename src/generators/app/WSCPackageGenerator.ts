@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import escapeStringRegexp = require("escape-string-regexp");
 import * as FileSystem from "fs-extra";
 import { Question } from "inquirer";
 import kebabCase = require("lodash.kebabcase");
@@ -8,7 +7,6 @@ import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { ComponentSourceFileMapping } from "../../ComponentSourceFileMapping";
 import { Generator } from "../../Generator";
-import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { ThemeDestination } from "../../ThemeDestination";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";

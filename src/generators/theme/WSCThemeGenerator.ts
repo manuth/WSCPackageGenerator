@@ -1,8 +1,5 @@
 import chalk from "chalk";
-import escapeStringRegexp = require("escape-string-regexp");
-import * as FileSystem from "fs-extra";
 import { Question } from "inquirer";
-import * as Path from "path";
 import { isNullOrUndefined } from "util";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");

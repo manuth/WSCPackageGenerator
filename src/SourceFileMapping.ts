@@ -1,8 +1,4 @@
-import escapeStringRegexp = require("escape-string-regexp");
-import Path = require("path");
-import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
-import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IComponentDestination } from "./IComponentDestination";
 import { IGeneratorSettings } from "./IGeneratorSettings";
 import { IInteractiveFileMapping } from "./IInteractiveFileMapping";

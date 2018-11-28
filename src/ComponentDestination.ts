@@ -1,5 +1,4 @@
-import escapeStringRegexp = require("escape-string-regexp");
-import { Answers, Question } from "inquirer";
+import { Question } from "inquirer";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";

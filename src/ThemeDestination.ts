@@ -1,4 +1,3 @@
-import Path = require("path");
 import { Generator } from "./Generator";
 import { IComponentDestination } from "./IComponentDestination";
 import { IGeneratorSettings } from "./IGeneratorSettings";
