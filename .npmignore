@@ -61,10 +61,10 @@ typings/
 .next
 
 # Source-files
-[Ss]rc/
+/[Ss]rc/
 
 # Build results
-/[Ll]ib/
+WSCPackage/[Ll]ib/
 
 # TypeScript config-files
 tsconfig.json
