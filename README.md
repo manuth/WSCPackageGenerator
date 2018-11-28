@@ -18,8 +18,8 @@ yo wsc-package
 
 ## Generator Output
   - WoltLab Suite Core Package
-    - Meta-Data Written in TypeScript
-    - Components Written in TypeScript (optional)
+    - Meta-Data written in TypeScript
+    - Components written in TypeScript (optional)
   - NPM-scripts for...
     - Compiling the Package-Metadata
     - Compiling the Package-Metadata in Watched Mode
