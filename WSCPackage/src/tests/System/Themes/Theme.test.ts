@@ -118,7 +118,7 @@ suite(
                             }
                         ).join(OS.EOL));
 
-                await FileSystem.writeJson(
+                await FileSystem.writeJSON(
                     variableFileName,
                     variables.filter(
                         (variable: IVariable) =>

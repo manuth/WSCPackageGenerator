@@ -68,7 +68,7 @@ suite(
                 description["inv"] = invariantDescription;
 
                 let variableFile: TempFile = new TempFile({ postfix: ".json" });
-                await FileSystem.writeJson(variableFile.FullName, { wfcHeaderBackground: "red" });
+                await FileSystem.writeJSON(variableFile.FullName, { wfcHeaderBackground: "red" });
 
                 let themeInstruction: ThemeInstruction = new ThemeInstruction(
                     {

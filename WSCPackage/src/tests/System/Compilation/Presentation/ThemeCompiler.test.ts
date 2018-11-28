@@ -25,7 +25,7 @@ suite(
 
                 variableFileName = "myVariableFile.xml";
 
-                await FileSystem.writeJson(
+                await FileSystem.writeJSON(
                     variableFile.FullName,
                     {
                         wcfHeaderBackground: "red"
