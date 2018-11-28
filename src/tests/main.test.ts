@@ -2,5 +2,5 @@ suite(
     "Generator-Library",
     () =>
     {
-        require("./Generators.test");
+        require("./Generators/index.test");
     });

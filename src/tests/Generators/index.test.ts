@@ -5,8 +5,8 @@ import * as Path from "path";
 import * as ts from "typescript";
 import { isNullOrUndefined } from "util";
 import * as helpers from "yeoman-test";
-import { WSCPackageSetting } from "../generators/app/WSCPackageSetting";
-import { WSCThemeSetting } from "../generators/theme/WSCThemeSetting";
+import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";
+import { WSCThemeSetting } from "../../generators/theme/WSCThemeSetting";
 
 suite(
     "Generators",
