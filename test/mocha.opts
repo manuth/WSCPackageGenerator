@@ -1,4 +1,4 @@
-WSCPackage/lib/tests
-lib/tests
+./WSCPackage/lib/tests
+./lib/tests
 --ui tdd
 --bail
