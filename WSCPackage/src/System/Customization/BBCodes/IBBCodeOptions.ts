@@ -1,6 +1,9 @@
 import { ILocalization } from "../../Globalization/ILocalization";
 import { IBBCodeAttributeOptions } from "./IBBCodeAttributeOptions";
 
+/**
+ * Provides options for the `BBCode` class.
+ */
 export interface IBBCodeOptions
 {
     /**

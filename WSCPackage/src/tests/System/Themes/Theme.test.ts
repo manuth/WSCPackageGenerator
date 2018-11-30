@@ -12,6 +12,9 @@ suite(
     "Theme",
     () =>
     {
+        /**
+         * Represents a variable.
+         */
         interface IVariable
         {
             Name: string;

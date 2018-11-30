@@ -1,3 +1,6 @@
+/**
+ * Provides options for the `BBCodeAttribute` class.
+ */
 export interface IBBCodeAttributeOptions
 {
     /**

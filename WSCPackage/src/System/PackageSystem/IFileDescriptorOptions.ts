@@ -1,3 +1,6 @@
+/**
+ * Provides options for the `FileDescriptor` class.
+ */
 export interface IFileDescriptorOptions
 {
     /**
