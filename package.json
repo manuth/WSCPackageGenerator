@@ -22,7 +22,7 @@
     "rebuild": "npm run clean && npm run build",
     "watch": "tsc -b . --watch",
     "clean": "rimraf ./lib",
-    "lint": "tslint -p ./WSCPackage -t verbose && tslint -p ./WSCPackageGenerator -t verbose",
+    "lint": "tslint -p . -t verbose && tslint -p ./WSCPackage -t verbose",
     "test": "mocha",
     "prepare": "npm run rebuild"
   },
