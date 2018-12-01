@@ -4,37 +4,37 @@
 export enum WSCPackageSetting
 {
     /**
-     * Indicates the `Destination`.
+     * Indicates the `Destination` setting.
      */
     Destination = "destination",
 
     /**
-     * Indicates the `DisplayName`.
+     * Indicates the `DisplayName` setting.
      */
     DisplayName = "displayName",
 
     /**
-     * Indicates the `Name`.
+     * Indicates the `Name` setting.
      */
     Name = "name",
 
     /**
-     * Indicates the `Identifier`.
+     * Indicates the `Identifier` setting.
      */
     Identifier = "identifier",
 
     /**
-     * Indicates the `Description`.
+     * Indicates the `Description` setting.
      */
     Description = "description",
 
     /**
-     * Indicates the `Author`.
+     * Indicates the `Author` setting.
      */
     Author = "author",
 
     /**
-     * Indicates the `HomePage`.
+     * Indicates the `HomePage` setting.
      */
     HomePage = "authorURL"
 }
