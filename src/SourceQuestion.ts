@@ -1,14 +1,14 @@
 import escapeStringRegexp = require("escape-string-regexp");
-import { Question } from "inquirer";
+import { Question } from "extended-yo-generator";
 import Path = require("path");
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
-import { IGeneratorSettings } from "./IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
  * Represents a question for source-files.
  */
-export class SourceQuestion<T extends IGeneratorSettings> extends ComponentQuestion<T>
+export class SourceQuestion<T extends IWoltLabGeneratorSettings> extends ComponentQuestion<T>
 {
     /**
      * Initializes a new instance of the `SourceQuestion<T>` class.

@@ -1,12 +1,12 @@
-import { Question } from "inquirer";
+import { Question } from "extended-yo-generator";
 import { Generator } from "./Generator";
-import { IGeneratorSettings } from "./IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 import { SourceQuestion } from "./SourceQuestion";
 
 /**
  * Represents a question for a component-file.
  */
-export class WoltLabComponentQuestion<T extends IGeneratorSettings> extends SourceQuestion<T>
+export class WoltLabComponentQuestion<T extends IWoltLabGeneratorSettings> extends SourceQuestion<T>
 {
     /**
      * Initializes a new instance of the `WoltLabComponentQuestion<T>` class.

@@ -1,15 +1,15 @@
+import { IFileMapping } from "extended-yo-generator";
 import { Component } from "./Component";
 import { Generator } from "./Generator";
-import { IFileMapping } from "./IFileMapping";
-import { IGeneratorSettings } from "./IGeneratorSettings";
-import { IWoltLabComponent } from "./IWoltLabComponent";
+import { IComponent } from "./IComponent";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 import { SourceFileMapping } from "./SourceFileMapping";
 import { SourceQuestion } from "./SourceQuestion";
 
 /**
  * Represents a component which provides source-files.
  */
-export class SourceComponent<T extends IGeneratorSettings> extends Component<T>
+export class SourceComponent<T extends IWoltLabGeneratorSettings> extends Component<T>
 {
     /**
      * The generator this component belongs to.
@@ -25,7 +25,7 @@ export class SourceComponent<T extends IGeneratorSettings> extends Component<T>
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IWoltLabComponent<T>)
+    public constructor(generator: Generator<T>, options: IComponent<T>)
     {
         super(options);
         this.generator = generator;

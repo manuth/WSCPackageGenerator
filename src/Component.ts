@@ -1,15 +1,13 @@
-import { Question } from "inquirer";
+import { IComponent as IComponentBase, IFileMapping, Question } from "extended-yo-generator";
 import { isNullOrUndefined } from "util";
-import { GeneratorSetting } from "./GeneratorSetting";
+import { WoltLabGeneratorSetting } from "./GeneratorSetting";
 import { IComponent } from "./IComponent";
-import { IFileMapping } from "./IFileMapping";
-import { IGeneratorSettings } from "./IGeneratorSettings";
-import { IWoltLabComponent } from "./IWoltLabComponent";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
  * Represents a component of WoltLab.
  */
-export class Component<T extends IGeneratorSettings> implements IComponent<T>, IWoltLabComponent<T>
+export class Component<T extends IWoltLabGeneratorSettings> implements IComponentBase<T>, IComponent<T>
 {
     /**
      * The id of the component.
@@ -52,7 +50,7 @@ export class Component<T extends IGeneratorSettings> implements IComponent<T>, I
      * @param options
      * The options for the initialization.
      */
-    public constructor(options: IWoltLabComponent<T>)
+    public constructor(options: IComponent<T>)
     {
         this.ID = options.ID;
         this.DisplayName = options.DisplayName;
@@ -111,7 +109,7 @@ export class Component<T extends IGeneratorSettings> implements IComponent<T>, I
     public set Question(value)
     {
         this.question = value;
-        this.Question.name = `${GeneratorSetting.ComponentPaths}[${this.ID}]`;
+        this.Question.name = `${WoltLabGeneratorSetting.ComponentPaths}[${this.ID}]`;
     }
 
     public get AdditionalFiles()
@@ -161,7 +159,7 @@ export class Component<T extends IGeneratorSettings> implements IComponent<T>, I
                 {
                     Source: null,
                     ...fileMapping,
-                    Destination: (settings) => settings[GeneratorSetting.ComponentPaths][this.ID]
+                    Destination: (settings) => settings[WoltLabGeneratorSetting.ComponentPaths][this.ID]
                 });
 
             if (!isNullOrUndefined(additionalFiles))

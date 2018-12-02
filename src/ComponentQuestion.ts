@@ -1,14 +1,13 @@
-import { Question } from "inquirer";
+import { Question } from "extended-yo-generator";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
-import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
-import { IGeneratorSettings } from "./IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
  * Represents a question for files.
  */
-export class ComponentQuestion<T extends IGeneratorSettings> implements Question<T>
+export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Question<T>
 {
     public type = "input";
 

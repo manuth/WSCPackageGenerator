@@ -1,12 +1,12 @@
-import { Question } from "inquirer";
+import { Question } from "extended-yo-generator";
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
-import { IGeneratorSettings } from "./IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
  * Represents a question for assets.
  */
-export class AssetQuestion<T extends IGeneratorSettings> extends ComponentQuestion<T>
+export class AssetQuestion<T extends IWoltLabGeneratorSettings> extends ComponentQuestion<T>
 {
     /**
      * Initializes a new instance of the `AssetQuestion<T>` class.

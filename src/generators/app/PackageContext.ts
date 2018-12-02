@@ -1,6 +1,6 @@
 import Path = require("path");
 import { Generator } from "../../Generator";
-import { GeneratorSetting } from "../../GeneratorSetting";
+import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { WSCPackageComponent } from "./WSCPackageComponent";
 import { WSCPackageSetting } from "./WSCPackageSetting";
@@ -145,10 +145,10 @@ export class PackageContext
             return result;
         };
 
-        for (let component in this.Settings[GeneratorSetting.ComponentPaths])
+        for (let component in this.Settings[WoltLabGeneratorSetting.ComponentPaths])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[GeneratorSetting.ComponentPaths][component];
+            let path = this.Settings[WoltLabGeneratorSetting.ComponentPaths][component];
 
             switch (component)
             {

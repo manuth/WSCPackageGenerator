@@ -1,6 +1,6 @@
 import { Component } from "../../Component";
 import { Generator } from "../../Generator";
-import { IWoltLabComponent } from "../../IWoltLabComponent";
+import { IComponent } from "../../IComponent";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
 import { ThemeAssetQuestion } from "./ThemeAssetQuestion";
 
@@ -18,7 +18,7 @@ export class ThemeAssetComponent<T extends IWSCThemeSettings> extends Component<
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: IWoltLabComponent<T>)
+    public constructor(generator: Generator<T>, options: IComponent<T>)
     {
         super(options);
         this.Question = new ThemeAssetQuestion(generator, options.ID, options.Question);

@@ -1,13 +1,8 @@
 /**
  * Represents a generator-setting.
  */
-export enum GeneratorSetting
+export enum WoltLabGeneratorSetting
 {
-    /**
-     * Indicates the `Components`-setting.
-     */
-    Components = "components",
-
     /**
      * Indicates the `ComponentPaths`-setting.
      */

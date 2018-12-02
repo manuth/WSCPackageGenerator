@@ -1,10 +1,10 @@
-import { IGeneratorSettings } from "../../IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
 import { WSCThemeSetting } from "./WSCThemeSetting";
 
 /**
  * Represents settings for the `WSCThemeGenerator`.
  */
-export interface IWSCThemeSettings extends IGeneratorSettings
+export interface IWSCThemeSettings extends IWoltLabGeneratorSettings
 {
     /**
      * Gets or sets the destination.

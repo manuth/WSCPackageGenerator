@@ -1,12 +1,10 @@
 import chalk from "chalk";
+import { Answers, IComponentProvider, Question } from "extended-yo-generator";
 import * as FileSystem from "fs-extra";
-import { Question } from "inquirer";
 import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
-import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { Generator } from "../../Generator";
-import { IComponentProvider } from "../../IComponentProvider";
 import { SourceComponent } from "../../SourceComponent";
 import { SourceFileMapping } from "../../SourceFileMapping";
 import { WoltLabComponent } from "../../WoltLabComponent";
@@ -87,7 +85,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 type: "input",
                 name: WSCPackageSetting.Identifier,
                 message: "Please type an identifier for your package:",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: Answers) =>
                 {
                     let reversedURI: string = (answers["authorURL"] as string).replace(/(.*:\/\/)?(.*?)(\/.*)?/g, "$2").split(".").reverse().join(".");
 

@@ -1,4 +1,4 @@
-import { Question } from "inquirer";
+import { Question } from "extended-yo-generator";
 import Path = require("path");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";

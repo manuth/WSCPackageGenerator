@@ -1,10 +1,10 @@
-import { IGeneratorSettings } from "../../IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
 import { WSCPackageSetting } from "./WSCPackageSetting";
 
 /**
  * Represents settings for the `WSCPackageGenerator`.
  */
-export interface IWSCPackageSettings extends IGeneratorSettings
+export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
 {
     /**
      * Gets or sets the destination.

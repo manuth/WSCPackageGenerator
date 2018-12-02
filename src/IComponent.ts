@@ -1,9 +1,7 @@
-import { Question } from "inquirer";
-import { Answers } from "yeoman-generator";
-import { IFileMapping } from "./IFileMapping";
+import { Answers, IFileMapping, Question } from "extended-yo-generator";
 
 /**
- * Represents a component.
+ * Provides options for the `WoltLabComponent` class.
  */
 export interface IComponent<T extends Answers>
 {
@@ -23,12 +21,22 @@ export interface IComponent<T extends Answers>
     Default?: boolean;
 
     /**
-     * Gets or sets the file-mappings of the component.
+     * Gets or sets the file-mapping of the primary file.
      */
-    FileMappings: IFileMapping<T>[] | Promise<IFileMapping<T>[]> | ((settings: T) => IFileMapping<T>[] | Promise<IFileMapping<T>[]>);
+    FileMapping: Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>> | ((settings: T) => Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>>);
 
     /**
-     * Gets or sets additional quetions related to the component.
+     * Gets or sets the question for the primary file-mapping.
      */
-    Questions?: Question<T>[];
+    Question: Question<T>;
+
+    /**
+     * Gets or sets the file-mapping for the additional files.
+     */
+    AdditionalFiles?: IFileMapping<T>[] | Promise<IFileMapping<T>[]> | ((settings: T) => IFileMapping<T>[] | Promise<IFileMapping<T>[]>);
+
+    /**
+     * Gets or sets additional questions.
+     */
+    AdditionalQuestions?: Question<T>[];
 }

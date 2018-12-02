@@ -1,11 +1,9 @@
 import chalk from "chalk";
-import { Question } from "inquirer";
+import { Answers, GeneratorSetting, IComponentProvider, Question } from "extended-yo-generator";
 import { isNullOrUndefined } from "util";
-import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
 import { Generator } from "../../Generator";
-import { GeneratorSetting } from "../../GeneratorSetting";
-import { IComponentProvider } from "../../IComponentProvider";
+import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
 import { SourceFileMapping } from "../../SourceFileMapping";
 import { WSCPackageComponent } from "../app/WSCPackageComponent";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
@@ -68,7 +66,7 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                 type: "input",
                 name: WSCThemeSetting.DisplayName,
                 message: "What's the display-name of your theme?",
-                default: (answers: YoGenerator.Answers) =>
+                default: (answers: Answers) =>
                 {
                     return answers.name;
                 },
@@ -161,7 +159,7 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                         return {
                             Settings: this.Settings,
                             Components: this.Settings[GeneratorSetting.Components],
-                            ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
+                            ComponentPaths: this.Settings[WoltLabGeneratorSetting.ComponentPaths]
                         };
                     },
                     Destination: themeFileName

@@ -29,17 +29,15 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "escape-string-regexp": "^1.0.5",
+    "extended-yo-generator": "^1.0.2",
     "fs-extra": "^7.0.1",
-    "inquirer": "^6.2.0",
     "lodash.kebabcase": "^4.1.1",
-    "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.2"
   },
   "devDependencies": {
     "@types/dedent": "^0.7.0",
     "@types/escape-string-regexp": "^1.0.0",
     "@types/fs-extra": "^5.0.4",
-    "@types/inquirer": "0.0.43",
     "@types/lodash.kebabcase": "^4.1.4",
     "@types/mem-fs": "^1.1.1",
     "@types/mem-fs-editor": "^4.0.1",
@@ -48,7 +46,6 @@
     "@types/npm": "^2.0.29",
     "@types/tar": "^4.0.0",
     "@types/xmldom": "^0.1.29",
-    "@types/yeoman-generator": "^3.0.1",
     "@types/yeoman-test": "^1.7.4",
     "@types/yosay": "0.0.29",
     "colornames": "^1.1.1",

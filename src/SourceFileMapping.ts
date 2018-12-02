@@ -1,15 +1,15 @@
 import escapeStringRegexp = require("escape-string-regexp");
+import { IFileMapping } from "extended-yo-generator";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
-import { IFileMapping } from "./IFileMapping";
-import { IGeneratorSettings } from "./IGeneratorSettings";
+import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
  * Represents a file-mapping for a source-file.
  */
-export class SourceFileMapping<T extends IGeneratorSettings> implements IFileMapping<T>
+export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements IFileMapping<T>
 {
     /**
      * The generator this file-mapping belongs to.
@@ -19,7 +19,7 @@ export class SourceFileMapping<T extends IGeneratorSettings> implements IFileMap
     /**
      * The path to the template of the component.
      */
-    private source: string | ((answers: T) => string | Promise<string>);
+    private source: string | Promise<string> | ((answers: T) => string | Promise<string>);
 
     /**
      * The context to use for copying the file-entry.
