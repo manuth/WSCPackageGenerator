@@ -107,6 +107,30 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
                         }
 
                         return result;
+                    })(),
+                    MakePackagePath: (() =>
+                    {
+                        let levels = Path.relative(Path.dirname(destination), answers[WSCPackageSetting.Destination]).split(Path.sep).length;
+
+                        return (path: string) =>
+                        {
+                            let pathSegments = path.split(new RegExp(`[${escapeStringRegexp(`${Path.win32.sep}${Path.posix.sep}`)}]`, "g"));
+
+                            let result = "Path.join(__dirname";
+
+                            for (let i = 0; i < levels; i++)
+                            {
+                                result = `${result}, ".."`;
+                            }
+
+                            for (let segment of pathSegments)
+                            {
+                                result = `${result}, "${segment}"`;
+                            }
+
+                            result = `${result})`;
+                            return result;
+                        };
                     })()
                 });
 

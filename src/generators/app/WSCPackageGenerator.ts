@@ -4,6 +4,7 @@ import * as FileSystem from "fs-extra";
 import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
 import yosay = require("yosay");
+import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
 import { SourceComponent } from "../../SourceComponent";
 import { SourceFileMapping } from "../../SourceFileMapping";
@@ -115,12 +116,37 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.Files,
                                 DisplayName: "Files to Upload",
                                 FileMapping: {
-                                    Source: "./components/Files.ts.ejs"
+                                    Source: "./components/Files.ts.ejs",
+                                    Context: (settings) =>
+                                    {
+                                        return {
+                                            FilesDirectory: settings[WSCPackageSetting.FilesDirectory]
+                                        };
+                                    }
                                 },
                                 Question: {
                                     message: "Where do you want to store your file-mappings?",
                                     default: "Files.ts"
-                                }
+                                },
+                                AdditionalFiles: [
+                                    {
+                                        Source: null,
+                                        Destination: (settings) => settings[WSCPackageSetting.FilesDirectory],
+                                        Process: async (source, destination) =>
+                                        {
+                                            await FileSystem.ensureDir(destination);
+                                        }
+                                    }
+                                ],
+                                AdditionalQuestions: [
+                                    new AssetQuestion(
+                                        this,
+                                        {
+                                            name: WSCPackageSetting.FilesDirectory,
+                                            message: "Where do you want to store the files?",
+                                            default: "files"
+                                        })
+                                ]
                             }),
                         new WoltLabComponent(
                             this,

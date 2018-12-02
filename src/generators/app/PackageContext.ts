@@ -155,7 +155,6 @@ export class PackageContext
                 case WSCPackageComponent.Themes:
                     formatter = themeFormatter;
                     break;
-                case WSCPackageComponent.Files:
                 case WSCPackageComponent.PHPScript:
                 case WSCPackageComponent.SQLScript:
                 case WSCPackageComponent.Templates:

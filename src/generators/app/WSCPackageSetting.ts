@@ -36,5 +36,10 @@ export enum WSCPackageSetting
     /**
      * Indicates the `HomePage` setting.
      */
-    HomePage = "authorURL"
+    HomePage = "authorURL",
+
+    /**
+     * Indicates the `FilesDirectory` setting.
+     */
+    FilesDirectory = "filesDir"
 }

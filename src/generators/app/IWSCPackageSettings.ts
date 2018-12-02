@@ -35,4 +35,9 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
      * Gets or sets the homepage.
      */
     [WSCPackageSetting.HomePage]: string;
+
+    /**
+     * Gets or sets the directory which contains files.
+     */
+    [WSCPackageSetting.FilesDirectory]: string;
 }
