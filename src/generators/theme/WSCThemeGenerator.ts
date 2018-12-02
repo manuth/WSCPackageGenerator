@@ -6,6 +6,7 @@ import yosay = require("yosay");
 import { Generator } from "../../Generator";
 import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
+import { SourceFileMapping } from "../../SourceFileMapping";
 import { WSCPackageComponent } from "../app/WSCPackageComponent";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
 import { ThemeAssetComponent } from "./ThemeAssetComponent";
@@ -149,14 +150,23 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
     public async writing()
     {
         let themeFileName = this.destinationPath(this.sourcePath(this.Settings[WSCThemeSetting.Destination], this.Settings.name, "Theme.ts"));
-        this.CopyTypeScriptFile(
-            this.templatePath("Theme.ts.ejs"),
-            themeFileName,
-            {
-                Settings: this.Settings,
-                Components: this.Settings[GeneratorSetting.Components],
-                ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
-            });
+
+        this.ProcessFile(
+            new SourceFileMapping(
+                this,
+                {
+                    Source: this.templatePath("Theme.ts.ejs"),
+                    Context: () =>
+                    {
+                        return {
+                            Settings: this.Settings,
+                            Components: this.Settings[GeneratorSetting.Components],
+                            ComponentPaths: this.Settings[GeneratorSetting.ComponentPaths]
+                        };
+                    },
+                    Destination: themeFileName
+                }));
+
         return super.writing();
     }
 

@@ -1,12 +1,9 @@
-import escapeStringRegexp = require("escape-string-regexp");
-import Path = require("path");
-import { isNullOrUndefined } from "util";
 import { Component } from "./Component";
 import { Generator } from "./Generator";
-import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IFileMapping } from "./IFileMapping";
 import { IGeneratorSettings } from "./IGeneratorSettings";
 import { IWoltLabComponent } from "./IWoltLabComponent";
+import { SourceFileMapping } from "./SourceFileMapping";
 import { SourceQuestion } from "./SourceQuestion";
 
 /**
@@ -65,51 +62,7 @@ export class SourceComponent<T extends IGeneratorSettings> extends Component<T>
                 primaryFileMapping = fileMapping;
             }
 
-            let defaultContext = primaryFileMapping.Context;
-
-            primaryFileMapping.Context = (answers, source, destination) =>
-            {
-                let context: any;
-
-                if (!isNullOrUndefined(defaultContext))
-                {
-                    context = defaultContext(answers, source, destination);
-                }
-                else
-                {
-                    context = {};
-                }
-
-                Object.assign(
-                    context,
-                    {
-                        relativePackage: (() =>
-                        {
-                            let result = Path.posix.normalize(
-                                Path.relative(
-                                    Path.dirname(destination),
-                                    Path.join(answers[WSCPackageSetting.Destination], this.Generator.sourcePath())).replace(
-                                    new RegExp(escapeStringRegexp(Path.sep), "g"),
-                                    "/"));
-
-                            if (!result.startsWith("."))
-                            {
-                                result = `./${result}`;
-                            }
-
-                            if (!result.endsWith("/"))
-                            {
-                                result = `${result}/`;
-                            }
-
-                            return result;
-                        })()
-                    });
-
-                return context;
-            };
-
-            return primaryFileMapping;
+            return new SourceFileMapping(this.Generator, primaryFileMapping);
         };
     }
 

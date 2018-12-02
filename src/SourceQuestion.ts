@@ -32,15 +32,18 @@ export class SourceQuestion<T extends IGeneratorSettings> extends ComponentQuest
         return this.Generator.sourcePath();
     }
 
-    public validate = (input: string, answers: T) =>
+    public get validate()
     {
-        if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
+        return (input: string, answers: T): boolean | string | Promise<boolean | string> =>
         {
-            return `The file must be inside the "${this.Generator.sourcePath()}"-directory.`;
-        }
-        else
-        {
-            return super.validate(input, answers);
-        }
+            if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
+            {
+                return `The file must be inside the "${this.Generator.sourcePath()}"-directory.`;
+            }
+            else
+            {
+                return super.validate(input, answers);
+            }
+        };
     }
 }

@@ -225,45 +225,6 @@ export abstract class Generator<T extends IGeneratorSettings = IGeneratorSetting
     }
 
     /**
-     * Copies a typescript-file.
-     *
-     * @param source
-     * The source file.
-     * @param destination
-     * The destination-path.
-     * @param context
-     * The ejs-context.
-     */
-    public CopyTypeScriptFile(source: string, destination: string, context: any)
-    {
-        context = context || {};
-        Object.assign(
-            context,
-            {
-                relativePackage: (() =>
-                {
-                    let result = Path.posix.normalize(
-                        Path.relative(Path.dirname(destination), Path.join(this.Settings[WSCPackageSetting.Destination], this.sourcePath())).replace(
-                            new RegExp(escapeStringRegexp(Path.sep), "g"), "/"));
-
-                    if (!result.startsWith("."))
-                    {
-                        result = "./" + result;
-                    }
-
-                    if (!result.endsWith("/"))
-                    {
-                        result = result + "/";
-                    }
-
-                    return result;
-                })()
-            });
-
-        this.fs.copyTpl(source, destination, context);
-    }
-
-    /**
      * Resolves a value no matter whether it is wrapped in a function or not.
      *
      * @param settings

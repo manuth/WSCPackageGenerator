@@ -8,6 +8,7 @@ import yosay = require("yosay");
 import { Generator } from "../../Generator";
 import { IComponentProvider } from "../../IComponentProvider";
 import { SourceComponent } from "../../SourceComponent";
+import { SourceFileMapping } from "../../SourceFileMapping";
 import { WoltLabComponent } from "../../WoltLabComponent";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { PackageContext } from "./PackageContext";
@@ -368,24 +369,28 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 HomePage: this.Settings[WSCPackageSetting.HomePage]
             });
 
-        this.CopyTypeScriptFile(
-            this.templatePath("Package.ts.ejs"),
-            this.destinationPath(this.metaPath("Package.ts")),
-            (() =>
-            {
-                let context = new PackageContext(this);
+        this.ProcessFile(
+            new SourceFileMapping(
+                this,
+                {
+                    Source: this.templatePath("Package.ts.ejs"),
+                    Context: () =>
+                    {
+                        let context = new PackageContext(this);
 
-                return {
-                    Identifier: context.Identifier,
-                    Name: context.Name,
-                    DisplayName: context.DisplayName,
-                    Author: context.Author,
-                    HomePage: context.HomePage,
-                    CreationDate: context.CreationDate,
-                    Description: context.Description,
-                    Instructions: context.Instructions
-                };
-            })());
+                        return {
+                            Identifier: context.Identifier,
+                            Name: context.Name,
+                            DisplayName: context.DisplayName,
+                            Author: context.Author,
+                            HomePage: context.HomePage,
+                            CreationDate: context.CreationDate,
+                            Description: context.Description,
+                            Instructions: context.Instructions
+                        };
+                    },
+                    Destination: this.destinationPath(this.metaPath("Package.ts"))
+                }));
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
         this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
