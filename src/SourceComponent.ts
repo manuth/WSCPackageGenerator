@@ -29,7 +29,7 @@ export class SourceComponent<T extends IWoltLabGeneratorSettings> extends Compon
     {
         super(options);
         this.generator = generator;
-        this.Question = new SourceQuestion(generator, options.ID, options.Question);
+        this.Question = new SourceQuestion(generator, options.Question);
     }
 
     /**

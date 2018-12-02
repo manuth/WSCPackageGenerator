@@ -14,15 +14,12 @@ export class WoltLabComponentQuestion<T extends IWoltLabGeneratorSettings> exten
      * @param generator
      * The generator.
      *
-     * @param id
-     * The id of the component.
-     *
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, id: string, options: Question<T>)
+    public constructor(generator: Generator<T>, options: Question<T>)
     {
-        super(generator, id, options);
+        super(generator, options);
     }
 
     protected get RootDir()

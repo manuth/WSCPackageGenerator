@@ -16,15 +16,12 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
      * @param generator
      * The generator.
      *
-     * @param id
-     * The id of the component.
-     *
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, id: string, options: Question<T>)
+    public constructor(generator: Generator<T>, options: Question<T>)
     {
-        super(generator, id, options);
+        super(generator, options);
     }
 
     public get default(): string | Promise<string> | ((answers: T) => string | Promise<string>)

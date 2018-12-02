@@ -18,11 +18,6 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
     public default: any | ((answers: T) => any) | ((answers: T) => Promise<any>);
 
     /**
-     * The id of the component to ask for.
-     */
-    private id: string;
-
-    /**
      * The generator.
      */
     private generator: Generator<T>;
@@ -36,9 +31,8 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
      * @param options
      * The options for the question.
      */
-    public constructor(generator: Generator<T>, id: string, options: Question<T>)
+    public constructor(generator: Generator<T>, options: Question<T>)
     {
-        this.id = id;
         this.generator = generator;
         Object.assign(this, options);
 
@@ -91,14 +85,6 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
         {
             return true;
         };
-    }
-
-    /**
-     * Gets the id of the component to ask for.
-     */
-    public get ID()
-    {
-        return this.id;
     }
 
     /**

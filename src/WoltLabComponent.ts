@@ -21,6 +21,6 @@ export class WoltLabComponent<T extends IWoltLabGeneratorSettings> extends Sourc
     public constructor(generator: Generator<T>, options: IComponent<T>)
     {
         super(generator, options);
-        this.Question = new WoltLabComponentQuestion(generator, options.ID, options.Question);
+        this.Question = new WoltLabComponentQuestion(generator, options.Question);
     }
 }

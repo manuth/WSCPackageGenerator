@@ -21,6 +21,6 @@ export class ThemeAssetComponent<T extends IWSCThemeSettings> extends Component<
     public constructor(generator: Generator<T>, options: IComponent<T>)
     {
         super(options);
-        this.Question = new ThemeAssetQuestion(generator, options.ID, options.Question);
+        this.Question = new ThemeAssetQuestion(generator, options.Question);
     }
 }
