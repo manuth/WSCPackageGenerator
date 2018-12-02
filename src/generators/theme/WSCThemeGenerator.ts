@@ -8,7 +8,7 @@ import { GeneratorSetting } from "../../GeneratorSetting";
 import { IComponentProvider } from "../../IComponentProvider";
 import { WSCPackageComponent } from "../app/WSCPackageComponent";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
-import { ThemeAssetDestination } from "./ThemeAssetDestination";
+import { ThemeAssetComponent } from "./ThemeAssetComponent";
 import { WSCThemeComponent } from "./WSCThemeComponent";
 import { WSCThemeSetting } from "./WSCThemeSetting";
 
@@ -89,51 +89,45 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                 {
                     DisplayName: "General",
                     Components: [
-                        {
-                            ID: WSCThemeComponent.SCSSCode,
-                            DisplayName: "Custom SCSS-Code",
-                            FileMappings: [
-                                {
-                                    Source: "blank.scss",
-                                    Destination: new ThemeAssetDestination(
-                                        this,
-                                        {
-                                            Message: "Where do you want to store the custom SCSS-Code?",
-                                            Default: "main.scss"
-                                        })
+                        new ThemeAssetComponent(
+                            this,
+                            {
+                                ID: WSCThemeComponent.SCSSCode,
+                                DisplayName: "Custom SCSS-Code",
+                                FileMapping: {
+                                    Source: "blank.scss"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the custom SCSS-Code?",
+                                    default: "main.scss"
                                 }
-                            ]
-                        },
-                        {
-                            ID: WSCThemeComponent.SCSSOverrides,
-                            DisplayName: "SCSS-Variable Overrides",
-                            FileMappings: [
-                                {
-                                    Source: "blank.scss",
-                                    Destination: new ThemeAssetDestination(
-                                        this,
-                                        {
-                                            Message: "Where do you want to store the variable-overrides?",
-                                            Default: "overrides.scss"
-                                        })
+                            }),
+                        new ThemeAssetComponent(
+                            this,
+                            {
+                                ID: WSCThemeComponent.SCSSOverrides,
+                                DisplayName: "SCSS-Variable Overrides",
+                                FileMapping: {
+                                    Source: "blank.scss"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the variable-overrides?",
+                                    default: "overrides.scss"
                                 }
-                            ]
-                        },
-                        {
-                            ID: WSCThemeComponent.Variables,
-                            DisplayName: "Theme-Variables",
-                            FileMappings: [
-                                {
-                                    Source: "variables.json",
-                                    Destination: new ThemeAssetDestination(
-                                        this,
-                                        {
-                                            Message: "Where do you want to store theme-variables?",
-                                            Default: "variables.json"
-                                        })
+                            }),
+                        new ThemeAssetComponent(
+                            this,
+                            {
+                                ID: WSCThemeComponent.Variables,
+                                DisplayName: "Theme-Variables",
+                                FileMapping: {
+                                    Source: "variables.json"
+                                },
+                                Question: {
+                                    message: "Where do you want to store theme-variables?",
+                                    default: "variables.json"
                                 }
-                            ]
-                        }
+                            })
                     ]
                 }
             ]

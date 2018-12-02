@@ -11,10 +11,5 @@ export enum GeneratorSetting
     /**
      * Indicates the `ComponentPaths`-setting.
      */
-    ComponentPaths = "componentPaths",
-
-    /**
-     * Indicates the `ComponentSourceFiles`-setting.
-     */
-    ComponentSourceFiles = "componentSourceFiles"
+    ComponentPaths = "componentPaths"
 }

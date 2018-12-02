@@ -5,10 +5,10 @@ import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
 import * as YoGenerator from "yeoman-generator";
 import yosay = require("yosay");
-import { ComponentSourceFileMapping } from "../../ComponentSourceFileMapping";
 import { Generator } from "../../Generator";
 import { IComponentProvider } from "../../IComponentProvider";
-import { ThemeDestination } from "../../ThemeDestination";
+import { SourceComponent } from "../../SourceComponent";
+import { WoltLabComponent } from "../../WoltLabComponent";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { PackageContext } from "./PackageContext";
 import { WSCPackageComponent } from "./WSCPackageComponent";
@@ -110,286 +110,238 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 {
                     DisplayName: "General",
                     Components: [
-                        {
-                            ID: WSCPackageComponent.Files,
-                            DisplayName: "Files to Upload",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.Files,
-                                    {
-                                        Source: "./components/Files.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store your file-mappings?",
-                                            Default: "Files.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.CronJobs,
-                            DisplayName: "Cron-Jobs",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.CronJobs,
-                                    {
-                                        Source: "./components/CronJobs.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store your cron-jobs?",
-                                            Default: "CronJobs.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.PHPScript,
-                            DisplayName: "PHP-Scripts to Execute During the Installation",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.PHPScript,
-                                    {
-                                        Source: "./components/PHPScript.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the settings for the PHP-script?",
-                                            Default: "PHPScript.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.SQLScript,
-                            DisplayName: "SQL-Script to Execute During the Installation",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.SQLScript,
-                                    {
-                                        Source: "./components/SQLScript.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the settings for the SQL-script?",
-                                            Default: "SQLScript.ts"
-                                        }
-                                    })
-                            ]
-                        }
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.Files,
+                                DisplayName: "Files to Upload",
+                                FileMapping: {
+                                    Source: "./components/Files.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store your file-mappings?",
+                                    default: "Files.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.CronJobs,
+                                DisplayName: "Cron-Jobs",
+                                FileMapping: {
+                                    Source: "./components/CronJobs.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store your cron-jobs?",
+                                    default: "CronJobs.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.PHPScript,
+                                DisplayName: "PHP-Scripts to Execute During the Installation",
+                                FileMapping: {
+                                    Source: "./components/PHPScript.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the settings for the PHP-script?",
+                                    default: "PHPScript.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.SQLScript,
+                                DisplayName: "SQL-Script to Execute During the Installation",
+                                FileMapping: {
+                                    Source: "./components/SQLScript.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the settings for the SQL-script?",
+                                    default: "SQLScript.ts"
+                                }
+                            })
                     ]
                 },
                 {
                     DisplayName: "Globalization",
                     Components: [
-                        {
-                            ID: WSCPackageComponent.Translations,
-                            DisplayName: "Translations",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.Translations,
-                                    {
-                                        Source: "./components/Translations.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the translations?",
-                                            Default: "Translations.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.ErrorMessages,
-                            DisplayName: "Error-Messages",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.ErrorMessages,
-                                    {
-                                        Source: "./components/ErrorMessages.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the error-messages?",
-                                            Default: "ErrorMessages.ts"
-                                        }
-                                    })
-                            ]
-                        }
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.Translations,
+                                DisplayName: "Translations",
+                                FileMapping: {
+                                    Source: "./components/Translations.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the translations?",
+                                    default: "Translations.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.ErrorMessages,
+                                DisplayName: "Error-Messages",
+                                FileMapping: {
+                                    Source: "./components/ErrorMessages.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the error-messages?",
+                                    default: "ErrorMessages.ts"
+                                }
+                            })
                     ]
                 },
                 {
                     DisplayName: "Options",
                     Components: [
-                        {
-                            ID: WSCPackageComponent.ACPOptions,
-                            DisplayName: "Admin Control-Panel Options",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.ACPOptions,
-                                    {
-                                        Source: "./components/Options.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the Admin Control-Panel Options?",
-                                            Default: "Options.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.UserOptions,
-                            DisplayName: "User-Options",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.UserOptions,
-                                    {
-                                        Source: "./components/UserOptions.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the User-Options?",
-                                            Default: "UserOptions.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.GroupOptions,
-                            DisplayName: "Group-Permission Options",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.GroupOptions,
-                                    {
-                                        Source: "./components/GroupOptions.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the Group-Permission Options?",
-                                            Default: "GroupOptions.ts"
-                                        }
-                                    })
-                            ]
-                        }
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.ACPOptions,
+                                DisplayName: "Admin Control-Panel Options",
+                                FileMapping: {
+                                    Source: "./components/Options.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the Admin Control-Panel Options?",
+                                    default: "Options.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.UserOptions,
+                                DisplayName: "User-Options",
+                                FileMapping: {
+                                    Source: "./components/UserOptions.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the User-Options?",
+                                    default: "UserOptions.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.GroupOptions,
+                                DisplayName: "Group-Permission Options",
+                                FileMapping: {
+                                    Source: "./components/GroupOptions.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the Group-Permission Options?",
+                                    default: "GroupOptions.ts"
+                                }
+                            })
                     ]
                 },
                 {
                     DisplayName: "Customization",
                     Components: [
-                        {
-                            ID: WSCPackageComponent.Themes,
-                            DisplayName: "Themes",
-                            FileMappings: [
-                                {
+                        new SourceComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.Themes,
+                                DisplayName: "Themes",
+                                FileMapping: {
                                     Source: null,
-                                    Destination: new ThemeDestination(
-                                        this,
-                                        WSCPackageComponent.Themes,
-                                        {
-                                            Message: "Where do you want to store themes?",
-                                            Default: "Themes"
-                                        }),
                                     Process: async (source, destination) =>
                                     {
                                         await FileSystem.ensureDir(destination);
                                     }
+                                },
+                                Question: {
+                                    message: "Where do you want to store themes?",
+                                    default: "Themes"
                                 }
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.Emojis,
-                            DisplayName: "Emojis",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.Emojis,
-                                    {
-                                        Source: "./components/Emojis.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the emojis?",
-                                            Default: "Emojis.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.BBCodes,
-                            DisplayName: "BB-Codes",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.BBCodes,
-                                    {
-                                        Source: "./components/BBCodes.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the BB-Codes?",
-                                            Default: "BBCodes.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.Templates,
-                            DisplayName: "Templates",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.Templates,
-                                    {
-                                        Source: "./components/Templates.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the templates?",
-                                            Default: "Templates.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.ACPTemplates,
-                            DisplayName: "Admin Control Panel-Templates",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.ACPTemplates,
-                                    {
-                                        Source: "./components/ACPTemplates.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the Admin Control Panel-Templates?",
-                                            Default: "ACPTemplates.ts"
-                                        }
-                                    })
-                            ]
-                        }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.Emojis,
+                                DisplayName: "Emojis",
+                                FileMapping: {
+                                    Source: "./components/Emojis.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the emojis?",
+                                    default: "Emojis.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.BBCodes,
+                                DisplayName: "BB-Codes",
+                                FileMapping: {
+                                    Source: "./components/BBCodes.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the BB-Codes?",
+                                    default: "BBCodes.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.Templates,
+                                DisplayName: "Templates",
+                                FileMapping: {
+                                    Source: "./components/Templates.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the templates?",
+                                    default: "Templates.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.ACPTemplates,
+                                DisplayName: "Admin Control Panel-Templates",
+                                FileMapping: {
+                                    Source: "./components/ACPTemplates.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the Admin Control Panel-Templates?",
+                                    default: "ACPTemplates.ts"
+                                }
+                            })
                     ]
                 },
                 {
                     DisplayName: "Events",
                     Components: [
-                        {
-                            ID: WSCPackageComponent.EventListeners,
-                            DisplayName: "Event-Listeners",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.EventListeners,
-                                    {
-                                        Source: "./components/EventListeners.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the Event-Listeners?",
-                                            Default: "EventListeners.ts"
-                                        }
-                                    })
-                            ]
-                        },
-                        {
-                            ID: WSCPackageComponent.TemplateListeners,
-                            DisplayName: "Template-Listeners",
-                            FileMappings: [
-                                new ComponentSourceFileMapping(
-                                    this,
-                                    WSCPackageComponent.TemplateListeners,
-                                    {
-                                        Source: "./components/TemplateListeners.ts.ejs",
-                                        Destination: {
-                                            Message: "Where do you want to store the Template-Listeners?",
-                                            Default: "TemplateListeners.ts"
-                                        }
-                                    })
-                            ]
-                        }
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.EventListeners,
+                                DisplayName: "Event-Listeners",
+                                FileMapping: {
+                                    Source: "./components/EventListeners.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the Event-Listeners?",
+                                    default: "EventListeners.ts"
+                                }
+                            }),
+                        new WoltLabComponent(
+                            this,
+                            {
+                                ID: WSCPackageComponent.TemplateListeners,
+                                DisplayName: "Template-Listeners",
+                                FileMapping: {
+                                    Source: "./components/TemplateListeners.ts.ejs"
+                                },
+                                Question: {
+                                    message: "Where do you want to store the Template-Listeners?",
+                                    default: "TemplateListeners.ts"
+                                }
+                            })
                     ]
                 }
             ]

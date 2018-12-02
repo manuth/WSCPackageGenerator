@@ -145,10 +145,10 @@ export class PackageContext
             return result;
         };
 
-        for (let component in this.Settings[GeneratorSetting.ComponentSourceFiles])
+        for (let component in this.Settings[GeneratorSetting.ComponentPaths])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[GeneratorSetting.ComponentSourceFiles][component];
+            let path = this.Settings[GeneratorSetting.ComponentPaths][component];
 
             switch (component)
             {
