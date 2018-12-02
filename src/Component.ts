@@ -155,12 +155,13 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
                 fileMapping = primaryMapping;
             }
 
-            result.push(
-                {
-                    Source: null,
-                    ...fileMapping,
-                    Destination: (settings) => settings[WoltLabGeneratorSetting.ComponentPaths][this.ID]
-                });
+            if (isNullOrUndefined(fileMapping.Source))
+            {
+                fileMapping.Source = null;
+            }
+
+            fileMapping.Destination = (settings) => settings[WoltLabGeneratorSetting.ComponentPaths][this.ID];
+            result.push(fileMapping as IFileMapping<T>);
 
             if (!isNullOrUndefined(additionalFiles))
             {
