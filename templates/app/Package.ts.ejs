@@ -1,7 +1,7 @@
 import Path = require("path");
-import { IPackageOptions } from "<%- relativePackage %>System/PackageSystem/IPackageOptions";
-import { ThemeInstructionCollection } from "<%- relativePackage %>System/Customization/Presentation/Themes/ThemeInstructionCollection";
-import { RequiredPackageDescriptor } from "<%- relativePackage %>System/PackageSystem/RequiredPackageDescriptor";
+import { IPackageOptions } from "<%- RelativeSourceRoot %>System/PackageSystem/IPackageOptions";
+import { ThemeInstructionCollection } from "<%- RelativeSourceRoot %>System/Customization/Presentation/Themes/ThemeInstructionCollection";
+import { RequiredPackageDescriptor } from "<%- RelativeSourceRoot %>System/PackageSystem/RequiredPackageDescriptor";
 
 let pkg: IPackageOptions = {
     Identifier: <%- JSON.stringify(Identifier) %>,

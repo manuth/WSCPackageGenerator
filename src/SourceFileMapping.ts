@@ -87,7 +87,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
             Object.assign(
                 context,
                 {
-                    relativePackage: (() =>
+                    RelativeSourceRoot: (() =>
                     {
                         let result = Path.posix.normalize(
                             Path.relative(
