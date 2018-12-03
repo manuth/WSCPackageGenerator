@@ -233,7 +233,7 @@ suite(
                     });
 
                 test(
-                    "Checking whether the Theme-manifest is formated correctly...",
+                    "Checking the integrity of the theme-manifest...",
                     () =>
                     {
                         let theme: any = require(themeFileName);
