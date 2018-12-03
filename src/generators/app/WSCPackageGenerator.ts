@@ -253,7 +253,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     {
                                         name: WSCPackageSetting.PHPScriptFile,
                                         message: "Where do you want to upload the php-file to?",
-                                        default: (settings: IWSCPackageSettings) => `lib/${settings[WSCPackageSetting.Identifier]}_install.php`,
+                                        default: (settings: IWSCPackageSettings) => `lib/install_${settings[WSCPackageSetting.Identifier]}_0.0.0.php`,
                                         when: (settings) => settings[WSCPackageSetting.SelfContainedPHP]
                                     }
                                 ]
