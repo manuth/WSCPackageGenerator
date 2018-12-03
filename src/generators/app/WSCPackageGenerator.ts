@@ -9,6 +9,7 @@ import { Generator } from "../../Generator";
 import { SourceComponent } from "../../SourceComponent";
 import { SourceFileMapping } from "../../SourceFileMapping";
 import { WoltLabComponent } from "../../WoltLabComponent";
+import { ApplicationQuestions } from "./ApplicationQuestion";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { PackageContext } from "./PackageContext";
 import { WSCPackageComponent } from "./WSCPackageComponent";
@@ -187,40 +188,9 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     }
                                 ],
                                 AdditionalQuestions: [
-                                    {
-                                        type: "list",
-                                        name: WSCPackageSetting.PHPScriptApp,
-                                        message: "What application's directory do you want to load the php-script from?",
-                                        default: "wcf",
-                                        choices: [
-                                            {
-                                                value: "wcf",
-                                                name: "WoltLab Suite Core"
-                                            },
-                                            {
-                                                value: "wbb",
-                                                name: "WoltLab Burning Board"
-                                            },
-                                            {
-                                                value: "gallery",
-                                                name: "WoltLab Gallery"
-                                            },
-                                            {
-                                                value: "filebase",
-                                                name: "WoltLab FileBase"
-                                            },
-                                            {
-                                                value: null,
-                                                name: "Other"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        name: WSCPackageSetting.PHPScriptApp,
-                                        message: "What's the identifier of the application to load the file from?",
-                                        default: "wcf",
-                                        when: (settings) => settings[WSCPackageSetting.PHPScriptApp] === null
-                                    },
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.PHPScriptApp,
+                                        "What application's directory do you want to load the php-script from?"),
                                     {
                                         name: WSCPackageSetting.PHPScriptFile,
                                         message: "Where do you want to load the file from?",
