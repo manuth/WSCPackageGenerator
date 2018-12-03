@@ -11,7 +11,7 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
      * @param name
      * The key to save the answer to.
      */
-    public constructor(name: string, message: string)
+    public constructor(name: string, message: string, options?: Question<T>)
     {
         super();
         this.push(
@@ -50,5 +50,10 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
                 when: (settings) => settings[name] === null,
                 validate: (input) => /\w+/.test(input) ? true : "The identifier must not be empty!"
             });
+
+        for (let question of this)
+        {
+            Object.assign(question, options);
+        }
     }
 }
