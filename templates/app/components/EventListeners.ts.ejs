@@ -1,10 +1,8 @@
 import { ListenerEnvironment } from "<%- RelativeSourceRoot %>System/Events/ListenerEnvironment";
 import { EventListenerInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/Events/EventListenerInstruction";
 
-let eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+export = new EventListenerInstruction({
     FileName: "eventListeners.xml",
     Listeners: [
     ]
 });
-
-export = eventListenerInstruction;

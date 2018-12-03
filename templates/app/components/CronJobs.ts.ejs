@@ -1,9 +1,7 @@
 import { CronJobInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/Tasks/CronJobInstruction";
 
-let cronjobInstruction: CronJobInstruction = new CronJobInstruction({
+export = new CronJobInstruction({
     FileName: "cronJobs.xml",
     CronJobs: [
     ]
 });
-
-export = cronjobInstruction;

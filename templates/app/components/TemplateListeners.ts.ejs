@@ -1,10 +1,7 @@
-import { ListenerEnvironment } from "<%- RelativeSourceRoot %>System/Events/ListenerEnvironment";
 import { TemplateListenerInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/Events/TemplateListenerInstruction";
 
-let templateListenerInstruction: TemplateListenerInstruction = new TemplateListenerInstruction({
+export = new TemplateListenerInstruction({
     FileName: "templateListeners.xml",
     Listeners: [
     ]
 });
-
-export = templateListenerInstruction;
