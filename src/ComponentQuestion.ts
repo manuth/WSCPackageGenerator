@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { Question } from "extended-yo-generator";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
@@ -67,7 +68,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
     {
         return (input: string, answers?: T, options?: { isFinal: boolean }) =>
         {
-            return (!isNullOrUndefined(options) && options.isFinal) ? input : this.MakeRootPath(input);
+            return (!isNullOrUndefined(options) && options.isFinal) ? chalk.cyan(input) : this.MakeRootPath(input);
         };
     }
 
