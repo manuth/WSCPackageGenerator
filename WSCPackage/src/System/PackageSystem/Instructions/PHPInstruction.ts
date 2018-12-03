@@ -2,7 +2,7 @@ import { Instruction } from "./Instruction";
 import { IPHPInstructionOptions } from "./IPHPInstructionOptions";
 
 /**
- * Represents an instruction which executes `php`-code.
+ * Represents an instruction which executes an already existing `php`-file on the server.
  */
 export class PHPInstruction extends Instruction
 {
@@ -36,5 +36,18 @@ export class PHPInstruction extends Instruction
     public set Application(value: string)
     {
         this.application = value;
+    }
+
+    /**
+     * Gets or sets the name of the file to load the php-script from.
+     */
+    public get FileName()
+    {
+        return super.FileName;
+    }
+
+    public set FileName(value)
+    {
+        super.FileName = value;
     }
 }
