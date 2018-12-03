@@ -1,4 +1,5 @@
 import { Answers, Question } from "extended-yo-generator";
+import { isNullOrUndefined } from "util";
 
 /**
  * Represents questions for a woltlab-application
@@ -16,13 +17,20 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
         super();
         let whenFunction = async (settings: T) =>
         {
-            if (typeof when === "function")
+            if (!isNullOrUndefined(when))
             {
-                return when(settings);
+                if (typeof when === "function")
+                {
+                    return when(settings);
+                }
+                else
+                {
+                    return when;
+                }
             }
             else
             {
-                return when;
+                return true;
             }
         };
 
