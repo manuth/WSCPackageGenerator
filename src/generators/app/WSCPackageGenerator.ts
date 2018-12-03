@@ -365,12 +365,41 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.Templates,
                                 DisplayName: "Templates",
                                 FileMapping: {
-                                    Source: "./components/Templates.ts.ejs"
+                                    Source: "./components/Templates.ts.ejs",
+                                    Context: (settings) =>
+                                    {
+                                        return {
+                                            Application: settings[WSCPackageSetting.TemplateApp],
+                                            TemplateRoot: settings[WSCPackageSetting.TemplateRoot]
+                                        };
+                                    }
                                 },
                                 Question: {
-                                    message: "Where do you want to store the templates?",
+                                    message: "Where do you want to store the template-settings?",
                                     default: "Templates.ts"
-                                }
+                                },
+                                AdditionalFiles: [
+                                    {
+                                        Source: null,
+                                        Destination: (settings) => settings[WSCPackageSetting.TemplateRoot],
+                                        Process: async (source, destination) =>
+                                        {
+                                            await FileSystem.ensureDir(destination);
+                                        }
+                                    }
+                                ],
+                                AdditionalQuestions: [
+                                    new AssetQuestion(
+                                        this,
+                                        {
+                                            name: WSCPackageSetting.TemplateRoot,
+                                            message: "Where do you want to store the templates?",
+                                            default: "templates"
+                                        }),
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.TemplateApp,
+                                        "What's the application you want to provide templates for?")
+                                ]
                             }),
                         new WoltLabComponent(
                             this,

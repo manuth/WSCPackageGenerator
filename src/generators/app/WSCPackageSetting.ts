@@ -56,5 +56,15 @@ export enum WSCPackageSetting
     /**
      * Indicates the `SQLFile` setting.
      */
-    SQLFile = "sqlFile"
+    SQLFile = "sqlFile",
+
+    /**
+     * Indicates the `TemplateRoot` setting.
+     */
+    TemplateRoot = "templateRoot",
+
+    /**
+     * Indicates the `TemplateApp` setting.
+     */
+    TemplateApp = "templateApp"
 }

@@ -55,4 +55,14 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
      * Gets or sets the path to save the `SQLScript` to.
      */
     [WSCPackageSetting.SQLFile]: string;
+
+    /**
+     * Gets or sets the path to save templates to.
+     */
+    [WSCPackageSetting.TemplateRoot]: string;
+
+    /**
+     * Gets or sets the application the templates are made for.
+     */
+    [WSCPackageSetting.TemplateApp]: string;
 }
