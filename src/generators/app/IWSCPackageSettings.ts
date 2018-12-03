@@ -47,9 +47,19 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
     [WSCPackageSetting.FilesApp]: string;
 
     /**
+     * Gets or sets a value indicating whether the `PHPScript` is self-contained.
+     */
+    [WSCPackageSetting.SelfContainedPHP]: boolean;
+
+    /**
      * Gets or sets the application to load the `PHPScript` from.
      */
     [WSCPackageSetting.PHPScriptApp]: string;
+
+    /**
+     * Gets or sets the path to store the self-contained `PHPScript`-file.
+     */
+    [WSCPackageSetting.PHPScriptSource]: string;
 
     /**
      * Gets or sets the path to load the `PHPScript` from.

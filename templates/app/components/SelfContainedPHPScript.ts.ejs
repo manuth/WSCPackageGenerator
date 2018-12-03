@@ -1,0 +1,9 @@
+import Path = require("path");
+import { SelfContainedPHPInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/SelfContainedPHPInstruction";
+
+export = new SelfContainedPHPInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        Source: <%- MakePackagePath(PHPSource) %>,
+        Destination: <%- JSON.stringify(PHPFile) %>
+    });

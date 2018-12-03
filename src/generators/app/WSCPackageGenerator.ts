@@ -3,6 +3,7 @@ import { Answers, IComponentProvider, Question } from "extended-yo-generator";
 import * as FileSystem from "fs-extra";
 import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
+import { isNullOrUndefined } from "util";
 import yosay = require("yosay");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
@@ -172,13 +173,24 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.PHPScript,
                                 DisplayName: "PHP-Scripts to Execute During the Installation",
                                 FileMapping: {
-                                    Source: "./components/PHPScript.ts.ejs",
+                                    Source: (settings) => `./components/${settings[WSCPackageSetting.SelfContainedPHP] ? "SelfContainedPHPScript" : "PHPScript"}.ts.ejs`,
                                     Context: (settings) =>
                                     {
-                                        return {
+                                        let result = {
                                             Application: settings[WSCPackageSetting.PHPScriptApp],
                                             PHPFile: settings[WSCPackageSetting.PHPScriptFile]
                                         };
+
+                                        if (settings[WSCPackageSetting.SelfContainedPHP])
+                                        {
+                                            Object.assign(
+                                                result,
+                                                {
+                                                    PHPSource: settings[WSCPackageSetting.PHPScriptSource]
+                                                });
+                                        }
+
+                                        return result;
                                     }
                                 },
                                 Question: {
@@ -188,17 +200,60 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 AdditionalFiles: [
                                     {
                                         Source: null,
-                                        Destination: (settings) => settings[WSCPackageSetting.PHPScriptFile]
+                                        Destination: (settings) => settings[WSCPackageSetting.PHPScriptSource],
+                                        Process: async (source, destination, context, defaultProcessor, settings) =>
+                                        {
+                                            if (isNullOrUndefined(settings[WSCPackageSetting.SelfContainedPHP]))
+                                            {
+                                                await FileSystem.ensureFile(settings[WSCPackageSetting.PHPScriptSource]);
+                                            }
+                                        }
                                     }
                                 ],
                                 AdditionalQuestions: [
-                                    ...new ApplicationQuestions(
+                                    {
+                                        type: "list",
+                                        name: WSCPackageSetting.SelfContainedPHP,
+                                        message: "What kind of PHP-script do you want to execute?",
+                                        default: false,
+                                        choices: [
+                                            {
+                                                value: true,
+                                                name: "I want to create a new script"
+                                            },
+                                            {
+                                                value: false,
+                                                name: "A script which already exists on the server"
+                                            }
+                                        ]
+                                    },
+                                    ...new ApplicationQuestions<IWSCPackageSettings>(
                                         WSCPackageSetting.PHPScriptApp,
-                                        "What application's directory do you want to load the php-script from?"),
+                                        "What application's directory do you want to load the php-script from?",
+                                        (settings) => !settings[WSCPackageSetting.SelfContainedPHP]),
                                     {
                                         name: WSCPackageSetting.PHPScriptFile,
                                         message: "Where do you want to load the file from?",
+                                        when: (settings) => !settings[WSCPackageSetting.SelfContainedPHP],
                                         filter: (input) => input || ""
+                                    },
+                                    ...new ApplicationQuestions<IWSCPackageSettings>(
+                                        WSCPackageSetting.PHPScriptApp,
+                                        "What application do you want to upload the php-file to?",
+                                        (settings) => settings[WSCPackageSetting.SelfContainedPHP]),
+                                    new AssetQuestion(
+                                        this,
+                                        {
+                                            name: WSCPackageSetting.PHPScriptSource,
+                                            message: "Where do you want to store the php-file?",
+                                            when: (settings) => settings[WSCPackageSetting.SelfContainedPHP],
+                                            default: "install.php"
+                                        }),
+                                    {
+                                        name: WSCPackageSetting.PHPScriptFile,
+                                        message: "Where do you want to upload the php-file to?",
+                                        default: (settings: IWSCPackageSettings) => `lib/${settings[WSCPackageSetting.Identifier]}_install.php`,
+                                        when: (settings) => settings[WSCPackageSetting.SelfContainedPHP]
                                     }
                                 ]
                             }),

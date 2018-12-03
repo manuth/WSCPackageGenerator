@@ -11,9 +11,21 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
      * @param name
      * The key to save the answer to.
      */
-    public constructor(name: string, message: string, options?: Question<T>)
+    public constructor(name: string, message: string, when?: boolean | ((settings: T) => boolean | Promise<boolean>))
     {
         super();
+        let whenFunction = async (settings: T) =>
+        {
+            if (typeof when === "function")
+            {
+                return when(settings);
+            }
+            else
+            {
+                return when;
+            }
+        };
+
         this.push(
             {
                 type: "list",
@@ -41,19 +53,15 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
                         value: null,
                         name: "Custom"
                     }
-                ]
+                ],
+                when: async (input) => whenFunction(input)
             },
             {
                 name,
                 message: "Please specify the identifier of the custom Application.",
                 default: "wcf",
-                when: (settings) => settings[name] === null,
+                when: async (settings) => (await whenFunction(settings)) && (settings[name] === null),
                 validate: (input) => /\w+/.test(input) ? true : "The identifier must not be empty!"
             });
-
-        for (let question of this)
-        {
-            Object.assign(question, options);
-        }
     }
 }

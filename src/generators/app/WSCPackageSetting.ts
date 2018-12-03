@@ -49,9 +49,19 @@ export enum WSCPackageSetting
     FilesApp = "filesApp",
 
     /**
+     * Indicates the `SelfContainedPHP` setting.
+     */
+    SelfContainedPHP = "selfContainedPHP",
+
+    /**
      * Indicates the `PHPScriptApp` setting.
      */
     PHPScriptApp = "phpScriptApp",
+
+    /**
+     * Indicates the `PHPScriptSource` setting.
+     */
+    PHPScriptSource = "phpScriptSource",
 
     /**
      * Indicates the `PHPScriptFile` setting.
