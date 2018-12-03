@@ -45,7 +45,7 @@ suite(
                 suiteSetup(
                     () =>
                     {
-                        generatorRoot = Path.join(__dirname, "..", "generators", "app");
+                        generatorRoot = Path.join(__dirname, "..", "..", "generators", "app");
                         packageName = "MyPackage";
                         displayName = "This is a test";
                         identifier = "com.example.mypackage";
@@ -181,7 +181,7 @@ suite(
                 suiteSetup(
                     () =>
                     {
-                        generatorRoot = Path.join(__dirname, "..", "generators", "theme");
+                        generatorRoot = Path.join(__dirname, "..", "..", "generators", "theme");
                         themePath = "MyThemes";
                         name = "MyTheme";
                         displayName = "This is a test";
