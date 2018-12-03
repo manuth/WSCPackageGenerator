@@ -1,3 +1,4 @@
+import { PHPInstructionCompiler } from "../../Compilation/PackageSystem/Instructions/PHPInstructionCompiler";
 import { Instruction } from "./Instruction";
 import { IPHPInstructionOptions } from "./IPHPInstructionOptions";
 
@@ -25,6 +26,11 @@ export class PHPInstruction extends Instruction
         return "script";
     }
 
+    public get Compiler()
+    {
+        return new PHPInstructionCompiler(this);
+    }
+
     /**
      * Gets or sets the application to load the php-file from.
      */
@@ -49,5 +55,10 @@ export class PHPInstruction extends Instruction
     public set FileName(value)
     {
         super.FileName = value;
+    }
+
+    public get FullName()
+    {
+        return this.FileName;
     }
 }
