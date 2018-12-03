@@ -9,7 +9,7 @@ import { Generator } from "../../Generator";
 import { SourceComponent } from "../../SourceComponent";
 import { SourceFileMapping } from "../../SourceFileMapping";
 import { WoltLabComponent } from "../../WoltLabComponent";
-import { ApplicationQuestions } from "./ApplicationQuestion";
+import { ApplicationQuestions } from "./ApplicationQuestions";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
 import { PackageContext } from "./PackageContext";
 import { WSCPackageComponent } from "./WSCPackageComponent";
