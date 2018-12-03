@@ -3,6 +3,7 @@ import escapeStringRegexp = require("escape-string-regexp");
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import { TempFile } from "temp-filesystem";
+import UPath = require("upath");
 import { isNullOrUndefined } from "util";
 import { DOMParser } from "xmldom";
 import { PackageFileCompiler } from "../../../../System/Compilation/PackageSystem/PackageFileCompiler";
@@ -702,7 +703,7 @@ suite(
 
                                                                     if (instruction.Type === "language")
                                                                     {
-                                                                        textContent = Path.join(instruction.FullName, "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
+                                                                        textContent = UPath.join(instruction.FullName, "*");
                                                                     }
                                                                     else
                                                                     {

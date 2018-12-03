@@ -1,4 +1,5 @@
 import Path = require("path");
+import UPath = require("upath");
 import { Generator } from "../../Generator";
 import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
 import { IWSCPackageSettings } from "./IWSCPackageSettings";
@@ -109,14 +110,14 @@ export class PackageContext
         let pathFormatter = (value: string) =>
         {
             value = Path.relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
-            value = value.split(Path.sep).join(Path.posix.sep);
+            value = UPath.normalize(value);
             return value;
         };
 
         let requireFormatter = (value: string) =>
         {
             value = pathFormatter(value);
-            value = Path.posix.join(Path.posix.dirname(value), Path.posix.parse(value).name);
+            value = UPath.join(UPath.dirname(value), UPath.parse(value).name);
 
             if (!value.startsWith("."))
             {

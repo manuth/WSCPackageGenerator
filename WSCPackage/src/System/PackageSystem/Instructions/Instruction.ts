@@ -1,5 +1,6 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
+import UPath = require("upath");
 import { isNullOrUndefined } from "util";
 import { InstructionCompiler } from "../../Compilation/PackageSystem/Instructions/InstructionCompiler";
 import { IInstruction } from "./IInstruction";
@@ -85,7 +86,7 @@ export abstract class Instruction implements IInstruction
 
     public get FullName()
     {
-        return Path.join(this.DestinationRoot, this.FileName).replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
+        return UPath.join(this.DestinationRoot, this.FileName);
     }
 
     public get Standalone()

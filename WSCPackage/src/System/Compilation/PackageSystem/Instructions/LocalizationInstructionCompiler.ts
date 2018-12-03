@@ -1,6 +1,5 @@
-import escapeStringRegexp = require("escape-string-regexp");
-import * as Path from "path";
 import { TempFile } from "temp-filesystem";
+import UPath = require("upath");
 import { ILocalizationInstruction } from "../../../PackageSystem/Instructions/Globalization/ILocalizationInstruction";
 import { LocalizationFileCompiler } from "../../Globalization/LocalizationFileCompiler";
 import { InstructionCompiler } from "./InstructionCompiler";
@@ -24,10 +23,11 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
     public Serialize(): Document
     {
         let document: Document = super.Serialize();
-        document.documentElement.textContent = this.MakePackagePath(
-            this.Item.DestinationRoot,
-            this.Item.TranslationDirectory,
-            "*").replace(new RegExp(escapeStringRegexp(Path.sep), "g"), "/");
+        document.documentElement.textContent = UPath.normalize(
+            this.MakePackagePath(
+                this.Item.DestinationRoot,
+                this.Item.TranslationDirectory,
+                "*"));
         return document;
     }
 

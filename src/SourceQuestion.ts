@@ -1,6 +1,7 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import { Question } from "extended-yo-generator";
 import Path = require("path");
+import UPath = require("upath");
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
@@ -33,7 +34,7 @@ export class SourceQuestion<T extends IWoltLabGeneratorSettings> extends Compone
     {
         return (input: string, answers: T): boolean | string | Promise<boolean | string> =>
         {
-            if (!new RegExp(`${escapeStringRegexp(`${this.Generator.sourcePath() + Path.sep}`)}.+`).test(input))
+            if (!new RegExp(`${escapeStringRegexp(`${UPath.normalize(this.Generator.sourcePath()) + UPath.sep}`)}.+`).test(UPath.normalize(input)))
             {
                 return `The file must be inside the "${this.Generator.sourcePath()}"-directory.`;
             }

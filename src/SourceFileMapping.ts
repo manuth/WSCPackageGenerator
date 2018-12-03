@@ -1,6 +1,7 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import { IFileMapping } from "extended-yo-generator";
 import Path = require("path");
+import UPath = require("upath");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
@@ -89,12 +90,9 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
                 {
                     RelativeSourceRoot: (() =>
                     {
-                        let result = Path.posix.normalize(
-                            Path.relative(
-                                Path.dirname(destination),
-                                Path.join(answers[WSCPackageSetting.Destination], this.Generator.sourcePath())).replace(
-                                    new RegExp(escapeStringRegexp(Path.sep), "g"),
-                                    "/"));
+                        let result = UPath.relative(
+                            UPath.dirname(destination),
+                            UPath.join(answers[WSCPackageSetting.Destination], this.Generator.sourcePath()));
 
                         if (!result.startsWith("."))
                         {
@@ -110,12 +108,11 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
                     })(),
                     MakePackagePath: (() =>
                     {
-                        let levels = Path.relative(Path.dirname(destination), answers[WSCPackageSetting.Destination]).split(Path.sep).length;
+                        let levels = UPath.relative(Path.dirname(destination), answers[WSCPackageSetting.Destination]).split(UPath.sep).length;
 
                         return (path: string) =>
                         {
-                            let pathSegments = path.split(new RegExp(`[${escapeStringRegexp(`${Path.win32.sep}${Path.posix.sep}`)}]`, "g"));
-
+                            let pathSegments = UPath.normalize(path).split(UPath.sep);
                             let result = "Path.join(__dirname";
 
                             for (let i = 0; i < levels; i++)

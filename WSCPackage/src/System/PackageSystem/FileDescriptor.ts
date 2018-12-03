@@ -1,5 +1,6 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import * as Path from "path";
+import UPath = require("upath");
 import { isNullOrUndefined } from "util";
 import { IFileDescriptorOptions } from "./IFileDescriptorOptions";
 
@@ -28,7 +29,17 @@ export class FileDescriptor
         if (isNullOrUndefined(options.FileName))
         {
             let fileName: string = Path.normalize(options.Source);
-            this.FileName = (Path.isAbsolute(fileName) || new RegExp(`^${escapeStringRegexp("..")}(${escapeStringRegexp(Path.sep)}|$)`).test(fileName)) ? Path.basename(fileName) : fileName;
+
+            if (
+                Path.isAbsolute(fileName) ||
+                (UPath.normalize(fileName).split(UPath.sep)[0] === ".."))
+            {
+                this.FileName = Path.basename(fileName);
+            }
+            else
+            {
+                this.FileName = fileName;
+            }
         }
         else
         {
