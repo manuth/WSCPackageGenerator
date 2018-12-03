@@ -138,6 +138,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         Process: async (source, destination) =>
                                         {
                                             await FileSystem.ensureDir(destination);
+                                            await FileSystem.ensureFile(Path.join(destination, "Place files here"));
                                         }
                                     }
                                 ],
@@ -203,7 +204,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         Destination: (settings) => settings[WSCPackageSetting.PHPScriptSource],
                                         Process: async (source, destination, context, defaultProcessor, settings) =>
                                         {
-                                            if (isNullOrUndefined(settings[WSCPackageSetting.SelfContainedPHP]))
+                                            if (settings[WSCPackageSetting.SelfContainedPHP])
                                             {
                                                 await FileSystem.ensureFile(settings[WSCPackageSetting.PHPScriptSource]);
                                             }
@@ -444,6 +445,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         Process: async (source, destination) =>
                                         {
                                             await FileSystem.ensureDir(destination);
+                                            await FileSystem.ensureFile(Path.join(destination, "Place templates here"));
                                         }
                                     }
                                 ],
@@ -486,6 +488,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         Process: async (source, destination) =>
                                         {
                                             await FileSystem.ensureDir(destination);
+                                            await FileSystem.ensureFile(Path.join(destination, "Place acp-templates here"));
                                         }
                                     }
                                 ],
