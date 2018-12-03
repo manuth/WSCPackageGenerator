@@ -50,4 +50,9 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
      * Gets or sets the path to load the `PHPScript` from.
      */
     [WSCPackageSetting.PHPScriptFile]: string;
+
+    /**
+     * Gets or sets the path to save the `SQLScript` to.
+     */
+    [WSCPackageSetting.SQLFile]: string;
 }

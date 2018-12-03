@@ -234,12 +234,37 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.SQLScript,
                                 DisplayName: "SQL-Script to Execute During the Installation",
                                 FileMapping: {
-                                    Source: "./components/SQLScript.ts.ejs"
+                                    Source: "./components/SQLScript.ts.ejs",
+                                    Context: (settings) =>
+                                    {
+                                        return {
+                                            SQLFile: settings[WSCPackageSetting.SQLFile]
+                                        };
+                                    }
                                 },
                                 Question: {
                                     message: "Where do you want to store the settings for the SQL-script?",
                                     default: "SQLScript.ts"
-                                }
+                                },
+                                AdditionalFiles: [
+                                    {
+                                        Source: null,
+                                        Destination: (settings) => settings[WSCPackageSetting.SQLFile],
+                                        Process: async (source, destination) =>
+                                        {
+                                            await FileSystem.ensureFile(destination);
+                                        }
+                                    }
+                                ],
+                                AdditionalQuestions: [
+                                    new AssetQuestion(
+                                        this,
+                                        {
+                                            name: WSCPackageSetting.SQLFile,
+                                            message: "Where do you want to store the SQL-file?",
+                                            default: "install.sql"
+                                        })
+                                ]
                             })
                     ]
                 },

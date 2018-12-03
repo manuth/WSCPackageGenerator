@@ -1,5 +1,7 @@
+import Path = require("path");
 import { SQLInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/Data/SQLInstruction";
 
-let sqlInstruction: SQLInstruction = null;
-
-// export = sqlInstruction;
+export = new SQLInstruction(
+    {
+        Source: <%- MakePackagePath(SQLFile) %>
+    });

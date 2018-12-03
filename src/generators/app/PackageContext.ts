@@ -155,7 +155,6 @@ export class PackageContext
                 case WSCPackageComponent.Themes:
                     formatter = themeFormatter;
                     break;
-                case WSCPackageComponent.SQLScript:
                 case WSCPackageComponent.Templates:
                 case WSCPackageComponent.ACPTemplates:
                     formatter = commentedFormatter;

@@ -51,5 +51,10 @@ export enum WSCPackageSetting
     /**
      * Indicates the `PHPScriptFile` setting.
      */
-    PHPScriptFile = "phpScriptile"
+    PHPScriptFile = "phpScriptile",
+
+    /**
+     * Indicates the `SQLFile` setting.
+     */
+    SQLFile = "sqlFile"
 }
