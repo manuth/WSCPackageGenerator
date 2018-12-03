@@ -411,12 +411,41 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.ACPTemplates,
                                 DisplayName: "Admin Control Panel-Templates",
                                 FileMapping: {
-                                    Source: "./components/ACPTemplates.ts.ejs"
+                                    Source: "./components/ACPTemplates.ts.ejs",
+                                    Context: (settings) =>
+                                    {
+                                        return {
+                                            Application: settings[WSCPackageSetting.ACPTemplateApp],
+                                            TemplateRoot: settings[WSCPackageSetting.ACPTemplateRoot]
+                                        };
+                                    }
                                 },
                                 Question: {
-                                    message: "Where do you want to store the Admin Control Panel-Templates?",
+                                    message: "Where do you want to store the settings for the Admin Control Panel-Templates?",
                                     default: "ACPTemplates.ts"
-                                }
+                                },
+                                AdditionalFiles: [
+                                    {
+                                        Source: null,
+                                        Destination: (settings) => settings[WSCPackageSetting.ACPTemplateRoot],
+                                        Process: async (source, destination) =>
+                                        {
+                                            await FileSystem.ensureDir(destination);
+                                        }
+                                    }
+                                ],
+                                AdditionalQuestions: [
+                                    new AssetQuestion(
+                                        this,
+                                        {
+                                            name: WSCPackageSetting.ACPTemplateRoot,
+                                            message: "Where do you want to store the Admin Control Panel-Templates?",
+                                            default: "acpTemplates"
+                                        }),
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.ACPTemplateApp,
+                                        "What's the application you want to provide Admin Control Panel-Templates for?")
+                                ]
                             })
                     ]
                 },

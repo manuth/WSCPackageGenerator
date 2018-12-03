@@ -71,5 +71,15 @@ export enum WSCPackageSetting
     /**
      * Indicates the `TemplateApp` setting.
      */
-    TemplateApp = "templateApp"
+    TemplateApp = "templateApp",
+
+    /**
+     * Indicates the `ACPTemplateRoot` setting.
+     */
+    ACPTemplateRoot = "acpTemplateRoot",
+
+    /**
+     * Indicates the `ACPTemplateApp` setting.
+     */
+    ACPTemplateApp = "acpTemplateApp"
 }

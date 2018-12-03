@@ -1,5 +1,8 @@
+import Path = require("path");
 import { ACPTemplateInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/Customization/Presentation/ACPTemplateInstruction";
 
-let acpTemplatesInstruction: ACPTemplateInstruction = null;
-
-// export = acpTemplatesInstruction;
+export = new ACPTemplateInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        Source: <%- MakePackagePath(TemplateRoot) %>
+    });

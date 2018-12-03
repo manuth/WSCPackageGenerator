@@ -70,4 +70,14 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
      * Gets or sets the application the templates are made for.
      */
     [WSCPackageSetting.TemplateApp]: string;
+
+    /**
+     * Gets or sets the path to save the acp-templates to.
+     */
+    [WSCPackageSetting.ACPTemplateRoot]: string;
+
+    /**
+     * Gets or sets the application the acp-templates are made for.
+     */
+    [WSCPackageSetting.ACPTemplateApp]: string;
 }

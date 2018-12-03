@@ -1,5 +1,6 @@
 # Change Log
 ### WSCPackageGenerator v2.1.0
+  - Improved all complex instruction-generations
   - Completely reworked the generator
   - Updated all packages
 

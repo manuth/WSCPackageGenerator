@@ -126,11 +126,6 @@ export class PackageContext
             return `require("${value}")`;
         };
 
-        let commentedFormatter = (value: string) =>
-        {
-            return `// ${requireFormatter(value)}`;
-        };
-
         let themeFormatter = (value: string) =>
         {
             value = pathFormatter(value);
@@ -154,9 +149,6 @@ export class PackageContext
             {
                 case WSCPackageComponent.Themes:
                     formatter = themeFormatter;
-                    break;
-                case WSCPackageComponent.ACPTemplates:
-                    formatter = commentedFormatter;
                     break;
                 default:
                     formatter = requireFormatter;
