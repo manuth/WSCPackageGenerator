@@ -6,7 +6,7 @@ import { Compiler } from "../../Compiler";
 /**
  * Provides the functionality to compile an instruction.
  */
-export abstract class InstructionCompiler<T extends IInstruction> extends Compiler<T>
+export class InstructionCompiler<T extends IInstruction> extends Compiler<T>
 {
     /**
      * Initializes a new instance of the `InstructionCompiler<T>` class.
@@ -42,6 +42,10 @@ export abstract class InstructionCompiler<T extends IInstruction> extends Compil
         }
 
         return document;
+    }
+
+    protected async Compile(): Promise<void>
+    {
     }
 
     /**

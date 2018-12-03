@@ -103,7 +103,7 @@ export abstract class Instruction implements IInstruction
      */
     public get Compiler(): InstructionCompiler<IInstruction>
     {
-        return null;
+        return new InstructionCompiler(this);
     }
 
     public get ObjectsByID(): { [id: string]: any }
