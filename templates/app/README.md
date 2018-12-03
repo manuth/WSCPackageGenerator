@@ -1,5 +1,5 @@
-# <%= Settings.name %>
-<%= Settings.description %>
+# <%= Name %>
+<%= Description %>
 
 ## Building the Package
 ### Using Visual Studio Code
