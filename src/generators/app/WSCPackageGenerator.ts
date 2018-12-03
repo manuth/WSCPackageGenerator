@@ -121,6 +121,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     Context: (settings) =>
                                     {
                                         return {
+                                            Application: settings[WSCPackageSetting.FilesApp],
                                             FilesDirectory: settings[WSCPackageSetting.FilesDirectory]
                                         };
                                     }
@@ -146,7 +147,10 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                             name: WSCPackageSetting.FilesDirectory,
                                             message: "Where do you want to store the files?",
                                             default: "files"
-                                        })
+                                        }),
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.FilesApp,
+                                        "What application do you want to upload the files to?")
                                 ]
                             }),
                         new WoltLabComponent(

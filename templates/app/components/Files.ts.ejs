@@ -3,5 +3,6 @@ import { ApplicationFileSystemInstruction } from "<%- RelativeSourceRoot %>Syste
 
 export = new ApplicationFileSystemInstruction(
     {
+        Application: <%- JSON.stringify(Application) %>,
         Source: <%- MakePackagePath(FilesDirectory) %>
     });

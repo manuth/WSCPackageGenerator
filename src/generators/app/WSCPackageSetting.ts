@@ -44,6 +44,11 @@ export enum WSCPackageSetting
     FilesDirectory = "filesDir",
 
     /**
+     * Indicates the `FilesApp` setting.
+     */
+    FilesApp = "filesApp",
+
+    /**
      * Indicates the `PHPScriptApp` setting.
      */
     PHPScriptApp = "phpScriptApp",
