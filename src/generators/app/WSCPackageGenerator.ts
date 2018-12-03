@@ -80,7 +80,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 type: "input",
                 name: WSCPackageSetting.HomePage,
                 message: "Please enter your homepage:",
-                default: () => this.config.get(WSCPackageSetting.HomePage) || ""
+                default: () => this.config.get(WSCPackageSetting.HomePage)
             },
             {
                 type: "input",
@@ -167,12 +167,66 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                 ID: WSCPackageComponent.PHPScript,
                                 DisplayName: "PHP-Scripts to Execute During the Installation",
                                 FileMapping: {
-                                    Source: "./components/PHPScript.ts.ejs"
+                                    Source: "./components/PHPScript.ts.ejs",
+                                    Context: (settings) =>
+                                    {
+                                        return {
+                                            Application: settings[WSCPackageSetting.PHPScriptApp],
+                                            PHPFile: settings[WSCPackageSetting.PHPScriptFile]
+                                        };
+                                    }
                                 },
                                 Question: {
                                     message: "Where do you want to store the settings for the PHP-script?",
                                     default: "PHPScript.ts"
-                                }
+                                },
+                                AdditionalFiles: [
+                                    {
+                                        Source: null,
+                                        Destination: (settings) => settings[WSCPackageSetting.PHPScriptFile]
+                                    }
+                                ],
+                                AdditionalQuestions: [
+                                    {
+                                        type: "list",
+                                        name: WSCPackageSetting.PHPScriptApp,
+                                        message: "What application's directory do you want to load the php-script from?",
+                                        default: "wcf",
+                                        choices: [
+                                            {
+                                                value: "wcf",
+                                                name: "WoltLab Suite Core"
+                                            },
+                                            {
+                                                value: "wbb",
+                                                name: "WoltLab Burning Board"
+                                            },
+                                            {
+                                                value: "gallery",
+                                                name: "WoltLab Gallery"
+                                            },
+                                            {
+                                                value: "filebase",
+                                                name: "WoltLab FileBase"
+                                            },
+                                            {
+                                                value: null,
+                                                name: "Other"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        name: WSCPackageSetting.PHPScriptApp,
+                                        message: "What's the identifier of the application to load the file from?",
+                                        default: "wcf",
+                                        when: (settings) => settings[WSCPackageSetting.PHPScriptApp] === null
+                                    },
+                                    {
+                                        name: WSCPackageSetting.PHPScriptFile,
+                                        message: "Where do you want to load the file from?",
+                                        transformer: (input) => input || ""
+                                    }
+                                ]
                             }),
                         new WoltLabComponent(
                             this,
@@ -409,8 +463,8 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                             Author: context.Author,
                             HomePage: context.HomePage,
                             CreationDate: context.CreationDate,
-                            Description: context.Description,
-                            Instructions: context.Instructions
+                            Description: context.Description || "",
+                            Instructions: context.Instructions || []
                         };
                     },
                     Destination: this.destinationPath(this.metaPath("Package.ts"))

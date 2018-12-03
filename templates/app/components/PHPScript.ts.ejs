@@ -1,5 +1,7 @@
 import { PHPInstruction } from "<%- RelativeSourceRoot %>System/PackageSystem/Instructions/PHPInstruction";
 
-let phpInstruction: PHPInstruction = null;
-
-// export = phpInstruction;
+export = new PHPInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        FileName: <%- JSON.stringify(PHPFile) %>
+    });

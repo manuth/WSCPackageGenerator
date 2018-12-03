@@ -40,4 +40,14 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
      * Gets or sets the directory which contains files.
      */
     [WSCPackageSetting.FilesDirectory]: string;
+
+    /**
+     * Gets or sets the application to load the `PHPScript` from.
+     */
+    [WSCPackageSetting.PHPScriptApp]: string;
+
+    /**
+     * Gets or sets the path to load the `PHPScript` from.
+     */
+    [WSCPackageSetting.PHPScriptFile]: string;
 }
