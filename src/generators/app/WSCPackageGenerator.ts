@@ -198,7 +198,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     {
                                         name: WSCPackageSetting.PHPScriptFile,
                                         message: "Where do you want to load the file from?",
-                                        transformer: (input) => input || ""
+                                        filter: (input) => input || ""
                                     }
                                 ]
                             }),
