@@ -143,16 +143,16 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     }
                                 ],
                                 AdditionalQuestions: [
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.FilesApp,
+                                        "What application do you want to upload the files to?"),
                                     new AssetQuestion(
                                         this,
                                         {
                                             name: WSCPackageSetting.FilesDirectory,
                                             message: "Where do you want to store the files?",
-                                            default: "files"
-                                        }),
-                                    ...new ApplicationQuestions(
-                                        WSCPackageSetting.FilesApp,
-                                        "What application do you want to upload the files to?")
+                                            default: (settings: IWSCPackageSettings) => Path.join("files", settings[WSCPackageSetting.FilesApp])
+                                        })
                                 ]
                             }),
                         new WoltLabComponent(
@@ -248,7 +248,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                             name: WSCPackageSetting.PHPScriptSource,
                                             message: "Where do you want to store the php-file?",
                                             when: (settings) => settings[WSCPackageSetting.SelfContainedPHP],
-                                            default: "install.php"
+                                            default: (settings: IWSCPackageSettings) => Path.join(settings[WSCPackageSetting.PHPScriptApp], "install.php")
                                         }),
                                     {
                                         name: WSCPackageSetting.PHPScriptFile,
@@ -450,16 +450,16 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     }
                                 ],
                                 AdditionalQuestions: [
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.TemplateApp,
+                                        "What's the application you want to provide templates for?"),
                                     new AssetQuestion(
                                         this,
                                         {
                                             name: WSCPackageSetting.TemplateRoot,
                                             message: "Where do you want to store the templates?",
-                                            default: "templates"
-                                        }),
-                                    ...new ApplicationQuestions(
-                                        WSCPackageSetting.TemplateApp,
-                                        "What's the application you want to provide templates for?")
+                                            default: (settings: IWSCPackageSettings) => Path.join("templates", settings[WSCPackageSetting.TemplateApp])
+                                        })
                                 ]
                             }),
                         new WoltLabComponent(
@@ -493,16 +493,16 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     }
                                 ],
                                 AdditionalQuestions: [
+                                    ...new ApplicationQuestions(
+                                        WSCPackageSetting.ACPTemplateApp,
+                                        "What's the application you want to provide Admin Control Panel-Templates for?"),
                                     new AssetQuestion(
                                         this,
                                         {
                                             name: WSCPackageSetting.ACPTemplateRoot,
                                             message: "Where do you want to store the Admin Control Panel-Templates?",
-                                            default: "acpTemplates"
-                                        }),
-                                    ...new ApplicationQuestions(
-                                        WSCPackageSetting.ACPTemplateApp,
-                                        "What's the application you want to provide Admin Control Panel-Templates for?")
+                                            default: (settings: IWSCPackageSettings) => Path.join("acpTemplates", settings[WSCPackageSetting.ACPTemplateApp])
+                                        })
                                 ]
                             })
                     ]
