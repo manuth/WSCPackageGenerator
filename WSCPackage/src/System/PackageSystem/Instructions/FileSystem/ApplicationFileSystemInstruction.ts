@@ -23,7 +23,7 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
         super(
             {
                 Source: options.Source,
-                FileName: options.FileName || `${(Path.isAbsolute(options.Source) || options.Source.startsWith("..")) ? Path.basename(options.Source) : options.Source}.tar`
+                FileName: options.FileName
             });
 
         if (!isNullOrUndefined(options.Application))
@@ -53,5 +53,10 @@ export class ApplicationFileSystemInstruction extends FileSystemInstruction
     public get Compiler(): InstructionCompiler<ApplicationFileSystemInstruction>
     {
         return new FileInstructionCompiler(this);
+    }
+
+    protected MakeDefaultFileName(source: string)
+    {
+        return `${super.MakeDefaultFileName(source)}.tar`;
     }
 }
