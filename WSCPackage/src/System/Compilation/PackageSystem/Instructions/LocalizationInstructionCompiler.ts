@@ -23,12 +23,20 @@ export class LocalizationInstructionCompiler extends InstructionCompiler<ILocali
     public Serialize(): Document
     {
         let document: Document = super.Serialize();
-        document.documentElement.textContent = UPath.normalize(
-            this.MakePackagePath(
-                this.Item.DestinationRoot,
-                this.Item.TranslationDirectory,
-                "*"));
-        return document;
+
+        if (Object.keys(this.Item.GetMessages()).length > 0)
+        {
+            document.documentElement.textContent = UPath.normalize(
+                this.MakePackagePath(
+                    this.Item.DestinationRoot,
+                    this.Item.TranslationDirectory,
+                    "*"));
+            return document;
+        }
+        else
+        {
+            return document.implementation.createDocument(null, null, null);
+        }
     }
 
     protected async Compile(): Promise<void>
