@@ -586,7 +586,6 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 }));
 
         this.fs.copy(this.templatePath("_.vscode"), this.destinationPath(".vscode"));
-        this.fs.copy(this.modulePath("WSCPackage", "src"), this.destinationPath(this.sourcePath()));
         this.fs.copy(this.templatePath(".gitignore.ejs"), this.destinationPath(".gitignore"));
         this.fs.copy(this.templatePath(".npmignore.ejs"), this.destinationPath(".npmignore"));
         this.fs.copyTpl(

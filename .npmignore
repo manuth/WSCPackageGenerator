@@ -61,10 +61,7 @@ typings/
 .next
 
 # Source-files
-/[Ss]rc/
-
-# Build results
-WSCPackage/[Ll]ib/
+[Ss]rc/
 
 # TypeScript config-files
 tsconfig.json
@@ -72,8 +69,7 @@ tslint.json
 
 # Unit-Tests
 test/
-[Ll]ib/tests/
-WSCPackage/[Ss]rc/tests/
+tests/
 
 # Visual Studio Code-Environment
 .vscode/

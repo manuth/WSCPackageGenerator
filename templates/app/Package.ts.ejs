@@ -1,7 +1,5 @@
 import Path = require("path");
-import { IPackageOptions } from "<%- RelativeSourceRoot %>System/PackageSystem/IPackageOptions";
-import { ThemeInstructionCollection } from "<%- RelativeSourceRoot %>System/Customization/Presentation/Themes/ThemeInstructionCollection";
-import { RequiredPackageDescriptor } from "<%- RelativeSourceRoot %>System/PackageSystem/RequiredPackageDescriptor";
+import { IPackageOptions, RequiredPackageDescriptor, ThemeInstructionCollection } from "woltlab-compiler";
 
 let pkg: IPackageOptions = {
     Identifier: <%- JSON.stringify(Identifier) %>,
