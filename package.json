@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
   "scripts": {
-    "build": "tsc -b .",
+    "build": "tsc -p .",
     "rebuild": "npm run clean && npm run build",
-    "watch": "tsc -b . --watch",
+    "watch": "tsc -p . --watch",
     "clean": "rimraf ./lib",
-    "lint": "tslint -p . -t verbose && tslint -p ./WSCPackage -t verbose",
+    "lint": "tslint -p . -t verbose",
     "test": "mocha",
     "prepare": "npm run rebuild"
   },
