@@ -1,12 +1,12 @@
 import chalk from "chalk";
-import { Answers, IComponentProvider, Question } from "extended-yo-generator";
+import { Answers, GeneratorSetting, IComponentProvider, Question } from "extended-yo-generator";
 import * as FileSystem from "fs-extra";
 import kebabCase = require("lodash.kebabcase");
 import * as Path from "path";
-import { isNullOrUndefined } from "util";
 import yosay = require("yosay");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
+import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
 import { SourceComponent } from "../../SourceComponent";
 import { SourceFileMapping } from "../../SourceFileMapping";
 import { WoltLabComponent } from "../../WoltLabComponent";
@@ -613,7 +613,12 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
      */
     public async end()
     {
+        if (this.Settings[GeneratorSetting.Components].includes(WSCPackageComponent.Themes))
+        {
+            this.config.set(WSCPackageComponent.Themes, this.Settings[WoltLabGeneratorSetting.ComponentPaths][WSCPackageComponent.Themes]);
+        }
         this.config.save();
+
         this.log();
         this.log("Your package \"" + this.Settings[WSCPackageSetting.DisplayName] + "\" has been created!");
         this.log();
