@@ -138,14 +138,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Show differences][v0.0.3]
 
 ## WSCPackageGenerator v0.0.2
+  - Improved the user-experience
+  - Provided the functionality to declare required, optional and conflicting packages to the package-metadata
+  - Added more predefined option-types
+  - Provided the functionality to add invariant translations to the package- and style-metadata
+  - Provided support for localizable options
 
 [Show differences][v0.0.2]
 
 ## WSCPackageGenerator v0.0.1
+  - Added a style-generator
+  - Reworked the directory-structure
+  - Extended the option-instruction
+  - Updated the coding-style to es7
+  - Provided the functionality to write files of instruction-sets into separate directories
+  - Improved the readability of the ejs-templates
+  - Removed unused files
+  - Added the option to create error-messages
 
 [Show differences][v0.0.1]
 
 ## WSCPackageGenerator v0.0.0
+  - First release of the module
 
 [Show differences][v0.0.0]
 
