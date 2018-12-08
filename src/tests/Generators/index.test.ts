@@ -1,9 +1,9 @@
 import * as assert from "assert";
+import * as ChildProcess from "child_process";
 import * as FileSystem from "fs-extra";
-import * as npm from "npm";
 import * as Path from "path";
 import * as ts from "typescript";
-import { isNullOrUndefined } from "util";
+import { promisify } from "util";
 import * as helpers from "yeoman-test";
 import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";
 import { WSCThemeSetting } from "../../generators/theme/WSCThemeSetting";
@@ -77,49 +77,11 @@ suite(
                     {
                         this.slow(5 * 60 * 1000);
                         this.timeout(5 * 60 * 1000);
-
-                        let consoleLog = console.log;
-                        console.log = () => { };
-                        {
-                            await new Promise(
-                                (resolve, reject) =>
-                                {
-                                    npm.load(
-                                        {
-                                            loaded: false
-                                        } as any,
-                                        (error, result) =>
-                                        {
-                                            if (!isNullOrUndefined(error))
-                                            {
-                                                reject(error);
-                                            }
-                                            else
-                                            {
-                                                resolve(result);
-                                            }
-                                        });
-                                });
-
-                            await new Promise(
-                                (resolve, reject) =>
-                                {
-                                    npm.commands.install(
-                                        [],
-                                        (error, result) =>
-                                        {
-                                            if (!isNullOrUndefined(error))
-                                            {
-                                                reject(error);
-                                            }
-                                            else
-                                            {
-                                                resolve(result);
-                                            }
-                                        });
-                                });
-                        }
-                        console.log = consoleLog;
+                        await promisify(ChildProcess.exec)(
+                            "npm install",
+                            {
+                                cwd: tempDir
+                            });
                     });
 
                 test(
