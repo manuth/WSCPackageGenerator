@@ -62,7 +62,7 @@ suite(
                     });
 
                 test(
-                    "Checking whether the generator can be executed...",
+                    "Checking whether the generator can be executed…",
                     async function ()
                     {
                         this.slow(5000);
@@ -72,7 +72,7 @@ suite(
                     });
 
                 test(
-                    "Checking whether the package-dependencies can be installed...",
+                    "Checking whether the package-dependencies can be installed…",
                     async function ()
                     {
                         this.slow(5 * 60 * 1000);
@@ -94,14 +94,14 @@ suite(
                     });
 
                 test(
-                    "Checking whether a typescript-config exists...",
+                    "Checking whether a typescript-config exists…",
                     async () =>
                     {
                         assert.strictEqual(await FileSystem.pathExists(tsConfigFile), true);
                     });
 
                 test(
-                    "Checking whether the package-file can be compiled using typescript...",
+                    "Checking whether the package-file can be compiled using typescript…",
                     function ()
                     {
                         this.slow(20 * 1000);
@@ -129,7 +129,7 @@ suite(
                     });
 
                 test(
-                    "Checking the integrity of the package-manifest...",
+                    "Checking the integrity of the package-manifest…",
                     () =>
                     {
                         let $package = require(packageFileName);
@@ -169,14 +169,14 @@ suite(
                     });
 
                 test(
-                    "Checking whether the generator can be executed...",
+                    "Checking whether the generator can be executed…",
                     async () =>
                     {
                         await themeContext.toPromise();
                     });
 
                 test(
-                    "Checking whether the theme-file can be compiled using typescript...",
+                    "Checking whether the theme-file can be compiled using typescript…",
                     function (): void
                     {
                         this.slow(20 * 1000);
@@ -204,7 +204,7 @@ suite(
                     });
 
                 test(
-                    "Checking the integrity of the theme-manifest...",
+                    "Checking the integrity of the theme-manifest…",
                     () =>
                     {
                         let theme: any = require(themeFileName);
