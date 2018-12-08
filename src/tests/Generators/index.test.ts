@@ -82,6 +82,15 @@ suite(
                             {
                                 cwd: tempDir
                             });
+
+                        for (let module of ["node-sass"])
+                        {
+                            let source = Path.join(__dirname, "..", "..", "..", "node_modules", module);
+                            let target = Path.join(tempDir, "node_modules", module);
+                            await FileSystem.remove(target);
+                            await FileSystem.mkdirp(Path.dirname(target));
+                            await FileSystem.symlink(source, target, "junction");
+                        }
                     });
 
                 test(
