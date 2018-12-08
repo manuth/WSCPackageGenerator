@@ -1,12 +1,16 @@
 import * as assert from "assert";
 import * as ChildProcess from "child_process";
+import { GeneratorSetting } from "extended-yo-generator";
 import * as FileSystem from "fs-extra";
 import * as Path from "path";
 import * as ts from "typescript";
 import { promisify } from "util";
 import * as helpers from "yeoman-test";
+import { WSCPackageComponent } from "../../generators/app/WSCPackageComponent";
+import { WSCPackageGenerator } from "../../generators/app/WSCPackageGenerator";
 import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";
 import { WSCThemeSetting } from "../../generators/theme/WSCThemeSetting";
+import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
 
 suite(
     "Generators",
@@ -16,6 +20,7 @@ suite(
         let tempDir: string;
         let tsConfigFile: string;
         let packageContext: helpers.RunContext;
+        let themePath: string;
         let themeContext: helpers.RunContext;
 
         suiteSetup(
@@ -57,7 +62,10 @@ suite(
                                     [WSCPackageSetting.DisplayName]: displayName,
                                     [WSCPackageSetting.Identifier]: identifier,
                                     [WSCPackageSetting.Author]: "Manuel Thalmann",
-                                    [WSCPackageSetting.HomePage]: "https://nuth.ch"
+                                    [WSCPackageSetting.HomePage]: "https://nuth.ch",
+                                    [GeneratorSetting.Components]: [
+                                        WSCPackageComponent.Themes
+                                    ]
                                 });
                     });
 
@@ -67,7 +75,10 @@ suite(
                     {
                         this.slow(5000);
                         this.timeout(5000);
+                        let generator: WSCPackageGenerator;
                         tempDir = await packageContext.toPromise();
+                        generator = (packageContext as any).generator;
+                        themePath = generator.Settings[WoltLabGeneratorSetting.ComponentPaths][WSCPackageComponent.Themes];
                         tsConfigFile = Path.join(tempDir, "tsconfig.json");
                     });
 
@@ -145,7 +156,6 @@ suite(
             {
                 let generatorRoot: string;
                 let themeFileName: string;
-                let themePath: string;
                 let name: string;
                 let displayName: string;
 
@@ -153,7 +163,6 @@ suite(
                     () =>
                     {
                         generatorRoot = Path.join(__dirname, "..", "..", "generators", "theme");
-                        themePath = "MyThemes";
                         name = "MyTheme";
                         displayName = "This is a test";
                         themeContext = helpers.run(
@@ -162,7 +171,6 @@ suite(
                                 tmpdir: false
                             }).withPrompts(
                                 {
-                                    [WSCThemeSetting.Destination]: themePath,
                                     [WSCThemeSetting.Name]: name,
                                     [WSCThemeSetting.DisplayName]: displayName
                                 });
