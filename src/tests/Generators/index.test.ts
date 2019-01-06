@@ -1,11 +1,11 @@
-import assert = require("assert");
+import Assert = require("assert");
 import ChildProcess = require("child_process");
 import { GeneratorSetting } from "extended-yo-generator";
 import FileSystem = require("fs-extra");
 import Path = require("path");
-import ts = require("typescript");
+import TypeScript = require("typescript");
 import { promisify } from "util";
-import helpers = require("yeoman-test");
+import { run, RunContext } from "yeoman-test";
 import { WSCPackageComponent } from "../../generators/app/WSCPackageComponent";
 import { WSCPackageGenerator } from "../../generators/app/WSCPackageGenerator";
 import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";
@@ -19,9 +19,9 @@ suite(
         let currentDir: string;
         let tempDir: string;
         let tsConfigFile: string;
-        let packageContext: helpers.RunContext;
+        let packageContext: RunContext;
         let themePath: string;
-        let themeContext: helpers.RunContext;
+        let themeContext: RunContext;
 
         suiteSetup(
             () =>
@@ -54,7 +54,7 @@ suite(
                         packageName = "MyPackage";
                         displayName = "This is a test";
                         identifier = "com.example.mypackage";
-                        packageContext = helpers.run(
+                        packageContext = run(
                             generatorRoot).withPrompts(
                                 {
                                     [WSCPackageSetting.Destination]: "./",
@@ -108,7 +108,7 @@ suite(
                     "Checking whether a typescript-config exists…",
                     async () =>
                     {
-                        assert.strictEqual(await FileSystem.pathExists(tsConfigFile), true);
+                        Assert.strictEqual(await FileSystem.pathExists(tsConfigFile), true);
                     });
 
                 test(
@@ -119,21 +119,21 @@ suite(
                         this.timeout(20 * 1000);
 
                         let host = {
-                            ...ts.sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: ts.Diagnostic): void =>
+                            ...TypeScript.sys,
+                            onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
                             {
                                 throw diagnostic;
                             }
-                        } as ts.ParseConfigFileHost;
+                        } as TypeScript.ParseConfigFileHost;
 
-                        let config = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult = ts.createProgram(
+                        let config = TypeScript.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = TypeScript.createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options
                             }).emit();
 
-                        assert.strictEqual(compilerResult.emitSkipped, false);
+                        Assert.strictEqual(compilerResult.emitSkipped, false);
 
                         let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
                         packageFileName = Path.join(baseDir, "Meta", "Package");
@@ -144,9 +144,9 @@ suite(
                     () =>
                     {
                         let $package = require(packageFileName);
-                        assert.strictEqual($package["Name"], packageName);
-                        assert.strictEqual($package["DisplayName"]["inv"], displayName);
-                        assert.strictEqual($package["Identifier"], identifier);
+                        Assert.strictEqual($package["Name"], packageName);
+                        Assert.strictEqual($package["DisplayName"]["inv"], displayName);
+                        Assert.strictEqual($package["Identifier"], identifier);
                     });
             });
 
@@ -165,7 +165,7 @@ suite(
                         generatorRoot = Path.join(__dirname, "..", "..", "generators", "theme");
                         name = "MyTheme";
                         displayName = "This is a test";
-                        themeContext = helpers.run(
+                        themeContext = run(
                             generatorRoot,
                             {
                                 tmpdir: false
@@ -191,21 +191,21 @@ suite(
                         this.timeout(20 * 1000);
 
                         let host = {
-                            ...ts.sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: ts.Diagnostic): void =>
+                            ...TypeScript.sys,
+                            onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
                             {
                                 throw diagnostic;
                             }
-                        } as ts.ParseConfigFileHost;
+                        } as TypeScript.ParseConfigFileHost;
 
-                        let config = ts.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult = ts.createProgram(
+                        let config = TypeScript.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = TypeScript.createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options
                             }).emit();
 
-                        assert.strictEqual(compilerResult.emitSkipped, false);
+                        Assert.strictEqual(compilerResult.emitSkipped, false);
 
                         let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
                         themeFileName = Path.join(baseDir, themePath, name, "Theme");
@@ -216,8 +216,8 @@ suite(
                     () =>
                     {
                         let theme: any = require(themeFileName);
-                        assert.strictEqual(theme["Name"], name);
-                        assert.strictEqual(theme["DisplayName"]["inv"], displayName);
+                        Assert.strictEqual(theme["Name"], name);
+                        Assert.strictEqual(theme["DisplayName"]["inv"], displayName);
                     });
             });
     });
