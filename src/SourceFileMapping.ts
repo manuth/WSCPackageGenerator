@@ -1,4 +1,3 @@
-import escapeStringRegexp = require("escape-string-regexp");
 import { IFileMapping } from "extended-yo-generator";
 import Path = require("path");
 import UPath = require("upath");

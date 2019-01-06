@@ -1,6 +1,5 @@
 import escapeStringRegexp = require("escape-string-regexp");
 import { Question } from "extended-yo-generator";
-import Path = require("path");
 import UPath = require("upath");
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
