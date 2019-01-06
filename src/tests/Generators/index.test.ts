@@ -1,11 +1,11 @@
-import * as assert from "assert";
-import * as ChildProcess from "child_process";
+import assert = require("assert");
+import ChildProcess = require("child_process");
 import { GeneratorSetting } from "extended-yo-generator";
-import * as FileSystem from "fs-extra";
-import * as Path from "path";
-import * as ts from "typescript";
+import FileSystem = require("fs-extra");
+import Path = require("path");
+import ts = require("typescript");
 import { promisify } from "util";
-import * as helpers from "yeoman-test";
+import helpers = require("yeoman-test");
 import { WSCPackageComponent } from "../../generators/app/WSCPackageComponent";
 import { WSCPackageGenerator } from "../../generators/app/WSCPackageGenerator";
 import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";

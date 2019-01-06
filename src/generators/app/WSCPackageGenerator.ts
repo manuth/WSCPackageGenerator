@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import { Answers, GeneratorSetting, IComponentProvider, Question } from "extended-yo-generator";
-import * as FileSystem from "fs-extra";
+import FileSystem = require("fs-extra");
 import kebabCase = require("lodash.kebabcase");
-import * as Path from "path";
+import Path = require("path");
 import yosay = require("yosay");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
