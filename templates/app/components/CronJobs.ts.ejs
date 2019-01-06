@@ -1,9 +1,7 @@
-import { CronJobInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Tasks/CronJobInstruction";
+import { CronJobInstruction } from "woltlab-compiler";
 
-const cronjobInstruction: CronJobInstruction = new CronJobInstruction({
+export = new CronJobInstruction({
     FileName: "cronJobs.xml",
     CronJobs: [
     ]
 });
-
-export = cronjobInstruction;

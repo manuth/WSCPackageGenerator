@@ -1,5 +1,7 @@
-import {SQLInstruction} from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Data/SQLInstruction";
+import Path = require("path");
+import { SQLInstruction } from "woltlab-compiler";
 
-let sqlInstruction: SQLInstruction = null;
-
-// export = sqlInstruction;
+export = new SQLInstruction(
+    {
+        Source: <%- MakePackagePath(SQLFile) %>
+    });

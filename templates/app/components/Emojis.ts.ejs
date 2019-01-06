@@ -1,9 +1,7 @@
-import { EmojiInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Customization/EmojiInstruction";
+import { EmojiInstruction } from "woltlab-compiler";
 
-const emojiInstruction: EmojiInstruction = new EmojiInstruction({
+export = new EmojiInstruction({
     FileName: "emojis.xml",
     Emojis: [
     ]
 });
-
-export = emojiInstruction;

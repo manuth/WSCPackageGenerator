@@ -1,5 +1,7 @@
-import { PHPInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/PHPInstruction";
+import { PHPInstruction } from "woltlab-compiler";
 
-let phpInstruction: PHPInstruction = null;
-
-// export = phpInstruction;
+export = new PHPInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        FileName: <%- JSON.stringify(PHPFile) %>
+    });

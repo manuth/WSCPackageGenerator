@@ -1,10 +1,7 @@
-import { ListenerEnvironment } from "<%= relativePackage %>lib/System/Events/ListenerEnvironment";
-import { TemplateListenerInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Events/TemplateListenerInstruction";
+import { TemplateListenerInstruction } from "woltlab-compiler";
 
-const templateListenerInstruction: TemplateListenerInstruction = new TemplateListenerInstruction({
+export = new TemplateListenerInstruction({
     FileName: "templateListeners.xml",
     Listeners: [
     ]
 });
-
-export = templateListenerInstruction;

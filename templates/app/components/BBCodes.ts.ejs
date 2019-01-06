@@ -1,9 +1,7 @@
-import { BBCodeInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Customization/BBCodeInstruction";
+import { BBCodeInstruction } from "woltlab-compiler";
 
-const bbCodeInstruction: BBCodeInstruction = new BBCodeInstruction({
+export = new BBCodeInstruction({
     FileName: "bbCodes.xml",
     BBCodes: [
     ]
 });
-
-export = bbCodeInstruction;

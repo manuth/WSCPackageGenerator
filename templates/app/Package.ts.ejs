@@ -1,68 +1,25 @@
-import * as Path from "path";
-import { IPackageOptions } from "<%= relativePackage %>lib/System/PackageSystem/IPackageOptions";
-import { ThemeInstructionCollection } from "<%= relativePackage %>lib/System/Customization/Presentation/Themes/ThemeInstructionCollection";
-import { RequiredPackageDescriptor } from "<%= relativePackage %>lib/System/PackageSystem/RequiredPackageDescriptor";
-
-function getComponentsPath(value: string): string
-{
-    return Path.join(__dirname, "<%= componentDir %>", value);
-}
+import Path = require("path");
+import { IPackageOptions, RequiredPackageDescriptor, ThemeInstructionCollection } from "woltlab-compiler";
 
 let pkg: IPackageOptions = {
-    Identifier: "<%= Settings.identifier %>",
-    Name: "<%= Settings.name %>",
+    Identifier: <%- JSON.stringify(Identifier) %>,
+    Name: <%- JSON.stringify(Name) %>,
     DisplayName: {
-        inv: "<%= Settings.displayName %>"
+        inv: <%- JSON.stringify(DisplayName) %>
     },
-    CreationDate: new Date("<% let date = new Date(); %><%=
-        date.getFullYear() + "-" +
-        (date.getMonth() + 1).toString().padStart(2, "0") + "-" +
-        date.getDate().toString().padStart(2, "0") %>"),
+    Version: "0.0.0",
+    Author: {
+        Name: <%- JSON.stringify(Author) %>,
+        URL: <%- JSON.stringify(HomePage) %>
+    },
+    License: null,
+    CreationDate: new Date(<%- JSON.stringify(CreationDate) %>),
     Description: {
-        inv: "<%= Settings.description %>"
+        inv: <%- JSON.stringify(Description) %>
     },
     InstallSet: {
-        Instructions: [<%
-            let items = [];
-
-            for (let component of components)
-            {
-                let optionName = "";
-                let item = "";
-                let formatter;
-
-                let defaultFormatter = (value) =>
-                {
-                    return "require(getComponentsPath(\"" + value + "\"))";
-                };
-
-                switch (component)
-                {
-                    case "themes":
-                        formatter = (value) =>
-                        {
-                            return "...new ThemeInstructionCollection(\"" + value + "\")";
-                        };
-                        break;
-                    case "files":
-                    case "php":
-                    case "sql":
-                    case "templates":
-                    case "acpTemplates":
-                        formatter = (value) =>
-                        {
-                            return "// " + defaultFormatter(value);
-                        };
-                        break;
-                    default:
-                        formatter = defaultFormatter;
-                        break;
-                }
-
-                items.push(formatter(componentPaths[component]));
-            }
-        %>
-            <%- items.join(`,
+        Instructions: [
+            <%- Instructions.join(`,
             `) %>
         ]
     },

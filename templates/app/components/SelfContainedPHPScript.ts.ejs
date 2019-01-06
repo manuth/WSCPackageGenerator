@@ -1,0 +1,9 @@
+import Path = require("path");
+import { SelfContainedPHPInstruction } from "woltlab-compiler";
+
+export = new SelfContainedPHPInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        Source: <%- MakePackagePath(PHPSource) %>,
+        Destination: <%- JSON.stringify(PHPFile) %>
+    });

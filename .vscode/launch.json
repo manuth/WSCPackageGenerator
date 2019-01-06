@@ -7,14 +7,29 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch Yeoman",
             "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
             "args": [
-                "wsc-package"
+                "${workspaceFolder}/lib/generators/app"
             ],
-            "console": "externalTerminal",
-            "preLaunchTask": "Compile",
-            "cwd": "${workspaceFolder}/../../Privat",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Build",
+            "cwd": "${workspaceFolder}/..",
+            "sourceMaps": true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Theme-Generator",
+            "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
+            "args": [
+                "${workspaceFolder}/lib/generators/theme"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "preLaunchTask": "Build",
+            "cwd": "${workspaceFolder}/..",
             "sourceMaps": true
         },
         {
@@ -22,13 +37,9 @@
             "request": "launch",
             "name": "Launch Tests",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "preLaunchTask": "Compile",
-            "cwd": "${workspaceFolder}",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceFolder}/lib/**/*.js",
-                "${workspaceFolder}/packageLib/lib/**/*.js"
-            ]
+            "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": "Build",
+            "sourceMaps": true
         }
     ]
 }
