@@ -1,5 +1,8 @@
-import { ACPTemplateInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Customization/Presentation/ACPTemplateInstruction";
+import Path = require("path");
+import { ACPTemplateInstruction } from "woltlab-compiler";
 
-const acpTemplatesInstruction: ACPTemplateInstruction = null;
-
-// export = acpTemplatesInstruction;
+export = new ACPTemplateInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        Source: <%- MakePackagePath(TemplateRoot) %>
+    });

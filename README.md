@@ -1,25 +1,27 @@
 # WSCPackageGenerator
-A yeoman generator for WoltLab Suite Core 3.1.1 packages
+A Generator for WoltLab Suite Core Packages.
 
 ## Usage
-### Install WSCPackageGenerator
-You can install `WSCPackageGenerator` using following commands:
+### Installing `WSCPackageGenerator`
+You can install `WSCPackageGenerator` using following command:
 
 ```bash
 npm install -g yo generator-wsc-package
 ```
 
-### Generate a WoltLab Suite Core Package
-You can create a package for WoltLab Suite Core using following command:
+### Using the Generator
+You can run the generator by invoking this command on a command prompt:
 
 ```bash
 yo wsc-package
 ```
 
 ## Generator Output
-  - Create a basic folder structure
-  - Create npm-scripts for...
-    - Compiling TypeScript
-    - Watching TypeScript-files
-    - Building the Package
-  - Create Visual Studio Code-Tasks for compiling and building the package by pressing <kbd>CTRL</kbd>, <kbd>SHIFT</kbd> + <kbd>B</kbd>
+  - WoltLab Suite Core Package
+    - Meta-Data written in TypeScript
+    - Components written in TypeScript (optional)
+  - NPM-scripts for...
+    - Compiling the Package-Metadata
+    - Compiling the Package-Metadata in Watched Mode
+    - Building the Package-File (`.tar`-archive)
+  - Visual Studio Code-Environment (optional)

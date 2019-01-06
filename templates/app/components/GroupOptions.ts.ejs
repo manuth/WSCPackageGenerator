@@ -1,9 +1,7 @@
-import { GroupOptionInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Options/GroupOptionInstruction";
+import { GroupOptionInstruction } from "woltlab-compiler";
 
-const acpOptionInstruction: GroupOptionInstruction = new GroupOptionInstruction({
+export = new GroupOptionInstruction({
     FileName: "groupOptions.xml",
     Nodes: [
     ]
 });
-
-export = acpOptionInstruction;

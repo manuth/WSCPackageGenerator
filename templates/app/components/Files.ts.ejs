@@ -1,5 +1,8 @@
-import { ApplicationFileSystemInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/FileSystem/ApplicationFileSystemInstruction";
+import Path = require("path");
+import { ApplicationFileSystemInstruction } from "woltlab-compiler";
 
-const fileInstruction: ApplicationFileSystemInstruction = null;
-
-// export = fileInstruction;
+export = new ApplicationFileSystemInstruction(
+    {
+        Application: <%- JSON.stringify(Application) %>,
+        Source: <%- MakePackagePath(FilesDirectory) %>
+    });

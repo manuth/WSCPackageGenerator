@@ -1,10 +1,7 @@
-import { ListenerEnvironment } from "<%= relativePackage %>lib/System/Events/ListenerEnvironment";
-import { EventListenerInstruction } from "<%= relativePackage %>lib/System/PackageSystem/Instructions/Events/EventListenerInstruction";
+import { EventListenerInstruction } from "woltlab-compiler";
 
-const eventListenerInstruction: EventListenerInstruction = new EventListenerInstruction({
+export = new EventListenerInstruction({
     FileName: "eventListeners.xml",
     Listeners: [
     ]
 });
-
-export = eventListenerInstruction;
