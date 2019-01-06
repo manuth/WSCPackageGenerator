@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Show differences][v2.1.0]
 
+## WSCPackageGenerator v2.0.2
+  - Fixed the relative path-handling of the Theme class
+  - Fixed the default value of the author-homepage
+
+[Show differences][v2.0.2]
+
 ## WSCPackageGenerator v2.0.1
   - Updated all packages
   - Reworked the build-tasks
