@@ -112,7 +112,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 {
                     DisplayName: "General",
                     Components: [
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Files,
@@ -376,7 +376,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new SourceComponent(
+                        new SourceComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Themes,
@@ -393,7 +393,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "Themes"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Emojis,
@@ -406,7 +406,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "Emojis.ts"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.BBCodes,
@@ -419,7 +419,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "BBCodes.ts"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Templates,
@@ -453,7 +453,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     ...new ApplicationQuestions(
                                         WSCPackageSetting.TemplateApp,
                                         "What's the application you want to provide templates for?"),
-                                    new AssetQuestion(
+                                    new AssetQuestion<IWSCPackageSettings>(
                                         this,
                                         {
                                             name: WSCPackageSetting.TemplateRoot,
@@ -462,7 +462,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         })
                                 ]
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.ACPTemplates,
@@ -496,7 +496,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     ...new ApplicationQuestions(
                                         WSCPackageSetting.ACPTemplateApp,
                                         "What's the application you want to provide Admin Control Panel-Templates for?"),
-                                    new AssetQuestion(
+                                    new AssetQuestion<IWSCPackageSettings>(
                                         this,
                                         {
                                             name: WSCPackageSetting.ACPTemplateRoot,

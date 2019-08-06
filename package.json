@@ -36,6 +36,8 @@
     "yosay": "^2.0.2"
   },
   "devDependencies": {
+    "@manuth/tsconfig": "^1.2.2",
+    "@manuth/tslint-presets": "^1.0.3",
     "@types/escape-string-regexp": "^2.0.1",
     "@types/fs-extra": "^8.0.0",
     "@types/lodash.kebabcase": "^4.1.6",
