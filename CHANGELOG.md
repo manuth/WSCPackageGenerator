@@ -167,4 +167,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## WSCPackageGenerator v0.0.0
   - First release of the module
 
-[Show differences][v0.0.0](https://github.com/manuth/WSCPackageGenerator/compare/1be77af5dd389c497528babbddf3e591633fc7ca...v0.0.0)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/1be77af5dd389c497528babbddf3e591633fc7ca...v0.0.0)
