@@ -1,6 +1,6 @@
 {
   "name": "generator-wsc-package",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A Generator for WoltLab Suite Core Packages.",
   "author": "Manuel Thalmann <m@nuth.ch>",
   "license": "MIT",
