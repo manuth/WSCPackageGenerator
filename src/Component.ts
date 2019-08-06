@@ -1,4 +1,5 @@
 import { IComponent as IComponentBase, IFileMapping, Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 import { isNullOrUndefined } from "util";
 import { WoltLabGeneratorSetting } from "./GeneratorSetting";
 import { IComponent } from "./IComponent";
@@ -32,7 +33,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * The question for the primary file-mapping.
      */
-    private question: Question<T>;
+    private question: InputQuestion<T>;
 
     /**
      * The file-mapping for the additional files.
@@ -186,7 +187,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
 
     public get Questions(): Question<T>[]
     {
-        let questions = [this.Question];
+        let questions: Question<T>[] = [this.Question];
 
         if (!isNullOrUndefined(this.AdditionalQuestions))
         {

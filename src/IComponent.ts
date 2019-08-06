@@ -1,4 +1,5 @@
 import { Answers, IFileMapping, Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 
 /**
  * Provides options for the `WoltLabComponent` class.
@@ -28,7 +29,7 @@ export interface IComponent<T extends Answers>
     /**
      * Gets or sets the question for the primary file-mapping.
      */
-    Question: Question<T>;
+    Question: InputQuestion<T>;
 
     /**
      * Gets or sets the file-mapping for the additional files.

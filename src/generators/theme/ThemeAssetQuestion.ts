@@ -1,9 +1,9 @@
-import { Question } from "extended-yo-generator";
 import Path = require("path");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
 import { WSCThemeSetting } from "./WSCThemeSetting";
+import { InputQuestion } from "inquirer";
 
 /**
  * Represents a question for theme-assets.
@@ -19,7 +19,7 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         super(generator, options);
     }

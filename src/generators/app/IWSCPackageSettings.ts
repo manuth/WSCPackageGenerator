@@ -37,6 +37,11 @@ export interface IWSCPackageSettings extends IWoltLabGeneratorSettings
     [WSCPackageSetting.HomePage]: string;
 
     /**
+     * Gets or sets the identifier of the package.
+     */
+    [WSCPackageSetting.Identifier]: string;
+
+    /**
      * Gets or sets the directory which contains files.
      */
     [WSCPackageSetting.FilesDirectory]: string;

@@ -1,5 +1,5 @@
 import escapeStringRegexp = require("escape-string-regexp");
-import { Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 import UPath = require("upath");
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
@@ -19,7 +19,7 @@ export class SourceQuestion<T extends IWoltLabGeneratorSettings> extends Compone
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         super(generator, options);
     }

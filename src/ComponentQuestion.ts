@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
@@ -8,9 +8,12 @@ import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 /**
  * Represents a question for files.
  */
-export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Question<T>
+export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements InputQuestion<T>
 {
-    public type = "input";
+    /**
+     * @inheritdoc
+     */
+    public type: "input" = "input";
 
     public name: string;
 
@@ -32,7 +35,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
      * @param options
      * The options for the question.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         this.generator = generator;
         Object.assign(this, options);
