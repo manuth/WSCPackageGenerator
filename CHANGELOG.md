@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### WSCPackageGenerator v2.1.0
+## WSCPackageGenerator v2.1.1
+  - Improved the stability
+  - Updated all packages
+  - Fix all vulnerabilities
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v2.1.0...v2.1.1)
+
+## WSCPackageGenerator v2.1.0
   - Improved all complex instruction-generations
   - Completely reworked the generator
   - Updated all packages
@@ -30,15 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Moved from `ejs`-templates to `DOMDocument`s
   - Added tests for both the generators and the package-library
   - Completely reworked the whole code
-
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v2.0)
-
-## WSCPackageGenerator v0.0.18
   - Fix the build-task which caused VSCode to be unable to build the package
-
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.17...v0.0.18)
-
-## WSCPackageGenerator v0.0.17
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
   - Fix the listener-templates
@@ -50,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Provide the functionality to declare thumbnails for themes
   - Provide the functionality to add a default cover-photo
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v0.0.17)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v2.0)
 
 ## WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience
@@ -168,4 +167,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## WSCPackageGenerator v0.0.0
   - First release of the module
 
-[Show differences][v0.0.0](https://github.com/manuth/WSCPackageGenerator/compare/1be77af5dd389c497528babbddf3e591633fc7ca...v0.0.0)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/1be77af5dd389c497528babbddf3e591633fc7ca...v0.0.0)
