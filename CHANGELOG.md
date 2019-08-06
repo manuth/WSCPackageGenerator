@@ -37,15 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Moved from `ejs`-templates to `DOMDocument`s
   - Added tests for both the generators and the package-library
   - Completely reworked the whole code
-
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v2.0)
-
-## WSCPackageGenerator v0.0.18
   - Fix the build-task which caused VSCode to be unable to build the package
-
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.17...v0.0.18)
-
-## WSCPackageGenerator v0.0.17
   - Add TSLint-support
   - Provide the functionality to query controlpanel-categories inside EJS-flavored files using `Categories.{ Category-Name }`.
   - Fix the listener-templates
@@ -57,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Provide the functionality to declare thumbnails for themes
   - Provide the functionality to add a default cover-photo
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v0.0.17)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v0.0.16...v2.0)
 
 ## WSCPackageGenerator v0.0.16
   - Add some more `.gitignore`-entries for a better user-experience
