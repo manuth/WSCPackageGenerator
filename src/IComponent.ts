@@ -1,4 +1,5 @@
 import { Answers, IFileMapping, Question } from "extended-yo-generator";
+import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
 
 /**
  * Provides options for the `WoltLabComponent` class.
@@ -23,20 +24,20 @@ export interface IComponent<T extends Answers>
     /**
      * Gets or sets the file-mapping of the primary file.
      */
-    FileMapping: Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>> | ((settings: T) => Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>>);
+    FileMapping: AsyncDynamicQuestionProperty<Partial<IFileMapping<T>>>;
 
     /**
      * Gets or sets the question for the primary file-mapping.
      */
-    Question: Question<T>;
+    Question: InputQuestion<T>;
 
     /**
      * Gets or sets the file-mapping for the additional files.
      */
-    AdditionalFiles?: IFileMapping<T>[] | Promise<IFileMapping<T>[]> | ((settings: T) => IFileMapping<T>[] | Promise<IFileMapping<T>[]>);
+    AdditionalFiles?: AsyncDynamicQuestionProperty<Array<IFileMapping<T>>>;
 
     /**
      * Gets or sets additional questions.
      */
-    AdditionalQuestions?: Question<T>[];
+    AdditionalQuestions?: Array<Question<T>>;
 }

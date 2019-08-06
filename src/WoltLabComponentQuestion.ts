@@ -1,4 +1,4 @@
-import { Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 import { Generator } from "./Generator";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 import { SourceQuestion } from "./SourceQuestion";
@@ -17,11 +17,14 @@ export class WoltLabComponentQuestion<T extends IWoltLabGeneratorSettings> exten
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         super(generator, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get RootDir()
     {
         return this.Generator.componentPath();

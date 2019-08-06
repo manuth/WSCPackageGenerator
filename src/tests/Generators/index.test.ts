@@ -30,7 +30,7 @@ suite(
             });
 
         suiteTeardown(
-            function ()
+            function()
             {
                 this.timeout(1 * 60 * 1000);
                 process.chdir(currentDir);
@@ -71,7 +71,7 @@ suite(
 
                 test(
                     "Checking whether the generator can be executed…",
-                    async function ()
+                    async function()
                     {
                         this.slow(5000);
                         this.timeout(5000);
@@ -84,7 +84,7 @@ suite(
 
                 test(
                     "Checking whether the package-dependencies can be installed…",
-                    async function ()
+                    async function()
                     {
                         this.slow(5 * 60 * 1000);
                         this.timeout(5 * 60 * 1000);
@@ -113,7 +113,7 @@ suite(
 
                 test(
                     "Checking whether the package-file can be compiled using typescript…",
-                    function ()
+                    function()
                     {
                         this.slow(20 * 1000);
                         this.timeout(20 * 1000);
@@ -185,7 +185,7 @@ suite(
 
                 test(
                     "Checking whether the theme-file can be compiled using typescript…",
-                    function (): void
+                    function(): void
                     {
                         this.slow(20 * 1000);
                         this.timeout(20 * 1000);

@@ -1,4 +1,4 @@
-import { Question } from "extended-yo-generator";
+import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
 import Path = require("path");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
@@ -19,14 +19,17 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         super(generator, options);
     }
 
-    public get default(): string | Promise<string> | ((answers: T) => string | Promise<string>)
+    /**
+     * @inheritdoc
+     */
+    public get default(): AsyncDynamicQuestionProperty<string>
     {
-        let defaultValue: string | Promise<string> | ((answers: T) => string | Promise<string>) = super.default;
+        let defaultValue: AsyncDynamicQuestionProperty<string> = super.default;
 
         return async (answers) =>
         {
@@ -50,6 +53,9 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public set default(value)
     {
         super.default = value;

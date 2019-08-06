@@ -59,16 +59,25 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
         return this.generator;
     }
 
+    /**
+     * @inheritdoc
+     */
     public get Source()
     {
         return this.source;
     }
 
+    /**
+     * @inheritdoc
+     */
     public set Source(value)
     {
         this.source = value;
     }
 
+    /**
+     * @inheritdoc
+     */
     public get Context(): (answers: T, source: string, destination: string) => any
     {
         return (answers, source, destination) =>
@@ -134,26 +143,41 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public set Context(value)
     {
         this.context = value;
     }
 
+    /**
+     * @inheritdoc
+     */
     public get Destination()
     {
         return this.destination;
     }
 
+    /**
+     * @inheritdoc
+     */
     public set Destination(value)
     {
         this.destination = value;
     }
 
+    /**
+     * @inheritdoc
+     */
     public get Process()
     {
         return this.process;
     }
 
+    /**
+     * @inheritdoc
+     */
     public set Process(value)
     {
         this.process = value;

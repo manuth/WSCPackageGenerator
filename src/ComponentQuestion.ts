@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { Question } from "extended-yo-generator";
+import { InputQuestion, Transformer } from "inquirer";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
@@ -8,15 +8,27 @@ import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 /**
  * Represents a question for files.
  */
-export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Question<T>
+export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements InputQuestion<T>
 {
-    public type = "input";
+    /**
+     * @inheritdoc
+     */
+    public type: InputQuestion<T>["type"] = "input";
 
-    public name: string;
+    /**
+     * @inheritdoc
+     */
+    public name: InputQuestion<T>["name"];
 
-    public message: string | ((answers: T) => string);
+    /**
+     * @inheritdoc
+     */
+    public message: InputQuestion<T>["message"];
 
-    public default: any | ((answers: T) => any) | ((answers: T) => Promise<any>);
+    /**
+     * @inheritdoc
+     */
+    public default: InputQuestion<T>["default"];
 
     /**
      * The generator.
@@ -32,7 +44,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
      * @param options
      * The options for the question.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         this.generator = generator;
         Object.assign(this, options);
@@ -64,22 +76,31 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements Q
         }
     }
 
-    public get transformer()
+    /**
+     * @inheritdoc
+     */
+    public get transformer(): Transformer<T>
     {
-        return (input: string, answers?: T, options?: { isFinal: boolean }) =>
+        return (input, answers?, options?) =>
         {
             return (!isNullOrUndefined(options) && options.isFinal) ? chalk.cyan(input) : this.MakeRootPath(input);
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public get filter()
     {
-        return (input: string) =>
+        return (input: any) =>
         {
-            return this.transformer(input);
+            return this.transformer(input, null, null);
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public get validate()
     {
         return (input: string, answers: T): boolean | string | Promise<boolean | string> =>

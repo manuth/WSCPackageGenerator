@@ -1,4 +1,4 @@
-import { Question } from "extended-yo-generator";
+import { InputQuestion } from "inquirer";
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
@@ -20,11 +20,14 @@ export class AssetQuestion<T extends IWoltLabGeneratorSettings> extends Componen
      * @param options
      * The options for the initialization.
      */
-    public constructor(generator: Generator<T>, options: Question<T>)
+    public constructor(generator: Generator<T>, options: InputQuestion<T>)
     {
         super(generator, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get RootDir()
     {
         return this.Generator.assetPath();

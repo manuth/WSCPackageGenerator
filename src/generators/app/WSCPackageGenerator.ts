@@ -35,12 +35,18 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         super(args, opts);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get TemplateRoot()
     {
         return "app";
     }
 
-    protected get Questions(): Question<IWSCPackageSettings>[]
+    /**
+     * @inheritdoc
+     */
+    protected get Questions(): Array<Question<IWSCPackageSettings>>
     {
         return [
             {
@@ -104,6 +110,9 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get ProvidedComponents(): IComponentProvider<IWSCPackageSettings>
     {
         return {
@@ -112,7 +121,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 {
                     DisplayName: "General",
                     Components: [
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Files,
@@ -376,7 +385,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new SourceComponent(
+                        new SourceComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Themes,
@@ -393,7 +402,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "Themes"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Emojis,
@@ -406,7 +415,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "Emojis.ts"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.BBCodes,
@@ -419,7 +428,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     default: "BBCodes.ts"
                                 }
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.Templates,
@@ -453,7 +462,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     ...new ApplicationQuestions(
                                         WSCPackageSetting.TemplateApp,
                                         "What's the application you want to provide templates for?"),
-                                    new AssetQuestion(
+                                    new AssetQuestion<IWSCPackageSettings>(
                                         this,
                                         {
                                             name: WSCPackageSetting.TemplateRoot,
@@ -462,7 +471,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                         })
                                 ]
                             }),
-                        new WoltLabComponent(
+                        new WoltLabComponent<IWSCPackageSettings>(
                             this,
                             {
                                 ID: WSCPackageComponent.ACPTemplates,
@@ -496,7 +505,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
                                     ...new ApplicationQuestions(
                                         WSCPackageSetting.ACPTemplateApp,
                                         "What's the application you want to provide Admin Control Panel-Templates for?"),
-                                    new AssetQuestion(
+                                    new AssetQuestion<IWSCPackageSettings>(
                                         this,
                                         {
                                             name: WSCPackageSetting.ACPTemplateRoot,
@@ -542,12 +551,18 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public async prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
         return super.prompting();
     }
 
+    /**
+     * @inheritdoc
+     */
     public async writing()
     {
         this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));

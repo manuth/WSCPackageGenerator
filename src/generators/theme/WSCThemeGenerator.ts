@@ -30,12 +30,18 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
         super(args, opts);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get TemplateRoot()
     {
         return "theme";
     }
 
-    protected get Questions(): Question<IWSCThemeSettings>[]
+    /**
+     * @inheritdoc
+     */
+    protected get Questions(): Array<Question<IWSCThemeSettings>>
     {
         return [
             {
@@ -80,6 +86,9 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get ProvidedComponents(): IComponentProvider<IWSCThemeSettings>
     {
         return {
