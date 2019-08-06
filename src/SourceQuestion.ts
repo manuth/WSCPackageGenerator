@@ -1,5 +1,5 @@
 import escapeStringRegexp = require("escape-string-regexp");
-import { InputQuestion } from "inquirer";
+import { InputQuestion, Validator } from "inquirer";
 import UPath = require("upath");
 import { ComponentQuestion } from "./ComponentQuestion";
 import { Generator } from "./Generator";
@@ -24,14 +24,20 @@ export class SourceQuestion<T extends IWoltLabGeneratorSettings> extends Compone
         super(generator, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get RootDir()
     {
         return this.Generator.sourcePath();
     }
 
-    public get validate()
+    /**
+     * @inheritdoc
+     */
+    public get validate(): Validator<T>
     {
-        return (input: string, answers: T): boolean | string | Promise<boolean | string> =>
+        return (input, answers) =>
         {
             if (!new RegExp(`${escapeStringRegexp(`${UPath.normalize(this.Generator.sourcePath()) + UPath.sep}`)}.+`).test(UPath.normalize(input)))
             {

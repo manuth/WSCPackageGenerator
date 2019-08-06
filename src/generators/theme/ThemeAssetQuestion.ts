@@ -1,9 +1,9 @@
+import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
 import Path = require("path");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
 import { WSCThemeSetting } from "./WSCThemeSetting";
-import { InputQuestion } from "inquirer";
 
 /**
  * Represents a question for theme-assets.
@@ -24,9 +24,12 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
         super(generator, options);
     }
 
-    public get default(): string | Promise<string> | ((answers: T) => string | Promise<string>)
+    /**
+     * @inheritdoc
+     */
+    public get default(): AsyncDynamicQuestionProperty<string>
     {
-        let defaultValue: string | Promise<string> | ((answers: T) => string | Promise<string>) = super.default;
+        let defaultValue: AsyncDynamicQuestionProperty<string> = super.default;
 
         return async (answers) =>
         {
@@ -50,6 +53,9 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public set default(value)
     {
         super.default = value;

@@ -35,12 +35,18 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         super(args, opts);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get TemplateRoot()
     {
         return "app";
     }
 
-    protected get Questions(): Question<IWSCPackageSettings>[]
+    /**
+     * @inheritdoc
+     */
+    protected get Questions(): Array<Question<IWSCPackageSettings>>
     {
         return [
             {
@@ -104,6 +110,9 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get ProvidedComponents(): IComponentProvider<IWSCPackageSettings>
     {
         return {
@@ -542,12 +551,18 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public async prompting()
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
         return super.prompting();
     }
 
+    /**
+     * @inheritdoc
+     */
     public async writing()
     {
         this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));

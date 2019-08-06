@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { InputQuestion } from "inquirer";
+import { InputQuestion, Transformer } from "inquirer";
 import Path = require("path");
 import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
@@ -13,13 +13,22 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public type: "input" = "input";
+    public type: InputQuestion<T>["type"] = "input";
 
-    public name: string;
+    /**
+     * @inheritdoc
+     */
+    public name: InputQuestion<T>["name"];
 
-    public message: string | ((answers: T) => string);
+    /**
+     * @inheritdoc
+     */
+    public message: InputQuestion<T>["message"];
 
-    public default: any | ((answers: T) => any) | ((answers: T) => Promise<any>);
+    /**
+     * @inheritdoc
+     */
+    public default: InputQuestion<T>["default"];
 
     /**
      * The generator.
@@ -67,22 +76,31 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
         }
     }
 
-    public get transformer()
+    /**
+     * @inheritdoc
+     */
+    public get transformer(): Transformer<T>
     {
-        return (input: string, answers?: T, options?: { isFinal: boolean }) =>
+        return (input, answers?, options?) =>
         {
             return (!isNullOrUndefined(options) && options.isFinal) ? chalk.cyan(input) : this.MakeRootPath(input);
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public get filter()
     {
-        return (input: string) =>
+        return (input: any) =>
         {
-            return this.transformer(input);
+            return this.transformer(input, null, null);
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public get validate()
     {
         return (input: string, answers: T): boolean | string | Promise<boolean | string> =>

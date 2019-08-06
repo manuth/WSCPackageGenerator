@@ -22,6 +22,9 @@ export class WoltLabComponentQuestion<T extends IWoltLabGeneratorSettings> exten
         super(generator, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get RootDir()
     {
         return this.Generator.componentPath();

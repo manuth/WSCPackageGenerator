@@ -25,6 +25,9 @@ export class AssetQuestion<T extends IWoltLabGeneratorSettings> extends Componen
         super(generator, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected get RootDir()
     {
         return this.Generator.assetPath();

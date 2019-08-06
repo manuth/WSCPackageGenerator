@@ -1,4 +1,5 @@
 import { IFileMapping } from "extended-yo-generator";
+import { AsyncDynamicQuestionProperty } from "inquirer";
 import { Component } from "./Component";
 import { Generator } from "./Generator";
 import { IComponent } from "./IComponent";
@@ -40,7 +41,10 @@ export class SourceComponent<T extends IWoltLabGeneratorSettings> extends Compon
         return this.generator;
     }
 
-    public get FileMapping(): Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>> | ((settings: T) => Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>>)
+    /**
+     * @inheritdoc
+     */
+    public get FileMapping(): AsyncDynamicQuestionProperty<Partial<IFileMapping<T>>>
     {
         let fileMapping = super.FileMapping;
 
@@ -66,6 +70,9 @@ export class SourceComponent<T extends IWoltLabGeneratorSettings> extends Compon
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public set FileMapping(value)
     {
         super.FileMapping = value;
