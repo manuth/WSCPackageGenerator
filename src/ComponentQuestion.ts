@@ -1,7 +1,6 @@
-import chalk from "chalk";
-import { InputQuestion, Transformer } from "inquirer";
 import Path = require("path");
-import { isNullOrUndefined } from "util";
+import chalk = require("chalk");
+import { InputQuestion, Transformer } from "inquirer";
 import { Generator } from "./Generator";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
@@ -83,7 +82,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
     {
         return (input, answers?, options?) =>
         {
-            return (!isNullOrUndefined(options) && options.isFinal) ? chalk.cyan(input) : this.MakeRootPath(input);
+            return (options?.isFinal) ? chalk.cyan(input) : this.MakeRootPath(input);
         };
     }
 
@@ -112,7 +111,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
     /**
      * Gets the generator.
      */
-    public get Generator()
+    public get Generator(): Generator<T>
     {
         return this.generator;
     }
@@ -120,7 +119,7 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
     /**
      * Gets or sets the root the file is relative to.
      */
-    protected get RootDir()
+    protected get RootDir(): string
     {
         return "";
     }
@@ -130,8 +129,11 @@ export class ComponentQuestion<T extends IWoltLabGeneratorSettings> implements I
      *
      * @param path
      * The path that is to be joined.
+     *
+     * @returns
+     * The joined path.
      */
-    protected MakeRootPath(...path: string[])
+    protected MakeRootPath(...path: string[]): string
     {
         return [this.RootDir, ...path].join(Path.sep);
     }

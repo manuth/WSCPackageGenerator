@@ -14,9 +14,6 @@ export class AssetQuestion<T extends IWoltLabGeneratorSettings> extends Componen
      * @param generator
      * The generator.
      *
-     * @param id
-     * The id of the component.
-     *
      * @param options
      * The options for the initialization.
      */
@@ -28,7 +25,7 @@ export class AssetQuestion<T extends IWoltLabGeneratorSettings> extends Componen
     /**
      * @inheritdoc
      */
-    protected get RootDir()
+    protected get RootDir(): string
     {
         return this.Generator.assetPath();
     }

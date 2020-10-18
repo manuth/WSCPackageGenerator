@@ -28,15 +28,13 @@
     "lint-base": "eslint --max-warnings 0 --ignore-pattern \"!.eslintrc.js\"",
     "lint": "npm run lint-base -- --ext .js,.jsx,.ts,.tsx ./src .eslintrc.js",
     "lint-ide": "npm run lint || exit 0",
-    "test": "mocha",
-    "prepare": "npm run rebuild"
+    "test": "mocha"
   },
   "dependencies": {
     "@manuth/extended-yo-generator": "^7.3.3",
     "chalk": "^4.1.0",
     "dedent": "^0.7.0",
     "escape-string-regexp": "^2.0.0",
-    "extended-yo-generator": "^1.0.13",
     "fs-extra": "^8.1.0",
     "lodash.kebabcase": "^4.1.1",
     "upath": "^1.1.2",

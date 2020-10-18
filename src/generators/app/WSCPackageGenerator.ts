@@ -1,8 +1,8 @@
-import chalk from "chalk";
+import Path = require("path");
+import chalk = require("chalk");
 import { Answers, GeneratorSetting, IComponentProvider, Question } from "extended-yo-generator";
 import FileSystem = require("fs-extra");
 import kebabCase = require("lodash.kebabcase");
-import Path = require("path");
 import yosay = require("yosay");
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
@@ -30,7 +30,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
      * @param opts
      * A set of options.
      */
-    constructor(args: string | string[], opts: {})
+    public constructor(args: string | string[], opts: Record<string, unknown>)
     {
         super(args, opts);
     }
@@ -38,7 +38,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     /**
      * @inheritdoc
      */
-    protected get TemplateRoot()
+    protected get TemplateRoot(): string
     {
         return "app";
     }
@@ -554,7 +554,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     /**
      * @inheritdoc
      */
-    public async prompting()
+    public async prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
         return super.prompting();
@@ -563,7 +563,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     /**
      * @inheritdoc
      */
-    public async writing()
+    public async writing(): Promise<void>
     {
         this.destinationRoot(Path.join(this.Settings[WSCPackageSetting.Destination]));
 
@@ -618,7 +618,7 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     /**
      * Installs the dependencies.
      */
-    public async install()
+    public async install(): Promise<void>
     {
         this.installDependencies({ bower: false, npm: true });
     }
@@ -626,12 +626,13 @@ export class WSCPackageGenerator extends Generator<IWSCPackageSettings>
     /**
      * Show some helpful messages after finishing the installation-process.
      */
-    public async end()
+    public async end(): Promise<void>
     {
         if (this.Settings[GeneratorSetting.Components].includes(WSCPackageComponent.Themes))
         {
             this.config.set(WSCPackageComponent.Themes, this.Settings[WoltLabGeneratorSetting.ComponentPaths][WSCPackageComponent.Themes]);
         }
+
         this.config.save();
 
         this.log();

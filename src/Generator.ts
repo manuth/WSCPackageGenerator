@@ -1,5 +1,5 @@
-import { Generator as GeneratorBase } from "extended-yo-generator";
 import Path = require("path");
+import { Generator as GeneratorBase } from "extended-yo-generator";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 
 /**
@@ -16,7 +16,7 @@ export abstract class Generator<T extends IWoltLabGeneratorSettings = IWoltLabGe
      * @param options
      * A set of options for the generator.
      */
-    public constructor(args: string | string[], options: {})
+    public constructor(args: string | string[], options: Record<string, unknown>)
     {
         super(args, options);
     }
@@ -26,8 +26,11 @@ export abstract class Generator<T extends IWoltLabGeneratorSettings = IWoltLabGe
      *
      * @param path
      * The path that is to be joined.
+     *
+     * @returns
+     * The path relative to the assets.
      */
-    public assetPath(...path: string[])
+    public assetPath(...path: string[]): string
     {
         return ["assets", ...path].join(Path.sep);
     }
@@ -37,8 +40,11 @@ export abstract class Generator<T extends IWoltLabGeneratorSettings = IWoltLabGe
      *
      * @param path
      * The path that is to be joined.
+     *
+     * @returns
+     * The path relative to the source-directory.
      */
-    public sourcePath(...path: string[])
+    public sourcePath(...path: string[]): string
     {
         return ["src", ...path].join(Path.sep);
     }
@@ -48,8 +54,11 @@ export abstract class Generator<T extends IWoltLabGeneratorSettings = IWoltLabGe
      *
      * @param path
      * The path that is to be joined.
+     *
+     * @returns
+     * The path relative to the metadata-directory.
      */
-    public metaPath(...path: string[])
+    public metaPath(...path: string[]): string
     {
         return this.sourcePath("Meta", ...path);
     }
@@ -59,8 +68,11 @@ export abstract class Generator<T extends IWoltLabGeneratorSettings = IWoltLabGe
      *
      * @param path
      * The path that is to be joined.
+     *
+     * @returns
+     * The path relative to the component-directory.
      */
-    public componentPath(...path: string[])
+    public componentPath(...path: string[]): string
     {
         return this.metaPath("Components", ...path);
     }

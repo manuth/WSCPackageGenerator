@@ -36,7 +36,7 @@ export class SourceComponent<T extends IWoltLabGeneratorSettings> extends Compon
     /**
      * Gets the generator this component belongs to.
      */
-    public get Generator()
+    public get Generator(): Generator<T>
     {
         return this.generator;
     }

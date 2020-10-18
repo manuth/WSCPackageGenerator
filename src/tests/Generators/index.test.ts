@@ -1,10 +1,10 @@
 import Assert = require("assert");
 import ChildProcess = require("child_process");
+import Path = require("path");
+import { promisify } from "util";
 import { GeneratorSetting } from "extended-yo-generator";
 import FileSystem = require("fs-extra");
-import Path = require("path");
 import TypeScript = require("typescript");
-import { promisify } from "util";
 import { run, RunContext } from "yeoman-test";
 import { WSCPackageComponent } from "../../generators/app/WSCPackageComponent";
 import { WSCPackageGenerator } from "../../generators/app/WSCPackageGenerator";
@@ -122,7 +122,7 @@ suite(
                             ...TypeScript.sys,
                             onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
                             {
-                                throw diagnostic;
+                                throw new Error();
                             }
                         } as TypeScript.ParseConfigFileHost;
 
@@ -143,6 +143,7 @@ suite(
                     "Checking the integrity of the package-manifest…",
                     () =>
                     {
+                        // eslint-disable-next-line @typescript-eslint/no-var-requires
                         let $package = require(packageFileName);
                         Assert.strictEqual($package["Name"], packageName);
                         Assert.strictEqual($package["DisplayName"]["inv"], displayName);
@@ -194,7 +195,7 @@ suite(
                             ...TypeScript.sys,
                             onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
                             {
-                                throw diagnostic;
+                                throw new Error();
                             }
                         } as TypeScript.ParseConfigFileHost;
 
@@ -215,6 +216,7 @@ suite(
                     "Checking the integrity of the theme-manifest…",
                     () =>
                     {
+                        // eslint-disable-next-line @typescript-eslint/no-var-requires
                         let theme: any = require(themeFileName);
                         Assert.strictEqual(theme["Name"], name);
                         Assert.strictEqual(theme["DisplayName"]["inv"], displayName);

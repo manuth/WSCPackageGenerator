@@ -1,5 +1,4 @@
 import { Answers, Question } from "extended-yo-generator";
-import { isNullOrUndefined } from "util";
 
 /**
  * Represents questions for a woltlab-application
@@ -11,13 +10,20 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
      *
      * @param name
      * The key to save the answer to.
+     *
+     * @param message
+     * The message to display.
+     *
+     * @param when
+     * The condition under which the question should be asked.
      */
     public constructor(name: string, message: string, when?: boolean | ((settings: T) => boolean | Promise<boolean>))
     {
         super();
-        let whenFunction = async (settings: T) =>
+
+        let whenFunction = async (settings: T): Promise<boolean> =>
         {
-            if (!isNullOrUndefined(when))
+            if (when)
             {
                 if (typeof when === "function")
                 {

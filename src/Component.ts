@@ -1,6 +1,5 @@
 import { IComponent as IComponentBase, IFileMapping, Question } from "extended-yo-generator";
 import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
-import { isNullOrUndefined } from "util";
 import { WoltLabGeneratorSetting } from "./GeneratorSetting";
 import { IComponent } from "./IComponent";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
@@ -65,7 +64,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get ID()
+    public get ID(): string
     {
         return this.id;
     }
@@ -73,7 +72,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set ID(value)
+    public set ID(value: string)
     {
         this.id = value;
     }
@@ -81,7 +80,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get DisplayName()
+    public get DisplayName(): string
     {
         return this.displayName;
     }
@@ -89,7 +88,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set DisplayName(value)
+    public set DisplayName(value: string)
     {
         this.displayName = value;
     }
@@ -97,7 +96,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get Default()
+    public get Default(): boolean
     {
         return this.default;
     }
@@ -105,7 +104,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set Default(value)
+    public set Default(value: boolean)
     {
         this.default = value;
     }
@@ -113,7 +112,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get FileMapping()
+    public get FileMapping(): Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>> | ((settings: T) => Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>>)
     {
         return this.fileMapping;
     }
@@ -121,7 +120,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set FileMapping(value)
+    public set FileMapping(value: Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>> | ((settings: T) => Partial<IFileMapping<T>> | Promise<Partial<IFileMapping<T>>>))
     {
         this.fileMapping = value;
     }
@@ -129,7 +128,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get Question()
+    public get Question(): InputQuestion<T>
     {
         return this.question;
     }
@@ -137,7 +136,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set Question(value)
+    public set Question(value: InputQuestion<T>)
     {
         this.question = value;
         this.Question.name = `${WoltLabGeneratorSetting.ComponentPaths}[${this.ID}]`;
@@ -146,7 +145,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get AdditionalFiles()
+    public get AdditionalFiles(): AsyncDynamicQuestionProperty<Array<IFileMapping<T>>>
     {
         return this.additionalFiles;
     }
@@ -154,7 +153,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set AdditionalFiles(value)
+    public set AdditionalFiles(value: AsyncDynamicQuestionProperty<Array<IFileMapping<T>>>)
     {
         this.additionalFiles = value;
     }
@@ -162,7 +161,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public get AdditionalQuestions()
+    public get AdditionalQuestions(): Array<Question<T>>
     {
         return this.additionalQuestions;
     }
@@ -170,7 +169,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     /**
      * @inheritdoc
      */
-    public set AdditionalQuestions(value)
+    public set AdditionalQuestions(value: Array<Question<T>>)
     {
         this.additionalQuestions = value;
     }
@@ -201,7 +200,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
                 fileMapping = primaryMapping;
             }
 
-            if (isNullOrUndefined(fileMapping.Source))
+            if (!fileMapping.Source)
             {
                 fileMapping.Source = null;
             }
@@ -209,7 +208,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
             fileMapping.Destination = (settings) => settings[WoltLabGeneratorSetting.ComponentPaths][this.ID];
             result.push(fileMapping as IFileMapping<T>);
 
-            if (!isNullOrUndefined(additionalFiles))
+            if (additionalFiles)
             {
                 if (typeof additionalFiles === "function")
                 {
@@ -237,7 +236,7 @@ export class Component<T extends IWoltLabGeneratorSettings> implements IComponen
     {
         let questions: Array<Question<T>> = [this.Question];
 
-        if (!isNullOrUndefined(this.AdditionalQuestions))
+        if (this.AdditionalQuestions)
         {
             questions.push(...this.AdditionalQuestions);
         }

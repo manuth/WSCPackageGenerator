@@ -19,8 +19,8 @@ export class PackageContext
     /**
      * Initializes a new instance of the `PackageContext` class.
      *
-     * @param settings
-     * The settings of the generator.
+     * @param generator
+     * The generator of the context.
      */
     public constructor(generator: Generator<IWSCPackageSettings>)
     {
@@ -30,7 +30,7 @@ export class PackageContext
     /**
      * Gets the generator.
      */
-    protected get Generator()
+    protected get Generator(): Generator<IWSCPackageSettings>
     {
         return this.generator;
     }
@@ -38,7 +38,7 @@ export class PackageContext
     /**
      * Gets the settings of the generator.
      */
-    protected get Settings()
+    protected get Settings(): IWSCPackageSettings
     {
         return this.Generator.Settings;
     }
@@ -46,7 +46,7 @@ export class PackageContext
     /**
      * Gets the identifier.
      */
-    public get Identifier()
+    public get Identifier(): string
     {
         return this.Settings[WSCPackageSetting.Identifier];
     }
@@ -54,7 +54,7 @@ export class PackageContext
     /**
      * Gets the name.
      */
-    public get Name()
+    public get Name(): string
     {
         return this.Settings[WSCPackageSetting.Name];
     }
@@ -62,7 +62,7 @@ export class PackageContext
     /**
      * Gets the human-readable name.
      */
-    public get DisplayName()
+    public get DisplayName(): string
     {
         return this.Settings[WSCPackageSetting.DisplayName];
     }
@@ -70,7 +70,7 @@ export class PackageContext
     /**
      * Gets the author.
      */
-    public get Author()
+    public get Author(): string
     {
         return this.Settings[WSCPackageSetting.Author];
     }
@@ -78,7 +78,7 @@ export class PackageContext
     /**
      * Gets the home-page of the author.
      */
-    public get HomePage()
+    public get HomePage(): string
     {
         return this.Settings[WSCPackageSetting.HomePage];
     }
@@ -86,7 +86,7 @@ export class PackageContext
     /**
      * Gets the creation-date.
      */
-    public get CreationDate()
+    public get CreationDate(): string
     {
         let date = new Date();
         return `${date.getFullYear()}-${`${date.getMonth() + 1}`.padStart(2, "0")}-${`${date.getDate()}`.padStart(2, "0")}`;
@@ -95,7 +95,7 @@ export class PackageContext
     /**
      * Gets the description.
      */
-    public get Description()
+    public get Description(): string
     {
         return this.Settings[WSCPackageSetting.Description];
     }
@@ -103,18 +103,18 @@ export class PackageContext
     /**
      * Gets the instructions.
      */
-    public get Instructions()
+    public get Instructions(): string[]
     {
         let result: string[] = [];
 
-        let pathFormatter = (value: string) =>
+        let pathFormatter = (value: string): string =>
         {
             value = Path.relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
             value = UPath.normalize(value);
             return value;
         };
 
-        let requireFormatter = (value: string) =>
+        let requireFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
             value = UPath.join(UPath.dirname(value), UPath.parse(value).name);
@@ -127,7 +127,7 @@ export class PackageContext
             return `require("${value}")`;
         };
 
-        let themeFormatter = (value: string) =>
+        let themeFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
             let result = "...new ThemeInstructionCollection(Path.join(__dirname";

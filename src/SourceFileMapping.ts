@@ -1,7 +1,7 @@
-import { IFileMapping } from "extended-yo-generator";
 import Path = require("path");
+import { IFileMapping } from "extended-yo-generator";
+import { AsyncDynamicQuestionProperty } from "inquirer";
 import UPath = require("upath");
-import { isNullOrUndefined } from "util";
 import { Generator } from "./Generator";
 import { WSCPackageSetting } from "./generators/app/WSCPackageSetting";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
@@ -23,6 +23,15 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
 
     /**
      * The context to use for copying the file-entry.
+     *
+     * @param answers
+     * The answers provided by the user.
+     *
+     * @param source
+     * The path to load the template from.
+     *
+     * @param destination
+     * The path to save the new file to.
      */
     private context: (answers: T, source: string, destination: string) => any;
 
@@ -33,11 +42,29 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
 
     /**
      * The method to execute for processing the file-mapping.
+     *
+     * @param source
+     * The path to the source-file.
+     *
+     * @param destination
+     * The path to save the processed file to.
+     *
+     * @param context
+     * The context to copy the file.
+     *
+     * @param defaultProcessor
+     * The default processor to use if the file-mapping has no processor.
+     *
+     * @param settings
+     * The settings to use.
      */
     private process: (source: string, destination: string, context?: any, defaultProcessor?: (source: string, destination: string, context?: any) => void, settings?: T) => void | Promise<void>;
 
     /**
      * Initializes a new instance of the `SourceFileMapping<T>` class.
+     *
+     * @param generator
+     * The generator of this file-mapping.
      *
      * @param options
      * Options for the initialization.
@@ -54,7 +81,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * Gest the generator this file-mapping belongs to.
      */
-    public get Generator()
+    public get Generator(): Generator<T>
     {
         return this.generator;
     }
@@ -62,7 +89,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public get Source()
+    public get Source(): AsyncDynamicQuestionProperty<string>
     {
         return this.source;
     }
@@ -70,7 +97,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public set Source(value)
+    public set Source(value: AsyncDynamicQuestionProperty<string>)
     {
         this.source = value;
     }
@@ -78,13 +105,13 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public get Context(): (answers: T, source: string, destination: string) => any
+    public get Context(): IFileMapping<T>["Context"]
     {
         return (answers, source, destination) =>
         {
             let context: any;
 
-            if (!isNullOrUndefined(this.context))
+            if (this.context)
             {
                 context = this.context(answers, source, destination);
             }
@@ -154,7 +181,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public get Destination()
+    public get Destination(): AsyncDynamicQuestionProperty<string>
     {
         return this.destination;
     }
@@ -162,7 +189,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public set Destination(value)
+    public set Destination(value: AsyncDynamicQuestionProperty<string>)
     {
         this.destination = value;
     }
@@ -170,7 +197,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public get Process()
+    public get Process(): IFileMapping<T>["Process"]
     {
         return this.process;
     }
@@ -178,7 +205,7 @@ export class SourceFileMapping<T extends IWoltLabGeneratorSettings> implements I
     /**
      * @inheritdoc
      */
-    public set Process(value)
+    public set Process(value: IFileMapping<T>["Process"])
     {
         this.process = value;
     }

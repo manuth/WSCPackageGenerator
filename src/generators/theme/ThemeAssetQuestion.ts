@@ -1,5 +1,5 @@
-import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
 import Path = require("path");
+import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
 import { AssetQuestion } from "../../AssetQuestion";
 import { Generator } from "../../Generator";
 import { IWSCThemeSettings } from "./IWSCThemeSettings";
@@ -26,38 +26,37 @@ export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuesti
 
     /**
      * @inheritdoc
+     *
+     * @param answers
+     * The answers provided by the user.
+     *
+     * @returns
+     * The default value.
      */
-    public get default(): AsyncDynamicQuestionProperty<string>
+    public default: AsyncDynamicQuestionProperty<string> = (answers) =>
     {
-        let defaultValue: AsyncDynamicQuestionProperty<string> = super.default;
+        let defaultValue = super.default;
 
-        return async (answers) =>
-        {
-            let fileName: string;
-
-            if (typeof defaultValue === "function")
+        return (
+            async (answers) =>
             {
-                defaultValue = defaultValue(answers);
-            }
+                let fileName: string;
 
-            if (defaultValue instanceof Promise)
-            {
-                fileName = await defaultValue;
-            }
-            else
-            {
-                fileName = defaultValue;
-            }
+                if (typeof defaultValue === "function")
+                {
+                    defaultValue = defaultValue(answers);
+                }
 
-            return Path.join(answers[WSCThemeSetting.Name], fileName);
-        };
-    }
+                if (defaultValue instanceof Promise)
+                {
+                    fileName = await defaultValue;
+                }
+                else
+                {
+                    fileName = defaultValue;
+                }
 
-    /**
-     * @inheritdoc
-     */
-    public set default(value)
-    {
-        super.default = value;
-    }
+                return Path.join(answers[WSCThemeSetting.Name], fileName);
+            })(answers);
+    };
 }

@@ -25,7 +25,7 @@ export class WoltLabComponentQuestion<T extends IWoltLabGeneratorSettings> exten
     /**
      * @inheritdoc
      */
-    protected get RootDir()
+    protected get RootDir(): string
     {
         return this.Generator.componentPath();
     }

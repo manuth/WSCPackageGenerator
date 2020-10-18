@@ -27,7 +27,7 @@ export class SourceQuestion<T extends IWoltLabGeneratorSettings> extends Compone
     /**
      * @inheritdoc
      */
-    protected get RootDir()
+    protected get RootDir(): string
     {
         return this.Generator.sourcePath();
     }

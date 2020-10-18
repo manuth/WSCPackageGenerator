@@ -1,6 +1,5 @@
-import chalk from "chalk";
+import chalk = require("chalk");
 import { Answers, GeneratorSetting, IComponentProvider, Question } from "extended-yo-generator";
-import { isNullOrUndefined } from "util";
 import yosay = require("yosay");
 import { Generator } from "../../Generator";
 import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
@@ -25,7 +24,7 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
      * @param opts
      * A set of options.
      */
-    constructor(args: string | string[], opts: {})
+    public constructor(args: string | string[], opts: Record<string, unknown>)
     {
         super(args, opts);
     }
@@ -33,7 +32,7 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
     /**
      * @inheritdoc
      */
-    protected get TemplateRoot()
+    protected get TemplateRoot(): string
     {
         return "theme";
     }
@@ -51,14 +50,14 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
                 default: "themes",
                 when: (answers) =>
                 {
-                    if (isNullOrUndefined(this.config.get(WSCPackageComponent.Themes)))
-                    {
-                        return true;
-                    }
-                    else
+                    if (this.config.get(WSCPackageComponent.Themes))
                     {
                         answers[WSCThemeSetting.Destination] = this.config.get(WSCPackageComponent.Themes);
                         return false;
+                    }
+                    else
+                    {
+                        return true;
                     }
                 }
             },
@@ -143,18 +142,18 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
     }
 
     /**
-     * Collects all information about the theme that is to be created.
+     * @inheritdoc
      */
-    public async prompting()
+    public async prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Theme")} generator!`));
         return super.prompting();
     }
 
     /**
-     * Writes the templates
+     * @inheritdoc
      */
-    public async writing()
+    public async writing(): Promise<void>
     {
         let themeFileName = this.destinationPath(this.sourcePath(this.Settings[WSCThemeSetting.Destination], this.Settings.name, "Theme.ts"));
 
@@ -178,9 +177,9 @@ export class WSCThemeGenerator extends Generator<IWSCThemeSettings>
     }
 
     /**
-     * Installs the dependencies.
+     * @inheritdoc
      */
-    public async end()
+    public async end(): Promise<void>
     {
         this.config.set(WSCPackageComponent.Themes, this.Settings[WSCThemeSetting.Destination]);
         this.config.save();
