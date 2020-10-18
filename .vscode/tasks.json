@@ -29,8 +29,8 @@
         {
             "label": "Lint",
             "type": "npm",
-            "script": "lint",
-            "problemMatcher": "$tslint5",
+            "script": "lint-ide",
+            "problemMatcher": "$eslint-stylish",
             "presentation": {
                 "reveal": "never"
             }
