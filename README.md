@@ -6,14 +6,14 @@ A Generator for WoltLab Suite Core Packages.
 You can install `WSCPackageGenerator` using following command:
 
 ```bash
-npm install -g yo generator-wsc-package
+npm install -g yo @manuth/generator-wsc-package
 ```
 
 ### Using the Generator
 You can run the generator by invoking this command on a command prompt:
 
 ```bash
-yo wsc-package
+yo @manuth/wsc-package
 ```
 
 ## Generator Output
