@@ -1,6 +1,5 @@
 import { ITSProjectSettings } from "@manuth/generator-ts-project";
 import { WoltLabSettingKey } from "./WoltLabSettingKey";
-import { WoltLabUnitName } from "./WoltLabUnitName";
 
 /**
  * Represents settings of a generator.
