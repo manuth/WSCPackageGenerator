@@ -16,7 +16,11 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Build",
-            "sourceMaps": true
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ]
         },
         {
             "type": "pwa-node",
@@ -26,11 +30,15 @@
             "args": [
                 "${workspaceFolder}/lib/generators/theme"
             ],
-            "cwd": "${workspaceFolder}/..",
+            "cwd": "${workspaceFolder}/../TestPackage",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "preLaunchTask": "Build",
-            "sourceMaps": true
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ]
         },
         {
             "type": "pwa-node",

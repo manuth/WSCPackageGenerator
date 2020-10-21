@@ -1,3 +1,3 @@
-import { WSCPackageGenerator } from "./WSCPackageGenerator";
+import { WoltLabPackageGenerator } from "./WoltLabPackageGenerator";
 
-export = WSCPackageGenerator;
+export = WoltLabPackageGenerator;

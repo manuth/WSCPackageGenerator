@@ -1,3 +1,3 @@
-import { WSCThemeGenerator } from "./WSCThemeGenerator";
+import { WoltLabThemeGenerator } from "./WoltLabThemeGenerator";
 
-export = WSCThemeGenerator;
+export = WoltLabThemeGenerator;

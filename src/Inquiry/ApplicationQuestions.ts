@@ -1,4 +1,4 @@
-import { Answers, Question } from "extended-yo-generator";
+import { Answers, Question } from "@manuth/extended-yo-generator";
 
 /**
  * Represents questions for a woltlab-application
@@ -64,7 +64,7 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
                         name: "WoltLab FileBase"
                     },
                     {
-                        value: null,
+                        value: undefined,
                         name: "Custom"
                     }
                 ],
@@ -74,7 +74,7 @@ export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
                 name,
                 message: "Please specify the identifier of the custom Application.",
                 default: "wcf",
-                when: async (settings) => (await whenFunction(settings)) && (settings[name] === null),
+                when: async (settings) => (await whenFunction(settings)) && (settings[name] === undefined),
                 validate: (input) => /\w+/.test(input) ? true : "The identifier must not be empty!"
             });
     }

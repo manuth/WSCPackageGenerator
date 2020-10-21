@@ -1,18 +1,16 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { AsyncDynamicQuestionProperty, DynamicQuestionProperty } from "inquirer";
-import { join } from "upath";
-import { AssetQuestion } from "../../Inquiry/AssetQuestion";
-import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { WoltLabGenerator } from "../../WoltLabGenerator";
+import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
+import { WoltLabGenerator } from "../WoltLabGenerator";
+import { PathQuestion } from "./PathQuestion";
 
 /**
- * Represents a question for asking for paths to theme-assets.
+ * Represents a question for asking for asset-paths.
  */
-export class ThemeAssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends AssetQuestion<TSettings, TOptions>
+export class AssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestion<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `ThemeAssetQuestion` class.
+     * Initializes a new instance of the `AssetQuestion` class.
      *
      * @param generator
      * The generator of the question.
@@ -42,6 +40,6 @@ export class ThemeAssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOp
      */
     protected RootDir(answers: TSettings): string
     {
-        return join(super.RootDir(answers), "themes", answers[TSProjectSettingKey.Name]);
+        return this.Generator.assetPath();
     }
 }

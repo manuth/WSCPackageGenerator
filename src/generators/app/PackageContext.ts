@@ -1,10 +1,10 @@
-import Path = require("path");
-import UPath = require("upath");
-import { Generator } from "../../Generator";
-import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
-import { IWSCPackageSettings } from "./IWSCPackageSettings";
-import { WSCPackageComponent } from "./WSCPackageComponent";
-import { WSCPackageSetting } from "./WSCPackageSetting";
+import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { dirname, join, normalize, parse, relative, sep } from "upath";
+import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
+import { WoltLabGenerator } from "../../WoltLabGenerator";
+import { WoltLabSettingKey } from "../../WoltLabSettingKey";
+import { WoltLabUnitName } from "../../WoltLabUnitName";
 
 /**
  * Provides a context for copying the package-file.
@@ -14,7 +14,7 @@ export class PackageContext
     /**
      * The generator.
      */
-    private generator: Generator<IWSCPackageSettings>;
+    private generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>;
 
     /**
      * Initializes a new instance of the `PackageContext` class.
@@ -22,7 +22,7 @@ export class PackageContext
      * @param generator
      * The generator of the context.
      */
-    public constructor(generator: Generator<IWSCPackageSettings>)
+    public constructor(generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>)
     {
         this.generator = generator;
     }
@@ -30,7 +30,7 @@ export class PackageContext
     /**
      * Gets the generator.
      */
-    protected get Generator(): Generator<IWSCPackageSettings>
+    protected get Generator(): WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>
     {
         return this.generator;
     }
@@ -38,7 +38,7 @@ export class PackageContext
     /**
      * Gets the settings of the generator.
      */
-    protected get Settings(): IWSCPackageSettings
+    protected get Settings(): IWoltLabGeneratorSettings
     {
         return this.Generator.Settings;
     }
@@ -48,7 +48,7 @@ export class PackageContext
      */
     public get Identifier(): string
     {
-        return this.Settings[WSCPackageSetting.Identifier];
+        return this.Settings[WoltLabSettingKey.Identifier];
     }
 
     /**
@@ -56,7 +56,7 @@ export class PackageContext
      */
     public get Name(): string
     {
-        return this.Settings[WSCPackageSetting.Name];
+        return this.Settings[TSProjectSettingKey.Name];
     }
 
     /**
@@ -64,7 +64,7 @@ export class PackageContext
      */
     public get DisplayName(): string
     {
-        return this.Settings[WSCPackageSetting.DisplayName];
+        return this.Settings[TSProjectSettingKey.DisplayName];
     }
 
     /**
@@ -72,7 +72,7 @@ export class PackageContext
      */
     public get Author(): string
     {
-        return this.Settings[WSCPackageSetting.Author];
+        return this.Settings[WoltLabSettingKey.Author];
     }
 
     /**
@@ -80,7 +80,7 @@ export class PackageContext
      */
     public get HomePage(): string
     {
-        return this.Settings[WSCPackageSetting.HomePage];
+        return this.Settings[WoltLabSettingKey.HomePage];
     }
 
     /**
@@ -97,7 +97,7 @@ export class PackageContext
      */
     public get Description(): string
     {
-        return this.Settings[WSCPackageSetting.Description];
+        return this.Settings[TSProjectSettingKey.Description];
     }
 
     /**
@@ -109,15 +109,15 @@ export class PackageContext
 
         let pathFormatter = (value: string): string =>
         {
-            value = Path.relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
-            value = UPath.normalize(value);
+            value = relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
+            value = normalize(value);
             return value;
         };
 
         let requireFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
-            value = UPath.join(UPath.dirname(value), UPath.parse(value).name);
+            value = join(dirname(value), parse(value).name);
 
             if (!value.startsWith("."))
             {
@@ -130,9 +130,9 @@ export class PackageContext
         let themeFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
-            let result = "...new ThemeInstructionCollection(Path.join(__dirname";
+            let result = "...new ThemeInstructionCollection(join(__dirname";
 
-            for (let segment of value.split(Path.posix.sep))
+            for (let segment of value.split(sep))
             {
                 result += `, "${segment}"`;
             }
@@ -141,14 +141,14 @@ export class PackageContext
             return result;
         };
 
-        for (let component in this.Settings[WoltLabGeneratorSetting.ComponentPaths])
+        for (let component in this.Settings[WoltLabSettingKey.UnitPaths])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[WoltLabGeneratorSetting.ComponentPaths][component];
+            let path = this.Settings[WoltLabSettingKey.UnitPaths][component as WoltLabUnitName];
 
             switch (component)
             {
-                case WSCPackageComponent.Themes:
+                case WoltLabUnitName.Themes:
                     formatter = themeFormatter;
                     break;
                 default:
