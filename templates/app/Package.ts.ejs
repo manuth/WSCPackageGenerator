@@ -1,5 +1,5 @@
-import Path = require("path");
-import { IPackageOptions, RequiredPackageDescriptor, ThemeInstructionCollection } from "woltlab-compiler";
+import { join } from "path";
+import { IPackageOptions, RequiredPackageDescriptor, ThemeInstructionCollection } from "@manuth/woltlab-compiler";
 
 let pkg: IPackageOptions = {
     Identifier: <%- JSON.stringify(Identifier) %>,

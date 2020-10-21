@@ -1,63 +1,47 @@
-import { AsyncDynamicQuestionProperty, InputQuestion } from "inquirer";
-import Path = require("path");
-import { AssetQuestion } from "../../AssetQuestion";
-import { Generator } from "../../Generator";
-import { IWSCThemeSettings } from "./IWSCThemeSettings";
-import { WSCThemeSetting } from "./WSCThemeSetting";
+import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { AsyncDynamicQuestionProperty, DynamicQuestionProperty } from "inquirer";
+import { join } from "upath";
+import { AssetQuestion } from "../../Inquiry/AssetQuestion";
+import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
+import { WoltLabGenerator } from "../../WoltLabGenerator";
 
 /**
- * Represents a question for theme-assets.
+ * Represents a question for asking for paths to theme-assets.
  */
-export class ThemeAssetQuestion<T extends IWSCThemeSettings> extends AssetQuestion<T>
+export class ThemeAssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends AssetQuestion<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `ThemeAssetQuestion<T>` class.
+     * Initializes a new instance of the `ThemeAssetQuestion` class.
      *
      * @param generator
-     * The generator.
+     * The generator of the question.
      *
-     * @param options
-     * The options for the initialization.
+     * @param name
+     * The key to store the answer to.
+     *
+     * @param message
+     * The message to show to the user.
+     *
+     * @param defaultValue
+     * The default value.
      */
-    public constructor(generator: Generator<T>, options: InputQuestion<T>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>, name: string, message: AsyncDynamicQuestionProperty<string, TSettings>, defaultValue: DynamicQuestionProperty<string, TSettings>)
     {
-        super(generator, options);
+        super(generator, name, message, defaultValue);
     }
 
     /**
      * @inheritdoc
+     *
+     * @param answers
+     * The answers provided by the users.
+     *
+     * @returns
+     * The directory the path should be relative to.
      */
-    public get default(): AsyncDynamicQuestionProperty<string>
+    protected RootDir(answers: TSettings): string
     {
-        let defaultValue: AsyncDynamicQuestionProperty<string> = super.default;
-
-        return async (answers) =>
-        {
-            let fileName: string;
-
-            if (typeof defaultValue === "function")
-            {
-                defaultValue = defaultValue(answers);
-            }
-
-            if (defaultValue instanceof Promise)
-            {
-                fileName = await defaultValue;
-            }
-            else
-            {
-                fileName = defaultValue;
-            }
-
-            return Path.join(answers[WSCThemeSetting.Name], fileName);
-        };
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public set default(value)
-    {
-        super.default = value;
+        return join(super.RootDir(answers), "themes", answers[TSProjectSettingKey.Name]);
     }
 }

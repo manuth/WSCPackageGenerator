@@ -1,10 +1,10 @@
-import Path = require("path");
-import UPath = require("upath");
-import { Generator } from "../../Generator";
-import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
-import { IWSCPackageSettings } from "./IWSCPackageSettings";
-import { WSCPackageComponent } from "./WSCPackageComponent";
-import { WSCPackageSetting } from "./WSCPackageSetting";
+import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { dirname, join, normalize, parse, relative, sep } from "upath";
+import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
+import { WoltLabGenerator } from "../../WoltLabGenerator";
+import { WoltLabSettingKey } from "../../WoltLabSettingKey";
+import { WoltLabUnitName } from "../../WoltLabUnitName";
 
 /**
  * Provides a context for copying the package-file.
@@ -14,15 +14,15 @@ export class PackageContext
     /**
      * The generator.
      */
-    private generator: Generator<IWSCPackageSettings>;
+    private generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>;
 
     /**
      * Initializes a new instance of the `PackageContext` class.
      *
-     * @param settings
-     * The settings of the generator.
+     * @param generator
+     * The generator of the context.
      */
-    public constructor(generator: Generator<IWSCPackageSettings>)
+    public constructor(generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>)
     {
         this.generator = generator;
     }
@@ -30,7 +30,7 @@ export class PackageContext
     /**
      * Gets the generator.
      */
-    protected get Generator()
+    protected get Generator(): WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>
     {
         return this.generator;
     }
@@ -38,7 +38,7 @@ export class PackageContext
     /**
      * Gets the settings of the generator.
      */
-    protected get Settings()
+    protected get Settings(): IWoltLabGeneratorSettings
     {
         return this.Generator.Settings;
     }
@@ -46,47 +46,47 @@ export class PackageContext
     /**
      * Gets the identifier.
      */
-    public get Identifier()
+    public get Identifier(): string
     {
-        return this.Settings[WSCPackageSetting.Identifier];
+        return this.Settings[WoltLabSettingKey.Identifier];
     }
 
     /**
      * Gets the name.
      */
-    public get Name()
+    public get Name(): string
     {
-        return this.Settings[WSCPackageSetting.Name];
+        return this.Settings[TSProjectSettingKey.Name];
     }
 
     /**
      * Gets the human-readable name.
      */
-    public get DisplayName()
+    public get DisplayName(): string
     {
-        return this.Settings[WSCPackageSetting.DisplayName];
+        return this.Settings[TSProjectSettingKey.DisplayName];
     }
 
     /**
      * Gets the author.
      */
-    public get Author()
+    public get Author(): string
     {
-        return this.Settings[WSCPackageSetting.Author];
+        return this.Settings[WoltLabSettingKey.Author];
     }
 
     /**
      * Gets the home-page of the author.
      */
-    public get HomePage()
+    public get HomePage(): string
     {
-        return this.Settings[WSCPackageSetting.HomePage];
+        return this.Settings[WoltLabSettingKey.HomePage];
     }
 
     /**
      * Gets the creation-date.
      */
-    public get CreationDate()
+    public get CreationDate(): string
     {
         let date = new Date();
         return `${date.getFullYear()}-${`${date.getMonth() + 1}`.padStart(2, "0")}-${`${date.getDate()}`.padStart(2, "0")}`;
@@ -95,29 +95,29 @@ export class PackageContext
     /**
      * Gets the description.
      */
-    public get Description()
+    public get Description(): string
     {
-        return this.Settings[WSCPackageSetting.Description];
+        return this.Settings[TSProjectSettingKey.Description];
     }
 
     /**
      * Gets the instructions.
      */
-    public get Instructions()
+    public get Instructions(): string[]
     {
         let result: string[] = [];
 
-        let pathFormatter = (value: string) =>
+        let pathFormatter = (value: string): string =>
         {
-            value = Path.relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
-            value = UPath.normalize(value);
+            value = relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
+            value = normalize(value);
             return value;
         };
 
-        let requireFormatter = (value: string) =>
+        let requireFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
-            value = UPath.join(UPath.dirname(value), UPath.parse(value).name);
+            value = join(dirname(value), parse(value).name);
 
             if (!value.startsWith("."))
             {
@@ -127,12 +127,12 @@ export class PackageContext
             return `require("${value}")`;
         };
 
-        let themeFormatter = (value: string) =>
+        let themeFormatter = (value: string): string =>
         {
             value = pathFormatter(value);
-            let result = "...new ThemeInstructionCollection(Path.join(__dirname";
+            let result = "...new ThemeInstructionCollection(join(__dirname";
 
-            for (let segment of value.split(Path.posix.sep))
+            for (let segment of value.split(sep))
             {
                 result += `, "${segment}"`;
             }
@@ -141,14 +141,14 @@ export class PackageContext
             return result;
         };
 
-        for (let component in this.Settings[WoltLabGeneratorSetting.ComponentPaths])
+        for (let component in this.Settings[WoltLabSettingKey.UnitPaths])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[WoltLabGeneratorSetting.ComponentPaths][component];
+            let path = this.Settings[WoltLabSettingKey.UnitPaths][component as WoltLabUnitName];
 
             switch (component)
             {
-                case WSCPackageComponent.Themes:
+                case WoltLabUnitName.Themes:
                     formatter = themeFormatter;
                     break;
                 default:

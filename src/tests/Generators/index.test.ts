@@ -1,16 +1,15 @@
-import Assert = require("assert");
-import ChildProcess = require("child_process");
-import { GeneratorSetting } from "extended-yo-generator";
-import FileSystem = require("fs-extra");
-import Path = require("path");
-import TypeScript = require("typescript");
+import { strictEqual } from "assert";
+import { exec } from "child_process";
 import { promisify } from "util";
+import { GeneratorSettingKey } from "@manuth/extended-yo-generator";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { mkdirp, pathExists, remove, symlink } from "fs-extra";
+import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
+import { dirname, isAbsolute, join } from "upath";
 import { run, RunContext } from "yeoman-test";
-import { WSCPackageComponent } from "../../generators/app/WSCPackageComponent";
-import { WSCPackageGenerator } from "../../generators/app/WSCPackageGenerator";
-import { WSCPackageSetting } from "../../generators/app/WSCPackageSetting";
-import { WSCThemeSetting } from "../../generators/theme/WSCThemeSetting";
-import { WoltLabGeneratorSetting } from "../../GeneratorSetting";
+import WoltLabPackageGenerator = require("../../generators/app");
+import { WoltLabSettingKey } from "../../WoltLabSettingKey";
+import { WoltLabUnitName } from "../../WoltLabUnitName";
 
 suite(
     "Generators",
@@ -50,22 +49,23 @@ suite(
                 suiteSetup(
                     () =>
                     {
-                        generatorRoot = Path.join(__dirname, "..", "..", "generators", "app");
+                        generatorRoot = join(__dirname, "..", "..", "generators", "app");
                         packageName = "MyPackage";
                         displayName = "This is a test";
                         identifier = "com.example.mypackage";
                         packageContext = run(
                             generatorRoot).withPrompts(
                                 {
-                                    [WSCPackageSetting.Destination]: "./",
-                                    [WSCPackageSetting.Name]: packageName,
-                                    [WSCPackageSetting.DisplayName]: displayName,
-                                    [WSCPackageSetting.Identifier]: identifier,
-                                    [WSCPackageSetting.Author]: "Manuel Thalmann",
-                                    [WSCPackageSetting.HomePage]: "https://nuth.ch",
-                                    [GeneratorSetting.Components]: [
-                                        WSCPackageComponent.Themes
-                                    ]
+                                    [TSProjectSettingKey.Destination]: "./",
+                                    [TSProjectSettingKey.Name]: packageName,
+                                    [TSProjectSettingKey.DisplayName]: displayName,
+                                    [WoltLabSettingKey.Identifier]: identifier,
+                                    [WoltLabSettingKey.Author]: "Manuel Thalmann",
+                                    [WoltLabSettingKey.HomePage]: "https://nuth.ch",
+                                    [GeneratorSettingKey.Components]: [
+                                        WoltLabUnitName.Themes
+                                    ],
+                                    [`${WoltLabSettingKey.UnitPaths}[${WoltLabUnitName.Themes}]`]: "src/Themes"
                                 });
                     });
 
@@ -73,13 +73,13 @@ suite(
                     "Checking whether the generator can be executed…",
                     async function()
                     {
-                        this.slow(5000);
-                        this.timeout(5000);
-                        let generator: WSCPackageGenerator;
+                        this.slow(1 * 60 * 1000);
+                        this.timeout(2 * 60 * 1000);
+                        let generator: WoltLabPackageGenerator;
                         tempDir = await packageContext.toPromise();
                         generator = (packageContext as any).generator;
-                        themePath = generator.Settings[WoltLabGeneratorSetting.ComponentPaths][WSCPackageComponent.Themes];
-                        tsConfigFile = Path.join(tempDir, "tsconfig.json");
+                        themePath = generator.Settings[WoltLabSettingKey.UnitPaths][WoltLabUnitName.Themes];
+                        tsConfigFile = join(tempDir, "tsconfig.json");
                     });
 
                 test(
@@ -88,7 +88,7 @@ suite(
                     {
                         this.slow(5 * 60 * 1000);
                         this.timeout(5 * 60 * 1000);
-                        await promisify(ChildProcess.exec)(
+                        await promisify(exec)(
                             "npm install",
                             {
                                 cwd: tempDir
@@ -96,11 +96,11 @@ suite(
 
                         for (let module of ["node-sass"])
                         {
-                            let source = Path.join(__dirname, "..", "..", "..", "node_modules", module);
-                            let target = Path.join(tempDir, "node_modules", module);
-                            await FileSystem.remove(target);
-                            await FileSystem.mkdirp(Path.dirname(target));
-                            await FileSystem.symlink(source, target, "junction");
+                            let source = join(__dirname, "..", "..", "..", "node_modules", module);
+                            let target = join(tempDir, "node_modules", module);
+                            await remove(target);
+                            await mkdirp(dirname(target));
+                            await symlink(source, target, "junction");
                         }
                     });
 
@@ -108,7 +108,7 @@ suite(
                     "Checking whether a typescript-config exists…",
                     async () =>
                     {
-                        Assert.strictEqual(await FileSystem.pathExists(tsConfigFile), true);
+                        strictEqual(await pathExists(tsConfigFile), true);
                     });
 
                 test(
@@ -119,34 +119,34 @@ suite(
                         this.timeout(20 * 1000);
 
                         let host = {
-                            ...TypeScript.sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
+                            ...sys,
+                            onUnRecoverableConfigFileDiagnostic: (diagnostic: Diagnostic): void =>
                             {
-                                throw diagnostic;
+                                throw new Error();
                             }
-                        } as TypeScript.ParseConfigFileHost;
+                        } as ParseConfigFileHost;
 
-                        let config = TypeScript.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult = TypeScript.createProgram(
+                        let config = getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options
                             }).emit();
 
-                        Assert.strictEqual(compilerResult.emitSkipped, false);
-
-                        let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
-                        packageFileName = Path.join(baseDir, "Meta", "Package");
+                        strictEqual(compilerResult.emitSkipped, false);
+                        let baseDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(tempDir, config.options.outDir);
+                        packageFileName = join(baseDir, "Meta", "Package");
                     });
 
                 test(
                     "Checking the integrity of the package-manifest…",
                     () =>
                     {
+                        // eslint-disable-next-line @typescript-eslint/no-var-requires
                         let $package = require(packageFileName);
-                        Assert.strictEqual($package["Name"], packageName);
-                        Assert.strictEqual($package["DisplayName"]["inv"], displayName);
-                        Assert.strictEqual($package["Identifier"], identifier);
+                        strictEqual($package["Name"], packageName);
+                        strictEqual($package["DisplayName"]["inv"], displayName);
+                        strictEqual($package["Identifier"], identifier);
                     });
             });
 
@@ -162,7 +162,7 @@ suite(
                 suiteSetup(
                     () =>
                     {
-                        generatorRoot = Path.join(__dirname, "..", "..", "generators", "theme");
+                        generatorRoot = join(__dirname, "..", "..", "generators", "theme");
                         name = "MyTheme";
                         displayName = "This is a test";
                         themeContext = run(
@@ -171,8 +171,9 @@ suite(
                                 tmpdir: false
                             }).withPrompts(
                                 {
-                                    [WSCThemeSetting.Name]: name,
-                                    [WSCThemeSetting.DisplayName]: displayName
+                                    [TSProjectSettingKey.Destination]: "./",
+                                    [TSProjectSettingKey.Name]: name,
+                                    [TSProjectSettingKey.DisplayName]: displayName
                                 });
                     });
 
@@ -181,6 +182,7 @@ suite(
                     async () =>
                     {
                         await themeContext.toPromise();
+                        console.log();
                     });
 
                 test(
@@ -191,33 +193,33 @@ suite(
                         this.timeout(20 * 1000);
 
                         let host = {
-                            ...TypeScript.sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: TypeScript.Diagnostic): void =>
+                            ...sys,
+                            onUnRecoverableConfigFileDiagnostic: (diagnostic: Diagnostic): void =>
                             {
-                                throw diagnostic;
+                                throw new Error();
                             }
-                        } as TypeScript.ParseConfigFileHost;
+                        } as ParseConfigFileHost;
 
-                        let config = TypeScript.getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                        let compilerResult = TypeScript.createProgram(
+                        let config = getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let compilerResult = createProgram(
                             {
                                 rootNames: config.fileNames,
                                 options: config.options
                             }).emit();
 
-                        Assert.strictEqual(compilerResult.emitSkipped, false);
-
-                        let baseDir = Path.isAbsolute(config.options.outDir) ? config.options.outDir : Path.join(tempDir, config.options.outDir);
-                        themeFileName = Path.join(baseDir, themePath, name, "Theme");
+                        strictEqual(compilerResult.emitSkipped, false);
+                        let baseDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(tempDir, config.options.outDir);
+                        themeFileName = join(baseDir, themePath, name, "Theme");
                     });
 
                 test(
                     "Checking the integrity of the theme-manifest…",
                     () =>
                     {
+                        // eslint-disable-next-line @typescript-eslint/no-var-requires
                         let theme: any = require(themeFileName);
-                        Assert.strictEqual(theme["Name"], name);
-                        Assert.strictEqual(theme["DisplayName"]["inv"], displayName);
+                        strictEqual(theme["Name"], name);
+                        strictEqual(theme["DisplayName"]["inv"], displayName);
                     });
             });
     });
