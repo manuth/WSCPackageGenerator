@@ -4,7 +4,7 @@ type: docker
 
 steps:
   - name: install
-    image: node
+    image: node:lts
     commands:
       - npm install --unsafe-perm
   - name: build
@@ -12,15 +12,15 @@ steps:
     commands:
       - npm run build
   - name: lint
-    image: node
+    image: node:lts
     commands:
       - npm run lint
   - name: test
-    image: node
+    image: node:lts
     commands:
       - npm run test
   - name: publish package to npm
-    image: node
+    image: node:lts
     environment:
       NPM_TOKEN:
         from_secret: npm_token
@@ -33,7 +33,7 @@ steps:
       ref:
         - refs/tags/v[0-9].[0-9].[0-9]
   - name: publish package to github
-    image: node
+    image: node:lts
     environment:
       GITHUB_TOKEN:
         from_secret: github_packages_token
@@ -47,7 +47,7 @@ steps:
       ref:
         - refs/tags/v[0-9].[0-9].[0-9]
   - name: prepare release
-    image: node
+    image: node:lts
     commands:
       - npm pack
       - npm install escape-string-regexp --no-save
