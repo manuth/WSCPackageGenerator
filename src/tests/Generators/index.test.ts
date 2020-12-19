@@ -7,7 +7,7 @@ import { mkdirp, pathExists, remove, symlink } from "fs-extra";
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
 import { dirname, isAbsolute, join } from "upath";
 import { run, RunContext } from "yeoman-test";
-import WoltLabPackageGenerator = require("../../generators/app");
+import { WoltLabPackageGenerator } from "../../generators/app/WoltLabPackageGenerator";
 import { WoltLabSettingKey } from "../../WoltLabSettingKey";
 import { WoltLabUnitName } from "../../WoltLabUnitName";
 
