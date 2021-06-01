@@ -20,24 +20,10 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js",
                 "!**/node_modules/**"
-            ]
-        },
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Launch Theme-Generator",
-            "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
-            "args": [
-                "${workspaceFolder}/lib/generators/theme"
             ],
-            "cwd": "${workspaceFolder}/../TestPackage",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "preLaunchTask": "Build",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceFolder}/**/*.js",
-                "!**/node_modules/**"
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
             ]
         },
         {
@@ -51,6 +37,10 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js",
                 "!**/node_modules/**"
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
             ]
         }
     ]

@@ -1,4 +1,4 @@
-import { parse } from "url";
+import { URL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
@@ -44,7 +44,7 @@ export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettin
      */
     protected override async Default(answers: TSettings): Promise<string>
     {
-        let reversedUri = parse(answers[WoltLabSettingKey.HomePage]).hostname?.split(".").reverse().join(".") ?? "";
+        let reversedUri = new URL(answers[WoltLabSettingKey.HomePage]).hostname?.split(".").reverse().join(".") ?? "";
 
         if (reversedUri.length === 0)
         {

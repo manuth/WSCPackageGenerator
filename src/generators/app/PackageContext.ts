@@ -1,6 +1,6 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { dirname, join, normalize, parse, relative, sep } from "upath";
+import { dirname, join, normalize, parse, relative } from "upath";
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabSettingKey } from "../../WoltLabSettingKey";
@@ -127,20 +127,6 @@ export class PackageContext
             return `require("${value}")`;
         };
 
-        let themeFormatter = (value: string): string =>
-        {
-            value = pathFormatter(value);
-            let result = "...new ThemeInstructionCollection(join(__dirname";
-
-            for (let segment of value.split(sep))
-            {
-                result += `, "${segment}"`;
-            }
-
-            result += "))";
-            return result;
-        };
-
         for (let component in this.Settings[WoltLabSettingKey.UnitPaths])
         {
             let formatter: typeof pathFormatter;
@@ -148,9 +134,6 @@ export class PackageContext
 
             switch (component)
             {
-                case WoltLabUnitName.Themes:
-                    formatter = themeFormatter;
-                    break;
                 default:
                     formatter = requireFormatter;
                     break;

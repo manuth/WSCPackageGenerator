@@ -49,11 +49,6 @@ export enum WoltLabUnitName
     GroupOptions = "woltLabGroupOptions",
 
     /**
-     * Indicates themes.
-     */
-    Themes = "woltLabThemes",
-
-    /**
      * Indicates emojis.
      */
     Emojis = "woltLabEmojis",

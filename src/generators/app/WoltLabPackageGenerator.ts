@@ -1,7 +1,6 @@
-import { GeneratorOptions, GeneratorSettingKey, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
-import { relative } from "upath";
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
 import { ACPTenplateUnit } from "../../Units/ACPTemplateUnit";
@@ -16,13 +15,10 @@ import { PHPScriptUnit } from "../../Units/PHPScriptUnit";
 import { SQLScriptUnit } from "../../Units/SQLScriptUnit";
 import { TemplateListenerUnit } from "../../Units/TemplateListenerUnit";
 import { TemplateUnit } from "../../Units/TemplateUnit";
-import { ThemeUnit } from "../../Units/ThemeUnit";
 import { TranslationUnit } from "../../Units/TranslationUnit";
 import { UserOptionsUnit } from "../../Units/UserOptionsUnit";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
-import { WoltLabSettingKey } from "../../WoltLabSettingKey";
-import { WoltLabUnitName } from "../../WoltLabUnitName";
 import { PackageContext } from "./PackageContext";
 
 /**
@@ -72,7 +68,6 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new ThemeUnit(this),
                         new EmojiUnit(this),
                         new BBCodeUnit(this),
                         new TemplateUnit(this),
@@ -198,14 +193,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     public override async end(): Promise<void>
     {
         await super.end();
-
-        if (this.Settings[GeneratorSettingKey.Components].includes(WoltLabUnitName.Themes))
-        {
-            this.config.set(WoltLabUnitName.Themes, relative(this.destinationPath(this.sourcePath()), this.destinationPath(this.sourcePath(this.Settings[WoltLabSettingKey.UnitPaths][WoltLabUnitName.Themes]))));
-        }
-
         this.config.save();
-
         this.log();
         this.log("Your package \"" + this.Settings[TSProjectSettingKey.DisplayName] + "\" has been created!");
         this.log();
