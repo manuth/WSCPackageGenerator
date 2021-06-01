@@ -25,12 +25,12 @@ export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, T
     /**
      * Gets the id of the unit.
      */
-    public abstract get ID(): string;
+    public abstract override get ID(): string;
 
     /**
      * @inheritdoc
      */
-    public get Generator(): WoltLabGenerator<TSettings, TOptions>
+    public override get Generator(): WoltLabGenerator<TSettings, TOptions>
     {
         return super.Generator as WoltLabGenerator<TSettings, TOptions>;
     }
@@ -46,7 +46,7 @@ export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, T
     /**
      * Gets the questions of the unit.
      */
-    public get Questions(): Array<Question<TSettings>>
+    public override get Questions(): Array<Question<TSettings>>
     {
         return [
             this.UnitPathQuestion
@@ -56,7 +56,7 @@ export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, T
     /**
      * Gets the file-mappings of the unit.
      */
-    public get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
+    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
     {
         return [
             this.UnitFileMapping

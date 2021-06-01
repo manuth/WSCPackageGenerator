@@ -29,7 +29,7 @@ export class ThemeUnit<TSettings extends IWoltLabGeneratorSettings, TOptions ext
     /**
      * @inheritdoc
      */
-    public get AllowOutside(): boolean
+    public override get AllowOutside(): boolean
     {
         return true;
     }
@@ -37,7 +37,7 @@ export class ThemeUnit<TSettings extends IWoltLabGeneratorSettings, TOptions ext
     /**
      * @inheritdoc
      */
-    protected get UnitFileMapping(): IFileMapping<TSettings, TOptions>
+    protected override get UnitFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return {
             ...super.UnitFileMapping,
@@ -58,7 +58,7 @@ export class ThemeUnit<TSettings extends IWoltLabGeneratorSettings, TOptions ext
      * @returns
      * The message to show to the user.
      */
-    public async Message(answers: TSettings): Promise<string>
+    public override async Message(answers: TSettings): Promise<string>
     {
         return "Where do you want to store themes?";
     }

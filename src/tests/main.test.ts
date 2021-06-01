@@ -1,6 +1,6 @@
 suite(
-    "Generator-Library",
+    "WSCPackageGenerator",
     () =>
     {
-        require("./Generators/index.test");
+        require("./Generators");
     });

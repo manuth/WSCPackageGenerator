@@ -1,3 +1,3 @@
-import { WoltLabThemeGenerator } from "./WoltLabThemeGenerator";
+import { ThemeGenerator } from "./ThemeGenerator";
 
-export = WoltLabThemeGenerator;
+export = ThemeGenerator;

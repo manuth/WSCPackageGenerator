@@ -27,7 +27,7 @@ export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOpti
     /**
      * @inheritdoc
      */
-    public get Questions(): Array<Question<TSettings>>
+    public override get Questions(): Array<Question<TSettings>>
     {
         return [
             ...super.Questions,

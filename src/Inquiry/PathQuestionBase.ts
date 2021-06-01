@@ -34,7 +34,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
     /**
      * @inheritdoc
      */
-    public get Generator(): WoltLabGenerator<TSettings, TOptions>
+    public override get Generator(): WoltLabGenerator<TSettings, TOptions>
     {
         return super.Generator as WoltLabGenerator<TSettings, TOptions>;
     }
@@ -81,7 +81,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The message to show to the user.
      */
-    protected abstract Message(answers: TSettings): Promise<string>;
+    protected abstract override Message(answers: TSettings): Promise<string>;
 
     /**
      * @inheritdoc
@@ -92,7 +92,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The default value.
      */
-    protected async Default(answers: TSettings): Promise<string>
+    protected override async Default(answers: TSettings): Promise<string>
     {
         return this.DefaultBaseName(answers);
     }
@@ -109,7 +109,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The filtered value.
      */
-    protected async Filter(input: any, answers: TSettings): Promise<string>
+    protected override async Filter(input: any, answers: TSettings): Promise<string>
     {
         return resolve(answers[TSProjectSettingKey.Destination], this.Transform(input, answers, null));
     }

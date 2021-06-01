@@ -27,7 +27,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The loaded package.
      */
-    public async LoadPackage(): Promise<Package>
+    public override async LoadPackage(): Promise<Package>
     {
         let woltLabDependency = "@manuth/woltlab-compiler";
         let result = await super.LoadPackage();

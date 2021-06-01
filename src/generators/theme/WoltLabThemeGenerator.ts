@@ -31,7 +31,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public get TemplateRoot(): string
+    public override get TemplateRoot(): string
     {
         return "theme";
     }
@@ -39,7 +39,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public get Questions(): Array<Question<IWoltLabGeneratorSettings>>
+    public override get Questions(): Array<Question<IWoltLabGeneratorSettings>>
     {
         return [
             {
@@ -94,7 +94,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public get Components(): IComponentCollection<IWoltLabGeneratorSettings, GeneratorOptions>
+    public override get Components(): IComponentCollection<IWoltLabGeneratorSettings, GeneratorOptions>
     {
         return {
             Question: "What should be included in your theme?",
@@ -132,7 +132,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public get FileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
+    public override get FileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
     {
         return [
             {
@@ -153,7 +153,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public async prompting(): Promise<void>
+    public override async prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Theme")} generator!`));
         return super.prompting();
@@ -162,7 +162,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public async writing(): Promise<void>
+    public override async writing(): Promise<void>
     {
         return super.writing();
     }
@@ -170,7 +170,7 @@ export class WoltLabThemeGenerator extends WoltLabGenerator<IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    public async end(): Promise<void>
+    public override async end(): Promise<void>
     {
         this.config.set(WoltLabUnitName.Themes, this.Settings[WoltLabSettingKey.UnitPaths][WoltLabUnitName.Themes]);
         this.config.save();

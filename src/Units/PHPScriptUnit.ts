@@ -47,7 +47,7 @@ export class PHPScriptUnit<TSettings extends IWoltLabGeneratorSettings, TOptions
     /**
      * @inheritdoc
      */
-    public get Questions(): Array<Question<TSettings>>
+    public override get Questions(): Array<Question<TSettings>>
     {
         return [
             ...super.Questions,
@@ -92,7 +92,7 @@ export class PHPScriptUnit<TSettings extends IWoltLabGeneratorSettings, TOptions
                  * @returns
                  * A value indicating whether the question should be asked.
                  */
-                protected async When(answers: TSettings): Promise<boolean>
+                protected override async When(answers: TSettings): Promise<boolean>
                 {
                     return answers[WoltLabSettingKey.SelfContainedPHP];
                 }
@@ -113,7 +113,7 @@ export class PHPScriptUnit<TSettings extends IWoltLabGeneratorSettings, TOptions
     /**
      * @inheritdoc
      */
-    public get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
+    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
     {
         return [
             ...super.FileMappings,
@@ -159,7 +159,7 @@ export class PHPScriptUnit<TSettings extends IWoltLabGeneratorSettings, TOptions
      * @returns
      * The context for copying the template-file.
      */
-    protected GetTemplateContext(target: FileMapping<TSettings, TOptions>, generator: WoltLabGenerator<TSettings, TOptions>): any
+    protected override GetTemplateContext(target: FileMapping<TSettings, TOptions>, generator: WoltLabGenerator<TSettings, TOptions>): any
     {
         let result = {
             ...super.GetTemplateContext(target, generator),

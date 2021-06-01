@@ -42,7 +42,7 @@ export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The default value.
      */
-    protected async Default(answers: TSettings): Promise<string>
+    protected override async Default(answers: TSettings): Promise<string>
     {
         let reversedUri = parse(answers[WoltLabSettingKey.HomePage]).hostname?.split(".").reverse().join(".") ?? "";
 
@@ -66,7 +66,7 @@ export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettin
      * @returns
      * The choices the user can choose from.
      */
-    protected async Validate(input: any, answers: TSettings): Promise<string | boolean>
+    protected override async Validate(input: any, answers: TSettings): Promise<string | boolean>
     {
         return (`${input}`.trim().length > 0) ? super.Validate(input, answers) : "The identifier must not be empty!";
     }

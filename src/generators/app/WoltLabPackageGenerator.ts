@@ -33,7 +33,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public get TemplateRoot(): string
+    public override get TemplateRoot(): string
     {
         return "app";
     }
@@ -41,7 +41,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public get Components(): IComponentCollection<IWoltLabGeneratorSettings, GeneratorOptions>
+    public override get Components(): IComponentCollection<IWoltLabGeneratorSettings, GeneratorOptions>
     {
         return {
             Question: super.Components.Question,
@@ -93,7 +93,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public get BaseFileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
+    public override get BaseFileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
     {
         let result: Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>> = [];
 
@@ -115,7 +115,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public get FileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
+    public override get FileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
     {
         return [
             ...super.FileMappings,
@@ -157,7 +157,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public prompting(): Promise<void>
+    public override prompting(): Promise<void>
     {
         this.log(yosay(`Welcome to the ${chalk.whiteBright("WoltLab Suite Core Package")} generator!`));
         return super.prompting();
@@ -166,7 +166,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public async writing(): Promise<void>
+    public override async writing(): Promise<void>
     {
         await super.writing();
         let tsConfigFile = this.destinationPath("tsconfig.base.json");
@@ -179,7 +179,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public async install(): Promise<void>
+    public override async install(): Promise<void>
     {
         return super.install();
     }
@@ -187,7 +187,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public async cleanup(): Promise<void>
+    public override async cleanup(): Promise<void>
     {
         return super.cleanup();
     }
@@ -195,7 +195,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public async end(): Promise<void>
+    public override async end(): Promise<void>
     {
         await super.end();
 

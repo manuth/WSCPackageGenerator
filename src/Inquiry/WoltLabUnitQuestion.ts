@@ -50,7 +50,7 @@ export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TO
     /**
      * Gets a value indicating whether paths outside the `RootDir` are allowed.
      */
-    public get AllowOutside(): boolean
+    public override get AllowOutside(): boolean
     {
         return this.Unit.AllowOutside;
     }

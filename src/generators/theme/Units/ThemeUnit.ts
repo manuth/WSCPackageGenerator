@@ -85,7 +85,7 @@ export class ThemeUnit<TSettings extends IWoltLabGeneratorSettings, TOptions ext
     /**
      * @inheritdoc
      */
-    public get AllowOutside(): boolean
+    public override get AllowOutside(): boolean
     {
         return true;
     }
@@ -99,7 +99,7 @@ export class ThemeUnit<TSettings extends IWoltLabGeneratorSettings, TOptions ext
      * @returns
      * The directory the path should be relative to.
      */
-    public RootDir(answers: TSettings): string
+    public override RootDir(answers: TSettings): string
     {
         return this.Generator.assetPath("themes", answers[TSProjectSettingKey.Name]);
     }

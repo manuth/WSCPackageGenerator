@@ -40,7 +40,7 @@ export class ThemeAssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOp
      * @returns
      * The directory the path should be relative to.
      */
-    protected RootDir(answers: TSettings): string
+    protected override RootDir(answers: TSettings): string
     {
         return join(super.RootDir(answers), "themes", answers[TSProjectSettingKey.Name]);
     }
