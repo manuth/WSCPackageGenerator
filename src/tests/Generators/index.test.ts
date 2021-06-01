@@ -76,7 +76,7 @@ suite(
                         this.slow(1 * 60 * 1000);
                         this.timeout(2 * 60 * 1000);
                         let generator: WoltLabPackageGenerator;
-                        tempDir = await packageContext.toPromise();
+                        tempDir = (await packageContext.toPromise()).cwd;
                         generator = (packageContext as any).generator;
                         themePath = generator.Settings[WoltLabSettingKey.UnitPaths][WoltLabUnitName.Themes];
                         tsConfigFile = join(tempDir, "tsconfig.json");
