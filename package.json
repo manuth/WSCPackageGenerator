@@ -39,6 +39,7 @@
     "dedent": "^0.7.0",
     "escape-string-regexp": "^5.0.0",
     "fs-extra": "^10.0.0",
+    "inquirer": "^8.1.0",
     "lodash.kebabcase": "^4.1.1",
     "upath": "^2.0.1",
     "yosay": "^2.0.2"
