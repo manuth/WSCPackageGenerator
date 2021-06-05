@@ -10,7 +10,7 @@ import { WoltLabUnit } from "../WoltLabUnit";
 import { WoltLabUnitName } from "../WoltLabUnitName";
 
 /**
- * Represents a unit for creating acü-templates.
+ * Represents a unit for creating acp-templates.
  */
 export class ACPTenplateUnit<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends WoltLabUnit<TSettings, TOptions>
 {
