@@ -1,5 +1,5 @@
 import { Answers, AsyncDynamicQuestionProperty, InputQuestionOptions } from "inquirer";
-import { PathPromptRootDescriptor } from "./PathPromptRootDescriptor";
+import { IPathPromptRootDescriptor } from "./IPathPromptRootDescriptor";
 
 /**
  * Provides options for the `PathPrompt`.
@@ -9,5 +9,5 @@ export interface IPathQuestionOptions<T extends Answers = Answers> extends Input
     /**
      * The directory to use for resolving relative paths for the {@link IPathQuestionOptions.default `default`} value and the answer.
      */
-    rootDir?: AsyncDynamicQuestionProperty<PathPromptRootDescriptor, T>;
+    rootDir?: AsyncDynamicQuestionProperty<IPathPromptRootDescriptor | string, T>;
 }

@@ -3,9 +3,9 @@ import { ReadLine } from "readline";
 import { Answers } from "inquirer";
 import InputPrompt = require("inquirer/lib/prompts/input");
 import { isAbsolute, join, normalize, parse, relative } from "upath";
+import { IPathPromptRootDescriptor } from "./IPathPromptRootDescriptor";
 import { IPathQuestion } from "./IPathQuestion";
 import { IPathQuestionOptions } from "./IPathQuestionOptions";
-import { PathPromptRootDescriptor } from "./PathPromptRootDescriptor";
 
 declare module "inquirer"
 {
@@ -62,7 +62,7 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      * An object for performing read from and write to the console.
      *
      * @param answers
-     * The answer-object.
+     * The answer-hash.
      */
     public constructor(question: T, readLine: ReadLine, answers: Answers)
     {
@@ -93,7 +93,7 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      */
     public override async run(): Promise<any>
     {
-        let rootDir: PathPromptRootDescriptor;
+        let rootDir: IPathPromptRootDescriptor | string;
 
         if (typeof this.opt.rootDir === "function")
         {
