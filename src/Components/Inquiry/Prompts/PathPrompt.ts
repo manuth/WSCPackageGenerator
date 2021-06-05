@@ -3,6 +3,7 @@ import { ReadLine } from "readline";
 import { Answers } from "inquirer";
 import InputPrompt = require("inquirer/lib/prompts/input");
 import { isAbsolute, join, normalize, parse, relative } from "upath";
+import { IPathQuestion } from "./IPathQuestion";
 import { IPathQuestionOptions } from "./IPathQuestionOptions";
 import { PathPromptRootDescriptor } from "./PathPromptRootDescriptor";
 
@@ -17,7 +18,7 @@ declare module "inquirer"
         /**
          * Represents the path-prompt.
          */
-        [PathPrompt.TypeName]: IPathQuestionOptions<T>;
+        [PathPrompt.TypeName]: IPathQuestion<T>;
     }
 }
 
