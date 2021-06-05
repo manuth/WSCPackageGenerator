@@ -5,6 +5,7 @@ import { Answers, ChoiceCollection, prompt } from "inquirer";
 import Prompt = require("inquirer/lib/prompts/base");
 import { IApplicationAnswerHash } from "./IApplicationAnswerHash";
 import { IApplicationQuestion } from "./IApplicationQuestion";
+import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
 import { IWoltLabApplication } from "./IWoltLabApplication";
 
 declare module "inquirer"
@@ -25,7 +26,7 @@ declare module "inquirer"
 /**
  * Provides a prompt for asking for a WoltLab-application.
  */
-export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQuestion<T>>
+export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQuestionOptions<T>>
 {
     /**
      * Gets the name of this prompt-type.
