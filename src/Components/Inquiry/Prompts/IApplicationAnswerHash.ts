@@ -1,5 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ApplicationPrompt } from "./ApplicationPrompt";
+
 /**
- * The internal answer-hash of the `ApplicationPrompt`.
+ * The internal answer-hash of the {@link ApplicationPrompt `ApplicationPrompt<T>`}.
  */
 export interface IApplicationAnswerHash
 {

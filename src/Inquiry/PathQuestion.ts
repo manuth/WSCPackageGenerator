@@ -5,7 +5,7 @@ import { WoltLabGenerator } from "../WoltLabGenerator";
 import { PathQuestionBase } from "./PathQuestionBase";
 
 /**
- * Provides a basic implementation of the `PathQuestionBase` class.
+ * Provides a basic implementation of the {@link PathQuestionBase `PathQuestionBase<TSettings, TOptions>`} class.
  */
 export abstract class PathQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
 {
@@ -30,7 +30,7 @@ export abstract class PathQuestion<TSettings extends IWoltLabGeneratorSettings, 
     private defaultBaseName: DynamicQuestionProperty<string, TSettings>;
 
     /**
-     * Initializes a new instance of the `PathQuestion` class.
+     * Initializes a new instance of the {@link PathQuestionBase `PathQuestionBase<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the question.

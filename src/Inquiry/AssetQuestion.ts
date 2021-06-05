@@ -10,7 +10,7 @@ import { PathQuestion } from "./PathQuestion";
 export class AssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestion<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `AssetQuestion` class.
+     * Initializes a new instance of the {@link AssetQuestion `AssetQuestion<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the question.

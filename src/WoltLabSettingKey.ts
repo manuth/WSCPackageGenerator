@@ -4,77 +4,77 @@
 export enum WoltLabSettingKey
 {
     /**
-     * Indicates the `Identifier`-setting.
+     * Indicates the {@link Identifier `Identifier`}-setting.
      */
     Identifier = "woltLabPackageIdentifier",
 
     /**
-     * Indicates the `Author`-setting.
+     * Indicates the {@link Author `Author`}-setting.
      */
     Author = "authorName",
 
     /**
-     * Indicates the `HomePage`-setting.
+     * Indicates the {@link HomePage `HomePage`}-setting.
      */
     HomePage = "authorUrl",
 
     /**
-     * Indicates the `ComponentPaths`-setting.
+     * Indicates the {@link UnitPaths `ComponentPaths`}-setting.
      */
     UnitPaths = "woltLabUnitPaths",
 
     /**
-     * Indicates the `FilesApp` setting.
+     * Indicates the {@link FilesApp `FilesApp`} setting.
      */
     FilesApp = "filesApp",
 
     /**
-     * Indicates the `FilesDirectory` setting.
+     * Indicates the {@link FilesDirectory `FilesDirectory`} setting.
      */
     FilesDirectory = "filesDir",
 
     /**
-     * Indicates the `SelfContainedPHP` setting.
+     * Indicates the {@link SelfContainedPHP `SelfContainedPHP`} setting.
      */
     SelfContainedPHP = "selfContainedPHP",
 
     /**
-     * Indicates the `PHPScriptApp` setting.
+     * Indicates the {@link PHPScriptApp `PHPScriptApp`} setting.
      */
     PHPScriptApp = "phpScriptApp",
 
     /**
-     * Indicates the `PHPScriptSource` setting.
+     * Indicates the {@link PHPScriptSource `PHPScriptSource`} setting.
      */
     PHPScriptSource = "phpScriptSource",
 
     /**
-     * Indicates the `PHPScriptFile` setting.
+     * Indicates the {@link PHPScriptSource `PHPScriptFile`} setting.
      */
     PHPScriptFile = "phpScriptFile",
 
     /**
-     * Indicates the `SQLFile` setting.
+     * Indicates the {@link SQLFile `SQLFile`} setting.
      */
     SQLFile = "sqlScriptFile",
 
     /**
-     * Indicates the `TemplateApp` setting.
+     * Indicates the {@link TemplateApp `TemplateApp`} setting.
      */
     TemplateApp = "templateApp",
 
     /**
-     * Indicates the `TemplateRoot` setting.
+     * Indicates the {@link TemplateRoot `TemplateRoot`} setting.
      */
     TemplateRoot = "templateRoot",
 
     /**
-     * Indicates the `ACPTemplateApp` setting.
+     * Indicates the {@link ACPTemplateApp `ACPTemplateApp`} setting.
      */
     ACPTemplateApp = "acpTemplateApp",
 
     /**
-     * Indicates the `ACPTemplateROot` setting.
+     * Indicates the {@link ACPTemplateROot `ACPTemplateROot`} setting.
      */
     ACPTemplateRoot = "acpTemplateRoot"
 }

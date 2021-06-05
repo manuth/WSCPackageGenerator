@@ -13,7 +13,7 @@ import { ITransformationFlags } from "./ITransformationFlags";
 export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions> implements InputQuestionOptions<TSettings>
 {
     /**
-     * Initializes a new instance of the `PathQuestionBase` class.
+     * Initializes a new instance of the {@link PathQuestionBase `PathQuestionBase<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the question.
@@ -45,7 +45,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
     protected abstract get Name(): KeyUnion<TSettings>;
 
     /**
-     * Gets a value indicating whether paths outside the `RootDir` are allowed.
+     * Gets a value indicating whether paths outside the {@link PathQuestionBase.RootDir `RootDir`} are allowed.
      */
     protected get AllowOutside(): boolean
     {
@@ -157,7 +157,7 @@ export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettin
     protected abstract DefaultBaseName(answers: TSettings): string;
 
     /**
-     * Joins the arguments together and returns the resulting path relative to the root of the component.
+     * Joins the arguments together and returns the resulting path relative to the {@link PathQuestionBase.RootDir `RootDir`} of the component.
      *
      * @param answers
      * The answers provided by the user.

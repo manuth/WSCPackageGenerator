@@ -7,7 +7,7 @@ import { PathPromptRootDescriptor } from "./PathPromptRootDescriptor";
 export interface IPathQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T>
 {
     /**
-     * The directory to use for resolving relative paths for the `default` value and the answer.
+     * The directory to use for resolving relative paths for the {@link IPathQuestionOptions.default `default`} value and the answer.
      */
     rootDir?: AsyncDynamicQuestionProperty<PathPromptRootDescriptor, T>;
 }

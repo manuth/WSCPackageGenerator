@@ -11,7 +11,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
 export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, require.resolve("@manuth/generator-ts-project"))<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `WoltLabGenerator` class.
+     * Initializes a new instance of the {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`} class.
      *
      * @param args
      * A set of arguments for the generator.

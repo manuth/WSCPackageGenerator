@@ -6,7 +6,7 @@ import { Answers, Question } from "@manuth/extended-yo-generator";
 export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
 {
     /**
-     * Initializes a new instance of the `ApplicationQuestion<T>` class.
+     * Initializes a new instance of the {@link ApplicationQuestions `ApplicationQuestion<T>`} class.
      *
      * @param name
      * The key to save the answer to.

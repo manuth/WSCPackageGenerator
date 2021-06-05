@@ -12,7 +12,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
 export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `WoltLabUnit` class.
+     * Initializes a new instance of the {@link WoltLabUnit `WoltLabUnit<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the unit.
@@ -36,7 +36,7 @@ export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, T
     }
 
     /**
-     * Gets a value indicating whether paths outside the `RootDir` are allowed.
+     * Gets a value indicating whether paths outside the {@link WoltLabUnit.RootDir `RootDir`} are allowed.
      */
     public get AllowOutside(): boolean
     {

@@ -43,17 +43,17 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     private initialInput = true;
 
     /**
-     * The directory used to resolve relative paths for the `default` value and the answer.
+     * The directory used to resolve relative paths for the {@link IPathQuestionOptions.default `default`} value and the answer.
      */
     private rootDir: string = null;
 
     /**
-     * A value indicating whether paths outside the `rootDir` are allowed.
+     * A value indicating whether paths outside the {@link PathPrompt.rootDir `rootDir`} are allowed.
      */
     private allowOutside = true;
 
     /**
-     * Initializes a new instance of the `PathPrompt<TAnswers, TQuestion>`-class.
+     * Initializes a new instance of the {@link PathPrompt `PathPrompt<TAnswers, TQuestion>`}-class.
      *
      * @param question
      * The question to prompt the user to answer.
@@ -237,13 +237,13 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     }
 
     /**
-     * Validates the specified `path`.
+     * Validates the specified {@link path `path`}.
      *
      * @param path
      * The path to validate.
      *
      * @returns
-     * Either a `boolean` indicating whether an error occured or a `string` describing an error.
+     * Either a {@link Boolean `boolean`} indicating whether an error occured or a {@link String `string`} describing an error.
      */
     protected ValidatePath(path: string): boolean | string
     {

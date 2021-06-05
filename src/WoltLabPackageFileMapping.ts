@@ -11,7 +11,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
 export class WoltLabPackageFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the `WoltLabPackageFileMapping` class.
+     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the file-mapping.

@@ -34,7 +34,7 @@ export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQue
     public static readonly TypeName = "wcf-application";
 
     /**
-     * Initializes a new instance of the `ApplicationPrompt<T>` class.
+     * Initializes a new instance of the {@link ApplicationPrompt `ApplicationPrompt<T>`} class.
      *
      * @param question
      * The options for the prompt.

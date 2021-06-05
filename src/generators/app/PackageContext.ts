@@ -17,7 +17,7 @@ export class PackageContext
     private generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>;
 
     /**
-     * Initializes a new instance of the `PackageContext` class.
+     * Initializes a new instance of the {@link PackageContext `PackageContext`} class.
      *
      * @param generator
      * The generator of the context.

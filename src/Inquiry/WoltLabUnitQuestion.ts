@@ -20,7 +20,7 @@ export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TO
     private unit: WoltLabUnit<TSettings, TOptions>;
 
     /**
-     * Initializes a new instance of the `WoltLabUnitQuestion` class.
+     * Initializes a new instance of the {@link WoltLabUnitQuestion `WoltLabUnitQuestion<TSettings, TOptions>`} class.
      *
      * @param unit
      * The unit of the question.
@@ -48,7 +48,7 @@ export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TO
     }
 
     /**
-     * Gets a value indicating whether paths outside the `RootDir` are allowed.
+     * Gets a value indicating whether paths outside the {@link WoltLabUnitQuestion.RootDir `RootDir`} are allowed.
      */
     public override get AllowOutside(): boolean
     {
