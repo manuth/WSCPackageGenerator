@@ -187,6 +187,10 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
         {
             pathTree.push(legacyNormalize(this.rootDir));
         }
+        else if (/^\.[/\\]/.test(answer))
+        {
+            pathTree.push(".");
+        }
 
         if (/[/\\]$/.test(answer))
         {
