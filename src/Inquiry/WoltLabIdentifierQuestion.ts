@@ -44,7 +44,16 @@ export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettin
      */
     protected override async Default(answers: TSettings): Promise<string>
     {
-        let reversedUri = new URL(answers[WoltLabSettingKey.HomePage]).hostname?.split(".").reverse().join(".") ?? "";
+        let reversedUri: string;
+
+        try
+        {
+            reversedUri = new URL(answers[WoltLabSettingKey.HomePage] ?? "").hostname?.split(".").reverse().join(".") ?? "";
+        }
+        catch
+        {
+            reversedUri = "";
+        }
 
         if (reversedUri.length === 0)
         {
