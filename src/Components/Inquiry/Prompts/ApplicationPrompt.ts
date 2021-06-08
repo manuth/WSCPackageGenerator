@@ -1,12 +1,10 @@
 import { ReadLine } from "readline";
-import { ReadStream } from "tty";
-import { PromptCallback } from "@manuth/generator-ts-project";
 import { Answers, ChoiceCollection, prompt } from "inquirer";
-import Prompt = require("inquirer/lib/prompts/base");
 import { IApplicationAnswerHash } from "./IApplicationAnswerHash";
 import { IApplicationQuestion } from "./IApplicationQuestion";
 import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
 import { IWoltLabApplication } from "./IWoltLabApplication";
+import { NestedPrompt } from "./NestedPrompt";
 
 declare module "inquirer"
 {
@@ -26,7 +24,7 @@ declare module "inquirer"
 /**
  * Provides a prompt for asking for a WoltLab-application.
  */
-export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQuestionOptions<T>>
+export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends NestedPrompt<T>
 {
     /**
      * Gets the name of this prompt-type.
@@ -45,7 +43,7 @@ export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQue
      * @param answers
      * The answer-object.
      */
-    public constructor(question: IApplicationQuestion<T>, readLine: ReadLine, answers: T)
+    public constructor(question: T, readLine: ReadLine, answers: Answers)
     {
         super(
             {
@@ -93,72 +91,71 @@ export class ApplicationPrompt<T extends Answers> extends Prompt<IApplicationQue
     /**
      * @inheritdoc
      *
-     * @param callback
-     * A callback for resolving the result.
+     * @returns
+     * The value to save to the answer-hash.
      */
-    public override _run(callback: PromptCallback): void
+    protected override async Prompt(): Promise<any>
     {
-        (
-            async () =>
+        let defaultApp: IWoltLabApplication;
+        let suggestedApps: IWoltLabApplication[];
+        let choices: ChoiceCollection;
+
+        if (this.opt.default)
+        {
+            if (typeof this.opt.default === "function")
             {
-                this.rl.pause();
-                this.screen.render("", undefined);
-                let defaultApp: IWoltLabApplication;
-                let suggestedApps: IWoltLabApplication[];
-                let choices: ChoiceCollection;
+                defaultApp = await this.opt.default(this.answers);
+            }
+            else
+            {
+                defaultApp = await this.opt.default;
+            }
 
-                if (this.opt.default)
+            suggestedApps = [
+                this.DefaultApplication,
+                ...this.SuggestedApplications
+            ];
+        }
+        else
+        {
+            defaultApp = this.DefaultApplication;
+            suggestedApps = this.SuggestedApplications;
+        }
+
+        choices = [
+            defaultApp,
+            ...suggestedApps
+        ].map(
+            (app) =>
+            {
+                return {
+                    name: app.DisplayName,
+                    value: app.ID
+                };
+            });
+
+        let result = await prompt<IApplicationAnswerHash>(
+            [
                 {
-                    defaultApp = this.opt.default;
-
-                    suggestedApps = [
-                        this.DefaultApplication,
-                        ...this.SuggestedApplications
-                    ];
-                }
-                else
-                {
-                    defaultApp = this.DefaultApplication;
-                    suggestedApps = this.SuggestedApplications;
-                }
-
-                choices = [
-                    defaultApp,
-                    ...suggestedApps
-                ].map(
-                    (app) =>
-                    {
-                        return {
-                            name: app.DisplayName,
-                            value: app.ID
-                        };
-                    });
-
-                let answers = await prompt<IApplicationAnswerHash>(
-                    [
+                    type: "list",
+                    name: "application",
+                    message: this.opt.message,
+                    default: defaultApp.ID,
+                    choices: [
+                        ...choices,
                         {
-                            type: "list",
-                            name: "application",
-                            message: this.opt.message,
-                            default: defaultApp.ID,
-                            choices: [
-                                ...choices,
-                                {
-                                    name: "Custom",
-                                    value: null
-                                }
-                            ]
-                        },
-                        {
-                            name: "customApplication",
-                            message: "Please specify the identifier of the custom Application.",
-                            when: (answers) => answers.application === null
+                            name: "Custom",
+                            value: null
                         }
-                    ]);
+                    ]
+                },
+                {
+                    name: "customApplication",
+                    message: "Please specify the identifier of the custom Application.",
+                    when: (answers) => answers.application === null
+                }
+            ]);
 
-                this.rl.resume();
-                ((this.rl as any).input as ReadStream)?.setRawMode?.(true);
-                callback(answers.application ?? answers.customApplication);
-            })();
+        return result.application ?? result.customApplication;
     }
 }
