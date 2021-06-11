@@ -7,6 +7,12 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
 
 /**
  * Represents a generator for WoltLab-components.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, require.resolve("@manuth/generator-ts-project"))<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
 {

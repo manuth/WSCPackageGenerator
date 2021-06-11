@@ -6,6 +6,12 @@ import { PathQuestionBase } from "./PathQuestionBase";
 
 /**
  * Represents a question for asking for a path of a unit.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
 {

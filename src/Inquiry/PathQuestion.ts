@@ -6,6 +6,12 @@ import { PathQuestionBase } from "./PathQuestionBase";
 
 /**
  * Provides a basic implementation of the {@link PathQuestionBase `PathQuestionBase<TSettings, TOptions>`} class.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export abstract class PathQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
 {

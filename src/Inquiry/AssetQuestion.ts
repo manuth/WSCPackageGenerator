@@ -6,6 +6,12 @@ import { PathQuestion } from "./PathQuestion";
 
 /**
  * Represents a question for asking for asset-paths.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class AssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestion<TSettings, TOptions>
 {

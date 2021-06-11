@@ -9,6 +9,12 @@ import { ITransformationFlags } from "./ITransformationFlags";
 
 /**
  * Represents a question for asking for a path.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions> implements InputQuestionOptions<TSettings>
 {

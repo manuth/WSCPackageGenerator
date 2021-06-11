@@ -1,7 +1,10 @@
 import { Answers, Question } from "@manuth/extended-yo-generator";
 
 /**
- * Represents questions for a woltlab-application
+ * Represents questions for a woltlab-application.
+ *
+ * @template T
+ * The type of the answers.
  */
 export class ApplicationQuestions<T extends Answers> extends Array<Question<T>>
 {

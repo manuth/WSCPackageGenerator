@@ -5,6 +5,9 @@ import { IWoltLabApplication } from "./IWoltLabApplication";
 
 /**
  * Provides options for the {@link ApplicationPrompt `ApplicationPrompt<T>`}.
+ *
+ * @template T
+ * The type of the answers.
  */
 export interface IApplicationQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T>
 {

@@ -6,6 +6,12 @@ import { WoltLabSettingKey } from "../WoltLabSettingKey";
 
 /**
  * Represents a question for asking for the package-identifier.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions>
 {

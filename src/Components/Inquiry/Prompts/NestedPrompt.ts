@@ -6,6 +6,9 @@ import Prompt = require("inquirer/lib/prompts/base");
 
 /**
  * Provides the functionality to display nested prompts.
+ *
+ * @template T
+ * The type of the prompt-options.
  */
 export abstract class NestedPrompt<T extends Question> extends Prompt<T>
 {

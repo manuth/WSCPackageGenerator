@@ -24,6 +24,9 @@ declare module "inquirer"
 
 /**
  * Provides the functionality to ask for a path.
+ *
+ * @template T
+ * The type of the prompt-options.
  */
 export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> extends InputPrompt<T>
 {

@@ -6,6 +6,12 @@ import { WoltLabUnitName } from "../WoltLabUnitName";
 
 /**
  * Represents a unit for creating admin-options.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class OptionsUnit<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends WoltLabUnit<TSettings, TOptions>
 {

@@ -1,8 +1,13 @@
 import { Answers, AsyncDynamicQuestionProperty, InputQuestionOptions } from "inquirer";
 import { IPathPromptRootDescriptor } from "./IPathPromptRootDescriptor";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { PathPrompt } from "./PathPrompt";
 
 /**
- * Provides options for the `PathPrompt`.
+ * Provides options for the {@link PathPrompt `PathPrompt`}.
+ *
+ * @template T
+ * The type of the answers.
  */
 export interface IPathQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T>
 {

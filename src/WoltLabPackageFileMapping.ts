@@ -7,6 +7,12 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
 
 /**
  * Provides the functionality to create a `package.json`-file for woltlab-components.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class WoltLabPackageFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
 {

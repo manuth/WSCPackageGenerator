@@ -23,6 +23,9 @@ declare module "inquirer"
 
 /**
  * Provides a prompt for asking for a WoltLab-application.
+ *
+ * @template T
+ * The type of the prompt-options.
  */
 export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends NestedPrompt<T>
 {
