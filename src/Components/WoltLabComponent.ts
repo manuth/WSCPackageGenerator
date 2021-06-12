@@ -1,10 +1,12 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { ComponentBase } from "@manuth/generator-ts-project";
 import { Question } from "yeoman-generator";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
+import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
 import { WoltLabGeneratorSettingKey } from "../Settings/WoltLabGeneratorSettingKey";
 import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
+import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPrompt";
 
 /**
  * Represents a woltlab-component.
@@ -15,7 +17,7 @@ import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
  * @template TOptions
  * The type of the generator-options.
  */
-export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
+export abstract class WoltLabComponent<TComponentOptions extends IWoltLabComponentOptions, TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
 {
     /**
      * A question for asking for the component-path.
@@ -30,12 +32,32 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     }
 
     /**
-     * Gets the questions of the unit.
+     * Gets the questions for the component-options.
+     */
+    protected get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
+    {
+        return [];
+    }
+
+    /**
+     * Gets the questions for asking for the component-options.
+     */
+    protected get ComponentOptionQuestion(): Question<TSettings>
+    {
+        return {
+            type: QuestionCollectionPrompt.TypeName,
+            questions: this.ComponentOptionQuestionCollection
+        };
+    }
+
+    /**
+     * Gets the questions of the component.
      */
     public override get Questions(): Array<Question<TSettings>>
     {
         return [
-            this.PathQuestion
+            this.PathQuestion,
+            this.ComponentOptionQuestion
         ];
     }
 }
