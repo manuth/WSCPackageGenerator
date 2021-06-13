@@ -1,4 +1,4 @@
-import { Answers, AsyncDynamicQuestionProperty, DistinctQuestion, Question } from "inquirer";
+import inquirer = require("inquirer");
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QuestionCollectionPrompt } from "./QuestionCollectionPrompt";
 
@@ -11,10 +11,15 @@ import { QuestionCollectionPrompt } from "./QuestionCollectionPrompt";
  * @template TAnswers
  * The type of the answers.
  */
-export interface IQuestionCollectionQuestionOptions<TResult extends Answers = Answers, TAnswers extends Answers = Answers> extends Question<TAnswers>
+export interface IQuestionCollectionQuestionOptions<TResult extends inquirer.Answers = inquirer.Answers, TAnswers extends inquirer.Answers = inquirer.Answers> extends inquirer.Question<TAnswers>
 {
+    /**
+     * The prompt-types to register.
+     */
+    promptTypes?: Record<string, inquirer.prompts.PromptConstructor>;
+
     /**
      * The questions to ask.
      */
-    questions: AsyncDynamicQuestionProperty<Array<DistinctQuestion<TResult>>>;
+    questions: inquirer.AsyncDynamicQuestionProperty<Array<inquirer.DistinctQuestion<TResult>>>;
 }

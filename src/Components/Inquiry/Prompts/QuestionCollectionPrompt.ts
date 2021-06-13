@@ -1,5 +1,5 @@
 import { Interface } from "readline";
-import { Answers, DistinctQuestion, prompt } from "inquirer";
+import { Answers, createPromptModule, DistinctQuestion } from "inquirer";
 import { IQuestionCollectionQuestion } from "./IQuestionCollectionQuestion";
 import { IQuestionCollectionQuestionOptions } from "./IQuestionCollectionQuestionOptions";
 import { NestedPrompt } from "./NestedPrompt";
@@ -66,6 +66,15 @@ export class QuestionCollectionPrompt<TAnswers extends Answers = Answers, TQuest
     protected async Prompt(): Promise<unknown>
     {
         let questions: Array<DistinctQuestion<TAnswers>>;
+        let promptModule = createPromptModule();
+
+        if (this.opt.promptTypes)
+        {
+            for (let promptName in this.opt.promptTypes)
+            {
+                promptModule.registerPrompt(promptName, this.opt.promptTypes[promptName]);
+            }
+        }
 
         if (typeof this.opt.questions === "function")
         {
@@ -76,6 +85,6 @@ export class QuestionCollectionPrompt<TAnswers extends Answers = Answers, TQuest
             questions = await this.opt.questions;
         }
 
-        return prompt(questions);
+        return promptModule(questions);
     }
 }
