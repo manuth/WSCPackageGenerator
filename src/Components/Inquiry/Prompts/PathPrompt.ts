@@ -37,6 +37,11 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     public static readonly TypeName = "wcf-path";
 
     /**
+     * A value indicating whether the prompt has been initialized.
+     */
+    private initialized = false;
+
+    /**
      * A value indicating whether the user-input has started.
      */
     private userInputStarted = false;
@@ -71,6 +76,22 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     public constructor(question: T, readLine: ReadLine, answers: Answers)
     {
         super(question, readLine, answers);
+    }
+
+    /**
+     * Gets or sets a value indicating whether the prompt has been initialized.
+     */
+    protected get Initialized(): boolean
+    {
+        return this.initialized;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected set Initialized(value: boolean)
+    {
+        this.initialized = value;
     }
 
     /**
@@ -127,6 +148,19 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     }
 
     /**
+     * Initializes the prompt.
+     *
+     * @param error
+     * The error to display.
+     */
+    protected Initialize(error: any): void
+    {
+        super.render(error);
+        this.Render(error);
+        this.Initialized = true;
+    }
+
+    /**
      * Clears the content of the current line.
      */
     protected ClearLine(): void
@@ -180,65 +214,68 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      */
     protected Render(error: any): void
     {
-        let result: string;
-        let answer = this.rl.line;
-        let parsedPath = parse(answer);
-        let pathTree: string[] = [];
+        if (this.Initialized)
+        {
+            let result: string;
+            let answer = this.rl.line;
+            let parsedPath = parse(answer);
+            let pathTree: string[] = [];
 
-        if (
-            this.InitialInput &&
-            this.rootDir)
-        {
-            pathTree.push(legacyNormalize(this.rootDir));
-        }
-        else if (/^\.[/\\]/.test(answer))
-        {
-            pathTree.push(".");
-        }
-
-        if (/[/\\]$/.test(answer))
-        {
-            parsedPath = parse(answer + ".");
-            parsedPath.base = "";
-            parsedPath.name = "";
-        }
-
-        if (legacyNormalize(parsedPath.dir) !== ".")
-        {
-            pathTree.push(legacyNormalize(parsedPath.dir));
-        }
-
-        if (
-            parsedPath.root.length > 0 &&
-            (
-                parsedPath.root === parsedPath.dir ||
-                parsedPath.root === normalize(parsedPath.dir)))
-        {
-            if (parsedPath.base.length === 0)
+            if (
+                this.InitialInput &&
+                this.rootDir)
             {
-                result = legacyParse(legacyNormalize(parsedPath.root)).root;
+                pathTree.push(legacyNormalize(this.rootDir));
+            }
+            else if (/^\.[/\\]/.test(answer))
+            {
+                pathTree.push(".");
+            }
+
+            if (/[/\\]$/.test(answer))
+            {
+                parsedPath = parse(answer + ".");
+                parsedPath.base = "";
+                parsedPath.name = "";
+            }
+
+            if (legacyNormalize(parsedPath.dir) !== ".")
+            {
+                pathTree.push(legacyNormalize(parsedPath.dir));
+            }
+
+            if (
+                parsedPath.root.length > 0 &&
+                (
+                    parsedPath.root === parsedPath.dir ||
+                    parsedPath.root === normalize(parsedPath.dir)))
+            {
+                if (parsedPath.base.length === 0)
+                {
+                    result = legacyParse(legacyNormalize(parsedPath.root)).root;
+                }
+                else
+                {
+                    result = [legacyNormalize(parsedPath.root), parsedPath.base].join("");
+                }
             }
             else
             {
-                result = [legacyNormalize(parsedPath.root), parsedPath.base].join("");
+                result = [...pathTree, parsedPath.base].join(sep);
             }
-        }
-        else
-        {
-            result = [...pathTree, parsedPath.base].join(sep);
-        }
 
-        if (answer !== result)
-        {
-            this.ClearLine();
-            this.rl.write(result);
-        }
+            if (answer !== result)
+            {
+                this.ClearLine();
+                this.rl.write(result);
+            }
 
-        let validationResult = this.ValidatePath(result);
+            let validationResult = this.ValidatePath(result);
 
-        if (validationResult !== true)
-        {
-            error = validationResult;
+            if (validationResult !== true)
+            {
+                error = validationResult;
+            }
         }
 
         super.render(error);
@@ -267,8 +304,8 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
             return (
                 (
                     isAbsolute(path) ?
-                    path.startsWith(join(this.rootDir, "./")) :
-                    !relativePath.startsWith("../") && relativePath !== "..")) ?
+                        path.startsWith(join(this.rootDir, "./")) :
+                        !relativePath.startsWith("../") && relativePath !== "..")) ?
                 true :
                 `Paths outside of \`${legacyNormalize(this.rootDir)}\` are not allowed!`;
         }
@@ -284,9 +321,9 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     {
         let message = super.getQuestion();
 
-        if (!this.UserInputStarted && this.rootDir)
+        if (!this.Initialized && this.rootDir)
         {
-            message += `${dim(legacyNormalize(join(this.rootDir, "./")))} `;
+            message += `${dim(legacyNormalize(join(this.rootDir, "./")))}`;
         }
 
         return message;
@@ -300,7 +337,11 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      */
     protected override render(error: any): void
     {
-        if (this.UserInputStarted)
+        if (!this.Initialized)
+        {
+            this.Initialize(error);
+        }
+        else if (this.UserInputStarted)
         {
             if (this.InitialInput)
             {
