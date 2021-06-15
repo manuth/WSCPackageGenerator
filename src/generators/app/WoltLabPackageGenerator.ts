@@ -14,11 +14,11 @@ import { OptionsUnit } from "../../Units/OptionsUnit";
 import { PHPScriptUnit } from "../../Units/PHPScriptUnit";
 import { SQLScriptUnit } from "../../Units/SQLScriptUnit";
 import { TemplateListenerUnit } from "../../Units/TemplateListenerUnit";
-import { TemplateUnit } from "../../Units/TemplateUnit";
 import { TranslationUnit } from "../../Units/TranslationUnit";
 import { UserOptionsUnit } from "../../Units/UserOptionsUnit";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
+import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { PackageContext } from "./PackageContext";
 
 /**
@@ -70,7 +70,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                     Components: [
                         new EmojiUnit(this),
                         new BBCodeUnit(this),
-                        new TemplateUnit(this),
+                        new TemplateComponent(this) as any,
                         new ACPTenplateUnit(this)
                     ]
                 },
