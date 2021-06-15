@@ -18,6 +18,7 @@ import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
 import { BBCodeComponent } from "../package/Components/BBCodeComponent";
+import { CronJobComponent } from "../package/Components/CronJobComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { PackageContext } from "./PackageContext";
 
@@ -47,7 +48,8 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                     Components: [
                         new FileUploadUnit(this),
                         new PHPScriptUnit(this),
-                        new SQLScriptUnit(this)
+                        new SQLScriptUnit(this),
+                        new CronJobComponent(this) as any
                     ]
                 },
                 {

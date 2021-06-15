@@ -3,6 +3,8 @@ import { ACPTemplateComponent } from "../Components/ACPTemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BBCodeComponent } from "../Components/BBCodeComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { CronJobComponent } from "../Components/CronJobComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 
 /**
@@ -10,6 +12,11 @@ import { TemplateComponent } from "../Components/TemplateComponent";
  */
 export enum PackageComponentType
 {
+    /**
+     * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    CronJob = "woltlabPackageCron",
+
     /**
      * Indicates the {@link BBCodeComponent `BBCodeComponent<TSettings, TOptions, TComponentOptions>`}
      */
