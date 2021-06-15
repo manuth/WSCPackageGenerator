@@ -358,6 +358,26 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     }
 
     /**
+     * @inheritdoc
+     *
+     * @param input
+     * The input to filter.
+     *
+     * @returns
+     * The filtered input.
+     */
+    protected override filterInput(input: string): string
+    {
+        if (!this.UserInputStarted)
+        {
+            this.userInputStarted = true;
+            this.render(undefined);
+        }
+
+        return super.filterInput(input);
+    }
+
+    /**
      * Handles the `keypress`-event.
      */
     protected onKeypress(): void
