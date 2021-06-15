@@ -190,7 +190,7 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      */
     protected RenderPreInput(error: any): void
     {
-        super.render();
+        super.render(error);
     }
 
     /**
