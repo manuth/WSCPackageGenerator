@@ -20,7 +20,7 @@ import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPr
  * @template TComponentOptions
  * The type of the component-options.
  */
-export abstract class WoltLabComponent<TComponentOptions extends IWoltLabComponentOptions, TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
+export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentBase<TSettings, TOptions>
 {
     /**
      * A question for asking for the component-path.
