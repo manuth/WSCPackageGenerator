@@ -1,6 +1,6 @@
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import { ComponentBase } from "@manuth/generator-ts-project";
-import { Question } from "yeoman-generator";
+import inquirer = require("inquirer");
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
@@ -43,6 +43,14 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     }
 
     /**
+     * Gets the prompt-types to register for asking the {@link WoltLabComponent.ComponentOptionQuestionCollection `ComponentOptionQuestionCollection`}.
+     */
+    protected get PromptTypes(): Record<string, inquirer.prompts.PromptConstructor>
+    {
+        return this.Generator.env.adapter.promptModule.prompts;
+    }
+
+    /**
      * Gets the questions for asking for the component-options.
      */
     protected get ComponentOptionQuestion(): Question<TSettings>
@@ -50,6 +58,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
         return {
             type: QuestionCollectionPrompt.TypeName,
             name: this.ID,
+            promptTypes: this.PromptTypes,
             questions: this.ComponentOptionQuestionCollection
         };
     }
