@@ -1,6 +1,9 @@
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
 import { TSProjectGenerator } from "@manuth/generator-ts-project";
 import { join } from "upath";
+import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";
+import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
+import { QuestionCollectionPrompt } from "./Components/Inquiry/Prompts/QuestionCollectionPrompt";
 import { WoltLabIdentifierQuestion } from "./Inquiry/WoltLabIdentifierQuestion";
 import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 import { WoltLabSettingKey } from "./WoltLabSettingKey";
@@ -28,6 +31,9 @@ export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOpti
     public constructor(args: string | string[], options: TOptions)
     {
         super(args, options);
+        this.env.adapter.promptModule.registerPrompt(PathPrompt.TypeName, PathPrompt);
+        this.env.adapter.promptModule.registerPrompt(ApplicationPrompt.TypeName, ApplicationPrompt);
+        this.env.adapter.promptModule.registerPrompt(QuestionCollectionPrompt.TypeName, QuestionCollectionPrompt);
     }
 
     /**
