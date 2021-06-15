@@ -1,5 +1,6 @@
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
@@ -61,5 +62,35 @@ export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, T
     protected override get DefaultSourceFolderName(): string
     {
         return "acpTemplates";
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get AppQuestion(): IApplicationQuestion<TComponentOptions>
+    {
+        let question = super.AppQuestion;
+
+        if (typeof question.message === "string")
+        {
+            question.message = question.message.replace("templates", "Admin Control Panel-templates");
+        }
+
+        return question;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get SourceQuestion(): Question<TComponentOptions>
+    {
+        let question = super.SourceQuestion;
+
+        if (typeof question.message === "string")
+        {
+            question.message = question.message.replace("templates", "Admin Control Panel-templates");
+        }
+
+        return question;
     }
 }
