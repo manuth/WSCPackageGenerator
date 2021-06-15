@@ -2,14 +2,14 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { ICronJobInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { XMLInstructionFileMapping } from "../../../FileMappings/XMLInstructionFileMapping";
+import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 
 /**
  * Provides the functionality to generate cron-job instruction files.
  */
-export class CronJobInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends XMLInstructionFileMapping<TSettings, TOptions, TComponentOptions>
+export class CronJobInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link CronJobInstructionFileMapping `CronJobInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.

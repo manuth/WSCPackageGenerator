@@ -9,7 +9,7 @@ import { InstructionFileMapping } from "./InstructionFileMapping";
 /**
  * Provides the functionality to generate bbcode instruction files.
  */
-export abstract class XMLInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
+export abstract class FileInstructionMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
