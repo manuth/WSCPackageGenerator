@@ -3,7 +3,7 @@ import { ReadLine } from "readline";
 import { dim } from "chalk";
 import { Answers } from "inquirer";
 import InputPrompt = require("inquirer/lib/prompts/input");
-import { isAbsolute, join, normalize, parse, relative } from "upath";
+import { join, normalize, parse, relative } from "upath";
 import { IPathPromptRootDescriptor } from "./IPathPromptRootDescriptor";
 import { IPathQuestion } from "./IPathQuestion";
 import { IPathQuestionOptions } from "./IPathQuestionOptions";
@@ -298,16 +298,17 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
         }
         else
         {
+            let parsedPath = parse(path);
             path = normalize(path);
             let relativePath = relative(this.rootDir, path);
 
             return (
-                (
-                    isAbsolute(path) ?
-                        path.startsWith(join(this.rootDir, "./")) :
-                        !relativePath.startsWith("../") && relativePath !== "..")) ?
-                true :
-                `Paths outside of \`${legacyNormalize(this.rootDir)}\` are not allowed!`;
+                    (
+                        path.startsWith(join(this.rootDir, "./")) ||
+                        parsedPath.dir === normalize(this.rootDir)) &&
+                    !relativePath.startsWith("../") && relativePath !== "..") ?
+                    true :
+                    `Paths outside of \`${legacyNormalize(this.rootDir)}\` are not allowed!`;
         }
     }
 
