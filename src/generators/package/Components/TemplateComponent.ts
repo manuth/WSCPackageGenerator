@@ -1,3 +1,4 @@
+import { join } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
@@ -68,6 +69,17 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
+     * @inheritdoc
+     */
+    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
+    {
+        return [
+            ...super.FileMappings,
+            this.TemplateFileMapping
+        ];
+    }
+
+    /**
      * Gets the default name of the folder to suggest in the {@link TemplateComponent.SourceQuestion `SourceQuestion`}.
      */
     protected get DefaultSourceFolderName(): string
@@ -121,5 +133,16 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new TemplateInstructionFileMapping(this);
+    }
+
+    /**
+     * Gets the file-mapping for creating the example-template.
+     */
+    protected get TemplateFileMapping(): IFileMapping<TSettings, TOptions>
+    {
+        return {
+            Source: this.Generator.templatePath("template.tpl"),
+            Destination: join(this.ComponentOptions.Source, "example.tpl")
+        };
     }
 }
