@@ -43,7 +43,10 @@ export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSe
     /**
      * Gets the default name of the file to write the instruction to.
      */
-    public abstract get InstructionFileName(): string;
+    public get InstructionFileName(): string
+    {
+        return this.WoltLabGenerator.componentPath(`${this.VariableName}.ts`);
+    }
 
     /**
      * @inheritdoc

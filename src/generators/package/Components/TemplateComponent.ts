@@ -31,14 +31,6 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * @inheritdoc
      */
-    public get InstructionFileName(): string
-    {
-        return this.WoltLabGenerator.componentPath(`${this.VariableName}.ts`);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get ClassName(): string
     {
         return nameof<TemplateInstruction>();
