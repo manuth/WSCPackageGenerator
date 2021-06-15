@@ -5,6 +5,7 @@ import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
 import { WoltLabGeneratorSettingKey } from "../Settings/WoltLabGeneratorSettingKey";
+import { WoltLabGenerator } from "../WoltLabGenerator";
 import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
 import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPrompt";
 
@@ -22,6 +23,34 @@ import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPr
  */
 export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentBase<TSettings, TOptions>
 {
+    /**
+     * The generator of the component.
+     */
+    // ToDo: Replace `any` w/ `TSettings`
+    private woltLabGenerator: WoltLabGenerator<any, TOptions>;
+
+    /**
+     * Initializes a new instance of the {@link WoltLabComponent `WoltLabComponent<TSettings, TOptions, TComponentOptions>`} class.
+     *
+     * @param generator
+     * The generator of the component.
+     */
+    // ToDo: Replace `any` w/ `TSettings`
+    public constructor(generator: WoltLabGenerator<any, TOptions>)
+    {
+        super(generator);
+        this.woltLabGenerator = generator;
+    }
+
+    /**
+     * Gets the generator of the component.
+     */
+    // ToDo: Replace `any` w/ `TSettings`
+    protected get WoltLabGenerator(): WoltLabGenerator<any, TOptions>
+    {
+        return this.woltLabGenerator;
+    }
+
     /**
      * A question for asking for the component-path.
      */
