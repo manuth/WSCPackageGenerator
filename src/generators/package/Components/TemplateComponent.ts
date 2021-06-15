@@ -29,26 +29,6 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * @inheritdoc
      */
-    protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
-    {
-        return [
-            ...super.ComponentOptionQuestionCollection,
-            {
-                type: ApplicationPrompt.TypeName,
-                name: "Application",
-                message: "What application do you want to upload the templates to?"
-            },
-            {
-                type: PathPrompt.TypeName,
-                name: "Source",
-                message: "Where do you want to store the templates?"
-            }
-        ] as Array<Question<ITemplateComponentOptions>>;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get InstructionFileName(): string
     {
         return this.WoltLabGenerator.componentPath("Templates.ts");
@@ -95,5 +75,25 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
             ...super.FileMappings,
             new TemplateInstructionFileMapping(this)
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
+    {
+        return [
+            ...super.ComponentOptionQuestionCollection,
+            {
+                type: ApplicationPrompt.TypeName,
+                name: "Application",
+                message: "What application do you want to upload the templates to?"
+            },
+            {
+                type: PathPrompt.TypeName,
+                name: "Source",
+                message: "Where do you want to store the templates?"
+            }
+        ] as Array<Question<ITemplateComponentOptions>>;
     }
 }
