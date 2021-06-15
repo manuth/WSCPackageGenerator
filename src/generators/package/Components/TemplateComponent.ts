@@ -112,7 +112,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
-     * Gets the file-mapping for creating the instruction-file.
+     * @inheritdoc
      */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
