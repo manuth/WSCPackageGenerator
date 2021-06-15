@@ -25,12 +25,12 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     /**
      * A question for asking for the component-path.
      */
-    protected get PathQuestion(): Question<TSettings>
+    protected get PathQuestion(): Question<TComponentOptions>
     {
         return {
             type: PathPrompt.TypeName,
-            message: "Wheres do you want to store the component?",
-            name: `${WoltLabGeneratorSettingKey.ComponentOptions}[${WoltLabComponentKey.Path}]`
+            message: "Where do you want to store the component?",
+            name: WoltLabComponentKey.Path
         };
     }
 
@@ -39,7 +39,9 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
      */
     protected get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
     {
-        return [];
+        return [
+            this.PathQuestion
+        ];
     }
 
     /**
@@ -69,7 +71,6 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     public override get Questions(): Array<Question<TSettings>>
     {
         return [
-            this.PathQuestion,
             this.ComponentOptionQuestion
         ];
     }
