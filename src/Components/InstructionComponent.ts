@@ -1,4 +1,4 @@
-import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
 import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
@@ -26,6 +26,11 @@ export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSe
     }
 
     /**
+     * Gets a file-mapping for creating the instruction-file.
+     */
+    protected abstract get InstructionFileMapping(): IFileMapping<TSettings, TOptions>;
+
+    /**
      * Gets the name of the instruction-class.
      */
     public abstract get ClassName(): string;
@@ -39,4 +44,15 @@ export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSe
      * Gets the default name of the file to write the instruction to.
      */
     public abstract get InstructionFileName(): string;
+
+    /**
+     * @inheritdoc
+     */
+    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
+    {
+        return [
+            ...super.FileMappings,
+            this.InstructionFileMapping
+        ];
+    }
 }

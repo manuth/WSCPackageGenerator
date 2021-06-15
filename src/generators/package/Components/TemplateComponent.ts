@@ -69,17 +69,6 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * @inheritdoc
      */
-    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
-    {
-        return [
-            ...super.FileMappings,
-            new TemplateInstructionFileMapping(this)
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
     {
         return [
@@ -95,5 +84,13 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
                 message: "Where do you want to store the templates?"
             }
         ] as Array<Question<ITemplateComponentOptions>>;
+    }
+
+    /**
+     * fdsa
+     */
+    protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
+    {
+        return new TemplateInstructionFileMapping(this);
     }
 }
