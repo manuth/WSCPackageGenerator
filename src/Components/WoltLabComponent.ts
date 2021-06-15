@@ -16,6 +16,9 @@ import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPr
  *
  * @template TOptions
  * The type of the generator-options.
+ *
+ * @template TComponentOptions
+ * The type of the component-options.
  */
 export abstract class WoltLabComponent<TComponentOptions extends IWoltLabComponentOptions, TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
 {
