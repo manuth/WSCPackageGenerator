@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { EmojiUnit } from "../../Units/EmojiUnit";
 import { ErrorMessageUnit } from "../../Units/ErrorMessageUnit";
 import { EventListenerUnit } from "../../Units/EventListenerUnit";
 import { FileUploadUnit } from "../../Units/FileUploadUnit";
@@ -19,6 +18,7 @@ import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
 import { BBCodeComponent } from "../package/Components/BBCodeComponent";
 import { CronJobComponent } from "../package/Components/CronJobComponent";
+import { EmojiComponent } from "../package/Components/EmojiComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { PackageContext } from "./PackageContext";
 
@@ -70,7 +70,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new EmojiUnit(this),
+                        new EmojiComponent(this) as any,
                         new BBCodeComponent(this) as any,
                         new TemplateComponent(this) as any,
                         new ACPTemplateComponent(this) as any
