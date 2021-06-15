@@ -11,7 +11,6 @@ import { OptionsUnit } from "../../Units/OptionsUnit";
 import { PHPScriptUnit } from "../../Units/PHPScriptUnit";
 import { SQLScriptUnit } from "../../Units/SQLScriptUnit";
 import { TemplateListenerUnit } from "../../Units/TemplateListenerUnit";
-import { TranslationUnit } from "../../Units/TranslationUnit";
 import { UserOptionsUnit } from "../../Units/UserOptionsUnit";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
@@ -20,6 +19,7 @@ import { BBCodeComponent } from "../package/Components/BBCodeComponent";
 import { CronJobComponent } from "../package/Components/CronJobComponent";
 import { EmojiComponent } from "../package/Components/EmojiComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
+import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { PackageContext } from "./PackageContext";
 
 /**
@@ -55,7 +55,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                 {
                     DisplayName: "Globalization",
                     Components: [
-                        new TranslationUnit(this),
+                        new TranslationComponent(this) as any,
                         new ErrorMessageUnit(this)
                     ]
                 },
