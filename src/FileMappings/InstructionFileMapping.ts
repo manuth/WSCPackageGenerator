@@ -79,7 +79,12 @@ export class InstructionFileMapping<TSettings extends IWoltLabGeneratorSettings,
         return (
             async () =>
             {
-                return new Project().createSourceFile(this.Destination);
+                return new Project().createSourceFile(
+                    this.Destination,
+                    null,
+                    {
+                        overwrite: true
+                    });
             })();
     }
 
@@ -124,6 +129,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabGeneratorSettings,
 
         file.addVariableStatement(
             {
+                isExported: true,
                 declarationKind: VariableDeclarationKind.Let,
                 declarations: [
                     {
