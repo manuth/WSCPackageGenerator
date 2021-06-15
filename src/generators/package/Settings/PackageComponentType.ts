@@ -8,6 +8,7 @@ import { CronJobComponent } from "../Components/CronJobComponent";
 import { EmojiComponent } from "../Components/EmojiComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
+import { TranslationComponent } from "../Components/TranslationComponent";
 
 /**
  * Represents a type of a WoltLab-package component.
@@ -18,6 +19,11 @@ export enum PackageComponentType
      * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
      */
     CronJob = "woltlabPackageCron",
+
+    /**
+     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    Translation = "woltlabPackageTranslation",
 
     /**
      * Indicates the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`}
