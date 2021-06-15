@@ -298,15 +298,13 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
         }
         else
         {
-            let parsedPath = parse(path);
-            path = normalize(path);
             let relativePath = relative(this.rootDir, path);
 
             return (
-                    (
-                        path.startsWith(join(this.rootDir, "./")) ||
-                        parsedPath.dir === normalize(this.rootDir)) &&
-                    !relativePath.startsWith("../") && relativePath !== "..") ?
+                    normalize(path).startsWith(join(this.rootDir, "./")) &&
+                    !relativePath.startsWith("../") &&
+                    relativePath !== ".." &&
+                    relativePath.length > 0) ?
                     true :
                     `Paths outside of \`${legacyNormalize(this.rootDir)}\` are not allowed!`;
         }
