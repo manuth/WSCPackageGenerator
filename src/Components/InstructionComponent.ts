@@ -17,7 +17,10 @@ export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSe
     /**
      * Gets the name of the instruction-variable to export.
      */
-    public abstract get VariableName(): string;
+    public get VariableName(): string
+    {
+        return `My${this.ClassName}`;
+    }
 
     /**
      * Gets the default name of the file to write the instruction to.

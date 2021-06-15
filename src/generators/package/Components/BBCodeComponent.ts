@@ -51,14 +51,6 @@ export class BBCodeComponent<TSettings extends IWoltLabGeneratorSettings, TOptio
     /**
      * @inheritdoc
      */
-    public get VariableName(): string
-    {
-        return `My${nameof<BBCodeInstruction>()}`;
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new BBCodeInstructionFileMapping(this);

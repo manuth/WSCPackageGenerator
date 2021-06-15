@@ -55,14 +55,6 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * @inheritdoc
      */
-    public get VariableName(): string
-    {
-        return `My${nameof<TemplateInstruction>()}`;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
     {
         return [

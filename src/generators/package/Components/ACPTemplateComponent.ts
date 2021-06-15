@@ -51,14 +51,6 @@ export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, T
     /**
      * @inheritdoc
      */
-    public override get VariableName(): string
-    {
-        return `My${nameof<ACPTemplateInstruction>()}`;
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected override get DefaultSourceFolderName(): string
     {
         return "acpTemplates";

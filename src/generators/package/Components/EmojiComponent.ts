@@ -51,14 +51,6 @@ export class EmojiComponent<TSettings extends IWoltLabGeneratorSettings, TOption
     /**
      * @inheritdoc
      */
-    public get VariableName(): string
-    {
-        return `My${nameof<EmojiInstruction>()}`;
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new EmojiInstructionFileMapping(this);

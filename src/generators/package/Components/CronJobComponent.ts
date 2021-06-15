@@ -51,14 +51,6 @@ export class CronJobComponent<TSettings extends IWoltLabGeneratorSettings, TOpti
     /**
      * @inheritdoc
      */
-    public get VariableName(): string
-    {
-        return `My${nameof<CronJobInstruction>()}`;
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new CronJobInstructionFileMapping(this);
