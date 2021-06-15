@@ -18,6 +18,7 @@ import { TranslationUnit } from "../../Units/TranslationUnit";
 import { UserOptionsUnit } from "../../Units/UserOptionsUnit";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
+import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { PackageContext } from "./PackageContext";
 
@@ -71,7 +72,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                         new EmojiUnit(this),
                         new BBCodeUnit(this),
                         new TemplateComponent(this) as any,
-                        new ACPTenplateUnit(this)
+                        new ACPTemplateComponent(this) as any
                     ]
                 },
                 {
