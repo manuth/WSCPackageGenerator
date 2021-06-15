@@ -25,7 +25,7 @@ export abstract class FileInstructionMapping<TSettings extends IWoltLabGenerator
     /**
      * Gets the name of the file to write the instruction's xml-code to.
      */
-    protected abstract get XMLFileName(): string;
+    protected abstract get FileName(): string;
 
     /**
      * @inheritdoc
@@ -37,7 +37,7 @@ export abstract class FileInstructionMapping<TSettings extends IWoltLabGenerator
         options.addPropertyAssignment(
             {
                 name: nameof<IInstructionOptions>((instruction) => instruction.FileName),
-                initializer: printNode(ts.factory.createStringLiteral(this.XMLFileName))
+                initializer: printNode(ts.factory.createStringLiteral(this.FileName))
             });
 
         return options;

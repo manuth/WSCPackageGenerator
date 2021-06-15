@@ -41,7 +41,7 @@ export class CronJobInstructionFileMapping<TSettings extends IWoltLabGeneratorSe
     /**
      * @inheritdoc
      */
-    protected override get XMLFileName(): string
+    protected override get FileName(): string
     {
         return "cronJobs.xml";
     }

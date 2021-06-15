@@ -41,7 +41,7 @@ export class EmojiInstructionFileMapping<TSettings extends IWoltLabGeneratorSett
     /**
      * @inheritdoc
      */
-    protected override get XMLFileName(): string
+    protected override get FileName(): string
     {
         return "emojis.xml";
     }

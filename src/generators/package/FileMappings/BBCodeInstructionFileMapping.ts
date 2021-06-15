@@ -41,7 +41,7 @@ export class BBCodeInstructionFileMapping<TSettings extends IWoltLabGeneratorSet
     /**
      * @inheritdoc
      */
-    protected override get XMLFileName(): string
+    protected override get FileName(): string
     {
         return "bbCodes.xml";
     }
