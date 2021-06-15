@@ -1,7 +1,7 @@
 import { normalize as legacyNormalize, parse as legacyParse, sep } from "path";
 import { ReadLine } from "readline";
 import { dim } from "chalk";
-import { Answers } from "inquirer";
+import inquirer = require("inquirer");
 import InputPrompt = require("inquirer/lib/prompts/input");
 import { join, normalize, parse, relative } from "upath";
 import { IPathPromptRootDescriptor } from "./IPathPromptRootDescriptor";
@@ -73,9 +73,29 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      * @param answers
      * The answer-hash.
      */
-    public constructor(question: T, readLine: ReadLine, answers: Answers)
+    public constructor(question: T, readLine: ReadLine, answers: inquirer.Answers)
     {
-        super(question, readLine, answers);
+        super(
+            {
+                ...question,
+                validate: (input, answers) =>
+                {
+                    let result = this.ValidatePath(input);
+
+                    if (
+                        result === true &&
+                        question.validate)
+                    {
+                        return question.validate(input, answers);
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
+            },
+            readLine,
+            answers);
     }
 
     /**
@@ -268,13 +288,6 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
             {
                 this.ClearLine();
                 this.rl.write(result);
-            }
-
-            let validationResult = this.ValidatePath(result);
-
-            if (validationResult !== true)
-            {
-                error = validationResult;
             }
         }
 
