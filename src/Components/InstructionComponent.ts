@@ -10,27 +10,6 @@ import { WoltLabComponent } from "./WoltLabComponent";
 export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends WoltLabComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * A question for asking for the component-path.
-     */
-    protected override get PathQuestion(): Question<TComponentOptions>
-    {
-        let question = super.PathQuestion as IPathQuestion<TComponentOptions>;
-
-        question.rootDir = {
-            path: this.WoltLabGenerator.sourcePath(),
-            allowOutside: false
-        };
-
-        question.default ??= this.InstructionFileName;
-        return question;
-    }
-
-    /**
-     * Gets a file-mapping for creating the instruction-file.
-     */
-    protected abstract get InstructionFileMapping(): IFileMapping<TSettings, TOptions>;
-
-    /**
      * Gets the name of the instruction-class.
      */
     public abstract get ClassName(): string;
@@ -58,4 +37,25 @@ export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSe
             this.InstructionFileMapping
         ];
     }
+
+    /**
+     * A question for asking for the component-path.
+     */
+    protected override get PathQuestion(): Question<TComponentOptions>
+    {
+        let question = super.PathQuestion as IPathQuestion<TComponentOptions>;
+
+        question.rootDir = {
+            path: this.WoltLabGenerator.sourcePath(),
+            allowOutside: false
+        };
+
+        question.default ??= this.InstructionFileName;
+        return question;
+    }
+
+    /**
+     * Gets a file-mapping for creating the instruction-file.
+     */
+    protected abstract get InstructionFileMapping(): IFileMapping<TSettings, TOptions>;
 }
