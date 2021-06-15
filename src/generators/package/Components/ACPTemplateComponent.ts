@@ -1,4 +1,4 @@
-import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
@@ -92,5 +92,16 @@ export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, T
         }
 
         return question;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get TemplateFileMapping(): IFileMapping<TSettings, TOptions>
+    {
+        return {
+            ...super.TemplateFileMapping,
+            Source: this.Generator.templatePath("acpTemplate.tpl")
+        };
     }
 }
