@@ -1,6 +1,7 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { PathPrompt } from "../../../Components/Inquiry/Prompts/PathPrompt";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
@@ -67,22 +68,42 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
+     * Gets the question for asking for the application.
+     */
+    protected get AppQuestion(): IApplicationQuestion<TComponentOptions>
+    {
+        return {
+            type: ApplicationPrompt.TypeName,
+            name: "Application",
+            message: "What application do you want to upload the templates to?"
+        } as IApplicationQuestion<ITemplateComponentOptions>;
+    }
+
+    /**
+     * Gets a question for asking for the source of the templates.
+     */
+    protected get SourceQuestion(): Question<TComponentOptions>
+    {
+        return {
+            type: PathPrompt.TypeName,
+            name: "Source",
+            message: "Where do you want to store the templates?",
+            default: (options: TComponentOptions) =>
+            {
+                return this.WoltLabGenerator.assetPath(options.Application, "templates");
+            }
+        } as Question<ITemplateComponentOptions>;
+    }
+
+    /**
      * @inheritdoc
      */
     protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
     {
         return [
             ...super.ComponentOptionQuestionCollection,
-            {
-                type: ApplicationPrompt.TypeName,
-                name: "Application",
-                message: "What application do you want to upload the templates to?"
-            },
-            {
-                type: PathPrompt.TypeName,
-                name: "Source",
-                message: "Where do you want to store the templates?"
-            }
+            this.AppQuestion,
+            this.SourceQuestion
         ] as Array<Question<ITemplateComponentOptions>>;
     }
 
