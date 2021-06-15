@@ -103,4 +103,12 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
             this.ComponentOptionQuestion
         ];
     }
+
+    /**
+     * Gets the component-options that were provided by the user.
+     */
+    public get ComponentOptions(): TComponentOptions
+    {
+        return this.Generator.Settings[WoltLabGeneratorSettingKey.ComponentOptions][this.ID] as TComponentOptions;
+    }
 }
