@@ -398,4 +398,16 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
         this.userInputStarted = true;
         (super["onKeypress" as keyof InputPrompt<T>] as any)();
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @param eventArgs
+     * An object which contains event-data.
+     */
+    protected override onEnd(eventArgs: inquirer.prompts.SuccessfulPromptStateData): void
+    {
+        super.onEnd(eventArgs);
+        this.ClearLine();
+    }
 }
