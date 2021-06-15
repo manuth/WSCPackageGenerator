@@ -32,7 +32,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
      */
     public get InstructionFileName(): string
     {
-        return this.WoltLabGenerator.componentPath("Templates.ts");
+        return this.WoltLabGenerator.componentPath(`${this.VariableName}.ts`);
     }
 
     /**
