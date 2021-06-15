@@ -42,11 +42,6 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     private initialized = false;
 
     /**
-     * A value indicating whether the user-input has started.
-     */
-    private userInputStarted = false;
-
-    /**
      * A value indicating whether the initial user-input is being performed.
      */
     private initialInput = true;
@@ -112,14 +107,6 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
     protected set Initialized(value: boolean)
     {
         this.initialized = value;
-    }
-
-    /**
-     * Gets a value indicating whether the user-input has started.
-     */
-    protected get UserInputStarted(): boolean
-    {
-        return this.userInputStarted;
     }
 
     /**
@@ -353,20 +340,13 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
         {
             this.Initialize(error);
         }
-        else if (this.UserInputStarted)
+        else if (this.InitialInput)
         {
-            if (this.InitialInput)
-            {
-                this.RenderInitialInput(error);
-            }
-            else
-            {
-                this.Render(error);
-            }
+            this.RenderInitialInput(error);
         }
         else
         {
-            this.RenderPreInput(error);
+            this.Render(error);
         }
     }
 
@@ -381,22 +361,8 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
      */
     protected override filterInput(input: string): string
     {
-        if (!this.UserInputStarted)
-        {
-            this.userInputStarted = true;
-            this.render(undefined);
-        }
-
+        this.render(undefined);
         return super.filterInput(input);
-    }
-
-    /**
-     * Handles the `keypress`-event.
-     */
-    protected onKeypress(): void
-    {
-        this.userInputStarted = true;
-        (super["onKeypress" as keyof InputPrompt<T>] as any)();
     }
 
     /**
