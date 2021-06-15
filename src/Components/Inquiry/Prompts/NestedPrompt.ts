@@ -41,7 +41,7 @@ export abstract class NestedPrompt<T extends Question> extends Prompt<T>
             async () =>
             {
                 this.rl.pause();
-                this.screen.render("", undefined);
+                this.screen.render("\0", undefined);
                 let result = await this.Prompt();
                 this.rl.resume();
                 ((this.rl as any).input as ReadStream)?.setRawMode?.(true);
