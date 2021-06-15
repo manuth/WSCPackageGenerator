@@ -9,12 +9,12 @@ import { TemplateComponent } from "../Components/TemplateComponent";
 export enum PackageComponentType
 {
     /**
-     * Indicates the {@link TemplateComponent `TemplateComponent`}.
+     * Indicates the {@link TemplateComponent `TemplateComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Template = "woltlabPackageTemplate",
 
     /**
-     * Indicates the {@link ACPTemplateComponent}
+     * Indicates the {@link ACPTemplateComponent `ACPTemplateComponent<TSettings, TOptions, TComponentOptions>`}
      */
     ACPTemplate = "woltLabPackageACPTemplate"
 }
