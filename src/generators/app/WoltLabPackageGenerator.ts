@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { ACPTenplateUnit } from "../../Units/ACPTemplateUnit";
 import { BBCodeUnit } from "../../Units/BBCodeUnit";
 import { EmojiUnit } from "../../Units/EmojiUnit";
 import { ErrorMessageUnit } from "../../Units/ErrorMessageUnit";
