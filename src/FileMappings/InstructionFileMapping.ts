@@ -1,3 +1,4 @@
+import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
@@ -141,7 +142,17 @@ export class InstructionFileMapping<TSettings extends IWoltLabGeneratorSettings,
             });
 
         let constructor = file.getVariableDeclaration(this.Component.VariableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
-        constructor.addArgument(this.InstructionOptions.print());
+        constructor.addArgument(`${EOL}${this.InstructionOptions.print()}`);
+
+        file.formatText(
+            {
+                convertTabsToSpaces: true,
+                indentSize: 4,
+                placeOpenBraceOnNewLineForControlBlocks: true,
+                placeOpenBraceOnNewLineForFunctions: true,
+                insertSpaceAfterFunctionKeywordForAnonymousFunctions: false
+            });
+
         return file;
     }
 
