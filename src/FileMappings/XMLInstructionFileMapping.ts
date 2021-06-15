@@ -28,7 +28,7 @@ export abstract class XMLInstructionFileMapping<TSettings extends IWoltLabGenera
     protected abstract get XMLFileName(): string;
 
     /**
-     * Gets the options to pass to the instruction-constructor.
+     * @inheritdoc
      */
     protected override get InstructionOptions(): ObjectLiteralExpression
     {
