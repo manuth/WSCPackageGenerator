@@ -1,5 +1,6 @@
 import { normalize as legacyNormalize, parse as legacyParse, sep } from "path";
 import { ReadLine } from "readline";
+import { dim } from "chalk";
 import { Answers } from "inquirer";
 import InputPrompt = require("inquirer/lib/prompts/input");
 import { isAbsolute, join, normalize, parse, relative } from "upath";
@@ -271,6 +272,24 @@ export class PathPrompt<T extends IPathQuestionOptions = IPathQuestionOptions> e
                 true :
                 `Paths outside of \`${legacyNormalize(this.rootDir)}\` are not allowed!`;
         }
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @returns
+     * The question-string.
+     */
+    protected override getQuestion(): string
+    {
+        let message = super.getQuestion();
+
+        if (!this.UserInputStarted && this.rootDir)
+        {
+            message += `${dim(legacyNormalize(join(this.rootDir, "./")))} `;
+        }
+
+        return message;
     }
 
     /**
