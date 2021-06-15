@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ACPTemplateComponent } from "../Components/ACPTemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { BBCodeComponent } from "../Components/BBCodeComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 
 /**
@@ -8,6 +10,11 @@ import { TemplateComponent } from "../Components/TemplateComponent";
  */
 export enum PackageComponentType
 {
+    /**
+     * Indicates the {@link BBCodeComponent `BBCodeComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    BBCode = "woltlabPackageBBCode",
+
     /**
      * Indicates the {@link TemplateComponent `TemplateComponent<TSettings, TOptions, TComponentOptions>`}.
      */
