@@ -109,7 +109,7 @@ export class PackageContext
 
         let pathFormatter = (value: string): string =>
         {
-            value = relative(this.Generator.destinationPath(this.Generator.metaPath()), value);
+            value = relative(this.Generator.destinationPath(this.Generator.sourcePath()), value);
             value = normalize(value);
             return value;
         };

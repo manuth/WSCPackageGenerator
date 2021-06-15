@@ -88,20 +88,6 @@ export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOpti
     }
 
     /**
-     * Joins the arguments together and returns the resulting path relative to the meta-directory.
-     *
-     * @param path
-     * The path that is to be joined.
-     *
-     * @returns
-     * The path relative to the metadata-directory.
-     */
-    public metaPath(...path: string[]): string
-    {
-        return this.sourcePath("Meta", ...path);
-    }
-
-    /**
      * Joins the arguments together and returns the resulting path relative to the component-directory.
      *
      * @param path
@@ -112,6 +98,6 @@ export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOpti
      */
     public componentPath(...path: string[]): string
     {
-        return this.metaPath("Components", ...path);
+        return this.sourcePath("Components", ...path);
     }
 }

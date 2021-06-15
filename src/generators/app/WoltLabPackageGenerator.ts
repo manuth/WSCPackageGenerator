@@ -131,7 +131,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                         Instructions: context.Instructions ?? []
                     };
                 },
-                Destination: this.destinationPath(this.metaPath("Package.ts"))
+                Destination: this.destinationPath(this.sourcePath("Package.ts"))
             },
             {
                 Source: "README.md",
