@@ -87,7 +87,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
-     * fdsa
+     * Gets the file-mapping for creating the instruction-file.
      */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
