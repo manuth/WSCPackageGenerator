@@ -59,7 +59,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     {
         return {
             type: QuestionCollectionPrompt.TypeName,
-            name: this.ID,
+            name: `${WoltLabGeneratorSettingKey.ComponentOptions}[${this.ID}]`,
             promptTypes: this.PromptTypes,
             questions: this.ComponentOptionQuestionCollection
         };
