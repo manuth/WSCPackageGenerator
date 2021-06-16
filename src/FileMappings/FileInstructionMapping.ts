@@ -17,7 +17,7 @@ export abstract class FileInstructionMapping<TSettings extends IWoltLabGenerator
     private fileInstructionComponent: FileInstructionComponent<TSettings, TOptions, TComponentOptions>;
 
     /**
-     * Initializes a new instance of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link FileInstructionMapping `FileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param component
      * The component to create an instruction-file for.
