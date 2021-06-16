@@ -10,6 +10,11 @@ import { WoltLabGeneratorSettingKey } from "./WoltLabGeneratorSettingKey";
 export interface IWoltLabGeneratorSettings extends ITSProjectSettings
 {
     /**
+     * The identifier of the package.
+     */
+    [WoltLabGeneratorSettingKey.Identifier]: string;
+
+    /**
      * Provides options for the components.
      */
     [WoltLabGeneratorSettingKey.ComponentOptions]: IWoltLabComponentOptionCollection;

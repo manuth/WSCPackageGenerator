@@ -7,6 +7,11 @@ import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 export enum WoltLabGeneratorSettingKey
 {
     /**
+     * Indicates the {@link Identifier `Identifier`}-setting.
+     */
+    Identifier = "identifier",
+
+    /**
      * Indicates the {@link ComponentOptions `ComponentOptions`}-settings.
      */
     ComponentOptions = "componentOptions"
