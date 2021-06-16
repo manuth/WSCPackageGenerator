@@ -19,6 +19,7 @@ import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TemplateListenerComponent } from "../package/Components/TemplateListenerComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { UserOptionComponent } from "../package/Components/UserOptionComponent";
+import { EntryPointFileMapping } from "../package/FileMappings/EntryPointFileMapping";
 import { WoltLabNodePackageFileMapping } from "../package/FileMappings/WoltLabNodePackageFileMapping";
 import { WoltLabPackageFileMapping } from "../package/FileMappings/WoltLabPackageFileMapping";
 
@@ -110,13 +111,30 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     }
 
     /**
+     * Gets the file-mapping for the woltlab-package.
+     */
+    public get WoltLabPackageFileMapping(): WoltLabPackageFileMapping<IWoltLabSettings, GeneratorOptions>
+    {
+        return new WoltLabPackageFileMapping(this);
+    }
+
+    /**
+     * Gets the file-mapping for the entrypoint file.
+     */
+    public get EntryPointFileMapping(): EntryPointFileMapping
+    {
+        return new EntryPointFileMapping(this);
+    }
+
+    /**
      * @inheritdoc
      */
     public override get FileMappings(): Array<IFileMapping<IWoltLabSettings, GeneratorOptions>>
     {
         return [
             ...super.FileMappings,
-            new WoltLabPackageFileMapping(this),
+            this.WoltLabPackageFileMapping,
+            this.EntryPointFileMapping,
             {
                 Source: "README.md",
                 Context: () => (
