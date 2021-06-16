@@ -1,6 +1,7 @@
-import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
+import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
@@ -74,7 +75,7 @@ export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, T
     /**
      * @inheritdoc
      */
-    protected override get SourceQuestion(): Question<TComponentOptions>
+    protected override get SourceQuestion(): IPathQuestion<TComponentOptions>
     {
         let question = super.SourceQuestion;
 
