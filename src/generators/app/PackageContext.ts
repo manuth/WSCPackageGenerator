@@ -5,7 +5,6 @@ import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
-import { WoltLabUnitName } from "../../WoltLabUnitName";
 
 /**
  * Provides a context for copying the package-file.
@@ -131,7 +130,7 @@ export class PackageContext
         for (let component in this.Settings[WoltLabSettingKey.ComponentOptions])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[WoltLabSettingKey.ComponentOptions][component as WoltLabUnitName][WoltLabComponentKey.Path];
+            let path = this.Settings[WoltLabSettingKey.ComponentOptions][component][WoltLabComponentKey.Path];
 
             switch (component)
             {
