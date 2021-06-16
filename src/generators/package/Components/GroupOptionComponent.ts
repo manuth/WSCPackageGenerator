@@ -2,14 +2,14 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import type { GroupOptionInstruction } from "@manuth/woltlab-compiler";
 import { NodeSystemComponent } from "../../../Components/NodeSystemComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating group-options.
  */
-export class GroupOptionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
+export class GroupOptionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`} class.

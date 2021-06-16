@@ -2,14 +2,14 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import type { UserOptionInstruction } from "@manuth/woltlab-compiler";
 import { NodeSystemComponent } from "../../../Components/NodeSystemComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating user-options.
  */
-export class UserOptionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
+export class UserOptionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link UserOptionComponent `UserOptionComponent<TSettings, TOptions, TComponentOptions>`} class.

@@ -3,13 +3,13 @@ import { IPHPInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions";
 
 /**
  * Provides the functionality to generate php instruction files.
  */
-export class PHPInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
+export class PHPInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link PHPInstructionFileMapping `PHPInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.

@@ -2,20 +2,20 @@ import { ITSProjectSettings } from "@manuth/generator-ts-project";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { IWoltLabComponentOptionCollection } from "./IWoltLabComponentOptionCollection";
-import { WoltLabGeneratorSettingKey } from "./WoltLabGeneratorSettingKey";
+import { WoltLabSettingKey } from "./WoltLabSettingKey";
 
 /**
  * Provides options for the {@link WoltLabGenerator `WoltLabGenerator`}
  */
-export interface IWoltLabGeneratorSettings extends ITSProjectSettings
+export interface IWoltLabSettings extends ITSProjectSettings
 {
     /**
      * The identifier of the package.
      */
-    [WoltLabGeneratorSettingKey.Identifier]: string;
+    [WoltLabSettingKey.Identifier]: string;
 
     /**
      * Provides options for the components.
      */
-    [WoltLabGeneratorSettingKey.ComponentOptions]: IWoltLabComponentOptionCollection;
+    [WoltLabSettingKey.ComponentOptions]: IWoltLabComponentOptionCollection;
 }

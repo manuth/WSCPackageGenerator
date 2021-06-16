@@ -1,13 +1,13 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
 import { WoltLabComponent } from "./WoltLabComponent";
 
 /**
  * Provides a component for generating an instruction-file.
  */
-export abstract class InstructionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends WoltLabComponent<TSettings, TOptions, TComponentOptions>
+export abstract class InstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends WoltLabComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Gets the name of the instruction-class.

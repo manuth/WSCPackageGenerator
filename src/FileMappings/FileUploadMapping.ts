@@ -3,7 +3,7 @@ import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compil
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { LocalInstructionComponent } from "../Components/LocalInstructionComponent";
 import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { LocalFileInstructionMapping } from "./LocalFileInstructionMapping";
 
 /**
@@ -18,7 +18,7 @@ import { LocalFileInstructionMapping } from "./LocalFileInstructionMapping";
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class FileUploadMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
+export class FileUploadMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class.

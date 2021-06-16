@@ -1,7 +1,7 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping";
 import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
 import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
 import { InstructionComponent } from "./InstructionComponent";
@@ -9,7 +9,7 @@ import { InstructionComponent } from "./InstructionComponent";
 /**
  * Provides a component for generating instruction-files which are loaded from local.
  */
-export abstract class LocalInstructionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
+export abstract class LocalInstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Gets the default name of the path to suggest in the {@link LocalInstructionComponent.SourceQuestion `SourceQuestion`}.

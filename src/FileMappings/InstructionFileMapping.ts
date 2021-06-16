@@ -7,9 +7,9 @@ import { ObjectLiteralExpression, printNode, Project, SourceFile, SyntaxKind, ts
 import { dirname, relative, sep } from "upath";
 import { InstructionComponent } from "../Components/InstructionComponent";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
-import { WoltLabGeneratorSettingKey } from "../Settings/WoltLabGeneratorSettingKey";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 
 /**
  * Provides the functionality to generate instruction-files.
@@ -23,7 +23,7 @@ import { WoltLabGeneratorSettingKey } from "../Settings/WoltLabGeneratorSettingK
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class InstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
+export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
 {
     /**
      * The component to create an instruction-file for.
@@ -102,7 +102,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabGeneratorSettings,
      */
     public get Destination(): string
     {
-        return this.Generator.Settings[WoltLabGeneratorSettingKey.ComponentOptions][this.Component.ID][WoltLabComponentKey.Path];
+        return this.Generator.Settings[WoltLabSettingKey.ComponentOptions][this.Component.ID][WoltLabComponentKey.Path];
     }
 
     /**

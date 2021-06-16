@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { ErrorMessageInstruction } from "@manuth/woltlab-compiler";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 import { TranslationComponent } from "./TranslationComponent";
@@ -9,7 +9,7 @@ import { TranslationComponent } from "./TranslationComponent";
 /**
  * Provides a component for generating error-messages.
  */
-export class ErrorMessageComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TranslationComponent<TSettings, TOptions, TComponentOptions>
+export class ErrorMessageComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TranslationComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link ErrorMessageComponent `ErrorMessageComponent<TSettings, TOptions, TComponentOptions>`} class.

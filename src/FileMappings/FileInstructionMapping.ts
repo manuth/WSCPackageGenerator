@@ -3,13 +3,13 @@ import { IInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { FileInstructionComponent } from "../Components/FileInstructionComponent";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { InstructionFileMapping } from "./InstructionFileMapping";
 
 /**
  * Provides the functionality to generate bbcode instruction files.
  */
-export abstract class FileInstructionMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
+export abstract class FileInstructionMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * The component to create an instruction-file for.

@@ -4,7 +4,7 @@ import { IFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
 import { LocalInstructionComponent } from "../Components/LocalInstructionComponent";
 import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { InstructionFileMapping } from "./InstructionFileMapping";
 
 /**
@@ -19,7 +19,7 @@ import { InstructionFileMapping } from "./InstructionFileMapping";
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class LocalFileInstructionMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
+export class LocalFileInstructionMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * The component to create an instruction-file for.

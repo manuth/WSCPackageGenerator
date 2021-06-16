@@ -3,13 +3,13 @@ import { IListenerInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { FileInstructionComponent } from "../Components/FileInstructionComponent";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { FileInstructionMapping } from "./FileInstructionMapping";
 
 /**
  * Provides the functionality to generate event-listener instruction files.
  */
-export class ListenerInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
+export class ListenerInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link ListenerInstructionFileMapping `ListenerInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.

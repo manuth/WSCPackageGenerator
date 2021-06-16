@@ -5,8 +5,8 @@ import { join, join as legacyJoin } from "upath";
 import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
-import { WoltLabGeneratorSettingKey } from "../../../Settings/WoltLabGeneratorSettingKey";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PHPInstructionFileMapping } from "../FileMappings/PHPInstructionFileMapping";
 import { SelfContainedPHPFileMapping } from "../FileMappings/SelfContainedPHPFileMapping";
@@ -16,7 +16,7 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 /**
  * Provides a component for uploading or executing php-scripts.
  */
-export class PHPScriptComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
+export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -130,7 +130,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabGeneratorSettings, TOp
             {
                 if (options.SelfContained)
                 {
-                    return join("lib", `install_${this.Generator.Settings[WoltLabGeneratorSettingKey.Identifier]}_0.0.0.php`);
+                    return join("lib", `install_${this.Generator.Settings[WoltLabSettingKey.Identifier]}_0.0.0.php`);
                 }
                 else
                 {

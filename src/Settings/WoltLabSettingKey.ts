@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "./IWoltLabSettings";
 
 /**
  * Represents a setting of the {@link IWoltLabGeneratorSettings `IWoltLabGeneratorSettings`}
  */
-export enum WoltLabGeneratorSettingKey
+export enum WoltLabSettingKey
 {
     /**
      * Indicates the {@link Identifier `Identifier`}-setting.

@@ -2,9 +2,9 @@ import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import { ComponentBase } from "@manuth/generator-ts-project";
 import inquirer = require("inquirer");
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
-import { WoltLabGeneratorSettingKey } from "../Settings/WoltLabGeneratorSettingKey";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
 import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPrompt";
@@ -21,7 +21,7 @@ import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPr
  * @template TComponentOptions
  * The type of the component-options.
  */
-export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentBase<TSettings, TOptions>
+export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentBase<TSettings, TOptions>
 {
     /**
      * The generator of the component.
@@ -88,7 +88,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
     {
         return {
             type: QuestionCollectionPrompt.TypeName,
-            name: `${WoltLabGeneratorSettingKey.ComponentOptions}[${this.ID}]`,
+            name: `${WoltLabSettingKey.ComponentOptions}[${this.ID}]`,
             promptTypes: this.PromptTypes,
             questions: this.ComponentOptionQuestionCollection
         };
@@ -109,6 +109,6 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
      */
     public get ComponentOptions(): TComponentOptions
     {
-        return this.Generator.Settings[WoltLabGeneratorSettingKey.ComponentOptions]?.[this.ID] as TComponentOptions;
+        return this.Generator.Settings[WoltLabSettingKey.ComponentOptions]?.[this.ID] as TComponentOptions;
     }
 }

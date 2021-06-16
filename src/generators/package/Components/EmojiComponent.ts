@@ -2,7 +2,7 @@ import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import type { EmojiInstruction } from "@manuth/woltlab-compiler";
 import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { EmojiInstructionFileMapping } from "../FileMappings/EmojiInstructionFileMapping";
 import { PackageComponentType } from "../Settings/PackageComponentType";
@@ -10,7 +10,7 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 /**
  * Provides a component for generating emojis.
  */
-export class EmojiComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
+export class EmojiComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`} class.

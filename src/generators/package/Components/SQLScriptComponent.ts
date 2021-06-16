@@ -4,14 +4,14 @@ import { join } from "upath";
 import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { ILocalComponentOptions } from "../../../Settings/ILocalComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating sql-script instructions.
  */
-export class SQLScriptComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
+export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link SQLScriptComponent `SQLScriptComponent<TSettings, TOptions, TComponentOptions>`} class.

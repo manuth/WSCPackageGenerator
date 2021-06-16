@@ -3,13 +3,13 @@ import { ISelfContainedPHPInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { FileUploadMapping } from "../../../FileMappings/FileUploadMapping";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions";
 
 /**
  * Provides the functionality to generate self-contained php script instructions.
  */
-export class SelfContainedPHPFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadMapping<TSettings, TOptions, TComponentOptions>
+export class SelfContainedPHPFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link SelfContainedPHPFileMapping `SelfContainedPHPFileMapping<TSettings, TOptions, TComponentOptions>`} class.

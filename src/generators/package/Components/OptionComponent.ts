@@ -2,14 +2,14 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { ACPOptionInstruction } from "@manuth/woltlab-compiler";
 import { NodeSystemComponent } from "../../../Components/NodeSystemComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating admin-options.
  */
-export class OptionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
+export class OptionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends NodeSystemComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`} class.

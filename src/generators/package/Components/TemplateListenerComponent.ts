@@ -2,14 +2,14 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TemplateListenerInstruction } from "@manuth/woltlab-compiler";
 import { ListenerComponentBase } from "../../../Components/ListenerComponentBase";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating template-listeners.
  */
-export class TemplateListenerComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends ListenerComponentBase<TSettings, TOptions, TComponentOptions>
+export class TemplateListenerComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends ListenerComponentBase<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`} class.
