@@ -15,6 +15,16 @@ export interface IWoltLabSettings extends ITSProjectSettings
     [WoltLabSettingKey.Identifier]: string;
 
     /**
+     * The name of the package-author.
+     */
+    [WoltLabSettingKey.Author]: string;
+
+    /**
+     * The homepage of the author of the package.
+     */
+    [WoltLabSettingKey.HomePage]: string;
+
+    /**
      * Provides options for the components.
      */
     [WoltLabSettingKey.ComponentOptions]: IWoltLabComponentOptionCollection;

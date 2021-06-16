@@ -1,6 +1,6 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { AsyncDynamicQuestionProperty, DynamicQuestionProperty, KeyUnion } from "inquirer";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { PathQuestionBase } from "./PathQuestionBase";
 
@@ -13,7 +13,7 @@ import { PathQuestionBase } from "./PathQuestionBase";
  * @template TOptions
  * The type of the generator-options.
  */
-export abstract class PathQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
+export abstract class PathQuestion<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
 {
     /**
      * @inheritdoc

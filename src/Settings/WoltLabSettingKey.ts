@@ -12,6 +12,16 @@ export enum WoltLabSettingKey
     Identifier = "identifier",
 
     /**
+     * Indicates the {@link Author `Author`}-setting.
+     */
+    Author = "authorName",
+
+    /**
+     * Indicates the {@link HomePage `HomePage`}-setting.
+     */
+    HomePage = "homepage",
+
+    /**
      * Indicates the {@link ComponentOptions `ComponentOptions`}-settings.
      */
     ComponentOptions = "componentOptions"

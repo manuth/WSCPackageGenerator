@@ -1,9 +1,10 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { dirname, join, normalize, parse, relative } from "upath";
-import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
+import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
-import { WoltLabSettingKey } from "../../WoltLabSettingKey";
 import { WoltLabUnitName } from "../../WoltLabUnitName";
 
 /**
@@ -14,7 +15,7 @@ export class PackageContext
     /**
      * The generator.
      */
-    private generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>;
+    private generator: WoltLabGenerator<IWoltLabSettings, GeneratorOptions>;
 
     /**
      * Initializes a new instance of the {@link PackageContext `PackageContext`} class.
@@ -22,7 +23,7 @@ export class PackageContext
      * @param generator
      * The generator of the context.
      */
-    public constructor(generator: WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>)
+    public constructor(generator: WoltLabGenerator<IWoltLabSettings, GeneratorOptions>)
     {
         this.generator = generator;
     }
@@ -30,7 +31,7 @@ export class PackageContext
     /**
      * Gets the generator.
      */
-    protected get Generator(): WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>
+    protected get Generator(): WoltLabGenerator<IWoltLabSettings, GeneratorOptions>
     {
         return this.generator;
     }
@@ -38,7 +39,7 @@ export class PackageContext
     /**
      * Gets the settings of the generator.
      */
-    protected get Settings(): IWoltLabGeneratorSettings
+    protected get Settings(): IWoltLabSettings
     {
         return this.Generator.Settings;
     }
@@ -127,10 +128,10 @@ export class PackageContext
             return `require("${value}")`;
         };
 
-        for (let component in this.Settings[WoltLabSettingKey.UnitPaths])
+        for (let component in this.Settings[WoltLabSettingKey.ComponentOptions])
         {
             let formatter: typeof pathFormatter;
-            let path = this.Settings[WoltLabSettingKey.UnitPaths][component as WoltLabUnitName];
+            let path = this.Settings[WoltLabSettingKey.ComponentOptions][component as WoltLabUnitName][WoltLabComponentKey.Path];
 
             switch (component)
             {

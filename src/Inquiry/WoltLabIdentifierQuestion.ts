@@ -1,8 +1,9 @@
 import { URL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
-import { WoltLabSettingKey } from "../WoltLabSettingKey";
+import { InputQuestion } from "inquirer";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 
 /**
  * Represents a question for asking for the package-identifier.
@@ -13,17 +14,23 @@ import { WoltLabSettingKey } from "../WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabIdentifierQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions>
+export class WoltLabIdentifierQuestion<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions>
 {
     /**
      * @inheritdoc
      */
-    public type = "input" as const;
+    public get type(): InputQuestion["type"]
+    {
+        return "input";
+    }
 
     /**
      * @inheritdoc
      */
-    public name = WoltLabSettingKey.Identifier;
+    public get name(): string
+    {
+        return WoltLabSettingKey.Identifier;
+    }
 
     /**
      * @inheritdoc

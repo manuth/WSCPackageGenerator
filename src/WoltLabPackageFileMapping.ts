@@ -2,8 +2,8 @@ import { GeneratorOptions, IGenerator } from "@manuth/extended-yo-generator";
 import { TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
 import { Package } from "@manuth/package-json-editor";
 import { Constants } from "./Core/Constants";
-import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
-import { WoltLabSettingKey } from "./WoltLabSettingKey";
+import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
+import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
 
 /**
  * Provides the functionality to create a `package.json`-file for woltlab-components.
@@ -14,7 +14,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
+export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
 {
     /**
      * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.

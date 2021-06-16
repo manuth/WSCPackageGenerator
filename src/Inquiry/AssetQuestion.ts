@@ -1,6 +1,6 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { AsyncDynamicQuestionProperty, DynamicQuestionProperty } from "inquirer";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { PathQuestion } from "./PathQuestion";
 
@@ -13,7 +13,7 @@ import { PathQuestion } from "./PathQuestion";
  * @template TOptions
  * The type of the generator-options.
  */
-export class AssetQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestion<TSettings, TOptions>
+export class AssetQuestion<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends PathQuestion<TSettings, TOptions>
 {
     /**
      * Initializes a new instance of the {@link AssetQuestion `AssetQuestion<TSettings, TOptions>`} class.

@@ -5,7 +5,7 @@ import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPromp
 import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
 import { QuestionCollectionPrompt } from "./Components/Inquiry/Prompts/QuestionCollectionPrompt";
 import { WoltLabIdentifierQuestion } from "./Inquiry/WoltLabIdentifierQuestion";
-import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "./WoltLabSettingKey";
 
 /**
@@ -17,7 +17,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabGenerator<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, require.resolve("@manuth/generator-ts-project"))<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
+export class WoltLabGenerator<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, require.resolve("@manuth/generator-ts-project"))<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
 {
     /**
      * Initializes a new instance of the {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`} class.

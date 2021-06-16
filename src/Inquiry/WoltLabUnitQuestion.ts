@@ -1,6 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
-import { WoltLabSettingKey } from "../WoltLabSettingKey";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
+import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 import { WoltLabUnit } from "../WoltLabUnit";
 import { PathQuestionBase } from "./PathQuestionBase";
 
@@ -13,7 +14,7 @@ import { PathQuestionBase } from "./PathQuestionBase";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
+export class WoltLabUnitQuestion<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends PathQuestionBase<TSettings, TOptions>
 {
     /**
      * @inheritdoc
@@ -50,7 +51,7 @@ export class WoltLabUnitQuestion<TSettings extends IWoltLabGeneratorSettings, TO
      */
     protected get Name(): string
     {
-        return `${WoltLabSettingKey.UnitPaths}[${this.Unit.ID}]`;
+        return `${WoltLabSettingKey.ComponentOptions}[${this.Unit.ID}][${WoltLabComponentKey.Path}]`;
     }
 
     /**

@@ -3,7 +3,7 @@ import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project"
 import chalk = require("chalk");
 import { InputQuestionOptions, KeyUnion } from "inquirer";
 import { resolve, sep } from "upath";
-import { IWoltLabGeneratorSettings } from "../IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { ITransformationFlags } from "./ITransformationFlags";
 
@@ -16,7 +16,7 @@ import { ITransformationFlags } from "./ITransformationFlags";
  * @template TOptions
  * The type of the generator-options.
  */
-export abstract class PathQuestionBase<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions> implements InputQuestionOptions<TSettings>
+export abstract class PathQuestionBase<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions> implements InputQuestionOptions<TSettings>
 {
     /**
      * Initializes a new instance of the {@link PathQuestionBase `PathQuestionBase<TSettings, TOptions>`} class.

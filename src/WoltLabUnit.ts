@@ -2,9 +2,10 @@ import { FileMapping, GeneratorOptions, IFileMapping, Question } from "@manuth/e
 import { ComponentBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { dirname, join, normalize, relative, sep } from "upath";
 import { WoltLabUnitQuestion } from "./Inquiry/WoltLabUnitQuestion";
-import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
+import { WoltLabComponentKey } from "./Settings/WoltLabComponentKey";
+import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "./WoltLabGenerator";
-import { WoltLabSettingKey } from "./WoltLabSettingKey";
 
 /**
  * Represents a unit of a woltlab component.
@@ -15,7 +16,7 @@ import { WoltLabSettingKey } from "./WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
+export abstract class WoltLabUnit<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends ComponentBase<TSettings, TOptions>
 {
     /**
      * Initializes a new instance of the {@link WoltLabUnit `WoltLabUnit<TSettings, TOptions>`} class.
@@ -85,7 +86,7 @@ export abstract class WoltLabUnit<TSettings extends IWoltLabGeneratorSettings, T
         return {
             Source: (target, generator) => this.GetTemplateFileName(target, generator as WoltLabGenerator<TSettings, TOptions>),
             Context: (target, generator) => this.GetTemplateContext(target, generator as WoltLabGenerator<TSettings, TOptions>),
-            Destination: (target, generator) => generator.Settings[WoltLabSettingKey.UnitPaths][this.ID]
+            Destination: (target, generator) => generator.Settings[WoltLabSettingKey.ComponentOptions][this.ID][WoltLabComponentKey.Path]
         };
     }
 

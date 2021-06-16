@@ -2,7 +2,7 @@ import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/ex
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 import yosay = require("yosay");
-import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
@@ -25,7 +25,7 @@ import { PackageContext } from "./PackageContext";
 /**
  * Provides the functionality to generate WoltLab-packages.
  */
-export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorSettings, GeneratorOptions>
+export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, GeneratorOptions>
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public override get Components(): IComponentCollection<IWoltLabGeneratorSettings, GeneratorOptions>
+    public override get Components(): IComponentCollection<IWoltLabSettings, GeneratorOptions>
     {
         return {
             Question: super.Components.Question,
@@ -46,41 +46,41 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                 {
                     DisplayName: "General",
                     Components: [
-                        new FileUploadComponent(this) as any,
-                        new PHPScriptComponent(this) as any,
-                        new SQLScriptComponent(this) as any,
-                        new CronJobComponent(this) as any
+                        new FileUploadComponent(this),
+                        new PHPScriptComponent(this),
+                        new SQLScriptComponent(this),
+                        new CronJobComponent(this)
                     ]
                 },
                 {
                     DisplayName: "Globalization",
                     Components: [
-                        new TranslationComponent(this) as any,
-                        new ErrorMessageComponent(this) as any
+                        new TranslationComponent(this),
+                        new ErrorMessageComponent(this)
                     ]
                 },
                 {
                     DisplayName: "Options",
                     Components: [
-                        new OptionComponent(this) as any,
-                        new UserOptionComponent(this) as any,
-                        new GroupOptionComponent(this) as any
+                        new OptionComponent(this),
+                        new UserOptionComponent(this),
+                        new GroupOptionComponent(this)
                     ]
                 },
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new EmojiComponent(this) as any,
-                        new BBCodeComponent(this) as any,
-                        new TemplateComponent(this) as any,
-                        new ACPTemplateComponent(this) as any
+                        new EmojiComponent(this),
+                        new BBCodeComponent(this),
+                        new TemplateComponent(this),
+                        new ACPTemplateComponent(this)
                     ]
                 },
                 {
                     DisplayName: "Events",
                     Components: [
-                        new EventListenerComponent(this) as any,
-                        new TemplateListenerComponent(this) as any
+                        new EventListenerComponent(this),
+                        new TemplateListenerComponent(this)
                     ]
                 }
             ]
@@ -90,9 +90,9 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public override get BaseFileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
+    public override get BaseFileMappings(): Array<IFileMapping<IWoltLabSettings, GeneratorOptions>>
     {
-        let result: Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>> = [];
+        let result: Array<IFileMapping<IWoltLabSettings, GeneratorOptions>> = [];
 
         for (let fileMapping of super.BaseFileMappings)
         {
@@ -112,7 +112,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
     /**
      * @inheritdoc
      */
-    public override get FileMappings(): Array<IFileMapping<IWoltLabGeneratorSettings, GeneratorOptions>>
+    public override get FileMappings(): Array<IFileMapping<IWoltLabSettings, GeneratorOptions>>
     {
         return [
             ...super.FileMappings,
