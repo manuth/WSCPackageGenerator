@@ -2,7 +2,7 @@ import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/ex
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 import yosay = require("yosay");
-import { WoltLabPackageFileMapping } from "../../FileMappings/WoltLabPackageFileMapping";
+import { WoltLabNodePackageFileMapping } from "../../FileMappings/WoltLabNodePackageFileMapping";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
@@ -98,7 +98,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
         {
             if (fileMapping instanceof TSProjectPackageFileMapping)
             {
-                result.push(new WoltLabPackageFileMapping(this));
+                result.push(new WoltLabNodePackageFileMapping(this));
             }
             else
             {

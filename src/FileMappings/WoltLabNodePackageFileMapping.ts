@@ -14,10 +14,10 @@ import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
+export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TSProjectPackageFileMapping<TSettings, TOptions>
 {
     /**
-     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
+     * Initializes a new instance of the {@link WoltLabNodePackageFileMapping `WoltLabNodePackageFileMapping<TSettings, TOptions>`} class.
      *
      * @param generator
      * The generator of the file-mapping.
