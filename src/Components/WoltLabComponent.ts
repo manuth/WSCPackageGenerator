@@ -109,6 +109,6 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabGeneratorSettin
      */
     public get ComponentOptions(): TComponentOptions
     {
-        return this.Generator.Settings[WoltLabGeneratorSettingKey.ComponentOptions][this.ID] as TComponentOptions;
+        return this.Generator.Settings[WoltLabGeneratorSettingKey.ComponentOptions]?.[this.ID] as TComponentOptions;
     }
 }
