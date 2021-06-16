@@ -2,7 +2,6 @@ import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/ex
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 import yosay = require("yosay");
-import { WoltLabNodePackageFileMapping } from "../package/FileMappings/WoltLabNodePackageFileMapping";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
@@ -20,7 +19,8 @@ import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TemplateListenerComponent } from "../package/Components/TemplateListenerComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { UserOptionComponent } from "../package/Components/UserOptionComponent";
-import { PackageContext } from "./PackageContext";
+import { WoltLabNodePackageFileMapping } from "../package/FileMappings/WoltLabNodePackageFileMapping";
+import { WoltLabPackageFileMapping } from "../package/FileMappings/WoltLabPackageFileMapping";
 
 /**
  * Provides the functionality to generate WoltLab-packages.
@@ -116,25 +116,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     {
         return [
             ...super.FileMappings,
-            {
-                Source: this.templatePath("Package.ts.ejs"),
-                Context: () =>
-                {
-                    let context = new PackageContext(this);
-
-                    return {
-                        Identifier: context.Identifier,
-                        Name: context.Name,
-                        DisplayName: context.DisplayName,
-                        Author: context.Author,
-                        HomePage: context.HomePage,
-                        CreationDate: context.CreationDate,
-                        Description: context.Description ?? "",
-                        Instructions: context.Instructions ?? []
-                    };
-                },
-                Destination: this.destinationPath(this.sourcePath("Package.ts"))
-            },
+            new WoltLabPackageFileMapping(this),
             {
                 Source: "README.md",
                 Context: () => (

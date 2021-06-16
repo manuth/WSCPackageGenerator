@@ -1,5 +1,6 @@
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
 import { TSProjectGenerator } from "@manuth/generator-ts-project";
+import type { Package } from "@manuth/woltlab-compiler";
 import { join } from "upath";
 import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";
 import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
@@ -47,6 +48,14 @@ export class WoltLabGenerator<TSettings extends IWoltLabSettings, TOptions exten
             this.HomePageQuestion,
             new WoltLabIdentifierQuestion(this)
         ];
+    }
+
+    /**
+     * Gets the name of the variable to save the package-metadata to.
+     */
+    public get PackageVariableName(): string
+    {
+        return `My${nameof<Package>()}`;
     }
 
     /**
