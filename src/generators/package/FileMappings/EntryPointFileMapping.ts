@@ -4,7 +4,7 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
 import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { normalize, sep } from "upath";
+import { relative, sep } from "upath";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabPackageGenerator } from "../../app/WoltLabPackageGenerator";
 
@@ -133,7 +133,7 @@ export class EntryPointFileMapping extends TypeScriptTransformMapping<IWoltLabSe
             ts.factory.createIdentifier(nameof(__dirname))
         ];
 
-        for (let pathComponent of normalize(file.getRelativePathTo(this.Generator.destinationPath())).split(sep))
+        for (let pathComponent of relative(file.getDirectoryPath(), this.Generator.destinationPath()).split(sep))
         {
             pathComponents.push(ts.factory.createStringLiteral(pathComponent));
         }
