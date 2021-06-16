@@ -1,5 +1,5 @@
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabComponentOptionCollection } from "../../../Settings/IWoltLabComponentOptionCollection";
-import { ITemplateComponentOptions } from "../Components/ITemplateComponentOptions";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 import { PackageComponentType } from "./PackageComponentType";
@@ -12,5 +12,5 @@ export interface IPackageComponentOptionCollection extends IWoltLabComponentOpti
     /**
      * Provides options for the {@link TemplateComponent `TemplateComponent`}.
      */
-    [PackageComponentType.Template]: ITemplateComponentOptions;
+    [PackageComponentType.Template]: IFileUploadComponentOptions;
 }

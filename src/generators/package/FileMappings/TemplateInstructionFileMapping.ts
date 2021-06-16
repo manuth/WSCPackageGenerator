@@ -4,13 +4,13 @@ import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compil
 import { ObjectLiteralExpression, printNode, SourceFile, ts } from "ts-morph";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { LocalFileInstructionMapping } from "../../../FileMappings/LocalFileInstructionMapping";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
-import { ITemplateComponentOptions } from "../Components/ITemplateComponentOptions";
 
 /**
  * Provides the functionality to generate template instruction files.
  */
-export class TemplateInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
+export class TemplateInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateInstructionFileMapping `TemplateInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.

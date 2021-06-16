@@ -1,16 +1,16 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
-import { ITemplateComponentOptions } from "./ITemplateComponentOptions";
 import { TemplateComponent } from "./TemplateComponent";
 
 /**
  * Provides a component for generating acp-templates.
  */
-export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends TemplateComponent<TSettings, TOptions, TComponentOptions>
+export class ACPTemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends TemplateComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateComponent `TemplaceComponent<TSettings, TOptions, TComponentOptions>`} class.

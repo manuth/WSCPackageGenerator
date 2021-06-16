@@ -4,16 +4,16 @@ import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { TemplateInstructionFileMapping } from "../FileMappings/TemplateInstructionFileMapping";
 import { PackageComponentType } from "../Settings/PackageComponentType";
-import { ITemplateComponentOptions } from "./ITemplateComponentOptions";
 
 /**
  * Provides a component for generating templates.
  */
-export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
+export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateComponent `TemplaceComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -79,7 +79,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
             type: ApplicationPrompt.TypeName,
             name: "Application",
             message: "What application do you want to upload the templates to?"
-        } as IApplicationQuestion<ITemplateComponentOptions>;
+        } as IApplicationQuestion<IFileUploadComponentOptions>;
     }
 
     /**
@@ -94,7 +94,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
             {
                 return this.WoltLabGenerator.assetPath(options.Application, this.DefaultSourceFolderName);
             }
-        } as Question<ITemplateComponentOptions>;
+        } as Question<IFileUploadComponentOptions>;
     }
 
     /**
