@@ -37,75 +37,75 @@ export enum PackageComponentType
     /**
      * Indicates the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    FileUpload = "woltlabPackageFiles",
+    FileUpload = "wscFiles",
 
     /**
      * Indicates the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    PHPScript = "woltlabPHPScript",
+    PHPScript = "wscPHP",
 
     /**
      * Indicates the {@link SQLScriptComponent `SQLScriptComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    SQLScript = "woltlabSQLScript",
+    SQLScript = "wscSQL",
 
     /**
      * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    CronJob = "woltlabPackageCron",
+    CronJob = "wscCron",
 
     /**
      * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    Translation = "woltlabPackageTranslation",
+    Translation = "wscTranslation",
 
     /**
      * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    ErrorMessage = "woltlabPackageErrorMessage",
+    ErrorMessage = "wscErrors",
 
     /**
      * Indicates the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    Option = "woltlabPackageOption",
+    Option = "wscOptions",
 
     /**
      * Indicates the {@link UserOptionComponent `UserOptionComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    UserOption = "woltlabUserOption",
+    UserOption = "wscUserOptions",
 
     /**
      * Indicates the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    GroupOption = "woltlabPackageGroupOption",
+    GroupOption = "wscGroupOptions",
 
     /**
      * Indicates the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    Emoji = "woltlabPackageEmoji",
+    Emoji = "wscEmojis",
 
     /**
      * Indicates the {@link BBCodeComponent `BBCodeComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    BBCode = "woltlabPackageBBCode",
+    BBCode = "wscBBCodes",
 
     /**
      * Indicates the {@link TemplateComponent `TemplateComponent<TSettings, TOptions, TComponentOptions>`}.
      */
-    Template = "woltlabPackageTemplate",
+    Template = "wscTemplates",
 
     /**
      * Indicates the {@link ACPTemplateComponent `ACPTemplateComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    ACPTemplate = "woltLabPackageACPTemplate",
+    ACPTemplate = "wscACPTemplates",
 
     /**
      * Indicates the {@link EventListenerComponent `EventListenerComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    EventListener = "woltlabPackageEventListener",
+    EventListener = "wscEventListeners",
 
     /**
      * Indicates the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    TemplateListener = "woltlabPackageTemplateListener"
+    TemplateListener = "wscTemplateListeners"
 }
