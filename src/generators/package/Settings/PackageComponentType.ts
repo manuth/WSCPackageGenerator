@@ -26,6 +26,8 @@ import { TemplateComponent } from "../Components/TemplateComponent";
 import { TemplateListenerComponent } from "../Components/TemplateListenerComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { UserOptionComponent } from "../Components/UserOptionComponent";
 
 /**
  * Represents a type of a WoltLab-package component.
@@ -66,6 +68,11 @@ export enum PackageComponentType
      * Indicates the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`}
      */
     Option = "woltlabPackageOption",
+
+    /**
+     * Indicates the {@link UserOptionComponent `UserOptionComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    UserOption = "woltlabUserOption",
 
     /**
      * Indicates the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`}
