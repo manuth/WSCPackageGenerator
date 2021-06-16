@@ -44,7 +44,7 @@ export class EventListenerComponent<TSettings extends IWoltLabGeneratorSettings,
      */
     public get ID(): string
     {
-        return PackageComponentType.BBCode;
+        return PackageComponentType.EventListener;
     }
 
     /**
