@@ -1,3 +1,4 @@
+import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
@@ -6,7 +7,6 @@ import { printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind
 import { normalize, sep } from "upath";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabPackageGenerator } from "../../app/WoltLabPackageGenerator";
-import { EOL } from "os";
 
 /**
  * Provides the functionality to create an entry-point.
