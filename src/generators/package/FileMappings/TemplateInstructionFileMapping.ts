@@ -1,7 +1,6 @@
-import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
-import { ObjectLiteralExpression, printNode, SourceFile, ts } from "ts-morph";
+import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { LocalFileInstructionMapping } from "../../../FileMappings/LocalFileInstructionMapping";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
@@ -38,29 +37,5 @@ export class TemplateInstructionFileMapping<TSettings extends IWoltLabGeneratorS
             });
 
         return options;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @param file
-     * The {@link SourceFile `SourceFile`} to transform.
-     *
-     * @returns
-     * The transformed file.
-     */
-    protected override async Transform(file: SourceFile): Promise<SourceFile>
-    {
-        file.addImportDeclaration(
-            {
-                moduleSpecifier: "path",
-                namedImports: [
-                    {
-                        name: nameof(join)
-                    }
-                ]
-            });
-
-        return super.Transform(file);
     }
 }
