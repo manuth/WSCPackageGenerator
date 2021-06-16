@@ -1,7 +1,7 @@
 import { join } from "path";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
-import { FileUploadComponent } from "../../../Components/FileUploadComponent";
+import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
@@ -12,7 +12,7 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 /**
  * Provides a component for generating templates.
  */
-export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends FileUploadComponent<TSettings, TOptions, TComponentOptions>
+export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateComponent `TemplaceComponent<TSettings, TOptions, TComponentOptions>`} class.

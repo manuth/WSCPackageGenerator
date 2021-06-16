@@ -10,10 +10,10 @@ import { LocalInstructionComponent } from "./LocalInstructionComponent";
 /**
  * Provides a component for file-uploads.
  */
-export abstract class FileUploadComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
+export abstract class FileUploadComponentBase<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Initializes a new instance of the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link FileUploadComponentBase `FileUploadComponentBase<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param generator
      * The generator of the component.
