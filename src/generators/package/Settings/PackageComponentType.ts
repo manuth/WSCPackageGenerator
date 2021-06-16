@@ -27,7 +27,7 @@ import { TranslationComponent } from "../Components/TranslationComponent";
 export enum PackageComponentType
 {
     /**
-     * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`}
      */
     FileUpload = "woltlabPackageFiles",
 

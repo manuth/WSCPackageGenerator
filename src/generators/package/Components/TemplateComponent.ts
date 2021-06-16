@@ -70,7 +70,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
-     * Gets the question for asking for the application.
+     * @inheritdoc
      */
     protected override get AppQuestion(): IApplicationQuestion<TComponentOptions>
     {

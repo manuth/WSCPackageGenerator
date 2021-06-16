@@ -7,7 +7,7 @@ import { IWoltLabGeneratorSettings } from "./IWoltLabGeneratorSettings";
 export enum WoltLabGeneratorSettingKey
 {
     /**
-     * Indicates the `ComponentOptions`-settings.
+     * Indicates the {@link ComponentOptions `ComponentOptions`}-settings.
      */
     ComponentOptions = "componentOptions"
 }
