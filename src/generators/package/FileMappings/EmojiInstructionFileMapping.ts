@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IEmojiInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
 import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
@@ -17,7 +17,7 @@ export class EmojiInstructionFileMapping<TSettings extends IWoltLabGeneratorSett
      * @param component
      * The component to create an instruction-file for.
      */
-    public constructor(component: InstructionComponent<TSettings, TOptions, TComponentOptions>)
+    public constructor(component: FileInstructionComponent<TSettings, TOptions, TComponentOptions>)
     {
         super(component);
     }
@@ -36,13 +36,5 @@ export class EmojiInstructionFileMapping<TSettings extends IWoltLabGeneratorSett
             });
 
         return options;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected override get FileName(): string
-    {
-        return "emojis.xml";
     }
 }

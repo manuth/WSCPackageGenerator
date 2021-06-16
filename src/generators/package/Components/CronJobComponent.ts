@@ -1,6 +1,6 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { CronJobInstruction } from "@manuth/woltlab-compiler";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
@@ -10,7 +10,7 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 /**
  * Provides a component for generating cron-jobs.
  */
-export class CronJobComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
+export class CronJobComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -30,6 +30,14 @@ export class CronJobComponent<TSettings extends IWoltLabGeneratorSettings, TOpti
     public get ClassName(): string
     {
         return nameof<CronJobInstruction>();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public get OutputFileName(): string
+    {
+        return "cronJobs.xml";
     }
 
     /**
