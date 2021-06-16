@@ -1,16 +1,16 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { TranslationInstruction } from "@manuth/woltlab-compiler";
 import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { TranslationInstructionFileMapping } from "../FileMappings/TranslationInstructionFileMapping";
 import { PackageComponentType } from "../Settings/PackageComponentType";
-import { ITemplateComponentOptions } from "./ITemplateComponentOptions";
 
 /**
  * Provides a component for generating translations.
  */
-export class TranslationComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
+export class TranslationComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -45,7 +45,7 @@ export class TranslationComponent<TSettings extends IWoltLabGeneratorSettings, T
      */
     public get ID(): string
     {
-        return PackageComponentType.Template;
+        return PackageComponentType.Translation;
     }
 
     /**
