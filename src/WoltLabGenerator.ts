@@ -6,7 +6,7 @@ import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
 import { QuestionCollectionPrompt } from "./Components/Inquiry/Prompts/QuestionCollectionPrompt";
 import { WoltLabIdentifierQuestion } from "./Inquiry/WoltLabIdentifierQuestion";
 import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "./WoltLabSettingKey";
+import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
 
 /**
  * Represents a generator for WoltLab-components.
@@ -43,20 +43,42 @@ export class WoltLabGenerator<TSettings extends IWoltLabSettings, TOptions exten
     {
         return [
             ...super.Questions,
-            {
-                type: "input",
-                name: WoltLabSettingKey.Author,
-                message: "What's the name of the package-author?",
-                default: () => this.config.get(WoltLabSettingKey.Author) ?? this.user.git.name()
-            },
-            {
-                type: "input",
-                name: WoltLabSettingKey.HomePage,
-                message: "What's the homepage of the package-author?",
-                default: () => this.config.get(WoltLabSettingKey.HomePage)
-            },
+            this.AuthorQuestion,
+            this.HomePageQuestion,
             new WoltLabIdentifierQuestion(this)
         ];
+    }
+
+    /**
+     * Gets a question for asking for the author.
+     */
+    protected get AuthorQuestion(): Question<TSettings>
+    {
+        return {
+            name: WoltLabSettingKey.Author,
+            message: "What's the name of the author?",
+            default: () => this.user.git.name()
+        };
+    }
+
+    /**
+     * Gets a question for asking for the homepage.
+     */
+    protected get HomePageQuestion(): Question<TSettings>
+    {
+        return {
+            name: WoltLabSettingKey.HomePage,
+            message: "What's the homepage of the author",
+            default: "example.com"
+        };
+    }
+
+    /**
+     * Gets a question for asking for the component-identifier.
+     */
+    protected get IdentifierQuestion(): Question<TSettings>
+    {
+        return new WoltLabIdentifierQuestion(this);
     }
 
     /**
