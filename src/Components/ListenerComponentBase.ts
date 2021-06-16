@@ -1,5 +1,5 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
-import { ListenerInstructionFileMapping } from "../generators/package/FileMappings/ListenerInstructionFileMapping";
+import { ListenerInstructionFileMapping } from "../FileMappings/ListenerInstructionFileMapping";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../WoltLabGenerator";

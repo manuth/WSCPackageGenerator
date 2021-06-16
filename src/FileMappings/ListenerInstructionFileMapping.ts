@@ -1,10 +1,10 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IListenerInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { FileInstructionComponent } from "../Components/FileInstructionComponent";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
+import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { FileInstructionMapping } from "./FileInstructionMapping";
 
 /**
  * Provides the functionality to generate event-listener instruction files.
