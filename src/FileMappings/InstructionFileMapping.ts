@@ -142,7 +142,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
             });
 
         let constructor = file.getVariableDeclaration(this.Component.VariableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
-        constructor.addArgument(`${EOL}${this.InstructionOptions.print()}`);
+        constructor.addArgument(`${EOL}${this.InstructionOptions.getFullText()}`);
 
         file.formatText(
             {
@@ -182,6 +182,6 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
             call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
         }
 
-        return call.print();
+        return call.getFullText();
     }
 }
