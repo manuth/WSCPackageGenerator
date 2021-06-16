@@ -1,4 +1,4 @@
-import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping";
 import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
@@ -29,6 +29,17 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabGenera
                 return this.GetDefaultSource(options);
             }
         } as IPathQuestion<ILocalComponentOptions>;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
+    {
+        return [
+            ...super.ComponentOptionQuestionCollection,
+            this.SourceQuestion
+        ];
     }
 
     /**
