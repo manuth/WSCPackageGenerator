@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { ErrorMessageUnit } from "../../Units/ErrorMessageUnit";
 import { EventListenerUnit } from "../../Units/EventListenerUnit";
 import { FileUploadUnit } from "../../Units/FileUploadUnit";
 import { GroupOptionsUnit } from "../../Units/GroupOptionsUnit";
@@ -18,6 +17,7 @@ import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent
 import { BBCodeComponent } from "../package/Components/BBCodeComponent";
 import { CronJobComponent } from "../package/Components/CronJobComponent";
 import { EmojiComponent } from "../package/Components/EmojiComponent";
+import { ErrorMessageComponent } from "../package/Components/ErrorMessageComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { PackageContext } from "./PackageContext";
@@ -56,7 +56,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                     DisplayName: "Globalization",
                     Components: [
                         new TranslationComponent(this) as any,
-                        new ErrorMessageUnit(this)
+                        new ErrorMessageComponent(this) as any
                     ]
                 },
                 {
