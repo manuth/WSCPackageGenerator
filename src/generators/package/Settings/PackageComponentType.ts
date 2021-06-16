@@ -15,6 +15,8 @@ import { FileUploadComponent } from "../Components/FileUploadComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { GroupOptionComponent } from "../Components/GroupOptionComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { OptionComponent } from "../Components/OptionComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
@@ -43,6 +45,11 @@ export enum PackageComponentType
      * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
      */
     ErrorMessage = "woltlabPackageErrorMessage",
+
+    /**
+     * Indicates the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    Option = "woltlabPackageOption",
 
     /**
      * Indicates the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`}
