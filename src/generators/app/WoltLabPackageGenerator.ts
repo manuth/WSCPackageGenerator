@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { SQLScriptUnit } from "../../Units/SQLScriptUnit";
 import { TemplateListenerUnit } from "../../Units/TemplateListenerUnit";
 import { UserOptionsUnit } from "../../Units/UserOptionsUnit";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
@@ -18,6 +17,7 @@ import { FileUploadComponent } from "../package/Components/FileUploadComponent";
 import { GroupOptionComponent } from "../package/Components/GroupOptionComponent";
 import { OptionComponent } from "../package/Components/OptionComponent";
 import { PHPScriptComponent } from "../package/Components/PHPScriptComponent";
+import { SQLScriptComponent } from "../package/Components/SQLScriptComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { PackageContext } from "./PackageContext";
@@ -48,7 +48,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                     Components: [
                         new FileUploadComponent(this) as any,
                         new PHPScriptComponent(this) as any,
-                        new SQLScriptUnit(this),
+                        new SQLScriptComponent(this) as any,
                         new CronJobComponent(this) as any
                     ]
                 },
