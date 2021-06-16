@@ -6,7 +6,7 @@ import { mkdirp, pathExists, remove, symlink } from "fs-extra";
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
 import { dirname, isAbsolute, join } from "upath";
 import { run, RunContext } from "yeoman-test";
-import { WoltLabSettingKey } from "../../WoltLabSettingKey";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 suite(
     "Generators",
