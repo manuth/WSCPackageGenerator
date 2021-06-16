@@ -17,6 +17,8 @@ import { GroupOptionComponent } from "../Components/GroupOptionComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { OptionComponent } from "../Components/OptionComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { PHPScriptComponent } from "../Components/PHPScriptComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
@@ -30,6 +32,11 @@ export enum PackageComponentType
      * Indicates the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`}
      */
     FileUpload = "woltlabPackageFiles",
+
+    /**
+     * Indicates the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    PHPScript = "woltlabPHPScript",
 
     /**
      * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
