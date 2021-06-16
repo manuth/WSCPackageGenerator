@@ -3,8 +3,7 @@ import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-ge
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { PathPrompt } from "../../../Components/Inquiry/Prompts/PathPrompt";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
+import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { TemplateInstructionFileMapping } from "../FileMappings/TemplateInstructionFileMapping";
@@ -14,7 +13,7 @@ import { ITemplateComponentOptions } from "./ITemplateComponentOptions";
 /**
  * Provides a component for generating templates.
  */
-export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
+export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ITemplateComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
      * Initializes a new instance of the {@link TemplateComponent `TemplaceComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -84,13 +83,12 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
-     * Gets a question for asking for the source of the templates.
+     * @inheritdoc
      */
-    protected get SourceQuestion(): Question<TComponentOptions>
+    protected override get SourceQuestion(): Question<TComponentOptions>
     {
         return {
-            type: PathPrompt.TypeName,
-            name: "Source",
+            ...super.SourceQuestion,
             message: "Where do you want to store the templates?",
             default: (options: TComponentOptions) =>
             {
@@ -104,17 +102,27 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
      */
     protected override get ComponentOptionQuestionCollection(): Array<Question<TComponentOptions>>
     {
-        return [
-            ...super.ComponentOptionQuestionCollection,
+        let result = [
+            this.PathQuestion,
             this.AppQuestion,
             this.SourceQuestion
-        ] as Array<Question<ITemplateComponentOptions>>;
+        ];
+
+        for (let question of super.ComponentOptionQuestionCollection)
+        {
+            if (!result.includes(question))
+            {
+                result.push(question);
+            }
+        }
+
+        return result;
     }
 
     /**
      * @inheritdoc
      */
-    protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
+    protected override get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new TemplateInstructionFileMapping(this);
     }
