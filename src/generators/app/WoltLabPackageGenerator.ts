@@ -191,13 +191,6 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     {
         await super.end();
         this.log();
-        this.log("Your package \"" + this.Settings[TSProjectSettingKey.DisplayName] + "\" has been created!");
-        this.log();
-        this.log("To start editing with Visual Studio Code, use following commands:");
-        this.log();
-        this.log("    cd \"" + this.Settings[TSProjectSettingKey.Destination] + "\"");
-        this.log("    code .");
-        this.log();
-        this.log("Open wsc-package-quickstart.md inside the new package for further instructions on how to build it.");
+        this.log("Open `wsc-package-quickstart.md` inside the new package for further instructions on how to build it.");
     }
 }
