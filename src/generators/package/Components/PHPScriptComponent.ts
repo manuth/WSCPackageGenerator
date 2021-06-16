@@ -102,8 +102,8 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
             message: (options) =>
             {
                 return options.SelfContained ?
-                    "What application's directory do you want to load the php-script from?" :
-                    "What application do you want to upload the php-file to?";
+                    "What application do you want to upload the php-file to?" :
+                    "What application's directory do you want to load the php-script from?";
             }
         };
     }
