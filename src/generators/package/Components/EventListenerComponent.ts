@@ -1,10 +1,10 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { EventListenerInstruction } from "@manuth/woltlab-compiler";
+import { ListenerComponentBase } from "../../../Components/ListenerComponentBase";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
 import { PackageComponentType } from "../Settings/PackageComponentType";
-import { ListenerComponentBase } from "./ListenerComponentBase";
 
 /**
  * Provides a component for generating event-listeners.
