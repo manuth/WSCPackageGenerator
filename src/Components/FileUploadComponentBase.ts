@@ -76,6 +76,6 @@ export abstract class FileUploadComponentBase<TSettings extends IWoltLabSettings
      */
     protected override GetDefaultSource(options: TComponentOptions): string
     {
-        return this.WoltLabGenerator.assetPath(this.DefaultSourceBaseName, options.Application);
+        return this.Generator.assetPath(this.DefaultSourceBaseName, options.Application);
     }
 }

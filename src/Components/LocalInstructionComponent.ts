@@ -61,6 +61,6 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabSettin
      */
     protected GetDefaultSource(options: TComponentOptions): string
     {
-        return this.WoltLabGenerator.assetPath(this.DefaultSourceBaseName);
+        return this.Generator.assetPath(this.DefaultSourceBaseName);
     }
 }

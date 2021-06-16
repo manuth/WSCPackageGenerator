@@ -27,7 +27,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
      */
     public get InstructionFileName(): string
     {
-        return this.WoltLabGenerator.componentPath(`${this.VariableName}.ts`);
+        return this.Generator.componentPath(`${this.VariableName}.ts`);
     }
 
     /**
@@ -49,7 +49,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
         let question = super.PathQuestion as IPathQuestion<TComponentOptions>;
 
         question.rootDir = {
-            path: this.WoltLabGenerator.sourcePath(),
+            path: this.Generator.sourcePath(),
             allowOutside: false
         };
 
