@@ -1,18 +1,27 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
-import { LocalFileInstructionMapping } from "../../../FileMappings/LocalFileInstructionMapping";
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { LocalInstructionComponent } from "../Components/LocalInstructionComponent";
+import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions";
+import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { LocalFileInstructionMapping } from "./LocalFileInstructionMapping";
 
 /**
- * Provides the functionality to generate template instruction files.
+ * Provides the functionality to generate instruction-files for file-upload instructions.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
+ *
+ * @template TComponentOptions
+ * The type of the component-options.
  */
-export class TemplateInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
+export class FileUploadMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Initializes a new instance of the {@link TemplateInstructionFileMapping `TemplateInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param component
      * The component to create an instruction-file for.

@@ -4,10 +4,10 @@ import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
+import { FileUploadMapping } from "../../../FileMappings/FileUploadMapping";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { TemplateInstructionFileMapping } from "../FileMappings/TemplateInstructionFileMapping";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
@@ -124,7 +124,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
      */
     protected override get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
-        return new TemplateInstructionFileMapping(this);
+        return new FileUploadMapping(this);
     }
 
     /**
