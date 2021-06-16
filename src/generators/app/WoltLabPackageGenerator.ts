@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { GroupOptionsUnit } from "../../Units/GroupOptionsUnit";
 import { OptionsUnit } from "../../Units/OptionsUnit";
 import { PHPScriptUnit } from "../../Units/PHPScriptUnit";
 import { SQLScriptUnit } from "../../Units/SQLScriptUnit";
@@ -18,6 +17,7 @@ import { EmojiComponent } from "../package/Components/EmojiComponent";
 import { ErrorMessageComponent } from "../package/Components/ErrorMessageComponent";
 import { EventListenerComponent } from "../package/Components/EventListenerComponent";
 import { FileUploadComponent } from "../package/Components/FileUploadComponent";
+import { GroupOptionComponent } from "../package/Components/GroupOptionComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { PackageContext } from "./PackageContext";
@@ -64,7 +64,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                     Components: [
                         new OptionsUnit(this),
                         new UserOptionsUnit(this),
-                        new GroupOptionsUnit(this)
+                        new GroupOptionComponent(this) as any
                     ]
                 },
                 {
