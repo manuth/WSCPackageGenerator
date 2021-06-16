@@ -1,10 +1,10 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { TranslationInstruction } from "@manuth/woltlab-compiler";
 import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
+import { NodeInstructionFileMapping } from "../../../FileMappings/NodeInstructionFileMapping";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { TranslationInstructionFileMapping } from "../FileMappings/TranslationInstructionFileMapping";
 import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
@@ -61,6 +61,6 @@ export class TranslationComponent<TSettings extends IWoltLabGeneratorSettings, T
      */
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
-        return new TranslationInstructionFileMapping(this);
+        return new NodeInstructionFileMapping(this);
     }
 }

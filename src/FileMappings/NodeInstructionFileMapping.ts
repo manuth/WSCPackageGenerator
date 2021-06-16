@@ -1,18 +1,18 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { INodeSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabGeneratorSettings } from "../../../Settings/IWoltLabGeneratorSettings";
+import { FileInstructionComponent } from "../Components/FileInstructionComponent";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
+import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { FileInstructionMapping } from "./FileInstructionMapping";
 
 /**
- * Provides the functionality to generate translation instruction files.
+ * Provides the functionality to generate instruction-files containing nodes.
  */
-export class TranslationInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
+export class NodeInstructionFileMapping<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Initializes a new instance of the {@link TemplateInstructionFileMapping `TemplateInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link NodeInstructionFileMapping `NodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param component
      * The component to create an instruction-file for.
