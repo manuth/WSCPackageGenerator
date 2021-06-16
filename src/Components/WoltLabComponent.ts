@@ -46,7 +46,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
      * Gets the generator of the component.
      */
     // ToDo: Replace `any` w/ `TSettings`
-    protected get WoltLabGenerator(): WoltLabGenerator<any, TOptions>
+    public override get Generator(): WoltLabGenerator<any, TOptions>
     {
         return this.woltLabGenerator;
     }
