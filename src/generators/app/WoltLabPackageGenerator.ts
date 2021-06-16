@@ -166,11 +166,6 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     public override async writing(): Promise<void>
     {
         await super.writing();
-        let tsConfigFile = this.destinationPath("tsconfig.base.json");
-        let tsConfig = this.fs.readJSON(tsConfigFile) as any;
-        tsConfig.compilerOptions.lib ??= [];
-        tsConfig.compilerOptions.lib.push("DOM");
-        this.fs.writeJSON(tsConfigFile, tsConfig);
     }
 
     /**
