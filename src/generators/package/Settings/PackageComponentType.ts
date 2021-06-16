@@ -9,6 +9,8 @@ import { EmojiComponent } from "../Components/EmojiComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ErrorMessageComponent } from "../Components/ErrorMessageComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { EventListenerComponent } from "../Components/EventListenerComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
@@ -51,5 +53,10 @@ export enum PackageComponentType
     /**
      * Indicates the {@link ACPTemplateComponent `ACPTemplateComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    ACPTemplate = "woltLabPackageACPTemplate"
+    ACPTemplate = "woltLabPackageACPTemplate",
+
+    /**
+     * Indicates the {@link EventListenerComponent `EventListenerComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    EventListener = "woltlabPackageEventListener"
 }
