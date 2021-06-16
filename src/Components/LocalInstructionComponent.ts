@@ -12,13 +12,22 @@ import { InstructionComponent } from "./InstructionComponent";
 export abstract class LocalInstructionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
+     * Gets the default name of the path to suggest in the {@link FileUploadComponentBase.SourceQuestion `SourceQuestion`}.
+     */
+    protected abstract get DefaultSourceBaseName(): string;
+
+    /**
      * Gets a question for asking for the source of the templates.
      */
     protected get SourceQuestion(): IPathQuestion<TComponentOptions>
     {
         return {
             type: PathPrompt.TypeName,
-            name: "Source"
+            name: "Source",
+            default: (options: TComponentOptions) =>
+            {
+                return this.GetDefaultSource(options);
+            }
         } as IPathQuestion<ILocalComponentOptions>;
     }
 
@@ -28,5 +37,19 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabGenera
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new LocalFileInstructionMapping(this);
+    }
+
+    /**
+     * Gets the default full name of the path to suggest in the {@link LocalInstructionComponent.SourceQuestion `SourceQuestion`}.
+     *
+     * @param options
+     * The options of the component.
+     *
+     * @returns
+     * The default full name of the path to suggest in the {@link LocalInstructionComponent.SourceQuestion `SourceQuestion`}.
+     */
+    protected GetDefaultSource(options: TComponentOptions): string
+    {
+        return this.WoltLabGenerator.assetPath(this.DefaultSourceBaseName);
     }
 }

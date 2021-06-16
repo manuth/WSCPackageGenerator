@@ -64,7 +64,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * Gets the default name of the folder to suggest in the {@link TemplateComponent.SourceQuestion `SourceQuestion`}.
      */
-    protected get DefaultSourceFolderName(): string
+    protected get DefaultSourceBaseName(): string
     {
         return "templates";
     }
@@ -87,11 +87,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     {
         return {
             ...super.SourceQuestion,
-            message: "Where do you want to store the templates?",
-            default: (options: TComponentOptions) =>
-            {
-                return this.WoltLabGenerator.assetPath(options.Application, this.DefaultSourceFolderName);
-            }
+            message: "Where do you want to store the templates?"
         } as IPathQuestion<IFileUploadComponentOptions>;
     }
 

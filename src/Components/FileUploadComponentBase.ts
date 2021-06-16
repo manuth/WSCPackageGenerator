@@ -64,4 +64,18 @@ export abstract class FileUploadComponentBase<TSettings extends IWoltLabGenerato
     {
         return new FileUploadMapping(this);
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options of the component.
+     *
+     * @returns
+     * The default full name of the path to suggest in the {@link LocalInstructionComponent.SourceQuestion `SourceQuestion`}.
+     */
+    protected override GetDefaultSource(options: TComponentOptions): string
+    {
+        return this.WoltLabGenerator.assetPath(options.Application, this.DefaultSourceBaseName);
+    }
 }
