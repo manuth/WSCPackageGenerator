@@ -12,7 +12,7 @@ import { InstructionComponent } from "./InstructionComponent";
 export abstract class LocalInstructionComponent<TSettings extends IWoltLabGeneratorSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Gets the default name of the path to suggest in the {@link FileUploadComponentBase.SourceQuestion `SourceQuestion`}.
+     * Gets the default name of the path to suggest in the {@link LocalInstructionComponent.SourceQuestion `SourceQuestion`}.
      */
     protected abstract get DefaultSourceBaseName(): string;
 

@@ -62,7 +62,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     }
 
     /**
-     * Gets the default name of the folder to suggest in the {@link TemplateComponent.SourceQuestion `SourceQuestion`}.
+     * @inheritdoc
      */
     protected get DefaultSourceBaseName(): string
     {
