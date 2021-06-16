@@ -3,7 +3,6 @@ import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/genera
 import chalk = require("chalk");
 import yosay = require("yosay");
 import { IWoltLabGeneratorSettings } from "../../IWoltLabGeneratorSettings";
-import { EventListenerUnit } from "../../Units/EventListenerUnit";
 import { FileUploadUnit } from "../../Units/FileUploadUnit";
 import { GroupOptionsUnit } from "../../Units/GroupOptionsUnit";
 import { OptionsUnit } from "../../Units/OptionsUnit";
@@ -18,6 +17,7 @@ import { BBCodeComponent } from "../package/Components/BBCodeComponent";
 import { CronJobComponent } from "../package/Components/CronJobComponent";
 import { EmojiComponent } from "../package/Components/EmojiComponent";
 import { ErrorMessageComponent } from "../package/Components/ErrorMessageComponent";
+import { EventListenerComponent } from "../package/Components/EventListenerComponent";
 import { TemplateComponent } from "../package/Components/TemplateComponent";
 import { TranslationComponent } from "../package/Components/TranslationComponent";
 import { PackageContext } from "./PackageContext";
@@ -79,7 +79,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabGeneratorS
                 {
                     DisplayName: "Events",
                     Components: [
-                        new EventListenerUnit(this),
+                        new EventListenerComponent(this) as any,
                         new TemplateListenerUnit(this)
                     ]
                 }
