@@ -1,4 +1,5 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
@@ -39,6 +40,14 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
             ...super.FileMappings,
             this.InstructionFileMapping
         ];
+    }
+
+    /**
+     * Gets a transformer for adding this instruction to the package-file.
+     */
+    public get PackageFileTransformer(): PackageInstructionTransformer<TSettings, TOptions>
+    {
+        return new PackageInstructionTransformer(this);
     }
 
     /**
