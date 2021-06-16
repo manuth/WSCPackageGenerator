@@ -11,6 +11,8 @@ import { ErrorMessageComponent } from "../Components/ErrorMessageComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { EventListenerComponent } from "../Components/EventListenerComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { FileUploadComponent } from "../Components/FileUploadComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
@@ -20,6 +22,11 @@ import { TranslationComponent } from "../Components/TranslationComponent";
  */
 export enum PackageComponentType
 {
+    /**
+     * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    FileUpload = "woltlabPackageFiles",
+
     /**
      * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
      */
