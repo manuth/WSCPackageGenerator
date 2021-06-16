@@ -7,7 +7,10 @@ import { CronJobComponent } from "../Components/CronJobComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { EmojiComponent } from "../Components/EmojiComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ErrorMessageComponent } from "../Components/ErrorMessageComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
 
 /**
@@ -24,6 +27,11 @@ export enum PackageComponentType
      * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
      */
     Translation = "woltlabPackageTranslation",
+
+    /**
+     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    ErrorMessage = "woltlabPackageErrorMessage",
 
     /**
      * Indicates the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`}
