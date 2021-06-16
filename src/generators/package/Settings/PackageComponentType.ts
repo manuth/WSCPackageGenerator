@@ -23,6 +23,8 @@ import { SQLScriptComponent } from "../Components/SQLScriptComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { TemplateListenerComponent } from "../Components/TemplateListenerComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
 
 /**
@@ -93,5 +95,10 @@ export enum PackageComponentType
     /**
      * Indicates the {@link EventListenerComponent `EventListenerComponent<TSettings, TOptions, TComponentOptions>`}
      */
-    EventListener = "woltlabPackageEventListener"
+    EventListener = "woltlabPackageEventListener",
+
+    /**
+     * Indicates the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`}
+     */
+    TemplateListener = "woltlabPackageTemplateListener"
 }
