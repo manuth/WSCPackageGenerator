@@ -1,9 +1,10 @@
 import { EOL } from "os";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptTransformMapping } from "@manuth/generator-ts-project";
 import { TempFileSystem } from "@manuth/temp-files";
 import { IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
+import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
@@ -68,7 +69,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     public get Destination(): string
     {
-        return `${this.Generator.PackageVariableName}.ts`;
+        return this.Generator.sourcePath(`${this.Generator.PackageVariableName}.ts`);
     }
 
     /**
@@ -331,6 +332,19 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
         let constructor = file.getVariableDeclaration(this.Generator.PackageVariableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
         constructor.addArgument(`${EOL}${this.PackageOptions.getFullText()}`);
+
+        for (let category of this.Generator.Components.Categories)
+        {
+            for (let component of category.Components)
+            {
+                if (
+                    component instanceof InstructionComponent &&
+                    this.Generator.Settings[GeneratorSettingKey.Components].includes(component.ID))
+                {
+                    component.PackageFileTransformer.Transform(file);
+                }
+            }
+        }
 
         file.formatText(
             {
