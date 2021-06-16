@@ -1,7 +1,8 @@
-import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping";
 import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
 import { IWoltLabGeneratorSettings } from "../Settings/IWoltLabGeneratorSettings";
+import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
 import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
 import { InstructionComponent } from "./InstructionComponent";
 
@@ -13,12 +14,12 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabGenera
     /**
      * Gets a question for asking for the source of the templates.
      */
-    protected get SourceQuestion(): Question<TComponentOptions>
+    protected get SourceQuestion(): IPathQuestion<TComponentOptions>
     {
         return {
             type: PathPrompt.TypeName,
             name: "Source"
-        } as Question<ILocalComponentOptions>;
+        } as IPathQuestion<ILocalComponentOptions>;
     }
 
     /**

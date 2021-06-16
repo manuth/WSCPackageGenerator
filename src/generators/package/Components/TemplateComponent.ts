@@ -3,6 +3,7 @@ import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-ge
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
+import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { FileUploadMapping } from "../../../FileMappings/FileUploadMapping";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
@@ -85,7 +86,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
     /**
      * @inheritdoc
      */
-    protected override get SourceQuestion(): Question<TComponentOptions>
+    protected override get SourceQuestion(): IPathQuestion<TComponentOptions>
     {
         return {
             ...super.SourceQuestion,
@@ -94,7 +95,7 @@ export class TemplateComponent<TSettings extends IWoltLabGeneratorSettings, TOpt
             {
                 return this.WoltLabGenerator.assetPath(options.Application, this.DefaultSourceFolderName);
             }
-        } as Question<IFileUploadComponentOptions>;
+        } as IPathQuestion<IFileUploadComponentOptions>;
     }
 
     /**
