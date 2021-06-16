@@ -1,5 +1,6 @@
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, SourceFile, ts } from "ts-morph";
 import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
 import { LocalFileInstructionMapping } from "../../../FileMappings/LocalFileInstructionMapping";
@@ -32,7 +33,7 @@ export class TemplateInstructionFileMapping<TSettings extends IWoltLabGeneratorS
         options.insertPropertyAssignment(
             options.getProperty(nameof(this.Component.ComponentOptions.Source)).getChildIndex(),
             {
-                name: nameof(this.Component.ComponentOptions.Application),
+                name: nameof<IApplicationFileSystemInstructionOptions>((instruction) => instruction.Application),
                 initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.Application))
             });
 
