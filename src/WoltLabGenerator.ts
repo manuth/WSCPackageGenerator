@@ -4,7 +4,7 @@ import { join } from "upath";
 import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";
 import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
 import { QuestionCollectionPrompt } from "./Components/Inquiry/Prompts/QuestionCollectionPrompt";
-import { WoltLabIdentifierQuestion } from "./Inquiry/WoltLabIdentifierQuestion";
+import { WoltLabIdentifierQuestion } from "./Components/Inquiry/WoltLabIdentifierQuestion";
 import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
 
