@@ -2,9 +2,9 @@ import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/ex
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 import yosay = require("yosay");
+import { WoltLabPackageFileMapping } from "../../FileMappings/WoltLabPackageFileMapping";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
-import { WoltLabPackageFileMapping } from "../../WoltLabPackageFileMapping";
 import { ACPTemplateComponent } from "../package/Components/ACPTemplateComponent";
 import { BBCodeComponent } from "../package/Components/BBCodeComponent";
 import { CronJobComponent } from "../package/Components/CronJobComponent";
@@ -190,7 +190,6 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     public override async end(): Promise<void>
     {
         await super.end();
-        this.config.save();
         this.log();
         this.log("Your package \"" + this.Settings[TSProjectSettingKey.DisplayName] + "\" has been created!");
         this.log();
