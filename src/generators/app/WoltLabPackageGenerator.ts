@@ -32,7 +32,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
      */
     public override get TemplateRoot(): string
     {
-        return "app";
+        return "package";
     }
 
     /**
