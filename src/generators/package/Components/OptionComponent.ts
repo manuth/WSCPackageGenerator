@@ -17,8 +17,7 @@ export class OptionComponent<TSettings extends IWoltLabSettings, TOptions extend
      * @param generator
      * The generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    public constructor(generator: WoltLabGenerator<any, TOptions>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
     }

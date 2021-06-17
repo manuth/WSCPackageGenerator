@@ -24,8 +24,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
      * @param generator
      * The generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    public constructor(generator: WoltLabGenerator<any, TOptions>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
     }

@@ -17,8 +17,7 @@ export class GroupOptionComponent<TSettings extends IWoltLabSettings, TOptions e
      * @param generator
      * The generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    public constructor(generator: WoltLabGenerator<any, TOptions>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
     }

@@ -26,8 +26,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     /**
      * The generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    private woltLabGenerator: WoltLabGenerator<any, TOptions>;
+    private woltLabGenerator: WoltLabGenerator<TSettings, TOptions>;
 
     /**
      * Initializes a new instance of the {@link WoltLabComponent `WoltLabComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -35,8 +34,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
      * @param generator
      * The generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    public constructor(generator: WoltLabGenerator<any, TOptions>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
         this.woltLabGenerator = generator;
@@ -45,8 +43,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     /**
      * Gets the generator of the component.
      */
-    // ToDo: Replace `any` w/ `TSettings`
-    public override get Generator(): WoltLabGenerator<any, TOptions>
+    public override get Generator(): WoltLabGenerator<TSettings, TOptions>
     {
         return this.woltLabGenerator;
     }
