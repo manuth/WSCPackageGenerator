@@ -1,3 +1,3 @@
-import { WoltLabPackageGenerator } from "./WoltLabPackageGenerator";
+import { WoltLabPackageGenerator } from "../package/WoltLabPackageGenerator";
 
 export = WoltLabPackageGenerator;

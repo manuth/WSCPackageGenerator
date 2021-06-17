@@ -6,7 +6,7 @@ import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { relative, sep } from "upath";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabPackageGenerator } from "../../app/WoltLabPackageGenerator";
+import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
 
 /**
  * Provides the functionality to create an entry-point.
