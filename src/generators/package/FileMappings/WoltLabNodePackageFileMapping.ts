@@ -1,5 +1,5 @@
 import { GeneratorOptions, IGenerator } from "@manuth/extended-yo-generator";
-import { TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
+import { IScriptMapping, TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
 import { Package } from "@manuth/package-json-editor";
 import { Constants } from "../../../Core/Constants";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
@@ -37,6 +37,8 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
     {
         let woltLabDependency = "@manuth/woltlab-compiler";
         let result = await super.LoadPackage();
+        result.Main = "./lib/index.js";
+        result.Types = "./lib/index.d.ts";
         result.Author.Name ??= this.Generator.Settings[WoltLabSettingKey.Author];
         result.Author.URL ??= this.Generator.Settings[WoltLabSettingKey.HomePage];
 
@@ -47,5 +49,29 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
 
         result.Dependencies.Add(woltLabDependency, Constants.Dependencies.Get(woltLabDependency));
         return result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get MiscScripts(): Promise<Array<IScriptMapping<TSettings, TOptions>>>
+    {
+        let scripts = super.MiscScripts;
+
+        return (
+            async () =>
+            {
+                return [
+                    ...await scripts,
+                    {
+                        Source: "build",
+                        Destination: "package",
+                        Processor: () =>
+                        {
+                            return "node .";
+                        }
+                    }
+                ] as Array<IScriptMapping<TSettings, TOptions>>;
+            })();
     }
 }
