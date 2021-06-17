@@ -11,13 +11,12 @@ import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
 /**
  * Provides the functionality to create an entry-point.
  */
-// ToDo: add generics
-export class EntryPointFileMapping extends TypeScriptTransformMapping<IWoltLabSettings, GeneratorOptions>
+export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
      */
-    private woltLabGenerator: WoltLabPackageGenerator;
+    private woltLabGenerator: WoltLabPackageGenerator<TSettings, TOptions>;
 
     /**
      * Initializes a new instance of the {@link EntryPointFileMapping `EntryPointFileMapping`} class.
@@ -25,7 +24,7 @@ export class EntryPointFileMapping extends TypeScriptTransformMapping<IWoltLabSe
      * @param generator
      * The component to create an instruction-file for.
      */
-    public constructor(generator: WoltLabPackageGenerator)
+    public constructor(generator: WoltLabPackageGenerator<TSettings, TOptions>)
     {
         super(generator);
         this.woltLabGenerator = generator;
@@ -34,7 +33,7 @@ export class EntryPointFileMapping extends TypeScriptTransformMapping<IWoltLabSe
     /**
      * @inheritdoc
      */
-    public override get Generator(): WoltLabPackageGenerator
+    public override get Generator(): WoltLabPackageGenerator<TSettings, TOptions>
     {
         return this.woltLabGenerator;
     }

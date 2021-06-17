@@ -26,7 +26,7 @@ import { WoltLabPackageFileMapping } from "./FileMappings/WoltLabPackageFileMapp
 /**
  * Provides the functionality to generate WoltLab-packages.
  */
-export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, GeneratorOptions>
+export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends WoltLabGenerator<TSettings, TOptions>
 {
     /**
      * @inheritdoc
@@ -39,7 +39,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     /**
      * @inheritdoc
      */
-    public override get Components(): IComponentCollection<IWoltLabSettings, GeneratorOptions>
+    public override get Components(): IComponentCollection<TSettings, TOptions>
     {
         return {
             Question: super.Components.Question,
@@ -91,9 +91,9 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     /**
      * @inheritdoc
      */
-    public override get BaseFileMappings(): Array<IFileMapping<IWoltLabSettings, GeneratorOptions>>
+    public override get BaseFileMappings(): Array<IFileMapping<TSettings, TOptions>>
     {
-        let result: Array<IFileMapping<IWoltLabSettings, GeneratorOptions>> = [];
+        let result: Array<IFileMapping<TSettings, TOptions>> = [];
 
         for (let fileMapping of super.BaseFileMappings)
         {
@@ -113,15 +113,15 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     /**
      * Gets the file-mapping for the woltlab-package.
      */
-    public get WoltLabPackageFileMapping(): WoltLabPackageFileMapping<IWoltLabSettings, GeneratorOptions>
+    public get WoltLabPackageFileMapping(): WoltLabPackageFileMapping<TSettings, TOptions>
     {
-        return new WoltLabPackageFileMapping(this);
+        return new WoltLabPackageFileMapping<TSettings, TOptions>(this);
     }
 
     /**
      * Gets the file-mapping for the entrypoint file.
      */
-    public get EntryPointFileMapping(): EntryPointFileMapping
+    public get EntryPointFileMapping(): EntryPointFileMapping<TSettings, TOptions>
     {
         return new EntryPointFileMapping(this);
     }
@@ -129,7 +129,7 @@ export class WoltLabPackageGenerator extends WoltLabGenerator<IWoltLabSettings, 
     /**
      * @inheritdoc
      */
-    public override get FileMappings(): Array<IFileMapping<IWoltLabSettings, GeneratorOptions>>
+    public override get FileMappings(): Array<IFileMapping<TSettings, TOptions>>
     {
         return [
             ...super.FileMappings,
