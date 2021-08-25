@@ -21,7 +21,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "ttsc -b tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json",
     "rebuild": "npm run clean && npm run build",
     "watch": "npm run build -- --watch",
     "clean": "npm run build -- --clean && rimraf ./lib",
@@ -29,7 +29,8 @@
     "lint": "npm run lint-base -- --ext .js,.jsx,.ts,.tsx ./src .eslintrc.js",
     "lint-ide": "npm run lint || exit 0",
     "test": "mocha",
-    "prepare": "npm run rebuild"
+    "prepare": "npm run patchTypeScript && npm run rebuild",
+    "patchTypeScript": "ts-patch install && ts-patch --persist"
   },
   "dependencies": {
     "@manuth/extended-yo-generator": "^8.0.4",
@@ -63,7 +64,8 @@
     "mocha": "^8.4.0",
     "rimraf": "^3.0.2",
     "ts-nameof": "^5.0.0",
-    "ttypescript": "^1.5.12",
+    "ts-node": "^10.2.1",
+    "ts-patch": "^1.4.3",
     "typescript": "^4.3.2",
     "yeoman-test": "^6.1.0",
     "yo": "^4.2.0"
