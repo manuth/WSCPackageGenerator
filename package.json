@@ -36,6 +36,7 @@
     "@manuth/extended-yo-generator": "^8.0.4",
     "@manuth/generator-ts-project": "^2.0.4",
     "@manuth/package-json-editor": "^1.4.7",
+    "@manuth/temp-files": "^2.0.7",
     "chalk": "^4.1.1",
     "dedent": "^0.7.0",
     "fs-extra": "^10.0.0",
