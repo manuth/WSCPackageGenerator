@@ -63,6 +63,7 @@
     "eslint": "^7.27.0",
     "mocha": "^8.4.0",
     "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.19",
     "ts-nameof": "^5.0.0",
     "ts-node": "^10.2.1",
     "ts-patch": "^1.4.3",

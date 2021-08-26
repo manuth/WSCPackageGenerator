@@ -1,6 +1,8 @@
 {
     "recommendations": [
-        "manuth.eslint-language-service",
-        "digitalbrainstem.javascript-ejs-support"
+        "digitalbrainstem.javascript-ejs-support",
+        "hbenl.vscode-mocha-test-adapter",
+        "hbenl.vscode-test-explorer",
+        "manuth.eslint-language-service"
     ]
 }

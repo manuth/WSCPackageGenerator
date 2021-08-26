@@ -5,6 +5,7 @@
     "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
     "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "mochaExplorer.require": "source-map-support/register",
     "files.associations": {
         ".gitignore.ejs": "ignore",
         ".npmignore.ejs": "ignore"
