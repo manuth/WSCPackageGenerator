@@ -1,11 +1,16 @@
-import { strictEqual } from "assert";
+import { doesNotThrow, strictEqual } from "assert";
 import { exec } from "child_process";
+import { parse, relative } from "path";
 import { promisify } from "util";
-import { TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { mkdirp, pathExists, remove, symlink } from "fs-extra";
+import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
+import { GeneratorName, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { Package } from "@manuth/woltlab-compiler";
+import { pathExists } from "fs-extra";
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
-import { dirname, isAbsolute, join } from "upath";
-import { run, RunContext } from "yeoman-test";
+import { isAbsolute, join } from "upath";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 suite(
@@ -13,9 +18,6 @@ suite(
     () =>
     {
         let currentDir: string;
-        let tempDir: string;
-        let tsConfigFile: string;
-        let packageContext: RunContext;
 
         suiteSetup(
             () =>
@@ -26,15 +28,18 @@ suite(
         suiteTeardown(
             function()
             {
-                this.timeout(1 * 60 * 1000);
                 process.chdir(currentDir);
-                packageContext.cleanTestDirectory();
             });
 
         suite(
             "Package-Generator",
             () =>
             {
+                let context: TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
+                let runContext: IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
+                let generator: WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>;
+                let outputDir: string;
+                let tsConfigFile: string;
                 let generatorRoot: string;
                 let packageFileName: string;
                 let packageName: string;
@@ -42,23 +47,68 @@ suite(
                 let identifier: string;
 
                 suiteSetup(
-                    () =>
+                    async function()
                     {
-                        generatorRoot = join(__dirname, "..", "..", "generators", "app");
+                        this.slow(5 * 60 * 1000);
+                        this.timeout(10 * 60 * 1000);
+                        generatorRoot = join(__dirname, "..", "..", "generators", GeneratorName.Main);
                         packageName = "MyPackage";
                         displayName = "This is a test";
                         identifier = "com.example.mypackage";
-                        packageContext = run(
-                            generatorRoot).withPrompts(
-                                {
-                                    [TSProjectSettingKey.Destination]: "./",
-                                    [TSProjectSettingKey.Name]: packageName,
-                                    [TSProjectSettingKey.DisplayName]: displayName,
-                                    [WoltLabSettingKey.Identifier]: identifier,
-                                    [WoltLabSettingKey.Author]: "Manuel Thalmann",
-                                    [WoltLabSettingKey.HomePage]: "https://nuth.ch"
-                                });
+                        context = GetTestContext();
+                        runContext = GetRunContext(context);
+                        await runContext.toPromise();
+                        generator = runContext.generator;
+                        outputDir = generator.destinationPath();
+                        tsConfigFile = join(outputDir, TSConfigFileMapping.FileName);
+
+                        await promisify(exec)(
+                            "npm install",
+                            {
+                                cwd: outputDir
+                            });
                     });
+
+                suiteTeardown(
+                    function()
+                    {
+                        this.timeout(1 * 60 * 1000);
+                        context.Dispose();
+                    });
+
+                /**
+                 * Gets a {@link TestContext `TestContext<TGenerator, TOptions>`} for running the generator.
+                 *
+                 * @returns
+                 * A {@link RunContext `RunContext`} for running the generator.
+                 */
+                function GetTestContext(): TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>
+                {
+                    return new TestContext(generatorRoot);
+                }
+
+                /**
+                 * Gets an {@link IRunContext `IRunContext<T>`} for running the generator.
+                 *
+                 * @param testContext
+                 * The {@link TestContext `TestContext<TGenerator, TOptions>`} for creating a new {@link IRunContext `IRunContext<T>`}.
+                 *
+                 * @returns
+                 * An {@link IRunContext `IRunContext<T>`} for running the generator.
+                 */
+                function GetRunContext(testContext?: TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>): IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>
+                {
+                    return (testContext ?? GetTestContext()).ExecuteGenerator().withPrompts(
+                        {
+                            [TSProjectSettingKey.Destination]: "./",
+                            [TSProjectSettingKey.Name]: packageName,
+                            [TSProjectSettingKey.DisplayName]: displayName,
+                            [WoltLabSettingKey.Identifier]: identifier,
+                            [TSProjectSettingKey.Description]: "This is a test",
+                            [WoltLabSettingKey.Author]: "Manuel Thalmann",
+                            [WoltLabSettingKey.HomePage]: "https://nuth.ch"
+                        });
+                }
 
                 test(
                     "Checking whether the generator can be executed…",
@@ -66,8 +116,7 @@ suite(
                     {
                         this.slow(1 * 60 * 1000);
                         this.timeout(2 * 60 * 1000);
-                        tempDir = (await packageContext.toPromise()).cwd;
-                        tsConfigFile = join(tempDir, "tsconfig.json");
+                        doesNotThrow(async () => GetRunContext().toPromise());
                     });
 
                 test(
@@ -76,26 +125,20 @@ suite(
                     {
                         this.slow(5 * 60 * 1000);
                         this.timeout(5 * 60 * 1000);
+
                         await promisify(exec)(
                             "npm install",
                             {
-                                cwd: tempDir
+                                cwd: outputDir
                             });
-
-                        for (let module of ["node-sass"])
-                        {
-                            let source = join(__dirname, "..", "..", "..", "node_modules", module);
-                            let target = join(tempDir, "node_modules", module);
-                            await remove(target);
-                            await mkdirp(dirname(target));
-                            await symlink(source, target, "junction");
-                        }
                     });
 
                 test(
                     "Checking whether a typescript-config exists…",
-                    async () =>
+                    async function()
                     {
+                        this.slow(5 * 1000);
+                        this.timeout(10 * 1000);
                         strictEqual(await pathExists(tsConfigFile), true);
                     });
 
@@ -115,6 +158,7 @@ suite(
                         } as ParseConfigFileHost;
 
                         let config = getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+
                         let compilerResult = createProgram(
                             {
                                 rootNames: config.fileNames,
@@ -122,20 +166,28 @@ suite(
                             }).emit();
 
                         strictEqual(compilerResult.emitSkipped, false);
-                        let baseDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(tempDir, config.options.outDir);
-                        packageFileName = join(baseDir, "Meta", "Package");
+                        let rootDir = isAbsolute(config.options.rootDir) ? config.options.rootDir : join(outputDir, config.options.rootDir);
+                        let outDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(outputDir, config.options.outDir);
+                        let parsedPath = parse(generator.WoltLabPackageFileMapping.Destination);
+
+                        packageFileName = join(
+                            outDir,
+                            relative(
+                                rootDir,
+                                generator.destinationPath(parsedPath.dir, parsedPath.name)));
                     });
 
                 test(
                     "Checking the integrity of the package-manifest…",
                     function()
                     {
-                        this.timeout(10 * 1000);
+                        this.slow(2 * 1000);
+                        this.timeout(4 * 1000);
                         // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        let $package = require(packageFileName);
-                        strictEqual($package["Name"], packageName);
-                        strictEqual($package["DisplayName"]["inv"], displayName);
-                        strictEqual($package["Identifier"], identifier);
+                        let $package: Package = require(packageFileName)[generator.PackageVariableName];
+                        strictEqual($package.Name, packageName);
+                        strictEqual($package.DisplayName.Data.get("inv"), displayName);
+                        strictEqual($package.Identifier, identifier);
                     });
             });
     });
