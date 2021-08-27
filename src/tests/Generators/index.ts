@@ -5,7 +5,7 @@ import { promisify } from "util";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { Package } from "@manuth/woltlab-compiler";
+import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
 import { isAbsolute, join } from "upath";
@@ -186,7 +186,7 @@ suite(
                         // eslint-disable-next-line @typescript-eslint/no-var-requires
                         let $package: Package = require(packageFileName)[generator.PackageVariableName];
                         strictEqual($package.Name, packageName);
-                        strictEqual($package.DisplayName.Data.get("inv"), displayName);
+                        strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
                         strictEqual($package.Identifier, identifier);
                     });
             });

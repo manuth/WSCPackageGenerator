@@ -2,7 +2,7 @@ import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
-import { IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
+import { InvariantCultureName, IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
@@ -93,7 +93,6 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected get PackageOptions(): ObjectLiteralExpression
     {
-        let invariantLanguageName = "inv";
         let options = this.GetObjectLiteral();
         let displayName = this.GetObjectLiteral();
         let author = this.GetObjectLiteral();
@@ -103,7 +102,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
         displayName.addPropertyAssignment(
             {
-                name: invariantLanguageName,
+                name: InvariantCultureName,
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.DisplayName] ?? ""))
             });
 
@@ -121,7 +120,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
         description.addPropertyAssignment(
             {
-                name: invariantLanguageName,
+                name: InvariantCultureName,
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Description] ?? ""))
             });
 
