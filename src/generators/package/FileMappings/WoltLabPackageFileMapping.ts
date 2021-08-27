@@ -104,25 +104,25 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
         displayName.addPropertyAssignment(
             {
                 name: invariantLanguageName,
-                initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.DisplayName]))
+                initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.DisplayName] ?? ""))
             });
 
         author.addPropertyAssignments(
             [
                 {
                     name: nameof<IPackageOptions>((options) => options.Author.Name),
-                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Author]))
+                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Author] ?? ""))
                 },
                 {
                     name: nameof<IPackageOptions>((options) => options.Author.URL),
-                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.HomePage]))
+                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.HomePage] ?? ""))
                 }
             ]);
 
         description.addPropertyAssignment(
             {
                 name: invariantLanguageName,
-                initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Description]))
+                initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Description] ?? ""))
             });
 
         installSet.addPropertyAssignment(
@@ -137,11 +137,11 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             [
                 {
                     name: nameof<IPackageOptions>((options) => options.Identifier),
-                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Identifier]))
+                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Identifier] ?? ""))
                 },
                 {
                     name: nameof<IPackageOptions>((options) => options.Name),
-                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Name]))
+                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Name] ?? ""))
                 },
                 {
                     name: nameof<IPackageOptions>((options) => options.DisplayName),
@@ -269,7 +269,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             {
                 if (
                     component instanceof InstructionComponent &&
-                    this.Generator.Settings[GeneratorSettingKey.Components].includes(component.ID))
+                    (this.Generator.Settings[GeneratorSettingKey.Components] ?? []).includes(component.ID))
                 {
                     component.PackageFileTransformer.Transform(file);
                 }
