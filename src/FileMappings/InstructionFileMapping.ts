@@ -1,9 +1,8 @@
 import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
-import { TempFileSystem } from "@manuth/temp-files";
-import { ObjectLiteralExpression, printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
+import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
+import { CallExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { dirname, relative, sep } from "upath";
 import { InstructionComponent } from "../Components/InstructionComponent";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
@@ -23,7 +22,7 @@ import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
+export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
 {
     /**
      * The component to create an instruction-file for.
@@ -55,45 +54,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     protected get InstructionOptions(): ObjectLiteralExpression
     {
-        let variableName = "tmp";
-        let file = new Project().createSourceFile(TempFileSystem.TempName());
-
-        file.addVariableStatement(
-            {
-                declarationKind: VariableDeclarationKind.Let,
-                declarations: [
-                    {
-                        name: variableName,
-                        initializer: printNode(ts.factory.createObjectLiteralExpression())
-                    }
-                ]
-            });
-
-        return file.getVariableDeclaration(variableName).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @returns
-     * The object to dump.
-     */
-    public override async GetSourceObject(): Promise<SourceFile>
-    {
-        return new Project().createSourceFile(
-            this.Destination,
-            null,
-            {
-                overwrite: true
-            });
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get Source(): string
-    {
-        return null;
+        return this.Converter.WrapNode(ts.factory.createObjectLiteralExpression());
     }
 
     /**
@@ -164,11 +125,9 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      * @returns
      * Valid TypeScript-code containing a {@link join `join`}-call for pointing to the specified {@link path `path`}.
      */
-    protected GetPathJoin(path: string): string
+    protected GetPathJoin(path: string): CallExpression
     {
-        let file = new Project().createSourceFile(TempFileSystem.TempName());
-        file.replaceWithText(printNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], [])));
-        let call = file.getStatementByKindOrThrow(SyntaxKind.ExpressionStatement).getExpressionIfKindOrThrow(SyntaxKind.CallExpression);
+        let call = this.Converter.WrapNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], []));
         call.addArgument(printNode(ts.factory.createIdentifier(nameof(__dirname))));
 
         for (let pathComponent of relative(dirname(this.Generator.destinationPath(this.Destination)), this.Generator.destinationPath()).split(sep))
@@ -181,6 +140,6 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
             call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
         }
 
-        return call.getFullText();
+        return call;
     }
 }

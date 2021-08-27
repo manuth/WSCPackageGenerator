@@ -1,10 +1,9 @@
 import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
-import { TSProjectSettingKey, TypeScriptTransformMapping } from "@manuth/generator-ts-project";
-import { TempFileSystem } from "@manuth/temp-files";
+import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import { IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
-import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
+import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
@@ -13,7 +12,7 @@ import { WoltLabGenerator } from "../../../WoltLabGenerator";
 /**
  * Provides the functionality to generate a package-file.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
+export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
@@ -42,30 +41,6 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
     /**
      * @inheritdoc
-     *
-     * @returns
-     * The object to dump.
-     */
-    public override async GetSourceObject(): Promise<SourceFile>
-    {
-        return new Project().createSourceFile(
-            this.Destination,
-            null,
-            {
-                overwrite: true
-            });
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get Source(): string
-    {
-        return null;
-    }
-
-    /**
-     * @inheritdoc
      */
     public get Destination(): string
     {
@@ -86,7 +61,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected get RequiredPackageOptions(): ObjectLiteralExpression
     {
-        let options = this.GetObjectNode();
+        let options = this.GetObjectLiteral();
 
         options.addPropertyAssignments(
             [
@@ -119,11 +94,11 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     protected get PackageOptions(): ObjectLiteralExpression
     {
         let invariantLanguageName = "inv";
-        let options = this.GetObjectNode();
-        let displayName = this.GetObjectNode();
-        let author = this.GetObjectNode();
-        let description = this.GetObjectNode();
-        let installSet = this.GetObjectNode();
+        let options = this.GetObjectLiteral();
+        let displayName = this.GetObjectLiteral();
+        let author = this.GetObjectLiteral();
+        let description = this.GetObjectLiteral();
+        let installSet = this.GetObjectLiteral();
         let requiredPackages = this.GetArrayLiteral();
 
         displayName.addPropertyAssignment(
@@ -217,23 +192,9 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      * @returns
      * The newly created {@link ObjectLiteralExpression `ObjectLiteralExpression`}.
      */
-    protected GetObjectNode(): ObjectLiteralExpression
+    protected GetObjectLiteral(): ObjectLiteralExpression
     {
-        let variableName = "tmp";
-        let file = new Project().createSourceFile(TempFileSystem.TempName());
-
-        file.addVariableStatement(
-            {
-                declarationKind: VariableDeclarationKind.Let,
-                declarations: [
-                    {
-                        name: variableName,
-                        initializer: printNode(ts.factory.createObjectLiteralExpression())
-                    }
-                ]
-            });
-
-        return file.getVariableDeclaration(variableName).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        return this.Converter.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
     }
 
     /**
@@ -247,23 +208,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected GetConstructorCall(className: string): NewExpression
     {
-        let variableName = "tmp";
-        let file = new Project().createSourceFile(TempFileSystem.TempName());
-
-        file.addVariableStatement(
-            {
-                isExported: true,
-                declarationKind: VariableDeclarationKind.Let,
-                declarations: [
-                    {
-                        name: variableName,
-                        initializer: printNode(
-                            ts.factory.createNewExpression(ts.factory.createIdentifier(className), [], []))
-                    }
-                ]
-            });
-
-        return file.getVariableDeclaration(variableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
+        return this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(className), [], []));
     }
 
     /**
@@ -274,21 +219,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected GetArrayLiteral(): ArrayLiteralExpression
     {
-        let variableName = "tmp";
-        let file = new Project().createSourceFile(TempFileSystem.TempName());
-
-        file.addVariableStatement(
-            {
-                declarationKind: VariableDeclarationKind.Let,
-                declarations: [
-                    {
-                        name: variableName,
-                        initializer: printNode(ts.factory.createArrayLiteralExpression())
-                    }
-                ]
-            });
-
-        return file.getVariableDeclaration(variableName).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+        return this.Converter.WrapNode(ts.factory.createArrayLiteralExpression());
     }
 
     /**
@@ -317,6 +248,9 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 ]
             });
 
+        let constructor = this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<Package>()), [], []));
+        constructor.addArgument(`${EOL}${this.PackageOptions.getFullText()}`);
+
         file.addVariableStatement(
             {
                 isExported: true,
@@ -324,14 +258,10 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 declarations: [
                     {
                         name: this.Generator.PackageVariableName,
-                        initializer: printNode(
-                            ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<Package>()), [], []))
+                        initializer: constructor.getFullText()
                     }
                 ]
             });
-
-        let constructor = file.getVariableDeclaration(this.Generator.PackageVariableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
-        constructor.addArgument(`${EOL}${this.PackageOptions.getFullText()}`);
 
         for (let category of this.Generator.Components.Categories)
         {
@@ -345,15 +275,6 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 }
             }
         }
-
-        file.formatText(
-            {
-                convertTabsToSpaces: true,
-                indentSize: 4,
-                placeOpenBraceOnNewLineForControlBlocks: true,
-                placeOpenBraceOnNewLineForFunctions: true,
-                insertSpaceAfterFunctionKeywordForAnonymousFunctions: false
-            });
 
         return file;
     }

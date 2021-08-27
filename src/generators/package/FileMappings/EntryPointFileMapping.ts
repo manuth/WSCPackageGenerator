@@ -1,10 +1,10 @@
 import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
+import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
-import { printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
+import { printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { relative, sep } from "upath";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
@@ -12,7 +12,7 @@ import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
 /**
  * Provides the functionality to create an entry-point.
  */
-export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptTransformMapping<TSettings, TOptions>
+export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
@@ -37,30 +37,6 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
     public override get Generator(): WoltLabPackageGenerator<TSettings, TOptions>
     {
         return this.woltLabGenerator;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @returns
-     * The object to dump.
-     */
-    public override async GetSourceObject(): Promise<SourceFile>
-    {
-        return new Project().createSourceFile(
-            this.Destination,
-            null,
-            {
-                overwrite: true
-            });
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get Source(): string
-    {
-        return null;
     }
 
     /**

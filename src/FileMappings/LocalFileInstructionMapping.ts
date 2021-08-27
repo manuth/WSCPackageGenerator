@@ -57,7 +57,7 @@ export class LocalFileInstructionMapping<TSettings extends IWoltLabSettings, TOp
         options.addPropertyAssignment(
             {
                 name: nameof<IFileSystemInstructionOptions>((instruction) => instruction.Source),
-                initializer: this.GetPathJoin(this.Component.ComponentOptions.Source)
+                initializer: this.GetPathJoin(this.Component.ComponentOptions.Source).getFullText()
             });
 
         return options;
