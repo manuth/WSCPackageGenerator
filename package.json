@@ -63,7 +63,7 @@
     "@types/yeoman-test": "^4.0.1",
     "@types/yosay": "2.0.0",
     "eslint": "^7.27.0",
-    "mocha": "^8.4.0",
+    "mocha": "^9.1.0",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.19",
     "ts-nameof": "^5.0.0",
