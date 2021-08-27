@@ -1,4 +1,5 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import { ErrorMessageInstruction } from "@manuth/woltlab-compiler";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";

@@ -54,24 +54,18 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
     /**
      * @inheritdoc
      */
-    protected override get MiscScripts(): Promise<Array<IScriptMapping<TSettings, TOptions>>>
+    public override get MiscScripts(): Array<IScriptMapping<TSettings, TOptions>>
     {
-        let scripts = super.MiscScripts;
-
-        return (
-            async () =>
+        return [
+            ...super.MiscScripts,
             {
-                return [
-                    ...await scripts,
-                    {
-                        Source: "build",
-                        Destination: "package",
-                        Processor: () =>
-                        {
-                            return "node .";
-                        }
-                    }
-                ] as Array<IScriptMapping<TSettings, TOptions>>;
-            })();
+                Source: "build",
+                Destination: "package",
+                Processor: () =>
+                {
+                    return "node .";
+                }
+            }
+        ] as Array<IScriptMapping<TSettings, TOptions>>;
     }
 }

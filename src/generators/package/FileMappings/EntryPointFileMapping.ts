@@ -2,6 +2,7 @@ import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptTransformMapping } from "@manuth/generator-ts-project";
+// eslint-disable-next-line node/no-unpublished-import
 import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { relative, sep } from "upath";
@@ -40,19 +41,18 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
 
     /**
      * @inheritdoc
+     *
+     * @returns
+     * The object to dump.
      */
-    public override get Metadata(): Promise<SourceFile>
+    public override async GetSourceObject(): Promise<SourceFile>
     {
-        return (
-            async () =>
+        return new Project().createSourceFile(
+            this.Destination,
+            null,
             {
-                return new Project().createSourceFile(
-                    this.Destination,
-                    null,
-                    {
-                        overwrite: true
-                    });
-            })();
+                overwrite: true
+            });
     }
 
     /**

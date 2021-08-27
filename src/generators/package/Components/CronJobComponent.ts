@@ -1,4 +1,5 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import { CronJobInstruction } from "@manuth/woltlab-compiler";
 import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";

@@ -74,19 +74,18 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
 
     /**
      * @inheritdoc
+     *
+     * @returns
+     * The object to dump.
      */
-    public override get Metadata(): Promise<SourceFile>
+    public override async GetSourceObject(): Promise<SourceFile>
     {
-        return (
-            async () =>
+        return new Project().createSourceFile(
+            this.Destination,
+            null,
             {
-                return new Project().createSourceFile(
-                    this.Destination,
-                    null,
-                    {
-                        overwrite: true
-                    });
-            })();
+                overwrite: true
+            });
     }
 
     /**

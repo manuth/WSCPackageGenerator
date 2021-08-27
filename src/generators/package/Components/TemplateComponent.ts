@@ -1,5 +1,6 @@
 import { join } from "path";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
 import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";

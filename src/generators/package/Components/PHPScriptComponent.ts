@@ -1,4 +1,5 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import type { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import { join, join as legacyJoin } from "upath";

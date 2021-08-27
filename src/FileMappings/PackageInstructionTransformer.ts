@@ -1,6 +1,7 @@
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { IPackageOptions } from "@manuth/woltlab-compiler";
 import { EOL } from "os";
+import { GeneratorOptions } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
+import { IPackageOptions } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
 import { InstructionComponent } from "../Components/InstructionComponent";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";

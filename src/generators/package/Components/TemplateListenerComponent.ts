@@ -1,4 +1,5 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import { TemplateListenerInstruction } from "@manuth/woltlab-compiler";
 import { ListenerComponentBase } from "../../../Components/ListenerComponentBase";
 import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";

@@ -1,4 +1,5 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import { IPHPInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";

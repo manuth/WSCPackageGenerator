@@ -2,6 +2,7 @@ import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptTransformMapping } from "@manuth/generator-ts-project";
 import { TempFileSystem } from "@manuth/temp-files";
+// eslint-disable-next-line node/no-unpublished-import
 import { IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, Project, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
@@ -41,19 +42,18 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
     /**
      * @inheritdoc
+     *
+     * @returns
+     * The object to dump.
      */
-    public override get Metadata(): Promise<SourceFile>
+    public override async GetSourceObject(): Promise<SourceFile>
     {
-        return (
-            async () =>
+        return new Project().createSourceFile(
+            this.Destination,
+            null,
             {
-                return new Project().createSourceFile(
-                    this.Destination,
-                    null,
-                    {
-                        overwrite: true
-                    });
-            })();
+                overwrite: true
+            });
     }
 
     /**

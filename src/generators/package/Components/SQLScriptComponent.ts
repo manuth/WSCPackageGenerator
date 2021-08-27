@@ -1,4 +1,5 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import type { SQLInstruction } from "@manuth/woltlab-compiler";
 import { join } from "upath";
 import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";

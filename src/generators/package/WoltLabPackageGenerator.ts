@@ -1,4 +1,4 @@
-import { GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
 import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 import yosay = require("yosay");
@@ -91,22 +91,10 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
     /**
      * @inheritdoc
      */
-    public override get BaseFileMappings(): Array<IFileMapping<TSettings, TOptions>>
+    public override get BaseFileMappings(): FileMappingCollectionEditor
     {
-        let result: Array<IFileMapping<TSettings, TOptions>> = [];
-
-        for (let fileMapping of super.BaseFileMappings)
-        {
-            if (fileMapping instanceof TSProjectPackageFileMapping)
-            {
-                result.push(new WoltLabNodePackageFileMapping(this));
-            }
-            else
-            {
-                result.push(fileMapping);
-            }
-        }
-
+        let result = super.BaseFileMappings;
+        result.Replace(TSProjectPackageFileMapping, new WoltLabNodePackageFileMapping(this));
         return result;
     }
 

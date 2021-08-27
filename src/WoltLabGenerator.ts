@@ -1,5 +1,6 @@
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
 import { TSProjectGenerator } from "@manuth/generator-ts-project";
+// eslint-disable-next-line node/no-unpublished-import
 import type { Package } from "@manuth/woltlab-compiler";
 import { join } from "upath";
 import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";

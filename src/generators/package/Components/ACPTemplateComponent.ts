@@ -1,4 +1,5 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+// eslint-disable-next-line node/no-unpublished-import
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
 import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";

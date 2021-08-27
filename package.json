@@ -33,9 +33,9 @@
     "patchTypeScript": "ts-patch install && ts-patch --persist"
   },
   "dependencies": {
-    "@manuth/extended-yo-generator": "^8.0.4",
-    "@manuth/generator-ts-project": "^2.0.4",
-    "@manuth/package-json-editor": "^1.4.7",
+    "@manuth/extended-yo-generator": "^11.0.3",
+    "@manuth/generator-ts-project": "^3.0.2",
+    "@manuth/package-json-editor": "^2.2.3",
     "@manuth/temp-files": "^2.0.7",
     "chalk": "^4.1.1",
     "dedent": "^0.7.0",

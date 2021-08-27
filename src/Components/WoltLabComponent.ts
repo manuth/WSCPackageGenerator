@@ -1,5 +1,4 @@
-import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
-import { ComponentBase } from "@manuth/generator-ts-project";
+import { ComponentOptions, GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import inquirer = require("inquirer");
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
@@ -21,7 +20,7 @@ import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPr
  * @template TComponentOptions
  * The type of the component-options.
  */
-export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentBase<TSettings, TOptions>
+export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends ComponentOptions<TSettings, TOptions>
 {
     /**
      * The generator of the component.
