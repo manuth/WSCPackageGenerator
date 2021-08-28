@@ -1,5 +1,5 @@
 import { GeneratorOptions, IGenerator } from "@manuth/extended-yo-generator";
-import { IScriptMapping, TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
+import { IScriptMapping, ScriptMapping, TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
 import { Package } from "@manuth/package-json-editor";
 import { Constants } from "../../../Core/Constants";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
@@ -35,19 +35,27 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
      */
     public override async LoadPackage(): Promise<Package>
     {
-        let woltLabDependency = "@manuth/woltlab-compiler";
+        let dependencies = [
+            "@manuth/woltlab-compiler",
+            "ts-node"
+        ];
+
         let result = await super.LoadPackage();
-        result.Main = "./lib/index.js";
-        result.Types = "./lib/index.d.ts";
+        result.Main = undefined;
+        result.Types = undefined;
         result.Author.Name ??= this.Generator.Settings[WoltLabSettingKey.Author];
         result.Author.URL ??= this.Generator.Settings[WoltLabSettingKey.HomePage];
+        result.PublishConfig = {};
 
-        if (result.Dependencies.Has(woltLabDependency))
+        for (let dependency of dependencies)
         {
-            result.Dependencies.Remove(woltLabDependency);
-        }
+            if (result.DevelopmentDependencies.Has(dependency))
+            {
+                result.DevelopmentDependencies.Remove(dependency);
+            }
 
-        result.Dependencies.Add(woltLabDependency, Constants.Dependencies.Get(woltLabDependency));
+            result.DevelopmentDependencies.Add(dependency, Constants.Dependencies.Get(dependency));
+        }
 
         result.DevelopmentDependencies.Remove("mocha");
         result.DevelopmentDependencies.Remove("@types/mocha");
@@ -73,7 +81,7 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
                 Destination: "package",
                 Processor: () =>
                 {
-                    return "node .";
+                    return "ts-node ./src/index.ts";
                 }
             }
         ] as Array<IScriptMapping<TSettings, TOptions>>;

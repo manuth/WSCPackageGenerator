@@ -1,14 +1,15 @@
 import { doesNotThrow, strictEqual } from "assert";
 import { exec } from "child_process";
-import { parse, relative } from "path";
 import { promisify } from "util";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
+import mock = require("mock-require");
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, ParsedCommandLine, sys } from "typescript";
-import { isAbsolute, join } from "upath";
+import { join } from "upath";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
@@ -143,26 +144,6 @@ suite(
                     return getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
                 }
 
-                /**
-                 * Gets the name of the file which contains the {@link Package `Package`}-metadata.
-                 *
-                 * @returns
-                 * The name of the file which contains the {@link Package `Package`}-metadata.
-                 */
-                function GetPackageFileName(): string
-                {
-                    let config = GetTSConfig();
-                    let rootDir = isAbsolute(config.options.rootDir) ? config.options.rootDir : join(outputDir, config.options.rootDir);
-                    let outDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(outputDir, config.options.outDir);
-                    let parsedPath = parse(generator.WoltLabPackageFileMapping.Destination);
-
-                    return join(
-                        outDir,
-                        relative(
-                            rootDir,
-                            generator.destinationPath(parsedPath.dir, parsedPath.name)));
-                }
-
                 test(
                     "Checking whether the generator can be executed…",
                     async function()
@@ -215,15 +196,29 @@ suite(
 
                 test(
                     "Checking the integrity of the package-manifest…",
-                    function()
+                    async function()
                     {
-                        this.slow(2 * 1000);
-                        this.timeout(4 * 1000);
+                        this.slow(15 * 1000);
+                        this.timeout(30 * 1000);
+                        let compilerDependency = "@manuth/woltlab-compiler";
                         // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        let $package: Package = require(GetPackageFileName())[generator.PackageVariableName];
-                        strictEqual($package.Name, packageName);
-                        strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
-                        strictEqual($package.Identifier, identifier);
+                        mock(compilerDependency, require(compilerDependency));
+
+                        try
+                        {
+                            let $package: Package = (await new TypeScriptFileMappingTester(generator, generator.WoltLabPackageFileMapping).Require())[generator.PackageVariableName];
+                            strictEqual($package.Name, packageName);
+                            strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
+                            strictEqual($package.Identifier, identifier);
+                        }
+                        catch (exception)
+                        {
+                            throw exception;
+                        }
+                        finally
+                        {
+                            mock.stop(compilerDependency);
+                        }
                     });
             });
     });

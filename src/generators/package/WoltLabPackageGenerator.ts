@@ -137,6 +137,8 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
                     {
                         await fileMapping.Processor();
                         let tsConfig: TSConfigJSON = new JSONCConverter().Parse(generator.fs.read(target.Destination));
+                        delete tsConfig.compilerOptions.outDir;
+                        delete tsConfig.exclude;
                         tsConfig.compilerOptions.noEmit = true;
                         return new JSONCCreatorMapping(generator, target.Destination, tsConfig).Processor();
                     }
