@@ -5,12 +5,9 @@ This environment allows you to easily create packages for WoltLab Suite Core.
   - `.vscode`  
     This folder contains settings and build-task configurations for VSCode.  
     Feel free to delete this folder if you won't use VSCode.
-  - `lib` contains script-files for providing auto-completion and for building the package.  
-    Do not touch this folder and its contents unless you know what you're doing!
   - `tsconfig.json` contains configurations for the TypeScript-compiler.
     This allows you to write your meta-files in TypeScript instead of JavaScript.
   - `Package.ts` contains meta-data about the package.
-  - The `bin` folder contains all build-results.
 
 ## Console-Commands
 When running a console inside this folder you can use following commands:  
