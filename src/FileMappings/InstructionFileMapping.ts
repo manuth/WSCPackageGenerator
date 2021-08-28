@@ -54,7 +54,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     protected get InstructionOptions(): ObjectLiteralExpression
     {
-        return this.Converter.WrapNode(ts.factory.createObjectLiteralExpression());
+        return this.Converter.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
     }
 
     /**
