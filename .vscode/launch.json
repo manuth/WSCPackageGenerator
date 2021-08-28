@@ -46,6 +46,28 @@
                 "<node_internals>/**",
                 "**/node_modules/typescript/**"
             ]
+        },
+        {
+            "type": "pwa-node",
+            "request": "attach",
+            "name": "Debug Mocha Tests",
+            "presentation": {
+                "hidden": true
+            },
+            "port": 9229,
+            "continueOnAttach": true,
+            "resolveSourceMapLocations": [
+                "!**/node_modules/**",
+                "!**/.vscode/extensions/hbenl.vscode-mocha-test-adapter-*/**"
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ]
         }
     ]
 }
