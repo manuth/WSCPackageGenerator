@@ -48,6 +48,10 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
         }
 
         result.Dependencies.Add(woltLabDependency, Constants.Dependencies.Get(woltLabDependency));
+
+        result.DevelopmentDependencies.Remove("mocha");
+        result.DevelopmentDependencies.Remove("@types/mocha");
+        result.DevelopmentDependencies.Remove("source-map-support");
         return result;
     }
 
@@ -56,8 +60,14 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
      */
     public override get MiscScripts(): Array<IScriptMapping<TSettings, TOptions>>
     {
+        let baseScripts = super.MiscScripts.filter(
+            (script) =>
+            {
+                return new ScriptMapping(this.Generator, this.ScriptSource, script).Destination !== "test";
+            });
+
         return [
-            ...super.MiscScripts,
+            ...baseScripts,
             {
                 Source: "build",
                 Destination: "package",

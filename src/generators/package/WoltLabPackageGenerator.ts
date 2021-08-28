@@ -1,6 +1,8 @@
-import { FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
-import { TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
+// eslint-disable-next-line node/no-unpublished-import
+import { TSConfigJSON } from "types-tsconfig";
 import yosay = require("yosay");
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
@@ -94,7 +96,50 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
     public override get BaseFileMappings(): FileMappingCollectionEditor
     {
         let result = super.BaseFileMappings;
+        result.Remove((fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(this.SourceRoot, "tests", TSConfigFileMapping.FileName));
+        result.Remove((fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(".mocharc.jsonc"));
         result.Replace(TSProjectPackageFileMapping, new WoltLabNodePackageFileMapping(this));
+
+        result.ReplaceObject(
+            (fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(TSConfigFileMapping.GetFileName("build")),
+            (fileMapping) =>
+            {
+                return {
+                    Source: fileMapping.Source,
+                    Destination: fileMapping.Destination,
+                    Processor: async (target, generator) =>
+                    {
+                        await fileMapping.Processor();
+                        let tsConfig: TSConfigJSON = new JSONCConverter().Parse(generator.fs.read(target.Destination));
+
+                        tsConfig.references = [
+                            {
+                                path: "."
+                            }
+                        ];
+
+                        return new JSONCCreatorMapping(generator, target.Destination, tsConfig).Processor();
+                    }
+                };
+            });
+
+        result.ReplaceObject(
+            (fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(TSConfigFileMapping.FileName),
+            (fileMapping) =>
+            {
+                return {
+                    Source: fileMapping.Source,
+                    Destination: fileMapping.Destination,
+                    Processor: async (target, generator) =>
+                    {
+                        await fileMapping.Processor();
+                        let tsConfig: TSConfigJSON = new JSONCConverter().Parse(generator.fs.read(target.Destination));
+                        tsConfig.compilerOptions.noEmit = true;
+                        return new JSONCCreatorMapping(generator, target.Destination, tsConfig).Processor();
+                    }
+                };
+            });
+
         return result;
     }
 
