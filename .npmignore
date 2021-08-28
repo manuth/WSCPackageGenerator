@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+# Jupyter-Notebooks
+*.ipynb
+
 # Source-files
 [Ss]rc/
 
