@@ -80,6 +80,7 @@ suite(
                     {
                         this.timeout(5 * 60 * 1000);
                         testContext = GetRunContext();
+                        await testContext.toPromise();
                     });
 
                 teardown(
