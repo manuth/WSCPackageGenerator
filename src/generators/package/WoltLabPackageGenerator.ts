@@ -1,4 +1,4 @@
-import { FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { ComponentCategory, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
 import { JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 // eslint-disable-next-line node/no-unpublished-import
@@ -43,12 +43,15 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
      */
     public override get Components(): IComponentCollection<TSettings, TOptions>
     {
+        let generalCategoryName = "General";
+
         return {
             Question: super.Components.Question,
             Categories: [
                 {
-                    DisplayName: "General",
+                    DisplayName: generalCategoryName,
                     Components: [
+                        ...this.BaseComponents.Categories.Get((category: ComponentCategory<any, any>) => category.DisplayName === generalCategoryName).Result.Components,
                         new FileUploadComponent(this),
                         new PHPScriptComponent(this),
                         new SQLScriptComponent(this),
