@@ -7,7 +7,7 @@ import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
-import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, sys } from "typescript";
+import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, ParsedCommandLine, sys } from "typescript";
 import { isAbsolute, join } from "upath";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
@@ -38,10 +38,10 @@ suite(
                 let context: TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
                 let runContext: IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
                 let generator: WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>;
+                let testContext: IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
                 let outputDir: string;
                 let tsConfigFile: string;
                 let generatorRoot: string;
-                let packageFileName: string;
                 let packageName: string;
                 let displayName: string;
                 let identifier: string;
@@ -49,7 +49,6 @@ suite(
                 suiteSetup(
                     async function()
                     {
-                        this.slow(5 * 60 * 1000);
                         this.timeout(10 * 60 * 1000);
                         generatorRoot = join(__dirname, "..", "..", "generators", GeneratorName.Main);
                         packageName = "MyPackage";
@@ -74,6 +73,20 @@ suite(
                     {
                         this.timeout(1 * 60 * 1000);
                         context.Dispose();
+                    });
+
+                setup(
+                    async function()
+                    {
+                        this.timeout(5 * 60 * 1000);
+                        testContext = GetRunContext();
+                    });
+
+                teardown(
+                    function()
+                    {
+                        this.timeout(1 * 60 * 1000);
+                        testContext.cleanTestDirectory();
                     });
 
                 /**
@@ -110,6 +123,45 @@ suite(
                         });
                 }
 
+                /**
+                 * Gets the parsed typescript-configuration.
+                 *
+                 * @returns
+                 * The parsed typescript-configuration.
+                 */
+                function GetTSConfig(): ParsedCommandLine
+                {
+                    let host = {
+                        ...sys,
+                        onUnRecoverableConfigFileDiagnostic: (diagnostic: Diagnostic): void =>
+                        {
+                            throw new Error();
+                        }
+                    } as ParseConfigFileHost;
+
+                    return getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                }
+
+                /**
+                 * Gets the name of the file which contains the {@link Package `Package`}-metadata.
+                 *
+                 * @returns
+                 * The name of the file which contains the {@link Package `Package`}-metadata.
+                 */
+                function GetPackageFileName(): string
+                {
+                    let config = GetTSConfig();
+                    let rootDir = isAbsolute(config.options.rootDir) ? config.options.rootDir : join(outputDir, config.options.rootDir);
+                    let outDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(outputDir, config.options.outDir);
+                    let parsedPath = parse(generator.WoltLabPackageFileMapping.Destination);
+
+                    return join(
+                        outDir,
+                        relative(
+                            rootDir,
+                            generator.destinationPath(parsedPath.dir, parsedPath.name)));
+                }
+
                 test(
                     "Checking whether the generator can be executed…",
                     async function()
@@ -129,7 +181,7 @@ suite(
                         await promisify(exec)(
                             "npm install",
                             {
-                                cwd: outputDir
+                                cwd: testContext.generator.destinationPath()
                             });
                     });
 
@@ -149,15 +201,7 @@ suite(
                         this.slow(20 * 1000);
                         this.timeout(20 * 1000);
 
-                        let host = {
-                            ...sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: Diagnostic): void =>
-                            {
-                                throw new Error();
-                            }
-                        } as ParseConfigFileHost;
-
-                        let config = getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
+                        let config = GetTSConfig();
 
                         let compilerResult = createProgram(
                             {
@@ -166,15 +210,6 @@ suite(
                             }).emit();
 
                         strictEqual(compilerResult.emitSkipped, false);
-                        let rootDir = isAbsolute(config.options.rootDir) ? config.options.rootDir : join(outputDir, config.options.rootDir);
-                        let outDir = isAbsolute(config.options.outDir) ? config.options.outDir : join(outputDir, config.options.outDir);
-                        let parsedPath = parse(generator.WoltLabPackageFileMapping.Destination);
-
-                        packageFileName = join(
-                            outDir,
-                            relative(
-                                rootDir,
-                                generator.destinationPath(parsedPath.dir, parsedPath.name)));
                     });
 
                 test(
@@ -184,7 +219,7 @@ suite(
                         this.slow(2 * 1000);
                         this.timeout(4 * 1000);
                         // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        let $package: Package = require(packageFileName)[generator.PackageVariableName];
+                        let $package: Package = require(GetPackageFileName())[generator.PackageVariableName];
                         strictEqual($package.Name, packageName);
                         strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
                         strictEqual($package.Identifier, identifier);
