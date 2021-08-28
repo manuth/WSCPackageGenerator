@@ -172,7 +172,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
                 Source: "README.md",
                 Context: () => (
                     {
-                        Name: this.Settings[TSProjectSettingKey.Name],
+                        Name: this.Settings[TSProjectSettingKey.DisplayName],
                         Description: this.Settings[TSProjectSettingKey.Description]
                     }),
                 Destination: "README.md"
