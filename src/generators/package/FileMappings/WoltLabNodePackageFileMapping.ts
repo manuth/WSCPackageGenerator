@@ -46,6 +46,7 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
         result.Author.Name ??= this.Generator.Settings[WoltLabSettingKey.Author];
         result.Author.URL ??= this.Generator.Settings[WoltLabSettingKey.HomePage];
         result.PublishConfig = {};
+        result.Files = [];
 
         for (let dependency of dependencies)
         {
