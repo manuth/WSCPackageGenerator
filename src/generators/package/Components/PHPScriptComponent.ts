@@ -76,7 +76,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     {
         return {
             type: "list",
-            name: "SelfContained",
+            name: nameof<IPHPScriptComponentOptions>((options) => options.SelfContained),
             message: "What kind of PHP-script do you want to execute?",
             default: false,
             choices: [

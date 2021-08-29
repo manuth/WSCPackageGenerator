@@ -30,7 +30,7 @@ export abstract class FileUploadComponentBase<TSettings extends IWoltLabSettings
     {
         return {
             type: ApplicationPrompt.TypeName,
-            name: "Application"
+            name: nameof<IFileUploadComponentOptions>((options) => options.Application)
         } as IApplicationQuestion<IFileUploadComponentOptions>;
     }
 

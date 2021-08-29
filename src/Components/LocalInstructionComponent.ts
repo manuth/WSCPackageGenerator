@@ -23,7 +23,7 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabSettin
     {
         return {
             type: PathPrompt.TypeName,
-            name: "Source",
+            name: nameof<ILocalComponentOptions>((options) => options.Source),
             default: (options: TComponentOptions) =>
             {
                 return this.GetDefaultSource(options);
