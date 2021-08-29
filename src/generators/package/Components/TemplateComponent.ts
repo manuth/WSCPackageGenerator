@@ -16,7 +16,7 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 export class TemplateComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Initializes a new instance of the {@link TemplateComponent `TemplaceComponent<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link TemplateComponent `TemplateComponent<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param generator
      * The generator of the component.
