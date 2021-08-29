@@ -92,6 +92,11 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
             {
                 isExported: true,
                 declarationKind: VariableDeclarationKind.Let,
+                docs: [
+                    {
+                        description: `${EOL}The instruction.`
+                    }
+                ],
                 declarations: [
                     {
                         name: this.Component.VariableName,

@@ -254,6 +254,11 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             {
                 isExported: true,
                 declarationKind: VariableDeclarationKind.Let,
+                docs: [
+                    {
+                        description: `${EOL}The package.`
+                    }
+                ],
                 declarations: [
                     {
                         name: this.Generator.PackageVariableName,
