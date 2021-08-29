@@ -1,9 +1,10 @@
-import { ComponentCategory, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
-import { JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 // eslint-disable-next-line node/no-unpublished-import
 import { TSConfigJSON } from "types-tsconfig";
 import yosay = require("yosay");
+import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../../WoltLabGenerator";
 import { ACPTemplateComponent } from "./Components/ACPTemplateComponent";
@@ -43,21 +44,10 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
      */
     public override get Components(): IComponentCollection<TSettings, TOptions>
     {
-        let generalCategoryName = "General";
-
         return {
             Question: super.Components.Question,
             Categories: [
-                {
-                    DisplayName: generalCategoryName,
-                    Components: [
-                        ...this.BaseComponents.Categories.Get((category: ComponentCategory<any, any>) => category.DisplayName === generalCategoryName).Result.Components,
-                        new FileUploadComponent(this),
-                        new PHPScriptComponent(this),
-                        new SQLScriptComponent(this),
-                        new CronJobComponent(this)
-                    ]
-                },
+                ...super.Components.Categories,
                 {
                     DisplayName: "Globalization",
                     Components: [
@@ -96,7 +86,39 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
     /**
      * @inheritdoc
      */
-    public override get BaseFileMappings(): FileMappingCollectionEditor
+    protected override get BaseComponents(): ComponentCollection<TSettings, TOptions>
+    {
+        let result = super.BaseComponents as ComponentCollection<TSettings, TOptions>;
+
+        result.Categories.Replace(
+            TSProjectGeneralCategory,
+            (category) =>
+            {
+                category.Components.ReplaceObject(
+                    TSProjectCodeWorkspaceFolder,
+                    (component) =>
+                    {
+                        return new WoltLabCodeWorkspaceFolder(this, component.Object as TSProjectCodeWorkspaceFolder<TSettings, TOptions>);
+                    });
+
+                category.Components.AddRange(
+                    [
+                        new FileUploadComponent(this),
+                        new PHPScriptComponent(this),
+                        new SQLScriptComponent(this),
+                        new CronJobComponent(this)
+                    ]);
+
+                return category;
+            });
+
+        return result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected override get BaseFileMappings(): FileMappingCollectionEditor
     {
         let result = super.BaseFileMappings;
         result.Remove((fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(this.SourceRoot, "tests", TSConfigFileMapping.FileName));
