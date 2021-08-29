@@ -102,7 +102,8 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
         displayName.addPropertyAssignment(
             {
-                name: InvariantCultureName,
+                name: printNode(
+                    ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof(InvariantCultureName)))),
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.DisplayName] ?? ""))
             });
 
@@ -120,7 +121,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
 
         description.addPropertyAssignment(
             {
-                name: InvariantCultureName,
+                name: printNode(ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof(InvariantCultureName)))),
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Description] ?? ""))
             });
 
@@ -238,6 +239,9 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             {
                 moduleSpecifier: "@manuth/woltlab-compiler",
                 namedImports: [
+                    {
+                        name: nameof(InvariantCultureName)
+                    },
                     {
                         name: nameof<Package>()
                     },
