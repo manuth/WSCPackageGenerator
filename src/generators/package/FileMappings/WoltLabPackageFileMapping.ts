@@ -1,13 +1,17 @@
 import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
-// eslint-disable-next-line node/no-unpublished-import
-import { InvariantCultureName, IPackageOptions, IRequiredPackageDescriptorOptions, Package, RequiredPackageDescriptor } from "@manuth/woltlab-compiler";
+import type compiler = require("@manuth/woltlab-compiler");
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
+
+/**
+ * The `@manuth/woltlab-compiler` package.
+ */
+ type WoltLabCompiler = typeof compiler;
 
 /**
  * Provides the functionality to generate a package-file.
@@ -66,11 +70,11 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
         options.addPropertyAssignments(
             [
                 {
-                    name: nameof<IRequiredPackageDescriptorOptions>((options) => options.Identifier),
+                    name: nameof<compiler.IRequiredPackageDescriptorOptions>((options) => options.Identifier),
                     initializer: printNode(ts.factory.createStringLiteral("com.woltlab.wcf"))
                 },
                 {
-                    name: nameof<IRequiredPackageDescriptorOptions>((options) => options.MinVersion),
+                    name: nameof<compiler.IRequiredPackageDescriptorOptions>((options) => options.MinVersion),
                     initializer: printNode(ts.factory.createStringLiteral("3.0.0"))
                 }
             ]);
@@ -83,7 +87,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected get RequiredPackageConstructor(): NewExpression
     {
-        let constructor = this.GetConstructorCall(nameof<RequiredPackageDescriptor>());
+        let constructor = this.GetConstructorCall(nameof<compiler.RequiredPackageDescriptor>());
         constructor.addArgument(`${EOL}${this.RequiredPackageOptions.getFullText()}`);
         return constructor;
     }
@@ -103,31 +107,31 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
         displayName.addPropertyAssignment(
             {
                 name: printNode(
-                    ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof(InvariantCultureName)))),
+                    ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)))),
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.DisplayName] ?? ""))
             });
 
         author.addPropertyAssignments(
             [
                 {
-                    name: nameof<IPackageOptions>((options) => options.Author.Name),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Author.Name),
                     initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Author] ?? ""))
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.Author.URL),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Author.URL),
                     initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.HomePage] ?? ""))
                 }
             ]);
 
         description.addPropertyAssignment(
             {
-                name: printNode(ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof(InvariantCultureName)))),
+                name: printNode(ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)))),
                 initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Description] ?? ""))
             });
 
         installSet.addPropertyAssignment(
             {
-                name: nameof<IPackageOptions>((options) => options.InstallSet.Instructions),
+                name: nameof<compiler.IPackageOptions>((options) => options.InstallSet.Instructions),
                 initializer: printNode(ts.factory.createArrayLiteralExpression())
             });
 
@@ -136,31 +140,31 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
         options.addPropertyAssignments(
             [
                 {
-                    name: nameof<IPackageOptions>((options) => options.Identifier),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Identifier),
                     initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Identifier] ?? ""))
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.Name),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Name),
                     initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Name] ?? ""))
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.DisplayName),
+                    name: nameof<compiler.IPackageOptions>((options) => options.DisplayName),
                     initializer: displayName.getFullText()
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.Version),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Version),
                     initializer: printNode(ts.factory.createStringLiteral("0.0.0"))
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.Author),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Author),
                     initializer: author.getFullText()
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.License),
+                    name: nameof<compiler.IPackageOptions>((options) => options.License),
                     initializer: printNode(ts.factory.createNull())
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.CreationDate),
+                    name: nameof<compiler.IPackageOptions>((options) => options.CreationDate),
                     initializer: printNode(
                         ts.factory.createNewExpression(
                             ts.factory.createIdentifier(nameof<Date>()),
@@ -170,15 +174,15 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                             ]))
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.Description),
+                    name: nameof<compiler.IPackageOptions>((options) => options.Description),
                     initializer: description.getFullText()
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.InstallSet),
+                    name: nameof<compiler.IPackageOptions>((options) => options.InstallSet),
                     initializer: installSet.getFullText()
                 },
                 {
-                    name: nameof<IPackageOptions>((options) => options.RequiredPackages),
+                    name: nameof<compiler.IPackageOptions>((options) => options.RequiredPackages),
                     initializer: requiredPackages.getFullText()
                 }
             ]);
@@ -240,18 +244,18 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 moduleSpecifier: "@manuth/woltlab-compiler",
                 namedImports: [
                     {
-                        name: nameof(InvariantCultureName)
+                        name: nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)
                     },
                     {
-                        name: nameof<Package>()
+                        name: nameof<compiler.Package>()
                     },
                     {
-                        name: nameof<RequiredPackageDescriptor>()
+                        name: nameof<compiler.RequiredPackageDescriptor>()
                     }
                 ]
             });
 
-        let constructor = this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<Package>()), [], []));
+        let constructor = this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<compiler.Package>()), [], []));
         constructor.addArgument(`${EOL}${this.PackageOptions.getFullText()}`);
 
         file.addVariableStatement(
