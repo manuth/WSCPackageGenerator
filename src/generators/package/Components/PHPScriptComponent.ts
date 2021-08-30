@@ -1,5 +1,5 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
-import { IPathQuestion } from "@manuth/generator-ts-project";
+import { IPathQuestion, SetQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
@@ -112,11 +112,11 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     /**
      * Gets a question for asking for the existing script's location.
      */
-    protected get LocationQuestion(): Question<TComponentOptions>
+    protected get LocationQuestion(): SetQuestion<TComponentOptions, TSettings>
     {
         return {
             name: "FileName",
-            message: (options) =>
+            message: (options: TComponentOptions) =>
             {
                 if (options.SelfContained)
                 {
@@ -127,18 +127,18 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
                     return `Where is the script located relative to the \`${options.Application}\` application-directory?`;
                 }
             },
-            default: (options) =>
+            default: (options: TComponentOptions, answers: TSettings) =>
             {
                 if (options.SelfContained)
                 {
-                    return join("lib", `install_${this.Generator.Settings[WoltLabSettingKey.Identifier]}_0.0.0.php`);
+                    return join("lib", `install_${answers[WoltLabSettingKey.Identifier]}_0.0.0.php`);
                 }
                 else
                 {
                     return undefined;
                 }
             }
-        } as Question<IPHPScriptComponentOptions>;
+        } as SetQuestion<TComponentOptions, TSettings>;
     }
 
     /**
