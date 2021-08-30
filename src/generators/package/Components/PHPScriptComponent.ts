@@ -7,7 +7,6 @@ import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import { join, join as legacyJoin } from "upath";
 import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { IPathQuestion } from "../../../Components/Inquiry/Prompts/IPathQuestion";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../../../WoltLabGenerator";
@@ -117,7 +116,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     {
         return {
             type: PathPrompt.TypeName,
-            name: "FileName",
+            name: nameof<IPHPScriptComponentOptions>((options) => options.FileName),
             message: (options: TComponentOptions) =>
             {
                 if (options.SelfContained)

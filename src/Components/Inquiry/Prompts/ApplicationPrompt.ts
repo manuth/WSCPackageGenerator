@@ -141,7 +141,7 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
             [
                 {
                     type: "list",
-                    name: "application",
+                    name: nameof<IApplicationAnswerHash>((hash) => hash.application),
                     message: this.opt.message,
                     default: defaultApp.ID,
                     choices: [
@@ -153,7 +153,7 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
                     ]
                 },
                 {
-                    name: "customApplication",
+                    name: nameof<IApplicationAnswerHash>((hash) => hash.customApplication),
                     message: "Please specify the identifier of the custom Application.",
                     when: (answers) => answers.application === null
                 }
