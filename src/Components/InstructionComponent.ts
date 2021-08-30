@@ -1,3 +1,4 @@
+import { relative } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer";
@@ -62,7 +63,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
             allowOutside: false
         };
 
-        question.default ??= this.InstructionFileName;
+        question.default ??= relative(this.Generator.sourcePath(), this.InstructionFileName);
         return question;
     }
 
