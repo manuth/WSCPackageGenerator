@@ -1,5 +1,6 @@
+import { posix } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
-import { IPathQuestion, SetQuestion } from "@manuth/generator-ts-project";
+import { IPathQuestion, PathPrompt, SetQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
@@ -115,6 +116,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     protected get LocationQuestion(): SetQuestion<TComponentOptions, TSettings>
     {
         return {
+            type: PathPrompt.TypeName,
             name: "FileName",
             message: (options: TComponentOptions) =>
             {
@@ -127,6 +129,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
                     return `Where is the script located relative to the \`${options.Application}\` application-directory?`;
                 }
             },
+            path: posix,
             default: (options: TComponentOptions, answers: TSettings) =>
             {
                 if (options.SelfContained)
