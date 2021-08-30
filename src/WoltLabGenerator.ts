@@ -1,11 +1,9 @@
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
-import { TSProjectGenerator } from "@manuth/generator-ts-project";
+import { QuestionSetPrompt, TSProjectGenerator } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { Package } from "@manuth/woltlab-compiler";
 import { join } from "upath";
 import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";
-import { PathPrompt } from "./Components/Inquiry/Prompts/PathPrompt";
-import { QuestionCollectionPrompt } from "./Components/Inquiry/Prompts/QuestionCollectionPrompt";
 import { WoltLabIdentifierQuestion } from "./Components/Inquiry/WoltLabIdentifierQuestion";
 import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
@@ -33,9 +31,8 @@ export class WoltLabGenerator<TSettings extends IWoltLabSettings, TOptions exten
     public constructor(args: string | string[], options: TOptions)
     {
         super(args, options);
-        this.env.adapter.promptModule.registerPrompt(PathPrompt.TypeName, PathPrompt);
         this.env.adapter.promptModule.registerPrompt(ApplicationPrompt.TypeName, ApplicationPrompt);
-        this.env.adapter.promptModule.registerPrompt(QuestionCollectionPrompt.TypeName, QuestionCollectionPrompt);
+        this.env.adapter.promptModule.registerPrompt(QuestionSetPrompt.TypeName, QuestionSetPrompt);
     }
 
     /**

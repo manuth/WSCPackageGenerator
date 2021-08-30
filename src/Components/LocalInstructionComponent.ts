@@ -1,9 +1,8 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { IPathQuestion, PathPrompt } from "@manuth/generator-ts-project";
 import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping";
 import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
-import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
 import { InstructionComponent } from "./InstructionComponent";
 
 /**

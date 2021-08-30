@@ -1,12 +1,11 @@
 import { ComponentOptions, GeneratorOptions, Question } from "@manuth/extended-yo-generator";
+import { PathPrompt, QuestionSetPrompt } from "@manuth/generator-ts-project";
 import inquirer = require("inquirer");
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../WoltLabGenerator";
-import { PathPrompt } from "./Inquiry/Prompts/PathPrompt";
-import { QuestionCollectionPrompt } from "./Inquiry/Prompts/QuestionCollectionPrompt";
 
 /**
  * Represents a woltlab-component.
@@ -83,7 +82,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     protected get ComponentOptionQuestion(): Question<TSettings>
     {
         return {
-            type: QuestionCollectionPrompt.TypeName,
+            type: QuestionSetPrompt.TypeName,
             name: `${WoltLabSettingKey.ComponentOptions}[${this.ID}]`,
             promptTypes: this.PromptTypes,
             questions: this.ComponentOptionQuestionCollection

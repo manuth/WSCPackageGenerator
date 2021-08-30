@@ -1,8 +1,8 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { IPathQuestion } from "@manuth/generator-ts-project";
 import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { IPathQuestion } from "./Inquiry/Prompts/IPathQuestion";
 import { WoltLabComponent } from "./WoltLabComponent";
 
 /**

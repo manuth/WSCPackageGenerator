@@ -1,10 +1,10 @@
 import { ReadLine } from "readline";
+import { NestedPrompt } from "@manuth/generator-ts-project";
 import { Answers, ChoiceCollection, prompt } from "inquirer";
 import { IApplicationAnswerHash } from "./IApplicationAnswerHash";
 import { IApplicationQuestion } from "./IApplicationQuestion";
 import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
 import { IWoltLabApplication } from "./IWoltLabApplication";
-import { NestedPrompt } from "./NestedPrompt";
 
 declare module "inquirer"
 {
