@@ -182,6 +182,16 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
 
     /**
      * @inheritdoc
+     */
+    protected override get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
+    {
+        return this.ComponentOptions.SelfContained ?
+            new SelfContainedPHPFileMapping(this) :
+            new PHPInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
      *
      * @param options
      * The options of the component.
@@ -224,15 +234,5 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
 
         return (result ?? true) &&
             (options.SelfContained === expected);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected override get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
-    {
-        return this.ComponentOptions.SelfContained ?
-            new SelfContainedPHPFileMapping(this) :
-            new PHPInstructionFileMapping(this);
     }
 }
