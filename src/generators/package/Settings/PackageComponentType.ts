@@ -35,57 +35,57 @@ import { UserOptionComponent } from "../Components/UserOptionComponent";
 export enum PackageComponentType
 {
     /**
-     * Indicates the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link FileUploadComponent `FileUploadComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     FileUpload = "wscFiles",
 
     /**
-     * Indicates the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     PHPScript = "wscPHP",
 
     /**
-     * Indicates the {@link SQLScriptComponent `SQLScriptComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link SQLScriptComponent `SQLScriptComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     SQLScript = "wscSQL",
 
     /**
-     * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link CronJobComponent `CronJobComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     CronJob = "wscCron",
 
     /**
-     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Translation = "wscTranslation",
 
     /**
-     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link TranslationComponent `TranslationComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     ErrorMessage = "wscErrors",
 
     /**
-     * Indicates the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link OptionComponent `OptionComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Option = "wscOptions",
 
     /**
-     * Indicates the {@link UserOptionComponent `UserOptionComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link UserOptionComponent `UserOptionComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     UserOption = "wscUserOptions",
 
     /**
-     * Indicates the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link GroupOptionComponent `GroupOptionComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     GroupOption = "wscGroupOptions",
 
     /**
-     * Indicates the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link EmojiComponent `EmojiComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Emoji = "wscEmojis",
 
     /**
-     * Indicates the {@link BBCodeComponent `BBCodeComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link BBCodeComponent `BBCodeComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     BBCode = "wscBBCodes",
 
@@ -95,17 +95,17 @@ export enum PackageComponentType
     Template = "wscTemplates",
 
     /**
-     * Indicates the {@link ACPTemplateComponent `ACPTemplateComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link ACPTemplateComponent `ACPTemplateComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     ACPTemplate = "wscACPTemplates",
 
     /**
-     * Indicates the {@link EventListenerComponent `EventListenerComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link EventListenerComponent `EventListenerComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     EventListener = "wscEventListeners",
 
     /**
-     * Indicates the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`}
+     * Indicates the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     TemplateListener = "wscTemplateListeners"
 }
