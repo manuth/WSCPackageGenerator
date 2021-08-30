@@ -20,6 +20,7 @@ import { PHPScriptComponent } from "./Components/PHPScriptComponent";
 import { SQLScriptComponent } from "./Components/SQLScriptComponent";
 import { TemplateComponent } from "./Components/TemplateComponent";
 import { TemplateListenerComponent } from "./Components/TemplateListenerComponent";
+import { ThemeInstructionComponent } from "./Components/ThemeInstructionComponent";
 import { TranslationComponent } from "./Components/TranslationComponent";
 import { UserOptionComponent } from "./Components/UserOptionComponent";
 import { EntryPointFileMapping } from "./FileMappings/EntryPointFileMapping";
@@ -69,7 +70,8 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOption
                         new EmojiComponent(this),
                         new BBCodeComponent(this),
                         new TemplateComponent(this),
-                        new ACPTemplateComponent(this)
+                        new ACPTemplateComponent(this),
+                        new ThemeInstructionComponent(this)
                     ]
                 },
                 {

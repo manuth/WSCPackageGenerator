@@ -25,6 +25,8 @@ import { TemplateComponent } from "../Components/TemplateComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TemplateListenerComponent } from "../Components/TemplateListenerComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ThemeInstructionComponent } from "../Components/ThemeInstructionComponent";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { TranslationComponent } from "../Components/TranslationComponent";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { UserOptionComponent } from "../Components/UserOptionComponent";
@@ -107,5 +109,10 @@ export enum PackageComponentType
     /**
      * Indicates the {@link TemplateListenerComponent `TemplateListenerComponent<TSettings, TOptions, TComponentOptions>`}.
      */
-    TemplateListener = "wscTemplateListeners"
+    TemplateListener = "wscTemplateListeners",
+
+    /**
+     * Indicates the {@link ThemeComponent `ThemeComponent<TSettings, TOptions, TComponentOptions>`}.
+     */
+    Theme = "wscTheme"
 }
