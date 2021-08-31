@@ -46,11 +46,11 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
 
         let properties: Array<OptionalKind<PropertyAssignmentStructure>> = [
             {
-                name: nameof<compiler.IThemeInstructionOptions>((options) => options.Theme.Name),
+                name: nameof<compiler.IThemeLoaderOptions>((options) => options.Name),
                 initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.Name))
             },
             {
-                name: nameof<compiler.IThemeInstructionOptions>((options) => options.Theme.DisplayName),
+                name: nameof<compiler.IThemeLoaderOptions>((options) => options.DisplayName),
                 initializer: displayNameObject.getFullText()
             }
         ];
@@ -59,7 +59,7 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
         {
             properties.push(
                 {
-                    name: nameof<compiler.IThemeInstructionOptions>((options) => options.Theme.CustomScssFileName),
+                    name: nameof<compiler.IThemeLoaderOptions>((options) => options.CustomScssFileName),
                     initializer: this.GetPathJoin(this.Component.ComponentOptions.CustomScssFileName).getFullText()
                 });
         }
@@ -68,7 +68,7 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
         {
             properties.push(
                 {
-                    name: nameof<compiler.IThemeInstructionOptions>((options) => options.Theme.ScssOverrideFileName),
+                    name: nameof<compiler.IThemeLoaderOptions>((options) => options.ScssOverrideFileName),
                     initializer: this.GetPathJoin(this.Component.ComponentOptions.ScssOverridesFileName).getFullText()
                 });
         }
@@ -77,7 +77,7 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
         {
             properties.push(
                 {
-                    name: nameof<compiler.IThemeInstructionOptions>((options) => options.Theme.VariableFileName),
+                    name: nameof<compiler.IThemeLoaderOptions>((options) => options.VariableFileName),
                     initializer: this.GetPathJoin(this.Component.ComponentOptions.VariableFileName).getFullText()
                 });
         }
