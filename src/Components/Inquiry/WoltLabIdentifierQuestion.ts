@@ -1,7 +1,6 @@
 import { URL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { InputQuestion } from "inquirer";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
@@ -16,14 +15,6 @@ import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
  */
 export class WoltLabIdentifierQuestion<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends QuestionBase<TSettings, TOptions>
 {
-    /**
-     * @inheritdoc
-     */
-    public get type(): InputQuestion["type"]
-    {
-        return "input";
-    }
-
     /**
      * @inheritdoc
      */
