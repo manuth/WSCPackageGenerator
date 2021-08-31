@@ -8,6 +8,7 @@ import { WoltLabExtensionsProcessorTests } from "./WoltLabExtensionsProcessor.te
 import { WoltLabLaunchSettingsProcessorTests } from "./WoltLabLaunchSettingsProcessor.test";
 import { WoltLabSettingsProcessorTests } from "./WoltLabSettingsProcessor.test";
 import { WoltLabTasksProcessorTests } from "./WoltLabTasksProcessor.test";
+import { WoltLabWorkspaceProcessorTests } from "./WoltLabWorkspaceProcessor.test";
 
 /**
  * Registers tests for vscode-components.
@@ -39,5 +40,6 @@ export function VSCodeTests(context: TestContext<WoltLabPackageGenerator>): void
             WoltLabLaunchSettingsProcessorTests(context, workspaceProvider);
             WoltLabSettingsProcessorTests(context, workspaceProvider);
             WoltLabTasksProcessorTests(context, workspaceProvider);
+            WoltLabWorkspaceProcessorTests(context, workspaceProvider);
         });
 }
