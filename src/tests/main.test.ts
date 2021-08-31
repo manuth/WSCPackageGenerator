@@ -10,4 +10,23 @@ suite(
         let context: TestContext<WoltLabPackageGenerator> = new TestContext(join(__dirname, "..", "generators", "app"));
         ComponentTests(context);
         require("./Generators");
+
+        suiteSetup(
+            () =>
+            {
+                workingDirectory = process.cwd();
+            });
+
+        teardown(
+            async () =>
+            {
+                await context.ResetSettings();
+                process.chdir(workingDirectory);
+            });
+
+        suiteTeardown(
+            () =>
+            {
+                context.Dispose();
+            });
     });
