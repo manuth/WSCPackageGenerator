@@ -30,7 +30,7 @@ import { WoltLabPackageFileMapping } from "./FileMappings/WoltLabPackageFileMapp
 /**
  * Provides the functionality to generate WoltLab-packages.
  */
-export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends WoltLabGenerator<TSettings, TOptions>
+export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltLabSettings, TOptions extends GeneratorOptions = GeneratorOptions> extends WoltLabGenerator<TSettings, TOptions>
 {
     /**
      * @inheritdoc
