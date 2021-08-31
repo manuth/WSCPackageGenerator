@@ -1,6 +1,7 @@
 import { ok, strictEqual } from "assert";
 import { createInterface, Interface } from "readline";
-import { TestContext, TestPrompt } from "@manuth/generator-ts-project-test";
+import { Predicate } from "@manuth/extended-yo-generator";
+import { TestPrompt } from "@manuth/generator-ts-project-test";
 import inquirer = require("inquirer");
 import Choice = require("inquirer/lib/objects/choice");
 import { MockSTDIN, stdin } from "mock-stdin";
@@ -20,16 +21,16 @@ export function ApplicationPromptTests(): void
         nameof(ApplicationPrompt),
         () =>
         {
-            let context: TestContext;
             let random: Random;
             let mockedInput: MockSTDIN;
             let readLine: Interface;
             let question: IApplicationQuestionOptions;
             let testPrompt: TestApplicationPrompt;
-            let defaultApp: string;
             let suggestedApps: ISuggestionOptions;
             let listRan: boolean;
             let listAnswer: string;
+            let inputRan: boolean;
+            let inputAnswer: string;
             let actualApps: inquirer.DistinctChoice[];
 
             /**
@@ -90,6 +91,24 @@ export function ApplicationPromptTests(): void
             }
 
             /**
+             * Provides a mocked representation of the input-prompt.
+             */
+            class MockedInputPrompt extends TestPrompt
+            {
+                /**
+                 * @inheritdoc
+                 *
+                 * @returns
+                 * The result of the prompt.
+                 */
+                public override Run(): Promise<any>
+                {
+                    inputRan = true;
+                    return inputAnswer ?? this.opt.default;
+                }
+            }
+
+            /**
              * Gets the prompt according to the specified settings.
              *
              * @returns
@@ -100,10 +119,22 @@ export function ApplicationPromptTests(): void
                 return new TestApplicationPrompt(question, readLine, {});
             }
 
+            /**
+             * Runs the {@link testPrompt `testPrompt`}.
+             *
+             * @returns
+             * The result of the prompt.
+             */
+            async function RunPrompt(): Promise<any>
+            {
+                listRan = false;
+                inputRan = false;
+                return testPrompt.Prompt();
+            }
+
             suiteSetup(
                 () =>
                 {
-                    context = TestContext.Default;
                     random = new Random();
                 });
 
@@ -134,20 +165,20 @@ export function ApplicationPromptTests(): void
                         ]
                     };
 
-                    defaultApp = random.pick(suggestedApps.apps).ID;
-
                     question = {
                         type: ApplicationPrompt.TypeName,
                         name: "test",
                         suggestions: suggestedApps,
-                        default: defaultApp
+                        default: listAnswer
                     };
 
                     testPrompt = GetPrompt();
-                    context.RegisterTestPrompt(inquirer.prompt);
+                    inquirer.prompt.registerPrompt("input" as inquirer.QuestionTypeName, MockedInputPrompt);
                     inquirer.prompt.registerPrompt("list" as inquirer.QuestionTypeName, MockedListPrompt);
                     listRan = false;
-                    listAnswer = undefined;
+                    listAnswer = random.pick(suggestedApps.apps).ID;
+                    inputRan = false;
+                    inputAnswer = undefined;
                 });
 
             teardown(
@@ -174,7 +205,7 @@ export function ApplicationPromptTests(): void
                                 ])
                             {
                                 testPrompt.opt.suggestions = suggestions;
-                                await testPrompt.Prompt();
+                                await RunPrompt();
 
                                 ok(
                                     suggestedApps.apps.every(
@@ -195,46 +226,82 @@ export function ApplicationPromptTests(): void
                         "Checking whether builtin suggestions can be hidden…",
                         async () =>
                         {
-                            await testPrompt.Prompt();
+                            /**
+                             * Asserts the inclusion of the suggestions.
+                             *
+                             * @param expected
+                             * A value indicating whether the suggestions are expected to be included.
+                             */
+                            function AssertSuggestions(expected: boolean): void
+                            {
+                                let predicate: Predicate<IWoltLabApplication> = (app) =>
+                                {
+                                    return actualApps.some(
+                                        (actualApp) =>
+                                        {
+                                            let choice = actualApp as Choice;
 
-                            ok(
-                                actualApps.some(
-                                    (app) =>
-                                    {
-                                        return (app as Choice).value === testPrompt.DefaultApplication.ID;
-                                    }));
+                                            return choice.name === app.DisplayName &&
+                                                choice.value === app.ID;
+                                        });
+                                };
 
+                                let builtInApps = [
+                                    testPrompt.DefaultApplication,
+                                    ...testPrompt.SuggestedApplications
+                                ];
+
+                                if (expected)
+                                {
+                                    builtInApps.every(predicate);
+                                }
+                                else
+                                {
+                                    builtInApps.every((app) => !predicate(app));
+                                }
+                            }
+
+                            await RunPrompt();
+                            AssertSuggestions(true);
                             suggestedApps.showBuiltinSuggestions = false;
                             testPrompt = GetPrompt();
-                            await testPrompt.Prompt();
-
-                            ok(
-                                actualApps.every(
-                                    (app) =>
-                                    {
-                                        return (app as Choice).value !== testPrompt.DefaultApplication.ID;
-                                    }));
+                            await RunPrompt();
+                            AssertSuggestions(false);
                         });
 
                     test(
                         "Checking whether the app-list only is displayed if suggestions are present…",
                         async () =>
                         {
+                            await RunPrompt();
+                            ok(listRan);
                             suggestedApps.apps = [];
                             suggestedApps.showBuiltinSuggestions = false;
                             testPrompt = GetPrompt();
-                            await testPrompt.Prompt();
+                            await RunPrompt();
                             ok(!listRan);
                         });
 
                     test(
-                        "Checking whether the user can type a custom app-name if desired…",
+                        "Checking whether the user can type a custom app-name if no application was chosen from the list…",
                         async () =>
                         {
+                            let result: any;
+                            inputAnswer = random.string(15);
+                            await RunPrompt();
+                            ok(listRan);
+                            ok(!inputRan);
                             listAnswer = null;
+                            result = await RunPrompt();
+                            strictEqual(result, inputAnswer);
+                            ok(listRan);
+                            ok(inputRan);
                             suggestedApps.apps = [];
-                            testPrompt = GetPrompt();
-                            strictEqual(await testPrompt.Prompt(), defaultApp);
+                            suggestedApps.showBuiltinSuggestions = false;
+                            result = await RunPrompt();
+                            strictEqual(result, inputAnswer);
+                            ok(!listRan);
+                            ok(inputRan);
                         });
                 });
         });
