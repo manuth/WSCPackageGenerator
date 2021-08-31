@@ -10,9 +10,6 @@ suite(
     {
         let workingDirectory: string;
         let context: TestContext<WoltLabPackageGenerator> = new TestContext(join(__dirname, "..", "generators", "app"));
-        ComponentTests(context);
-        FileMappingTests(context);
-        require("./Generators");
 
         suiteSetup(
             () =>
@@ -32,4 +29,8 @@ suite(
             {
                 context.Dispose();
             });
+
+        ComponentTests(context);
+        FileMappingTests(context);
+        require("./Generators");
     });
