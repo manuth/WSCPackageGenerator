@@ -1,7 +1,7 @@
 import { Answers, AsyncDynamicQuestionProperty, InputQuestionOptions } from "inquirer";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ApplicationPrompt } from "./ApplicationPrompt";
-import { IWoltLabApplication } from "./IWoltLabApplication";
+import { ISuggestionOptions } from "./ISuggestionOptions";
 
 /**
  * Provides options for the {@link ApplicationPrompt `ApplicationPrompt<T>`}.
@@ -14,5 +14,10 @@ export interface IApplicationQuestionOptions<T extends Answers = Answers> extend
     /**
      * @inheritdoc
      */
-    default?: AsyncDynamicQuestionProperty<IWoltLabApplication, T>;
+    default?: AsyncDynamicQuestionProperty<string, T>;
+
+    /**
+     * The suggested applications to display.
+     */
+    suggestions?: AsyncDynamicQuestionProperty<ISuggestionOptions, T>;
 }

@@ -1,9 +1,10 @@
 import { ReadLine } from "readline";
 import { NestedPrompt } from "@manuth/generator-ts-project";
-import { Answers, ChoiceCollection, prompt } from "inquirer";
+import { Answers, ChoiceCollection, DistinctQuestion, prompt } from "inquirer";
 import { IApplicationAnswerHash } from "./IApplicationAnswerHash";
 import { IApplicationQuestion } from "./IApplicationQuestion";
 import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
+import { ISuggestionOptions } from "./ISuggestionOptions";
 import { IWoltLabApplication } from "./IWoltLabApplication";
 
 declare module "inquirer"
@@ -99,36 +100,33 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
      */
     protected override async Prompt(): Promise<any>
     {
-        let defaultApp: IWoltLabApplication;
-        let suggestedApps: IWoltLabApplication[];
+        let suggestions: ISuggestionOptions = null;
+        let apps: IWoltLabApplication[] = [];
         let choices: ChoiceCollection;
+        let questions: Array<DistinctQuestion<IApplicationAnswerHash>> = [];
 
-        if (this.opt.default)
+        if (this.opt.suggestions)
         {
-            if (typeof this.opt.default === "function")
+            if (typeof this.opt.suggestions === "function")
             {
-                defaultApp = await this.opt.default(this.answers);
+                suggestions = await this.opt.suggestions(this.answers);
             }
             else
             {
-                defaultApp = await this.opt.default;
+                suggestions = await this.opt.suggestions;
             }
-
-            suggestedApps = [
-                this.DefaultApplication,
-                ...this.SuggestedApplications
-            ];
         }
-        else
+
+        if (suggestions?.showBuiltinSuggestions ?? true)
         {
-            defaultApp = this.DefaultApplication;
-            suggestedApps = this.SuggestedApplications;
+            apps.push(
+                this.DefaultApplication,
+                ...this.SuggestedApplications);
         }
 
-        choices = [
-            defaultApp,
-            ...suggestedApps
-        ].map(
+        apps.push(...suggestions?.apps ?? []);
+
+        choices = apps.map(
             (app) =>
             {
                 return {
@@ -137,13 +135,17 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
                 };
             });
 
-        let result = await prompt<IApplicationAnswerHash>(
-            [
+        if (choices.length > 0)
+        {
+            questions.push(
                 {
                     type: "list",
                     name: nameof<IApplicationAnswerHash>((hash) => hash.application),
                     message: this.opt.message,
-                    default: defaultApp.ID,
+                    default: this.opt.default ??
+                        suggestions?.showBuiltinSuggestions ?
+                        this.DefaultApplication.ID :
+                        undefined,
                     choices: [
                         ...choices,
                         {
@@ -151,14 +153,18 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
                             value: null
                         }
                     ]
-                },
-                {
-                    name: nameof<IApplicationAnswerHash>((hash) => hash.customApplication),
-                    message: "Please specify the identifier of the custom Application.",
-                    when: (answers) => answers.application === null
-                }
-            ]);
+                });
+        }
 
+        questions.push(
+            {
+                name: nameof<IApplicationAnswerHash>((hash) => hash.customApplication),
+                message: "Please specify the identifier of the custom application.",
+                default: this.opt.default,
+                when: (answers) => answers.application === null || answers.application === undefined
+            });
+
+        let result = await prompt<IApplicationAnswerHash>(questions);
         return result.application ?? result.customApplication;
     }
 }
