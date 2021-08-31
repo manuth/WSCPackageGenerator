@@ -7,6 +7,7 @@ suite(
     "WSCPackageGenerator",
     () =>
     {
+        let workingDirectory: string;
         let context: TestContext<WoltLabPackageGenerator> = new TestContext(join(__dirname, "..", "generators", "app"));
         ComponentTests(context);
         require("./Generators");
