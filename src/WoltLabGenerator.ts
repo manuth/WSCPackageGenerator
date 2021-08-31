@@ -76,7 +76,33 @@ export class WoltLabGenerator<TSettings extends IWoltLabSettings, TOptions exten
         return {
             name: WoltLabSettingKey.HomePage,
             message: "What's the homepage of the author",
-            default: "example.com"
+            default: "https://example.com",
+            validate: (input) =>
+            {
+                if (!input)
+                {
+                    return true;
+                }
+                else
+                {
+                    try
+                    {
+                        new URL(input);
+                        return true;
+                    }
+                    catch (exception)
+                    {
+                        if (exception instanceof Error)
+                        {
+                            return exception.message;
+                        }
+                        else
+                        {
+                            return `${exception}`;
+                        }
+                    }
+                }
+            }
         };
     }
 
