@@ -2,6 +2,7 @@ import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { InquiryTests } from "./Inquiry";
+import { VSCodeTests } from "./VSCode";
 
 /**
  * Registers tests for components.
@@ -15,6 +16,7 @@ export function ComponentTests(context: TestContext<WoltLabPackageGenerator>): v
         basename(__dirname),
         () =>
         {
+            VSCodeTests(context);
             InquiryTests(context);
         });
 }
