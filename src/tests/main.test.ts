@@ -1,9 +1,9 @@
-import { InquiryTests } from "./Inquiry";
+import { ComponentTests } from "./Components";
 
 suite(
     "WSCPackageGenerator",
     () =>
     {
-        InquiryTests();
+        ComponentTests();
         require("./Generators");
     });

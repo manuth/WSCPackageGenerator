@@ -7,10 +7,10 @@ import Choice = require("inquirer/lib/objects/choice");
 import { MockSTDIN, stdin } from "mock-stdin";
 import MuteStream = require("mute-stream");
 import { Random } from "random-js";
-import { ApplicationPrompt } from "../../../Components/Inquiry/Prompts/ApplicationPrompt";
-import { IApplicationQuestionOptions } from "../../../Components/Inquiry/Prompts/IApplicationQuestionOptions";
-import { ISuggestionOptions } from "../../../Components/Inquiry/Prompts/ISuggestionOptions";
-import { IWoltLabApplication } from "../../../Components/Inquiry/Prompts/IWoltLabApplication";
+import { ApplicationPrompt } from "../../../../Components/Inquiry/Prompts/ApplicationPrompt";
+import { IApplicationQuestionOptions } from "../../../../Components/Inquiry/Prompts/IApplicationQuestionOptions";
+import { ISuggestionOptions } from "../../../../Components/Inquiry/Prompts/ISuggestionOptions";
+import { IWoltLabApplication } from "../../../../Components/Inquiry/Prompts/IWoltLabApplication";
 
 /**
  * Registers tests for the {@link ApplicationPrompt `ApplicationPrompt<T>`} class.
