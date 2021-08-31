@@ -21,7 +21,7 @@ export class WoltLabLaunchSettingsProcessor<TSettings extends ITSProjectSettings
     }
 
     /**
-     * Determines whether a debug-configuration should be included.
+     * @inheritdoc
      *
      * @param debugConfig
      * The debug-configuration to filter.
