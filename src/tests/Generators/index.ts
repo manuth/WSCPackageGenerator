@@ -1,7 +1,6 @@
 import { doesNotThrow, strictEqual } from "assert";
 import { exec } from "child_process";
 import { promisify } from "util";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
@@ -11,7 +10,6 @@ import mock = require("mock-require");
 import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, ParsedCommandLine, sys } from "typescript";
 import { join } from "upath";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 suite(
@@ -36,10 +34,10 @@ suite(
             "Package-Generator",
             () =>
             {
-                let context: TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
-                let runContext: IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
-                let generator: WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>;
-                let testContext: IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>;
+                let context: TestContext<WoltLabPackageGenerator>;
+                let runContext: IRunContext<WoltLabPackageGenerator>;
+                let generator: WoltLabPackageGenerator;
+                let testContext: IRunContext<WoltLabPackageGenerator>;
                 let outputDir: string;
                 let tsConfigFile: string;
                 let generatorRoot: string;
@@ -97,7 +95,7 @@ suite(
                  * @returns
                  * A {@link RunContext `RunContext`} for running the generator.
                  */
-                function GetTestContext(): TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>
+                function GetTestContext(): TestContext<WoltLabPackageGenerator>
                 {
                     return new TestContext(generatorRoot);
                 }
@@ -111,7 +109,7 @@ suite(
                  * @returns
                  * An {@link IRunContext `IRunContext<T>`} for running the generator.
                  */
-                function GetRunContext(testContext?: TestContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>): IRunContext<WoltLabPackageGenerator<IWoltLabSettings, GeneratorOptions>>
+                function GetRunContext(testContext?: TestContext<WoltLabPackageGenerator>): IRunContext<WoltLabPackageGenerator>
                 {
                     return (testContext ?? GetTestContext()).ExecuteGenerator().withPrompts(
                         {
