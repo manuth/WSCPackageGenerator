@@ -187,7 +187,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
     }
 
     /**
-     * Gets the file-mapping for the entrypoint file.
+     * Gets the file-mapping for the entry-point file.
      */
     public get EntryPointFileMapping(): EntryPointFileMapping<TSettings, TOptions>
     {
