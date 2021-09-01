@@ -98,7 +98,6 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
         return [
             ...baseScripts,
             {
-                Source: "build",
                 Destination: "package",
                 Processor: () =>
                 {
