@@ -33,8 +33,8 @@
     "patchTypeScript": "ts-patch install && ts-patch --persist"
   },
   "dependencies": {
-    "@manuth/extended-yo-generator": "^11.0.4",
-    "@manuth/generator-ts-project": "^3.0.9",
+    "@manuth/extended-yo-generator": "^11.0.5",
+    "@manuth/generator-ts-project": "^3.0.10",
     "@manuth/package-json-editor": "^2.2.3",
     "@manuth/temp-files": "^2.0.7",
     "chalk": "^4.1.2",
@@ -49,8 +49,8 @@
   },
   "devDependencies": {
     "@manuth/eslint-plugin-typescript": "^3.2.5",
-    "@manuth/extended-yo-generator-test": "^11.0.4",
-    "@manuth/generator-ts-project-test": "^3.0.9",
+    "@manuth/extended-yo-generator-test": "^11.0.5",
+    "@manuth/generator-ts-project-test": "^3.0.10",
     "@manuth/tsconfig": "^2.0.3",
     "@manuth/typescript-eslint-plugin": "^1.4.2",
     "@manuth/woltlab-compiler": "^2.1.5",
@@ -61,7 +61,7 @@
     "@types/mocha": "^9.0.0",
     "@types/mock-require": "^2.0.0",
     "@types/mute-stream": "^0.0.1",
-    "@types/node": "^16.7.9",
+    "@types/node": "^16.7.10",
     "@types/npm": "^7.19.0",
     "@types/pascalcase": "^1.0.0",
     "@types/sinon": "^10.0.2",
