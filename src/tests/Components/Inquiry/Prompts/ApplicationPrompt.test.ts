@@ -184,6 +184,7 @@ export function ApplicationPromptTests(): void
             teardown(
                 () =>
                 {
+                    inquirer.prompt.restoreDefaultPrompts();
                     mockedInput.restore();
                     readLine.close();
                 });
