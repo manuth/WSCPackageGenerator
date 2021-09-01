@@ -138,8 +138,11 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                     test(
                         "Checking whether tsconfig-files are replaced properly…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             let configFileTester = new JSONCFileMappingTester(
                                 generator,
                                 generator.FileMappingCollection.Get((fileMapping: FileMapping<any, any>) => fileMapping.Destination === generator.destinationPath(TSConfigFileMapping.FileName)));
@@ -171,7 +174,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 () =>
                 {
                     let runContext: IRunContext<WoltLabPackageGenerator>;
-                    let generator: WoltLabPackageGenerator;
                     let testContext: IRunContext<WoltLabPackageGenerator>;
                     let outputDir: string;
                     let tsConfigFile: string;
@@ -188,8 +190,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             identifier = "com.example.mypackage";
                             runContext = GetRunContext(context);
                             await runContext.toPromise();
-                            generator = runContext.generator;
-                            outputDir = generator.destinationPath();
+                            outputDir = runContext.generator.destinationPath();
                             tsConfigFile = join(outputDir, TSConfigFileMapping.FileName);
 
                             await promisify(exec)(
@@ -234,7 +235,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                     {
                         return (testContext ?? context).ExecuteGenerator().withPrompts(
                             {
-                                [TSProjectSettingKey.Destination]: "./",
                                 [TSProjectSettingKey.Name]: packageName,
                                 [TSProjectSettingKey.DisplayName]: displayName,
                                 [WoltLabSettingKey.Identifier]: identifier,
@@ -301,7 +301,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         {
                             this.slow(20 * 1000);
                             this.timeout(20 * 1000);
-
                             let config = GetTSConfig();
 
                             let compilerResult = createProgram(
@@ -325,7 +324,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                             try
                             {
-                                let $package: Package = (await new TypeScriptFileMappingTester(generator, generator.WoltLabPackageFileMapping).Require())[generator.PackageVariableName];
+                                let $package: Package = (await new TypeScriptFileMappingTester(runContext.generator, runContext.generator.WoltLabPackageFileMapping).Require())[runContext.generator.PackageVariableName];
                                 strictEqual($package.Name, packageName);
                                 strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
                                 strictEqual($package.Identifier, identifier);
