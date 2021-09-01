@@ -145,8 +145,10 @@ export function PackageInstructionTransformerTests(context: TestContext<WoltLabP
 
                     test(
                         "Checking whether the resulting file contains valid TypeScript-code…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(15 * 1000);
+                            this.timeout(30 * 1000);
                             await doesNotReject(() => packageFileTester.Require());
                         });
                 });

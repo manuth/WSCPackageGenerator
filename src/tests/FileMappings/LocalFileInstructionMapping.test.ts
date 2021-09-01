@@ -138,8 +138,10 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
 
                     test(
                         "Checking whether valid TypeScript-code is produced…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(15 * 1000);
+                            this.timeout(30 * 1000);
                             await doesNotReject(() => tester.Require());
                         });
                 });

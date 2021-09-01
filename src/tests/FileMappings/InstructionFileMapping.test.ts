@@ -161,8 +161,10 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
 
                     test(
                         "Checking whether the output is valid TypeScript-code…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(20 * 1000);
+                            this.timeout(40 * 1000);
                             await doesNotReject(() => tester.Require());
                         });
                 });
