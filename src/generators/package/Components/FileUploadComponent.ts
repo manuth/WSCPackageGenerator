@@ -79,7 +79,7 @@ export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions ex
     }
 
     /**
-     * Gets the question for asking for the application.
+     * @inheritdoc
      */
     protected override get AppQuestion(): IApplicationQuestion<TComponentOptions>
     {
