@@ -67,12 +67,32 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
     /**
      * @inheritdoc
      */
+    public override get TypeScriptScripts(): Array<string | IScriptMapping<TSettings, TOptions>>
+    {
+        return super.TypeScriptScripts.filter(
+            (script) =>
+            {
+                return ![
+                    "rebuild",
+                    "build",
+                    "watch",
+                    "clean"
+                ].includes(new ScriptMapping(this.Generator, this.ScriptSource, script).Destination);
+            });
+    }
+
+    /**
+     * @inheritdoc
+     */
     public override get MiscScripts(): Array<IScriptMapping<TSettings, TOptions>>
     {
         let baseScripts = super.MiscScripts.filter(
             (script) =>
             {
-                return new ScriptMapping(this.Generator, this.ScriptSource, script).Destination !== "test";
+                return ![
+                    "prepare",
+                    "test"
+                ].includes(new ScriptMapping(this.Generator, this.ScriptSource, script).Destination);
             });
 
         return [
