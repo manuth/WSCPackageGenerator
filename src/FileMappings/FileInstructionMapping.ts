@@ -9,6 +9,15 @@ import { InstructionFileMapping } from "./InstructionFileMapping";
 
 /**
  * Provides the functionality to generate bbcode instruction files.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export abstract class FileInstructionMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {

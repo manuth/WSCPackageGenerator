@@ -12,6 +12,15 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for uploading files.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
 {

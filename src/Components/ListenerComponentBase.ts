@@ -7,6 +7,15 @@ import { FileInstructionComponent } from "./FileInstructionComponent";
 
 /**
  * Provides a component for generating template- or event-listeners.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export abstract class ListenerComponentBase<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionComponent<TSettings, TOptions, TComponentOptions>
 {

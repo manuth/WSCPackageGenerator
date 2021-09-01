@@ -6,6 +6,12 @@ import { WoltLabWorkspaceProcessor } from "./VSCode/WoltLabWorkspaceProcessor";
 
 /**
  * Provides a component for creating a code-workspace for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
  */
 export class WoltLabCodeWorkspaceFolder<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends ObjectExtensionFactory.Create(TSProjectCodeWorkspaceFolder)<TSettings, TOptions>
 {

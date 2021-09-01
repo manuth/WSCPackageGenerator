@@ -9,6 +9,15 @@ import { LocalInstructionComponent } from "./LocalInstructionComponent";
 
 /**
  * Provides a component for file-uploads.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export abstract class FileUploadComponentBase<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IFileUploadComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {

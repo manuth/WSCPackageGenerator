@@ -15,6 +15,15 @@ type WoltLabCompiler = typeof compiler;
 
 /**
  * Provides the functionality to generate theme-instructions.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IThemeComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {

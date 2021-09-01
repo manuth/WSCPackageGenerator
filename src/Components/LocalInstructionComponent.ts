@@ -7,6 +7,15 @@ import { InstructionComponent } from "./InstructionComponent";
 
 /**
  * Provides a component for generating instruction-files which are loaded from local.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export abstract class LocalInstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
 {

@@ -9,6 +9,15 @@ import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptio
 
 /**
  * Provides the functionality to generate self-contained php script instructions.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class SelfContainedPHPFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadMapping<TSettings, TOptions, TComponentOptions>
 {

@@ -5,6 +5,12 @@ import { WoltLabGenerator } from "../../WoltLabGenerator";
 
 /**
  * Provides the functionality to process settings for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
  */
 export class WoltLabSettingsProcessor<TSettings extends ITSProjectSettings, TOptions extends GeneratorOptions> extends TSProjectSettingsProcessor<TSettings, TOptions>
 {

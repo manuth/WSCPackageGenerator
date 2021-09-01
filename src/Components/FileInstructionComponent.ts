@@ -5,6 +5,15 @@ import { InstructionComponent } from "./InstructionComponent";
 
 /**
  * Provides a component for generating instruction-files with a `FileName`-property.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export abstract class FileInstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends InstructionComponent<TSettings, TOptions, TComponentOptions>
 {

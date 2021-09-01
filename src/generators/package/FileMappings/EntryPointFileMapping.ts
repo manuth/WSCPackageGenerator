@@ -11,6 +11,12 @@ import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
 
 /**
  * Provides the functionality to create an entry-point.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
  */
 export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
 {

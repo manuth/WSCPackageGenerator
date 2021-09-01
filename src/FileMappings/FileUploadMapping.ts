@@ -33,7 +33,7 @@ export class FileUploadMapping<TSettings extends IWoltLabSettings, TOptions exte
     }
 
     /**
-     * Gets the options to pass to the instruction-constructor.
+     * @inheritdoc
      */
     protected override get InstructionOptions(): ObjectLiteralExpression
     {

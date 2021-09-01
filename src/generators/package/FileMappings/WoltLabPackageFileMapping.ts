@@ -15,6 +15,12 @@ import { WoltLabGenerator } from "../../../WoltLabGenerator";
 
 /**
  * Provides the functionality to generate a package-file.
+ *
+ * @template TSettings
+ * The type of the generator-settings.
+ *
+ * @template TOptions
+ * The type of the generator-options.
  */
 export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
 {

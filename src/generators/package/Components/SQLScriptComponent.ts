@@ -11,6 +11,15 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for generating sql-script instructions.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends ILocalComponentOptions> extends LocalInstructionComponent<TSettings, TOptions, TComponentOptions>
 {

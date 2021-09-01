@@ -9,6 +9,15 @@ import { FileInstructionMapping } from "./FileInstructionMapping";
 
 /**
  * Provides the functionality to generate instruction-files containing nodes.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class NodeInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends FileInstructionMapping<TSettings, TOptions, TComponentOptions>
 {
@@ -24,7 +33,7 @@ export class NodeInstructionFileMapping<TSettings extends IWoltLabSettings, TOpt
     }
 
     /**
-     * Gets the options to pass to the instruction-constructor.
+     * @inheritdoc
      */
     protected override get InstructionOptions(): ObjectLiteralExpression
     {

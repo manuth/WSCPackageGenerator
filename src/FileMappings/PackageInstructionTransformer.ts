@@ -9,6 +9,12 @@ import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
 
 /**
  * Provides the functionality to add an instruction to the package-file.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
  */
 export class PackageInstructionTransformer<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions>
 {

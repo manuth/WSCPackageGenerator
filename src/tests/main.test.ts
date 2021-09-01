@@ -3,6 +3,7 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator";
 import { ComponentTests } from "./Components";
 import { FileMappingTests } from "./FileMappings";
+import { GeneratorTests } from "./Generators";
 
 suite(
     "WSCPackageGenerator",
@@ -32,5 +33,5 @@ suite(
 
         ComponentTests(context);
         FileMappingTests(context);
-        require("./Generators");
+        GeneratorTests(context);
     });

@@ -17,6 +17,15 @@ import { PackageComponentType } from "../Settings/PackageComponentType";
 
 /**
  * Provides a component for uploading or executing php-scripts.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends FileUploadComponentBase<TSettings, TOptions, TComponentOptions>
 {

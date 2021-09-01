@@ -9,6 +9,15 @@ import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptio
 
 /**
  * Provides the functionality to generate php instruction files.
+ *
+ * @template TSettings
+ * The type of the settings of the generator.
+ *
+ * @template TOptions
+ * The type of the options of the generator.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component.
  */
 export class PHPInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IPHPScriptComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
