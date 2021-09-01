@@ -14,81 +14,86 @@ import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
  */
 export function InstructionComponentTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    /**
-     * Provides an implementation of the {@link InstructionComponent `InstructionComponent<TSettings, TOptions>`} class for testing.
-     */
-    class TestInstructionComponent extends InstructionComponent<IWoltLabSettings, GeneratorOptions>
-    {
-        /**
-         * A file-mapping.
-         */
-        private fileMapping = new InstructionFileMapping(this);
-
-        /**
-         * @inheritdoc
-         */
-        public get ID(): string
-        {
-            return "test";
-        }
-
-        /**
-         * @inheritdoc
-         */
-        public get DisplayName(): string
-        {
-            return "Test";
-        }
-
-        /**
-         * @inheritdoc
-         */
-        public get ClassName(): string
-        {
-            return "TestInstruction";
-        }
-
-        /**
-         * @inheritdoc
-         */
-        public get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
-        {
-            return this.fileMapping;
-        }
-    }
-
-    let generator: WoltLabPackageGenerator;
-    let component: TestInstructionComponent;
-
-    suiteSetup(
-        async function()
-        {
-            this.timeout(5 * 60 * 1000);
-            generator = await context.Generator;
-            component = new TestInstructionComponent(generator);
-        });
-
     suite(
-        nameof<TestInstructionComponent>((component) => component.InstructionFileName),
+        nameof(InstructionComponent),
         () =>
         {
-            test(
-                "Checking whether the file-name ha s a TypeScript-extension…",
-                () =>
+            /**
+             * Provides an implementation of the {@link InstructionComponent `InstructionComponent<TSettings, TOptions>`} class for testing.
+             */
+            class TestInstructionComponent extends InstructionComponent<IWoltLabSettings, GeneratorOptions>
+            {
+                /**
+                 * A file-mapping.
+                 */
+                private fileMapping = new InstructionFileMapping(this);
+
+                /**
+                 * @inheritdoc
+                 */
+                public get ID(): string
                 {
-                    ok(component.InstructionFileName.endsWith(".ts"));
+                    return "test";
+                }
+
+                /**
+                 * @inheritdoc
+                 */
+                public get DisplayName(): string
+                {
+                    return "Test";
+                }
+
+                /**
+                 * @inheritdoc
+                 */
+                public get ClassName(): string
+                {
+                    return "TestInstruction";
+                }
+
+                /**
+                 * @inheritdoc
+                 */
+                public get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
+                {
+                    return this.fileMapping;
+                }
+            }
+
+            let generator: WoltLabPackageGenerator;
+            let component: TestInstructionComponent;
+
+            suiteSetup(
+                async function()
+                {
+                    this.timeout(5 * 60 * 1000);
+                    generator = await context.Generator;
+                    component = new TestInstructionComponent(generator);
                 });
-        });
 
-    suite(
-        nameof<TestInstructionComponent>((component) => component.FileMappings),
-        () =>
-        {
-            test(
-                `Checking whether the \`${nameof<TestInstructionComponent>((c) => c.InstructionFileMapping)}\` is included…`,
+            suite(
+                nameof<TestInstructionComponent>((component) => component.InstructionFileName),
                 () =>
                 {
-                    ok(component.FileMappings.includes(component.InstructionFileMapping));
+                    test(
+                        "Checking whether the file-name ha s a TypeScript-extension…",
+                        () =>
+                        {
+                            ok(component.InstructionFileName.endsWith(".ts"));
+                        });
+                });
+
+            suite(
+                nameof<TestInstructionComponent>((component) => component.FileMappings),
+                () =>
+                {
+                    test(
+                        `Checking whether the \`${nameof<TestInstructionComponent>((c) => c.InstructionFileMapping)}\` is included…`,
+                        () =>
+                        {
+                            ok(component.FileMappings.includes(component.InstructionFileMapping));
+                        });
                 });
         });
 }
