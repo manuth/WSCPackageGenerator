@@ -1,0 +1,198 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Morphing using `ts-morph`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Creating `ObjectLiteralExpression`s"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { printNode, Project, SyntaxKind, ts, VariableDeclarationKind } from \"ts-morph\";\r\nimport { TempFileSystem } from \"@manuth/temp-files\";\r\n\r\nlet varName = \"tmp\";\r\nlet file = new Project().createSourceFile(TempFileSystem.TempName());\r\n\r\nfile.replaceWithText(printNode(\r\n    ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())));\r\n\r\nlet options = file.getFirstDescendantByKindOrThrow(\r\n    SyntaxKind.ParenthesizedExpression).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);\r\n\r\noptions.addPropertyAssignment(\r\n    {\r\n        name: \"Application\",\r\n        initializer: JSON.stringify(\"wcf\")\r\n    });\r\n\r\nconsole.log(options.getFullText());"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "{",
+                                "    Application: \"wcf\"",
+                                "}",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Creating `CallExpression`s"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { printNode, Project, StructureKind, SyntaxKind, ts, VariableDeclarationKind } from \"ts-morph\";\r\nimport { TempFileSystem } from \"@manuth/temp-files\";\r\n\r\nlet file = new Project().createSourceFile(TempFileSystem.TempName());\r\n\r\nfile.replaceWithText(printNode(\r\n    ts.factory.createCallExpression(\r\n        ts.factory.createIdentifier(\"join\"),\r\n        [],\r\n        [])));\r\n\r\nlet call = file.getStatementByKindOrThrow(SyntaxKind.ExpressionStatement).getExpressionIfKindOrThrow(SyntaxKind.CallExpression);\r\ncall.addArgument(printNode(ts.factory.createStringLiteral(\"..\")));\r\ncall.addArgument(printNode(ts.factory.createStringLiteral(\"..\")));\r\nconsole.log(file.getFullText());"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "join(\"..\", \"..\")",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Creating Anonymous Functions"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { EOL } from \"os\";\r\nimport { printNode, Project, ts } from \"ts-morph\";\r\nimport { TempFileSystem } from \"@manuth/temp-files\";\r\n\r\nlet file = new Project().createSourceFile(TempFileSystem.TempName());\r\n\r\nfile.addStatements(\r\n    [\r\n        `${EOL}(${EOL}` +\r\n        printNode(\r\n            ts.factory.createArrowFunction(\r\n                [],\r\n                [],\r\n                [],\r\n                undefined,\r\n                undefined,\r\n                ts.factory.createBlock(\r\n                    [\r\n                        ts.factory.createCallExpression(\r\n                            ts.factory.createPropertyAccessExpression(ts.factory.createIdentifier(\"console\"), \"log\"),\r\n                            [],\r\n                            [\r\n                                ts.factory.createStringLiteral(\"Hello World\")\r\n                            ])\r\n                    ],\r\n                    true))) +\r\n        `)()`\r\n    ]);\r\n\r\nfile.formatText();\r\nconsole.log(file.getFullText());"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "",
+                                "(",
+                                "    () => {",
+                                "        console.log(\"Hello World\")",
+                                "    })()",
+                                "",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Getting Module-Components"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { join } from \"path\";\r\nimport { Project, SyntaxKind, ts } from \"ts-morph\";\r\nimport { TempFileSystem } from \"@manuth/temp-files\";\r\n\r\nlet project = new Project(\r\n    {\r\n        tsConfigFilePath: join(process.cwd(), \"tsconfig.json\")\r\n    });\r\n\r\nlet file = project.createSourceFile(TempFileSystem.TempBaseName());\r\n\r\nlet compilerFileName = ts.resolveModuleName(\r\n    \"@manuth/woltlab-compiler\",\r\n    file.getFilePath(),\r\n    project.getCompilerOptions(),\r\n    project.getModuleResolutionHost()).resolvedModule.resolvedFileName;\r\n\r\nlet compilerFile = project.addSourceFileAtPath(compilerFileName);\r\nlet packageClass = compilerFile.getExportedDeclarations().get(\"Package\")[0].asKindOrThrow(SyntaxKind.ClassDeclaration);\r\nconsole.log(project.getSourceFiles().map((file) => file.getFilePath()));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/tmp-39692-U3Q1dg',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/WoltLabGenerator.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/FileInstructionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/FileUploadComponentBase.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/InstructionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/ListenerComponentBase.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/LocalInstructionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/NodeSystemComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/WoltLabCodeWorkspaceFolder.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/WoltLabComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Core/Constants.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/FileInstructionMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/FileUploadMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/InstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/ListenerInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/LocalFileInstructionMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/NodeInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/FileMappings/PackageInstructionTransformer.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/IFileUploadComponentOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/ILocalComponentOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/IWoltLabComponentOptionCollection.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/IWoltLabComponentOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/IWoltLabSettings.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/WoltLabComponentKey.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/WoltLabComponentType.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Settings/WoltLabSettingKey.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/WoltLabIdentifierQuestion.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/VSCode/WoltLabExtensionsProcessor.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/VSCode/WoltLabLaunchSettingsProcessor.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/VSCode/WoltLabSettingsProcessor.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/VSCode/WoltLabTasksProcessor.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/VSCode/WoltLabWorkspaceProcessor.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/app/index.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/WoltLabPackageGenerator.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/node_modules/@manuth/woltlab-compiler/lib/index.d.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/ApplicationPrompt.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/IApplicationAnswerHash.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/IApplicationQuestion.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/IApplicationQuestionOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/ISuggestionOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/Components/Inquiry/Prompts/IWoltLabApplication.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/ACPTemplateComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/BBCodeComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/CronJobComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/EmojiComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/ErrorMessageComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/EventListenerComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/FileUploadComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/GroupOptionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/OptionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/PHPScriptComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/SQLScriptComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/TemplateComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/TemplateListenerComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/ThemeInstructionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/TranslationComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Components/UserOptionComponent.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/BBCodeInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/CronJobInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/EmojiInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/EntryPointFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/PHPInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/SelfContainedPHPFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/ThemeInstructionFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/WoltLabNodePackageFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/FileMappings/WoltLabPackageFileMapping.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Settings/IPackageComponentOptionCollection.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Settings/IPHPScriptComponentOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Settings/IThemeComponentOptions.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Settings/PackageComponentType.ts',",
+                                "  'd:/Users/Manuel/Documents/Projects/Node-Modules/WSCPackageGenerator/src/generators/package/Settings/ThemeComponent.ts'",
+                                "]",
+                                "",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
