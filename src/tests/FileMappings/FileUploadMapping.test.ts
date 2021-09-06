@@ -76,8 +76,10 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
 
                     test(
                         `Checking whether a \`${propertyName}\`-property is added…`,
-                        () =>
+                        function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
                             doesNotThrow(() => fileMapping.InstructionOptions.getPropertyOrThrow(propertyName));
                         });
                 });
