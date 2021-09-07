@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## WSCPackageGenerator [Unreleased]
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.0...dev)
+
+## WSCPackageGenerator v3.0.0
 ### Fixed
   - Package by adding missing dependencies
   - Broken `WoltLabIdentifierQuestion` which caused errors if the homepage is an invalid URL
@@ -26,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Support for parallel step-execution in Drone-pipelines
   - Support for the Test Explorer UI
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v2.2.1...dev)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v2.2.1...v3.0.0)
 
 ## WSCPackageGenerator v2.2.1
 ### Fixed
