@@ -103,6 +103,10 @@ dist
 # TernJS port file
 .tern-port
 
+# Notebooks
+*.ipynb
+*.nnb
+
 # Source-files
 [Ss]rc/
 
@@ -129,3 +133,8 @@ tsconfig.*.json
 
 # Drone configuration
 .drone.yml
+
+# Temporary release-assets
+.tagName.txt
+.releaseNotes.md
+.releaseTitle.md

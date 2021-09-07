@@ -20,24 +20,10 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js",
                 "!**/node_modules/**"
-            ]
-        },
-        {
-            "type": "pwa-node",
-            "request": "launch",
-            "name": "Launch Theme-Generator",
-            "program": "${workspaceFolder}/node_modules/yo/lib/cli.js",
-            "args": [
-                "${workspaceFolder}/lib/generators/theme"
             ],
-            "cwd": "${workspaceFolder}/../TestPackage",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "preLaunchTask": "Build",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceFolder}/**/*.js",
-                "!**/node_modules/**"
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
             ]
         },
         {
@@ -45,9 +31,39 @@
             "request": "launch",
             "name": "Launch Tests",
             "program": "${workspaceFolder}/node_modules/mocha/bin/mocha",
+            "args": [
+                "--timeout",
+                "0"
+            ],
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": "Build",
             "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js",
+                "!**/node_modules/**"
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
+            ]
+        },
+        {
+            "type": "pwa-node",
+            "request": "attach",
+            "name": "Debug Mocha Tests",
+            "presentation": {
+                "hidden": true
+            },
+            "port": 9229,
+            "continueOnAttach": true,
+            "resolveSourceMapLocations": [
+                "!**/node_modules/**",
+                "!**/.vscode/extensions/hbenl.vscode-mocha-test-adapter-*/**"
+            ],
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/typescript/**"
+            ],
             "outFiles": [
                 "${workspaceFolder}/**/*.js",
                 "!**/node_modules/**"

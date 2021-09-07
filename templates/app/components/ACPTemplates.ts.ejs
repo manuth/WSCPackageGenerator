@@ -1,8 +1,0 @@
-import { join } from "path";
-import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
-
-export = new ACPTemplateInstruction(
-    {
-        Application: <%- JSON.stringify(Application) %>,
-        Source: <%- MakePackagePath(TemplateRoot) %>
-    });

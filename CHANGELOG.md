@@ -6,7 +6,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WSCPackageGenerator [Unreleased]
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v2.2.1...dev)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.0...dev)
+
+## WSCPackageGenerator v3.0.0
+### Fixed
+  - Package by adding missing dependencies
+  - Broken `WoltLabIdentifierQuestion` which caused errors if the homepage is an invalid URL
+  - Vulnerabilities in dependencies
+  - Broken Drone-pipeline scripts
+  - Drone-pipeline steps for multi-digit version-numbers
+  - Broken release-notes scripts in Drone-pipelines
+
+### Updated
+  - All dependencies
+  - Drone-pipelines to use smaller docker-images
+  - Generator to use `ts-morph` for creating TypeScript-files instead of `.ejs`-files
+
+### Added
+  - A workflow for merging Dependabot-PRs
+  - A workflow for analyzing the code
+  - A prompt `ApplicationPrompt` for asking for a WoltLab-application
+  - Support for the `ts-nameof`-plugin
+  - Support for parallel step-execution in Drone-pipelines
+  - Support for the Test Explorer UI
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v2.2.1...v3.0.0)
 
 ## WSCPackageGenerator v2.2.1
 ### Fixed
