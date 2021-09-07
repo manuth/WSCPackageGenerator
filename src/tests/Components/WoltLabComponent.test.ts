@@ -7,7 +7,7 @@ import { PackageComponentType } from "../../generators/package/Settings/PackageC
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 /**
@@ -96,7 +96,7 @@ export function WoltLabComponentTests(context: TestContext<WoltLabPackageGenerat
                             for (let componentType of componentTypes)
                             {
                                 let options: IWoltLabComponentOptions = {
-                                    [WoltLabComponentKey.Path]: random.string(10)
+                                    [WoltLabComponentSettingKey.Path]: random.string(10)
                                 };
 
                                 componentID = componentType;

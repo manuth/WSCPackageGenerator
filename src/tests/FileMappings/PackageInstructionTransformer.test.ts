@@ -14,7 +14,7 @@ import { PackageComponentType } from "../../generators/package/Settings/PackageC
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 /**
@@ -55,7 +55,7 @@ export function PackageInstructionTransformerTests(context: TestContext<WoltLabP
                     this.timeout(20 * 1000);
 
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
                     };
 
                     Object.assign<IWoltLabSettings, Partial<IWoltLabSettings>>(

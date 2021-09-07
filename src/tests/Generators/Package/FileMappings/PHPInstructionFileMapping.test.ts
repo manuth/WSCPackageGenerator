@@ -11,7 +11,7 @@ import { IPHPScriptComponentOptions } from "../../../../generators/package/Setti
 import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
 
 /**
@@ -66,7 +66,7 @@ export function PHPInstructionFileMappingTests(context: TestContext<WoltLabPacka
                 () =>
                 {
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`,
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
                         SelfContained: false,
                         Application: "wcf",
                         FileName: "install.php"

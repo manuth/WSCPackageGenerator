@@ -9,7 +9,7 @@ import { PackageComponentType } from "../../../../generators/package/Settings/Pa
 import { ThemeComponent } from "../../../../generators/package/Settings/ThemeComponent";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
 
 /**
@@ -42,7 +42,7 @@ export function ThemeInstructionComponentTests(context: TestContext<WoltLabPacka
                 () =>
                 {
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`,
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
                         Name: "test",
                         DisplayName: "Test",
                         Description: "This is a test.",

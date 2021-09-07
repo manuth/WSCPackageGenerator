@@ -7,7 +7,7 @@ import { dirname, relative, sep } from "upath";
 import { InstructionComponent } from "../Components/InstructionComponent";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 
 /**
@@ -62,7 +62,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     public get Destination(): string
     {
-        return this.Generator.Settings[WoltLabSettingKey.ComponentOptions][this.Component.ID][WoltLabComponentKey.Path];
+        return this.Generator.Settings[WoltLabSettingKey.ComponentOptions][this.Component.ID][WoltLabComponentSettingKey.Path];
     }
 
     /**

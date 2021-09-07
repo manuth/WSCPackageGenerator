@@ -3,7 +3,7 @@ import { PathPrompt, QuestionSetPrompt } from "@manuth/generator-ts-project";
 import inquirer = require("inquirer");
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 
@@ -54,7 +54,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
         return {
             type: PathPrompt.TypeName,
             message: "Where do you want to store the component?",
-            name: WoltLabComponentKey.Path
+            name: WoltLabComponentSettingKey.Path
         };
     }
 

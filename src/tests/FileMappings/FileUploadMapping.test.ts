@@ -11,7 +11,7 @@ import { PackageComponentType } from "../../generators/package/Settings/PackageC
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 /**
@@ -58,7 +58,7 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
                 () =>
                 {
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`,
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
                         Application: "test",
                         Source: join("assets", "install.sql")
                     };

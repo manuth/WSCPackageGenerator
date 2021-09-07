@@ -1,7 +1,7 @@
 /**
  * Represents an option of a woltlab-component.
  */
-export enum WoltLabComponentKey
+export enum WoltLabComponentSettingKey
 {
     /**
      * Indicates the path of the component.

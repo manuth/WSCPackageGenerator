@@ -5,7 +5,7 @@ import { IPackageOptions } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
 import { InstructionComponent } from "../Components/InstructionComponent";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
 
 /**
  * Provides the functionality to add an instruction to the package-file.
@@ -60,7 +60,7 @@ export class PackageInstructionTransformer<TSettings extends IWoltLabSettings, T
         let installInstructionKey = nameof<IPackageOptions>((options) => options.InstallSet.Instructions);
 
         let moduleFileName = file.getRelativePathAsModuleSpecifierTo(
-            this.Component.Generator.destinationPath(this.Component.ComponentOptions[WoltLabComponentKey.Path]));
+            this.Component.Generator.destinationPath(this.Component.ComponentOptions[WoltLabComponentSettingKey.Path]));
 
         file.addImportDeclaration(
             {

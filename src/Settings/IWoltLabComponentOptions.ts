@@ -1,4 +1,4 @@
-import { WoltLabComponentKey } from "./WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "./WoltLabComponentSettingKey";
 
 /**
  * Represents options of a component.
@@ -8,5 +8,5 @@ export interface IWoltLabComponentOptions
     /**
      * The path to save the component to.
      */
-    [WoltLabComponentKey.Path]: string;
+    [WoltLabComponentSettingKey.Path]: string;
 }

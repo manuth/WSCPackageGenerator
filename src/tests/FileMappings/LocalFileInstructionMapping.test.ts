@@ -12,7 +12,7 @@ import { PackageComponentType } from "../../generators/package/Settings/PackageC
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { ILocalComponentOptions } from "../../Settings/ILocalComponentOptions";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 /**
@@ -75,7 +75,7 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                 () =>
                 {
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`,
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
                         Source: generator.destinationPath("assets", "install.sql")
                     } as ILocalComponentOptions;
 

@@ -16,7 +16,7 @@ import { PackageComponentType } from "../../generators/package/Settings/PackageC
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentKey } from "../../Settings/WoltLabComponentKey";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
 
 /**
@@ -87,7 +87,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 () =>
                 {
                     options = {
-                        [WoltLabComponentKey.Path]: `${random.string(20)}.ts`,
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
                         Name: "theme",
                         DisplayName: "Theme",
                         Description: "test",
@@ -119,7 +119,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                         `Checking whether the \`${nameof<TestInstructionFileMapping>((fm) => fm.Destination)}\` chosen by the user is returned…`,
                         () =>
                         {
-                            strictEqual(fileMapping.Destination, options[WoltLabComponentKey.Path]);
+                            strictEqual(fileMapping.Destination, options[WoltLabComponentSettingKey.Path]);
                         });
                 });
 
