@@ -9,6 +9,8 @@
     "Package",
     "yeoman-generator"
   ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
   "repository": {
     "type": "git",
