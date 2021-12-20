@@ -21,7 +21,7 @@ export class PackageInstructionTransformer<TSettings extends IWoltLabSettings, T
     /**
      * The component to add an instruction for.
      */
-    private component: InstructionComponent<TSettings, TOptions>;
+    private component: InstructionComponent<TSettings, TOptions, any>;
 
     /**
      * Initializes a new instance of the {@link PackageInstructionTransformer `PackageInstructionTransformer<TSettings, TOptions>`} class.
@@ -29,7 +29,7 @@ export class PackageInstructionTransformer<TSettings extends IWoltLabSettings, T
      * @param component
      * The component to add an instruction for.
      */
-    public constructor(component: InstructionComponent<TSettings, TOptions>)
+    public constructor(component: InstructionComponent<TSettings, TOptions, any>)
     {
         this.component = component;
     }

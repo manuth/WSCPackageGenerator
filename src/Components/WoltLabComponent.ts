@@ -85,7 +85,7 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
             type: QuestionSetPrompt.TypeName,
             name: `${WoltLabSettingKey.ComponentOptions}[${this.ID}]`,
             promptTypes: this.PromptTypes,
-            questions: this.ComponentOptionQuestionCollection
+            questions: this.ComponentOptionQuestionCollection as Array<Question<inquirer.Answers>>
         };
     }
 

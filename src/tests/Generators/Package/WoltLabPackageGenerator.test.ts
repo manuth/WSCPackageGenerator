@@ -4,7 +4,7 @@ import { join, normalize } from "path";
 import { promisify } from "util";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
-import { LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
@@ -14,7 +14,6 @@ import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfi
 import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder";
 import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileMappings/WoltLabNodePackageFileMapping";
 import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
 
 /**
@@ -37,7 +36,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 /**
                  * @inheritdoc
                  */
-                public override get BaseComponents(): ComponentCollection<IWoltLabSettings, GeneratorOptions>
+                public override get BaseComponents(): ComponentCollection<ITSProjectSettings, GeneratorOptions>
                 {
                     return super.BaseComponents;
                 }

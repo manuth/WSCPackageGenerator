@@ -1,5 +1,5 @@
 import { GeneratorOptions, ObjectExtensionFactory } from "@manuth/extended-yo-generator";
-import { CodeWorkspaceProvider, IWorkspaceMetadata, JSONProcessor, TSProjectCodeWorkspaceFolder } from "@manuth/generator-ts-project";
+import { CodeWorkspaceProvider, ITSProjectSettings, IWorkspaceMetadata, JSONProcessor, TSProjectCodeWorkspaceFolder } from "@manuth/generator-ts-project";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
 import { WoltLabGenerator } from "../WoltLabGenerator";
 import { WoltLabWorkspaceProcessor } from "./VSCode/WoltLabWorkspaceProcessor";
@@ -18,7 +18,7 @@ export class WoltLabCodeWorkspaceFolder<TSettings extends IWoltLabSettings, TOpt
     /**
      * The base code-workspace folder.
      */
-    private codeWorkspaceFolder: TSProjectCodeWorkspaceFolder<TSettings, TOptions>;
+    private codeWorkspaceFolder: TSProjectCodeWorkspaceFolder<ITSProjectSettings, GeneratorOptions>;
 
     /**
      * Initializes a new instance of the {@link WoltLabCodeWorkspaceFolder `WoltLabCodeWorkspaceFolder<TSettings, TOptions>`} class.
@@ -29,7 +29,7 @@ export class WoltLabCodeWorkspaceFolder<TSettings extends IWoltLabSettings, TOpt
      * @param codeWorkspaceFolder
      * The base code-workspace folder.
      */
-    public constructor(generator: WoltLabGenerator<TSettings, TOptions>, codeWorkspaceFolder: TSProjectCodeWorkspaceFolder<TSettings, TOptions>)
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>, codeWorkspaceFolder: TSProjectCodeWorkspaceFolder<ITSProjectSettings, GeneratorOptions>)
     {
         super(generator);
         this.codeWorkspaceFolder = codeWorkspaceFolder;
@@ -40,13 +40,13 @@ export class WoltLabCodeWorkspaceFolder<TSettings extends IWoltLabSettings, TOpt
      */
     public override get Source(): CodeWorkspaceProvider<TSettings, TOptions>
     {
-        return this.Base.Source;
+        return this.Base.Source as CodeWorkspaceProvider<any, any> as CodeWorkspaceProvider<TSettings, TOptions>;
     }
 
     /**
      * @inheritdoc
      */
-    protected override get Base(): TSProjectCodeWorkspaceFolder<TSettings, TOptions>
+    protected override get Base(): TSProjectCodeWorkspaceFolder<ITSProjectSettings, GeneratorOptions>
     {
         return this.codeWorkspaceFolder;
     }
@@ -68,7 +68,7 @@ export class WoltLabCodeWorkspaceFolder<TSettings extends IWoltLabSettings, TOpt
      * @returns
      * The newly created base.
      */
-    protected override InitializeBase(generator: WoltLabGenerator<TSettings, TOptions>): TSProjectCodeWorkspaceFolder<TSettings, TOptions>
+    protected override InitializeBase(generator: WoltLabGenerator<TSettings, TOptions>): TSProjectCodeWorkspaceFolder<ITSProjectSettings, GeneratorOptions>
     {
         return null;
     }
