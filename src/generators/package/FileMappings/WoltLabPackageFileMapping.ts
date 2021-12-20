@@ -204,7 +204,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected GetObjectLiteral(): ObjectLiteralExpression
     {
-        return this.Converter.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        return this.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
     }
 
     /**
@@ -218,7 +218,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected GetConstructorCall(className: string): NewExpression
     {
-        return this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(className), [], []));
+        return this.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(className), [], []));
     }
 
     /**
@@ -229,7 +229,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      */
     protected GetArrayLiteral(): ArrayLiteralExpression
     {
-        return this.Converter.WrapNode(ts.factory.createArrayLiteralExpression());
+        return this.WrapNode(ts.factory.createArrayLiteralExpression());
     }
 
     /**
@@ -261,7 +261,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 ]
             });
 
-        let constructor = this.Converter.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<compiler.Package>()), [], []));
+        let constructor = this.WrapNode(ts.factory.createNewExpression(ts.factory.createIdentifier(nameof<compiler.Package>()), [], []));
         constructor.addArgument(`${EOL}${this.PackageOptions.getFullText()}`);
 
         file.addVariableStatement(

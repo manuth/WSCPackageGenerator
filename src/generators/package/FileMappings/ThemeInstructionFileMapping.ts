@@ -142,6 +142,6 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
      */
     protected GetObjectLiteral(): ObjectLiteralExpression
     {
-        return this.Converter.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        return this.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
     }
 }
