@@ -54,7 +54,6 @@
     "@manuth/extended-yo-generator-test": "^11.0.5",
     "@manuth/generator-ts-project-test": "^3.0.10",
     "@manuth/tsconfig": "^2.0.3",
-    "@manuth/typescript-eslint-plugin": "^1.4.2",
     "@manuth/woltlab-compiler": "^2.1.5",
     "@types/dedent": "^0.7.0",
     "@types/fs-extra": "^9.0.12",
