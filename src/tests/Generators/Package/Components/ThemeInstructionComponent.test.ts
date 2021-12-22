@@ -1,5 +1,5 @@
 import { doesNotReject, ok, strictEqual } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { JSONCFileMappingTester } from "@manuth/generator-ts-project-test";
 import { Random } from "random-js";
@@ -104,7 +104,7 @@ export function ThemeInstructionComponentTests(context: TestContext<WoltLabPacka
                         async () =>
                         {
                             let fileMapping = component.FileMappings.find((fileMapping) => fileMapping.Destination === options.VariableFileName);
-                            let tester = new JSONCFileMappingTester(generator, fileMapping);
+                            let tester = new JSONCFileMappingTester(generator, fileMapping as IFileMapping<IGeneratorSettings, GeneratorOptions>);
                             await tester.Run();
                             await doesNotReject(() => tester.ParseOutput());
                         });

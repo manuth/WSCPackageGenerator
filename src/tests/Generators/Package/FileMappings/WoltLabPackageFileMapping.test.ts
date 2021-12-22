@@ -1,5 +1,5 @@
 import { doesNotReject, strictEqual } from "assert";
-import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
+import { GeneratorOptions, GeneratorSettingKey, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
@@ -104,7 +104,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     for (let fileMapping of component.FileMappings)
                     {
-                        await new FileMappingTester(generator, fileMapping).Run();
+                        await new FileMappingTester(generator, fileMapping as IFileMapping<IGeneratorSettings, GeneratorOptions>).Run();
                     }
 
                     sandbox.useFakeTimers(

@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WSCPackageGenerator [Unreleased]
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.0...dev)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.1...dev)
+
+## WSCPackageGenerator v3.0.1
+### Fixed
+  - Vulnerabilities in dependencies
+
+### Updated
+  - All dependencies
+  - Linting environment
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.0...v3.0.1)
 
 ## WSCPackageGenerator v3.0.0
 ### Fixed

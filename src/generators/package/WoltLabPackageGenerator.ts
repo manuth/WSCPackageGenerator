@@ -1,5 +1,5 @@
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
-import { JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { ITSProjectSettings, JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk = require("chalk");
 // eslint-disable-next-line node/no-unpublished-import
 import { TSConfigJSON } from "types-tsconfig";
@@ -94,9 +94,9 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
     /**
      * @inheritdoc
      */
-    protected override get BaseComponents(): ComponentCollection<TSettings, TOptions>
+    protected override get BaseComponents(): ComponentCollection<ITSProjectSettings, GeneratorOptions>
     {
-        let result = super.BaseComponents as ComponentCollection<TSettings, TOptions>;
+        let result = super.BaseComponents;
 
         result.Categories.Replace(
             TSProjectGeneralCategory,
@@ -106,7 +106,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
                     TSProjectCodeWorkspaceFolder,
                     (component) =>
                     {
-                        return new WoltLabCodeWorkspaceFolder(this, component.Object as TSProjectCodeWorkspaceFolder<TSettings, TOptions>);
+                        return new WoltLabCodeWorkspaceFolder(this, component.Object as TSProjectCodeWorkspaceFolder<ITSProjectSettings, GeneratorOptions>);
                     });
 
                 category.Components.AddRange(

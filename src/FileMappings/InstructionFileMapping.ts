@@ -54,7 +54,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     protected get InstructionOptions(): ObjectLiteralExpression
     {
-        return this.Converter.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        return this.WrapNode(ts.factory.createParenthesizedExpression(ts.factory.createObjectLiteralExpression())).getExpressionIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
     }
 
     /**
@@ -132,7 +132,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     protected GetPathJoin(path: string): CallExpression
     {
-        let call = this.Converter.WrapNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], []));
+        let call = this.WrapNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], []));
         call.addArgument(printNode(ts.factory.createIdentifier(nameof(__dirname))));
 
         for (let pathComponent of relative(dirname(this.Generator.destinationPath(this.Destination)), this.Generator.destinationPath()).split(sep))
