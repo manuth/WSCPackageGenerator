@@ -172,6 +172,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 "General",
                 () =>
                 {
+                    let workingDir: string;
                     let runContext: IRunContext<WoltLabPackageGenerator>;
                     let testContext: IRunContext<WoltLabPackageGenerator>;
                     let outputDir: string;
@@ -210,6 +211,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         async function()
                         {
                             this.timeout(5 * 60 * 1000);
+                            workingDir = process.cwd();
                             testContext = GetRunContext();
                             await testContext.toPromise();
                         });
@@ -218,6 +220,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         function()
                         {
                             this.timeout(1 * 60 * 1000);
+                            process.chdir(workingDir);
                             testContext.cleanTestDirectory();
                         });
 
