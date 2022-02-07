@@ -243,7 +243,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                 [TSProjectSettingKey.Description]: "This is a test",
                                 [WoltLabSettingKey.Author]: "Manuel Thalmann",
                                 [WoltLabSettingKey.HomePage]: "https://nuth.ch"
-                            });
+                            }).inTmpDir(null);
                     }
 
                     /**
