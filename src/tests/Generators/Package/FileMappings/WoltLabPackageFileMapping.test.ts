@@ -186,6 +186,9 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             strictEqual($package.RequiredPackages.length, 1);
                             strictEqual($package.RequiredPackages[0].Identifier, "com.woltlab.wcf");
                             strictEqual($package.RequiredPackages[0].MinVersion, "3.0.0");
+                            strictEqual($package.ConflictingPackages.length, 1);
+                            strictEqual($package.ConflictingPackages[0].Identifier, "com.woltlab.wcf");
+                            strictEqual($package.ConflictingPackages[0].Version, "6.0.0 Alpha 1");
                         });
 
                     test(
