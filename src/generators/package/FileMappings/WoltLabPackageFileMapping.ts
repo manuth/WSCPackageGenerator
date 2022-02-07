@@ -67,7 +67,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets options to pass to the constructor of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets options to pass to the constructor of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageOptions(): ObjectLiteralExpression
     {
@@ -89,7 +89,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets a constructor-call of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets a constructor-call of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageConstructor(): NewExpression
     {
@@ -222,7 +222,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets an {@link Array `ArrayLiteralExpression`}-node.
+     * Gets an {@link ArrayLiteralExpression `ArrayLiteralExpression`}-node.
      *
      * @returns
      * The newly created {@link ArrayLiteralExpression `ArrayLiteralExpression`}.

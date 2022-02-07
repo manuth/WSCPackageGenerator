@@ -28,7 +28,7 @@ type WoltLabCompiler = typeof compiler;
 export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IThemeComponentOptions> extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>
 {
     /**
-     * Initializes a new instance of the {@link SelfContainedPHPFileMapping `SelfContainedPHPFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link ThemeInstructionFileMapping `ThemeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
      *
      * @param component
      * The component to create an instruction-file for.
