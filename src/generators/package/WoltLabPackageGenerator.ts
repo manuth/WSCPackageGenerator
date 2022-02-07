@@ -249,7 +249,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
      */
     public override async cleanup(): Promise<void>
     {
-        return super.cleanup();
+        return this.Base.cleanup();
     }
 
     /**

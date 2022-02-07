@@ -243,7 +243,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                 [TSProjectSettingKey.Description]: "This is a test",
                                 [WoltLabSettingKey.Author]: "Manuel Thalmann",
                                 [WoltLabSettingKey.HomePage]: "https://nuth.ch"
-                            });
+                            }).inTmpDir(null);
                     }
 
                     /**
@@ -327,7 +327,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             try
                             {
                                 let $package: Package = (await new TypeScriptFileMappingTester(runContext.generator, runContext.generator.WoltLabPackageFileMapping).Require())[runContext.generator.PackageVariableName];
-                                strictEqual($package.Name, packageName);
                                 strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
                                 strictEqual($package.Identifier, identifier);
                             }

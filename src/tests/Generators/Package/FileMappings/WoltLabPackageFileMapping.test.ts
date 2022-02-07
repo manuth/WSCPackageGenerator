@@ -175,7 +175,6 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
                             let $package: Package = (await tester.Require())[generator.PackageVariableName];
-                            strictEqual($package.Name, generator.Settings[TSProjectSettingKey.Name]);
                             strictEqual($package.DisplayName.Data.get(InvariantCultureName), generator.Settings[TSProjectSettingKey.DisplayName]);
                             strictEqual($package.Identifier, generator.Settings[WoltLabSettingKey.Identifier]);
                             strictEqual($package.Version, "0.0.0");
@@ -187,6 +186,9 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             strictEqual($package.RequiredPackages.length, 1);
                             strictEqual($package.RequiredPackages[0].Identifier, "com.woltlab.wcf");
                             strictEqual($package.RequiredPackages[0].MinVersion, "3.0.0");
+                            strictEqual($package.ConflictingPackages.length, 1);
+                            strictEqual($package.ConflictingPackages[0].Identifier, "com.woltlab.wcf");
+                            strictEqual($package.ConflictingPackages[0].Version, "6.0.0 Alpha 1");
                         });
 
                     test(
