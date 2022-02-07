@@ -175,7 +175,6 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
                             let $package: Package = (await tester.Require())[generator.PackageVariableName];
-                            strictEqual($package.Name, generator.Settings[TSProjectSettingKey.Name]);
                             strictEqual($package.DisplayName.Data.get(InvariantCultureName), generator.Settings[TSProjectSettingKey.DisplayName]);
                             strictEqual($package.Identifier, generator.Settings[WoltLabSettingKey.Identifier]);
                             strictEqual($package.Version, "0.0.0");

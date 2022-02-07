@@ -184,10 +184,6 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                     initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[WoltLabSettingKey.Identifier] ?? ""))
                 },
                 {
-                    name: nameof<compiler.IPackageOptions>((options) => options.Name),
-                    initializer: printNode(ts.factory.createStringLiteral(this.Generator.Settings[TSProjectSettingKey.Name] ?? ""))
-                },
-                {
                     name: nameof<compiler.IPackageOptions>((options) => options.DisplayName),
                     initializer: displayName.getFullText()
                 },
