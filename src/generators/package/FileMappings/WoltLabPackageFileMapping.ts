@@ -99,6 +99,38 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
+     * Gets options to pass to the constructor of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     */
+    protected get ConflictingPackageOptions(): ObjectLiteralExpression
+    {
+        let options = this.GetObjectLiteral();
+
+        options.addPropertyAssignments(
+            [
+                {
+                    name: nameof<compiler.IConflictingPackageDescriptorOptions>((options) => options.Identifier),
+                    initializer: printNode(ts.factory.createStringLiteral("com.woltlab.wcf"))
+                },
+                {
+                    name: nameof<compiler.IConflictingPackageDescriptorOptions>((options) => options.Version),
+                    initializer: printNode(ts.factory.createStringLiteral("6.0.0 Alpha 1"))
+                }
+            ]);
+
+        return options;
+    }
+
+    /**
+     * Gets a constructor-call of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     */
+    protected get ConflictingPackageConstructor(): NewExpression
+    {
+        let constructor = this.GetConstructorCall(nameof<compiler.ConflictingPackageDescriptor>());
+        constructor.addArgument(`${EOL}${this.ConflictingPackageOptions.getFullText()}`);
+        return constructor;
+    }
+
+    /**
      * Gets the options to pass to the package-constructor.
      */
     protected get PackageOptions(): ObjectLiteralExpression
@@ -109,6 +141,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
         let description = this.GetObjectLiteral();
         let installSet = this.GetObjectLiteral();
         let requiredPackages = this.GetArrayLiteral();
+        let conflictingPackages = this.GetArrayLiteral();
 
         displayName.addPropertyAssignment(
             {
@@ -142,6 +175,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             });
 
         requiredPackages.addElement(`${EOL}${this.RequiredPackageConstructor.getFullText()}${EOL}`);
+        conflictingPackages.addElement(`${EOL}${this.ConflictingPackageConstructor.getFullText()}${EOL}`);
 
         options.addPropertyAssignments(
             [
@@ -190,6 +224,10 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 {
                     name: nameof<compiler.IPackageOptions>((options) => options.RequiredPackages),
                     initializer: requiredPackages.getFullText()
+                },
+                {
+                    name: nameof<compiler.IPackageOptions>((options) => options.ConflictingPackages),
+                    initializer: conflictingPackages.getFullText()
                 }
             ]);
 
@@ -249,6 +287,9 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
             {
                 moduleSpecifier: "@manuth/woltlab-compiler",
                 namedImports: [
+                    {
+                        name: nameof<compiler.ConflictingPackageDescriptor>()
+                    },
                     {
                         name: nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)
                     },
