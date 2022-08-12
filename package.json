@@ -62,7 +62,7 @@
     "@types/mocha": "^9.1.0",
     "@types/mock-require": "^2.0.1",
     "@types/mute-stream": "^0.0.1",
-    "@types/node": "^17.0.15",
+    "@types/node": "^18.7.2",
     "@types/npm": "^7.19.0",
     "@types/pascalcase": "^1.0.1",
     "@types/sinon": "^10.0.10",
