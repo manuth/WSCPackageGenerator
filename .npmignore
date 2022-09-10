@@ -103,10 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Notebooks
-*.ipynb
-*.nnb
-
 # Source-files
 [Ss]rc/
 
