@@ -1,6 +1,6 @@
 {
   "name": "@manuth/generator-wsc-package",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "type": "commonjs",
   "description": "A Generator for WoltLab Suite Core Packages.",
   "author": "Manuel Thalmann <m@nuth.ch>",
