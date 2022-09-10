@@ -47,7 +47,7 @@
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4",
     "lodash.kebabcase": "^4.1.1",
-    "pascalcase": "^1.0.0",
+    "pascalcase": "^2.0.0",
     "ts-morph": "^15.1.0",
     "upath": "^2.0.1",
     "yosay": "^2.0.2"
