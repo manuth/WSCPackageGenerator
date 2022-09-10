@@ -2,7 +2,6 @@
     "recommendations": [
         "dbaeumer.vscode-eslint",
         "digitalbrainstem.javascript-ejs-support",
-        "donjayamanne.typescript-notebook",
         "hbenl.vscode-mocha-test-adapter",
         "hbenl.vscode-test-explorer"
     ]
