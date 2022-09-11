@@ -18,10 +18,7 @@ export class WoltLabIdentifierQuestion<TSettings extends IWoltLabSettings, TOpti
     /**
      * @inheritdoc
      */
-    public get name(): string
-    {
-        return WoltLabSettingKey.Identifier;
-    }
+    public name = WoltLabSettingKey.Identifier;
 
     /**
      * @inheritdoc

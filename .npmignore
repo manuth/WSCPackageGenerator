@@ -103,10 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Notebooks
-*.ipynb
-*.nnb
-
 # Source-files
 [Ss]rc/
 
@@ -136,5 +132,6 @@ tsconfig.*.json
 
 # Temporary release-assets
 .tagName.txt
+.tagHeading.txt
 .releaseNotes.md
 .releaseTitle.md
