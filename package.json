@@ -38,7 +38,7 @@
     "patch-ts": "ts-patch install"
   },
   "dependencies": {
-    "@manuth/extended-yo-generator": "^11.0.7",
+    "@manuth/extended-yo-generator": "^12.1.2",
     "@manuth/generator-ts-project": "^3.1.0",
     "@manuth/package-json-editor": "^2.2.6",
     "@manuth/temp-files": "^2.0.9",
