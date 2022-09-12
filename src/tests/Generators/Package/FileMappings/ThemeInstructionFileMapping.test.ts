@@ -1,8 +1,11 @@
 import { doesNotReject, ok, strictEqual } from "assert";
+import { spawnSync } from "child_process";
+import { fileURLToPath } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
+import npmWhich from "npm-which";
 import { Random } from "random-js";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
 import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
@@ -69,6 +72,17 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                     generator = await context.Generator;
                     fileMapping = new TestThemeInstructionFileMapping(new ThemeInstructionComponent(generator));
                     tester = new TypeScriptFileMappingTester(generator, fileMapping);
+
+                    spawnSync(
+                        npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                        [
+                            "install",
+                            "--silent"
+                        ],
+                        {
+                            cwd: generator.destinationPath(),
+                            stdio: "ignore"
+                        });
                 });
 
             setup(
