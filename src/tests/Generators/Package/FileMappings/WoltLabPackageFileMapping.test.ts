@@ -4,18 +4,17 @@ import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-te
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { IInstructionSetOptions, InvariantCultureName, Package } from "@manuth/woltlab-compiler";
-import mock = require("mock-require");
 import { Random } from "random-js";
 import { createSandbox, SinonSandbox } from "sinon";
 import { SourceFile, SyntaxKind } from "ts-morph";
-import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent";
-import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent.js";
+import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
@@ -136,27 +135,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                 nameof<TestWoltLabPackageFileMapping>((fileMapping) => fileMapping.Transform),
                 () =>
                 {
-                    let packageName: string;
-
-                    suiteSetup(
-                        () =>
-                        {
-                            packageName = "@manuth/woltlab-compiler";
-                        });
-
                     setup(
                         async function()
                         {
                             this.timeout(30 * 1000);
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
-                            // eslint-disable-next-line @typescript-eslint/no-var-requires
-                            mock(packageName, require(packageName));
-                        });
-
-                    teardown(
-                        () =>
-                        {
-                            mock.stop(packageName);
                         });
 
                     test(

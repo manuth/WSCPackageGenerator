@@ -3,12 +3,14 @@ import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 import { CallExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { dirname, relative, sep } from "upath";
-import { InstructionComponent } from "../Components/InstructionComponent";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
+import path from "upath";
+import { InstructionComponent } from "../Components/InstructionComponent.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
+
+const { dirname, relative, sep } = path;
 
 /**
  * Provides the functionality to generate instruction-files.

@@ -2,12 +2,12 @@ import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
-import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
-import { TemplateComponent } from "./TemplateComponent";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+import { TemplateComponent } from "./TemplateComponent.js";
 
 /**
  * Provides a component for generating acp-templates.

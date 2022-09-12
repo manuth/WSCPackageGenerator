@@ -1,11 +1,11 @@
 import { ComponentOptions, GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import { PathPrompt, QuestionSetPrompt } from "@manuth/generator-ts-project";
-import inquirer = require("inquirer");
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
-import { WoltLabGenerator } from "../WoltLabGenerator";
+import inquirer, { DistinctQuestion, QuestionTypeName } from "inquirer";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
 
 /**
  * Represents a woltlab-component.
@@ -52,10 +52,10 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     protected get PathQuestion(): Question<TComponentOptions>
     {
         return {
-            type: PathPrompt.TypeName,
+            type: PathPrompt.TypeName as QuestionTypeName,
             message: "Where do you want to store the component?",
             name: WoltLabComponentSettingKey.Path
-        };
+        } as DistinctQuestion<TComponentOptions> as any;
     }
 
     /**
@@ -83,11 +83,11 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     protected get ComponentOptionQuestion(): Question<TSettings>
     {
         return {
-            type: QuestionSetPrompt.TypeName,
+            type: QuestionSetPrompt.TypeName as QuestionTypeName,
             name: `${WoltLabSettingKey.ComponentOptions}[${this.ID}]`,
             promptTypes: this.PromptTypes,
             questions: this.ComponentOptionQuestionCollection as Question[]
-        };
+        } as DistinctQuestion<TSettings> as any;
     }
 
     /**

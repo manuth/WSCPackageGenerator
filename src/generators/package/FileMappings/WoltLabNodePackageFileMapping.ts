@@ -1,9 +1,9 @@
 import { GeneratorOptions, IGenerator } from "@manuth/extended-yo-generator";
 import { IScriptMapping, ScriptMapping, TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
 import { Package } from "@manuth/package-json-editor";
-import { Constants } from "../../../Core/Constants";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
+import { Constants } from "../../../Core/Constants.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Provides the functionality to create a `package.json`-file for woltlab-components.

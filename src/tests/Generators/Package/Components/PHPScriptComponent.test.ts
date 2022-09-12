@@ -5,16 +5,16 @@ import { IPathQuestion, QuestionSetProperty, SetQuestion } from "@manuth/generat
 import { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import { Random } from "random-js";
-import { IApplicationQuestion } from "../../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent";
-import { PHPInstructionFileMapping } from "../../../../generators/package/FileMappings/PHPInstructionFileMapping";
-import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping";
-import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { IApplicationQuestion } from "../../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
+import { PHPInstructionFileMapping } from "../../../../generators/package/FileMappings/PHPInstructionFileMapping.js";
+import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping.js";
+import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`} class.

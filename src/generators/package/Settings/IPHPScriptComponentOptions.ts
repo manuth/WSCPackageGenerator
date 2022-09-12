@@ -1,4 +1,4 @@
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
 
 /**
  * Represents options for php-script instructions.

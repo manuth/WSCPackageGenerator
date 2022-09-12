@@ -3,10 +3,10 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import { IFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
-import { LocalInstructionComponent } from "../Components/LocalInstructionComponent";
-import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { InstructionFileMapping } from "./InstructionFileMapping";
+import { LocalInstructionComponent } from "../Components/LocalInstructionComponent.js";
+import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { InstructionFileMapping } from "./InstructionFileMapping.js";
 
 /**
  * Provides the functionality to generate instruction-files for local instructions.

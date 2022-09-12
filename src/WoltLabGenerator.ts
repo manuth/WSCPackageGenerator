@@ -1,12 +1,17 @@
+import { fileURLToPath } from "url";
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
 import { QuestionSetPrompt, TSProjectGenerator } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { Package } from "@manuth/woltlab-compiler";
-import { join } from "upath";
-import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt";
-import { WoltLabIdentifierQuestion } from "./Components/Inquiry/WoltLabIdentifierQuestion";
-import { IWoltLabSettings } from "./Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
+import { dependencyPath } from "dependency-package-path";
+import path from "upath";
+import { ApplicationPrompt } from "./Components/Inquiry/Prompts/ApplicationPrompt.js";
+import { WoltLabIdentifierQuestion } from "./Components/Inquiry/WoltLabIdentifierQuestion.js";
+import { IWoltLabSettings } from "./Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey.js";
+
+const { join } = path;
+const basePath = dependencyPath("@manuth/generator-ts-project", fileURLToPath(new URL(".", import.meta.url)));
 
 /**
  * Represents a generator for WoltLab-components.
@@ -17,7 +22,7 @@ import { WoltLabSettingKey } from "./Settings/WoltLabSettingKey";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabGenerator<TSettings extends IWoltLabSettings = IWoltLabSettings, TOptions extends GeneratorOptions = GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, require.resolve("@manuth/generator-ts-project"))<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
+export class WoltLabGenerator<TSettings extends IWoltLabSettings = IWoltLabSettings, TOptions extends GeneratorOptions = GeneratorOptions> extends Generator.ComposeWith(TSProjectGenerator, basePath)<TSettings, TOptions> implements IGenerator<TSettings, TOptions>
 {
     /**
      * Initializes a new instance of the {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`} class.

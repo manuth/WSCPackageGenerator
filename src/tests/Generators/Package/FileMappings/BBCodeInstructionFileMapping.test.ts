@@ -4,14 +4,14 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IBBCodeInstructionOptions } from "@manuth/woltlab-compiler";
 import { Random } from "random-js";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
-import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent";
-import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent.js";
+import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.

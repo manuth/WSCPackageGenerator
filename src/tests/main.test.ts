@@ -1,18 +1,20 @@
 import { join } from "path";
+import { fileURLToPath } from "url";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName } from "@manuth/generator-ts-project";
-import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator";
-import { ComponentTests } from "./Components";
-import { FileMappingTests } from "./FileMappings";
-import { GeneratorTests } from "./Generators";
-import { WoltLabGeneratorTests } from "./WoltLabGenerator.test";
+import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator.js";
+import { ComponentTests } from "./Components/index.js";
+import { FileMappingTests } from "./FileMappings/index.js";
+import { GeneratorTests } from "./Generators/index.js";
+import { WoltLabGeneratorTests } from "./WoltLabGenerator.test.js";
 
 suite(
     "WSCPackageGenerator",
     () =>
     {
         let workingDirectory: string;
-        let context: TestContext<WoltLabPackageGenerator> = new TestContext(join(__dirname, "..", "generators", GeneratorName.Main));
+        let context: TestContext<WoltLabPackageGenerator> = new TestContext(
+            join(fileURLToPath(new URL(".", import.meta.url)), "..", "generators", GeneratorName.Main));
 
         suiteSetup(
             () =>

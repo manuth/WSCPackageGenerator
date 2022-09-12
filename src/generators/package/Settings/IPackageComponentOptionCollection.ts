@@ -1,8 +1,8 @@
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
-import { IWoltLabComponentOptionCollection } from "../../../Settings/IWoltLabComponentOptionCollection";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabComponentOptionCollection } from "../../../Settings/IWoltLabComponentOptionCollection.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateComponent } from "../Components/TemplateComponent";
-import { PackageComponentType } from "./PackageComponentType";
+import { TemplateComponent } from "../Components/TemplateComponent.js";
+import { PackageComponentType } from "./PackageComponentType.js";
 
 /**
  * Provides component-options for a WoltLab-package.

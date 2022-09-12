@@ -1,12 +1,13 @@
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import type compiler = require("@manuth/woltlab-compiler");
+// eslint-disable-next-line node/no-unpublished-import
+import type compiler from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, OptionalKind, printNode, PropertyAssignmentStructure, SourceFile, SyntaxKind, ts } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions";
-import { ThemeComponent } from "../Settings/ThemeComponent";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions.js";
+import { ThemeComponent } from "../Settings/ThemeComponent.js";
 
 /**
  * The `@manuth/woltlab-compiler` package.

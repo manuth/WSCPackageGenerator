@@ -1,15 +1,15 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { BBCodeInstructionFileMappingTests } from "./BBCodeInstructionFileMapping.test";
-import { CronJobInstructionFileMappingTests } from "./CronJobInstructionFileMapping.test";
-import { EmojiInstructionFileMappingTests } from "./EmojiInstructionFileMapping.test";
-import { EntryPointFileMappingTests } from "./EntryPointFileMapping.test";
-import { PHPInstructionFileMappingTests } from "./PHPInstructionFileMapping.test";
-import { SelfContainedPHPFileMappingTests } from "./SelfContainedPHPFileMapping.test";
-import { ThemeInstructionFileMappingTests } from "./ThemeInstructionFileMapping.test";
-import { WoltLabNodePackageFileMappingTests } from "./WoltLabNodePackageFileMapping.test";
-import { WoltLabPackageFileMappingTests } from "./WoltLabPackageFileMapping.test";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { BBCodeInstructionFileMappingTests } from "./BBCodeInstructionFileMapping.test.js";
+import { CronJobInstructionFileMappingTests } from "./CronJobInstructionFileMapping.test.js";
+import { EmojiInstructionFileMappingTests } from "./EmojiInstructionFileMapping.test.js";
+import { EntryPointFileMappingTests } from "./EntryPointFileMapping.test.js";
+import { PHPInstructionFileMappingTests } from "./PHPInstructionFileMapping.test.js";
+import { SelfContainedPHPFileMappingTests } from "./SelfContainedPHPFileMapping.test.js";
+import { ThemeInstructionFileMappingTests } from "./ThemeInstructionFileMapping.test.js";
+import { WoltLabNodePackageFileMappingTests } from "./WoltLabNodePackageFileMapping.test.js";
+import { WoltLabPackageFileMappingTests } from "./WoltLabPackageFileMapping.test.js";
 
 /**
  * Registers tests for the package-generator's file-mappings.
@@ -20,7 +20,7 @@ import { WoltLabPackageFileMappingTests } from "./WoltLabPackageFileMapping.test
 export function FileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             BBCodeInstructionFileMappingTests(context);

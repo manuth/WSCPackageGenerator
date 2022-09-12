@@ -2,15 +2,15 @@ import { ok, strictEqual } from "assert";
 import { createInterface, Interface } from "readline";
 import { Predicate } from "@manuth/extended-yo-generator";
 import { TestPrompt } from "@manuth/generator-ts-project-test";
-import inquirer = require("inquirer");
-import Choice = require("inquirer/lib/objects/choice");
+import inquirer from "inquirer";
+import Choice from "inquirer/lib/objects/choice.js";
 import { MockSTDIN, stdin } from "mock-stdin";
-import MuteStream = require("mute-stream");
+import MuteStream from "mute-stream";
 import { Random } from "random-js";
-import { ApplicationPrompt } from "../../../../Components/Inquiry/Prompts/ApplicationPrompt";
-import { IApplicationQuestionOptions } from "../../../../Components/Inquiry/Prompts/IApplicationQuestionOptions";
-import { ISuggestionOptions } from "../../../../Components/Inquiry/Prompts/ISuggestionOptions";
-import { IWoltLabApplication } from "../../../../Components/Inquiry/Prompts/IWoltLabApplication";
+import { ApplicationPrompt } from "../../../../Components/Inquiry/Prompts/ApplicationPrompt.js";
+import { IApplicationQuestionOptions } from "../../../../Components/Inquiry/Prompts/IApplicationQuestionOptions.js";
+import { ISuggestionOptions } from "../../../../Components/Inquiry/Prompts/ISuggestionOptions.js";
+import { IWoltLabApplication } from "../../../../Components/Inquiry/Prompts/IWoltLabApplication.js";
 
 /**
  * Registers tests for the {@link ApplicationPrompt `ApplicationPrompt<T>`} class.
@@ -190,6 +190,24 @@ export function ApplicationPromptTests(): void
                     readLine.close();
                 });
 
+            /**
+             * Asserts that the specified {@link value `value`} is a {@link Choice `Choice`}.
+             *
+             * @param value
+             * The value to check.
+             */
+            function IsChoice(value: any): asserts value is Choice
+            {
+                let classCandidates: any[] = [];
+
+                for (let candidate = value.constructor; candidate !== null; candidate = Object.getPrototypeOf(candidate))
+                {
+                    classCandidates.push(candidate);
+                }
+
+                ok(classCandidates.some((candidate) => `${candidate}` === Choice.toString()));
+            }
+
             suite(
                 nameof<TestApplicationPrompt>((prompt) => prompt.Prompt),
                 () =>
@@ -216,8 +234,9 @@ export function ApplicationPromptTests(): void
                                             return actualApps.some(
                                                 (actualApp) =>
                                                 {
-                                                    return actualApp instanceof Choice &&
-                                                        actualApp.name === app.DisplayName &&
+                                                    IsChoice(actualApp);
+
+                                                    return actualApp.name === app.DisplayName &&
                                                         actualApp.value === app.ID;
                                                 });
                                         }));

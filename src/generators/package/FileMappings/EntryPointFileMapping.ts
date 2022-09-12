@@ -5,9 +5,11 @@ import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { relative, sep } from "upath";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator";
+import path from "upath";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator.js";
+
+const { relative, sep } = path;
 
 /**
  * Provides the functionality to create an entry-point.

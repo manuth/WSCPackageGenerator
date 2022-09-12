@@ -3,18 +3,17 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
-import mock = require("mock-require");
 import { Random } from "random-js";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
-import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent";
-import { ThemeInstructionFileMapping } from "../../../../generators/package/FileMappings/ThemeInstructionFileMapping";
-import { IThemeComponentOptions } from "../../../../generators/package/Settings/IThemeComponentOptions";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { ThemeComponent } from "../../../../generators/package/Settings/ThemeComponent";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
+import { ThemeInstructionFileMapping } from "../../../../generators/package/FileMappings/ThemeInstructionFileMapping.js";
+import { IThemeComponentOptions } from "../../../../generators/package/Settings/IThemeComponentOptions.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { ThemeComponent } from "../../../../generators/package/Settings/ThemeComponent.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link ThemeInstructionFileMapping `ThemeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -56,7 +55,6 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                 }
             }
 
-            let packageNames: string[];
             let random: Random;
             let generator: WoltLabPackageGenerator;
             let fileMapping: TestThemeInstructionFileMapping;
@@ -67,12 +65,6 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                 async function()
                 {
                     this.timeout(5 * 60 * 1000);
-
-                    packageNames = [
-                        "@manuth/woltlab-compiler",
-                        "path"
-                    ];
-
                     random = new Random();
                     generator = await context.Generator;
                     fileMapping = new TestThemeInstructionFileMapping(new ThemeInstructionComponent(generator));
@@ -100,21 +92,6 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                     generator.Settings[WoltLabSettingKey.ComponentOptions] = {
                         [PackageComponentType.Theme]: options
                     };
-
-                    for (let packageName of packageNames)
-                    {
-                        // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        mock(packageName, require(packageName));
-                    }
-                });
-
-            teardown(
-                () =>
-                {
-                    for (let packageName of packageNames)
-                    {
-                        mock.stop(packageName);
-                    }
                 });
 
             suite(

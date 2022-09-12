@@ -1,8 +1,8 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { PHPScriptComponentTests } from "./PHPScriptComponent.test";
-import { ThemeInstructionComponentTests } from "./ThemeInstructionComponent.test";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { PHPScriptComponentTests } from "./PHPScriptComponent.test.js";
+import { ThemeInstructionComponentTests } from "./ThemeInstructionComponent.test.js";
 
 /**
  * Registers tests for the package-generator components.
@@ -13,7 +13,7 @@ import { ThemeInstructionComponentTests } from "./ThemeInstructionComponent.test
 export function ComponentTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             PHPScriptComponentTests(context);

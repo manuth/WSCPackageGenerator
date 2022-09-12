@@ -1,3 +1,4 @@
-import { WoltLabPackageGenerator } from "../package/WoltLabPackageGenerator";
+import { WoltLabPackageGenerator } from "../package/WoltLabPackageGenerator.js";
 
-export = WoltLabPackageGenerator;
+// eslint-disable-next-line import/no-default-export
+export default WoltLabPackageGenerator;

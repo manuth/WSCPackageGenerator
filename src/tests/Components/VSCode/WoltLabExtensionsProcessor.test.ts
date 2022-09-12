@@ -2,9 +2,9 @@ import { ok } from "assert";
 import { GeneratorOptions, Predicate } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings } from "@manuth/generator-ts-project";
-import { WoltLabExtensionsProcessor } from "../../../Components/VSCode/WoltLabExtensionsProcessor";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider";
+import { WoltLabExtensionsProcessor } from "../../../Components/VSCode/WoltLabExtensionsProcessor.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider.js";
 
 /**
  * Registers tests for the {@link WoltLabExtensionsProcessor `WoltLabExtensionsProcessor<TSettings, TOptions>`} class.

@@ -1,17 +1,18 @@
 import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
-import type compiler = require("@manuth/woltlab-compiler");
+// eslint-disable-next-line node/no-unpublished-import
+import type compiler from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
 
 /**
  * The `@manuth/woltlab-compiler` package.
  */
- type WoltLabCompiler = typeof compiler;
+type WoltLabCompiler = typeof compiler;
 
 /**
  * Provides the functionality to generate a package-file.
@@ -67,7 +68,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets options to pass to the constructor of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets options to pass to the constructor of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageOptions(): ObjectLiteralExpression
     {
@@ -89,7 +90,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets a constructor-call of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets a constructor-call of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageConstructor(): NewExpression
     {
@@ -99,7 +100,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets options to pass to the constructor of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     * Gets options to pass to the constructor of the {@link ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
      */
     protected get ConflictingPackageOptions(): ObjectLiteralExpression
     {
@@ -121,7 +122,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets a constructor-call of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     * Gets a constructor-call of the {@link ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
      */
     protected get ConflictingPackageConstructor(): NewExpression
     {

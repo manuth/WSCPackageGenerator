@@ -1,12 +1,12 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { BBCodeInstruction } from "@manuth/woltlab-compiler";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { BBCodeInstructionFileMapping } from "../FileMappings/BBCodeInstructionFileMapping";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { BBCodeInstructionFileMapping } from "../FileMappings/BBCodeInstructionFileMapping.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating bb-codes.

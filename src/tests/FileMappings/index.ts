@@ -1,13 +1,13 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { FileInstructionMappingTests } from "./FileInstructionMapping.test";
-import { FileUploadMappingTests } from "./FileUploadMapping.test";
-import { InstructionFileMappingTests } from "./InstructionFileMapping.test";
-import { ListenerInstructionFileMappingTests } from "./ListenerInstructionFileMapping.test";
-import { LocalFileInstructionMappingTests } from "./LocalFileInstructionMapping.test";
-import { NodeInstructionFileMappingTests } from "./NodeInstructionFileMapping.test";
-import { PackageInstructionTransformerTests } from "./PackageInstructionTransformer.test";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { FileInstructionMappingTests } from "./FileInstructionMapping.test.js";
+import { FileUploadMappingTests } from "./FileUploadMapping.test.js";
+import { InstructionFileMappingTests } from "./InstructionFileMapping.test.js";
+import { ListenerInstructionFileMappingTests } from "./ListenerInstructionFileMapping.test.js";
+import { LocalFileInstructionMappingTests } from "./LocalFileInstructionMapping.test.js";
+import { NodeInstructionFileMappingTests } from "./NodeInstructionFileMapping.test.js";
+import { PackageInstructionTransformerTests } from "./PackageInstructionTransformer.test.js";
 
 /**
  * Registers tests for file-mappings.
@@ -18,7 +18,7 @@ import { PackageInstructionTransformerTests } from "./PackageInstructionTransfor
 export function FileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             InstructionFileMappingTests(context);

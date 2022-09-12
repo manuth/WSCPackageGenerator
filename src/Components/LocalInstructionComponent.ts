@@ -1,9 +1,9 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion, PathPrompt } from "@manuth/generator-ts-project";
-import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping";
-import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { InstructionComponent } from "./InstructionComponent";
+import { LocalFileInstructionMapping } from "../FileMappings/LocalFileInstructionMapping.js";
+import { ILocalComponentOptions } from "../Settings/ILocalComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { InstructionComponent } from "./InstructionComponent.js";
 
 /**
  * Provides a component for generating instruction-files which are loaded from local.
@@ -46,7 +46,7 @@ export abstract class LocalInstructionComponent<TSettings extends IWoltLabSettin
     {
         return [
             ...super.ComponentOptionQuestionCollection,
-            this.SourceQuestion
+            this.SourceQuestion as any as Question<TComponentOptions>
         ];
     }
 

@@ -1,11 +1,11 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { FileUploadComponentBaseTests } from "./FileUploadComponentBase.test";
-import { InquiryTests } from "./Inquiry";
-import { InstructionComponentTests } from "./InstructionComponent.test";
-import { VSCodeTests } from "./VSCode";
-import { WoltLabComponentTests } from "./WoltLabComponent.test";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { FileUploadComponentBaseTests } from "./FileUploadComponentBase.test.js";
+import { InquiryTests } from "./Inquiry/index.js";
+import { InstructionComponentTests } from "./InstructionComponent.test.js";
+import { VSCodeTests } from "./VSCode/index.js";
+import { WoltLabComponentTests } from "./WoltLabComponent.test.js";
 
 /**
  * Registers tests for components.
@@ -16,7 +16,7 @@ import { WoltLabComponentTests } from "./WoltLabComponent.test";
 export function ComponentTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             InquiryTests(context);

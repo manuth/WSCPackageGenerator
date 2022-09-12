@@ -1,8 +1,8 @@
 import { GeneratorOptions, ObjectExtensionFactory } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceProvider, ITSProjectSettings, IWorkspaceMetadata, JSONProcessor, TSProjectCodeWorkspaceFolder } from "@manuth/generator-ts-project";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../WoltLabGenerator";
-import { WoltLabWorkspaceProcessor } from "./VSCode/WoltLabWorkspaceProcessor";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
+import { WoltLabWorkspaceProcessor } from "./VSCode/WoltLabWorkspaceProcessor.js";
 
 /**
  * Provides a component for creating a code-workspace for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.

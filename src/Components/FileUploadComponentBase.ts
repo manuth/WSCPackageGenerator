@@ -1,11 +1,11 @@
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
-import { FileUploadMapping } from "../FileMappings/FileUploadMapping";
-import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../WoltLabGenerator";
-import { ApplicationPrompt } from "./Inquiry/Prompts/ApplicationPrompt";
-import { IApplicationQuestion } from "./Inquiry/Prompts/IApplicationQuestion";
-import { LocalInstructionComponent } from "./LocalInstructionComponent";
+import { FileUploadMapping } from "../FileMappings/FileUploadMapping.js";
+import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
+import { ApplicationPrompt } from "./Inquiry/Prompts/ApplicationPrompt.js";
+import { IApplicationQuestion } from "./Inquiry/Prompts/IApplicationQuestion.js";
+import { LocalInstructionComponent } from "./LocalInstructionComponent.js";
 
 /**
  * Provides a component for file-uploads.
@@ -62,7 +62,7 @@ export abstract class FileUploadComponentBase<TSettings extends IWoltLabSettings
             }
         }
 
-        return result;
+        return result as any;
     }
 
     /**

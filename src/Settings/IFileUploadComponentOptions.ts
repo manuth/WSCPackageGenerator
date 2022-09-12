@@ -1,4 +1,4 @@
-import { ILocalComponentOptions } from "./ILocalComponentOptions";
+import { ILocalComponentOptions } from "./ILocalComponentOptions.js";
 
 /**
  * Represents options for a component which is uploaded.

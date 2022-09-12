@@ -1,10 +1,10 @@
 import { relative } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
-import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponent } from "./WoltLabComponent";
+import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponent } from "./WoltLabComponent.js";
 
 /**
  * Provides a component for generating an instruction-file.
@@ -65,7 +65,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
      */
     protected override get PathQuestion(): Question<TComponentOptions>
     {
-        let question = super.PathQuestion as IPathQuestion<TComponentOptions>;
+        let question = super.PathQuestion as any as IPathQuestion<TComponentOptions>;
 
         question.rootDir = {
             path: this.Generator.sourcePath(),
@@ -73,7 +73,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
         };
 
         question.default ??= relative(this.Generator.sourcePath(), this.InstructionFileName);
-        return question;
+        return question as any;
     }
 
     /**

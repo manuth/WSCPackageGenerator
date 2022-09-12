@@ -4,16 +4,18 @@ import { IPathQuestion, PathPrompt, SetQuestion } from "@manuth/generator-ts-pro
 // eslint-disable-next-line node/no-unpublished-import
 import type { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
-import { join, join as legacyJoin } from "upath";
-import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
-import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PHPInstructionFileMapping } from "../FileMappings/PHPInstructionFileMapping";
-import { SelfContainedPHPFileMapping } from "../FileMappings/SelfContainedPHPFileMapping";
-import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import path from "upath";
+import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase.js";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PHPInstructionFileMapping } from "../FileMappings/PHPInstructionFileMapping.js";
+import { SelfContainedPHPFileMapping } from "../FileMappings/SelfContainedPHPFileMapping.js";
+import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+
+const { join } = path;
 
 /**
  * Provides a component for uploading or executing php-scripts.
@@ -188,7 +190,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
             }
         }
 
-        return result;
+        return result as any;
     }
 
     /**
@@ -212,7 +214,7 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
      */
     protected override GetDefaultSource(options: TComponentOptions): string
     {
-        return legacyJoin(super.GetDefaultSource(options), "install.php");
+        return join(super.GetDefaultSource(options), "install.php");
     }
 
     /**

@@ -1,31 +1,31 @@
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
 import { ITSProjectSettings, JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import chalk = require("chalk");
+import chalk from "chalk";
 // eslint-disable-next-line node/no-unpublished-import
 import { TSConfigJSON } from "types-tsconfig";
-import yosay = require("yosay");
-import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../WoltLabGenerator";
-import { ACPTemplateComponent } from "./Components/ACPTemplateComponent";
-import { BBCodeComponent } from "./Components/BBCodeComponent";
-import { CronJobComponent } from "./Components/CronJobComponent";
-import { EmojiComponent } from "./Components/EmojiComponent";
-import { ErrorMessageComponent } from "./Components/ErrorMessageComponent";
-import { EventListenerComponent } from "./Components/EventListenerComponent";
-import { FileUploadComponent } from "./Components/FileUploadComponent";
-import { GroupOptionComponent } from "./Components/GroupOptionComponent";
-import { OptionComponent } from "./Components/OptionComponent";
-import { PHPScriptComponent } from "./Components/PHPScriptComponent";
-import { SQLScriptComponent } from "./Components/SQLScriptComponent";
-import { TemplateComponent } from "./Components/TemplateComponent";
-import { TemplateListenerComponent } from "./Components/TemplateListenerComponent";
-import { ThemeInstructionComponent } from "./Components/ThemeInstructionComponent";
-import { TranslationComponent } from "./Components/TranslationComponent";
-import { UserOptionComponent } from "./Components/UserOptionComponent";
-import { EntryPointFileMapping } from "./FileMappings/EntryPointFileMapping";
-import { WoltLabNodePackageFileMapping } from "./FileMappings/WoltLabNodePackageFileMapping";
-import { WoltLabPackageFileMapping } from "./FileMappings/WoltLabPackageFileMapping";
+import yosay from "yosay";
+import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../WoltLabGenerator.js";
+import { ACPTemplateComponent } from "./Components/ACPTemplateComponent.js";
+import { BBCodeComponent } from "./Components/BBCodeComponent.js";
+import { CronJobComponent } from "./Components/CronJobComponent.js";
+import { EmojiComponent } from "./Components/EmojiComponent.js";
+import { ErrorMessageComponent } from "./Components/ErrorMessageComponent.js";
+import { EventListenerComponent } from "./Components/EventListenerComponent.js";
+import { FileUploadComponent } from "./Components/FileUploadComponent.js";
+import { GroupOptionComponent } from "./Components/GroupOptionComponent.js";
+import { OptionComponent } from "./Components/OptionComponent.js";
+import { PHPScriptComponent } from "./Components/PHPScriptComponent.js";
+import { SQLScriptComponent } from "./Components/SQLScriptComponent.js";
+import { TemplateComponent } from "./Components/TemplateComponent.js";
+import { TemplateListenerComponent } from "./Components/TemplateListenerComponent.js";
+import { ThemeInstructionComponent } from "./Components/ThemeInstructionComponent.js";
+import { TranslationComponent } from "./Components/TranslationComponent.js";
+import { UserOptionComponent } from "./Components/UserOptionComponent.js";
+import { EntryPointFileMapping } from "./FileMappings/EntryPointFileMapping.js";
+import { WoltLabNodePackageFileMapping } from "./FileMappings/WoltLabNodePackageFileMapping.js";
+import { WoltLabPackageFileMapping } from "./FileMappings/WoltLabPackageFileMapping.js";
 
 /**
  * Provides the functionality to generate WoltLab-packages.

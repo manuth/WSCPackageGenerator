@@ -3,17 +3,16 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { IFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
-import mock = require("mock-require");
 import { Random } from "random-js";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
-import { LocalFileInstructionMapping } from "../../FileMappings/LocalFileInstructionMapping";
-import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { ILocalComponentOptions } from "../../Settings/ILocalComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { LocalFileInstructionMapping } from "../../FileMappings/LocalFileInstructionMapping.js";
+import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent.js";
+import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { ILocalComponentOptions } from "../../Settings/ILocalComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link LocalFileInstructionMapping `LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -102,38 +101,11 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                 nameof<TestLocalFileInstructionMapping>((fileMapping) => fileMapping.Transform),
                 () =>
                 {
-                    let mockedPackageNames: string[];
-
-                    suiteSetup(
-                        () =>
-                        {
-                            mockedPackageNames = [
-                                "@manuth/woltlab-compiler",
-                                "path"
-                            ];
-                        });
-
                     setup(
                         async function()
                         {
                             this.timeout(10 * 1000);
-
-                            for (let packageName of mockedPackageNames)
-                            {
-                                // eslint-disable-next-line @typescript-eslint/no-var-requires
-                                mock(packageName, require(packageName));
-                            }
-
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
-                        });
-
-                    teardown(
-                        () =>
-                        {
-                            for (let packageName of mockedPackageNames)
-                            {
-                                mock.stop(packageName);
-                            }
                         });
 
                     test(

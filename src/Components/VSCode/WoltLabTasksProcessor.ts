@@ -2,7 +2,7 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceComponent, ITSProjectSettings, TSProjectTasksProcessor } from "@manuth/generator-ts-project";
 import { TaskDefinition } from "vscode";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { WoltLabGenerator } from "../../WoltLabGenerator";
+import { WoltLabGenerator } from "../../WoltLabGenerator.js";
 
 /**
  * Provides the functionality to process tasks for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.

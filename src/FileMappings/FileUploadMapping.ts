@@ -2,10 +2,10 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { LocalInstructionComponent } from "../Components/LocalInstructionComponent";
-import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { LocalFileInstructionMapping } from "./LocalFileInstructionMapping";
+import { LocalInstructionComponent } from "../Components/LocalInstructionComponent.js";
+import { IFileUploadComponentOptions } from "../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { LocalFileInstructionMapping } from "./LocalFileInstructionMapping.js";
 
 /**
  * Provides the functionality to generate instruction-files for file-upload instructions.

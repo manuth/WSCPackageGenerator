@@ -3,9 +3,9 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import { IPackageOptions } from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
-import { InstructionComponent } from "../Components/InstructionComponent";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
+import { InstructionComponent } from "../Components/InstructionComponent.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
 
 /**
  * Provides the functionality to add an instruction to the package-file.

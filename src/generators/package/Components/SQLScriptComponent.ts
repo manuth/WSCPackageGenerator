@@ -2,12 +2,14 @@ import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { SQLInstruction } from "@manuth/woltlab-compiler";
-import { join } from "upath";
-import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
-import { ILocalComponentOptions } from "../../../Settings/ILocalComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import path from "upath";
+import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent.js";
+import { ILocalComponentOptions } from "../../../Settings/ILocalComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+
+const { join } = path;
 
 /**
  * Provides a component for generating sql-script instructions.

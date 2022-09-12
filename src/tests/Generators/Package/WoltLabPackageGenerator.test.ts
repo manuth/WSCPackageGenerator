@@ -8,13 +8,14 @@ import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSet
 import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
-import mock = require("mock-require");
 import { TSConfigJSON } from "types-tsconfig";
-import { createProgram, Diagnostic, getParsedCommandLineOfConfigFile, ParseConfigFileHost, ParsedCommandLine, sys } from "typescript";
-import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder";
-import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileMappings/WoltLabNodePackageFileMapping";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
+import ts, { Diagnostic, ParseConfigFileHost, ParsedCommandLine } from "typescript";
+import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder.js";
+import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+
+const { createProgram, getParsedCommandLineOfConfigFile, sys } = ts;
 
 /**
  * Registers tests for the {@link WoltLabPackageGenerator<TSettings, TOptions> `WoltLabPackageGenerator<TSettings, TOptions>`} class.
@@ -320,9 +321,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            let compilerDependency = "@manuth/woltlab-compiler";
-                            // eslint-disable-next-line @typescript-eslint/no-var-requires
-                            mock(compilerDependency, require(compilerDependency));
 
                             try
                             {
@@ -333,10 +331,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             catch (exception)
                             {
                                 throw exception;
-                            }
-                            finally
-                            {
-                                mock.stop(compilerDependency);
                             }
                         });
                 });

@@ -5,14 +5,14 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { Random } from "random-js";
 import { ObjectLiteralExpression } from "ts-morph";
-import { FileUploadMapping } from "../../FileMappings/FileUploadMapping";
-import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { FileUploadMapping } from "../../FileMappings/FileUploadMapping.js";
+import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent.js";
+import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class.

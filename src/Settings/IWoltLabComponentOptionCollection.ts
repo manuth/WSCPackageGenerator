@@ -1,4 +1,4 @@
-import { IWoltLabComponentOptions } from "./IWoltLabComponentOptions";
+import { IWoltLabComponentOptions } from "./IWoltLabComponentOptions.js";
 
 /**
  * Provides options for the components.

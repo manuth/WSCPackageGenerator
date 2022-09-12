@@ -1,23 +1,25 @@
 import { doesNotReject, ok, strictEqual } from "assert";
+import { spawnSync } from "child_process";
+import { fileURLToPath } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
-import mock = require("mock-require");
+import npmWhich from "npm-which";
 import { Random } from "random-js";
 import { createSandbox, SinonSandbox } from "sinon";
 import { ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
-import { InstructionComponent } from "../../Components/InstructionComponent";
-import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping";
-import { ThemeInstructionComponent } from "../../generators/package/Components/ThemeInstructionComponent";
-import { ThemeInstructionFileMapping } from "../../generators/package/FileMappings/ThemeInstructionFileMapping";
-import { IThemeComponentOptions } from "../../generators/package/Settings/IThemeComponentOptions";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { InstructionComponent } from "../../Components/InstructionComponent.js";
+import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
+import { ThemeInstructionComponent } from "../../generators/package/Components/ThemeInstructionComponent.js";
+import { ThemeInstructionFileMapping } from "../../generators/package/FileMappings/ThemeInstructionFileMapping.js";
+import { IThemeComponentOptions } from "../../generators/package/Settings/IThemeComponentOptions.js";
+import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link InstructionFileMapping `InstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -81,6 +83,17 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                     generator = await context.Generator;
                     fileMapping = new TestInstructionFileMapping(new ThemeInstructionComponent(generator));
                     tester = new TypeScriptFileMappingTester(generator, fileMapping);
+
+                    spawnSync(
+                        npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                        [
+                            "install",
+                            "--silent"
+                        ],
+                        {
+                            cwd: generator.destinationPath(),
+                            stdio: "ignore"
+                        });
                 });
 
             setup(
@@ -127,15 +140,12 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 nameof<TestInstructionFileMapping>((fileMapping) => fileMapping.Transform),
                 () =>
                 {
-                    let compilerPackageName = "@manuth/woltlab-compiler";
                     let sandbox: SinonSandbox;
 
                     setup(
                         async function()
                         {
                             this.timeout(10 * 1000);
-                            // eslint-disable-next-line @typescript-eslint/no-var-requires
-                            mock(compilerPackageName, require(compilerPackageName));
                             sandbox = createSandbox();
 
                             sandbox.replaceGetter(
@@ -155,7 +165,6 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                     teardown(
                         async function()
                         {
-                            mock.stop(compilerPackageName);
                             sandbox.restore();
                         });
 
@@ -165,7 +174,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
                 });
         });

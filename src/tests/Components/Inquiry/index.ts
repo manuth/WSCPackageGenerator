@@ -1,8 +1,8 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { PromptTests } from "./Prompts";
-import { WoltLabIdentifierQuestionTests } from "./WoltLabIdentifierQuestion.test";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { PromptTests } from "./Prompts/index.js";
+import { WoltLabIdentifierQuestionTests } from "./WoltLabIdentifierQuestion.test.js";
 
 /**
  * Registers tests for inquiry-components.
@@ -13,7 +13,7 @@ import { WoltLabIdentifierQuestionTests } from "./WoltLabIdentifierQuestion.test
 export function InquiryTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             PromptTests();

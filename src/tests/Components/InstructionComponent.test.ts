@@ -1,10 +1,10 @@
 import { ok } from "assert";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { InstructionComponent } from "../../Components/InstructionComponent";
-import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
+import { InstructionComponent } from "../../Components/InstructionComponent.js";
+import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 
 /**
  * Registers tests for the {@link InstructionComponent `InstructionComponent<TSettings, TOptions>`} class.
