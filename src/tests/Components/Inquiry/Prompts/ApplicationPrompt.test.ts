@@ -2,7 +2,7 @@ import { ok, strictEqual } from "assert";
 import { createInterface, Interface } from "readline";
 import { Predicate } from "@manuth/extended-yo-generator";
 import { TestPrompt } from "@manuth/generator-ts-project-test";
-import inquirer from "inquirer";
+import inquirer, { DistinctChoice, QuestionTypeName } from "inquirer";
 import Choice from "inquirer/lib/objects/choice.js";
 import { MockSTDIN, stdin } from "mock-stdin";
 import MuteStream from "mute-stream";
@@ -31,7 +31,7 @@ export function ApplicationPromptTests(): void
             let listAnswer: string;
             let inputRan: boolean;
             let inputAnswer: string;
-            let actualApps: inquirer.DistinctChoice[];
+            let actualApps: DistinctChoice[];
 
             /**
              * Provides an implementation of the {@link ApplicationPrompt `ApplicationPrompt<T>`} class for testing.
@@ -174,8 +174,8 @@ export function ApplicationPromptTests(): void
                     };
 
                     testPrompt = GetPrompt();
-                    inquirer.prompt.registerPrompt("input" as inquirer.QuestionTypeName, MockedInputPrompt);
-                    inquirer.prompt.registerPrompt("list" as inquirer.QuestionTypeName, MockedListPrompt);
+                    inquirer.prompt.registerPrompt("input" as QuestionTypeName, MockedInputPrompt);
+                    inquirer.prompt.registerPrompt("list" as QuestionTypeName, MockedListPrompt);
                     listRan = false;
                     listAnswer = random.pick(suggestedApps.apps).ID;
                     inputRan = false;
