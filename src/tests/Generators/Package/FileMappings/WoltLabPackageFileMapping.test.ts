@@ -148,7 +148,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
 
                     test(
@@ -157,7 +157,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            let $package: Package = (await tester.Require())[generator.PackageVariableName];
+                            let $package: Package = (await tester.Import())[generator.PackageVariableName];
                             strictEqual($package.DisplayName.Data.get(InvariantCultureName), generator.Settings[TSProjectSettingKey.DisplayName]);
                             strictEqual($package.Identifier, generator.Settings[WoltLabSettingKey.Identifier]);
                             strictEqual($package.Version, "0.0.0");

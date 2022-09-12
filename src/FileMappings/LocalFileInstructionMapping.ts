@@ -74,6 +74,8 @@ export class LocalFileInstructionMapping<TSettings extends IWoltLabSettings, TOp
      */
     protected override async Transform(file: SourceFile): Promise<SourceFile>
     {
+        this.ApplyDirname(file);
+
         file.addImportDeclaration(
             {
                 moduleSpecifier: "path",

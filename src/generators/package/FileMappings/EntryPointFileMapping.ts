@@ -1,11 +1,11 @@
 import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import path from "upath";
+import { WoltLabTypeScriptFileMapping } from "../../../FileMappings/WoltLabTypeScriptFileMapping.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 import { WoltLabPackageGenerator } from "../../package/WoltLabPackageGenerator.js";
 
@@ -20,12 +20,12 @@ const { relative, sep } = path;
  * @template TOptions
  * The type of the options of the generator.
  */
-export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
+export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends WoltLabTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
      */
-    private woltLabGenerator: WoltLabPackageGenerator<TSettings, TOptions>;
+    private packageGenerator: WoltLabPackageGenerator<TSettings, TOptions>;
 
     /**
      * Initializes a new instance of the {@link EntryPointFileMapping `EntryPointFileMapping`} class.
@@ -36,7 +36,7 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
     public constructor(generator: WoltLabPackageGenerator<TSettings, TOptions>)
     {
         super(generator);
-        this.woltLabGenerator = generator;
+        this.packageGenerator = generator;
     }
 
     /**
@@ -44,7 +44,7 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
      */
     public override get Generator(): WoltLabPackageGenerator<TSettings, TOptions>
     {
-        return this.woltLabGenerator;
+        return this.packageGenerator;
     }
 
     /**
@@ -68,6 +68,7 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
     {
         let compilerVariableName = "compiler";
         file = await super.Transform(file);
+        this.ApplyDirname(file);
 
         file.addImportDeclarations(
             [
@@ -88,7 +89,7 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
                     ]
                 },
                 {
-                    moduleSpecifier: file.getRelativePathAsModuleSpecifierTo(this.Generator.destinationPath(this.Generator.WoltLabPackageFileMapping.Destination)),
+                    ...await this.GetImportDeclaration(this.Generator.WoltLabPackageFileMapping.Destination),
                     namedImports: [
                         this.Generator.PackageVariableName
                     ]
@@ -113,7 +114,7 @@ export class EntryPointFileMapping<TSettings extends IWoltLabSettings, TOptions 
             });
 
         let pathComponents: ts.Expression[] = [
-            ts.factory.createIdentifier(nameof(__dirname))
+            this.GetDirname()
         ];
 
         for (let pathComponent of relative(file.getDirectoryPath(), this.Generator.destinationPath()).split(sep))

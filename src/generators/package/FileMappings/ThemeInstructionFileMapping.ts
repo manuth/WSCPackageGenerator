@@ -115,6 +115,7 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
     protected override async Transform(file: SourceFile): Promise<SourceFile>
     {
         file = await super.Transform(file);
+        this.ApplyDirname(file);
 
         file.addImportDeclarations(
             [

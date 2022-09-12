@@ -94,7 +94,7 @@ export function EntryPointFileMappingTests(context: TestContext<WoltLabPackageGe
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
                 });
         });

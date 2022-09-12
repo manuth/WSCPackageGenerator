@@ -114,7 +114,7 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
                 });
         });

@@ -324,7 +324,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                             try
                             {
-                                let $package: Package = (await new TypeScriptFileMappingTester(runContext.generator, runContext.generator.WoltLabPackageFileMapping).Require())[runContext.generator.PackageVariableName];
+                                let $package: Package = (await new TypeScriptFileMappingTester(runContext.generator, runContext.generator.WoltLabPackageFileMapping).Import())[runContext.generator.PackageVariableName];
                                 strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
                                 strictEqual($package.Identifier, identifier);
                             }

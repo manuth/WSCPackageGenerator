@@ -1,7 +1,6 @@
 import { relative } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
-import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer.js";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
 import { WoltLabComponent } from "./WoltLabComponent.js";
@@ -50,14 +49,6 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
             ...super.FileMappings,
             this.InstructionFileMapping
         ];
-    }
-
-    /**
-     * Gets a transformer for adding this instruction to the package-file.
-     */
-    public get PackageFileTransformer(): PackageInstructionTransformer<TSettings, TOptions>
-    {
-        return new PackageInstructionTransformer(this);
     }
 
     /**

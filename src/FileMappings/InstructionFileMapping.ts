@@ -1,7 +1,6 @@
 import { EOL } from "os";
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 import { CallExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import path from "upath";
 import { InstructionComponent } from "../Components/InstructionComponent.js";
@@ -9,6 +8,7 @@ import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.j
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
+import { WoltLabTypeScriptFileMapping } from "./WoltLabTypeScriptFileMapping.js";
 
 const { dirname, relative, sep } = path;
 
@@ -135,7 +135,7 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
     protected GetPathJoin(path: string): CallExpression
     {
         let call = this.WrapNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], []));
-        call.addArgument(printNode(ts.factory.createIdentifier(nameof(__dirname))));
+        call.addArgument(printNode(this.GetDirname()));
 
         for (let pathComponent of relative(dirname(this.Generator.destinationPath(this.Destination)), this.Generator.destinationPath()).split(sep))
         {

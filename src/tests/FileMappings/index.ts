@@ -7,7 +7,6 @@ import { InstructionFileMappingTests } from "./InstructionFileMapping.test.js";
 import { ListenerInstructionFileMappingTests } from "./ListenerInstructionFileMapping.test.js";
 import { LocalFileInstructionMappingTests } from "./LocalFileInstructionMapping.test.js";
 import { NodeInstructionFileMappingTests } from "./NodeInstructionFileMapping.test.js";
-import { PackageInstructionTransformerTests } from "./PackageInstructionTransformer.test.js";
 
 /**
  * Registers tests for file-mappings.
@@ -27,6 +26,5 @@ export function FileMappingTests(context: TestContext<WoltLabPackageGenerator>):
             ListenerInstructionFileMappingTests(context);
             LocalFileInstructionMappingTests(context);
             FileUploadMappingTests(context);
-            PackageInstructionTransformerTests(context);
         });
 }

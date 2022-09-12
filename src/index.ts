@@ -24,7 +24,7 @@ export { InstructionFileMapping } from "./FileMappings/InstructionFileMapping.js
 export { ListenerInstructionFileMapping } from "./FileMappings/ListenerInstructionFileMapping.js";
 export { LocalFileInstructionMapping } from "./FileMappings/LocalFileInstructionMapping.js";
 export { NodeInstructionFileMapping } from "./FileMappings/NodeInstructionFileMapping.js";
-export { PackageInstructionTransformer } from "./FileMappings/PackageInstructionTransformer.js";
+export { WoltLabTypeScriptFileMapping } from "./FileMappings/WoltLabTypeScriptFileMapping.js";
 export { ACPTemplateComponent } from "./generators/package/Components/ACPTemplateComponent.js";
 export { BBCodeComponent } from "./generators/package/Components/BBCodeComponent.js";
 export { CronJobComponent } from "./generators/package/Components/CronJobComponent.js";

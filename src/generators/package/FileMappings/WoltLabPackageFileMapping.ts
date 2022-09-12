@@ -1,11 +1,12 @@
 import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
-import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
+import { TSProjectSettingKey, TSProjectTypeScriptFileMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type * as compiler from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
 import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
 
@@ -23,7 +24,7 @@ type WoltLabCompiler = typeof compiler;
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
+export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TSProjectTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
@@ -31,7 +32,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     private woltLabGenerator: WoltLabGenerator<TSettings, TOptions>;
 
     /**
-     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
      *
      * @param generator
      * The component to create an instruction-file for.
@@ -268,6 +269,75 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
+     * Registers the specified {@link component `component`}.
+     *
+     * @param file
+     * The file to register the specified {@link component `component`} to.
+     *
+     * @param component
+     * The component to register.
+     */
+    protected async AddComponent(file: SourceFile, component: InstructionComponent<TSettings, TOptions, any>): Promise<void>
+    {
+        let packageOptions: ObjectLiteralExpression;
+        let installSet: ObjectLiteralExpression;
+        let installInstructions: ArrayLiteralExpression;
+        let installSetKey = nameof<compiler.IPackageOptions>((options) => options.InstallSet);
+        let installInstructionKey = nameof<compiler.IPackageOptions>((options) => options.InstallSet.Instructions);
+
+        file.addImportDeclaration(
+            {
+                ...await this.GetImportDeclaration(component.ComponentOptions[WoltLabComponentSettingKey.Path]),
+                namedImports: [
+                    component.VariableName
+                ]
+            });
+
+        packageOptions = file.getVariableDeclaration(
+            this.Generator.PackageVariableName
+        ).getInitializerIfKindOrThrow(
+            SyntaxKind.NewExpression
+        ).getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+
+        try
+        {
+            installSet = packageOptions.getProperty(installSetKey).asKindOrThrow(
+                SyntaxKind.PropertyAssignment
+            ).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        }
+        catch
+        {
+            packageOptions.getProperty(installSetKey)?.remove();
+
+            installSet = packageOptions.addPropertyAssignment(
+                {
+                    name: installSetKey,
+                    initializer: printNode(ts.factory.createObjectLiteralExpression())
+                }).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        }
+
+        try
+        {
+            installInstructions = installSet.getProperty(installInstructionKey).asKindOrThrow(
+                SyntaxKind.PropertyAssignment
+            ).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+        }
+        catch
+        {
+            installSet.getProperty(installInstructionKey)?.remove();
+
+            installInstructions = installSet.addPropertyAssignment(
+                {
+                    name: installInstructionKey,
+                    initializer: printNode(ts.factory.createArrayLiteralExpression())
+                }).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+        }
+
+        let prefix = installInstructions.getElements().length === 0 ? EOL : "";
+        installInstructions.addElement(prefix + printNode(ts.factory.createIdentifier(component.VariableName)) + EOL);
+    }
+
+    /**
      * @inheritdoc
      *
      * @param file
@@ -327,7 +397,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                     component instanceof InstructionComponent &&
                     (this.Generator.Settings[GeneratorSettingKey.Components] ?? []).includes(component.ID))
                 {
-                    component.PackageFileTransformer.Transform(file);
+                    await this.AddComponent(file, component);
                 }
             }
         }

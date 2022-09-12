@@ -107,6 +107,7 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
 
                         file.addExportAssignment(
                             {
+                                isExportEquals: false,
                                 expression: fileMapping.InstructionOptions.getFullText()
                             });
 
@@ -129,7 +130,7 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            let themeOptions: IThemeInstructionOptions = await tester.Require();
+                            let themeOptions: IThemeInstructionOptions = await tester.ImportDefault();
                             strictEqual(themeOptions.Theme.DisplayName[InvariantCultureName], options.DisplayName);
                             strictEqual(themeOptions.Theme.Name, options.Name);
                         });
@@ -157,10 +158,10 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                             {
                                 options.Components = [];
                                 await WriteFile();
-                                ok(!(assertion[1] in (await tester.Require() as IThemeInstructionOptions).Theme));
+                                ok(!(assertion[1] in (await tester.ImportDefault() as IThemeInstructionOptions).Theme));
                                 options.Components = [assertion[0]];
                                 await WriteFile();
-                                ok(assertion[1] in (await tester.Require() as IThemeInstructionOptions).Theme);
+                                ok(assertion[1] in (await tester.ImportDefault() as IThemeInstructionOptions).Theme);
                             }
                         });
                 });
@@ -182,7 +183,7 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
                 });
         });
