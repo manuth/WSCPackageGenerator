@@ -2,7 +2,7 @@ import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
-import type compiler from "@manuth/woltlab-compiler";
+import type * as compiler from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";

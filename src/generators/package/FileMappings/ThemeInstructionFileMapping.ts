@@ -1,7 +1,7 @@
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import type compiler from "@manuth/woltlab-compiler";
+import type * as compiler from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, OptionalKind, printNode, PropertyAssignmentStructure, SourceFile, SyntaxKind, ts } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping.js";
