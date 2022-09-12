@@ -1,7 +1,7 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
-import { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
+import type { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";

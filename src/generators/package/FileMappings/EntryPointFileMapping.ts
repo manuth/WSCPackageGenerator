@@ -3,7 +3,7 @@ import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
-import { Package, PackageCompiler } from "@manuth/woltlab-compiler";
+import type { Package, PackageCompiler } from "@manuth/woltlab-compiler";
 import { printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import path from "upath";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";

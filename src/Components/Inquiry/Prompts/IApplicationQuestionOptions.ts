@@ -1,6 +1,6 @@
 import { Answers, AsyncDynamicQuestionProperty, InputQuestionOptions } from "inquirer";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ApplicationPrompt } from "./ApplicationPrompt.js";
+import type { ApplicationPrompt } from "./ApplicationPrompt.js";
 import { ISuggestionOptions } from "./ISuggestionOptions.js";
 
 /**

@@ -2,7 +2,7 @@ import { ComponentCollection, FileMapping, FileMappingCollectionEditor, Generato
 import { ITSProjectSettings, JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk from "chalk";
 // eslint-disable-next-line node/no-unpublished-import
-import { TSConfigJSON } from "types-tsconfig";
+import type { TSConfigJSON } from "types-tsconfig";
 import yosay from "yosay";
 import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";

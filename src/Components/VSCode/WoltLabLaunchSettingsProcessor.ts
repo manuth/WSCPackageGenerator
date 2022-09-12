@@ -2,7 +2,7 @@ import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceComponent, ITSProjectSettings, TSProjectLaunchSettingsProcessor } from "@manuth/generator-ts-project";
 import { DebugConfiguration } from "vscode";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { WoltLabGenerator } from "../../WoltLabGenerator.js";
+import type { WoltLabGenerator } from "../../WoltLabGenerator.js";
 
 /**
  * Provides the functionality to process debug-configurations for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.

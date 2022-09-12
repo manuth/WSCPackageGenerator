@@ -1,7 +1,7 @@
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
 import { IWoltLabComponentOptionCollection } from "../../../Settings/IWoltLabComponentOptionCollection.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateComponent } from "../Components/TemplateComponent.js";
+import type { TemplateComponent } from "../Components/TemplateComponent.js";
 import { PackageComponentType } from "./PackageComponentType.js";
 
 /**

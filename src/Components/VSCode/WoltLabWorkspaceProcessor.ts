@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceComponent, IExtensionSettings, ILaunchSettings, ITaskSettings, ITSProjectSettings, JSONProcessor, TSProjectWorkspaceProcessor } from "@manuth/generator-ts-project";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { WoltLabGenerator } from "../../WoltLabGenerator.js";
+import type { WoltLabGenerator } from "../../WoltLabGenerator.js";
 import { WoltLabExtensionsProcessor } from "./WoltLabExtensionsProcessor.js";
 import { WoltLabLaunchSettingsProcessor } from "./WoltLabLaunchSettingsProcessor.js";
 import { WoltLabSettingsProcessor } from "./WoltLabSettingsProcessor.js";

@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceComponent, ITSProjectSettings, TSProjectExtensionsProcessor } from "@manuth/generator-ts-project";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { WoltLabGenerator } from "../../WoltLabGenerator.js";
+import type { WoltLabGenerator } from "../../WoltLabGenerator.js";
 
 /**
  * Provides the functionality to process extensions for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.

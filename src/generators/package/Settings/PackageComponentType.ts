@@ -1,35 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ACPTemplateComponent } from "../Components/ACPTemplateComponent.js";
+import type { ACPTemplateComponent } from "../Components/ACPTemplateComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BBCodeComponent } from "../Components/BBCodeComponent.js";
+import type { BBCodeComponent } from "../Components/BBCodeComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { CronJobComponent } from "../Components/CronJobComponent.js";
+import type { CronJobComponent } from "../Components/CronJobComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EmojiComponent } from "../Components/EmojiComponent.js";
+import type { EmojiComponent } from "../Components/EmojiComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ErrorMessageComponent } from "../Components/ErrorMessageComponent.js";
+import type { ErrorMessageComponent } from "../Components/ErrorMessageComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EventListenerComponent } from "../Components/EventListenerComponent.js";
+import type { EventListenerComponent } from "../Components/EventListenerComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FileUploadComponent } from "../Components/FileUploadComponent.js";
+import type { FileUploadComponent } from "../Components/FileUploadComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GroupOptionComponent } from "../Components/GroupOptionComponent.js";
+import type { GroupOptionComponent } from "../Components/GroupOptionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { OptionComponent } from "../Components/OptionComponent.js";
+import type { OptionComponent } from "../Components/OptionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { PHPScriptComponent } from "../Components/PHPScriptComponent.js";
+import type { PHPScriptComponent } from "../Components/PHPScriptComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { SQLScriptComponent } from "../Components/SQLScriptComponent.js";
+import type { SQLScriptComponent } from "../Components/SQLScriptComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateComponent } from "../Components/TemplateComponent.js";
+import type { TemplateComponent } from "../Components/TemplateComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateListenerComponent } from "../Components/TemplateListenerComponent.js";
+import type { TemplateListenerComponent } from "../Components/TemplateListenerComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ThemeInstructionComponent } from "../Components/ThemeInstructionComponent.js";
+import type { ThemeInstructionComponent } from "../Components/ThemeInstructionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TranslationComponent } from "../Components/TranslationComponent.js";
+import type { TranslationComponent } from "../Components/TranslationComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { UserOptionComponent } from "../Components/UserOptionComponent.js";
+import type { UserOptionComponent } from "../Components/UserOptionComponent.js";
 
 /**
  * Represents a type of a WoltLab-package component.
