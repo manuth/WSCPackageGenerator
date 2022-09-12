@@ -24,7 +24,7 @@ const { dirname, relative, sep } = path;
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
+export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends WoltLabTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The component to create an instruction-file for.
