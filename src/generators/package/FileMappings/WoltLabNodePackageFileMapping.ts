@@ -42,7 +42,7 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
         result.Author.URL ??= this.Generator.Settings[WoltLabSettingKey.HomePage];
         result.PublishConfig = {};
         result.Files = [];
-        result.Register(new WoltLabDependencyCollection(this.Generator.Settings[TSProjectSettingKey.ESModule]));
+        result.Register(new WoltLabDependencyCollection(this.Generator.Settings[TSProjectSettingKey.ESModule]), true);
         result.DevelopmentDependencies.Remove("mocha");
         result.DevelopmentDependencies.Remove("@types/mocha");
         result.DevelopmentDependencies.Remove("source-map-support");
