@@ -1,14 +1,15 @@
 import { EOL } from "os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
-import { TSProjectSettingKey, TSProjectTypeScriptFileMapping } from "@manuth/generator-ts-project";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type * as compiler from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { WoltLabTypeScriptFileMapping } from "../../../FileMappings/WoltLabTypeScriptFileMapping.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
-import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { WoltLabPackageGenerator } from "../WoltLabPackageGenerator.js";
 
 /**
  * The `@manuth/woltlab-compiler` package.
@@ -24,12 +25,12 @@ type WoltLabCompiler = typeof compiler;
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TSProjectTypeScriptFileMapping<TSettings, TOptions>
+export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends WoltLabTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
      */
-    private woltLabGenerator: WoltLabGenerator<TSettings, TOptions>;
+    private packageGenerator: WoltLabPackageGenerator<TSettings, TOptions>;
 
     /**
      * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
@@ -37,18 +38,18 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
      * @param generator
      * The component to create an instruction-file for.
      */
-    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
+    public constructor(generator: WoltLabPackageGenerator<TSettings, TOptions>)
     {
         super(generator);
-        this.woltLabGenerator = generator;
+        this.packageGenerator = generator;
     }
 
     /**
      * @inheritdoc
      */
-    public override get Generator(): WoltLabGenerator<TSettings, TOptions>
+    public override get Generator(): WoltLabPackageGenerator<TSettings, TOptions>
     {
-        return this.woltLabGenerator;
+        return this.packageGenerator;
     }
 
     /**
@@ -389,9 +390,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 ]
             });
 
-        for (let category of this.Generator.Components.Categories)
-        {
-            for (let component of category.Components)
+            for (let component of this.Generator.InstructionComponents)
             {
                 if (
                     component instanceof InstructionComponent &&
@@ -400,7 +399,6 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                     await this.AddComponent(file, component);
                 }
             }
-        }
 
         return file;
     }
