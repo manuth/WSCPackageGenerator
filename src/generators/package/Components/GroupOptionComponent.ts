@@ -35,14 +35,6 @@ export class GroupOptionComponent<TSettings extends IWoltLabSettings, TOptions e
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<GroupOptionInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "groupOptions.xml";
@@ -62,5 +54,19 @@ export class GroupOptionComponent<TSettings extends IWoltLabSettings, TOptions e
     public get DisplayName(): string
     {
         return "Group-Permission Options";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<GroupOptionInstruction>();
     }
 }

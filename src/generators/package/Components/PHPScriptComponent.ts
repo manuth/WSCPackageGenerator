@@ -47,21 +47,6 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        if (this.ComponentOptions?.SelfContained ?? false)
-        {
-            return nameof<SelfContainedPHPInstruction>();
-        }
-        else
-        {
-            return nameof<PHPInstruction>();
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get ID(): string
     {
         return PackageComponentType.PHPScript;
@@ -203,6 +188,27 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
         return this.ComponentOptions.SelfContained ?
             new SelfContainedPHPFileMapping(this) :
             new PHPInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        if (options?.SelfContained ?? false)
+        {
+            return nameof<SelfContainedPHPInstruction>();
+        }
+        else
+        {
+            return nameof<PHPInstruction>();
+        }
     }
 
     /**

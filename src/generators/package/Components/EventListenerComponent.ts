@@ -35,14 +35,6 @@ export class EventListenerComponent<TSettings extends IWoltLabSettings, TOptions
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<EventListenerInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "eventListeners.xml";
@@ -62,5 +54,19 @@ export class EventListenerComponent<TSettings extends IWoltLabSettings, TOptions
     public get DisplayName(): string
     {
         return "Event-Listeners";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<EventListenerInstruction>();
     }
 }

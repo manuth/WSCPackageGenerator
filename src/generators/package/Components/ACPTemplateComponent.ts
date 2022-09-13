@@ -37,14 +37,6 @@ export class ACPTemplateComponent<TSettings extends IWoltLabSettings, TOptions e
     /**
      * @inheritdoc
      */
-    public override get ClassName(): string
-    {
-        return nameof<ACPTemplateInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public override get ID(): string
     {
         return PackageComponentType.ACPTemplate;
@@ -105,5 +97,19 @@ export class ACPTemplateComponent<TSettings extends IWoltLabSettings, TOptions e
             ...super.TemplateFileMapping,
             Source: this.Generator.templatePath("acpTemplate.tpl")
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected override GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ACPTemplateInstruction>();
     }
 }

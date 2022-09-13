@@ -39,14 +39,6 @@ export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     /**
      * @inheritdoc
      */
-    public override get ClassName(): string
-    {
-        return nameof<SQLInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public override get ID(): string
     {
         return PackageComponentType.SQLScript;
@@ -102,5 +94,19 @@ export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
                 generator.fs.write(target.Destination, "");
             }
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<SQLInstruction>();
     }
 }

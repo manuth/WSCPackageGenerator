@@ -35,14 +35,6 @@ export class TemplateListenerComponent<TSettings extends IWoltLabSettings, TOpti
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<TemplateListenerInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "templateListeners.xml";
@@ -62,5 +54,19 @@ export class TemplateListenerComponent<TSettings extends IWoltLabSettings, TOpti
     public get DisplayName(): string
     {
         return "Template-Listeners";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<TemplateListenerInstruction>();
     }
 }

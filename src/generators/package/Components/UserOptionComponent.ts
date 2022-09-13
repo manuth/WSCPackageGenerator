@@ -35,14 +35,6 @@ export class UserOptionComponent<TSettings extends IWoltLabSettings, TOptions ex
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<UserOptionInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "userOptions.xml";
@@ -62,5 +54,19 @@ export class UserOptionComponent<TSettings extends IWoltLabSettings, TOptions ex
     public get DisplayName(): string
     {
         return "User-Options";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<UserOptionInstruction>();
     }
 }

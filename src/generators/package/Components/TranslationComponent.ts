@@ -35,14 +35,6 @@ export class TranslationComponent<TSettings extends IWoltLabSettings, TOptions e
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<TranslationInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "translations";
@@ -62,5 +54,19 @@ export class TranslationComponent<TSettings extends IWoltLabSettings, TOptions e
     public get DisplayName(): string
     {
         return "Translations";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<TranslationInstruction>();
     }
 }

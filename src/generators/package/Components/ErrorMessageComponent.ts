@@ -35,14 +35,6 @@ export class ErrorMessageComponent<TSettings extends IWoltLabSettings, TOptions 
     /**
      * @inheritdoc
      */
-    public override get ClassName(): string
-    {
-        return nameof<ErrorMessageInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public override get OutputFileName(): string
     {
         return "errorMessages";
@@ -62,5 +54,19 @@ export class ErrorMessageComponent<TSettings extends IWoltLabSettings, TOptions 
     public override get DisplayName(): string
     {
         return "Error-Messages";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected override GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ErrorMessageInstruction>();
     }
 }

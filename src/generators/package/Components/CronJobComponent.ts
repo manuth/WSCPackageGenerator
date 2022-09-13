@@ -36,14 +36,6 @@ export class CronJobComponent<TSettings extends IWoltLabSettings, TOptions exten
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<CronJobInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "cronJobs.xml";
@@ -71,5 +63,19 @@ export class CronJobComponent<TSettings extends IWoltLabSettings, TOptions exten
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new CronJobInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<CronJobInstruction>();
     }
 }

@@ -36,14 +36,6 @@ export class EmojiComponent<TSettings extends IWoltLabSettings, TOptions extends
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<EmojiInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "emojis.xml";
@@ -71,5 +63,19 @@ export class EmojiComponent<TSettings extends IWoltLabSettings, TOptions extends
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new EmojiInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<EmojiInstruction>();
     }
 }

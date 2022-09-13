@@ -38,14 +38,6 @@ export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions ex
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<ApplicationFileSystemInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get ID(): string
     {
         return PackageComponentType.FileUpload;
@@ -112,5 +104,19 @@ export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions ex
                 generator.fs.write(target.Destination, "");
             }
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ApplicationFileSystemInstruction>();
     }
 }

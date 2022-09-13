@@ -41,29 +41,6 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<ThemeInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public override get VariableName(): string
-    {
-        if (this.ComponentOptions?.DisplayName)
-        {
-            return `${pascalcase(this.ComponentOptions.DisplayName)}`;
-        }
-        else
-        {
-            return super.VariableName;
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get ID(): string
     {
         return PackageComponentType.Theme;
@@ -263,6 +240,41 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
             this.OverridesFileNameQuestion,
             this.VariableFileNameQuestion
         ];
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ThemeInstruction>();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-variable to export.
+     */
+    protected override GetVariableName(options: TComponentOptions): string
+    {
+        if (options?.DisplayName)
+        {
+            return `${pascalcase(this.ComponentOptions.DisplayName)}`;
+        }
+        else
+        {
+            return super.GetVariableName(options);
+        }
     }
 
     /**

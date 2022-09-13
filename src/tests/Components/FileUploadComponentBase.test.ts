@@ -36,14 +36,6 @@ export function FileUploadComponentBaseTests(context: TestContext<WoltLabPackage
                 /**
                  * @inheritdoc
                  */
-                public get ClassName(): string
-                {
-                    return "className";
-                }
-
-                /**
-                 * @inheritdoc
-                 */
                 public get ID(): string
                 {
                     return "id";
@@ -101,6 +93,20 @@ export function FileUploadComponentBaseTests(context: TestContext<WoltLabPackage
                 public override GetDefaultSource(options: IFileUploadComponentOptions): string
                 {
                     return super.GetDefaultSource(options);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-class.
+                 */
+                protected GetClassName(options: IFileUploadComponentOptions): string
+                {
+                    return "className";
                 }
             }
 

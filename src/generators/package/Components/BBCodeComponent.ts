@@ -36,14 +36,6 @@ export class BBCodeComponent<TSettings extends IWoltLabSettings, TOptions extend
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<BBCodeInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "bbCodes.xml";
@@ -71,5 +63,19 @@ export class BBCodeComponent<TSettings extends IWoltLabSettings, TOptions extend
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new BBCodeInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<BBCodeInstruction>();
     }
 }

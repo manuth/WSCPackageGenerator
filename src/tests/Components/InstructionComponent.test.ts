@@ -4,6 +4,7 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 
 /**
@@ -47,17 +48,23 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                 /**
                  * @inheritdoc
                  */
-                public get ClassName(): string
+                public get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
                 {
-                    return "TestInstruction";
+                    return this.fileMapping;
                 }
 
                 /**
                  * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-class.
                  */
-                public get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
+                protected GetClassName(options: IWoltLabComponentOptions): string
                 {
-                    return this.fileMapping;
+                    return "TestInstruction";
                 }
             }
 

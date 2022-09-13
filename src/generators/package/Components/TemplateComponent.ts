@@ -38,14 +38,6 @@ export class TemplateComponent<TSettings extends IWoltLabSettings, TOptions exte
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<TemplateInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get ID(): string
     {
         return PackageComponentType.Template;
@@ -109,5 +101,19 @@ export class TemplateComponent<TSettings extends IWoltLabSettings, TOptions exte
             Source: this.Generator.templatePath("template.tpl"),
             Destination: join(this.ComponentOptions.Source, "example.tpl")
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<TemplateInstruction>();
     }
 }
