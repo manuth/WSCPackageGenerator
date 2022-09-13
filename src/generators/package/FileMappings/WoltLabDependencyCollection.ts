@@ -40,7 +40,7 @@ export class WoltLabDependencyCollection extends ESModuleDependencyCollection
     {
         return {
             devDependencies: {
-                "@manuth/woltlab-compiler": "^3.0.1"
+                "@manuth/woltlab-compiler": "^3.0.3"
             }
         };
     }
