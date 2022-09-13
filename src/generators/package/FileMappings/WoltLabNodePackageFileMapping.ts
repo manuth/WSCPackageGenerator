@@ -86,7 +86,14 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
                 Destination: "package",
                 Processor: () =>
                 {
-                    return "ts-node ./src/index.ts";
+                    let executableName = "ts-node";
+
+                    if (this.Generator.Settings[TSProjectSettingKey.ESModule])
+                    {
+                        executableName += "-esm";
+                    }
+
+                    return `${executableName} ./src/index.ts`;
                 }
             }
         ] as Array<IScriptMapping<TSettings, TOptions>>;
