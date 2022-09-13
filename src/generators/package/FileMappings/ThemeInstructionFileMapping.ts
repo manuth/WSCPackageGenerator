@@ -1,7 +1,7 @@
 import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import type * as compiler from "@manuth/woltlab-compiler";
+import * as compiler from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, OptionalKind, printNode, PropertyAssignmentStructure, SourceFile, SyntaxKind, ts } from "ts-morph";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping.js";
@@ -47,10 +47,11 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
         let result = super.InstructionOptions;
         let themeObject = this.GetObjectLiteral();
         let displayNameObject = this.GetObjectLiteral();
+        let invariantAccessor = ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)));
 
         displayNameObject.addPropertyAssignment(
             {
-                name: printNode(ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)))),
+                name: printNode(invariantAccessor),
                 initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.DisplayName))
             });
 
@@ -64,6 +65,23 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
                 initializer: displayNameObject.getFullText()
             }
         ];
+
+        if ((this.Component.ComponentOptions.Description ?? "").trim().length > 0)
+        {
+            let descriptionObject = this.GetObjectLiteral();
+
+            descriptionObject.addPropertyAssignment(
+                {
+                    name: printNode(invariantAccessor),
+                    initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.Description))
+                });
+
+            properties.push(
+                {
+                    name: nameof<compiler.IThemeLoaderOptions>((options) => options.Description),
+                    initializer: descriptionObject.getFullText()
+                });
+        }
 
         if (this.Component.ComponentOptions.Components.includes(ThemeComponent.CustomScss))
         {
