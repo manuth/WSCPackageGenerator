@@ -1,9 +1,10 @@
-import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping } from "@manuth/extended-yo-generator";
+import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions, IComponentCollection, IFileMapping, ObjectCollectionEditor } from "@manuth/extended-yo-generator";
 import { ITSProjectSettings, JSONCConverter, JSONCCreatorMapping, TSConfigFileMapping, TSProjectCodeWorkspaceFolder, TSProjectGeneralCategory, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import chalk from "chalk";
 // eslint-disable-next-line node/no-unpublished-import
 import type { TSConfigJSON } from "types-tsconfig";
 import yosay from "yosay";
+import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 import { WoltLabGenerator } from "../../WoltLabGenerator.js";
@@ -47,10 +48,45 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
     }
 
     /**
+     * Gets all {@see InstructionComponent `InstructionComponent<TSettings, TOptions, TComponentOptions>`} provided by this generator.
+     */
+    public get InstructionComponents(): Array<InstructionComponent<TSettings, TOptions, any>>
+    {
+        return [
+            new FileUploadComponent(this),
+            new PHPScriptComponent(this),
+            new SQLScriptComponent(this),
+            new CronJobComponent(this),
+            new TranslationComponent(this),
+            new ErrorMessageComponent(this),
+            new OptionComponent(this),
+            new UserOptionComponent(this),
+            new GroupOptionComponent(this),
+            new EmojiComponent(this),
+            new BBCodeComponent(this),
+            new TemplateComponent(this),
+            new ACPTemplateComponent(this),
+            new ThemeInstructionComponent(this),
+            new EventListenerComponent(this),
+            new TemplateListenerComponent(this)
+        ];
+    }
+
+    /**
+     * Gets a collection containing all {@see InstructionComponent `InstructionComponent<TSettings, TOptions, TComponentOptions>`} provided by this generator.
+     */
+    public get InstructionComponentCollection(): ObjectCollectionEditor<InstructionComponent<TSettings, TOptions, any>>
+    {
+        return new ObjectCollectionEditor(this.InstructionComponents);
+    }
+
+    /**
      * @inheritdoc
      */
     public override get Components(): IComponentCollection<TSettings, TOptions>
     {
+        let components = this.InstructionComponentCollection;
+
         return {
             Question: super.Components.Question,
             Categories: [
@@ -58,33 +94,33 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
                 {
                     DisplayName: "Globalization",
                     Components: [
-                        new TranslationComponent(this),
-                        new ErrorMessageComponent(this)
+                        components.Get(TranslationComponent),
+                        components.Get(ErrorMessageComponent)
                     ]
                 },
                 {
                     DisplayName: "Options",
                     Components: [
-                        new OptionComponent(this),
-                        new UserOptionComponent(this),
-                        new GroupOptionComponent(this)
+                        components.Get(OptionComponent),
+                        components.Get(UserOptionComponent),
+                        components.Get(GroupOptionComponent)
                     ]
                 },
                 {
                     DisplayName: "Customization",
                     Components: [
-                        new EmojiComponent(this),
-                        new BBCodeComponent(this),
-                        new TemplateComponent(this),
-                        new ACPTemplateComponent(this),
-                        new ThemeInstructionComponent(this)
+                        components.Get(EmojiComponent),
+                        components.Get(BBCodeComponent),
+                        components.Get(TemplateComponent),
+                        components.Get(ACPTemplateComponent),
+                        components.Get(ThemeInstructionComponent)
                     ]
                 },
                 {
                     DisplayName: "Events",
                     Components: [
-                        new EventListenerComponent(this),
-                        new TemplateListenerComponent(this)
+                        components.Get(EventListenerComponent),
+                        components.Get(TemplateListenerComponent)
                     ]
                 }
             ]
@@ -97,6 +133,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
     protected override get BaseComponents(): ComponentCollection<ITSProjectSettings, GeneratorOptions>
     {
         let result = super.BaseComponents;
+        let components = this.InstructionComponentCollection;
 
         result.Categories.Replace(
             TSProjectGeneralCategory,
@@ -111,10 +148,10 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
 
                 category.Components.AddRange(
                     [
-                        new FileUploadComponent(this),
-                        new PHPScriptComponent(this),
-                        new SQLScriptComponent(this),
-                        new CronJobComponent(this)
+                        components.Get(FileUploadComponent),
+                        components.Get(PHPScriptComponent),
+                        components.Get(SQLScriptComponent),
+                        components.Get(CronJobComponent)
                     ]);
 
                 return category;
