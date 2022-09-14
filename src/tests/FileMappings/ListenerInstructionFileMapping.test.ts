@@ -2,16 +2,13 @@ import { doesNotThrow } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IListenerInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { ListenerInstructionFileMapping } from "../../FileMappings/ListenerInstructionFileMapping.js";
 import { TemplateListenerComponent } from "../../generators/package/Components/TemplateListenerComponent.js";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link ListenerInstructionFileMapping `ListenerInstructionFileMapping<TSettings, TOptions, TComponentOptions`} class.
@@ -21,64 +18,77 @@ import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
  */
 export function ListenerInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(ListenerInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link ListenerInstructionFileMapping `ListenerInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestListenerInstructionFileMapping extends ListenerInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link ListenerInstructionFileMapping `ListenerInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestListenerInstructionFileMapping extends ListenerInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestListenerInstructionFileMapping;
-            let options: IWoltLabComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestListenerInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(ListenerInstructionFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestListenerInstructionFileMapping
+        {
+            return new TestListenerInstructionFileMapping(new TemplateListenerComponent(this.Generator));
+        }
 
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
-                    };
+        /**
+         * @inheritdoc
+         *
+         * @param context
+         * The mocha context.
+         */
+        protected override async Setup(context: Mocha.Context): Promise<void>
+        {
+            await super.Setup(context);
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.TemplateListener]: options
-                    };
-
-                    fileMapping = new TestListenerInstructionFileMapping(new TemplateListenerComponent(generator));
-                });
-
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestListenerInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
-                    let optionName = nameof<IListenerInstructionOptions<any>>((options) => options.Listeners);
+                    let propertyName = nameof<IListenerInstructionOptions<any>>((options) => options.Listeners);
 
                     test(
-                        `Checking whether the options contain a \`${optionName}\`-array…`,
+                        `Checking whether the options contain a \`${propertyName}\`-array…`,
                         () =>
                         {
                             doesNotThrow(
                                 () =>
                                 {
-                                    fileMapping.InstructionOptions.getProperty(optionName).asKindOrThrow(
+                                    this.FileMappingOptions.InstructionOptions.getProperty(propertyName).asKindOrThrow(
                                         SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
                                 });
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }
