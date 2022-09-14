@@ -168,8 +168,10 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
 
                                 test(
                                     "Checking whether a statement is returned which determines the name of the directory containing the output file…",
-                                    async () =>
+                                    async function()
                                     {
+                                        this.slow(15 * 1000);
+                                        this.timeout(30 * 1000);
                                         fileMapping.ApplyDirname(sourceFile);
 
                                         sourceFile.addExportAssignment(
