@@ -65,8 +65,6 @@ export function WoltLabSettingsProcessorTests(context: TestContext<WoltLabPackag
                                 return setting.startsWith("mochaExplorer.");
                             };
 
-                            Object.keys(await processor.Component.GetSettingsMetadata()).some(predicate);
-
                             for (let entry of Object.entries(await processor.Component.GetSettingsMetadata()))
                             {
                                 if (predicate(entry[0]))
