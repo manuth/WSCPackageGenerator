@@ -84,7 +84,7 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                 () =>
                 {
                     test(
-                        "Checking whether the file-name ha s a TypeScript-extension…",
+                        "Checking whether the file-name has a TypeScript-extension…",
                         () =>
                         {
                             ok(component.InstructionFileName.endsWith(".ts"));
