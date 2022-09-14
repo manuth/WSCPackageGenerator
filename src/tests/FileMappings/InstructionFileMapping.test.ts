@@ -1,7 +1,9 @@
 import { ok, strictEqual } from "assert";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { NewExpression, ObjectLiteralExpression, SourceFile, SyntaxKind, VariableDeclaration } from "ts-morph";
+import { CallExpression, NewExpression, ObjectLiteralExpression, Project, SourceFile, SyntaxKind, VariableDeclaration } from "ts-morph";
 import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
@@ -54,6 +56,31 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
         public override get InstructionOptions(): ObjectLiteralExpression
         {
             return new TestBBCodeFileMapping(this.Component).InstructionOptions;
+        }
+
+        /**
+         * @inheritdoc
+         *
+         * @param sourceFile
+         * The file to add the prerequisites to.
+         */
+        public override ApplyPathJoin(sourceFile: SourceFile): void
+        {
+            super.ApplyPathJoin(sourceFile);
+        }
+
+        /**
+         * @inheritdoc
+         *
+         * @param path
+         * The path to point to.
+         *
+         * @returns
+         * Valid TypeScript-code containing a {@link join `join`}-call for pointing to the specified {@link path `path`}.
+         */
+        public override GetPathJoin(path: string): CallExpression
+        {
+            return super.GetPathJoin(path);
         }
 
         /**
@@ -118,6 +145,31 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                         () =>
                         {
                             strictEqual(this.FileMappingOptions.Destination, this.Component.ComponentOptions[WoltLabComponentSettingKey.Path]);
+                        });
+                });
+
+            suite(
+                nameof<TestInstructionFileMapping>((fileMapping) => fileMapping.ApplyPathJoin),
+                () =>
+                {
+                    test(
+                        "Checking whether the expected import is added…",
+                        () =>
+                        {
+                            let file = new Project().createSourceFile("index.ts");
+                            this.FileMappingOptions.ApplyPathJoin(file);
+
+                            ok(
+                                file.getImportDeclarations().some(
+                                    (importDeclaration) =>
+                                    {
+                                        return importDeclaration.getModuleSpecifier().getLiteralValue() === "path" &&
+                                            importDeclaration.getNamedImports().some(
+                                                (namedImport) =>
+                                                {
+                                                    return namedImport.getName() === nameof(join);
+                                                });
+                                    }));
                         });
                 });
 
