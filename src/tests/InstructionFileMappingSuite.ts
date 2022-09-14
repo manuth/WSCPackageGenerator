@@ -1,10 +1,11 @@
-import { doesNotReject, doesNotThrow, ok } from "assert";
+import { doesNotReject, ok } from "assert";
 import { spawnSync } from "child_process";
 import { fileURLToPath } from "url";
 import { FileMapping, Generator, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
+import { TempFileSystem } from "@manuth/temp-files";
 import { Instruction } from "@manuth/woltlab-compiler";
 import { Context } from "mocha";
 import npmWhich from "npm-which";
@@ -13,6 +14,8 @@ import { InstructionComponent } from "../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../FileMappings/InstructionFileMapping.js";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
 import { TestSuite } from "./TestSuite.js";
 
 /**
@@ -192,6 +195,26 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
                 cwd: this.Generator.destinationPath(),
                 stdio: "ignore"
             });
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param context
+     * The mocha context.
+     */
+    protected override async Setup(context: Mocha.Context): Promise<void>
+    {
+        await super.Setup(context);
+
+        this.Generator.Settings[WoltLabSettingKey.ComponentOptions] = {
+            [this.Component.ID]: {
+                [WoltLabComponentSettingKey.Path]: TempFileSystem.TempBaseName(
+                    {
+                        Suffix: ".ts"
+                    })
+            }
+        };
     }
 
     /**

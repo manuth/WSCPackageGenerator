@@ -1,19 +1,15 @@
 import { ok, strictEqual } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { TempFileSystem } from "@manuth/temp-files";
 import { IInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
 import { FileInstructionMapping } from "../../FileMappings/FileInstructionMapping.js";
 import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent.js";
 import { BBCodeInstructionFileMapping } from "../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
 
 /**
@@ -79,26 +75,6 @@ export function FileInstructionMappingTests(context: TestContext<WoltLabPackageG
         protected override async SuiteSetup(context: Mocha.Context): Promise<void>
         {
             await super.SuiteSetup(context);
-        }
-
-        /**
-         * @inheritdoc
-         *
-         * @param context
-         * The mocha context.
-         */
-        protected override async Setup(context: Mocha.Context): Promise<void>
-        {
-            await super.Setup(context);
-
-            this.Generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                [PackageComponentType.BBCode]: {
-                    [WoltLabComponentSettingKey.Path]: TempFileSystem.TempBaseName(
-                        {
-                            Suffix: ".ts"
-                        })
-                }
-            };
         }
 
         /**
