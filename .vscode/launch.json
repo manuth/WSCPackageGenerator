@@ -58,7 +58,7 @@
             "continueOnAttach": true,
             "resolveSourceMapLocations": [
                 "!**/node_modules/**",
-                "!**/.vscode/extensions/hbenl.vscode-mocha-test-adapter-*/**"
+                "!**/extensions/hbenl.vscode-mocha-test-adapter-*/**"
             ],
             "skipFiles": [
                 "<node_internals>/**",
