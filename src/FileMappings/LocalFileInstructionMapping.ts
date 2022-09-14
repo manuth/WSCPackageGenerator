@@ -1,4 +1,3 @@
-import { join } from "path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { IFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
@@ -75,17 +74,7 @@ export class LocalFileInstructionMapping<TSettings extends IWoltLabSettings, TOp
     protected override async Transform(file: SourceFile): Promise<SourceFile>
     {
         this.ApplyDirname(file);
-
-        file.addImportDeclaration(
-            {
-                moduleSpecifier: "path",
-                namedImports: [
-                    {
-                        name: nameof(join)
-                    }
-                ]
-            });
-
+        this.ApplyPathJoin(file);
         return super.Transform(file);
     }
 }

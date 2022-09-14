@@ -124,6 +124,25 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
     }
 
     /**
+     * Adds the prerequisites for using {@link join `path.join`} to the specified {@link sourceFile `sourceFile`}.
+     *
+     * @param sourceFile
+     * The file to add the prerequisites to.
+     */
+    protected ApplyPathJoin(sourceFile: SourceFile): void
+    {
+        sourceFile.addImportDeclaration(
+            {
+                moduleSpecifier: "path",
+                namedImports: [
+                    {
+                        name: nameof(join)
+                    }
+                ]
+            });
+    }
+
+    /**
      * Creates valid TypeScript-code for calling the {@link join `join`}-method.
      *
      * @param path
