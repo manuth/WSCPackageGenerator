@@ -138,18 +138,6 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
             }
 
             suite(
-                nameof<TestInstructionComponent>((component) => component.InstructionFileName),
-                () =>
-                {
-                    test(
-                        "Checking whether the file-name has a TypeScript-extension…",
-                        () =>
-                        {
-                            ok(component.InstructionFileName.endsWith(".ts"));
-                        });
-                });
-
-            suite(
                 nameof<TestInstructionComponent>((component) => component.PathQuestion),
                 () =>
                 {
@@ -188,6 +176,18 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                         () =>
                         {
                             ok(component.FileMappings.includes(component.InstructionFileMapping));
+                        });
+                });
+
+            suite(
+                nameof<TestInstructionComponent>((component) => component.GetInstructionFileName),
+                () =>
+                {
+                    test(
+                        "Checking whether the file-name has a TypeScript-extension…",
+                        () =>
+                        {
+                            ok(component.InstructionFileName.endsWith(".ts"));
                         });
                 });
         });
