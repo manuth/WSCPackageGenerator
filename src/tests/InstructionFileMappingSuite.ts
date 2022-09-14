@@ -139,7 +139,7 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
      */
     protected RegisterTransformSuite(): void
     {
-        suite.only(
+        suite(
             nameof<TestFileMapping>((fileMapping) => fileMapping.Transform),
             () =>
             {
