@@ -4,15 +4,13 @@ import { fileURLToPath } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
-import { IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
 import npmWhich from "npm-which";
 import { Random } from "random-js";
-import { createSandbox, SinonSandbox } from "sinon";
-import { ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
-import { InstructionComponent } from "../../Components/InstructionComponent.js";
+import { ObjectLiteralExpression, SourceFile } from "ts-morph";
+import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
-import { ThemeInstructionComponent } from "../../generators/package/Components/ThemeInstructionComponent.js";
-import { ThemeInstructionFileMapping } from "../../generators/package/FileMappings/ThemeInstructionFileMapping.js";
+import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent.js";
+import { BBCodeInstructionFileMapping } from "../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
 import { IThemeComponentOptions } from "../../generators/package/Settings/IThemeComponentOptions.js";
 import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
@@ -34,16 +32,30 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
         () =>
         {
             /**
-             * Provides an implementation of the {@link InstructionFileMapping `InstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+             * Provides an implementation of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
              */
-            class TestInstructionFileMapping extends InstructionFileMapping<IWoltLabSettings, GeneratorOptions, IThemeComponentOptions>
+            class TestBBCodeFileMapping extends BBCodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
             {
                 /**
                  * @inheritdoc
                  */
-                public override get Component(): InstructionComponent<IWoltLabSettings, GeneratorOptions, IThemeComponentOptions>
+                public override get InstructionOptions(): ObjectLiteralExpression
                 {
-                    return super.Component;
+                    return super.InstructionOptions;
+                }
+            }
+
+            /**
+             * Provides an implementation of the {@link InstructionFileMapping `InstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+             */
+            class TestInstructionFileMapping extends InstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+            {
+                /**
+                 * @inheritdoc
+                 */
+                public override get Component(): FileInstructionComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+                {
+                    return super.Component as FileInstructionComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>;
                 }
 
                 /**
@@ -51,7 +63,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                  */
                 public override get InstructionOptions(): ObjectLiteralExpression
                 {
-                    return super.InstructionOptions;
+                    return new TestBBCodeFileMapping(this.Component).InstructionOptions;
                 }
 
                 /**
@@ -81,7 +93,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                     this.timeout(5 * 60 * 1000);
                     random = new Random();
                     generator = await context.Generator;
-                    fileMapping = new TestInstructionFileMapping(new ThemeInstructionComponent(generator));
+                    fileMapping = new TestInstructionFileMapping(new BBCodeComponent(generator));
                     tester = new TypeScriptFileMappingTester(generator, fileMapping);
 
                     spawnSync(
@@ -100,15 +112,11 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 () =>
                 {
                     options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
-                        Name: "theme",
-                        DisplayName: "Theme",
-                        Description: "test",
-                        Components: []
+                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
                     } as IThemeComponentOptions;
 
                     generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.Theme]: options
+                        [PackageComponentType.BBCode]: options
                     };
                 });
 
@@ -140,32 +148,11 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 nameof<TestInstructionFileMapping>((fileMapping) => fileMapping.Transform),
                 () =>
                 {
-                    let sandbox: SinonSandbox;
-
                     setup(
                         async function()
                         {
                             this.timeout(10 * 1000);
-                            sandbox = createSandbox();
-
-                            sandbox.replaceGetter(
-                                fileMapping,
-                                "InstructionOptions",
-                                () =>
-                                {
-                                    let result = (new ThemeInstructionFileMapping(fileMapping.Component) as any as TestInstructionFileMapping).InstructionOptions;
-                                    let theme = result.getProperty(nameof<IThemeInstructionOptions>((options) => options.Theme)).asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializer().asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
-                                    theme.getProperty(nameof<IThemeLoaderOptions>((options) => options.DisplayName)).asKindOrThrow(SyntaxKind.PropertyAssignment).setInitializer(printNode(ts.factory.createObjectLiteralExpression()));
-                                    return result;
-                                });
-
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
-                        });
-
-                    teardown(
-                        async function()
-                        {
-                            sandbox.restore();
                         });
 
                     test(
