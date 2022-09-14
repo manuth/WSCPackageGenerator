@@ -1,8 +1,9 @@
 import { deepStrictEqual, ok, strictEqual } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { PackageFileMappingTester } from "@manuth/generator-ts-project-test";
-import { IPackageJSON, Package } from "@manuth/package-json-editor";
+import { IPackageJSON, Package, PackageType } from "@manuth/package-json-editor";
 import { WoltLabNodePackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
@@ -129,6 +130,20 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                 nameof<WoltLabNodePackageFileMapping<any, any>>((fileMapping) => fileMapping.MiscScripts),
                 () =>
                 {
+                    let scriptName: string;
+                    let packageScript: string;
+                    let tsNodeBin: string;
+                    let tsNodeEsmBin: string;
+
+                    suiteSetup(
+                        () =>
+                        {
+                            scriptName = "package";
+                            tsNodeBin = "ts-node";
+                            tsNodeEsmBin = `${tsNodeBin}-esm`;
+                            packageScript = `${tsNodeEsmBin} ./src/index.ts`;
+                        });
+
                     test(
                         "Checking whether unnecessary scripts are excluded…",
                         () =>
@@ -147,7 +162,19 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                         "Checking whether a script for creating a woltlab-package is present…",
                         async () =>
                         {
-                            await tester.AssertScript("package", "ts-node ./src/index.ts");
+                            await tester.AssertScript(scriptName, packageScript);
+                        });
+
+                    test(
+                        `Checking whether the script is adjusted for \`${nameof(PackageType.CommonJS)}\` projects…`,
+                        async () =>
+                        {
+                            generator.Settings[TSProjectSettingKey.ESModule] = false;
+                            await tester.Run();
+
+                            await tester.AssertScript(
+                                scriptName,
+                                packageScript.replace(tsNodeEsmBin, tsNodeBin));
                         });
                 });
         });
