@@ -7,6 +7,7 @@ import { InstructionFileMappingTests } from "./InstructionFileMapping.test.js";
 import { ListenerInstructionFileMappingTests } from "./ListenerInstructionFileMapping.test.js";
 import { LocalFileInstructionMappingTests } from "./LocalFileInstructionMapping.test.js";
 import { NodeInstructionFileMappingTests } from "./NodeInstructionFileMapping.test.js";
+import { WoltLabTypeScriptFileMappingTests } from "./WoltLabTypeScriptFileMapping.test.js";
 
 /**
  * Registers tests for file-mappings.
@@ -20,6 +21,7 @@ export function FileMappingTests(context: TestContext<WoltLabPackageGenerator>):
         basename(new URL(".", import.meta.url).pathname),
         () =>
         {
+            WoltLabTypeScriptFileMappingTests(context);
             InstructionFileMappingTests(context);
             FileInstructionMappingTests(context);
             NodeInstructionFileMappingTests(context);
