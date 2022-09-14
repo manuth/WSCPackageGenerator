@@ -3,6 +3,7 @@ import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-ge
 import { IPathQuestion } from "@manuth/generator-ts-project";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
 import { WoltLabComponent } from "./WoltLabComponent.js";
 
 /**
@@ -19,6 +20,17 @@ import { WoltLabComponent } from "./WoltLabComponent.js";
  */
 export abstract class InstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends WoltLabComponent<TSettings, TOptions, TComponentOptions>
 {
+    /**
+     * Initializes a new instance of the {@link InstructionComponent `InstructionComponent<TSettings, TOptions, TComponentOptions>`} class.
+     *
+     * @param generator
+     * The generator of the component.
+     */
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
+    {
+        super(generator);
+    }
+
     /**
      * Gets the name of the instruction-class.
      */
