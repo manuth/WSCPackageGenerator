@@ -1,14 +1,19 @@
 import { strictEqual } from "assert";
-import { fileURLToPath } from "url";
+import { createRequire } from "module";
+import { fileURLToPath, pathToFileURL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+import { ICompilationResult, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { PackageType } from "@manuth/package-json-editor";
 import { TempFile } from "@manuth/temp-files";
-import { Project, SourceFile, ts } from "ts-morph";
+import { printNode, Project, SourceFile, ts } from "ts-morph";
+import path from "upath";
 import { WoltLabTypeScriptFileMapping } from "../../FileMappings/WoltLabTypeScriptFileMapping.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+
+const { join, normalize } = path;
 
 /**
  * Registers tests for the {@link WoltLabTypeScriptFileMapping `WoltLabTypeScriptFileMapping<TSettings, TOptions>`} class.
@@ -32,7 +37,7 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                  */
                 public get Destination(): string
                 {
-                    return null;
+                    return tempFile.FullName;
                 }
 
                 /**
@@ -58,8 +63,29 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                 }
             }
 
+            /**
+             * Provides the functionality to test typescript files.
+             */
+            class FileMappingTester extends TypeScriptFileMappingTester<WoltLabPackageGenerator, IWoltLabSettings, GeneratorOptions, TestTypeScriptFileMapping>
+            {
+                /**
+                 * @inheritdoc
+                 *
+                 * @param esModule
+                 * A value indicating whether the underlying file should be compiled as an ESModule.
+                 *
+                 * @returns
+                 * An object containing information about the compilation.
+                 */
+                public override Compile(esModule: boolean): Promise<ICompilationResult>
+                {
+                    return super.Compile(esModule);
+                }
+            }
+
             let generator: WoltLabPackageGenerator;
             let fileMapping: TestTypeScriptFileMapping;
+            let tester: FileMappingTester;
             let project: Project;
             let tempFile: TempFile;
             let sourceFile: SourceFile;
@@ -70,13 +96,18 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                     this.timeout(5 * 60 * 1000);
                     generator = await context.Generator;
                     fileMapping = new TestTypeScriptFileMapping(generator);
+                    tester = new FileMappingTester(generator, fileMapping);
                 });
 
             setup(
                 () =>
                 {
                     project = new Project();
-                    tempFile = new TempFile();
+
+                    tempFile = new TempFile(
+                        {
+                            Suffix: ".ts"
+                        });
 
                     sourceFile = project.createSourceFile(
                         tempFile.FullName,
@@ -84,6 +115,13 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                         {
                             overwrite: true
                         });
+                });
+
+            teardown(
+                () =>
+                {
+                    sourceFile.forget();
+                    tempFile.Dispose();
                 });
 
             suite(
@@ -108,6 +146,54 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                             fileMapping.ApplyDirname(sourceFile);
                             strictEqual(sourceFile.getFullText(), sourceCode);
                         });
+                });
+
+            suite(
+                nameof<TestTypeScriptFileMapping>((fileMapping) => fileMapping.GetDirname),
+                () =>
+                {
+                    for (let value of [true, false])
+                    {
+                        let typeName = value ? nameof(PackageType.ESModule) : nameof(PackageType.CommonJS);
+
+                        suite(
+                            typeName,
+                            () =>
+                            {
+                                setup(
+                                    () =>
+                                    {
+                                        generator.Settings[TSProjectSettingKey.ESModule] = value;
+                                    });
+
+                                test(
+                                    "Checking whether a statement is returned which determines the name of the directory containing the output file…",
+                                    async () =>
+                                    {
+                                        fileMapping.ApplyDirname(sourceFile);
+
+                                        sourceFile.addExportAssignment(
+                                            {
+                                                expression: printNode(fileMapping.GetDirname()),
+                                                isExportEquals: !value
+                                            });
+
+                                        await tester.DumpOutput(sourceFile);
+                                        let compilationResult = await tester.Compile(value);
+
+                                        let exportedValue = value ?
+                                            (await import(pathToFileURL(compilationResult.FileName).toString())).default :
+                                            createRequire(import.meta.url)(compilationResult.FileName);
+
+                                        let dirName = compilationResult.TempDirectory.FullName;
+                                        compilationResult.TempDirectory.Dispose();
+
+                                        strictEqual(
+                                            normalize(join(exportedValue, ".")),
+                                            normalize(join(dirName, ".")));
+                                    });
+                            });
+                    }
                 });
         });
 }
