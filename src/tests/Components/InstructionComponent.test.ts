@@ -1,11 +1,12 @@
-import { ok } from "assert";
-import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
+import { ok, strictEqual } from "assert";
+import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
 
 /**
  * Registers tests for the {@link InstructionComponent `InstructionComponent<TSettings, TOptions>`} class.
@@ -48,6 +49,14 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                 /**
                  * @inheritdoc
                  */
+                public override get PathQuestion(): Question<IWoltLabComponentOptions>
+                {
+                    return super.PathQuestion;
+                }
+
+                /**
+                 * @inheritdoc
+                 */
                 public get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
                 {
                     return this.fileMapping;
@@ -62,12 +71,41 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                  * @returns
                  * The name of the instruction-class.
                  */
-                protected GetClassName(options: IWoltLabComponentOptions): string
+                public GetClassName(options: IWoltLabComponentOptions): string
                 {
-                    return "TestInstruction";
+                    return GetExpectedClassName(options);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-variable to export.
+                 */
+                public override GetVariableName(options: IWoltLabComponentOptions): string
+                {
+                    return super.GetVariableName(options);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The default name of the file to write the instruction to.
+                 */
+                public override GetInstructionFileName(options: IWoltLabComponentOptions): string
+                {
+                    return super.GetInstructionFileName(options);
                 }
             }
 
+            let className: string;
             let generator: WoltLabPackageGenerator;
             let component: TestInstructionComponent;
 
@@ -79,6 +117,26 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                     component = new TestInstructionComponent(generator);
                 });
 
+            setup(
+                () =>
+                {
+                    className = context.RandomString;
+                });
+
+            /**
+             * Gets the expected name of the class.
+             *
+             * @param options
+             * The options provided by the user.
+             *
+             * @returns
+             * The expected class name.
+             */
+            function GetExpectedClassName(options: IWoltLabComponentOptions): string
+            {
+                return `${className}-${options.path}`;
+            }
+
             suite(
                 nameof<TestInstructionComponent>((component) => component.InstructionFileName),
                 () =>
@@ -88,6 +146,36 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                         () =>
                         {
                             ok(component.InstructionFileName.endsWith(".ts"));
+                        });
+                });
+
+            suite(
+                nameof<TestInstructionComponent>((component) => component.PathQuestion),
+                () =>
+                {
+                    test(
+                        `Checking whether the \`${nameof<Question>((q) => q.default)}\` value changes dynamically…`,
+                        () =>
+                        {
+                            for (let value of ["hello", "world"])
+                            {
+                                let options: IWoltLabComponentOptions = {
+                                    [WoltLabComponentSettingKey.Path]: value
+                                };
+
+                                let defaultValue: string;
+
+                                if (typeof component.PathQuestion.default === "function")
+                                {
+                                    defaultValue = component.PathQuestion.default(options);
+                                }
+                                else
+                                {
+                                    defaultValue = component.PathQuestion.default;
+                                }
+
+                                strictEqual(defaultValue, GetExpectedClassName(options));
+                            }
                         });
                 });
 
