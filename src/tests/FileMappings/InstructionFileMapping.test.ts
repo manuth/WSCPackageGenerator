@@ -1,8 +1,9 @@
 import { ok, strictEqual } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { ObjectLiteralExpression, SourceFile } from "ts-morph";
+import { NewExpression, ObjectLiteralExpression, SourceFile, SyntaxKind, VariableDeclaration } from "ts-morph";
 import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
+import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
 import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent.js";
 import { BBCodeInstructionFileMapping } from "../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
@@ -121,6 +122,57 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 });
 
             super.RegisterTests();
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTransformTests(): void
+        {
+            super.RegisterTransformTests();
+
+            let sourceFile: SourceFile;
+
+            let getVariableDeclaration = (): VariableDeclaration =>
+            {
+                return sourceFile.getVariableDeclaration(this.Component.VariableName);
+            };
+
+            let getConstructorCall = (): NewExpression =>
+            {
+                return getVariableDeclaration().getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
+            };
+
+            setup(
+                async () =>
+                {
+                    sourceFile = await this.Tester.ParseOutput();
+                });
+
+            test(
+                `Checking whether a new instance of a class is initialized as indicated by the \`${nameof<InstructionComponent<any, any, any>>((c) => c.ClassName)}\`…`,
+                () =>
+                {
+                    strictEqual(getConstructorCall().getExpressionIfKindOrThrow(SyntaxKind.Identifier).getText(), this.Component.ClassName);
+                });
+
+            test(
+                `Checking whether the \`${nameof<TestInstructionFileMapping>((fm) => fm.InstructionOptions)}\` are added as a constructor parameter…`,
+                async () =>
+                {
+                    let options = getConstructorCall().getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+                    strictEqual(options.print(), this.FileMappingOptions.InstructionOptions.print());
+                });
+
+            test(
+                "Checking whether the exported variable has a documentation comment…",
+                async () =>
+                {
+                    let variableStatement = sourceFile.getVariableStatement(this.Component.VariableName);
+                    ok(variableStatement.getJsDocs().length > 0);
+                    ok(variableStatement.getJsDocs()[0].getDescription());
+                    ok(variableStatement.getJsDocs()[0].getDescription().length > 0);
+                });
         }
     }(context).Register();
 }
