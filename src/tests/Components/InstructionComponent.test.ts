@@ -1,4 +1,4 @@
-import { ok, strictEqual } from "assert";
+import { notEqual, ok } from "assert";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
@@ -7,6 +7,7 @@ import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackage
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link InstructionComponent `InstructionComponent<TSettings, TOptions>`} class.
@@ -121,6 +122,12 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                 () =>
                 {
                     className = context.RandomString;
+
+                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
+                        [component.ID]: {
+                            [WoltLabComponentSettingKey.Path]: context.RandomString
+                        }
+                    };
                 });
 
             /**
@@ -145,25 +152,31 @@ export function InstructionComponentTests(context: TestContext<WoltLabPackageGen
                         `Checking whether the \`${nameof<Question>((q) => q.default)}\` value changes dynamically…`,
                         () =>
                         {
-                            for (let value of ["hello", "world"])
-                            {
-                                let options: IWoltLabComponentOptions = {
-                                    [WoltLabComponentSettingKey.Path]: value
-                                };
-
-                                let defaultValue: string;
-
-                                if (typeof component.PathQuestion.default === "function")
+                            let values = [
+                                "hello",
+                                "world"
+                            ].map(
+                                (value) =>
                                 {
-                                    defaultValue = component.PathQuestion.default(options);
-                                }
-                                else
-                                {
-                                    defaultValue = component.PathQuestion.default;
-                                }
+                                    let options: IWoltLabComponentOptions = {
+                                        [WoltLabComponentSettingKey.Path]: value
+                                    };
 
-                                strictEqual(defaultValue, GetExpectedClassName(options));
-                            }
+                                    let defaultValue: string;
+
+                                    if (typeof component.PathQuestion.default === "function")
+                                    {
+                                        defaultValue = component.PathQuestion.default(options);
+                                    }
+                                    else
+                                    {
+                                        defaultValue = component.PathQuestion.default;
+                                    }
+
+                                    return defaultValue;
+                                });
+
+                            notEqual(values[1], values[0]);
                         });
                 });
 
