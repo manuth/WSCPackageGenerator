@@ -30,8 +30,9 @@ suite(
             });
 
         suiteTeardown(
-            () =>
+            function()
             {
+                this.timeout(30 * 1000);
                 context.Dispose();
             });
 
