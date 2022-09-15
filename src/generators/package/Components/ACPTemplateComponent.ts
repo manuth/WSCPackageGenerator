@@ -2,6 +2,7 @@ import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { ACPTemplateInstruction } from "@manuth/woltlab-compiler";
+import { Question } from "inquirer";
 import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
 import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
@@ -64,12 +65,7 @@ export class ACPTemplateComponent<TSettings extends IWoltLabSettings, TOptions e
     protected override get AppQuestion(): IApplicationQuestion<TComponentOptions>
     {
         let question = super.AppQuestion;
-
-        if (typeof question.message === "string")
-        {
-            question.message = question.message.replace("templates", "Admin Control Panel-templates");
-        }
-
+        this.TransformQuestion(question);
         return question;
     }
 
@@ -79,12 +75,7 @@ export class ACPTemplateComponent<TSettings extends IWoltLabSettings, TOptions e
     protected override get SourceQuestion(): IPathQuestion<TComponentOptions>
     {
         let question = super.SourceQuestion;
-
-        if (typeof question.message === "string")
-        {
-            question.message = question.message.replace("templates", "Admin Control Panel-templates");
-        }
-
+        this.TransformQuestion(question);
         return question;
     }
 
@@ -96,6 +87,34 @@ export class ACPTemplateComponent<TSettings extends IWoltLabSettings, TOptions e
         return {
             ...super.TemplateFileMapping,
             Source: this.Generator.templatePath("acpTemplate.tpl")
+        };
+    }
+
+    /**
+     * Transforms the message of the question accordingly.
+     *
+     * @param question
+     * The question to transform.
+     */
+    protected TransformQuestion(question: Question<TComponentOptions>): void
+    {
+        let originalMessage = question.message;
+
+        let processor = (question: string): string =>
+        {
+            return question.replace("templates", "Admin Control Panel-templates");
+        };
+
+        question.message = async (answers): Promise<string> =>
+        {
+            if (typeof originalMessage === "function")
+            {
+                return processor(await originalMessage(answers));
+            }
+            else
+            {
+                return processor(await originalMessage);
+            }
         };
     }
 
