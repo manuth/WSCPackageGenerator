@@ -1,16 +1,25 @@
-import { doesNotThrow } from "assert";
+import { doesNotThrow, strictEqual } from "assert";
+import { pathToFileURL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
-import { ObjectLiteralExpression, SourceFile } from "ts-morph";
+import { IPackageMetadata, Package, PackageType } from "@manuth/package-json-editor";
+import { TempDirectory, TempFileSystem } from "@manuth/temp-files";
+import { IFileSystemInstructionOptions, SQLInstruction } from "@manuth/woltlab-compiler";
+import fs from "fs-extra";
+import { ModuleKind, ObjectLiteralExpression, Project, SourceFile } from "ts-morph";
+import path from "upath";
 import { LocalFileInstructionMapping } from "../../FileMappings/LocalFileInstructionMapping.js";
 import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent.js";
 import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { ILocalComponentOptions } from "../../Settings/ILocalComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
+
+const { writeJSON } = fs;
+const { normalize, parse } = path;
 
 /**
  * Registers tests for the {@link LocalFileInstructionMapping `LocalFileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -97,12 +106,68 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                 () =>
                 {
                     let propertyName = nameof<IFileSystemInstructionOptions>((options) => options.Source);
+                    let tempDir: TempDirectory;
+                    let scriptFileName: string;
+
+                    setup(
+                        async () =>
+                        {
+                            tempDir = new TempDirectory(
+                                {
+                                    Directory: this.Generator.destinationPath()
+                                });
+
+                            await writeJSON(
+                                tempDir.MakePath(Package.FileName),
+                                {
+                                    type: PackageType.ESModule
+                                } as IPackageMetadata);
+
+                            scriptFileName = tempDir.MakePath(
+                                TempFileSystem.TempBaseName(
+                                    {
+                                        Suffix: ".ts"
+                                    }));
+
+                            this.Component.ComponentOptions[WoltLabComponentSettingKey.Path] = scriptFileName;
+                        });
 
                     test(
                         `Checking whether a \`${propertyName}\`-property is added…`,
                         () =>
                         {
                             doesNotThrow(() => this.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName));
+                        });
+
+                    test(
+                        `Checking whether the \`${propertyName}\` points to the specified file…`,
+                        async () =>
+                        {
+                            let project: Project;
+                            let sourceFile: SourceFile;
+                            await this.Tester.Run();
+                            sourceFile = await this.Tester.ParseOutput();
+                            sourceFile = sourceFile.move(scriptFileName);
+                            project = sourceFile.getProject();
+
+                            project.compilerOptions.set(
+                                {
+                                    module: ModuleKind.ES2022
+                                });
+
+                            await sourceFile.emit();
+
+                            let outFile = sourceFile.getEmitOutput().getOutputFiles().find(
+                                (outFile) =>
+                                {
+                                    return parse(outFile.getFilePath()).name === parse(scriptFileName).name;
+                                });
+
+                            let sqlInstruction: SQLInstruction = (await import(pathToFileURL(outFile.getFilePath()).toString()))[this.Component.VariableName];
+
+                            strictEqual(
+                                normalize(sqlInstruction.Source),
+                                normalize(this.Component.ComponentOptions.Source));
                         });
                 });
 
