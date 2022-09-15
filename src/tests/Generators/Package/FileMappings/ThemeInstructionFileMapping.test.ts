@@ -216,8 +216,9 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                         "Checking whether file-paths are included only if their corresponding component is activated…",
                         async function()
                         {
-                            this.slow(45 * 1000);
-                            this.timeout(1.5 * 60 * 1000);
+                            this.slow(1.5 * 60 * 1000);
+                            this.timeout(3 * 60 * 1000);
+
                             let assertions = [
                                 [
                                     ThemeComponent.CustomScss,

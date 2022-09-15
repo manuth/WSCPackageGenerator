@@ -214,8 +214,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     test(
                         "Checking whether an import for the instruction is added…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(10 * 1000);
+                            this.timeout(20 * 1000);
+
                             let componentFilePath = generator.destinationPath(component.ComponentOptions[WoltLabComponentSettingKey.Path]);
                             await fileMapping.AddComponent(sourceFile, component);
 
@@ -236,8 +239,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     test(
                         `Checking whether the \`${nameof<IPackageOptions>((p) => p.InstallSet)}\` is recreated automatically if it doesn't exist or if it has an incorrect type…`,
-                        async () =>
+                        async function()
                         {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
                             for (
                                 let action of
                                 [
@@ -263,8 +269,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     test(
                         `Checking whether the \`${nameof<IPackageOptions>((p) => p.InstallSet.Instructions)}\` is recreated automatically if it doesn't exist or if it has an incorrect type…`,
-                        async () =>
+                        async function()
                         {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
                             for (
                                 let action of
                                 [
@@ -290,8 +299,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     test(
                         "Checking whether the instruction is added to the install set…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
                             let getPackage = async (): Promise<Package> => (await tester.Import())[generator.PackageVariableName] as Package;
                             strictEqual(getInstructions().getElements().length, 0);
                             let $package = await getPackage();

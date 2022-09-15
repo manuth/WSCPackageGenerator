@@ -114,8 +114,11 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
 
                     test(
                         "Checking whether the expected dependencies are added…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
                             for (let value of [true, false])
                             {
                                 generator.Settings[TSProjectSettingKey.ESModule] = value;
