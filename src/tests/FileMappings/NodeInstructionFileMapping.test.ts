@@ -2,16 +2,13 @@ import { doesNotThrow } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { INodeSystemInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
 import { ObjectLiteralExpression } from "ts-morph";
 import { NodeInstructionFileMapping } from "../../FileMappings/NodeInstructionFileMapping.js";
-import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent.js";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { OptionComponent } from "../../generators/package/Components/OptionComponent.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link NodeInstructionFileMapping `NodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -21,50 +18,46 @@ import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
  */
 export function NodeInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(NodeInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link NodeInstructionFileMapping `NodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestNodeInstructionFileMapping extends NodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link NodeInstructionFileMapping `NodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestNodeInstructionFileMapping extends NodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestNodeInstructionFileMapping;
-            let options: IWoltLabComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestNodeInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(NodeInstructionFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestNodeInstructionFileMapping(new BBCodeComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestNodeInstructionFileMapping
+        {
+            return new TestNodeInstructionFileMapping(new OptionComponent(this.Generator));
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
-                    };
-
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.BBCode]: options
-                    };
-                });
-
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestNodeInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -75,8 +68,11 @@ export function NodeInstructionFileMappingTests(context: TestContext<WoltLabPack
                         `Checking whether a \`${propertyName}\`-property is added…`,
                         () =>
                         {
-                            doesNotThrow(() => fileMapping.InstructionOptions.getPropertyOrThrow(propertyName));
+                            doesNotThrow(() => this.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName));
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }
