@@ -6,7 +6,7 @@ import { promisify } from "util";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
+import { JSONCFileMappingTester, TestContext as ProjectContext, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
 import G from "glob";
@@ -240,7 +240,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 () =>
                 {
                     let packageScriptName: string;
-                    let workingDir: string;
                     let runContext: IRunContext<WoltLabPackageGenerator>;
                     let testContext: IRunContext<WoltLabPackageGenerator>;
                     let outputDir: string;
@@ -248,6 +247,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                     let packageName: string;
                     let displayName: string;
                     let identifier: string;
+                    ProjectContext.Default.RegisterWorkingDirRestorer();
 
                     suiteSetup(
                         async function()
@@ -280,7 +280,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         async function()
                         {
                             this.timeout(5 * 60 * 1000);
-                            workingDir = process.cwd();
                             testContext = GetRunContext();
                             await testContext.toPromise();
                         });
@@ -289,7 +288,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         function()
                         {
                             this.timeout(1 * 60 * 1000);
-                            process.chdir(workingDir);
                             testContext.cleanTestDirectory();
                         });
 
