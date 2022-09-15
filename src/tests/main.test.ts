@@ -14,21 +14,29 @@ suite(
     () =>
     {
         ProjectContext.Default.RegisterWorkingDirRestorer();
+        let workingDirectory: string;
 
         let context: TestContext<WoltLabPackageGenerator> = new TestContext(
             join(fileURLToPath(new URL(".", import.meta.url)), "..", "generators", GeneratorName.Main));
 
-        teardown(
-            async () =>
+        suiteSetup(
+            () =>
             {
-                await context.ResetSettings();
+                workingDirectory = process.cwd();
             });
 
         suiteTeardown(
             function()
             {
                 this.timeout(30 * 1000);
+                process.chdir(workingDirectory);
                 context.Dispose();
+            });
+
+        teardown(
+            async () =>
+            {
+                await context.ResetSettings();
             });
 
         ComponentTests(context);
