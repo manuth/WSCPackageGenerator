@@ -305,8 +305,9 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                     });
 
                                 suiteTeardown(
-                                    () =>
+                                    function()
                                     {
+                                        this.timeout(10 * 1000);
                                         tempDir.Dispose();
                                     });
 
@@ -337,8 +338,8 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                     "Checking whether the generator can be executed…",
                                     async function()
                                     {
-                                        this.slow(1 * 60 * 1000);
-                                        this.timeout(2 * 60 * 1000);
+                                        this.slow(1.5 * 60 * 1000);
+                                        this.timeout(3 * 60 * 1000);
 
                                         let runContext = GetRunContext();
                                         await doesNotReject(async () => runContext.toPromise());
@@ -379,8 +380,8 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                     "Checking the integrity of the package-manifest…",
                                     async function()
                                     {
-                                        this.slow(15 * 1000);
-                                        this.timeout(30 * 1000);
+                                        this.slow(0.5 * 60 * 1000);
+                                        this.timeout(1 * 60 * 1000);
 
                                         try
                                         {

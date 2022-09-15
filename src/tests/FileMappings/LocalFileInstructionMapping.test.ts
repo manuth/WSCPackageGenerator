@@ -144,8 +144,8 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                         `Checking whether the \`${propertyName}\` points to the specified file…`,
                         async function()
                         {
-                            this.slow(5 * 1000);
-                            this.timeout(10 * 1000);
+                            this.slow(7.5 * 1000);
+                            this.timeout(15 * 1000);
 
                             let project = new Project();
                             let sourceFile: SourceFile;
