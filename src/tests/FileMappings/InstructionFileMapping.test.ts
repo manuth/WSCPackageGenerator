@@ -207,6 +207,8 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                                     {
                                         Suffix: ".ts"
                                     }));
+
+                            this.Component.ComponentOptions[WoltLabComponentSettingKey.Path] = scriptFileName;
                         });
 
                     teardown(
@@ -224,7 +226,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                             this.timeout(10 * 1000);
 
                             let project = new Project();
-                            let sourceFile = project.createSourceFile(scriptFileName);
+                            let sourceFile = project.createSourceFile(scriptFileName, "");
                             self.FileMappingOptions.ApplyPathJoin(sourceFile);
 
                             project.compilerOptions.set(

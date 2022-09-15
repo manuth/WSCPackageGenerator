@@ -9,6 +9,7 @@ import { Instruction } from "@manuth/woltlab-compiler";
 import { Context } from "mocha";
 import npmWhich from "npm-which";
 import { SourceFile } from "ts-morph";
+import path from "upath";
 import { InstructionComponent } from "../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../FileMappings/InstructionFileMapping.js";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
@@ -17,6 +18,8 @@ import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingK
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
 import { TestSuite } from "./TestSuite.js";
 import { TypeScriptCompilerTester } from "./TypeScriptCompilerTester.js";
+
+const { join } = path;
 
 /**
  * Represents a typescript file mapping.
@@ -232,10 +235,14 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
 
         this.Generator.Settings[WoltLabSettingKey.ComponentOptions] = {
             [this.Component.ID]: {
-                [WoltLabComponentSettingKey.Path]: TempFileSystem.TempBaseName(
-                    {
-                        Suffix: ".ts"
-                    })
+                [WoltLabComponentSettingKey.Path]: join(
+                    "tmp",
+                    "test",
+                    TempFileSystem.TempBaseName(
+                        {
+                            Suffix: ".ts"
+                        })
+                )
             }
         };
     }
