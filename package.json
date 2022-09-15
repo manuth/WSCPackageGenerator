@@ -11,10 +11,16 @@
     "yeoman-generator"
   ],
   "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
     "./package.json": "./package.json"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "homepage": "https://github.com/manuth/WSCPackageGenerator#readme",
   "repository": {
     "type": "git",
