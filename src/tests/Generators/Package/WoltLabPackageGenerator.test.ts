@@ -347,7 +347,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                     });
 
                                 test(
-                                    "Checking whether the package-dependencies can be installed…",
+                                    "Checking whether the project can be installed…",
                                     function()
                                     {
                                         this.slow(5 * 60 * 1000);
