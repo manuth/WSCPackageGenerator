@@ -160,12 +160,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                         return fileMapping.Object instanceof WoltLabNodePackageFileMapping;
                                     }));
                         });
-                });
 
-            suite(
-                nameof<WoltLabPackageGenerator>((generator) => generator.FileMappings),
-                () =>
-                {
                     test(
                         "Checking whether unnecessary files are excluded…",
                         () =>
