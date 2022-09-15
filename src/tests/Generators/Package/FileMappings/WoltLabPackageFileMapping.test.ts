@@ -1,4 +1,4 @@
-import { doesNotReject, strictEqual } from "assert";
+import { doesNotReject, ok, strictEqual } from "assert";
 import { GeneratorOptions, GeneratorSettingKey, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
@@ -172,6 +172,17 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             strictEqual($package.ConflictingPackages.length, 1);
                             strictEqual($package.ConflictingPackages[0].Identifier, "com.woltlab.wcf");
                             strictEqual($package.ConflictingPackages[0].Version, "6.0.0 Alpha 1");
+                        });
+
+                    test(
+                        "Checking whether a JSDoc comment is added to the exported variable…",
+                        async () =>
+                        {
+                            let sourceFile = await tester.ParseOutput();
+                            let docComments = sourceFile.getVariableStatement(generator.PackageVariableName).getJsDocs();
+                            strictEqual(docComments.length, 1);
+                            ok(docComments[0].getDescription());
+                            ok(docComments[0].getDescription().trim().length > 0);
                         });
 
                     test(
