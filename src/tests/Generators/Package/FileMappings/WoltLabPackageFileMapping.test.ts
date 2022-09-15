@@ -63,6 +63,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
             let component: BBCodeComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>;
             let sandbox: SinonSandbox;
             let date: string;
+            let sourceFile: SourceFile;
 
             suiteSetup(
                 async function()
@@ -111,6 +112,9 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             now: new Date(date),
                             shouldAdvanceTime: true
                         });
+
+                    await tester.Run();
+                    sourceFile = await tester.ParseOutput();
                 });
 
             teardown(
@@ -140,6 +144,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.timeout(30 * 1000);
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
+                            sourceFile = await tester.ParseOutput();
                         });
 
                     test(
@@ -178,7 +183,6 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         "Checking whether a JSDoc comment is added to the exported variable…",
                         async () =>
                         {
-                            let sourceFile = await tester.ParseOutput();
                             let docComments = sourceFile.getVariableStatement(generator.PackageVariableName).getJsDocs();
                             strictEqual(docComments.length, 1);
                             ok(docComments[0].getDescription());
@@ -191,8 +195,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            let file = await tester.ParseOutput();
-                            let packageVariable = file.getVariableDeclaration(generator.PackageVariableName).getInitializerIfKindOrThrow(
+                            let packageVariable = sourceFile.getVariableDeclaration(generator.PackageVariableName).getInitializerIfKindOrThrow(
                                 SyntaxKind.NewExpression).getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
 
                             let instructions = packageVariable.getProperty(nameof<Package>((pkg) => pkg.InstallSet)).asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(
