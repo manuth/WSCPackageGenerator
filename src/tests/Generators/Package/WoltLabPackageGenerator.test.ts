@@ -214,6 +214,26 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 });
 
             suite(
+                nameof<TestWoltLabPackageGenerator>((generator) => generator.FileMappings),
+                () =>
+                {
+                    test(
+                        "Checking whether all most important file-mappings are present…",
+                        () =>
+                        {
+                            ok(generator.FileMappings.includes(generator.WoltLabPackageFileMapping));
+                            ok(generator.FileMappings.includes(generator.EntryPointFileMapping));
+
+                            ok(
+                                generator.FileMappings.some(
+                                    (fileMapping) =>
+                                    {
+                                        return fileMapping.Destination === "README.md";
+                                    }));
+                        });
+                });
+
+            suite(
                 "General",
                 () =>
                 {
