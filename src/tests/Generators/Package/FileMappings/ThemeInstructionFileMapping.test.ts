@@ -1,9 +1,11 @@
 import { ok, strictEqual } from "assert";
+import { pathToFileURL } from "url";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
+import { TempDirectory } from "@manuth/temp-files";
 import { Instruction, InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions, ThemeInstruction } from "@manuth/woltlab-compiler";
-import { ObjectLiteralExpression, SourceFile } from "ts-morph";
+import { ModuleKind, ObjectLiteralExpression, Project, SourceFile } from "ts-morph";
+import path from "upath";
 import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
 import { ThemeInstructionFileMapping } from "../../../../generators/package/FileMappings/ThemeInstructionFileMapping.js";
 import { IThemeComponentOptions } from "../../../../generators/package/Settings/IThemeComponentOptions.js";
@@ -13,6 +15,9 @@ import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabP
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
+import { TypeScriptCompilerTester } from "../../../TypeScriptCompilerTester.js";
+
+const { normalize, parse } = path;
 
 /**
  * Registers tests for the {@link ThemeInstructionFileMapping `ThemeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -120,12 +125,16 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                 nameof<TestThemeInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
+                    let generator: WoltLabPackageGenerator;
+                    let tempDir: TempDirectory;
                     let fileMapping: TestThemeInstructionFileMapping;
-                    let tester: TypeScriptFileMappingTester<WoltLabPackageGenerator, IWoltLabSettings, GeneratorOptions, TestThemeInstructionFileMapping>;
+                    let tester: TypeScriptCompilerTester<WoltLabPackageGenerator, IWoltLabSettings, GeneratorOptions, TestThemeInstructionFileMapping>;
+                    let themeOptions: IThemeInstructionOptions;
 
                     suiteSetup(
                         () =>
                         {
+                            generator = this.Generator;
                             fileMapping = this.FileMappingOptions;
                             tester = this.Tester;
                         });
@@ -133,7 +142,7 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                     /**
                      * Writes the file for testing purposes.
                      */
-                    async function WriteFile(): Promise<void>
+                    async function PrepareTest(): Promise<void>
                     {
                         let file = await fileMapping.GetSourceObject();
 
@@ -146,14 +155,38 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                         file.addImportDeclarations((await fileMapping.Transform(await fileMapping.GetSourceObject())).getImportDeclarations().map(
                             (importDeclaration) => importDeclaration.getStructure()));
 
+                        let project = new Project();
                         await tester.DumpOutput(file);
+                        file = project.addSourceFileAtPath(tester.FileMapping.Destination);
+
+                        project.compilerOptions.set(
+                            {
+                                module: ModuleKind.ES2022
+                            });
+
+                        await file.emit();
+
+                        let outFile = file.getEmitOutput().getOutputFiles().find(
+                            (outFile) =>
+                            {
+                                return parse(outFile.getFilePath()).name === parse(tester.FileMapping.Destination).name;
+                            }).getFilePath();
+
+                        themeOptions = (await import(pathToFileURL(outFile).toString())).default;
                     }
 
                     setup(
                         async function()
                         {
                             this.timeout(10 * 1000);
-                            await WriteFile();
+                            tempDir = new TempDirectory();
+                            await PrepareTest();
+                        });
+
+                    teardown(
+                        () =>
+                        {
+                            tempDir.Dispose();
                         });
 
                     test(
@@ -162,9 +195,21 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            let themeOptions: IThemeInstructionOptions = await tester.ImportDefault();
                             strictEqual(themeOptions.Theme.DisplayName[InvariantCultureName], options.DisplayName);
                             strictEqual(themeOptions.Theme.Name, options.Name);
+                            strictEqual(themeOptions.Theme.Description[InvariantCultureName], options.Description);
+
+                            strictEqual(
+                                normalize(themeOptions.Theme.CustomScssFileName),
+                                normalize(generator.destinationPath(options.CustomScssFileName)));
+
+                            strictEqual(
+                                normalize(themeOptions.Theme.ScssOverrideFileName),
+                                normalize(generator.destinationPath(options.ScssOverridesFileName)));
+
+                            strictEqual(
+                                normalize(themeOptions.Theme.VariableFileName),
+                                normalize(generator.destinationPath(options.VariableFileName)));
                         });
 
                     test(
@@ -189,10 +234,10 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                             for (let assertion of assertions)
                             {
                                 options.Components = [];
-                                await WriteFile();
+                                await PrepareTest();
                                 ok(!(assertion[1] in (await tester.ImportDefault() as IThemeInstructionOptions).Theme));
                                 options.Components = [assertion[0]];
-                                await WriteFile();
+                                await PrepareTest();
                                 ok(assertion[1] in (await tester.ImportDefault() as IThemeInstructionOptions).Theme);
                             }
                         });
