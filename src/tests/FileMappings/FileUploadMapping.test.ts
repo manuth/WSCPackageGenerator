@@ -5,7 +5,7 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression } from "ts-morph";
 import { FileUploadMapping } from "../../FileMappings/FileUploadMapping.js";
-import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent.js";
+import { FileUploadComponent } from "../../generators/package/Components/FileUploadComponent.js";
 import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
 import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions.js";
@@ -55,7 +55,7 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
          */
         protected CreateFileMapping(): TestFileUploadMapping
         {
-            return new TestFileUploadMapping(new SQLScriptComponent(this.Generator));
+            return new TestFileUploadMapping(new FileUploadComponent(this.Generator));
         }
 
         /**
@@ -69,12 +69,12 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
             await super.Setup(context);
 
             options = {
-                ...this.Generator.Settings[WoltLabSettingKey.ComponentOptions][PackageComponentType.SQLScript],
+                ...this.Component.ComponentOptions,
                 Application: "test",
-                Source: join("assets", "install.sql")
+                Source: join("assets", "files", "test")
             };
 
-            this.Generator.Settings[WoltLabSettingKey.ComponentOptions][PackageComponentType.SQLScript] = options;
+            this.Generator.Settings[WoltLabSettingKey.ComponentOptions][PackageComponentType.FileUpload] = options;
         }
 
         /**
