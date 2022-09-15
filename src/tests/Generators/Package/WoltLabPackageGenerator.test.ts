@@ -1,6 +1,7 @@
 import { deepStrictEqual, doesNotThrow, ok, strictEqual } from "assert";
-import { exec } from "child_process";
+import { exec, spawnSync } from "child_process";
 import { join, normalize } from "path";
+import { fileURLToPath } from "url";
 import { promisify } from "util";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
@@ -8,6 +9,7 @@ import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSet
 import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
+import npmWhich from "npm-which";
 import { TSConfigJSON } from "types-tsconfig";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder.js";
@@ -234,6 +236,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 "General",
                 () =>
                 {
+                    let packageScriptName: string;
                     let workingDir: string;
                     let runContext: IRunContext<WoltLabPackageGenerator>;
                     let testContext: IRunContext<WoltLabPackageGenerator>;
@@ -247,6 +250,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         async function()
                         {
                             this.timeout(10 * 60 * 1000);
+                            packageScriptName = "package";
                             packageName = "MyPackage";
                             displayName = "This is a test";
                             identifier = "com.example.mypackage";
@@ -357,6 +361,27 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             {
                                 throw exception;
                             }
+                        });
+
+                    test(
+                        `Checking whether a package archive can be compiled using the \`${packageScriptName}\`-script…`,
+                        async function()
+                        {
+                            this.slow(15 * 1000);
+                            this.timeout(30 * 1000);
+
+                            let result = spawnSync(
+                                npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                                [
+                                    "run",
+                                    packageScriptName
+                                ],
+                                {
+                                    cwd: runContext.generator.destinationPath(),
+                                    stdio: "ignore"
+                                });
+
+                            strictEqual(result.status, 0);
                         });
                 });
         });
