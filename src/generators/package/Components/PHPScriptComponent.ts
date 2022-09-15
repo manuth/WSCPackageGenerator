@@ -202,9 +202,9 @@ export class PHPScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
                     [
                         {
                             Destination: () => this.ComponentOptions.Source,
-                            Processor: async (fileMapping) =>
+                            Processor: async (target, generator) =>
                             {
-                                await ensureFile(fileMapping.Destination);
+                                generator.fs.write(target.Destination, "");
                             }
                         } as IFileMapping<TSettings, TOptions>
                     ] :
