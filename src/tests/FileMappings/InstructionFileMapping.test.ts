@@ -1,9 +1,14 @@
 import { ok, strictEqual } from "assert";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { join } from "path";
+import { pathToFileURL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { CallExpression, NewExpression, ObjectLiteralExpression, Project, SourceFile, SyntaxKind, VariableDeclaration } from "ts-morph";
+import { IPackageMetadata, Package, PackageType } from "@manuth/package-json-editor";
+import { TempDirectory, TempFile, TempFileSystem } from "@manuth/temp-files";
+import fs from "fs-extra";
+import { CallExpression, ModuleKind, NewExpression, ObjectLiteralExpression, Project, SourceFile, SyntaxKind, VariableDeclaration } from "ts-morph";
+import path from "upath";
 import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { InstructionFileMapping } from "../../FileMappings/InstructionFileMapping.js";
@@ -14,6 +19,9 @@ import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOption
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
 import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
+
+const { writeJSON } = fs;
+const { normalize, parse } = path;
 
 /**
  * Registers tests for the {@link InstructionFileMapping `InstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -170,6 +178,72 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                                                     return namedImport.getName() === nameof(join);
                                                 });
                                     }));
+                        });
+                });
+
+            suite(
+                nameof<TestInstructionFileMapping>((fileMapping) => fileMapping.GetPathJoin),
+                () =>
+                {
+                    let tempDir: TempDirectory;
+                    let scriptFileName: string;
+                    let tempFile: TempFile;
+
+                    setup(
+                        async () =>
+                        {
+                            tempDir = new TempDirectory();
+                            tempFile = new TempFile();
+
+                            await writeJSON(
+                                tempDir.MakePath(Package.FileName),
+                                {
+                                    type: PackageType.ESModule
+                                } as IPackageMetadata);
+
+                            scriptFileName = tempDir.MakePath(
+                                TempFileSystem.TempBaseName(
+                                    {
+                                        Suffix: ".ts"
+                                    }));
+                        });
+
+                    teardown(
+                        () =>
+                        {
+                            tempDir.Dispose();
+                            tempFile.Dispose();
+                        });
+
+                    test(
+                        "Checking whether an expression returning a path to the specified file is returned…",
+                        async () =>
+                        {
+                            let project = new Project();
+                            let sourceFile = project.createSourceFile(scriptFileName);
+                            this.FileMappingOptions.ApplyPathJoin(sourceFile);
+
+                            project.compilerOptions.set(
+                                {
+                                    module: ModuleKind.ES2022
+                                });
+
+                            sourceFile.addExportAssignment(
+                                {
+                                    isExportEquals: false,
+                                    expression: this.FileMappingOptions.GetPathJoin(tempFile.FullName).getFullText()
+                                });
+
+                            await sourceFile.emit();
+
+                            let outFile = sourceFile.getEmitOutput().getOutputFiles().find(
+                                (outputFile) =>
+                                {
+                                    return parse(scriptFileName).name === parse(outputFile.getFilePath()).name;
+                                });
+
+                            let exportValue = (await import(pathToFileURL(outFile.getFilePath()).toString())).default;
+                            strictEqual(normalize(exportValue), normalize(tempFile.FullName));
                         });
                 });
 
