@@ -1,6 +1,7 @@
 import { ok, strictEqual } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
+import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
 import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
@@ -109,8 +110,15 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
                 nameof<TestThemeInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
-                    let fileMapping = this.FileMappingOptions;
-                    let tester = this.Tester;
+                    let fileMapping: TestThemeInstructionFileMapping;
+                    let tester: TypeScriptFileMappingTester<WoltLabPackageGenerator, IWoltLabSettings, GeneratorOptions, TestThemeInstructionFileMapping>;
+
+                    suiteSetup(
+                        () =>
+                        {
+                            fileMapping = this.FileMappingOptions;
+                            tester = this.Tester;
+                        });
 
                     /**
                      * Writes the file for testing purposes.

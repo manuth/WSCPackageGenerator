@@ -2,7 +2,6 @@ import { strictEqual } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPHPInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { InstructionComponent } from "../../../../Components/InstructionComponent.js";
 import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
@@ -11,7 +10,6 @@ import { IPHPScriptComponentOptions } from "../../../../generators/package/Setti
 import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
@@ -98,9 +96,17 @@ export function PHPInstructionFileMappingTests(context: TestContext<WoltLabPacka
                 nameof<TestPHPInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
-                    let fileMapping = this.FileMappingOptions;
-                    let applicationProperty = nameof<IPHPInstructionOptions>((options) => options.Application);
-                    let fileNameProperty = nameof<IPHPInstructionOptions>((options) => options.FileName);
+                    let fileMapping: TestPHPInstructionFileMapping;
+                    let applicationProperty: string;
+                    let fileNameProperty: string;
+
+                    suiteSetup(
+                        () =>
+                        {
+                            fileMapping = this.FileMappingOptions;
+                            applicationProperty = nameof<IPHPInstructionOptions>((options) => options.Application);
+                            fileNameProperty = nameof<IPHPInstructionOptions>((options) => options.FileName);
+                        });
 
                     /**
                      * Gets the value of the property with the specified {@link propertyName `propertyName`}.
