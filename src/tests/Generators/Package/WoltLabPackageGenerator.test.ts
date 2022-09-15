@@ -1,8 +1,7 @@
 import { deepStrictEqual, doesNotThrow, ok, strictEqual } from "assert";
-import { exec, spawnSync } from "child_process";
+import { spawnSync } from "child_process";
 import { normalize } from "path";
 import { fileURLToPath } from "url";
-import { promisify } from "util";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
@@ -57,12 +56,14 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 }
             }
 
+            let npmPath: string;
             let generator: TestWoltLabPackageGenerator;
 
             suiteSetup(
                 async function()
                 {
                     this.timeout(5 * 60 * 1000);
+                    npmPath = npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm");
                     generator = await context.Generator as TestWoltLabPackageGenerator;
                 });
 
@@ -292,10 +293,14 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                         generator = runContext.generator;
                                         tsConfigFile = tempDir.MakePath(TSConfigFileMapping.FileName);
 
-                                        await promisify(exec)(
-                                            "npm install",
+                                        spawnSync(
+                                            npmPath,
+                                            [
+                                                "install"
+                                            ],
                                             {
-                                                cwd: tempDir.FullName
+                                                cwd: tempDir.FullName,
+                                                stdio: "ignore"
                                             });
                                     });
 
@@ -342,16 +347,22 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                                 test(
                                     "Checking whether the package-dependencies can be installed…",
-                                    async function()
+                                    function()
                                     {
                                         this.slow(5 * 60 * 1000);
                                         this.timeout(5 * 60 * 1000);
 
-                                        await promisify(exec)(
-                                            "npm install",
-                                            {
-                                                cwd: generator.destinationPath()
-                                            });
+                                        strictEqual(
+                                            spawnSync(
+                                                npmPath,
+                                                [
+                                                    "install"
+                                                ],
+                                                {
+                                                    cwd: generator.destinationPath(),
+                                                    stdio: "ignore"
+                                                }).status,
+                                            0);
                                     });
 
                                 test(
@@ -390,7 +401,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                         this.timeout(30 * 1000);
 
                                         let result = spawnSync(
-                                            npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                                            npmPath,
                                             [
                                                 "run",
                                                 packageScriptName
