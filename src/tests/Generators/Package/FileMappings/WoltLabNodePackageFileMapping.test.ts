@@ -4,6 +4,7 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { PackageFileMappingTester } from "@manuth/generator-ts-project-test";
 import { IPackageJSON, Package, PackageType } from "@manuth/package-json-editor";
+import { WoltLabDependencyCollection } from "../../../../generators/package/FileMappings/WoltLabDependencyCollection.js";
 import { WoltLabNodePackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
@@ -102,6 +103,18 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                             strictEqual(parsedPackage.Author.URL, generator.Settings[WoltLabSettingKey.HomePage]);
                             deepStrictEqual(parsedPackage.PublishConfig, {});
                             deepStrictEqual(parsedPackage.Files, []);
+                        });
+
+                    test(
+                        "Checking whether the expected dependencies are added…",
+                        async () =>
+                        {
+                            for (let value of [true, false])
+                            {
+                                generator.Settings[TSProjectSettingKey.ESModule] = value;
+                                await tester.Run();
+                                await tester.AssertDependencies(new WoltLabDependencyCollection(value));
+                            }
                         });
                 });
 
