@@ -48,6 +48,7 @@ export { EntryPointFileMapping } from "./generators/package/FileMappings/EntryPo
 export { PHPInstructionFileMapping } from "./generators/package/FileMappings/PHPInstructionFileMapping.js";
 export { SelfContainedPHPFileMapping } from "./generators/package/FileMappings/SelfContainedPHPFileMapping.js";
 export { ThemeInstructionFileMapping } from "./generators/package/FileMappings/ThemeInstructionFileMapping.js";
+export { WoltLabDependencyCollection } from "./generators/package/FileMappings/WoltLabDependencyCollection.js";
 export { WoltLabNodePackageFileMapping } from "./generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
 export { WoltLabPackageFileMapping } from "./generators/package/FileMappings/WoltLabPackageFileMapping.js";
 export { IPackageComponentOptionCollection } from "./generators/package/Settings/IPackageComponentOptionCollection.js";
