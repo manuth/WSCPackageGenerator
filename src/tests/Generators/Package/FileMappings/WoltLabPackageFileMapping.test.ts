@@ -114,8 +114,9 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                 });
 
             suiteTeardown(
-                async () =>
+                async function()
                 {
+                    this.timeout(10 * 1000);
                     await context.ResetSettings();
                     await tester.Run();
                 });
@@ -400,8 +401,11 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                     test(
                         "Checking whether the imports are ordered properly…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(20 * 1000);
+                            this.timeout(40 * 1000);
+
                             generator.Settings[GeneratorSettingKey.Components] = generator.InstructionComponents.map(
                                 (instructionComponent) => instructionComponent.ID);
 
