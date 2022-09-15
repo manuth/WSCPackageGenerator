@@ -2,16 +2,13 @@ import { doesNotThrow } from "assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ICronJobInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { CronJobComponent } from "../../../../generators/package/Components/CronJobComponent.js";
 import { CronJobInstructionFileMapping } from "../../../../generators/package/FileMappings/CronJobInstructionFileMapping.js";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
 import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link CronJobInstructionFileMapping `CronJobInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -21,50 +18,46 @@ import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
  */
 export function CronJobInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(CronJobInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link CronJobInstructionFileMapping `CronJobInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestCronJobInstructionFileMapping extends CronJobInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link CronJobInstructionFileMapping `CronJobInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestCronJobInstructionFileMapping extends CronJobInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestCronJobInstructionFileMapping;
-            let options: IWoltLabComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestCronJobInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(CronJobInstructionFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestCronJobInstructionFileMapping(new CronJobComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestCronJobInstructionFileMapping
+        {
+            return new TestCronJobInstructionFileMapping(new CronJobComponent(this.Generator));
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
-                    };
-
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.CronJob]: options
-                    };
-                });
-
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestCronJobInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -76,9 +69,12 @@ export function CronJobInstructionFileMappingTests(context: TestContext<WoltLabP
                         () =>
                         {
                             doesNotThrow(
-                                () => fileMapping.InstructionOptions.getProperty(propertyName).asKindOrThrow(
+                                () => this.FileMappingOptions.InstructionOptions.getProperty(propertyName).asKindOrThrow(
                                     SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression));
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

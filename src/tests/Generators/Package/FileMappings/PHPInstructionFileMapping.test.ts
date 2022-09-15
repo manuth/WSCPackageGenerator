@@ -13,6 +13,7 @@ import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabP
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link PHPInstructionFileMapping `PHPInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -22,65 +23,82 @@ import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
  */
 export function PHPInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(PHPInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link PHPInstructionFileMapping `PHPInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestPHPInstructionFileMapping extends PHPInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get Component(): InstructionComponent<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
         {
-            /**
-             * Provides an implementation of the {@link PHPInstructionFileMapping `PHPInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestPHPInstructionFileMapping extends PHPInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get Component(): InstructionComponent<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
-                {
-                    return super.Component;
-                }
+            return super.Component;
+        }
 
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
+        {
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestPHPInstructionFileMapping;
-            let options: IPHPScriptComponentOptions;
+    let options: IPHPScriptComponentOptions;
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestPHPInstructionFileMapping(new PHPScriptComponent(generator));
-                });
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IPHPScriptComponentOptions, TestPHPInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(PHPInstructionFileMapping);
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
-                        SelfContained: false,
-                        Application: "wcf",
-                        FileName: "install.php"
-                    } as IPHPScriptComponentOptions;
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestPHPInstructionFileMapping
+        {
+            return new TestPHPInstructionFileMapping(new PHPScriptComponent(this.Generator));
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.PHPScript]: options
-                    };
-                });
+        /**
+         * @inheritdoc
+         *
+         * @param context
+         * The mocha context.
+         */
+        protected override async Setup(context: Mocha.Context): Promise<void>
+        {
+            await super.Setup(context);
 
+            options = {
+                ...this.Component.ComponentOptions,
+                Application: "wcf",
+                FileName: "install.php"
+            };
+
+            this.Generator.Settings[WoltLabSettingKey.ComponentOptions] = {
+                [PackageComponentType.PHPScript]: options
+            };
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestPHPInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
+                    let fileMapping = this.FileMappingOptions;
                     let applicationProperty = nameof<IPHPInstructionOptions>((options) => options.Application);
                     let fileNameProperty = nameof<IPHPInstructionOptions>((options) => options.FileName);
 
@@ -117,5 +135,8 @@ export function PHPInstructionFileMappingTests(context: TestContext<WoltLabPacka
                                 fileMapping.Component.ComponentOptions.FileName);
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }
