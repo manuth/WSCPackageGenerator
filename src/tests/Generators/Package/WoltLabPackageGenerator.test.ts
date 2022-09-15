@@ -1,4 +1,4 @@
-import { deepStrictEqual, doesNotThrow, ok, strictEqual } from "assert";
+import { deepStrictEqual, doesNotReject, ok, strictEqual } from "assert";
 import { spawnSync } from "child_process";
 import { normalize } from "path";
 import { fileURLToPath } from "url";
@@ -341,7 +341,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                         this.timeout(2 * 60 * 1000);
 
                                         let runContext = GetRunContext();
-                                        doesNotThrow(async () => runContext.toPromise());
+                                        await doesNotReject(async () => runContext.toPromise());
                                         runContext.cleanTestDirectory();
                                     });
 
