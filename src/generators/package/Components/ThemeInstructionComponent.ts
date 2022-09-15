@@ -1,4 +1,4 @@
-import { join, relative } from "path";
+import { join } from "path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestionOptions, JSONCCreatorMapping, PathPrompt, TSProjectDisplayNameQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
@@ -139,22 +139,6 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
             name: nameof<TComponentOptions>((options) => options.Description),
             message: "Please enter a description for your theme."
         };
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected override get PathQuestion(): Question<TComponentOptions>
-    {
-        return {
-            ...super.PathQuestion,
-            default: (answers) =>
-            {
-                return relative(
-                    this.Generator.sourcePath(),
-                    this.Generator.componentPath(`${pascalcase(answers.DisplayName)}.ts`));
-            }
-        } as DistinctQuestion<TComponentOptions> as any;
     }
 
     /**
