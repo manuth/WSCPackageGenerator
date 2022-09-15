@@ -241,8 +241,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                                 }
                                             }
                                             catch
-                                            {
-                                            }
+                                            { }
 
                                             return false;
                                         }));
