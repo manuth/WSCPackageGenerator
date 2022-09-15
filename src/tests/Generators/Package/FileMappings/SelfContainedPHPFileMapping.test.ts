@@ -78,7 +78,7 @@ export function SelfContainedPHPFileMappingTests(context: TestContext<WoltLabPac
 
             options = {
                 ...this.Component.ComponentOptions,
-                SelfContained: false,
+                SelfContained: true,
                 Application: "wcf",
                 Source: this.Generator.assetPath("install.php"),
                 FileName: "install.php"
