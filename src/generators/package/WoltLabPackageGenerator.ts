@@ -270,7 +270,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
      */
     public override async writing(): Promise<void>
     {
-        await super.writing();
+        return super.writing();
     }
 
     /**
