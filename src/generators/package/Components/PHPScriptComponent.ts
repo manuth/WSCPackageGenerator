@@ -3,7 +3,6 @@ import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-ge
 import { IPathQuestion, PathPrompt, SetQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
-import fs from "fs-extra";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import path from "upath";
 import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase.js";
@@ -16,7 +15,6 @@ import { SelfContainedPHPFileMapping } from "../FileMappings/SelfContainedPHPFil
 import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions.js";
 import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
-const { ensureFile } = fs;
 const { join } = path;
 
 /**
