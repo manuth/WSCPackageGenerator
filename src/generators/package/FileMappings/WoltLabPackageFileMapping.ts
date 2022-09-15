@@ -400,6 +400,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 }
             }
 
+        file.organizeImports();
         return file;
     }
 }
