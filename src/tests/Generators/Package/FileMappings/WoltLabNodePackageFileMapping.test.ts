@@ -36,6 +36,13 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                     tester = new PackageFileMappingTester(generator, fileMapping);
                 });
 
+            suiteTeardown(
+                async () =>
+                {
+                    await context.ResetSettings();
+                    await tester.Run();
+                });
+
             setup(
                 async () =>
                 {
