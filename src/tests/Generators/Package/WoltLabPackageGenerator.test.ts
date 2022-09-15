@@ -223,8 +223,23 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                         "Checking whether all most important file-mappings are present…",
                         () =>
                         {
-                            ok(generator.FileMappings.includes(generator.WoltLabPackageFileMapping));
-                            ok(generator.FileMappings.includes(generator.EntryPointFileMapping));
+                            for (let fileMapping of [generator.WoltLabPackageFileMapping, generator.EntryPointFileMapping])
+                            {
+                                ok(
+                                    generator.FileMappings.some(
+                                        (generatorFileMapping) =>
+                                        {
+                                            try
+                                            {
+                                                deepStrictEqual(generatorFileMapping, fileMapping);
+                                                return true;
+                                            }
+                                            catch
+                                            {
+                                                return false;
+                                            }
+                                        }));
+                            }
 
                             ok(
                                 generator.FileMappings.some(
