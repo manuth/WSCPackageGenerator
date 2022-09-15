@@ -1,7 +1,7 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
-import { PackageTests } from "./Package/index.js";
+import { PackageTests } from "./Package/index.test.js";
 
 /**
  * Registers tests for generators.

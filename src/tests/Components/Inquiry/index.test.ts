@@ -1,7 +1,7 @@
 import { basename } from "path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
-import { PromptTests } from "./Prompts/index.js";
+import { PromptTests } from "./Prompts/index.test.js";
 import { WoltLabIdentifierQuestionTests } from "./WoltLabIdentifierQuestion.test.js";
 
 /**

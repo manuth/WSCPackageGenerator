@@ -4,9 +4,9 @@ import { TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName } from "@manuth/generator-ts-project";
 import { TestContext as ProjectContext } from "@manuth/generator-ts-project-test";
 import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator.js";
-import { ComponentTests } from "./Components/index.js";
-import { FileMappingTests } from "./FileMappings/index.js";
-import { GeneratorTests } from "./Generators/index.js";
+import { ComponentTests } from "./Components/index.test.js";
+import { FileMappingTests } from "./FileMappings/index.test.js";
+import { GeneratorTests } from "./Generators/index.test.js";
 import { WoltLabGeneratorTests } from "./WoltLabGenerator.test.js";
 
 suite(
