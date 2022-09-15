@@ -1,4 +1,4 @@
-import { notStrictEqual, strictEqual } from "assert";
+import { notStrictEqual, strictEqual } from "node:assert";
 import { Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { QuestionSetPrompt } from "@manuth/generator-ts-project";

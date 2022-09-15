@@ -1,4 +1,4 @@
-import { join } from "path";
+import { join } from "node:path";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import

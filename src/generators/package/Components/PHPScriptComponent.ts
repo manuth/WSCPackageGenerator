@@ -1,4 +1,4 @@
-import { posix } from "path";
+import { posix } from "node:path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion, PathPrompt, SetQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import

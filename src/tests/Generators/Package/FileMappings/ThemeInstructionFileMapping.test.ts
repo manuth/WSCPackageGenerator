@@ -1,5 +1,5 @@
-import { ok, strictEqual } from "assert";
-import { pathToFileURL } from "url";
+import { ok, strictEqual } from "node:assert";
+import { pathToFileURL } from "node:url";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TempDirectory } from "@manuth/temp-files";

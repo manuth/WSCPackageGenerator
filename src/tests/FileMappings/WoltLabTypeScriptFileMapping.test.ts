@@ -1,6 +1,6 @@
-import { ok, strictEqual } from "assert";
-import { createRequire } from "module";
-import { fileURLToPath, pathToFileURL } from "url";
+import { ok, strictEqual } from "node:assert";
+import { createRequire } from "node:module";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";

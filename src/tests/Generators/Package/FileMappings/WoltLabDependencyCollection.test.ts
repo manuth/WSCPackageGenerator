@@ -1,4 +1,4 @@
-import { notEqual } from "assert";
+import { notEqual } from "node:assert";
 import { DependencyOverrides } from "@manuth/generator-ts-project";
 import { PackageType } from "@manuth/package-json-editor";
 import { WoltLabDependencyCollection } from "../../../../generators/package/FileMappings/WoltLabDependencyCollection.js";

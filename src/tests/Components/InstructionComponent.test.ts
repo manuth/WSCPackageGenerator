@@ -1,4 +1,4 @@
-import { notEqual, ok } from "assert";
+import { notEqual, ok } from "node:assert";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";

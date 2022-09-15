@@ -1,5 +1,5 @@
-import { strictEqual } from "assert";
-import { join } from "path";
+import { strictEqual } from "node:assert";
+import { join } from "node:path";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ApplicationFileSystemInstruction, IApplicationFileSystemInstructionOptions, Instruction } from "@manuth/woltlab-compiler";

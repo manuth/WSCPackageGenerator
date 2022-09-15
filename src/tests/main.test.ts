@@ -1,5 +1,5 @@
-import { join } from "path";
-import { fileURLToPath } from "url";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName } from "@manuth/generator-ts-project";
 import { TestContext as ProjectContext } from "@manuth/generator-ts-project-test";

@@ -1,5 +1,5 @@
-import { ok, strictEqual } from "assert";
-import { createInterface, Interface } from "readline";
+import { ok, strictEqual } from "node:assert";
+import { createInterface, Interface } from "node:readline";
 import { Predicate } from "@manuth/extended-yo-generator";
 import { TestPrompt } from "@manuth/generator-ts-project-test";
 import inquirer, { DistinctChoice, QuestionTypeName } from "inquirer";

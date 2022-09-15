@@ -1,6 +1,6 @@
-import { doesNotReject, doesNotThrow, ok, strictEqual, throws } from "assert";
-import { spawnSync } from "child_process";
-import { fileURLToPath } from "url";
+import { doesNotReject, doesNotThrow, ok, strictEqual, throws } from "node:assert";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { GeneratorOptions, GeneratorSettingKey, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";

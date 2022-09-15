@@ -1,7 +1,7 @@
-import { deepStrictEqual, doesNotReject, ok, strictEqual } from "assert";
-import { spawnSync } from "child_process";
-import { normalize } from "path";
-import { fileURLToPath } from "url";
+import { deepStrictEqual, doesNotReject, ok, strictEqual } from "node:assert";
+import { spawnSync } from "node:child_process";
+import { normalize } from "node:path";
+import { fileURLToPath } from "node:url";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";

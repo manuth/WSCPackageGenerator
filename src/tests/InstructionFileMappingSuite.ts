@@ -1,6 +1,6 @@
-import { doesNotReject, ok } from "assert";
-import { spawnSync } from "child_process";
-import { fileURLToPath } from "url";
+import { doesNotReject, ok } from "node:assert";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { AbstractConstructor, FileMapping, Generator, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";

@@ -1,4 +1,4 @@
-import { doesNotReject, ok, strictEqual } from "assert";
+import { doesNotReject, ok, strictEqual } from "node:assert";
 import { GeneratorOptions, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { JSONCFileMappingTester } from "@manuth/generator-ts-project-test";

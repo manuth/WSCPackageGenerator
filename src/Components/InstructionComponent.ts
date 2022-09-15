@@ -1,4 +1,4 @@
-import { relative } from "path";
+import { relative } from "node:path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";

@@ -1,4 +1,4 @@
-import { join } from "path";
+import { join } from "node:path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import * as compiler from "@manuth/woltlab-compiler";

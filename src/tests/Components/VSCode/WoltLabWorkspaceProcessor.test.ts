@@ -1,4 +1,4 @@
-import { ok } from "assert";
+import { ok } from "node:assert";
 import { Constructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IExtensionSettings, ILaunchSettings, ITaskSettings, ITSProjectSettings, JSONProcessor } from "@manuth/generator-ts-project";

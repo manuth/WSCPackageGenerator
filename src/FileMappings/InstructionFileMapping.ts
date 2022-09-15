@@ -1,5 +1,5 @@
-import { EOL } from "os";
-import { join } from "path";
+import { EOL } from "node:os";
+import { join } from "node:path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CallExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
 import path from "upath";

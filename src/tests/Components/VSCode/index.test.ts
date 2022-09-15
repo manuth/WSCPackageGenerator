@@ -1,5 +1,5 @@
-import { basename } from "path";
-import { fileURLToPath } from "url";
+import { basename } from "node:path";
+import { fileURLToPath } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, TSProjectCodeWorkspaceFolder, TSProjectGenerator } from "@manuth/generator-ts-project";

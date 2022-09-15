@@ -1,5 +1,5 @@
-import { EOL } from "os";
-import { join } from "path";
+import { EOL } from "node:os";
+import { join } from "node:path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { Package, PackageCompiler } from "@manuth/woltlab-compiler";

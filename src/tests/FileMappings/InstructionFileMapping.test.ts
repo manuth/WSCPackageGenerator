@@ -1,7 +1,7 @@
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from "node:assert";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { join } from "path";
-import { pathToFileURL } from "url";
+import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPackageMetadata, Package, PackageType } from "@manuth/package-json-editor";

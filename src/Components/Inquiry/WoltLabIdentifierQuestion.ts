@@ -1,4 +1,4 @@
-import { URL } from "url";
+import { URL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";

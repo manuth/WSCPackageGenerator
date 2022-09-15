@@ -1,4 +1,4 @@
-import { doesNotThrow } from "assert";
+import { doesNotThrow } from "node:assert";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IListenerInstructionOptions, Instruction, ListenerInstruction } from "@manuth/woltlab-compiler";

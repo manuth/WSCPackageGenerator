@@ -1,4 +1,4 @@
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TSProjectSettingKey, TSProjectTypeScriptFileMapping } from "@manuth/generator-ts-project";
 import { SourceFile, SyntaxKind, ts } from "ts-morph";

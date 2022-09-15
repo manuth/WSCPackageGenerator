@@ -1,5 +1,5 @@
-import { doesNotThrow, strictEqual } from "assert";
-import { pathToFileURL } from "url";
+import { doesNotThrow, strictEqual } from "node:assert";
+import { pathToFileURL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPackageMetadata, Package, PackageType } from "@manuth/package-json-editor";

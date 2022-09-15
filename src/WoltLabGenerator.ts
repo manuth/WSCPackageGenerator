@@ -1,4 +1,4 @@
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { Generator, GeneratorOptions, IGenerator, Question } from "@manuth/extended-yo-generator";
 import { QuestionSetPrompt, TSProjectGenerator } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import

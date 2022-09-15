@@ -1,4 +1,4 @@
-import { ReadLine } from "readline";
+import { ReadLine } from "node:readline";
 import { NestedPrompt } from "@manuth/generator-ts-project";
 import inquirer, { Answers, ChoiceCollection, DistinctQuestion } from "inquirer";
 import { IApplicationAnswerHash } from "./IApplicationAnswerHash.js";

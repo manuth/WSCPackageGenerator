@@ -1,4 +1,4 @@
-import { notStrictEqual, ok, strictEqual } from "assert";
+import { notStrictEqual, ok, strictEqual } from "node:assert";
 import { FileMapping, GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPathQuestion, QuestionSetProperty, SetQuestion } from "@manuth/generator-ts-project";
