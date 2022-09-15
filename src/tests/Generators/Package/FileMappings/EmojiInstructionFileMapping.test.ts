@@ -1,7 +1,7 @@
 import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IEmojiInstructionOptions } from "@manuth/woltlab-compiler";
+import { EmojiInstruction, IEmojiInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { EmojiComponent } from "../../../../generators/package/Components/EmojiComponent.js";
 import { EmojiInstructionFileMapping } from "../../../../generators/package/FileMappings/EmojiInstructionFileMapping.js";
@@ -40,6 +40,14 @@ export function EmojiInstructionFileMappingTests(context: TestContext<WoltLabPac
         public get Title(): string
         {
             return nameof(EmojiInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return EmojiInstruction;
         }
 
         /**

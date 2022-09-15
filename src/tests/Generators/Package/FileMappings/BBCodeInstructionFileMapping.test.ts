@@ -1,7 +1,7 @@
 import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IBBCodeInstructionOptions } from "@manuth/woltlab-compiler";
+import { BBCodeInstruction, IBBCodeInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent.js";
 import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
@@ -40,6 +40,14 @@ export function BBCodeInstructionFileMappingTests(context: TestContext<WoltLabPa
         public get Title(): string
         {
             return nameof(BBCodeInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return BBCodeInstruction;
         }
 
         /**

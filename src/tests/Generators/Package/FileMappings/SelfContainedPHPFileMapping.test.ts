@@ -1,7 +1,7 @@
 import { strictEqual } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { ISelfContainedPHPInstructionOptions } from "@manuth/woltlab-compiler";
+import { Instruction, ISelfContainedPHPInstructionOptions, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { LocalInstructionComponent } from "../../../../Components/LocalInstructionComponent.js";
 import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
@@ -53,6 +53,14 @@ export function SelfContainedPHPFileMappingTests(context: TestContext<WoltLabPac
         public get Title(): string
         {
             return nameof(SelfContainedPHPFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return SelfContainedPHPInstruction;
         }
 
         /**

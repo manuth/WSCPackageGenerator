@@ -1,7 +1,7 @@
 import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { INodeSystemInstructionOptions } from "@manuth/woltlab-compiler";
+import { INodeSystemInstructionOptions, Instruction, NodeSystemInstruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression } from "ts-morph";
 import { NodeInstructionFileMapping } from "../../FileMappings/NodeInstructionFileMapping.js";
 import { OptionComponent } from "../../generators/package/Components/OptionComponent.js";
@@ -40,6 +40,14 @@ export function NodeInstructionFileMappingTests(context: TestContext<WoltLabPack
         public get Title(): string
         {
             return nameof(NodeInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return NodeSystemInstruction;
         }
 
         /**

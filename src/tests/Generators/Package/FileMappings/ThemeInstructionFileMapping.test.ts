@@ -1,8 +1,8 @@
 import { ok, strictEqual } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
-import { InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions } from "@manuth/woltlab-compiler";
+import { Instruction, InvariantCultureName, IThemeInstructionOptions, IThemeLoaderOptions, ThemeInstruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SourceFile } from "ts-morph";
 import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
 import { ThemeInstructionFileMapping } from "../../../../generators/package/FileMappings/ThemeInstructionFileMapping.js";
@@ -60,6 +60,14 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
         public get Title(): string
         {
             return nameof(ThemeInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return ThemeInstruction;
         }
 
         /**

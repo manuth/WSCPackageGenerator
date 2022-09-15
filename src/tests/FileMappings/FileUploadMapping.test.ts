@@ -1,8 +1,8 @@
 import { doesNotThrow } from "assert";
 import { join } from "path";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
+import { ApplicationFileSystemInstruction, IApplicationFileSystemInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression } from "ts-morph";
 import { FileUploadMapping } from "../../FileMappings/FileUploadMapping.js";
 import { FileUploadComponent } from "../../generators/package/Components/FileUploadComponent.js";
@@ -45,6 +45,14 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
         public get Title(): string
         {
             return nameof(FileUploadMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return ApplicationFileSystemInstruction;
         }
 
         /**

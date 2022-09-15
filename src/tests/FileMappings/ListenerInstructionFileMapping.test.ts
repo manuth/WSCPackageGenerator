@@ -1,7 +1,7 @@
 import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IListenerInstructionOptions } from "@manuth/woltlab-compiler";
+import { IListenerInstructionOptions, Instruction, ListenerInstruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { ListenerInstructionFileMapping } from "../../FileMappings/ListenerInstructionFileMapping.js";
 import { TemplateListenerComponent } from "../../generators/package/Components/TemplateListenerComponent.js";
@@ -40,6 +40,14 @@ export function ListenerInstructionFileMappingTests(context: TestContext<WoltLab
         public get Title(): string
         {
             return nameof(ListenerInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return ListenerInstruction;
         }
 
         /**

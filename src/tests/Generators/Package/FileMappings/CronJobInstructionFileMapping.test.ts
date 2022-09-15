@@ -1,7 +1,7 @@
 import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { ICronJobInstructionOptions } from "@manuth/woltlab-compiler";
+import { CronJobInstruction, ICronJobInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { CronJobComponent } from "../../../../generators/package/Components/CronJobComponent.js";
 import { CronJobInstructionFileMapping } from "../../../../generators/package/FileMappings/CronJobInstructionFileMapping.js";
@@ -40,6 +40,14 @@ export function CronJobInstructionFileMappingTests(context: TestContext<WoltLabP
         public get Title(): string
         {
             return nameof(CronJobInstructionFileMapping);
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return CronJobInstruction;
         }
 
         /**
