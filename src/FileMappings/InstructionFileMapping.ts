@@ -131,6 +131,8 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
      */
     protected ApplyPathJoin(sourceFile: SourceFile): void
     {
+        super.ApplyDirname(sourceFile);
+
         sourceFile.addImportDeclaration(
             {
                 moduleSpecifier: "path",
