@@ -403,8 +403,8 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         "Checking whether the imports are ordered properly…",
                         async function()
                         {
-                            this.slow(20 * 1000);
-                            this.timeout(40 * 1000);
+                            this.slow(1.5 * 60 * 1000);
+                            this.timeout(3 * 60 * 1000);
 
                             generator.Settings[GeneratorSettingKey.Components] = generator.InstructionComponents.map(
                                 (instructionComponent) => instructionComponent.ID);
