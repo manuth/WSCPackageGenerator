@@ -105,6 +105,7 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                 nameof<TestLocalFileInstructionMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
+                    let self = this;
                     let propertyName = nameof<IFileSystemInstructionOptions>((options) => options.Source);
                     let tempDir: TempDirectory;
                     let scriptFileName: string;
@@ -141,12 +142,15 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
 
                     test(
                         `Checking whether the \`${propertyName}\` points to the specified file…`,
-                        async () =>
+                        async function()
                         {
+                            this.slow(5 * 1000);
+                            this.timeout(10 * 1000);
+
                             let project = new Project();
                             let sourceFile: SourceFile;
-                            await this.Tester.Run();
-                            await this.Tester.DumpFile(scriptFileName, await this.Tester.ParseOutput());
+                            await self.Tester.Run();
+                            await self.Tester.DumpFile(scriptFileName, await self.Tester.ParseOutput());
                             sourceFile = project.addSourceFileAtPath(scriptFileName);
 
                             project.compilerOptions.set(
@@ -162,11 +166,11 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                                     return parse(outFile.getFilePath()).name === parse(scriptFileName).name;
                                 });
 
-                            let sqlInstruction: SQLInstruction = (await import(pathToFileURL(outFile.getFilePath()).toString()))[this.Component.VariableName];
+                            let sqlInstruction: SQLInstruction = (await import(pathToFileURL(outFile.getFilePath()).toString()))[self.Component.VariableName];
 
                             strictEqual(
                                 normalize(sqlInstruction.Source),
-                                normalize(this.Component.ComponentOptions.Source));
+                                normalize(self.Component.ComponentOptions.Source));
                         });
                 });
 

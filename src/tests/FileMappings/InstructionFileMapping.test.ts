@@ -185,6 +185,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 nameof<TestInstructionFileMapping>((fileMapping) => fileMapping.GetPathJoin),
                 () =>
                 {
+                    let self = this;
                     let tempDir: TempDirectory;
                     let scriptFileName: string;
                     let tempFile: TempFile;
@@ -217,11 +218,14 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
 
                     test(
                         "Checking whether an expression returning a path to the specified file is returned…",
-                        async () =>
+                        async function()
                         {
+                            this.slow(5 * 1000);
+                            this.timeout(10 * 1000);
+
                             let project = new Project();
                             let sourceFile = project.createSourceFile(scriptFileName);
-                            this.FileMappingOptions.ApplyPathJoin(sourceFile);
+                            self.FileMappingOptions.ApplyPathJoin(sourceFile);
 
                             project.compilerOptions.set(
                                 {
@@ -231,7 +235,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                             sourceFile.addExportAssignment(
                                 {
                                     isExportEquals: false,
-                                    expression: this.FileMappingOptions.GetPathJoin(tempFile.FullName).getFullText()
+                                    expression: self.FileMappingOptions.GetPathJoin(tempFile.FullName).getFullText()
                                 });
 
                             await sourceFile.emit();
