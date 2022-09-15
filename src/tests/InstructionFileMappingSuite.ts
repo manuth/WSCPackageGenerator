@@ -4,7 +4,6 @@ import { fileURLToPath } from "url";
 import { AbstractConstructor, FileMapping, Generator, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
-import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { TempFileSystem } from "@manuth/temp-files";
 import { Instruction } from "@manuth/woltlab-compiler";
 import { Context } from "mocha";
@@ -17,6 +16,7 @@ import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
 import { TestSuite } from "./TestSuite.js";
+import { TypeScriptCompilerTester } from "./TypeScriptCompilerTester.js";
 
 /**
  * Represents a typescript file mapping.
@@ -68,7 +68,7 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
     /**
      * A component for testing the file mapping.
      */
-    private tester: TypeScriptFileMappingTester<TGenerator, TSettings, TOptions, TFileMapping>;
+    private tester: TypeScriptCompilerTester<TGenerator, TSettings, TOptions, TFileMapping>;
 
     /**
      * Initializes a new instance of the {@link InstructionFileMappingSuite `InstructionFileMappingSuite<TSettings, TOptions, TGenerator, TComponentOptions, TFileMapping>`} class.
@@ -125,7 +125,7 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
     /**
      * Gets a component for testing the file mapping.
      */
-    protected get Tester(): TypeScriptFileMappingTester<TGenerator, TSettings, TOptions, TFileMapping>
+    protected get Tester(): TypeScriptCompilerTester<TGenerator, TSettings, TOptions, TFileMapping>
     {
         return this.tester;
     }
@@ -152,9 +152,9 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
      * @returns
      * A component for testing the file mapping.
      */
-    protected CreateTester(): TypeScriptFileMappingTester<TGenerator, TSettings, TOptions, TFileMapping>
+    protected CreateTester(): TypeScriptCompilerTester<TGenerator, TSettings, TOptions, TFileMapping>
     {
-        return new TypeScriptFileMappingTester(this.Generator, this.CreateFileMapping());
+        return new TypeScriptCompilerTester(this.Generator, this.CreateFileMapping());
     }
 
     /**
