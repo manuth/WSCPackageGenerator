@@ -1,12 +1,14 @@
 import { deepStrictEqual, doesNotThrow, ok, strictEqual } from "assert";
 import { exec, spawnSync } from "child_process";
-import { join, normalize } from "path";
+import { normalize } from "path";
 import { fileURLToPath } from "url";
 import { promisify } from "util";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { JSONCFileMappingTester, TestContext as ProjectContext, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
+import { PackageType } from "@manuth/package-json-editor";
+import { TempDirectory } from "@manuth/temp-files";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
 import G from "glob";
@@ -255,158 +257,157 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 () =>
                 {
                     let packageScriptName: string;
-                    let runContext: IRunContext<WoltLabPackageGenerator>;
-                    let testContext: IRunContext<WoltLabPackageGenerator>;
-                    let outputDir: string;
-                    let tsConfigFile: string;
-                    let packageName: string;
-                    let displayName: string;
-                    let identifier: string;
                     ProjectContext.Default.RegisterWorkingDirRestorer();
 
-                    suiteSetup(
-                        async function()
-                        {
-                            this.timeout(10 * 60 * 1000);
-                            packageScriptName = "package";
-                            packageName = "MyPackage";
-                            displayName = "This is a test";
-                            identifier = "com.example.mypackage";
-                            runContext = GetRunContext(context);
-                            await runContext.toPromise();
-                            outputDir = runContext.generator.destinationPath();
-                            tsConfigFile = join(outputDir, TSConfigFileMapping.FileName);
-
-                            await promisify(exec)(
-                                "npm install",
-                                {
-                                    cwd: outputDir
-                                });
-                        });
-
-                    suiteTeardown(
-                        function()
-                        {
-                            this.timeout(1 * 60 * 1000);
-                            context.Dispose();
-                        });
-
-                    setup(
-                        async function()
-                        {
-                            this.timeout(5 * 60 * 1000);
-                            testContext = GetRunContext();
-                            await testContext.toPromise();
-                        });
-
-                    teardown(
-                        function()
-                        {
-                            this.timeout(1 * 60 * 1000);
-                            testContext.cleanTestDirectory();
-                        });
-
-                    /**
-                     * Gets an {@link IRunContext `IRunContext<T>`} for running the generator.
-                     *
-                     * @param testContext
-                     * The {@link TestContext `TestContext<TGenerator, TOptions>`} for creating a new {@link IRunContext `IRunContext<T>`}.
-                     *
-                     * @returns
-                     * An {@link IRunContext `IRunContext<T>`} for running the generator.
-                     */
-                    function GetRunContext(testContext?: TestContext<WoltLabPackageGenerator>): IRunContext<WoltLabPackageGenerator>
+                    for (let esModule of [true, false])
                     {
-                        return (testContext ?? context).ExecuteGenerator().withPrompts(
+                        let packageTypeName = esModule ? nameof(PackageType.ESModule) : nameof(PackageType.CommonJS);
+
+                        suite(
+                            packageTypeName,
+                            () =>
                             {
-                                [TSProjectSettingKey.Name]: packageName,
-                                [TSProjectSettingKey.DisplayName]: displayName,
-                                [WoltLabSettingKey.Identifier]: identifier,
-                                [TSProjectSettingKey.Description]: "This is a test",
-                                [WoltLabSettingKey.Author]: "Manuel Thalmann",
-                                [WoltLabSettingKey.HomePage]: "https://nuth.ch"
-                            }).inTmpDir(null);
-                    }
+                                let generator: WoltLabPackageGenerator;
+                                let tempDir: TempDirectory;
+                                let tsConfigFile: string;
+                                let packageName: string;
+                                let displayName: string;
+                                let identifier: string;
 
-                    test(
-                        "Checking whether the generator can be executed…",
-                        async function()
-                        {
-                            this.slow(1 * 60 * 1000);
-                            this.timeout(2 * 60 * 1000);
-                            doesNotThrow(async () => GetRunContext().toPromise());
-                        });
-
-                    test(
-                        "Checking whether the package-dependencies can be installed…",
-                        async function()
-                        {
-                            this.slow(5 * 60 * 1000);
-                            this.timeout(5 * 60 * 1000);
-
-                            await promisify(exec)(
-                                "npm install",
-                                {
-                                    cwd: testContext.generator.destinationPath()
-                                });
-                        });
-
-                    test(
-                        "Checking whether a typescript-config exists…",
-                        async function()
-                        {
-                            this.slow(5 * 1000);
-                            this.timeout(10 * 1000);
-                            strictEqual(await pathExists(tsConfigFile), true);
-                        });
-
-                    test(
-                        "Checking the integrity of the package-manifest…",
-                        async function()
-                        {
-                            this.slow(15 * 1000);
-                            this.timeout(30 * 1000);
-
-                            try
-                            {
-                                let $package: Package = (await new TypeScriptFileMappingTester(runContext.generator, runContext.generator.WoltLabPackageFileMapping).Import())[runContext.generator.PackageVariableName];
-                                strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
-                                strictEqual($package.Identifier, identifier);
-                            }
-                            catch (exception)
-                            {
-                                throw exception;
-                            }
-                        });
-
-                    test(
-                        `Checking whether a package archive can be compiled using the \`${packageScriptName}\`-script…`,
-                        async function()
-                        {
-                            this.slow(15 * 1000);
-                            this.timeout(30 * 1000);
-
-                            let result = spawnSync(
-                                npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
-                                [
-                                    "run",
-                                    packageScriptName
-                                ],
-                                {
-                                    cwd: runContext.generator.destinationPath(),
-                                    stdio: "ignore"
-                                });
-
-                            strictEqual(result.status, 0);
-
-                            strictEqual(
-                                glob.sync(
-                                    "*.tar",
+                                suiteSetup(
+                                    async function()
                                     {
-                                        cwd: runContext.generator.destinationPath()
-                                    }).length,
-                                1);
-                        });
+                                        this.timeout(10 * 60 * 1000);
+                                        let runContext: IRunContext<WoltLabPackageGenerator>;
+                                        tempDir = new TempDirectory();
+                                        packageName = "MyPackage";
+                                        displayName = "This is a test";
+                                        identifier = "com.example.mypackage";
+                                        runContext = GetRunContext(context).inDir(tempDir.FullName);
+                                        await runContext.toPromise();
+                                        generator = runContext.generator;
+                                        tsConfigFile = tempDir.MakePath(TSConfigFileMapping.FileName);
+
+                                        await promisify(exec)(
+                                            "npm install",
+                                            {
+                                                cwd: tempDir.FullName
+                                            });
+                                    });
+
+                                suiteTeardown(
+                                    () =>
+                                    {
+                                        tempDir.Dispose();
+                                    });
+
+                                /**
+                                 * Gets an {@link IRunContext `IRunContext<T>`} for running the generator.
+                                 *
+                                 * @param testContext
+                                 * The {@link TestContext `TestContext<TGenerator, TOptions>`} for creating a new {@link IRunContext `IRunContext<T>`}.
+                                 *
+                                 * @returns
+                                 * An {@link IRunContext `IRunContext<T>`} for running the generator.
+                                 */
+                                function GetRunContext(testContext?: TestContext<WoltLabPackageGenerator>): IRunContext<WoltLabPackageGenerator>
+                                {
+                                    return (testContext ?? context).ExecuteGenerator().withPrompts(
+                                        {
+                                            [TSProjectSettingKey.ESModule]: esModule,
+                                            [TSProjectSettingKey.Name]: packageName,
+                                            [TSProjectSettingKey.DisplayName]: displayName,
+                                            [WoltLabSettingKey.Identifier]: identifier,
+                                            [TSProjectSettingKey.Description]: "This is a test",
+                                            [WoltLabSettingKey.Author]: "Manuel Thalmann",
+                                            [WoltLabSettingKey.HomePage]: "https://nuth.ch"
+                                        });
+                                }
+
+                                test(
+                                    "Checking whether the generator can be executed…",
+                                    async function()
+                                    {
+                                        this.slow(1 * 60 * 1000);
+                                        this.timeout(2 * 60 * 1000);
+
+                                        let runContext = GetRunContext();
+                                        doesNotThrow(async () => runContext.toPromise());
+                                        runContext.cleanTestDirectory();
+                                    });
+
+                                test(
+                                    "Checking whether the package-dependencies can be installed…",
+                                    async function()
+                                    {
+                                        this.slow(5 * 60 * 1000);
+                                        this.timeout(5 * 60 * 1000);
+
+                                        await promisify(exec)(
+                                            "npm install",
+                                            {
+                                                cwd: generator.destinationPath()
+                                            });
+                                    });
+
+                                test(
+                                    "Checking whether a typescript-config exists…",
+                                    async function()
+                                    {
+                                        this.slow(5 * 1000);
+                                        this.timeout(10 * 1000);
+                                        strictEqual(await pathExists(tsConfigFile), true);
+                                    });
+
+                                test(
+                                    "Checking the integrity of the package-manifest…",
+                                    async function()
+                                    {
+                                        this.slow(15 * 1000);
+                                        this.timeout(30 * 1000);
+
+                                        try
+                                        {
+                                            let $package: Package = (await new TypeScriptFileMappingTester(generator, generator.WoltLabPackageFileMapping).Import())[generator.PackageVariableName];
+                                            strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
+                                            strictEqual($package.Identifier, identifier);
+                                        }
+                                        catch (exception)
+                                        {
+                                            throw exception;
+                                        }
+                                    });
+
+                                test(
+                                    `Checking whether a package archive can be compiled using the \`${packageScriptName}\`-script…`,
+                                    async function()
+                                    {
+                                        this.slow(15 * 1000);
+                                        this.timeout(30 * 1000);
+
+                                        let result = spawnSync(
+                                            npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                                            [
+                                                "run",
+                                                packageScriptName
+                                            ],
+                                            {
+                                                cwd: generator.destinationPath(),
+                                                stdio: "ignore"
+                                            });
+
+                                        strictEqual(result.status, 0);
+
+                                        strictEqual(
+                                            glob.sync(
+                                                "*.tar",
+                                                {
+                                                    cwd: generator.destinationPath()
+                                                }).length,
+                                            1);
+                                    });
+                            });
+                    }
                 });
         });
 }
