@@ -8,6 +8,7 @@ import { EntryPointFileMappingTests } from "./EntryPointFileMapping.test.js";
 import { PHPInstructionFileMappingTests } from "./PHPInstructionFileMapping.test.js";
 import { SelfContainedPHPFileMappingTests } from "./SelfContainedPHPFileMapping.test.js";
 import { ThemeInstructionFileMappingTests } from "./ThemeInstructionFileMapping.test.js";
+import { WoltLabDependencyCollectionTests } from "./WoltLabDependencyCollection.test.js";
 import { WoltLabNodePackageFileMappingTests } from "./WoltLabNodePackageFileMapping.test.js";
 import { WoltLabPackageFileMappingTests } from "./WoltLabPackageFileMapping.test.js";
 
@@ -30,6 +31,7 @@ export function FileMappingTests(context: TestContext<WoltLabPackageGenerator>):
             SelfContainedPHPFileMappingTests(context);
             ThemeInstructionFileMappingTests(context);
             EntryPointFileMappingTests(context);
+            WoltLabDependencyCollectionTests();
             WoltLabNodePackageFileMappingTests(context);
             WoltLabPackageFileMappingTests(context);
         });
