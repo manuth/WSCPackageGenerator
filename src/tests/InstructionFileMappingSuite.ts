@@ -1,7 +1,7 @@
 import { doesNotReject, ok } from "assert";
 import { spawnSync } from "child_process";
 import { fileURLToPath } from "url";
-import { FileMapping, Generator, GeneratorOptions } from "@manuth/extended-yo-generator";
+import { AbstractConstructor, FileMapping, Generator, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
@@ -128,6 +128,14 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
     protected get Tester(): TypeScriptFileMappingTester<TGenerator, TSettings, TOptions, TFileMapping>
     {
         return this.tester;
+    }
+
+    /**
+     * Gets the class of the constructor which is expected to be generated.
+     */
+    protected get InstructionClass(): AbstractConstructor<Instruction>
+    {
+        return Instruction;
     }
 
     /**
@@ -307,7 +315,7 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
             });
 
         test(
-            `Checking whether the exported variable inherits the \`${nameof(Instruction)}\` class…`,
+            `Checking whether the exported variable inherits the \`${this.InstructionClass.name}\` class…`,
             async function()
             {
                 this.timeout(30 * 1000);
@@ -324,7 +332,7 @@ export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSett
                     classCandidates.some(
                         (candidate) =>
                         {
-                            return `${candidate}` === Instruction.toString();
+                            return `${candidate}` === self.InstructionClass.toString();
                         }));
             });
     }
