@@ -1,10 +1,11 @@
 import { notStrictEqual, ok, strictEqual } from "assert";
-import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { FileMapping, GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPathQuestion, QuestionSetProperty, SetQuestion } from "@manuth/generator-ts-project";
 import { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import { Random } from "random-js";
+import path from "upath";
 import { IApplicationQuestion } from "../../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
 import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
 import { PHPInstructionFileMapping } from "../../../../generators/package/FileMappings/PHPInstructionFileMapping.js";
@@ -15,6 +16,8 @@ import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabP
 import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
 import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
 import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+
+const { normalize } = path;
 
 /**
  * Registers tests for the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -294,6 +297,38 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                             ok(component.InstructionFileMapping instanceof SelfContainedPHPFileMapping);
                             options.SelfContained = false;
                             ok(component.InstructionFileMapping instanceof PHPInstructionFileMapping);
+                        });
+                });
+
+            suite(
+                nameof<TestPHPScriptComponent>((component) => component.FileMappings),
+                () =>
+                {
+                    test(
+                        "Checking whether a file-mapping for creating the source file is included if a self contained script is being created…",
+                        () =>
+                        {
+                            let hasSourceMapping = (): boolean =>
+                            {
+                                return component.FileMappings.map(
+                                    (fileMapping) =>
+                                    {
+                                        return new FileMapping(generator, fileMapping);
+                                    }).some(
+                                        (fileMapping) =>
+                                        {
+                                            return normalize(generator.destinationPath(options.Source)) === normalize(fileMapping.Destination);
+                                        });
+                            };
+
+                            for (let value of [null, undefined, false])
+                            {
+                                options.SelfContained = value;
+                                ok(!hasSourceMapping());
+                            }
+
+                            options.SelfContained = true;
+                            ok(hasSourceMapping());
                         });
                 });
 
