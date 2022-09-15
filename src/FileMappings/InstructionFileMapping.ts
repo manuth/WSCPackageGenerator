@@ -160,7 +160,10 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
 
         for (let pathComponent of relative(dirname(this.Generator.destinationPath(this.Destination)), this.Generator.destinationPath()).split(sep))
         {
-            call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
+            if (pathComponent.length > 0)
+            {
+                call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
+            }
         }
 
         for (let pathComponent of relative(this.Generator.destinationPath(), this.Generator.destinationPath(path)).split(sep))
