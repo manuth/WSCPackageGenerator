@@ -2,7 +2,7 @@ import { doesNotThrow } from "assert";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { INodeSystemInstructionOptions, Instruction, NodeSystemInstruction } from "@manuth/woltlab-compiler";
-import { ObjectLiteralExpression } from "ts-morph";
+import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { NodeInstructionFileMapping } from "../../FileMappings/NodeInstructionFileMapping.js";
 import { OptionComponent } from "../../generators/package/Components/OptionComponent.js";
 import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
@@ -73,10 +73,14 @@ export function NodeInstructionFileMappingTests(context: TestContext<WoltLabPack
                     let propertyName = nameof<INodeSystemInstructionOptions<any>>((options) => options.Nodes);
 
                     test(
-                        `Checking whether a \`${propertyName}\`-property is added…`,
+                        `Checking whether a \`${propertyName}\`-property is added properly…`,
                         () =>
                         {
-                            doesNotThrow(() => this.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName));
+                            doesNotThrow(() =>
+                            {
+                                this.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName).asKindOrThrow(
+                                    SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+                            });
                         });
                 });
 
