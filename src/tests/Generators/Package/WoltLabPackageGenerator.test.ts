@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { ComponentCollection, FileMapping, FileMappingCollectionEditor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { IRunContext, TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { JSONCFileMappingTester, TestContext as ProjectContext, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
+import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { PackageType } from "@manuth/package-json-editor";
 import { TempDirectory } from "@manuth/temp-files";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
@@ -261,7 +261,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 () =>
                 {
                     let packageScriptName = "package";
-                    ProjectContext.Default.RegisterWorkingDirRestorer();
 
                     for (let esModule of [true, false])
                     {
