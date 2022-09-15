@@ -81,6 +81,8 @@ export function ThemeInstructionFileMappingTests(context: TestContext<WoltLabPac
          */
         protected override async Setup(context: Mocha.Context): Promise<void>
         {
+            await super.Setup(context);
+
             options = {
                 ...this.Component.ComponentOptions,
                 Name: "test",
