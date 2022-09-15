@@ -93,6 +93,20 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                  * @inheritdoc
                  *
                  * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-class.
+                 */
+                public override GetClassName(options: IPHPScriptComponentOptions): string
+                {
+                    return super.GetClassName(options);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
                  * The options of the component.
                  *
                  * @returns
@@ -191,25 +205,6 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
             }
 
             suite(
-                nameof<TestPHPScriptComponent>((component) => component.ClassName),
-                () =>
-                {
-                    test(
-                        "Checking whether the proper class-name is returned…",
-                        () =>
-                        {
-                            for (let selfContained of [undefined, false])
-                            {
-                                options.SelfContained = selfContained;
-                                strictEqual(component.ClassName, nameof<PHPInstruction>());
-                            }
-
-                            options.SelfContained = true;
-                            strictEqual(component.ClassName, nameof<SelfContainedPHPInstruction>());
-                        });
-                });
-
-            suite(
                 nameof<TestPHPScriptComponent>((component) => component.AppQuestion),
                 () =>
                 {
@@ -299,6 +294,36 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                             ok(component.InstructionFileMapping instanceof SelfContainedPHPFileMapping);
                             options.SelfContained = false;
                             ok(component.InstructionFileMapping instanceof PHPInstructionFileMapping);
+                        });
+                });
+
+            suite(
+                nameof<TestPHPScriptComponent>((component) => component.GetClassName),
+                () =>
+                {
+                    test(
+                        "Checking whether the proper class-name is returned based on whether a self contained file is created…",
+                        () =>
+                        {
+                            /**
+                             * Gets the name of the class.
+                             *
+                             * @returns
+                             * The name of the class.
+                             */
+                            function GetClassName(): string
+                            {
+                                return component.GetClassName(options);
+                            }
+
+                            for (let selfContained of [undefined, false])
+                            {
+                                options.SelfContained = selfContained;
+                                strictEqual(GetClassName(), nameof<PHPInstruction>());
+                            }
+
+                            options.SelfContained = true;
+                            strictEqual(GetClassName(), nameof<SelfContainedPHPInstruction>());
                         });
                 });
 
