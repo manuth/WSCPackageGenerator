@@ -342,6 +342,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                                         let runContext = GetRunContext();
                                         await doesNotReject(async () => runContext.toPromise());
+                                        process.chdir(tempDir.FullName);
                                         runContext.cleanTestDirectory();
                                     });
 
