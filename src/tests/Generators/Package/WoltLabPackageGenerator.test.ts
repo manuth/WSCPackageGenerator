@@ -381,17 +381,9 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                     {
                                         this.slow(0.5 * 60 * 1000);
                                         this.timeout(1 * 60 * 1000);
-
-                                        try
-                                        {
-                                            let $package: Package = (await new TypeScriptFileMappingTester(generator, generator.WoltLabPackageFileMapping).Import())[generator.PackageVariableName];
-                                            strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
-                                            strictEqual($package.Identifier, identifier);
-                                        }
-                                        catch (exception)
-                                        {
-                                            throw exception;
-                                        }
+                                        let $package: Package = (await new TypeScriptFileMappingTester(generator, generator.WoltLabPackageFileMapping).Import())[generator.PackageVariableName];
+                                        strictEqual($package.DisplayName.Data.get(InvariantCultureName), displayName);
+                                        strictEqual($package.Identifier, identifier);
                                     });
 
                                 test(
