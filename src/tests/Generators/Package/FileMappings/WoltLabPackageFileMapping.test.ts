@@ -1,11 +1,13 @@
 import { doesNotReject, doesNotThrow, ok, strictEqual, throws } from "node:assert";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { ESLintRule, GenerateESLintConfiguration } from "@manuth/eslint-plugin-typescript";
 import { GeneratorOptions, GeneratorSettingKey, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { IInstructionSetOptions, InvariantCultureName, IPackageOptions, Package } from "@manuth/woltlab-compiler";
+import { ESLint } from "eslint";
 import npmWhich from "npm-which";
 import { Random } from "random-js";
 import { createSandbox, SinonSandbox } from "sinon";
@@ -109,6 +111,13 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             cwd: generator.destinationPath(),
                             stdio: "ignore"
                         });
+                });
+
+            suiteTeardown(
+                async () =>
+                {
+                    await context.ResetSettings();
+                    await tester.Run();
                 });
 
             setup(
@@ -387,6 +396,46 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                             strictEqual(instructions.getElements().length, 1);
                             strictEqual(instructions.getElements()[0].asKindOrThrow(SyntaxKind.Identifier).getText(), component.VariableName);
+                        });
+
+                    test(
+                        "Checking whether the imports are ordered properly…",
+                        async () =>
+                        {
+                            generator.Settings[GeneratorSettingKey.Components] = generator.InstructionComponents.map(
+                                (instructionComponent) => instructionComponent.ID);
+
+                            generator.Settings[WoltLabSettingKey.ComponentOptions] = Object.fromEntries(
+                                generator.InstructionComponents.map(
+                                    (instructionComponent) =>
+                                    {
+                                        return [
+                                            instructionComponent.ID,
+                                            {
+                                                [WoltLabComponentSettingKey.Path]: instructionComponent.InstructionFileName
+                                            }
+                                        ];
+                                    }));
+
+                            await tester.Run();
+
+                            let result = await new ESLint(
+                                {
+                                    useEslintrc: false,
+                                    overrideConfig: GenerateESLintConfiguration(false, false),
+                                    cwd: generator.destinationPath()
+                                }).lintFiles(tester.FileMapping.Destination);
+
+                            ok(
+                                result.every(
+                                    (lintResult) =>
+                                    {
+                                        lintResult.messages.every(
+                                            (lintMessage) =>
+                                            {
+                                                return lintMessage.ruleId !== ESLintRule.ImportOrder;
+                                            });
+                                    }));
                         });
                 });
         });
