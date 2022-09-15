@@ -1,9 +1,9 @@
-import { doesNotThrow } from "assert";
+import { strictEqual } from "assert";
 import { join } from "path";
 import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ApplicationFileSystemInstruction, IApplicationFileSystemInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
-import { ObjectLiteralExpression } from "ts-morph";
+import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
 import { FileUploadMapping } from "../../FileMappings/FileUploadMapping.js";
 import { FileUploadComponent } from "../../generators/package/Components/FileUploadComponent.js";
 import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
@@ -98,12 +98,16 @@ export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenera
                     let propertyName = nameof<IApplicationFileSystemInstructionOptions>((instruction) => instruction.Application);
 
                     test(
-                        `Checking whether a \`${propertyName}\`-property is added…`,
+                        `Checking whether a \`${propertyName}\`-property is added with the proper value…`,
                         function()
                         {
                             this.slow(2 * 1000);
                             this.timeout(4 * 1000);
-                            doesNotThrow(() => self.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName));
+
+                            strictEqual(
+                                self.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName).asKindOrThrow(
+                                    SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.StringLiteral).getLiteralValue(),
+                                self.Component.ComponentOptions.Application);
                         });
                 });
 
