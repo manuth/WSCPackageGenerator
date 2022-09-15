@@ -267,7 +267,7 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
      */
     protected override GetVariableName(options: TComponentOptions): string
     {
-        if (options?.DisplayName)
+        if ((options?.DisplayName ?? "").length > 0)
         {
             return `${pascalcase(options.DisplayName)}`;
         }
