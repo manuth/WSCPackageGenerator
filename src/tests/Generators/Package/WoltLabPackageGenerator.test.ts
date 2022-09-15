@@ -9,6 +9,7 @@ import { ITSProjectSettings, LintingComponent, TSConfigFileMapping, TSProjectSet
 import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
+import G from "glob";
 import npmWhich from "npm-which";
 import { TSConfigJSON } from "types-tsconfig";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
@@ -17,6 +18,8 @@ import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileM
 import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+
+const { glob } = G;
 
 /**
  * Registers tests for the {@link WoltLabPackageGenerator<TSettings, TOptions> `WoltLabPackageGenerator<TSettings, TOptions>`} class.
@@ -382,6 +385,14 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                 });
 
                             strictEqual(result.status, 0);
+
+                            strictEqual(
+                                glob.sync(
+                                    "*.tar",
+                                    {
+                                        cwd: runContext.generator.destinationPath()
+                                    }).length,
+                                1);
                         });
                 });
         });
