@@ -112,7 +112,7 @@ export enum PackageComponentType
     TemplateListener = "wscTemplateListeners",
 
     /**
-     * Indicates the {@link ThemeComponent `ThemeComponent<TSettings, TOptions, TComponentOptions>`}.
+     * Indicates the {@link ThemeInstructionComponent `ThemeInstructionComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Theme = "wscTheme"
 }
