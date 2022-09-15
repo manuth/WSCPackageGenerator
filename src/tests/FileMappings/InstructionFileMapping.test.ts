@@ -280,6 +280,23 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                 });
 
             test(
+                "Checking whether all required imports are added…",
+                () =>
+                {
+                    ok(
+                        sourceFile.getImportDeclarations().some(
+                            (importDeclaration) =>
+                            {
+                                return importDeclaration.getModuleSpecifier().getLiteralValue() === "@manuth/woltlab-compiler" &&
+                                    importDeclaration.getNamedImports().some(
+                                        (namedImport) =>
+                                        {
+                                            return namedImport.getName() === this.Component.ClassName;
+                                        });
+                            }));
+                });
+
+            test(
                 `Checking whether a new instance of a class is initialized as indicated by the \`${nameof<InstructionComponent<any, any, any>>((c) => c.ClassName)}\`…`,
                 () =>
                 {
