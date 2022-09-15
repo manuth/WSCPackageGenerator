@@ -41,7 +41,6 @@ export function ApplicationPromptTests(): void
                 /**
                  * @inheritdoc
                  */
-                // eslint-disable-next-line @delagen/deprecation/deprecation
                 public override opt: inquirer.prompts.PromptOptions<IApplicationQuestionOptions>;
 
                 /**

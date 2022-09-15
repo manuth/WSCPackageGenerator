@@ -71,7 +71,6 @@ export abstract class WoltLabComponent<TSettings extends IWoltLabSettings, TOpti
     /**
      * Gets the prompt-types to register for asking the {@link WoltLabComponent.ComponentOptionQuestionCollection `ComponentOptionQuestionCollection`}.
      */
-    // eslint-disable-next-line @delagen/deprecation/deprecation
     protected get PromptTypes(): Record<string, inquirer.prompts.PromptConstructor>
     {
         return this.Generator.env.adapter.promptModule.prompts;
