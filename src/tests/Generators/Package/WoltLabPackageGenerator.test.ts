@@ -260,7 +260,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 "General",
                 () =>
                 {
-                    let packageScriptName: string;
+                    let packageScriptName = "package";
                     ProjectContext.Default.RegisterWorkingDirRestorer();
 
                     for (let esModule of [true, false])
