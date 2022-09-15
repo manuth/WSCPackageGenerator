@@ -9,15 +9,12 @@ import { JSONCFileMappingTester, TypeScriptFileMappingTester } from "@manuth/gen
 import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
 import { TSConfigJSON } from "types-tsconfig";
-import ts, { Diagnostic, ParseConfigFileHost, ParsedCommandLine } from "typescript";
 import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder.js";
 import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
 import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
 import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
-
-const { createProgram, getParsedCommandLineOfConfigFile, sys } = ts;
 
 /**
  * Registers tests for the {@link WoltLabPackageGenerator<TSettings, TOptions> `WoltLabPackageGenerator<TSettings, TOptions>`} class.
@@ -311,25 +308,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             }).inTmpDir(null);
                     }
 
-                    /**
-                     * Gets the parsed typescript-configuration.
-                     *
-                     * @returns
-                     * The parsed typescript-configuration.
-                     */
-                    function GetTSConfig(): ParsedCommandLine
-                    {
-                        let host = {
-                            ...sys,
-                            onUnRecoverableConfigFileDiagnostic: (diagnostic: Diagnostic): void =>
-                            {
-                                throw new Error();
-                            }
-                        } as ParseConfigFileHost;
-
-                        return getParsedCommandLineOfConfigFile(tsConfigFile, {}, host);
-                    }
-
                     test(
                         "Checking whether the generator can be executed…",
                         async function()
@@ -360,23 +338,6 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                             this.slow(5 * 1000);
                             this.timeout(10 * 1000);
                             strictEqual(await pathExists(tsConfigFile), true);
-                        });
-
-                    test(
-                        "Checking whether the package-file can be compiled using typescript…",
-                        function()
-                        {
-                            this.slow(20 * 1000);
-                            this.timeout(20 * 1000);
-                            let config = GetTSConfig();
-
-                            let compilerResult = createProgram(
-                                {
-                                    rootNames: config.fileNames,
-                                    options: config.options
-                                }).emit();
-
-                            strictEqual(compilerResult.emitSkipped, false);
                         });
 
                     test(
