@@ -37,6 +37,21 @@ declare abstract class TestFileMapping extends TypeScriptCreatorMapping<any, any
 
 /**
  * Provides the functionality to register tests for {@link InstructionFileMapping `InstructionFileMapping<TSettings, TOptions, TComponentOptions>`} classes.
+ *
+ * @template TSettings
+ * The type of the settings of the file mapping.
+ *
+ * @template TOptions
+ * The type of the options of the file mapping.
+ *
+ * @template TGenerator
+ * The type of the generator of the file mapping.
+ *
+ * @template TComponentOptions
+ * The type of the options of the component of the file mapping.
+ *
+ * @template TFileMapping
+ * The type of the file mapping.
  */
 export abstract class InstructionFileMappingSuite<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TGenerator extends Generator<TSettings, TOptions>, TComponentOptions extends IWoltLabComponentOptions, TFileMapping extends InstructionFileMapping<TSettings, TOptions, TComponentOptions>> extends TestSuite
 {
