@@ -434,7 +434,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                                 result.every(
                                     (lintResult) =>
                                     {
-                                        lintResult.messages.every(
+                                        return lintResult.messages.every(
                                             (lintMessage) =>
                                             {
                                                 return lintMessage.ruleId !== ESLintRule.ImportOrder;
