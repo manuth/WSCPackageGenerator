@@ -171,7 +171,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                                 file.getImportDeclarations().some(
                                     (importDeclaration) =>
                                     {
-                                        return importDeclaration.getModuleSpecifier().getLiteralValue() === "path" &&
+                                        return importDeclaration.getModuleSpecifierValue() === "path" &&
                                             importDeclaration.getNamedImports().some(
                                                 (namedImport) =>
                                                 {
@@ -287,7 +287,7 @@ export function InstructionFileMappingTests(context: TestContext<WoltLabPackageG
                         sourceFile.getImportDeclarations().some(
                             (importDeclaration) =>
                             {
-                                return importDeclaration.getModuleSpecifier().getLiteralValue() === "@manuth/woltlab-compiler" &&
+                                return importDeclaration.getModuleSpecifierValue() === "@manuth/woltlab-compiler" &&
                                     importDeclaration.getNamedImports().some(
                                         (namedImport) =>
                                         {
