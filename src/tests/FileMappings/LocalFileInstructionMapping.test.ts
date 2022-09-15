@@ -143,12 +143,11 @@ export function LocalFileInstructionMappingTests(context: TestContext<WoltLabPac
                         `Checking whether the \`${propertyName}\` points to the specified file…`,
                         async () =>
                         {
-                            let project: Project;
+                            let project = new Project();
                             let sourceFile: SourceFile;
                             await this.Tester.Run();
-                            sourceFile = await this.Tester.ParseOutput();
-                            sourceFile = sourceFile.move(scriptFileName);
-                            project = sourceFile.getProject();
+                            await this.Tester.DumpFile(scriptFileName, await this.Tester.ParseOutput());
+                            sourceFile = project.addSourceFileAtPath(scriptFileName);
 
                             project.compilerOptions.set(
                                 {
