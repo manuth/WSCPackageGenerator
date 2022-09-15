@@ -1,4 +1,4 @@
-import { strictEqual } from "assert";
+import { ok, strictEqual } from "assert";
 import { createRequire } from "module";
 import { fileURLToPath, pathToFileURL } from "url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
@@ -135,6 +135,18 @@ export function WoltLabTypeScriptFileMappingTests(context: TestContext<WoltLabPa
                             generator.Settings[TSProjectSettingKey.ESModule] = true;
                             fileMapping.ApplyDirname(sourceFile);
                             strictEqual(sourceFile.getImportDeclarations().length, 1);
+
+                            ok(
+                                sourceFile.getImportDeclarations().some(
+                                    (importDeclaration) =>
+                                    {
+                                        return importDeclaration.getModuleSpecifierValue() === "url" &&
+                                            importDeclaration.getNamedImports().some(
+                                                (namedImport) =>
+                                                {
+                                                    return namedImport.getName() === nameof(fileURLToPath);
+                                                });
+                                    }));
                         });
 
                     test(
