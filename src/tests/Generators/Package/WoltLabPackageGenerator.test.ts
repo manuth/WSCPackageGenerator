@@ -233,13 +233,17 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                         {
                                             try
                                             {
-                                                deepStrictEqual(generatorFileMapping, fileMapping);
-                                                return true;
+                                                if (generatorFileMapping instanceof fileMapping.constructor)
+                                                {
+                                                    deepStrictEqual(generatorFileMapping, fileMapping);
+                                                    return true;
+                                                }
                                             }
                                             catch
                                             {
-                                                return false;
                                             }
+
+                                            return false;
                                         }));
                             }
 
