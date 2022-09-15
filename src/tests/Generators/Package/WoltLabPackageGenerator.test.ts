@@ -10,9 +10,11 @@ import { InvariantCultureName, Package } from "@manuth/woltlab-compiler";
 import { pathExists } from "fs-extra";
 import { TSConfigJSON } from "types-tsconfig";
 import ts, { Diagnostic, ParseConfigFileHost, ParsedCommandLine } from "typescript";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
 import { WoltLabCodeWorkspaceFolder } from "../../../Components/WoltLabCodeWorkspaceFolder.js";
 import { WoltLabNodePackageFileMapping } from "../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
 import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
 
 const { createProgram, getParsedCommandLineOfConfigFile, sys } = ts;
@@ -58,6 +60,53 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                 {
                     this.timeout(5 * 60 * 1000);
                     generator = await context.Generator as TestWoltLabPackageGenerator;
+                });
+
+            suite(
+                nameof<TestWoltLabPackageGenerator>((generator) => generator.InstructionComponents),
+                () =>
+                {
+                    let allComponents: ComponentCollection<ITSProjectSettings, GeneratorOptions>;
+                    let instructionComponents: Array<InstructionComponent<IWoltLabSettings, GeneratorOptions, any>>;
+
+                    setup(
+                        () =>
+                        {
+                            allComponents = generator.BaseComponents;
+                            allComponents.Categories.AddRange(generator.Components.Categories);
+                            instructionComponents = [];
+
+                            for (let category of allComponents.Categories.Items)
+                            {
+                                for (let component of category.Components.Items)
+                                {
+                                    if (component.Object instanceof InstructionComponent)
+                                    {
+                                        if (!instructionComponents.includes(component.Object))
+                                        {
+                                            instructionComponents.push(component.Object);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+
+                    test(
+                        "Checking whether all instruction components are present…",
+                        () =>
+                        {
+                            strictEqual(generator.InstructionComponents.length, instructionComponents.length);
+
+                            for (let instructionComponent of instructionComponents)
+                            {
+                                ok(
+                                    generator.InstructionComponents.some(
+                                        (component) =>
+                                        {
+                                            return instructionComponent.constructor === component.constructor;
+                                        }));
+                            }
+                        });
                 });
 
             suite(
