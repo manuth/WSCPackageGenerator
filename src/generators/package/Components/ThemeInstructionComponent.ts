@@ -269,7 +269,7 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
     {
         if (options?.DisplayName)
         {
-            return `${pascalcase(this.ComponentOptions.DisplayName)}`;
+            return `${pascalcase(options.DisplayName)}`;
         }
         else
         {
