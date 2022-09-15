@@ -302,7 +302,7 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                 () =>
                 {
                     test(
-                        "Checking whether the proper class-name is returned based on whether a self contained file is created…",
+                        "Checking whether the proper class-name is returned based on whether a self contained file is being created…",
                         () =>
                         {
                             /**
