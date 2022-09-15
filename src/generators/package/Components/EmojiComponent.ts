@@ -1,12 +1,12 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { EmojiInstruction } from "@manuth/woltlab-compiler";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { EmojiInstructionFileMapping } from "../FileMappings/EmojiInstructionFileMapping";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { EmojiInstructionFileMapping } from "../FileMappings/EmojiInstructionFileMapping.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating emojis.
@@ -31,14 +31,6 @@ export class EmojiComponent<TSettings extends IWoltLabSettings, TOptions extends
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get ClassName(): string
-    {
-        return nameof<EmojiInstruction>();
     }
 
     /**
@@ -71,5 +63,19 @@ export class EmojiComponent<TSettings extends IWoltLabSettings, TOptions extends
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new EmojiInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<EmojiInstruction>();
     }
 }

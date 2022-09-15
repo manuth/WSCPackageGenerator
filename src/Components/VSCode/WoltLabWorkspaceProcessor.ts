@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { CodeWorkspaceComponent, IExtensionSettings, ILaunchSettings, ITaskSettings, ITSProjectSettings, JSONProcessor, TSProjectWorkspaceProcessor } from "@manuth/generator-ts-project";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { WoltLabGenerator } from "../../WoltLabGenerator";
-import { WoltLabExtensionsProcessor } from "./WoltLabExtensionsProcessor";
-import { WoltLabLaunchSettingsProcessor } from "./WoltLabLaunchSettingsProcessor";
-import { WoltLabSettingsProcessor } from "./WoltLabSettingsProcessor";
-import { WoltLabTasksProcessor } from "./WoltLabTasksProcessor";
+import type { WoltLabGenerator } from "../../WoltLabGenerator.js";
+import { WoltLabExtensionsProcessor } from "./WoltLabExtensionsProcessor.js";
+import { WoltLabLaunchSettingsProcessor } from "./WoltLabLaunchSettingsProcessor.js";
+import { WoltLabSettingsProcessor } from "./WoltLabSettingsProcessor.js";
+import { WoltLabTasksProcessor } from "./WoltLabTasksProcessor.js";
 
 /**
  * Provides the functionality to process code-workspaces for {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`}s.

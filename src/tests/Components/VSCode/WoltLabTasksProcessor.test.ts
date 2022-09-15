@@ -1,11 +1,11 @@
-import { deepStrictEqual, ok, strictEqual } from "assert";
+import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings } from "@manuth/generator-ts-project";
 import { TaskDefinition } from "vscode";
-import { WoltLabTasksProcessor } from "../../../Components/VSCode/WoltLabTasksProcessor";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider";
+import { WoltLabTasksProcessor } from "../../../Components/VSCode/WoltLabTasksProcessor.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider.js";
 
 /**
  * Registers tests for the {@link WoltLabTasksProcessor `WoltLabTasksProcessor<TSettings, TOptions>`} class.

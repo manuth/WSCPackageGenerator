@@ -1,18 +1,17 @@
-import { strictEqual } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { strictEqual } from "node:assert";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { ISelfContainedPHPInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
+import { Instruction, ISelfContainedPHPInstructionOptions, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
-import { LocalInstructionComponent } from "../../../../Components/LocalInstructionComponent";
-import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent";
-import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping";
-import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { LocalInstructionComponent } from "../../../../Components/LocalInstructionComponent.js";
+import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
+import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping.js";
+import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link SelfContainedPHPFileMapping `SelfContainedPHPFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -22,62 +21,87 @@ import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
  */
 export function SelfContainedPHPFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(SelfContainedPHPFileMapping),
-        () =>
+    let options: IPHPScriptComponentOptions;
+
+    /**
+     * Provides an implementation of the {@link SelfContainedPHPFileMapping `SelfContainedPHPFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestSelfContainedPHPFileMapping extends SelfContainedPHPFileMapping<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get Component(): LocalInstructionComponent<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
         {
-            /**
-             * Provides an implementation of the {@link SelfContainedPHPFileMapping `SelfContainedPHPFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestSelfContainedPHPFileMapping extends SelfContainedPHPFileMapping<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get Component(): LocalInstructionComponent<IWoltLabSettings, GeneratorOptions, IPHPScriptComponentOptions>
-                {
-                    return super.Component;
-                }
+            return super.Component;
+        }
 
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
+        {
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestSelfContainedPHPFileMapping;
-            let options: IPHPScriptComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IPHPScriptComponentOptions, TestSelfContainedPHPFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(SelfContainedPHPFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestSelfContainedPHPFileMapping(new PHPScriptComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return SelfContainedPHPInstruction;
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
-                        SelfContained: false,
-                        Application: "wcf",
-                        Source: generator.assetPath("install.php"),
-                        FileName: "install.php"
-                    } as IPHPScriptComponentOptions;
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestSelfContainedPHPFileMapping
+        {
+            return new TestSelfContainedPHPFileMapping(new PHPScriptComponent(this.Generator));
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.PHPScript]: options
-                    };
-                });
+        /**
+         * @inheritdoc
+         *
+         * @param context
+         * The mocha context.
+         */
+        protected override async Setup(context: Mocha.Context): Promise<void>
+        {
+            await super.Setup(context);
 
+            options = {
+                ...this.Component.ComponentOptions,
+                SelfContained: true,
+                Application: "wcf",
+                Source: this.Generator.assetPath("install.php"),
+                FileName: "install.php"
+            };
+
+            this.Generator.Settings[WoltLabSettingKey.ComponentOptions] = {
+                [PackageComponentType.PHPScript]: options
+            };
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestSelfContainedPHPFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -89,10 +113,13 @@ export function SelfContainedPHPFileMappingTests(context: TestContext<WoltLabPac
                         () =>
                         {
                             strictEqual(
-                                fileMapping.InstructionOptions.getProperty(propertyName).asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(
+                                this.FileMappingOptions.InstructionOptions.getProperty(propertyName).asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(
                                     SyntaxKind.StringLiteral).getLiteralValue(),
-                                fileMapping.Component.ComponentOptions.FileName);
+                                this.FileMappingOptions.Component.ComponentOptions.FileName);
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

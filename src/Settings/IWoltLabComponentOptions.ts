@@ -1,4 +1,4 @@
-import { WoltLabComponentSettingKey } from "./WoltLabComponentSettingKey";
+import { WoltLabComponentSettingKey } from "./WoltLabComponentSettingKey.js";
 
 /**
  * Represents options of a component.

@@ -1,17 +1,20 @@
-import { EOL } from "os";
+import { EOL } from "node:os";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
-import { TSProjectSettingKey, TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
-import type compiler = require("@manuth/woltlab-compiler");
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
+// eslint-disable-next-line node/no-unpublished-import
+import type * as compiler from "@manuth/woltlab-compiler";
 import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { WoltLabTypeScriptFileMapping } from "../../../FileMappings/WoltLabTypeScriptFileMapping.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+import { WoltLabPackageGenerator } from "../WoltLabPackageGenerator.js";
 
 /**
  * The `@manuth/woltlab-compiler` package.
  */
- type WoltLabCompiler = typeof compiler;
+type WoltLabCompiler = typeof compiler;
 
 /**
  * Provides the functionality to generate a package-file.
@@ -22,31 +25,31 @@ import { WoltLabGenerator } from "../../../WoltLabGenerator";
  * @template TOptions
  * The type of the generator-options.
  */
-export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
+export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions> extends WoltLabTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The generator of the file-mapping.
      */
-    private woltLabGenerator: WoltLabGenerator<TSettings, TOptions>;
+    private packageGenerator: WoltLabPackageGenerator<TSettings, TOptions>;
 
     /**
-     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions, TComponentOptions>`} class.
+     * Initializes a new instance of the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
      *
      * @param generator
      * The component to create an instruction-file for.
      */
-    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
+    public constructor(generator: WoltLabPackageGenerator<TSettings, TOptions>)
     {
         super(generator);
-        this.woltLabGenerator = generator;
+        this.packageGenerator = generator;
     }
 
     /**
      * @inheritdoc
      */
-    public override get Generator(): WoltLabGenerator<TSettings, TOptions>
+    public override get Generator(): WoltLabPackageGenerator<TSettings, TOptions>
     {
-        return this.woltLabGenerator;
+        return this.packageGenerator;
     }
 
     /**
@@ -67,7 +70,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets options to pass to the constructor of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets options to pass to the constructor of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageOptions(): ObjectLiteralExpression
     {
@@ -89,7 +92,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets a constructor-call of the {@link compiler.RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
+     * Gets a constructor-call of the {@link RequiredPackageDescriptor `RequiredPackageDescriptor`} class.
      */
     protected get RequiredPackageConstructor(): NewExpression
     {
@@ -99,7 +102,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets options to pass to the constructor of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     * Gets options to pass to the constructor of the {@link ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
      */
     protected get ConflictingPackageOptions(): ObjectLiteralExpression
     {
@@ -121,7 +124,7 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
-     * Gets a constructor-call of the {@link compiler.ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
+     * Gets a constructor-call of the {@link ConflictingPackageDescriptor `ConflictingPackageDescriptor`} class.
      */
     protected get ConflictingPackageConstructor(): NewExpression
     {
@@ -267,6 +270,75 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
+     * Registers the specified {@link component `component`}.
+     *
+     * @param file
+     * The file to register the specified {@link component `component`} to.
+     *
+     * @param component
+     * The component to register.
+     */
+    protected async AddComponent(file: SourceFile, component: InstructionComponent<TSettings, TOptions, any>): Promise<void>
+    {
+        let packageOptions: ObjectLiteralExpression;
+        let installSet: ObjectLiteralExpression;
+        let installInstructions: ArrayLiteralExpression;
+        let installSetKey = nameof<compiler.IPackageOptions>((options) => options.InstallSet);
+        let installInstructionKey = nameof<compiler.IPackageOptions>((options) => options.InstallSet.Instructions);
+
+        file.addImportDeclaration(
+            {
+                ...await this.GetImportDeclaration(component.ComponentOptions[WoltLabComponentSettingKey.Path]),
+                namedImports: [
+                    component.VariableName
+                ]
+            });
+
+        packageOptions = file.getVariableDeclaration(
+            this.Generator.PackageVariableName
+        ).getInitializerIfKindOrThrow(
+            SyntaxKind.NewExpression
+        ).getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+
+        try
+        {
+            installSet = packageOptions.getProperty(installSetKey).asKindOrThrow(
+                SyntaxKind.PropertyAssignment
+            ).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        }
+        catch
+        {
+            packageOptions.getProperty(installSetKey)?.remove();
+
+            installSet = packageOptions.addPropertyAssignment(
+                {
+                    name: installSetKey,
+                    initializer: printNode(ts.factory.createObjectLiteralExpression())
+                }).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+        }
+
+        try
+        {
+            installInstructions = installSet.getProperty(installInstructionKey).asKindOrThrow(
+                SyntaxKind.PropertyAssignment
+            ).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+        }
+        catch
+        {
+            installSet.getProperty(installInstructionKey)?.remove();
+
+            installInstructions = installSet.addPropertyAssignment(
+                {
+                    name: installInstructionKey,
+                    initializer: printNode(ts.factory.createArrayLiteralExpression())
+                }).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+        }
+
+        let prefix = installInstructions.getElements().length === 0 ? EOL : "";
+        installInstructions.addElement(prefix + printNode(ts.factory.createIdentifier(component.VariableName)) + EOL);
+    }
+
+    /**
      * @inheritdoc
      *
      * @param file
@@ -318,19 +390,17 @@ export class WoltLabPackageFileMapping<TSettings extends IWoltLabSettings, TOpti
                 ]
             });
 
-        for (let category of this.Generator.Components.Categories)
-        {
-            for (let component of category.Components)
+            for (let component of this.Generator.InstructionComponents)
             {
                 if (
                     component instanceof InstructionComponent &&
                     (this.Generator.Settings[GeneratorSettingKey.Components] ?? []).includes(component.ID))
                 {
-                    component.PackageFileTransformer.Transform(file);
+                    await this.AddComponent(file, component);
                 }
             }
-        }
 
+        file.organizeImports();
         return file;
     }
 }

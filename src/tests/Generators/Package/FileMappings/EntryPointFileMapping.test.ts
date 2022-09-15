@@ -1,15 +1,14 @@
-import { doesNotReject } from "assert";
+import { doesNotReject } from "node:assert";
 import { GeneratorOptions, GeneratorSettingKey } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
-import mock = require("mock-require");
 import { SourceFile } from "ts-morph";
-import { EntryPointFileMapping } from "../../../../generators/package/FileMappings/EntryPointFileMapping";
-import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { EntryPointFileMapping } from "../../../../generators/package/FileMappings/EntryPointFileMapping.js";
+import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link EntryPointFileMapping `EntryPointFileMapping<TSettings, TOptions>`} class.
@@ -82,37 +81,11 @@ export function EntryPointFileMappingTests(context: TestContext<WoltLabPackageGe
                 nameof<TestEntryPointFileMapping>((fileMapping) => fileMapping.Transform),
                 () =>
                 {
-                    let packageNames: string[];
-
-                    suiteSetup(
-                        () =>
-                        {
-                            packageNames = [
-                                "@manuth/woltlab-compiler",
-                                "path"
-                            ];
-                        });
-
                     setup(
                         async function()
                         {
                             this.timeout(10 * 1000);
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
-
-                            for (let packageName of packageNames)
-                            {
-                                // eslint-disable-next-line @typescript-eslint/no-var-requires
-                                mock(packageName, require(packageName));
-                            }
-                        });
-
-                    teardown(
-                        () =>
-                        {
-                            for (let packageName of packageNames)
-                            {
-                                mock.stop(packageName);
-                            }
                         });
 
                     test(
@@ -121,7 +94,7 @@ export function EntryPointFileMappingTests(context: TestContext<WoltLabPackageGe
                         {
                             this.slow(15 * 1000);
                             this.timeout(30 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
                 });
         });

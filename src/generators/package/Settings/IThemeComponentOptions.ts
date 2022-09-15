@@ -1,5 +1,5 @@
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { ThemeComponent } from "./ThemeComponent";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { ThemeComponent } from "./ThemeComponent.js";
 
 /**
  * Represents options for a theme-component.

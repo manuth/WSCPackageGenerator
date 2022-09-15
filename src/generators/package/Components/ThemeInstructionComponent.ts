@@ -1,17 +1,17 @@
-import { join, relative } from "path";
+import { join } from "node:path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
-import { JSONCCreatorMapping, PathPrompt, TSProjectDisplayNameQuestion } from "@manuth/generator-ts-project";
+import { IPathQuestionOptions, JSONCCreatorMapping, PathPrompt, TSProjectDisplayNameQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { ThemeInstruction } from "@manuth/woltlab-compiler";
-import { InputQuestionOptions } from "inquirer";
-import pascalcase = require("pascalcase");
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { ThemeInstructionFileMapping } from "../FileMappings/ThemeInstructionFileMapping";
-import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions";
-import { PackageComponentType } from "../Settings/PackageComponentType";
-import { ThemeComponent } from "../Settings/ThemeComponent";
+import { DistinctQuestion, InputQuestionOptions, QuestionTypeName } from "inquirer";
+import pascalcase from "pascalcase";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { ThemeInstructionFileMapping } from "../FileMappings/ThemeInstructionFileMapping.js";
+import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+import { ThemeComponent } from "../Settings/ThemeComponent.js";
 
 /**
  * Provides a component for generating theme-instructions.
@@ -36,29 +36,6 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get ClassName(): string
-    {
-        return nameof<ThemeInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public override get VariableName(): string
-    {
-        if (this.ComponentOptions?.DisplayName)
-        {
-            return `${pascalcase(this.ComponentOptions.DisplayName)}`;
-        }
-        else
-        {
-            return super.VariableName;
-        }
     }
 
     /**
@@ -150,7 +127,7 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
             name: nameof<TComponentOptions>((options) => options.DisplayName),
             message: "What's the human-readable name of the theme?",
             default: (answers) => answers.Name
-        } as Question<TComponentOptions>;
+        } as DistinctQuestion<TComponentOptions> as any;
     }
 
     /**
@@ -162,22 +139,6 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
             name: nameof<TComponentOptions>((options) => options.Description),
             message: "Please enter a description for your theme."
         };
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected override get PathQuestion(): Question<TComponentOptions>
-    {
-        return {
-            ...super.PathQuestion,
-            default: (answers) =>
-            {
-                return relative(
-                    this.Generator.sourcePath(),
-                    this.Generator.componentPath(`${pascalcase(answers.DisplayName)}.ts`));
-            }
-        } as Question<TComponentOptions>;
     }
 
     /**
@@ -266,6 +227,41 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
     }
 
     /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ThemeInstruction>();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-variable to export.
+     */
+    protected override GetVariableName(options: TComponentOptions): string
+    {
+        if ((options?.DisplayName ?? "").length > 0)
+        {
+            return `${pascalcase(options.DisplayName)}`;
+        }
+        else
+        {
+            return super.GetVariableName(options);
+        }
+    }
+
+    /**
      * Gets the path to the suggested directory to store theme-assets.
      *
      * @param path
@@ -288,7 +284,7 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
     protected GetAssetQuestion(): Question<TComponentOptions>
     {
         return {
-            type: PathPrompt.TypeName,
+            type: PathPrompt.TypeName as QuestionTypeName,
             rootDir: (answers) =>
             {
                 return {
@@ -296,6 +292,6 @@ export class ThemeInstructionComponent<TSettings extends IWoltLabSettings, TOpti
                     allowOutside: true
                 };
             }
-        };
+        } as IPathQuestionOptions<TComponentOptions> as any;
     }
 }

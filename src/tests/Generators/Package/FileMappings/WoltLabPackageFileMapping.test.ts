@@ -1,21 +1,30 @@
-import { doesNotReject, strictEqual } from "assert";
+import { doesNotReject, doesNotThrow, ok, strictEqual, throws } from "node:assert";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { ESLintRule, GenerateESLintConfiguration } from "@manuth/eslint-plugin-typescript";
 import { GeneratorOptions, GeneratorSettingKey, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { FileMappingTester, TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { TypeScriptFileMappingTester } from "@manuth/generator-ts-project-test";
-import { IInstructionSetOptions, InvariantCultureName, Package } from "@manuth/woltlab-compiler";
-import mock = require("mock-require");
+import { IInstructionSetOptions, InvariantCultureName, IPackageOptions, Package } from "@manuth/woltlab-compiler";
+import { ESLint } from "eslint";
+import npmWhich from "npm-which";
 import { Random } from "random-js";
 import { createSandbox, SinonSandbox } from "sinon";
-import { SourceFile, SyntaxKind } from "ts-morph";
-import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent";
-import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { ArrayLiteralExpression, NewExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts } from "ts-morph";
+import path from "upath";
+import { InstructionComponent } from "../../../../Components/InstructionComponent.js";
+import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent.js";
+import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
+import { WoltLabPackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabPackageFileMapping.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+
+const { normalize } = path;
 
 /**
  * Registers tests for the {@link WoltLabPackageFileMapping `WoltLabPackageFileMapping<TSettings, TOptions>`} class.
@@ -46,6 +55,20 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                  * @inheritdoc
                  *
                  * @param file
+                 * The file to register the specified {@link component `component`} to.
+                 *
+                 * @param component
+                 * The component to register.
+                 */
+                public override async AddComponent(file: SourceFile, component: InstructionComponent<IWoltLabSettings, GeneratorOptions, any>): Promise<void>
+                {
+                    return super.AddComponent(file, component);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param file
                  * The {@link SourceFile `SourceFile`} to transform.
                  *
                  * @returns
@@ -64,6 +87,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
             let component: BBCodeComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>;
             let sandbox: SinonSandbox;
             let date: string;
+            let sourceFile: SourceFile;
 
             suiteSetup(
                 async function()
@@ -76,6 +100,25 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                     component = new BBCodeComponent(generator);
                     sandbox = createSandbox();
                     date = "1958-10-25";
+
+                    spawnSync(
+                        npmWhich(fileURLToPath(new URL(".", import.meta.url))).sync("npm"),
+                        [
+                            "install",
+                            "--silent"
+                        ],
+                        {
+                            cwd: generator.destinationPath(),
+                            stdio: "ignore"
+                        });
+                });
+
+            suiteTeardown(
+                async function()
+                {
+                    this.timeout(10 * 1000);
+                    await context.ResetSettings();
+                    await tester.Run();
                 });
 
             setup(
@@ -112,6 +155,9 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                             now: new Date(date),
                             shouldAdvanceTime: true
                         });
+
+                    await tester.Run();
+                    sourceFile = await tester.ParseOutput();
                 });
 
             teardown(
@@ -133,30 +179,166 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                 });
 
             suite(
-                nameof<TestWoltLabPackageFileMapping>((fileMapping) => fileMapping.Transform),
+                nameof<TestWoltLabPackageFileMapping>((fileMapping) => fileMapping.AddComponent),
                 () =>
                 {
-                    let packageName: string;
+                    let getConstructorCall = (): NewExpression =>
+                    {
+                        return sourceFile.getVariableDeclaration(generator.PackageVariableName).getInitializerIfKindOrThrow(SyntaxKind.NewExpression);
+                    };
+
+                    let getPackageOptions = (): ObjectLiteralExpression =>
+                    {
+                        return getConstructorCall().getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+                    };
+
+                    let getInstallSet = (): ObjectLiteralExpression =>
+                    {
+                        return getPackageOptions().getProperty(installSetKey).asKindOrThrow(
+                            SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ObjectLiteralExpression);
+                    };
+
+                    let getInstructions = (): ArrayLiteralExpression =>
+                    {
+                        return getInstallSet().getProperty(instructionKey).asKindOrThrow(
+                            SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression);
+                    };
+
+                    let installSetKey: string;
+                    let instructionKey: string;
 
                     suiteSetup(
                         () =>
                         {
-                            packageName = "@manuth/woltlab-compiler";
+                            installSetKey = nameof<IPackageOptions>((pkg) => pkg.InstallSet);
+                            instructionKey = nameof<IPackageOptions>((pkg) => pkg.InstallSet.Instructions);
                         });
 
+                    setup(
+                        async () =>
+                        {
+                            await new FileMappingTester(generator, new BBCodeInstructionFileMapping(component)).Run();
+                            generator.Settings[GeneratorSettingKey.Components] = [];
+                            await tester.Run();
+                            sourceFile = await tester.ParseOutput();
+                        });
+
+                    test(
+                        "Checking whether an import for the instruction is added…",
+                        async function()
+                        {
+                            this.slow(10 * 1000);
+                            this.timeout(20 * 1000);
+
+                            let componentFilePath = generator.destinationPath(component.ComponentOptions[WoltLabComponentSettingKey.Path]);
+                            await fileMapping.AddComponent(sourceFile, component);
+
+                            ok(
+                                sourceFile.getImportDeclarations().some(
+                                    (importDeclaration) =>
+                                    {
+                                        let filePath = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath() ?? "";
+
+                                        return normalize(filePath) === normalize(componentFilePath) &&
+                                            importDeclaration.getNamedImports().some(
+                                                (namedImport) =>
+                                                {
+                                                    return namedImport.getName() === component.VariableName;
+                                                });
+                                    }));
+                        });
+
+                    test(
+                        `Checking whether the \`${nameof<IPackageOptions>((p) => p.InstallSet)}\` is recreated automatically if it doesn't exist or if it has an incorrect type…`,
+                        async function()
+                        {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
+                            for (
+                                let action of
+                                [
+                                    () => getPackageOptions().getProperty(installSetKey)?.remove(),
+                                    () =>
+                                    {
+                                        getPackageOptions().getProperty(installSetKey)?.remove();
+
+                                        getPackageOptions().addPropertyAssignment(
+                                            {
+                                                name: installSetKey,
+                                                initializer: printNode(ts.factory.createStringLiteral(""))
+                                            });
+                                    }
+                                ])
+                            {
+                                action();
+                                throws(() => getInstallSet());
+                                await fileMapping.AddComponent(sourceFile, component);
+                                doesNotThrow(() => getInstallSet());
+                            }
+                        });
+
+                    test(
+                        `Checking whether the \`${nameof<IPackageOptions>((p) => p.InstallSet.Instructions)}\` is recreated automatically if it doesn't exist or if it has an incorrect type…`,
+                        async function()
+                        {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
+                            for (
+                                let action of
+                                [
+                                    () => getInstallSet().getProperty(instructionKey)?.remove(),
+                                    () =>
+                                    {
+                                        getInstallSet().getProperty(instructionKey)?.remove();
+
+                                        getInstallSet().addPropertyAssignment(
+                                            {
+                                                name: instructionKey,
+                                                initializer: printNode(ts.factory.createStringLiteral(""))
+                                            });
+                                    }
+                                ])
+                            {
+                                action();
+                                throws(() => getInstructions());
+                                await fileMapping.AddComponent(sourceFile, component);
+                                doesNotThrow(() => getInstructions());
+                            }
+                        });
+
+                    test(
+                        "Checking whether the instruction is added to the install set…",
+                        async function()
+                        {
+                            this.slow(0.5 * 60 * 1000);
+                            this.timeout(1 * 60 * 1000);
+
+                            let getPackage = async (): Promise<Package> => (await tester.Import())[generator.PackageVariableName] as Package;
+                            strictEqual(getInstructions().getElements().length, 0);
+                            let $package = await getPackage();
+                            strictEqual($package.InstallSet.length, 0);
+
+                            await fileMapping.AddComponent(sourceFile, component);
+                            await tester.DumpOutput(sourceFile);
+                            $package = await getPackage();
+                            strictEqual(getInstructions().getElements().length, 1);
+                            strictEqual($package.InstallSet.length, 1);
+                            strictEqual($package.InstallSet[0].constructor.name, component.ClassName);
+                        });
+                });
+
+            suite(
+                nameof<TestWoltLabPackageFileMapping>((fileMapping) => fileMapping.Transform),
+                () =>
+                {
                     setup(
                         async function()
                         {
                             this.timeout(30 * 1000);
                             await tester.DumpOutput(await fileMapping.Transform(await fileMapping.GetSourceObject()));
-                            // eslint-disable-next-line @typescript-eslint/no-var-requires
-                            mock(packageName, require(packageName));
-                        });
-
-                    teardown(
-                        () =>
-                        {
-                            mock.stop(packageName);
+                            sourceFile = await tester.ParseOutput();
                         });
 
                     test(
@@ -165,7 +347,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            await doesNotReject(() => tester.Require());
+                            await doesNotReject(() => tester.Import());
                         });
 
                     test(
@@ -174,7 +356,7 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            let $package: Package = (await tester.Require())[generator.PackageVariableName];
+                            let $package: Package = (await tester.Import())[generator.PackageVariableName];
                             strictEqual($package.DisplayName.Data.get(InvariantCultureName), generator.Settings[TSProjectSettingKey.DisplayName]);
                             strictEqual($package.Identifier, generator.Settings[WoltLabSettingKey.Identifier]);
                             strictEqual($package.Version, "0.0.0");
@@ -192,13 +374,22 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
                         });
 
                     test(
+                        "Checking whether a JSDoc comment is added to the exported variable…",
+                        async () =>
+                        {
+                            let docComments = sourceFile.getVariableStatement(generator.PackageVariableName).getJsDocs();
+                            strictEqual(docComments.length, 1);
+                            ok(docComments[0].getDescription());
+                            ok(docComments[0].getDescription().trim().length > 0);
+                        });
+
+                    test(
                         "Checking whether the instructions of the enabled components are added…",
                         async function()
                         {
                             this.slow(20 * 1000);
                             this.timeout(40 * 1000);
-                            let file = await tester.ParseOutput();
-                            let packageVariable = file.getVariableDeclaration(generator.PackageVariableName).getInitializerIfKindOrThrow(
+                            let packageVariable = sourceFile.getVariableDeclaration(generator.PackageVariableName).getInitializerIfKindOrThrow(
                                 SyntaxKind.NewExpression).getArguments()[0].asKindOrThrow(SyntaxKind.ObjectLiteralExpression);
 
                             let instructions = packageVariable.getProperty(nameof<Package>((pkg) => pkg.InstallSet)).asKindOrThrow(SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(
@@ -206,6 +397,49 @@ export function WoltLabPackageFileMappingTests(context: TestContext<WoltLabPacka
 
                             strictEqual(instructions.getElements().length, 1);
                             strictEqual(instructions.getElements()[0].asKindOrThrow(SyntaxKind.Identifier).getText(), component.VariableName);
+                        });
+
+                    test(
+                        "Checking whether the imports are ordered properly…",
+                        async function()
+                        {
+                            this.slow(1.5 * 60 * 1000);
+                            this.timeout(3 * 60 * 1000);
+
+                            generator.Settings[GeneratorSettingKey.Components] = generator.InstructionComponents.map(
+                                (instructionComponent) => instructionComponent.ID);
+
+                            generator.Settings[WoltLabSettingKey.ComponentOptions] = Object.fromEntries(
+                                generator.InstructionComponents.map(
+                                    (instructionComponent) =>
+                                    {
+                                        return [
+                                            instructionComponent.ID,
+                                            {
+                                                [WoltLabComponentSettingKey.Path]: instructionComponent.InstructionFileName
+                                            }
+                                        ];
+                                    }));
+
+                            await tester.Run();
+
+                            let result = await new ESLint(
+                                {
+                                    useEslintrc: false,
+                                    overrideConfig: GenerateESLintConfiguration(false, false),
+                                    cwd: generator.destinationPath()
+                                }).lintFiles(tester.FileMapping.Destination);
+
+                            ok(
+                                result.every(
+                                    (lintResult) =>
+                                    {
+                                        return lintResult.messages.every(
+                                            (lintMessage) =>
+                                            {
+                                                return lintMessage.ruleId !== ESLintRule.ImportOrder;
+                                            });
+                                    }));
                         });
                 });
         });

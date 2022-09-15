@@ -1,35 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ACPTemplateComponent } from "../Components/ACPTemplateComponent";
+import type { ACPTemplateComponent } from "../Components/ACPTemplateComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BBCodeComponent } from "../Components/BBCodeComponent";
+import type { BBCodeComponent } from "../Components/BBCodeComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { CronJobComponent } from "../Components/CronJobComponent";
+import type { CronJobComponent } from "../Components/CronJobComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EmojiComponent } from "../Components/EmojiComponent";
+import type { EmojiComponent } from "../Components/EmojiComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ErrorMessageComponent } from "../Components/ErrorMessageComponent";
+import type { ErrorMessageComponent } from "../Components/ErrorMessageComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EventListenerComponent } from "../Components/EventListenerComponent";
+import type { EventListenerComponent } from "../Components/EventListenerComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FileUploadComponent } from "../Components/FileUploadComponent";
+import type { FileUploadComponent } from "../Components/FileUploadComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { GroupOptionComponent } from "../Components/GroupOptionComponent";
+import type { GroupOptionComponent } from "../Components/GroupOptionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { OptionComponent } from "../Components/OptionComponent";
+import type { OptionComponent } from "../Components/OptionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { PHPScriptComponent } from "../Components/PHPScriptComponent";
+import type { PHPScriptComponent } from "../Components/PHPScriptComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { SQLScriptComponent } from "../Components/SQLScriptComponent";
+import type { SQLScriptComponent } from "../Components/SQLScriptComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateComponent } from "../Components/TemplateComponent";
+import type { TemplateComponent } from "../Components/TemplateComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TemplateListenerComponent } from "../Components/TemplateListenerComponent";
+import type { TemplateListenerComponent } from "../Components/TemplateListenerComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ThemeInstructionComponent } from "../Components/ThemeInstructionComponent";
+import type { ThemeInstructionComponent } from "../Components/ThemeInstructionComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { TranslationComponent } from "../Components/TranslationComponent";
+import type { TranslationComponent } from "../Components/TranslationComponent.js";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { UserOptionComponent } from "../Components/UserOptionComponent";
+import type { UserOptionComponent } from "../Components/UserOptionComponent.js";
 
 /**
  * Represents a type of a WoltLab-package component.
@@ -112,7 +112,7 @@ export enum PackageComponentType
     TemplateListener = "wscTemplateListeners",
 
     /**
-     * Indicates the {@link ThemeComponent `ThemeComponent<TSettings, TOptions, TComponentOptions>`}.
+     * Indicates the {@link ThemeInstructionComponent `ThemeInstructionComponent<TSettings, TOptions, TComponentOptions>`}.
      */
     Theme = "wscTheme"
 }

@@ -1,11 +1,11 @@
-import { notStrictEqual, strictEqual } from "assert";
+import { notStrictEqual, strictEqual } from "node:assert";
 import { Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { QuestionSetPrompt } from "@manuth/generator-ts-project";
 import { createSandbox, SinonSandbox } from "sinon";
-import { ApplicationPrompt } from "../Components/Inquiry/Prompts/ApplicationPrompt";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../WoltLabGenerator";
+import { ApplicationPrompt } from "../Components/Inquiry/Prompts/ApplicationPrompt.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
 
 /**
  * Registers tests for the {@link WoltLabGenerator `WoltLabGenerator<TSettings, TOptions>`} class.

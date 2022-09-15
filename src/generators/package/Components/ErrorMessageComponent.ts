@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { ErrorMessageInstruction } from "@manuth/woltlab-compiler";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
-import { TranslationComponent } from "./TranslationComponent";
+import type { ErrorMessageInstruction } from "@manuth/woltlab-compiler";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+import { TranslationComponent } from "./TranslationComponent.js";
 
 /**
  * Provides a component for generating error-messages.
@@ -35,14 +35,6 @@ export class ErrorMessageComponent<TSettings extends IWoltLabSettings, TOptions 
     /**
      * @inheritdoc
      */
-    public override get ClassName(): string
-    {
-        return nameof<ErrorMessageInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public override get OutputFileName(): string
     {
         return "errorMessages";
@@ -62,5 +54,19 @@ export class ErrorMessageComponent<TSettings extends IWoltLabSettings, TOptions 
     public override get DisplayName(): string
     {
         return "Error-Messages";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected override GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ErrorMessageInstruction>();
     }
 }

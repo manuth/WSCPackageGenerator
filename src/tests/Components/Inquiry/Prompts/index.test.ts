@@ -1,5 +1,5 @@
-import { basename } from "path";
-import { ApplicationPromptTests } from "./ApplicationPrompt.test";
+import { basename } from "node:path";
+import { ApplicationPromptTests } from "./ApplicationPrompt.test.js";
 
 /**
  * Registers tests for prompts.
@@ -7,7 +7,7 @@ import { ApplicationPromptTests } from "./ApplicationPrompt.test";
 export function PromptTests(): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             ApplicationPromptTests();

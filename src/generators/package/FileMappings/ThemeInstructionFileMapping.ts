@@ -1,12 +1,13 @@
-import { join } from "path";
+import { join } from "node:path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import type compiler = require("@manuth/woltlab-compiler");
+// eslint-disable-next-line node/no-unpublished-import
+import * as compiler from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, OptionalKind, printNode, PropertyAssignmentStructure, SourceFile, SyntaxKind, ts } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions";
-import { ThemeComponent } from "../Settings/ThemeComponent";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { IThemeComponentOptions } from "../Settings/IThemeComponentOptions.js";
+import { ThemeComponent } from "../Settings/ThemeComponent.js";
 
 /**
  * The `@manuth/woltlab-compiler` package.
@@ -46,10 +47,11 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
         let result = super.InstructionOptions;
         let themeObject = this.GetObjectLiteral();
         let displayNameObject = this.GetObjectLiteral();
+        let invariantAccessor = ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)));
 
         displayNameObject.addPropertyAssignment(
             {
-                name: printNode(ts.factory.createComputedPropertyName(ts.factory.createIdentifier(nameof<WoltLabCompiler>((compiler) => compiler.InvariantCultureName)))),
+                name: printNode(invariantAccessor),
                 initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.DisplayName))
             });
 
@@ -63,6 +65,23 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
                 initializer: displayNameObject.getFullText()
             }
         ];
+
+        if ((this.Component.ComponentOptions.Description ?? "").trim().length > 0)
+        {
+            let descriptionObject = this.GetObjectLiteral();
+
+            descriptionObject.addPropertyAssignment(
+                {
+                    name: printNode(invariantAccessor),
+                    initializer: printNode(ts.factory.createStringLiteral(this.Component.ComponentOptions.Description))
+                });
+
+            properties.push(
+                {
+                    name: nameof<compiler.IThemeLoaderOptions>((options) => options.Description),
+                    initializer: descriptionObject.getFullText()
+                });
+        }
 
         if (this.Component.ComponentOptions.Components.includes(ThemeComponent.CustomScss))
         {
@@ -114,6 +133,7 @@ export class ThemeInstructionFileMapping<TSettings extends IWoltLabSettings, TOp
     protected override async Transform(file: SourceFile): Promise<SourceFile>
     {
         file = await super.Transform(file);
+        this.ApplyDirname(file);
 
         file.addImportDeclarations(
             [

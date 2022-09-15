@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { ACPOptionInstruction } from "@manuth/woltlab-compiler";
-import { NodeSystemComponent } from "../../../Components/NodeSystemComponent";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import type { ACPOptionInstruction } from "@manuth/woltlab-compiler";
+import { NodeSystemComponent } from "../../../Components/NodeSystemComponent.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating admin-options.
@@ -35,14 +35,6 @@ export class OptionComponent<TSettings extends IWoltLabSettings, TOptions extend
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<ACPOptionInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "options.xml";
@@ -62,5 +54,19 @@ export class OptionComponent<TSettings extends IWoltLabSettings, TOptions extend
     public get DisplayName(): string
     {
         return "Admin Control-Panel Options";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ACPOptionInstruction>();
     }
 }

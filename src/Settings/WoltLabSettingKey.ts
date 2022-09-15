@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IWoltLabSettings } from "./IWoltLabSettings";
+import type { IWoltLabSettings } from "./IWoltLabSettings.js";
 
 /**
- * Represents a setting of the {@link IWoltLabGeneratorSettings `IWoltLabGeneratorSettings`}
+ * Represents a setting of the {@link IWoltLabSettings `IWoltLabSettings`}
  */
 export enum WoltLabSettingKey
 {

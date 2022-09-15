@@ -1,9 +1,9 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
-import { ListenerInstructionFileMapping } from "../FileMappings/ListenerInstructionFileMapping";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../WoltLabGenerator";
-import { FileInstructionComponent } from "./FileInstructionComponent";
+import { ListenerInstructionFileMapping } from "../FileMappings/ListenerInstructionFileMapping.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
+import { FileInstructionComponent } from "./FileInstructionComponent.js";
 
 /**
  * Provides a component for generating template- or event-listeners.

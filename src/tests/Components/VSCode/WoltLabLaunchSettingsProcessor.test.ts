@@ -1,11 +1,11 @@
-import { ok } from "assert";
+import { ok } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings } from "@manuth/generator-ts-project";
 import { DebugConfiguration } from "vscode";
-import { WoltLabLaunchSettingsProcessor } from "../../../Components/VSCode/WoltLabLaunchSettingsProcessor";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider";
+import { WoltLabLaunchSettingsProcessor } from "../../../Components/VSCode/WoltLabLaunchSettingsProcessor.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider.js";
 
 /**
  * Registers tests for the {@link WoltLabLaunchSettingsProcessor `WoltLabLaunchSettingsProcessor<TSettings, TOptions>`} class.

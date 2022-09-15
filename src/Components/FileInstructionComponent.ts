@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { InstructionComponent } from "./InstructionComponent";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { InstructionComponent } from "./InstructionComponent.js";
 
 /**
  * Provides a component for generating instruction-files with a `FileName`-property.

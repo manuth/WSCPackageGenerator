@@ -1,9 +1,9 @@
 import { GeneratorOptions, IGenerator } from "@manuth/extended-yo-generator";
-import { IScriptMapping, ScriptMapping, TSProjectPackageFileMapping } from "@manuth/generator-ts-project";
+import { IScriptMapping, ScriptMapping, TSProjectPackageFileMapping, TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { Package } from "@manuth/package-json-editor";
-import { Constants } from "../../../Core/Constants";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
+import { WoltLabDependencyCollection } from "./WoltLabDependencyCollection.js";
 
 /**
  * Provides the functionality to create a `package.json`-file for woltlab-components.
@@ -35,11 +35,6 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
      */
     public override async LoadPackage(): Promise<Package>
     {
-        let dependencies = [
-            "@manuth/woltlab-compiler",
-            "ts-node"
-        ];
-
         let result = await super.LoadPackage();
         result.Main = undefined;
         result.Types = undefined;
@@ -47,17 +42,7 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
         result.Author.URL ??= this.Generator.Settings[WoltLabSettingKey.HomePage];
         result.PublishConfig = {};
         result.Files = [];
-
-        for (let dependency of dependencies)
-        {
-            if (result.DevelopmentDependencies.Has(dependency))
-            {
-                result.DevelopmentDependencies.Remove(dependency);
-            }
-
-            result.DevelopmentDependencies.Add(dependency, Constants.Dependencies.Get(dependency));
-        }
-
+        result.Register(new WoltLabDependencyCollection(this.Generator.Settings[TSProjectSettingKey.ESModule]), true);
         result.DevelopmentDependencies.Remove("mocha");
         result.DevelopmentDependencies.Remove("@types/mocha");
         result.DevelopmentDependencies.Remove("source-map-support");
@@ -101,7 +86,14 @@ export class WoltLabNodePackageFileMapping<TSettings extends IWoltLabSettings, T
                 Destination: "package",
                 Processor: () =>
                 {
-                    return "ts-node ./src/index.ts";
+                    let executableName = "ts-node";
+
+                    if (this.Generator.Settings[TSProjectSettingKey.ESModule])
+                    {
+                        executableName += "-esm";
+                    }
+
+                    return `${executableName} ./src/index.ts`;
                 }
             }
         ] as Array<IScriptMapping<TSettings, TOptions>>;

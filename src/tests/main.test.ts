@@ -1,18 +1,23 @@
-import { join } from "path";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { GeneratorName } from "@manuth/generator-ts-project";
-import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator";
-import { ComponentTests } from "./Components";
-import { FileMappingTests } from "./FileMappings";
-import { GeneratorTests } from "./Generators";
-import { WoltLabGeneratorTests } from "./WoltLabGenerator.test";
+import { TestContext as ProjectContext } from "@manuth/generator-ts-project-test";
+import { WoltLabPackageGenerator } from "../generators/package/WoltLabPackageGenerator.js";
+import { ComponentTests } from "./Components/index.test.js";
+import { FileMappingTests } from "./FileMappings/index.test.js";
+import { GeneratorTests } from "./Generators/index.test.js";
+import { WoltLabGeneratorTests } from "./WoltLabGenerator.test.js";
 
 suite(
     "WSCPackageGenerator",
     () =>
     {
+        ProjectContext.Default.RegisterWorkingDirRestorer();
         let workingDirectory: string;
-        let context: TestContext<WoltLabPackageGenerator> = new TestContext(join(__dirname, "..", "generators", GeneratorName.Main));
+
+        let context: TestContext<WoltLabPackageGenerator> = new TestContext(
+            join(fileURLToPath(new URL(".", import.meta.url)), "..", "generators", GeneratorName.Main));
 
         suiteSetup(
             () =>
@@ -20,17 +25,18 @@ suite(
                 workingDirectory = process.cwd();
             });
 
+        suiteTeardown(
+            function()
+            {
+                this.timeout(30 * 1000);
+                process.chdir(workingDirectory);
+                context.Dispose();
+            });
+
         teardown(
             async () =>
             {
                 await context.ResetSettings();
-                process.chdir(workingDirectory);
-            });
-
-        suiteTeardown(
-            () =>
-            {
-                context.Dispose();
             });
 
         ComponentTests(context);

@@ -1,14 +1,14 @@
-import { deepStrictEqual } from "assert";
+import { deepStrictEqual } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { Random } from "random-js";
-import { WoltLabComponent } from "../../Components/WoltLabComponent";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { WoltLabComponent } from "../../Components/WoltLabComponent.js";
+import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link WoltLabComponent `WoltLabComponent<TSettings, TOptions, TComponentOptions>`} class.

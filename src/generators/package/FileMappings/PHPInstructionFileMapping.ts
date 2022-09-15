@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { IPHPInstructionOptions } from "@manuth/woltlab-compiler";
+import type { IPHPInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { InstructionComponent } from "../../../Components/InstructionComponent";
-import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions";
+import { InstructionComponent } from "../../../Components/InstructionComponent.js";
+import { InstructionFileMapping } from "../../../FileMappings/InstructionFileMapping.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions.js";
 
 /**
  * Provides the functionality to generate php instruction files.

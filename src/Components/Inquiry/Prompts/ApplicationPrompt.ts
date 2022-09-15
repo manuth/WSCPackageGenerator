@@ -1,11 +1,11 @@
-import { ReadLine } from "readline";
+import { ReadLine } from "node:readline";
 import { NestedPrompt } from "@manuth/generator-ts-project";
-import { Answers, ChoiceCollection, DistinctQuestion, prompt } from "inquirer";
-import { IApplicationAnswerHash } from "./IApplicationAnswerHash";
-import { IApplicationQuestion } from "./IApplicationQuestion";
-import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
-import { ISuggestionOptions } from "./ISuggestionOptions";
-import { IWoltLabApplication } from "./IWoltLabApplication";
+import inquirer, { Answers, ChoiceCollection, DistinctQuestion } from "inquirer";
+import { IApplicationAnswerHash } from "./IApplicationAnswerHash.js";
+import { IApplicationQuestion } from "./IApplicationQuestion.js";
+import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions.js";
+import { ISuggestionOptions } from "./ISuggestionOptions.js";
+import { IWoltLabApplication } from "./IWoltLabApplication.js";
 
 declare module "inquirer"
 {
@@ -164,7 +164,7 @@ export class ApplicationPrompt<T extends IApplicationQuestionOptions> extends Ne
                 when: (answers) => answers.application === null || answers.application === undefined
             });
 
-        let result = await prompt<IApplicationAnswerHash>(questions);
+        let result = await inquirer.prompt<IApplicationAnswerHash>(questions);
         return result.application ?? result.customApplication;
     }
 }

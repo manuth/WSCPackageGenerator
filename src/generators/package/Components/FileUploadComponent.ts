@@ -1,14 +1,14 @@
-import { join } from "path";
+import { join } from "node:path";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { ApplicationFileSystemInstruction } from "@manuth/woltlab-compiler";
-import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
-import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase.js";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for uploading files.
@@ -33,14 +33,6 @@ export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions ex
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get ClassName(): string
-    {
-        return nameof<ApplicationFileSystemInstruction>();
     }
 
     /**
@@ -112,5 +104,19 @@ export class FileUploadComponent<TSettings extends IWoltLabSettings, TOptions ex
                 generator.fs.write(target.Destination, "");
             }
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<ApplicationFileSystemInstruction>();
     }
 }

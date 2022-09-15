@@ -1,4 +1,4 @@
-import { IWoltLabApplication } from "./IWoltLabApplication";
+import { IWoltLabApplication } from "./IWoltLabApplication.js";
 
 /**
  * Provides options for application-suggestions.

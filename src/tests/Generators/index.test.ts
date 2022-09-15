@@ -1,7 +1,7 @@
-import { basename } from "path";
+import { basename } from "node:path";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { PackageTests } from "./Package";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { PackageTests } from "./Package/index.test.js";
 
 /**
  * Registers tests for generators.
@@ -12,7 +12,7 @@ import { PackageTests } from "./Package";
 export function GeneratorTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(new URL(".", import.meta.url).pathname),
         () =>
         {
             PackageTests(context);

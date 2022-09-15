@@ -1,12 +1,14 @@
-import { deepStrictEqual, ok, strictEqual } from "assert";
+import { deepStrictEqual, ok, strictEqual } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
+import { TSProjectSettingKey } from "@manuth/generator-ts-project";
 import { PackageFileMappingTester } from "@manuth/generator-ts-project-test";
-import { IPackageJSON, Package } from "@manuth/package-json-editor";
-import { WoltLabNodePackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabNodePackageFileMapping";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { IPackageJSON, Package, PackageType } from "@manuth/package-json-editor";
+import { WoltLabDependencyCollection } from "../../../../generators/package/FileMappings/WoltLabDependencyCollection.js";
+import { WoltLabNodePackageFileMapping } from "../../../../generators/package/FileMappings/WoltLabNodePackageFileMapping.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link WoltLabNodePackageFileMapping `WoltLabNodePackageFileMapping<TSettings, TOptions>`} class.
@@ -32,6 +34,13 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                     generator = await context.Generator;
                     fileMapping = new WoltLabNodePackageFileMapping(generator);
                     tester = new PackageFileMappingTester(generator, fileMapping);
+                });
+
+            suiteTeardown(
+                async () =>
+                {
+                    await context.ResetSettings();
+                    await tester.Run();
                 });
 
             setup(
@@ -102,6 +111,21 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                             deepStrictEqual(parsedPackage.PublishConfig, {});
                             deepStrictEqual(parsedPackage.Files, []);
                         });
+
+                    test(
+                        "Checking whether the expected dependencies are added…",
+                        async function()
+                        {
+                            this.slow(2 * 1000);
+                            this.timeout(4 * 1000);
+
+                            for (let value of [true, false])
+                            {
+                                generator.Settings[TSProjectSettingKey.ESModule] = value;
+                                await tester.Run();
+                                await tester.AssertDependencies(new WoltLabDependencyCollection(value));
+                            }
+                        });
                 });
 
             suite(
@@ -129,6 +153,20 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                 nameof<WoltLabNodePackageFileMapping<any, any>>((fileMapping) => fileMapping.MiscScripts),
                 () =>
                 {
+                    let scriptName: string;
+                    let packageScript: string;
+                    let tsNodeBin: string;
+                    let tsNodeEsmBin: string;
+
+                    suiteSetup(
+                        () =>
+                        {
+                            scriptName = "package";
+                            tsNodeBin = "ts-node";
+                            tsNodeEsmBin = `${tsNodeBin}-esm`;
+                            packageScript = `${tsNodeEsmBin} ./src/index.ts`;
+                        });
+
                     test(
                         "Checking whether unnecessary scripts are excluded…",
                         () =>
@@ -147,7 +185,19 @@ export function WoltLabNodePackageFileMappingTests(context: TestContext<WoltLabP
                         "Checking whether a script for creating a woltlab-package is present…",
                         async () =>
                         {
-                            await tester.AssertScript("package", "ts-node ./src/index.ts");
+                            await tester.AssertScript(scriptName, packageScript);
+                        });
+
+                    test(
+                        `Checking whether the script is adjusted for \`${nameof(PackageType.CommonJS)}\` projects…`,
+                        async () =>
+                        {
+                            generator.Settings[TSProjectSettingKey.ESModule] = false;
+                            await tester.Run();
+
+                            await tester.AssertScript(
+                                scriptName,
+                                packageScript.replace(tsNodeEsmBin, tsNodeBin));
                         });
                 });
         });

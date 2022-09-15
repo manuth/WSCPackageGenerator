@@ -1,4 +1,4 @@
-import { IWoltLabComponentOptions } from "./IWoltLabComponentOptions";
+import { IWoltLabComponentOptions } from "./IWoltLabComponentOptions.js";
 
 /**
  * Represents options for a component which is stored locally.

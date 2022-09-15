@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ApplicationPrompt } from "./ApplicationPrompt";
+import type { ApplicationPrompt } from "./ApplicationPrompt.js";
 
 /**
  * The internal answer-hash of the {@link ApplicationPrompt `ApplicationPrompt<T>`}.

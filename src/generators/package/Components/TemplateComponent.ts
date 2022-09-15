@@ -1,14 +1,14 @@
-import { join } from "path";
+import { join } from "node:path";
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { TemplateInstruction } from "@manuth/woltlab-compiler";
-import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase";
-import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { FileUploadComponentBase } from "../../../Components/FileUploadComponentBase.js";
+import { IApplicationQuestion } from "../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { IFileUploadComponentOptions } from "../../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating templates.
@@ -33,14 +33,6 @@ export class TemplateComponent<TSettings extends IWoltLabSettings, TOptions exte
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get ClassName(): string
-    {
-        return nameof<TemplateInstruction>();
     }
 
     /**
@@ -109,5 +101,19 @@ export class TemplateComponent<TSettings extends IWoltLabSettings, TOptions exte
             Source: this.Generator.templatePath("template.tpl"),
             Destination: join(this.ComponentOptions.Source, "example.tpl")
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<TemplateInstruction>();
     }
 }

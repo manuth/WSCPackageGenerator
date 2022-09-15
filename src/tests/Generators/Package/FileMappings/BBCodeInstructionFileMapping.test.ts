@@ -1,17 +1,14 @@
-import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { doesNotThrow } from "node:assert";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IBBCodeInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
+import { BBCodeInstruction, IBBCodeInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
-import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent";
-import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { BBCodeComponent } from "../../../../generators/package/Components/BBCodeComponent.js";
+import { BBCodeInstructionFileMapping } from "../../../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -21,50 +18,54 @@ import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
  */
 export function BBCodeInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(BBCodeInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestBBCodeInstructionFileMapping extends BBCodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestBBCodeInstructionFileMapping extends BBCodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestBBCodeInstructionFileMapping;
-            let options: IWoltLabComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestBBCodeInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(BBCodeInstructionFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestBBCodeInstructionFileMapping(new BBCodeComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return BBCodeInstruction;
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
-                    };
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestBBCodeInstructionFileMapping
+        {
+            return new TestBBCodeInstructionFileMapping(new BBCodeComponent(this.Generator));
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.BBCode]: options
-                    };
-                });
-
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestBBCodeInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -76,9 +77,12 @@ export function BBCodeInstructionFileMappingTests(context: TestContext<WoltLabPa
                         () =>
                         {
                             doesNotThrow(
-                                () => fileMapping.InstructionOptions.getProperty(propertyName).asKindOrThrow(
+                                () => this.FileMappingOptions.InstructionOptions.getProperty(propertyName).asKindOrThrow(
                                     SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression));
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

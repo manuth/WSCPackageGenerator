@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { INodeSystemInstructionOptions } from "@manuth/woltlab-compiler";
+import type { INodeSystemInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { FileInstructionComponent } from "../Components/FileInstructionComponent";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { FileInstructionMapping } from "./FileInstructionMapping";
+import { FileInstructionComponent } from "../Components/FileInstructionComponent.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { FileInstructionMapping } from "./FileInstructionMapping.js";
 
 /**
  * Provides the functionality to generate instruction-files containing nodes.

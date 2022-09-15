@@ -1,11 +1,11 @@
-import { notStrictEqual, ok, strictEqual } from "assert";
+import { notStrictEqual, ok, strictEqual } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { WoltLabIdentifierQuestion } from "../../../Components/Inquiry/WoltLabIdentifierQuestion";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey";
+import { WoltLabIdentifierQuestion } from "../../../Components/Inquiry/WoltLabIdentifierQuestion.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link WoltLabIdentifierQuestion `WoltLabIdentifierQuestion<TSettings, TOptions>`} class.

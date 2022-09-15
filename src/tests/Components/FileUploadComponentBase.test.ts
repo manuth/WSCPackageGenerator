@@ -1,12 +1,12 @@
-import { strictEqual } from "assert";
+import { strictEqual } from "node:assert";
 import { GeneratorOptions, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPathQuestion } from "@manuth/generator-ts-project";
-import { FileUploadComponentBase } from "../../Components/FileUploadComponentBase";
-import { IApplicationQuestion } from "../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
+import { FileUploadComponentBase } from "../../Components/FileUploadComponentBase.js";
+import { IApplicationQuestion } from "../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
 
 /**
  * Registers tests for the {@link FileUploadComponentBase `FileUploadComponentBase<TSettings, TOptions>`} class.
@@ -31,14 +31,6 @@ export function FileUploadComponentBaseTests(context: TestContext<WoltLabPackage
                 public get DefaultSourceBaseName(): string
                 {
                     return "baseName";
-                }
-
-                /**
-                 * @inheritdoc
-                 */
-                public get ClassName(): string
-                {
-                    return "className";
                 }
 
                 /**
@@ -101,6 +93,20 @@ export function FileUploadComponentBaseTests(context: TestContext<WoltLabPackage
                 public override GetDefaultSource(options: IFileUploadComponentOptions): string
                 {
                     return super.GetDefaultSource(options);
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-class.
+                 */
+                protected GetClassName(options: IFileUploadComponentOptions): string
+                {
+                    return "className";
                 }
             }
 

@@ -1,9 +1,9 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
-import { NodeInstructionFileMapping } from "../FileMappings/NodeInstructionFileMapping";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../WoltLabGenerator";
-import { FileInstructionComponent } from "./FileInstructionComponent";
+import { NodeInstructionFileMapping } from "../FileMappings/NodeInstructionFileMapping.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
+import { FileInstructionComponent } from "./FileInstructionComponent.js";
 
 /**
  * Provides a component for generating node-system instructions.

@@ -1,8 +1,8 @@
-import { URL } from "url";
+import { URL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { QuestionBase, TSProjectSettingKey } from "@manuth/generator-ts-project";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
 
 /**
  * Represents a question for asking for the package-identifier.

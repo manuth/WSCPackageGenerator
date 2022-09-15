@@ -1,18 +1,17 @@
-import { doesNotThrow } from "assert";
-import { join } from "path";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { strictEqual } from "node:assert";
+import { join } from "node:path";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IApplicationFileSystemInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
-import { ObjectLiteralExpression } from "ts-morph";
-import { FileUploadMapping } from "../../FileMappings/FileUploadMapping";
-import { SQLScriptComponent } from "../../generators/package/Components/SQLScriptComponent";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { ApplicationFileSystemInstruction, IApplicationFileSystemInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
+import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
+import { FileUploadMapping } from "../../FileMappings/FileUploadMapping.js";
+import { FileUploadComponent } from "../../generators/package/Components/FileUploadComponent.js";
+import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IFileUploadComponentOptions } from "../../Settings/IFileUploadComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey.js";
+import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -22,66 +21,97 @@ import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
  */
 export function FileUploadMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(FileUploadMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestFileUploadMapping extends FileUploadMapping<IWoltLabSettings, GeneratorOptions, IFileUploadComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link FileUploadMapping `FileUploadMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestFileUploadMapping extends FileUploadMapping<IWoltLabSettings, GeneratorOptions, IFileUploadComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestFileUploadMapping;
-            let options: IFileUploadComponentOptions;
+    let options: IFileUploadComponentOptions;
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestFileUploadMapping(new SQLScriptComponent(generator));
-                });
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IFileUploadComponentOptions, TestFileUploadMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(FileUploadMapping);
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`,
-                        Application: "test",
-                        Source: join("assets", "install.sql")
-                    };
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return ApplicationFileSystemInstruction;
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.SQLScript]: options
-                    };
-                });
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestFileUploadMapping
+        {
+            return new TestFileUploadMapping(new FileUploadComponent(this.Generator));
+        }
 
+        /**
+         * @inheritdoc
+         *
+         * @param context
+         * The mocha context.
+         */
+        protected override async Setup(context: Mocha.Context): Promise<void>
+        {
+            await super.Setup(context);
+
+            options = {
+                ...this.Component.ComponentOptions,
+                Application: "test",
+                Source: join("assets", "files", "test")
+            };
+
+            this.Generator.Settings[WoltLabSettingKey.ComponentOptions][PackageComponentType.FileUpload] = options;
+        }
+
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestFileUploadMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
                 {
+                    let self = this;
                     let propertyName = nameof<IApplicationFileSystemInstructionOptions>((instruction) => instruction.Application);
 
                     test(
-                        `Checking whether a \`${propertyName}\`-property is added…`,
+                        `Checking whether a \`${propertyName}\`-property is added with the proper value…`,
                         function()
                         {
                             this.slow(2 * 1000);
                             this.timeout(4 * 1000);
-                            doesNotThrow(() => fileMapping.InstructionOptions.getPropertyOrThrow(propertyName));
+
+                            strictEqual(
+                                self.FileMappingOptions.InstructionOptions.getPropertyOrThrow(propertyName).asKindOrThrow(
+                                    SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.StringLiteral).getLiteralValue(),
+                                self.Component.ComponentOptions.Application);
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

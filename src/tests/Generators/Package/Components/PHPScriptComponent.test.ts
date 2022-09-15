@@ -1,20 +1,23 @@
-import { notStrictEqual, ok, strictEqual } from "assert";
-import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
+import { notStrictEqual, ok, strictEqual } from "node:assert";
+import { FileMapping, GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IPathQuestion, QuestionSetProperty, SetQuestion } from "@manuth/generator-ts-project";
 import { PHPInstruction, SelfContainedPHPInstruction } from "@manuth/woltlab-compiler";
 import { AsyncDynamicQuestionProperty, ListQuestion } from "inquirer";
 import { Random } from "random-js";
-import { IApplicationQuestion } from "../../../../Components/Inquiry/Prompts/IApplicationQuestion";
-import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent";
-import { PHPInstructionFileMapping } from "../../../../generators/package/FileMappings/PHPInstructionFileMapping";
-import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping";
-import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import path from "upath";
+import { IApplicationQuestion } from "../../../../Components/Inquiry/Prompts/IApplicationQuestion.js";
+import { PHPScriptComponent } from "../../../../generators/package/Components/PHPScriptComponent.js";
+import { PHPInstructionFileMapping } from "../../../../generators/package/FileMappings/PHPInstructionFileMapping.js";
+import { SelfContainedPHPFileMapping } from "../../../../generators/package/FileMappings/SelfContainedPHPFileMapping.js";
+import { IPHPScriptComponentOptions } from "../../../../generators/package/Settings/IPHPScriptComponentOptions.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
+
+const { normalize } = path;
 
 /**
  * Registers tests for the {@link PHPScriptComponent `PHPScriptComponent<TSettings, TOptions, TComponentOptions>`} class.
@@ -87,6 +90,20 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                 public override get InstructionFileMapping(): IFileMapping<IWoltLabSettings, GeneratorOptions>
                 {
                     return super.InstructionFileMapping;
+                }
+
+                /**
+                 * @inheritdoc
+                 *
+                 * @param options
+                 * The options which have been provided by the user.
+                 *
+                 * @returns
+                 * The name of the instruction-class.
+                 */
+                public override GetClassName(options: IPHPScriptComponentOptions): string
+                {
+                    return super.GetClassName(options);
                 }
 
                 /**
@@ -191,25 +208,6 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
             }
 
             suite(
-                nameof<TestPHPScriptComponent>((component) => component.ClassName),
-                () =>
-                {
-                    test(
-                        "Checking whether the proper class-name is returned…",
-                        () =>
-                        {
-                            for (let selfContained of [undefined, false])
-                            {
-                                options.SelfContained = selfContained;
-                                strictEqual(component.ClassName, nameof<PHPInstruction>());
-                            }
-
-                            options.SelfContained = true;
-                            strictEqual(component.ClassName, nameof<SelfContainedPHPInstruction>());
-                        });
-                });
-
-            suite(
                 nameof<TestPHPScriptComponent>((component) => component.AppQuestion),
                 () =>
                 {
@@ -299,6 +297,68 @@ export function PHPScriptComponentTests(context: TestContext<WoltLabPackageGener
                             ok(component.InstructionFileMapping instanceof SelfContainedPHPFileMapping);
                             options.SelfContained = false;
                             ok(component.InstructionFileMapping instanceof PHPInstructionFileMapping);
+                        });
+                });
+
+            suite(
+                nameof<TestPHPScriptComponent>((component) => component.FileMappings),
+                () =>
+                {
+                    test(
+                        "Checking whether a file-mapping for creating the source file is included if a self contained script is being created…",
+                        () =>
+                        {
+                            let hasSourceMapping = (): boolean =>
+                            {
+                                return component.FileMappings.map(
+                                    (fileMapping) =>
+                                    {
+                                        return new FileMapping(generator, fileMapping);
+                                    }).some(
+                                        (fileMapping) =>
+                                        {
+                                            return normalize(generator.destinationPath(options.Source)) === normalize(fileMapping.Destination);
+                                        });
+                            };
+
+                            for (let value of [null, undefined, false])
+                            {
+                                options.SelfContained = value;
+                                ok(!hasSourceMapping());
+                            }
+
+                            options.SelfContained = true;
+                            ok(hasSourceMapping());
+                        });
+                });
+
+            suite(
+                nameof<TestPHPScriptComponent>((component) => component.GetClassName),
+                () =>
+                {
+                    test(
+                        "Checking whether the proper class-name is returned based on whether a self contained file is being created…",
+                        () =>
+                        {
+                            /**
+                             * Gets the name of the class.
+                             *
+                             * @returns
+                             * The name of the class.
+                             */
+                            function GetClassName(): string
+                            {
+                                return component.GetClassName(options);
+                            }
+
+                            for (let selfContained of [undefined, false])
+                            {
+                                options.SelfContained = selfContained;
+                                strictEqual(GetClassName(), nameof<PHPInstruction>());
+                            }
+
+                            options.SelfContained = true;
+                            strictEqual(GetClassName(), nameof<SelfContainedPHPInstruction>());
                         });
                 });
 

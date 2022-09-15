@@ -1,14 +1,14 @@
-import { ok } from "assert";
+import { ok } from "node:assert";
 import { Constructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IExtensionSettings, ILaunchSettings, ITaskSettings, ITSProjectSettings, JSONProcessor } from "@manuth/generator-ts-project";
-import { WoltLabExtensionsProcessor } from "../../../Components/VSCode/WoltLabExtensionsProcessor";
-import { WoltLabLaunchSettingsProcessor } from "../../../Components/VSCode/WoltLabLaunchSettingsProcessor";
-import { WoltLabSettingsProcessor } from "../../../Components/VSCode/WoltLabSettingsProcessor";
-import { WoltLabTasksProcessor } from "../../../Components/VSCode/WoltLabTasksProcessor";
-import { WoltLabWorkspaceProcessor } from "../../../Components/VSCode/WoltLabWorkspaceProcessor";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider";
+import { WoltLabExtensionsProcessor } from "../../../Components/VSCode/WoltLabExtensionsProcessor.js";
+import { WoltLabLaunchSettingsProcessor } from "../../../Components/VSCode/WoltLabLaunchSettingsProcessor.js";
+import { WoltLabSettingsProcessor } from "../../../Components/VSCode/WoltLabSettingsProcessor.js";
+import { WoltLabTasksProcessor } from "../../../Components/VSCode/WoltLabTasksProcessor.js";
+import { WoltLabWorkspaceProcessor } from "../../../Components/VSCode/WoltLabWorkspaceProcessor.js";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider.js";
 
 /**
  * Registers tests for the {@link WoltLabWorkspaceProcessor `WoltLabWorkspaceProcessor<TSettings, TOptions>`} class.

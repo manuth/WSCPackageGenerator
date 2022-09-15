@@ -1,17 +1,14 @@
-import { doesNotThrow } from "assert";
-import { GeneratorOptions } from "@manuth/extended-yo-generator";
+import { doesNotThrow } from "node:assert";
+import { AbstractConstructor, GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
-import { IEmojiInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
+import { EmojiInstruction, IEmojiInstructionOptions, Instruction } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
-import { EmojiComponent } from "../../../../generators/package/Components/EmojiComponent";
-import { EmojiInstructionFileMapping } from "../../../../generators/package/FileMappings/EmojiInstructionFileMapping";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { EmojiComponent } from "../../../../generators/package/Components/EmojiComponent.js";
+import { EmojiInstructionFileMapping } from "../../../../generators/package/FileMappings/EmojiInstructionFileMapping.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { InstructionFileMappingSuite } from "../../../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link EmojiInstructionFileMapping `EmojiInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -21,50 +18,54 @@ import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
  */
 export function EmojiInstructionFileMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(EmojiInstructionFileMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link EmojiInstructionFileMapping `EmojiInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestEmojiInstructionFileMapping extends EmojiInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link EmojiInstructionFileMapping `EmojiInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestEmojiInstructionFileMapping extends EmojiInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+            return super.InstructionOptions;
+        }
+    }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestEmojiInstructionFileMapping;
-            let options: IWoltLabComponentOptions;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestEmojiInstructionFileMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(EmojiInstructionFileMapping);
+        }
 
-            suiteSetup(
-                async function()
-                {
-                    this.timeout(5 * 60 * 1000);
-                    random = new Random();
-                    generator = await context.Generator;
-                    fileMapping = new TestEmojiInstructionFileMapping(new EmojiComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         */
+        protected override get InstructionClass(): AbstractConstructor<Instruction>
+        {
+            return EmojiInstruction;
+        }
 
-            setup(
-                () =>
-                {
-                    options = {
-                        [WoltLabComponentSettingKey.Path]: `${random.string(20)}.ts`
-                    };
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestEmojiInstructionFileMapping
+        {
+            return new TestEmojiInstructionFileMapping(new EmojiComponent(this.Generator));
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.Emoji]: options
-                    };
-                });
-
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestEmojiInstructionFileMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -76,9 +77,12 @@ export function EmojiInstructionFileMappingTests(context: TestContext<WoltLabPac
                         () =>
                         {
                             doesNotThrow(
-                                () => fileMapping.InstructionOptions.getProperty(propertyName).asKindOrThrow(
+                                () => this.FileMappingOptions.InstructionOptions.getProperty(propertyName).asKindOrThrow(
                                     SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.ArrayLiteralExpression));
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

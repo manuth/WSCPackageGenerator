@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { ISelfContainedPHPInstructionOptions } from "@manuth/woltlab-compiler";
+import type { ISelfContainedPHPInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
-import { FileUploadMapping } from "../../../FileMappings/FileUploadMapping";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions";
+import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent.js";
+import { FileUploadMapping } from "../../../FileMappings/FileUploadMapping.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { IPHPScriptComponentOptions } from "../Settings/IPHPScriptComponentOptions.js";
 
 /**
  * Provides the functionality to generate self-contained php script instructions.

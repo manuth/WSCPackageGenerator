@@ -1,10 +1,10 @@
-import { relative } from "path";
+import { relative } from "node:path";
 import { GeneratorOptions, IFileMapping, Question } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
-import { PackageInstructionTransformer } from "../FileMappings/PackageInstructionTransformer";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponent } from "./WoltLabComponent";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../WoltLabGenerator.js";
+import { WoltLabComponent } from "./WoltLabComponent.js";
 
 /**
  * Provides a component for generating an instruction-file.
@@ -21,16 +21,30 @@ import { WoltLabComponent } from "./WoltLabComponent";
 export abstract class InstructionComponent<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions = IWoltLabComponentOptions> extends WoltLabComponent<TSettings, TOptions, TComponentOptions>
 {
     /**
+     * Initializes a new instance of the {@link InstructionComponent `InstructionComponent<TSettings, TOptions, TComponentOptions>`} class.
+     *
+     * @param generator
+     * The generator of the component.
+     */
+    public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
+    {
+        super(generator);
+    }
+
+    /**
      * Gets the name of the instruction-class.
      */
-    public abstract get ClassName(): string;
+    public get ClassName(): string
+    {
+        return this.GetClassName(this.ComponentOptions);
+    }
 
     /**
      * Gets the name of the instruction-variable to export.
      */
     public get VariableName(): string
     {
-        return `My${this.ClassName}`;
+        return this.GetVariableName(this.ComponentOptions);
     }
 
     /**
@@ -38,7 +52,7 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
      */
     public get InstructionFileName(): string
     {
-        return this.Generator.componentPath(`${this.VariableName}.ts`);
+        return this.GetInstructionFileName(this.ComponentOptions);
     }
 
     /**
@@ -53,31 +67,66 @@ export abstract class InstructionComponent<TSettings extends IWoltLabSettings, T
     }
 
     /**
-     * Gets a transformer for adding this instruction to the package-file.
-     */
-    public get PackageFileTransformer(): PackageInstructionTransformer<TSettings, TOptions>
-    {
-        return new PackageInstructionTransformer(this);
-    }
-
-    /**
      * A question for asking for the component-path.
      */
     protected override get PathQuestion(): Question<TComponentOptions>
     {
-        let question = super.PathQuestion as IPathQuestion<TComponentOptions>;
+        let question = super.PathQuestion as any as IPathQuestion<TComponentOptions>;
 
         question.rootDir = {
             path: this.Generator.sourcePath(),
             allowOutside: false
         };
 
-        question.default ??= relative(this.Generator.sourcePath(), this.InstructionFileName);
-        return question;
+        question.default ??= (answers: TComponentOptions) =>
+        {
+            return relative(this.Generator.sourcePath(), this.GetInstructionFileName(answers));
+        };
+
+        return question as any;
     }
 
     /**
      * Gets a file-mapping for creating the instruction-file.
      */
     protected abstract get InstructionFileMapping(): IFileMapping<TSettings, TOptions>;
+
+    /**
+     * Gets the name of the instruction-class based on the options provided by the user.
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected abstract GetClassName(options: TComponentOptions): string;
+
+    /**
+     * Gets the name of the instruction-variable to export based on the options provided by the user.
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-variable to export.
+     */
+    protected GetVariableName(options: TComponentOptions): string
+    {
+        return `My${this.GetClassName(options)}`;
+    }
+
+    /**
+     * Gets the default name of the file to write the instruction to based on the options provided by the user.
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The default name of the file to write the instruction to.
+     */
+    protected GetInstructionFileName(options: TComponentOptions): string
+    {
+        return this.Generator.componentPath(`${this.GetVariableName(options)}.ts`);
+    }
 }

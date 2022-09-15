@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { EventListenerInstruction } from "@manuth/woltlab-compiler";
-import { ListenerComponentBase } from "../../../Components/ListenerComponentBase";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import type { EventListenerInstruction } from "@manuth/woltlab-compiler";
+import { ListenerComponentBase } from "../../../Components/ListenerComponentBase.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating event-listeners.
@@ -35,14 +35,6 @@ export class EventListenerComponent<TSettings extends IWoltLabSettings, TOptions
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<EventListenerInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "eventListeners.xml";
@@ -62,5 +54,19 @@ export class EventListenerComponent<TSettings extends IWoltLabSettings, TOptions
     public get DisplayName(): string
     {
         return "Event-Listeners";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<EventListenerInstruction>();
     }
 }

@@ -1,6 +1,6 @@
 import { Answers } from "inquirer";
-import { ApplicationPrompt } from "./ApplicationPrompt";
-import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions";
+import { ApplicationPrompt } from "./ApplicationPrompt.js";
+import { IApplicationQuestionOptions } from "./IApplicationQuestionOptions.js";
 
 /**
  * Provides options for the {@link ApplicationPrompt `ApplicationPrompt<T>`}.

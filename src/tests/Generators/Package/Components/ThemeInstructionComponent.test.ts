@@ -1,16 +1,16 @@
-import { doesNotReject, ok, strictEqual } from "assert";
+import { doesNotReject, ok, strictEqual } from "node:assert";
 import { GeneratorOptions, IFileMapping, IGeneratorSettings } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { JSONCFileMappingTester } from "@manuth/generator-ts-project-test";
 import { Random } from "random-js";
-import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent";
-import { IThemeComponentOptions } from "../../../../generators/package/Settings/IThemeComponentOptions";
-import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType";
-import { ThemeComponent } from "../../../../generators/package/Settings/ThemeComponent";
-import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey";
+import { ThemeInstructionComponent } from "../../../../generators/package/Components/ThemeInstructionComponent.js";
+import { IThemeComponentOptions } from "../../../../generators/package/Settings/IThemeComponentOptions.js";
+import { PackageComponentType } from "../../../../generators/package/Settings/PackageComponentType.js";
+import { ThemeComponent } from "../../../../generators/package/Settings/ThemeComponent.js";
+import { WoltLabPackageGenerator } from "../../../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabSettings } from "../../../../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../../../../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../../../../Settings/WoltLabSettingKey.js";
 
 /**
  * Registers tests for the {@link ThemeInstructionComponent `ThemeInstructionComponent`} class.

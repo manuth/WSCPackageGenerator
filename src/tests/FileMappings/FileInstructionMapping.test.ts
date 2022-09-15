@@ -1,18 +1,16 @@
-import { ok, strictEqual } from "assert";
+import { ok, strictEqual } from "node:assert";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { IInstructionOptions } from "@manuth/woltlab-compiler";
-import { Random } from "random-js";
 import { ObjectLiteralExpression, SyntaxKind } from "ts-morph";
-import { FileInstructionComponent } from "../../Components/FileInstructionComponent";
-import { FileInstructionMapping } from "../../FileMappings/FileInstructionMapping";
-import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent";
-import { PackageComponentType } from "../../generators/package/Settings/PackageComponentType";
-import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator";
-import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
+import { FileInstructionComponent } from "../../Components/FileInstructionComponent.js";
+import { FileInstructionMapping } from "../../FileMappings/FileInstructionMapping.js";
+import { BBCodeComponent } from "../../generators/package/Components/BBCodeComponent.js";
+import { BBCodeInstructionFileMapping } from "../../generators/package/FileMappings/BBCodeInstructionFileMapping.js";
+import { WoltLabPackageGenerator } from "../../generators/package/WoltLabPackageGenerator.js";
+import { IWoltLabComponentOptions } from "../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../Settings/IWoltLabSettings.js";
+import { InstructionFileMappingSuite } from "../InstructionFileMappingSuite.js";
 
 /**
  * Registers tests for the {@link FileInstructionMapping `FileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class.
@@ -22,51 +20,79 @@ import { WoltLabSettingKey } from "../../Settings/WoltLabSettingKey";
  */
 export function FileInstructionMappingTests(context: TestContext<WoltLabPackageGenerator>): void
 {
-    suite(
-        nameof(FileInstructionMapping),
-        () =>
+    /**
+     * Provides an implementation of the {@link BBCodeInstructionFileMapping `BBCodeInstructionFileMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestBBCodeFileMapping extends BBCodeInstructionFileMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
         {
-            /**
-             * Provides an implementation of the {@link FileInstructionMapping `FileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
-             */
-            class TestFileInstructionMapping extends FileInstructionMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-            {
-                /**
-                 * @inheritdoc
-                 */
-                public override get Component(): FileInstructionComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
-                {
-                    return super.Component;
-                }
+            return super.InstructionOptions;
+        }
+    }
 
-                /**
-                 * @inheritdoc
-                 */
-                public override get InstructionOptions(): ObjectLiteralExpression
-                {
-                    return super.InstructionOptions;
-                }
-            }
+    /**
+     * Provides an implementation of the {@link FileInstructionMapping `FileInstructionMapping<TSettings, TOptions, TComponentOptions>`} class for testing.
+     */
+    class TestFileInstructionMapping extends FileInstructionMapping<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+    {
+        /**
+         * @inheritdoc
+         */
+        public override get Component(): FileInstructionComponent<IWoltLabSettings, GeneratorOptions, IWoltLabComponentOptions>
+        {
+            return super.Component;
+        }
 
-            let random: Random;
-            let generator: WoltLabPackageGenerator;
-            let fileMapping: TestFileInstructionMapping;
+        /**
+         * @inheritdoc
+         */
+        public override get InstructionOptions(): ObjectLiteralExpression
+        {
+            return new TestBBCodeFileMapping(this.Component).InstructionOptions;
+        }
+    }
 
-            suiteSetup(
-                async function()
-                {
-                    random = new Random();
-                    generator = await context.Generator;
+    new class extends InstructionFileMappingSuite<IWoltLabSettings, GeneratorOptions, WoltLabPackageGenerator, IWoltLabComponentOptions, TestFileInstructionMapping>
+    {
+        /**
+         * @inheritdoc
+         */
+        public get Title(): string
+        {
+            return nameof(FileInstructionMapping);
+        }
 
-                    generator.Settings[WoltLabSettingKey.ComponentOptions] = {
-                        [PackageComponentType.BBCode]: {
-                            [WoltLabComponentSettingKey.Path]: random.string(20)
-                        }
-                    };
+        /**
+         * @inheritdoc
+         *
+         * @param context
+         * The mocha context.
+         */
+        protected override async SuiteSetup(context: Mocha.Context): Promise<void>
+        {
+            await super.SuiteSetup(context);
+        }
 
-                    fileMapping = new TestFileInstructionMapping(new BBCodeComponent(generator));
-                });
+        /**
+         * @inheritdoc
+         *
+         * @returns
+         * The file mapping to test.
+         */
+        protected CreateFileMapping(): TestFileInstructionMapping
+        {
+            return new TestFileInstructionMapping(new BBCodeComponent(this.Generator));
+        }
 
+        /**
+         * @inheritdoc
+         */
+        protected override RegisterTests(): void
+        {
             suite(
                 nameof<TestFileInstructionMapping>((fileMapping) => fileMapping.InstructionOptions),
                 () =>
@@ -77,14 +103,17 @@ export function FileInstructionMappingTests(context: TestContext<WoltLabPackageG
                         `Checking whether the \`${propertyName}\` is assigned correctly…`,
                         () =>
                         {
-                            let object = fileMapping.InstructionOptions;
+                            let object = this.FileMappingOptions.InstructionOptions;
                             ok(object.getProperty(propertyName));
 
                             strictEqual(
                                 object.getProperty(propertyName).asKindOrThrow(
                                     SyntaxKind.PropertyAssignment).getInitializerIfKindOrThrow(SyntaxKind.StringLiteral).getLiteralValue(),
-                                fileMapping.Component.OutputFileName);
+                                this.FileMappingOptions.Component.OutputFileName);
                         });
                 });
-        });
+
+            super.RegisterTests();
+        }
+    }(context).Register();
 }

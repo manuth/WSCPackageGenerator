@@ -2,12 +2,14 @@ import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 import { IPathQuestion } from "@manuth/generator-ts-project";
 // eslint-disable-next-line node/no-unpublished-import
 import type { SQLInstruction } from "@manuth/woltlab-compiler";
-import { join } from "upath";
-import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent";
-import { ILocalComponentOptions } from "../../../Settings/ILocalComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import path from "upath";
+import { LocalInstructionComponent } from "../../../Components/LocalInstructionComponent.js";
+import { ILocalComponentOptions } from "../../../Settings/ILocalComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
+
+const { join } = path;
 
 /**
  * Provides a component for generating sql-script instructions.
@@ -32,14 +34,6 @@ export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public override get ClassName(): string
-    {
-        return nameof<SQLInstruction>();
     }
 
     /**
@@ -100,5 +94,19 @@ export class SQLScriptComponent<TSettings extends IWoltLabSettings, TOptions ext
                 generator.fs.write(target.Destination, "");
             }
         };
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<SQLInstruction>();
     }
 }

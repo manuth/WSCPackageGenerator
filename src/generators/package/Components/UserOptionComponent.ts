@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { UserOptionInstruction } from "@manuth/woltlab-compiler";
-import { NodeSystemComponent } from "../../../Components/NodeSystemComponent";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { NodeSystemComponent } from "../../../Components/NodeSystemComponent.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating user-options.
@@ -35,14 +35,6 @@ export class UserOptionComponent<TSettings extends IWoltLabSettings, TOptions ex
     /**
      * @inheritdoc
      */
-    public get ClassName(): string
-    {
-        return nameof<UserOptionInstruction>();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public get OutputFileName(): string
     {
         return "userOptions.xml";
@@ -62,5 +54,19 @@ export class UserOptionComponent<TSettings extends IWoltLabSettings, TOptions ex
     public get DisplayName(): string
     {
         return "User-Options";
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<UserOptionInstruction>();
     }
 }

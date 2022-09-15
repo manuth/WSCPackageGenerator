@@ -1,12 +1,12 @@
 import { GeneratorOptions, IFileMapping } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
 import type { BBCodeInstruction } from "@manuth/woltlab-compiler";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
-import { WoltLabGenerator } from "../../../WoltLabGenerator";
-import { BBCodeInstructionFileMapping } from "../FileMappings/BBCodeInstructionFileMapping";
-import { PackageComponentType } from "../Settings/PackageComponentType";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
+import { WoltLabGenerator } from "../../../WoltLabGenerator.js";
+import { BBCodeInstructionFileMapping } from "../FileMappings/BBCodeInstructionFileMapping.js";
+import { PackageComponentType } from "../Settings/PackageComponentType.js";
 
 /**
  * Provides a component for generating bb-codes.
@@ -31,14 +31,6 @@ export class BBCodeComponent<TSettings extends IWoltLabSettings, TOptions extend
     public constructor(generator: WoltLabGenerator<TSettings, TOptions>)
     {
         super(generator);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public get ClassName(): string
-    {
-        return nameof<BBCodeInstruction>();
     }
 
     /**
@@ -71,5 +63,19 @@ export class BBCodeComponent<TSettings extends IWoltLabSettings, TOptions extend
     protected get InstructionFileMapping(): IFileMapping<TSettings, TOptions>
     {
         return new BBCodeInstructionFileMapping(this);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param options
+     * The options which have been provided by the user.
+     *
+     * @returns
+     * The name of the instruction-class.
+     */
+    protected GetClassName(options: TComponentOptions): string
+    {
+        return nameof<BBCodeInstruction>();
     }
 }

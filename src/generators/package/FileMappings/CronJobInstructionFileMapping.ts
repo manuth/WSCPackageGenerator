@@ -1,11 +1,11 @@
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 // eslint-disable-next-line node/no-unpublished-import
-import { ICronJobInstructionOptions } from "@manuth/woltlab-compiler";
+import type { ICronJobInstructionOptions } from "@manuth/woltlab-compiler";
 import { ObjectLiteralExpression, printNode, ts } from "ts-morph";
-import { FileInstructionComponent } from "../../../Components/FileInstructionComponent";
-import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping";
-import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings";
+import { FileInstructionComponent } from "../../../Components/FileInstructionComponent.js";
+import { FileInstructionMapping } from "../../../FileMappings/FileInstructionMapping.js";
+import { IWoltLabComponentOptions } from "../../../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../../../Settings/IWoltLabSettings.js";
 
 /**
  * Provides the functionality to generate cron-job instruction files.

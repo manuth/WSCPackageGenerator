@@ -1,14 +1,16 @@
-import { EOL } from "os";
-import { join } from "path";
+import { EOL } from "node:os";
+import { join } from "node:path";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
-import { TypeScriptCreatorMapping } from "@manuth/generator-ts-project";
 import { CallExpression, ObjectLiteralExpression, printNode, SourceFile, SyntaxKind, ts, VariableDeclarationKind } from "ts-morph";
-import { dirname, relative, sep } from "upath";
-import { InstructionComponent } from "../Components/InstructionComponent";
-import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions";
-import { IWoltLabSettings } from "../Settings/IWoltLabSettings";
-import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey";
-import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
+import path from "upath";
+import { InstructionComponent } from "../Components/InstructionComponent.js";
+import { IWoltLabComponentOptions } from "../Settings/IWoltLabComponentOptions.js";
+import { IWoltLabSettings } from "../Settings/IWoltLabSettings.js";
+import { WoltLabComponentSettingKey } from "../Settings/WoltLabComponentSettingKey.js";
+import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey.js";
+import { WoltLabTypeScriptFileMapping } from "./WoltLabTypeScriptFileMapping.js";
+
+const { dirname, relative, sep } = path;
 
 /**
  * Provides the functionality to generate instruction-files.
@@ -22,7 +24,7 @@ import { WoltLabSettingKey } from "../Settings/WoltLabSettingKey";
  * @template TComponentOptions
  * The type of the component-options.
  */
-export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends TypeScriptCreatorMapping<TSettings, TOptions>
+export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions extends GeneratorOptions, TComponentOptions extends IWoltLabComponentOptions> extends WoltLabTypeScriptFileMapping<TSettings, TOptions>
 {
     /**
      * The component to create an instruction-file for.
@@ -122,6 +124,27 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
     }
 
     /**
+     * Adds the prerequisites for using {@link join `path.join`} to the specified {@link sourceFile `sourceFile`}.
+     *
+     * @param sourceFile
+     * The file to add the prerequisites to.
+     */
+    protected ApplyPathJoin(sourceFile: SourceFile): void
+    {
+        super.ApplyDirname(sourceFile);
+
+        sourceFile.addImportDeclaration(
+            {
+                moduleSpecifier: "path",
+                namedImports: [
+                    {
+                        name: nameof(join)
+                    }
+                ]
+            });
+    }
+
+    /**
      * Creates valid TypeScript-code for calling the {@link join `join`}-method.
      *
      * @param path
@@ -133,11 +156,14 @@ export class InstructionFileMapping<TSettings extends IWoltLabSettings, TOptions
     protected GetPathJoin(path: string): CallExpression
     {
         let call = this.WrapNode(ts.factory.createCallExpression(ts.factory.createIdentifier(nameof(join)), [], []));
-        call.addArgument(printNode(ts.factory.createIdentifier(nameof(__dirname))));
+        call.addArgument(printNode(this.GetDirname()));
 
         for (let pathComponent of relative(dirname(this.Generator.destinationPath(this.Destination)), this.Generator.destinationPath()).split(sep))
         {
-            call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
+            if (pathComponent.length > 0)
+            {
+                call.addArgument(printNode(ts.factory.createStringLiteral(pathComponent)));
+            }
         }
 
         for (let pathComponent of relative(this.Generator.destinationPath(), this.Generator.destinationPath(path)).split(sep))

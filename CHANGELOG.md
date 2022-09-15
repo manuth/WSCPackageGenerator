@@ -6,7 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WSCPackageGenerator [Unreleased]
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.3...dev)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v4.0.0...dev)
+
+## WSCPackageGenerator v4.0.0
+### Breaking
+  - Converted the package to an `ESModule`
+
+### Fixed
+  - The generator to create the actual self contained php script if desired
+  - The generator to add all selected components to the template package file
+  - The generator to write the theme description to the corresponding theme file
+  - Creation of `path.join` calls which in some cases used to contain an unnecessary empty argument
+  - The creation process of the `MyPackage.ts` file to order all imports by default
+
+### Updated
+  - All dependencies
+  - Generator to provide improved suggestions when asking for the theme's file name
+  - All `node` imports to use the `node:`-protocol
+
+### Added
+  - Support for creating WoltLab packages written as `CommonJS` or `ESModule` code
+  - New unit tests
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v3.0.3...v4.0.0)
 
 ## WSCPackageGenerator v3.0.3
 ### Fixed

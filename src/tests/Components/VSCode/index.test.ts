@@ -1,14 +1,18 @@
-import { basename } from "path";
+import { basename } from "node:path";
+import { fileURLToPath } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";
 import { TestContext } from "@manuth/extended-yo-generator-test";
 import { ITSProjectSettings, TSProjectCodeWorkspaceFolder, TSProjectGenerator } from "@manuth/generator-ts-project";
-import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator";
-import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider";
-import { WoltLabExtensionsProcessorTests } from "./WoltLabExtensionsProcessor.test";
-import { WoltLabLaunchSettingsProcessorTests } from "./WoltLabLaunchSettingsProcessor.test";
-import { WoltLabSettingsProcessorTests } from "./WoltLabSettingsProcessor.test";
-import { WoltLabTasksProcessorTests } from "./WoltLabTasksProcessor.test";
-import { WoltLabWorkspaceProcessorTests } from "./WoltLabWorkspaceProcessor.test";
+import { dependencyPath } from "dependency-package-path";
+import { WoltLabPackageGenerator } from "../../../generators/package/WoltLabPackageGenerator.js";
+import { ICodeWorkspaceProvider } from "./ICodeWorkspaceProvider.js";
+import { WoltLabExtensionsProcessorTests } from "./WoltLabExtensionsProcessor.test.js";
+import { WoltLabLaunchSettingsProcessorTests } from "./WoltLabLaunchSettingsProcessor.test.js";
+import { WoltLabSettingsProcessorTests } from "./WoltLabSettingsProcessor.test.js";
+import { WoltLabTasksProcessorTests } from "./WoltLabTasksProcessor.test.js";
+import { WoltLabWorkspaceProcessorTests } from "./WoltLabWorkspaceProcessor.test.js";
+
+const dirName = fileURLToPath(new URL(".", import.meta.url));
 
 /**
  * Registers tests for vscode-components.
@@ -19,7 +23,7 @@ import { WoltLabWorkspaceProcessorTests } from "./WoltLabWorkspaceProcessor.test
 export function VSCodeTests(context: TestContext<WoltLabPackageGenerator>): void
 {
     suite(
-        basename(__dirname),
+        basename(dirName),
         () =>
         {
             let workspaceProvider: ICodeWorkspaceProvider<ITSProjectSettings, GeneratorOptions> = {} as any;
@@ -32,7 +36,7 @@ export function VSCodeTests(context: TestContext<WoltLabPackageGenerator>): void
                             TSProjectGenerator,
                             [],
                             {
-                                resolved: require.resolve("@manuth/generator-ts-project")
+                                resolved: dependencyPath("@manuth/generator-ts-project", dirName)
                             }));
                 });
 
