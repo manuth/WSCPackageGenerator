@@ -74,7 +74,7 @@ export function EmojiInstructionFileMappingTests(context: TestContext<WoltLabPac
                         });
                 });
 
-            super.Register();
+            super.RegisterTests();
         }
     }(context).Register();
 }
