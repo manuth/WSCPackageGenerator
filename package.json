@@ -45,14 +45,14 @@
   },
   "dependencies": {
     "@manuth/extended-yo-generator": "^12.1.2",
-    "@manuth/generator-ts-project": "^4.0.4",
+    "@manuth/generator-ts-project": "^4.1.0",
     "@manuth/package-json-editor": "^3.0.2",
     "@manuth/temp-files": "^3.0.2",
     "chalk": "^5.0.1",
     "dedent": "^0.7.0",
     "dependency-package-path": "^1.0.0",
     "fs-extra": "^10.1.0",
-    "inquirer": "^9.1.1",
+    "inquirer": "^9.1.2",
     "lodash.kebabcase": "^4.1.1",
     "pascalcase": "^2.0.0",
     "ts-morph": "^16.0.0",
@@ -60,9 +60,9 @@
     "yosay": "^2.0.2"
   },
   "devDependencies": {
-    "@manuth/eslint-plugin-typescript": "^3.3.4",
+    "@manuth/eslint-plugin-typescript": "^4.0.0",
     "@manuth/extended-yo-generator-test": "^12.1.2",
-    "@manuth/generator-ts-project-test": "^4.0.4",
+    "@manuth/generator-ts-project-test": "^4.1.0",
     "@manuth/tsconfig": "^3.0.2",
     "@manuth/woltlab-compiler": "^4.0.5",
     "@types/dedent": "^0.7.0",
