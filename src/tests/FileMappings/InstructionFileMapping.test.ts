@@ -1,5 +1,4 @@
 import { ok, strictEqual } from "node:assert";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { GeneratorOptions } from "@manuth/extended-yo-generator";

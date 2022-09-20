@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WSCPackageGenerator [Unreleased]
 
-[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v4.0.0...dev)
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v4.0.1...dev)
+
+## WSCPackageGenerator v4.0.1
+### Updated
+  - TypeScript configuration to cover all files
+  - All dependencies
+
+[Show differences](https://github.com/manuth/WSCPackageGenerator/compare/v4.0.0...v4.0.1)
 
 ## WSCPackageGenerator v4.0.0
 ### Breaking

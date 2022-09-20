@@ -194,7 +194,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
 
                             let configFileTester = new JSONCFileMappingTester(
                                 generator,
-                                generator.FileMappingCollection.Get((fileMapping: FileMapping<any, any>) => fileMapping.Destination === generator.destinationPath(TSConfigFileMapping.FileName)));
+                                generator.FileMappingCollection.Get((fileMapping: FileMapping<any, any>) => fileMapping.Destination === generator.destinationPath(TSConfigFileMapping.GetFileName("app"))));
 
                             let buildFileTester = new JSONCFileMappingTester(
                                 generator,
@@ -207,7 +207,7 @@ export function WoltLabPackageGeneratorTests(context: TestContext<WoltLabPackage
                                 JSON.parse(JSON.stringify((await buildFileTester.ParseOutput() as TSConfigJSON).references)),
                                 [
                                     {
-                                        path: "."
+                                        path: `./${TSConfigFileMapping.GetFileName("app")}`
                                     }
                                 ]);
 

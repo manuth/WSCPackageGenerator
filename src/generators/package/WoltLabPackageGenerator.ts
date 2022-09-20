@@ -3,6 +3,7 @@ import { ITSProjectSettings, JSONCConverter, JSONCCreatorMapping, TSConfigFileMa
 import chalk from "chalk";
 // eslint-disable-next-line node/no-unpublished-import
 import type { TSConfigJSON } from "types-tsconfig";
+import path from "upath";
 import yosay from "yosay";
 import { InstructionComponent } from "../../Components/InstructionComponent.js";
 import { WoltLabCodeWorkspaceFolder } from "../../Components/WoltLabCodeWorkspaceFolder.js";
@@ -27,6 +28,8 @@ import { UserOptionComponent } from "./Components/UserOptionComponent.js";
 import { EntryPointFileMapping } from "./FileMappings/EntryPointFileMapping.js";
 import { WoltLabNodePackageFileMapping } from "./FileMappings/WoltLabNodePackageFileMapping.js";
 import { WoltLabPackageFileMapping } from "./FileMappings/WoltLabPackageFileMapping.js";
+
+const { join, normalize } = path;
 
 /**
  * Provides the functionality to generate WoltLab-packages.
@@ -182,11 +185,11 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
                         await fileMapping.Processor();
                         let tsConfig: TSConfigJSON = new JSONCConverter().Parse(generator.fs.read(target.Destination));
 
-                        tsConfig.references = [
+                        tsConfig.references = tsConfig.references.filter(
+                            (reference) =>
                             {
-                                path: "."
-                            }
-                        ];
+                                return !normalize(reference.path).startsWith(join("src", "tests", "."));
+                            });
 
                         return new JSONCCreatorMapping(generator, target.Destination, tsConfig).Processor();
                     }
@@ -194,7 +197,7 @@ export class WoltLabPackageGenerator<TSettings extends IWoltLabSettings = IWoltL
             });
 
         result.ReplaceObject(
-            (fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(TSConfigFileMapping.FileName),
+            (fileMapping: FileMapping<any, any>) => fileMapping.Destination === this.destinationPath(TSConfigFileMapping.GetFileName("app")),
             (fileMapping) =>
             {
                 return {
